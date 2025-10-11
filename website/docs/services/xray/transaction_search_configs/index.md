@@ -1,0 +1,212 @@
+---
+title: transaction_search_configs
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - transaction_search_configs
+  - xray
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes or gets a <code>transaction_search_config</code> resource or lists <code>transaction_search_configs</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>transaction_search_configs</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>This schema provides construct and validation rules for AWS-XRay TransactionSearchConfig resource parameters.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.xray.transaction_search_configs" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<table>
+<tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>User account id, used as the primary identifier for the resource</td></tr>
+<tr><td><CopyableCode code="indexing_percentage" /></td><td><code>number</code></td><td>Determines the percentage of traces indexed from CloudWatch Logs to X-Ray</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+
+</tbody>
+</table>
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-xray-transactionsearchconfig.html"><code>AWS::XRay::TransactionSearchConfig</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+Gets all <code>transaction_search_configs</code> in a region.
+```sql
+SELECT
+region,
+account_id,
+indexing_percentage
+FROM awscc.xray.transaction_search_configs
+WHERE region = 'us-east-1';
+```
+Gets all properties from an individual <code>transaction_search_config</code>.
+```sql
+SELECT
+region,
+account_id,
+indexing_percentage
+FROM awscc.xray.transaction_search_configs
+WHERE region = 'us-east-1' AND data__Identifier = '<AccountId>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>transaction_search_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.xray.transaction_search_configs (
+ IndexingPercentage,
+ region
+)
+SELECT 
+'{{ IndexingPercentage }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.xray.transaction_search_configs (
+ IndexingPercentage,
+ region
+)
+SELECT 
+ '{{ IndexingPercentage }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: transaction_search_config
+    props:
+      - name: IndexingPercentage
+        value: null
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.xray.transaction_search_configs
+WHERE data__Identifier = '<AccountId>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>transaction_search_configs</code> resource, the following permissions are required:
+
+### Create
+```json
+application-signals:StartDiscovery,
+iam:CreateServiceLinkedRole,
+logs:CreateLogGroup,
+logs:CreateLogStream,
+logs:PutRetentionPolicy,
+xray:GetIndexingRules,
+xray:GetTraceSegmentDestination,
+xray:UpdateIndexingRule,
+xray:UpdateTraceSegmentDestination
+```
+
+### Read
+```json
+xray:GetTraceSegmentDestination,
+xray:GetIndexingRules
+```
+
+### List
+```json
+xray:GetTraceSegmentDestination,
+xray:GetIndexingRules
+```
+
+### Update
+```json
+xray:GetIndexingRules,
+xray:GetTraceSegmentDestination,
+xray:UpdateIndexingRule
+```
+
+### Delete
+```json
+xray:GetTraceSegmentDestination,
+xray:UpdateTraceSegmentDestination,
+xray:UpdateIndexingRule
+```

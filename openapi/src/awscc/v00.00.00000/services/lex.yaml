@@ -1,0 +1,3443 @@
+openapi: 3.0.0
+info:
+  title: Lex
+  version: 2.0.0
+  x-serviceName: cloudcontrolapi
+servers:
+  - url: https://cloudcontrolapi.{region}.amazonaws.com
+    variables:
+      region:
+        description: The AWS region
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - us-gov-west-1
+          - us-gov-east-1
+          - ca-central-1
+          - eu-north-1
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - eu-central-1
+          - eu-south-1
+          - af-south-1
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-northeast-3
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-east-1
+          - ap-south-1
+          - sa-east-1
+          - me-south-1
+        default: us-east-1
+    description: The CloudControlApi multi-region endpoint
+  - url: https://cloudcontrolapi.{region}.amazonaws.com.cn
+    variables:
+      region:
+        description: The AWS region
+        enum:
+          - cn-north-1
+          - cn-northwest-1
+        default: cn-north-1
+    description: The CloudControlApi endpoint for China (Beijing) and China (Ningxia)
+components:
+  parameters:
+    X-Amz-Content-Sha256:
+      name: X-Amz-Content-Sha256
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Date:
+      name: X-Amz-Date
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Algorithm:
+      name: X-Amz-Algorithm
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Credential:
+      name: X-Amz-Credential
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Security-Token:
+      name: X-Amz-Security-Token
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Signature:
+      name: X-Amz-Signature
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-SignedHeaders:
+      name: X-Amz-SignedHeaders
+      in: header
+      schema:
+        type: string
+      required: false
+  x-cloud-control-schemas:
+    AlreadyExistsException: {}
+    CancelResourceRequestInput:
+      properties:
+        RequestToken:
+          $ref: '#/components/x-cloud-control-schemas/RequestToken'
+      required:
+        - RequestToken
+      title: CancelResourceRequestInput
+      type: object
+    CancelResourceRequestOutput:
+      properties:
+        ProgressEvent:
+          $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: object
+    ClientToken:
+      maxLength: 128
+      minLength: 1
+      pattern: '[-A-Za-z0-9+/=]+'
+      type: string
+    ClientTokenConflictException: {}
+    ConcurrentModificationException: {}
+    ConcurrentOperationException: {}
+    CreateResourceInput:
+      properties:
+        ClientToken:
+          type: string
+        DesiredState:
+          allOf:
+            - $ref: '#/components/x-cloud-control-schemas/Properties'
+            - description: >-
+                <p>Structured data format representing the desired state of the resource, consisting of that resource's properties and their desired values.</p> <note> <p>Cloud Control API currently supports JSON as a structured data format.</p> </note> <pre><code> &lt;p&gt;Specify the desired state as one of the following:&lt;/p&gt; &lt;ul&gt; &lt;li&gt; &lt;p&gt;A JSON blob&lt;/p&gt; &lt;/li&gt; &lt;li&gt; &lt;p&gt;A local path containing the desired state in JSON data format&lt;/p&gt;
+                &lt;/li&gt; &lt;/ul&gt; &lt;p&gt;For more information, see &lt;a href=&quot;https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate&quot;&gt;Composing the desired state of the resource&lt;/a&gt; in the &lt;i&gt;Amazon Web Services Cloud Control API User Guide&lt;/i&gt;.&lt;/p&gt; &lt;p&gt;For more information about the properties of a specific resource, refer to the related topic for the resource in the
+                &lt;a href=&quot;https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html&quot;&gt;Resource and property types reference&lt;/a&gt; in the &lt;i&gt;CloudFormation Users Guide&lt;/i&gt;.&lt;/p&gt; </code></pre>
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+      required:
+        - DesiredState
+      title: CreateResourceInput
+      type: object
+    CreateResourceOutput:
+      properties:
+        ProgressEvent:
+          $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: object
+    DeleteResourceInput:
+      properties:
+        ClientToken:
+          type: string
+        Identifier:
+          $ref: '#/components/x-cloud-control-schemas/Identifier'
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+      required:
+        - Identifier
+      title: DeleteResourceInput
+      type: object
+    DeleteResourceOutput:
+      properties:
+        ProgressEvent:
+          $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: object
+    GeneralServiceException: {}
+    GetResourceInput:
+      properties:
+        TypeName:
+          $ref: '#/components/x-cloud-control-schemas/TypeName'
+        Identifier:
+          $ref: '#/components/x-cloud-control-schemas/Identifier'
+        TypeVersionId:
+          $ref: '#/components/x-cloud-control-schemas/TypeVersionId'
+        RoleArn:
+          $ref: '#/components/x-cloud-control-schemas/RoleArn'
+      required:
+        - TypeName
+        - Identifier
+      title: GetResourceInput
+      type: object
+    GetResourceOutput:
+      properties:
+        ResourceDescription:
+          $ref: '#/components/x-cloud-control-schemas/ResourceDescription'
+        TypeName:
+          type: string
+      type: object
+    GetResourceRequestStatusInput:
+      properties:
+        RequestToken:
+          $ref: '#/components/x-cloud-control-schemas/RequestToken'
+      required:
+        - RequestToken
+      title: GetResourceRequestStatusInput
+      type: object
+    GetResourceRequestStatusOutput:
+      properties:
+        ProgressEvent:
+          $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: object
+    HandlerErrorCode:
+      enum:
+        - NotUpdatable
+        - InvalidRequest
+        - AccessDenied
+        - InvalidCredentials
+        - AlreadyExists
+        - NotFound
+        - ResourceConflict
+        - Throttling
+        - ServiceLimitExceeded
+        - NotStabilized
+        - GeneralServiceException
+        - ServiceInternalError
+        - ServiceTimeout
+        - NetworkFailure
+        - InternalFailure
+      type: string
+    HandlerFailureException: {}
+    HandlerInternalFailureException: {}
+    HandlerNextToken:
+      maxLength: 2048
+      minLength: 1
+      pattern: .+
+      type: string
+    Identifier:
+      maxLength: 1024
+      minLength: 1
+      pattern: .+
+      type: string
+    InvalidCredentialsException: {}
+    InvalidRequestException: {}
+    MaxResults:
+      maximum: 100
+      minimum: 1
+      type: integer
+    NetworkFailureException: {}
+    NextToken:
+      maxLength: 2048
+      minLength: 1
+      pattern: '[-A-Za-z0-9+/=]+'
+      type: string
+    NotStabilizedException: {}
+    NotUpdatableException: {}
+    Operation:
+      enum:
+        - CREATE
+        - DELETE
+        - UPDATE
+      type: string
+    OperationStatus:
+      enum:
+        - PENDING
+        - IN_PROGRESS
+        - SUCCESS
+        - FAILED
+        - CANCEL_IN_PROGRESS
+        - CANCEL_COMPLETE
+      type: string
+    OperationStatuses:
+      items:
+        $ref: '#/components/x-cloud-control-schemas/OperationStatus'
+      type: array
+    Operations:
+      items:
+        $ref: '#/components/x-cloud-control-schemas/Operation'
+      type: array
+    PatchDocument:
+      format: password
+      maxLength: 65536
+      minLength: 1
+      pattern: '[\s\S]*'
+      type: string
+    PrivateTypeException: {}
+    ProgressEvent:
+      example:
+        ErrorCode: string
+        EventTime: number
+        Identifier: string
+        Operation: string
+        OperationStatus: string
+        RequestToken: string
+        ResourceModel: string
+        RetryAfter: number
+        StatusMessage: string
+        TypeName: string
+      properties:
+        ErrorCode:
+          type: string
+        EventTime:
+          type: number
+        Identifier:
+          type: string
+        Operation:
+          type: string
+        OperationStatus:
+          type: string
+        RequestToken:
+          type: string
+        ResourceModel:
+          type: string
+        RetryAfter:
+          type: number
+        StatusMessage:
+          type: string
+        TypeName:
+          type: string
+      type: object
+    Properties:
+      format: password
+      maxLength: 65536
+      minLength: 1
+      pattern: '[\s\S]*'
+      type: string
+    RequestToken:
+      maxLength: 128
+      minLength: 1
+      pattern: '[-A-Za-z0-9+/=]+'
+      type: string
+    RequestTokenNotFoundException: {}
+    ResourceConflictException: {}
+    ResourceDescription:
+      description: Represents information about a provisioned resource.
+      properties:
+        Identifier:
+          type: string
+        Properties:
+          type: string
+      type: object
+    ResourceDescriptions:
+      items:
+        $ref: '#/components/x-cloud-control-schemas/ResourceDescription'
+      type: array
+    ResourceNotFoundException: {}
+    ResourceRequestStatusFilter:
+      description: The filter criteria to use in determining the requests returned.
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/x-cloud-control-schemas/OperationStatuses'
+            - description: >-
+                <p>The operation statuses to include in the filter.</p> <ul> <li> <p> <code>PENDING</code>: The operation has been requested, but not yet initiated.</p> </li> <li> <p> <code>IN_PROGRESS</code>: The operation is in progress.</p> </li> <li> <p> <code>SUCCESS</code>: The operation completed.</p> </li> <li> <p> <code>FAILED</code>: The operation failed.</p> </li> <li> <p> <code>CANCEL_IN_PROGRESS</code>: The operation is in the process of being canceled.</p> </li> <li> <p>
+                <code>CANCEL_COMPLETE</code>: The operation has been canceled.</p> </li> </ul>
+      type: object
+    ResourceRequestStatusSummaries:
+      items:
+        $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: array
+    RoleArn:
+      maxLength: 2048
+      minLength: 20
+      pattern: arn:.+:iam::[0-9]{12}:role/.+
+      type: string
+    ServiceInternalErrorException: {}
+    ServiceLimitExceededException: {}
+    StatusMessage:
+      maxLength: 1024
+      minLength: 0
+      pattern: '[\s\S]*'
+      type: string
+    ThrottlingException: {}
+    Timestamp:
+      format: date-time
+      type: string
+    TypeName:
+      maxLength: 196
+      minLength: 10
+      pattern: '[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}'
+      type: string
+    TypeNotFoundException: {}
+    TypeVersionId:
+      maxLength: 128
+      minLength: 1
+      pattern: '[A-Za-z0-9-]+'
+      type: string
+    UnsupportedActionException: {}
+    UpdateResourceInput:
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/x-cloud-control-schemas/PatchDocument'
+      required:
+        - Identifier
+        - PatchDocument
+      title: UpdateResourceInput
+      type: object
+    UpdateResourceOutput:
+      properties:
+        ProgressEvent:
+          $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+      type: object
+  schemas:
+    ReplicaRegion:
+      description: The secondary region that will be used in the replication of the source bot.
+      type: string
+      minLength: 2
+      maxLength: 25
+    Replication:
+      type: object
+      properties:
+        ReplicaRegions:
+          type: array
+          uniqueItems: true
+          maxItems: 1
+          minItems: 1
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/ReplicaRegion'
+      required:
+        - ReplicaRegions
+      additionalProperties: false
+    BotAliasLocaleSettingsList:
+      description: A list of bot alias locale settings to add to the bot alias.
+      type: array
+      uniqueItems: true
+      maxItems: 50
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/BotAliasLocaleSettingsItem'
+    BotAliasLocaleSettingsItem:
+      description: A locale setting in alias
+      type: object
+      properties:
+        LocaleId:
+          description: A string used to identify the locale
+          type: string
+          minLength: 1
+          maxLength: 128
+        BotAliasLocaleSetting:
+          $ref: '#/components/schemas/BotAliasLocaleSettings'
+      required:
+        - LocaleId
+        - BotAliasLocaleSetting
+      additionalProperties: false
+    BotAliasLocaleSettings:
+      description: You can use this parameter to specify a specific Lambda function to run different functions in different locales.
+      type: object
+      properties:
+        CodeHookSpecification:
+          $ref: '#/components/schemas/CodeHookSpecification'
+        Enabled:
+          type: boolean
+          description: Whether the Lambda code hook is enabled
+      required:
+        - Enabled
+      additionalProperties: false
+    CodeHookSpecification:
+      description: Contains information about code hooks that Amazon Lex calls during a conversation.
+      type: object
+      properties:
+        LambdaCodeHook:
+          $ref: '#/components/schemas/LambdaCodeHook'
+      required:
+        - LambdaCodeHook
+      additionalProperties: false
+    LambdaCodeHook:
+      description: Contains information about code hooks that Amazon Lex calls during a conversation.
+      type: object
+      properties:
+        CodeHookInterfaceVersion:
+          description: The version of the request-response that you want Amazon Lex to use to invoke your Lambda function.
+          type: string
+          minLength: 1
+          maxLength: 5
+        LambdaArn:
+          description: The Amazon Resource Name (ARN) of the Lambda function.
+          type: string
+          minLength: 20
+          maxLength: 2048
+      required:
+        - CodeHookInterfaceVersion
+        - LambdaArn
+      additionalProperties: false
+    ConversationLogSettings:
+      description: Contains information about code hooks that Amazon Lex calls during a conversation.
+      type: object
+      properties:
+        AudioLogSettings:
+          $ref: '#/components/schemas/AudioLogSettings'
+        TextLogSettings:
+          $ref: '#/components/schemas/TextLogSettings'
+      additionalProperties: false
+    AudioLogSettings:
+      description: List of audio log settings
+      type: array
+      maxItems: 1
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/AudioLogSetting'
+    TextLogSettings:
+      description: List of text log settings
+      type: array
+      maxItems: 1
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/TextLogSetting'
+    AudioLogSetting:
+      description: Settings for logging audio of conversations between Amazon Lex and a user. You specify whether to log audio and the Amazon S3 bucket where the audio file is stored.
+      type: object
+      properties:
+        Destination:
+          $ref: '#/components/schemas/AudioLogDestination'
+        Enabled:
+          type: boolean
+          description: ''
+      required:
+        - Destination
+        - Enabled
+      additionalProperties: false
+    TextLogSetting:
+      description: Contains information about code hooks that Amazon Lex calls during a conversation.
+      type: object
+      properties:
+        Destination:
+          $ref: '#/components/schemas/TextLogDestination'
+        Enabled:
+          type: boolean
+          description: ''
+      required:
+        - Destination
+        - Enabled
+      additionalProperties: false
+    AudioLogDestination:
+      description: The location of audio log files collected when conversation logging is enabled for a bot.
+      type: object
+      properties:
+        S3Bucket:
+          $ref: '#/components/schemas/S3BucketLogDestination'
+      required:
+        - S3Bucket
+      additionalProperties: false
+    TextLogDestination:
+      description: Defines the Amazon CloudWatch Logs destination log group for conversation text logs.
+      type: object
+      properties:
+        CloudWatch:
+          $ref: '#/components/schemas/CloudWatchLogGroupLogDestination'
+      required:
+        - CloudWatch
+      additionalProperties: false
+    CloudWatchLogGroupLogDestination:
+      type: object
+      properties:
+        CloudWatchLogGroupArn:
+          description: A string used to identify the groupArn for the Cloudwatch Log Group
+          type: string
+          minLength: 1
+          maxLength: 2048
+        LogPrefix:
+          description: A string containing the value for the Log Prefix
+          type: string
+          minLength: 0
+          maxLength: 1024
+      required:
+        - CloudWatchLogGroupArn
+        - LogPrefix
+      additionalProperties: false
+    S3BucketLogDestination:
+      description: Specifies an Amazon S3 bucket for logging audio conversations
+      type: object
+      properties:
+        S3BucketArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of an Amazon S3 bucket where audio log files are stored.
+          minLength: 1
+          maxLength: 2048
+          pattern: ^arn:[\w\-]+:s3:::[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
+        LogPrefix:
+          type: string
+          description: The Amazon S3 key of the deployment package.
+          minLength: 0
+          maxLength: 1024
+        KmsKeyArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of an AWS Key Management Service (KMS) key for encrypting audio log files stored in an S3 bucket.
+          minLength: 20
+          maxLength: 2048
+          pattern: ^arn:[\w\-]+:kms:[\w\-]+:[\d]{12}:(?:key\/[\w\-]+|alias\/[a-zA-Z0-9:\/_\-]{1,256})$
+      required:
+        - LogPrefix
+        - S3BucketArn
+      additionalProperties: false
+    TestBotAliasSettings:
+      type: object
+      properties:
+        BotAliasLocaleSettings:
+          $ref: '#/components/schemas/BotAliasLocaleSettingsList'
+        ConversationLogSettings:
+          $ref: '#/components/schemas/ConversationLogSettings'
+        Description:
+          $ref: '#/components/schemas/Description'
+        SentimentAnalysisSettings:
+          type: object
+          properties:
+            DetectSentiment:
+              type: boolean
+          required:
+            - DetectSentiment
+          additionalProperties: false
+      additionalProperties: false
+    RoleArn:
+      type: string
+      minLength: 32
+      maxLength: 2048
+      pattern: ^arn:aws[a-zA-Z-]*:iam::[0-9]{12}:role/.*$
+    Id:
+      description: Unique ID of resource
+      type: string
+      minLength: 10
+      maxLength: 10
+      pattern: ^[0-9a-zA-Z]+$
+    BotArn:
+      type: string
+      minLength: 1
+      maxLength: 1011
+      pattern: ^arn:aws[a-zA-Z-]*:lex:[a-z]+-(?:[a-z]+-)*[0-9]:[0-9]{12}:bot/[0-9a-zA-Z]+$
+    Name:
+      description: A unique identifier for a resource.
+      type: string
+      minLength: 1
+      maxLength: 100
+      pattern: ^([0-9a-zA-Z][_-]?)+$
+    Description:
+      description: A description of the version. Use the description to help identify the version in lists.
+      type: string
+      maxLength: 200
+    DataPrivacy:
+      type: object
+      properties:
+        ChildDirected:
+          type: boolean
+      required:
+        - ChildDirected
+      additionalProperties: false
+    ErrorLogSettings:
+      description: Error logs configuration for this bot. This is used by Amazon Lex to emit any errors that occur during Lex Runtime API invocations.
+      type: object
+      properties:
+        Enabled:
+          type: boolean
+          description: Specify whether error log feature has been enabled
+      required:
+        - Enabled
+      additionalProperties: false
+    IdleSessionTTLInSeconds:
+      type: integer
+      minimum: 60
+      maximum: 86400
+    Utterance:
+      type: string
+    SampleUtterance:
+      type: object
+      properties:
+        Utterance:
+          $ref: '#/components/schemas/Utterance'
+      required:
+        - Utterance
+      additionalProperties: false
+    SampleUtterancesList:
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/SampleUtterance'
+    Tag:
+      description: A label for tagging Lex resources
+      type: object
+      properties:
+        Key:
+          description: A string used to identify this tag
+          type: string
+          minLength: 1
+          maxLength: 128
+        Value:
+          description: A string containing the value for the tag
+          type: string
+          minLength: 0
+          maxLength: 256
+      required:
+        - Key
+        - Value
+      additionalProperties: false
+    LocaleId:
+      description: The identifier of the language and locale that the bot will be used in.
+      type: string
+    VoiceSettings:
+      type: object
+      properties:
+        VoiceId:
+          type: string
+        Engine:
+          type: string
+          enum:
+            - standard
+            - neural
+            - long-form
+            - generative
+      required:
+        - VoiceId
+      additionalProperties: false
+    GenerativeAISettings:
+      type: object
+      properties:
+        BuildtimeSettings:
+          type: object
+          properties:
+            DescriptiveBotBuilderSpecification:
+              type: object
+              properties:
+                Enabled:
+                  type: boolean
+                BedrockModelSpecification:
+                  $ref: '#/components/schemas/BedrockModelSpecification'
+              required:
+                - Enabled
+              additionalProperties: false
+            SampleUtteranceGenerationSpecification:
+              type: object
+              properties:
+                Enabled:
+                  type: boolean
+                BedrockModelSpecification:
+                  $ref: '#/components/schemas/BedrockModelSpecification'
+              required:
+                - Enabled
+              additionalProperties: false
+          additionalProperties: false
+        RuntimeSettings:
+          type: object
+          properties:
+            NluImprovementSpecification:
+              type: object
+              properties:
+                Enabled:
+                  type: boolean
+              required:
+                - Enabled
+              additionalProperties: false
+            SlotResolutionImprovementSpecification:
+              type: object
+              properties:
+                Enabled:
+                  type: boolean
+                BedrockModelSpecification:
+                  $ref: '#/components/schemas/BedrockModelSpecification'
+              required:
+                - Enabled
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    ConfidenceThreshold:
+      type: number
+      minimum: 0
+      maximum: 1
+    ParentIntentSignature:
+      type: string
+    DialogCodeHookSetting:
+      type: object
+      properties:
+        Enabled:
+          type: boolean
+      required:
+        - Enabled
+      additionalProperties: false
+    FulfillmentStartResponseSpecification:
+      type: object
+      properties:
+        MessageGroups:
+          $ref: '#/components/schemas/MessageGroupsList'
+        DelayInSeconds:
+          type: integer
+          minimum: 1
+          maximum: 900
+        AllowInterrupt:
+          type: boolean
+      required:
+        - DelayInSeconds
+        - MessageGroups
+      additionalProperties: false
+    FulfillmentUpdateResponseSpecification:
+      type: object
+      properties:
+        MessageGroups:
+          $ref: '#/components/schemas/MessageGroupsList'
+        FrequencyInSeconds:
+          type: integer
+          minimum: 1
+          maximum: 900
+        AllowInterrupt:
+          type: boolean
+      required:
+        - FrequencyInSeconds
+        - MessageGroups
+      additionalProperties: false
+    FulfillmentUpdatesSpecification:
+      type: object
+      properties:
+        StartResponse:
+          $ref: '#/components/schemas/FulfillmentStartResponseSpecification'
+        UpdateResponse:
+          $ref: '#/components/schemas/FulfillmentUpdateResponseSpecification'
+        TimeoutInSeconds:
+          type: integer
+          minimum: 1
+          maximum: 900
+        Active:
+          type: boolean
+      required:
+        - Active
+      additionalProperties: false
+    PostFulfillmentStatusSpecification:
+      type: object
+      properties:
+        SuccessResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        SuccessNextStep:
+          $ref: '#/components/schemas/DialogState'
+        SuccessConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        FailureResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        FailureNextStep:
+          $ref: '#/components/schemas/DialogState'
+        FailureConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        TimeoutResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        TimeoutNextStep:
+          $ref: '#/components/schemas/DialogState'
+        TimeoutConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+      required: []
+      additionalProperties: false
+    FulfillmentCodeHookSetting:
+      type: object
+      properties:
+        FulfillmentUpdatesSpecification:
+          $ref: '#/components/schemas/FulfillmentUpdatesSpecification'
+        PostFulfillmentStatusSpecification:
+          $ref: '#/components/schemas/PostFulfillmentStatusSpecification'
+        Enabled:
+          type: boolean
+        IsActive:
+          type: boolean
+      required:
+        - Enabled
+      additionalProperties: false
+    Button:
+      type: object
+      properties:
+        Text:
+          type: string
+          minLength: 1
+          maxLength: 50
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+        - Text
+        - Value
+      additionalProperties: false
+    AttachmentTitle:
+      type: string
+      minLength: 1
+      maxLength: 250
+    AttachmentUrl:
+      type: string
+      minLength: 1
+      maxLength: 250
+    ImageResponseCard:
+      type: object
+      properties:
+        Title:
+          $ref: '#/components/schemas/AttachmentTitle'
+        Subtitle:
+          $ref: '#/components/schemas/AttachmentTitle'
+        ImageUrl:
+          $ref: '#/components/schemas/AttachmentUrl'
+        Buttons:
+          type: array
+          maxItems: 5
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Button'
+      required:
+        - Title
+      additionalProperties: false
+    PlainTextMessage:
+      type: object
+      properties:
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 1000
+      required:
+        - Value
+      additionalProperties: false
+    CustomPayload:
+      type: object
+      properties:
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 1000
+      required:
+        - Value
+      additionalProperties: false
+    SSMLMessage:
+      type: object
+      properties:
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 1000
+      required:
+        - Value
+      additionalProperties: false
+    Message:
+      type: object
+      properties:
+        PlainTextMessage:
+          $ref: '#/components/schemas/PlainTextMessage'
+        CustomPayload:
+          $ref: '#/components/schemas/CustomPayload'
+        SSMLMessage:
+          $ref: '#/components/schemas/SSMLMessage'
+        ImageResponseCard:
+          $ref: '#/components/schemas/ImageResponseCard'
+      required: []
+      additionalProperties: false
+    MessageGroup:
+      type: object
+      properties:
+        Message:
+          $ref: '#/components/schemas/Message'
+        Variations:
+          type: array
+          maxItems: 2
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Message'
+      required:
+        - Message
+      additionalProperties: false
+    MessageGroupsList:
+      type: array
+      minItems: 1
+      maxItems: 5
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/MessageGroup'
+    PromptMaxRetries:
+      type: integer
+      minimum: 0
+      maximum: 5
+    MessageSelectionStrategy:
+      type: string
+      enum:
+        - Random
+        - Ordered
+    AllowedInputTypes:
+      type: object
+      properties:
+        AllowAudioInput:
+          type: boolean
+        AllowDTMFInput:
+          type: boolean
+      required:
+        - AllowAudioInput
+        - AllowDTMFInput
+      additionalProperties: false
+    DTMFSpecification:
+      type: object
+      properties:
+        DeletionCharacter:
+          type: string
+          pattern: ^[A-D0-9#*]{1}$
+        EndCharacter:
+          type: string
+          pattern: ^[A-D0-9#*]{1}$
+        EndTimeoutMs:
+          type: integer
+          minimum: 1
+        MaxLength:
+          type: integer
+          minimum: 1
+          maximum: 1024
+      required:
+        - DeletionCharacter
+        - EndCharacter
+        - EndTimeoutMs
+        - MaxLength
+      additionalProperties: false
+    AudioSpecification:
+      type: object
+      properties:
+        EndTimeoutMs:
+          type: integer
+          minimum: 1
+        MaxLengthMs:
+          type: integer
+          minimum: 1
+      required:
+        - EndTimeoutMs
+        - MaxLengthMs
+      additionalProperties: false
+    AudioAndDTMFInputSpecification:
+      type: object
+      properties:
+        StartTimeoutMs:
+          type: integer
+          minimum: 1
+        DTMFSpecification:
+          $ref: '#/components/schemas/DTMFSpecification'
+        AudioSpecification:
+          $ref: '#/components/schemas/AudioSpecification'
+      required:
+        - StartTimeoutMs
+      additionalProperties: false
+    TextInputSpecification:
+      type: object
+      properties:
+        StartTimeoutMs:
+          type: integer
+          minimum: 1
+      required:
+        - StartTimeoutMs
+      additionalProperties: false
+    PromptAttemptSpecification:
+      type: object
+      properties:
+        AllowedInputTypes:
+          $ref: '#/components/schemas/AllowedInputTypes'
+        AllowInterrupt:
+          type: boolean
+        AudioAndDTMFInputSpecification:
+          $ref: '#/components/schemas/AudioAndDTMFInputSpecification'
+        TextInputSpecification:
+          $ref: '#/components/schemas/TextInputSpecification'
+      required:
+        - AllowedInputTypes
+      additionalProperties: false
+    PromptSpecification:
+      type: object
+      properties:
+        MessageGroupsList:
+          $ref: '#/components/schemas/MessageGroupsList'
+        MaxRetries:
+          $ref: '#/components/schemas/PromptMaxRetries'
+        AllowInterrupt:
+          type: boolean
+        MessageSelectionStrategy:
+          $ref: '#/components/schemas/MessageSelectionStrategy'
+        PromptAttemptsSpecification:
+          type: object
+          x-patternProperties:
+            ^(Initial|Retry1|Retry2|Retry3|Retry4|Retry5)$:
+              $ref: '#/components/schemas/PromptAttemptSpecification'
+          additionalProperties: false
+      required:
+        - MessageGroupsList
+        - MaxRetries
+      additionalProperties: false
+    ResponseSpecification:
+      type: object
+      properties:
+        MessageGroupsList:
+          $ref: '#/components/schemas/MessageGroupsList'
+        AllowInterrupt:
+          type: boolean
+      required:
+        - MessageGroupsList
+      additionalProperties: false
+    StillWaitingResponseFrequency:
+      type: integer
+      minimum: 1
+      maximum: 300
+    StillWaitingResponseTimeout:
+      type: integer
+      minimum: 1
+      maximum: 900
+    StillWaitingResponseSpecification:
+      type: object
+      properties:
+        MessageGroupsList:
+          $ref: '#/components/schemas/MessageGroupsList'
+        FrequencyInSeconds:
+          $ref: '#/components/schemas/StillWaitingResponseFrequency'
+        TimeoutInSeconds:
+          $ref: '#/components/schemas/StillWaitingResponseTimeout'
+        AllowInterrupt:
+          type: boolean
+      required:
+        - MessageGroupsList
+        - FrequencyInSeconds
+        - TimeoutInSeconds
+      additionalProperties: false
+    IntentConfirmationSetting:
+      type: object
+      properties:
+        PromptSpecification:
+          $ref: '#/components/schemas/PromptSpecification'
+        IsActive:
+          type: boolean
+        ConfirmationResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        ConfirmationNextStep:
+          $ref: '#/components/schemas/DialogState'
+        ConfirmationConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        DeclinationResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        DeclinationNextStep:
+          $ref: '#/components/schemas/DialogState'
+        DeclinationConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        FailureResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        FailureNextStep:
+          $ref: '#/components/schemas/DialogState'
+        FailureConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        CodeHook:
+          $ref: '#/components/schemas/DialogCodeHookInvocationSetting'
+        ElicitationCodeHook:
+          $ref: '#/components/schemas/ElicitationCodeHookInvocationSetting'
+      required:
+        - PromptSpecification
+      additionalProperties: false
+    IntentClosingSetting:
+      type: object
+      properties:
+        ClosingResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        IsActive:
+          type: boolean
+        Conditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        NextStep:
+          $ref: '#/components/schemas/DialogState'
+      additionalProperties: false
+    InputContext:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+      required:
+        - Name
+      additionalProperties: false
+    InputContextsList:
+      type: array
+      maxItems: 5
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/InputContext'
+    ContextTimeToLiveInSeconds:
+      type: integer
+      minimum: 5
+      maximum: 86400
+    ContextTurnsToLive:
+      type: integer
+      minimum: 1
+      maximum: 20
+    OutputContext:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        TimeToLiveInSeconds:
+          $ref: '#/components/schemas/ContextTimeToLiveInSeconds'
+        TurnsToLive:
+          $ref: '#/components/schemas/ContextTurnsToLive'
+      required:
+        - Name
+        - TimeToLiveInSeconds
+        - TurnsToLive
+      additionalProperties: false
+    OutputContextsList:
+      type: array
+      maxItems: 10
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/OutputContext'
+    KendraIndexArn:
+      type: string
+      minLength: 32
+      maxLength: 2048
+      pattern: ^arn:aws[a-zA-Z-]*:kendra:[a-z]+-(?:[a-z]+-)*[0-9]:[0-9]{12}:index/[a-zA-Z0-9][a-zA-Z0-9_-]*$
+    QueryFilterString:
+      type: string
+      minLength: 1
+      maxLength: 5000
+    BedrockModelSpecification:
+      type: object
+      properties:
+        ModelArn:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        BedrockGuardrailConfiguration:
+          type: object
+          properties:
+            BedrockGuardrailIdentifier:
+              type: string
+              minLength: 1
+              maxLength: 5000
+            BedrockGuardrailVersion:
+              type: string
+              minLength: 1
+              maxLength: 5000
+          additionalProperties: false
+        BedrockTraceStatus:
+          type: string
+          enum:
+            - ENABLED
+            - DISABLED
+        BedrockModelCustomPrompt:
+          type: string
+          minLength: 1
+          maxLength: 5000
+      required:
+        - ModelArn
+      additionalProperties: false
+    KendraConfiguration:
+      type: object
+      properties:
+        KendraIndex:
+          $ref: '#/components/schemas/KendraIndexArn'
+        QueryFilterStringEnabled:
+          type: boolean
+        QueryFilterString:
+          $ref: '#/components/schemas/QueryFilterString'
+      required:
+        - KendraIndex
+      additionalProperties: false
+    QnAIntentConfiguration:
+      type: object
+      properties:
+        DataSourceConfiguration:
+          type: object
+          properties:
+            OpensearchConfiguration:
+              type: object
+              properties:
+                DomainEndpoint:
+                  type: string
+                  minLength: 1
+                  maxLength: 5000
+                IndexName:
+                  type: string
+                  minLength: 1
+                  maxLength: 5000
+                IncludeFields:
+                  type: array
+                  x-insertionOrder: false
+                  items:
+                    type: string
+                    minLength: 1
+                    maxLength: 5000
+                ExactResponse:
+                  type: boolean
+                ExactResponseFields:
+                  type: object
+                  properties:
+                    QuestionField:
+                      type: string
+                      minLength: 1
+                      maxLength: 5000
+                    AnswerField:
+                      type: string
+                      minLength: 1
+                      maxLength: 5000
+                  additionalProperties: false
+              additionalProperties: false
+            BedrockKnowledgeStoreConfiguration:
+              type: object
+              properties:
+                BedrockKnowledgeBaseArn:
+                  type: string
+                  minLength: 1
+                  maxLength: 5000
+                ExactResponse:
+                  type: boolean
+                BKBExactResponseFields:
+                  type: object
+                  properties:
+                    AnswerField:
+                      type: string
+                      minLength: 1
+                      maxLength: 5000
+                  additionalProperties: false
+              additionalProperties: false
+            KendraConfiguration:
+              $ref: '#/components/schemas/QnAKendraConfiguration'
+          additionalProperties: false
+        BedrockModelConfiguration:
+          $ref: '#/components/schemas/BedrockModelSpecification'
+      required:
+        - DataSourceConfiguration
+        - BedrockModelConfiguration
+      additionalProperties: false
+    QInConnectIntentConfiguration:
+      type: object
+      properties:
+        QInConnectAssistantConfiguration:
+          type: object
+          properties:
+            AssistantArn:
+              type: string
+              minLength: 1
+              maxLength: 200
+              pattern: ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}){0,2}$
+          required:
+            - AssistantArn
+          additionalProperties: false
+      additionalProperties: false
+    QnAKendraConfiguration:
+      type: object
+      properties:
+        KendraIndex:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        QueryFilterString:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        QueryFilterStringEnabled:
+          type: boolean
+        ExactResponse:
+          type: boolean
+      required:
+        - KendraIndex
+        - QueryFilterStringEnabled
+        - ExactResponse
+      additionalProperties: false
+    BedrockAgentIntentConfiguration:
+      type: object
+      properties:
+        BedrockAgentConfiguration:
+          type: object
+          properties:
+            BedrockAgentId:
+              type: string
+              minLength: 1
+              maxLength: 5000
+            BedrockAgentAliasId:
+              type: string
+              minLength: 1
+              maxLength: 5000
+          additionalProperties: false
+        BedrockAgentIntentKnowledgeBaseConfiguration:
+          type: object
+          properties:
+            BedrockKnowledgeBaseArn:
+              type: string
+              minLength: 1
+              maxLength: 5000
+            BedrockModelConfiguration:
+              $ref: '#/components/schemas/BedrockModelSpecification'
+          required:
+            - BedrockKnowledgeBaseArn
+            - BedrockModelConfiguration
+          additionalProperties: false
+      additionalProperties: false
+    PriorityValue:
+      type: integer
+      minimum: 0
+      maximum: 100
+    SlotPriority:
+      type: object
+      properties:
+        Priority:
+          $ref: '#/components/schemas/PriorityValue'
+        SlotName:
+          $ref: '#/components/schemas/Name'
+      required:
+        - SlotName
+        - Priority
+      additionalProperties: false
+    SlotPrioritiesList:
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/SlotPriority'
+    Intent:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        Description:
+          description: Description of thr intent.
+          $ref: '#/components/schemas/Description'
+        ParentIntentSignature:
+          $ref: '#/components/schemas/ParentIntentSignature'
+        SampleUtterances:
+          $ref: '#/components/schemas/SampleUtterancesList'
+        DialogCodeHook:
+          $ref: '#/components/schemas/DialogCodeHookSetting'
+        FulfillmentCodeHook:
+          $ref: '#/components/schemas/FulfillmentCodeHookSetting'
+        IntentConfirmationSetting:
+          $ref: '#/components/schemas/IntentConfirmationSetting'
+        IntentClosingSetting:
+          $ref: '#/components/schemas/IntentClosingSetting'
+        InitialResponseSetting:
+          $ref: '#/components/schemas/InitialResponseSetting'
+        InputContexts:
+          $ref: '#/components/schemas/InputContextsList'
+        OutputContexts:
+          $ref: '#/components/schemas/OutputContextsList'
+        KendraConfiguration:
+          $ref: '#/components/schemas/KendraConfiguration'
+        QnAIntentConfiguration:
+          $ref: '#/components/schemas/QnAIntentConfiguration'
+        QInConnectIntentConfiguration:
+          $ref: '#/components/schemas/QInConnectIntentConfiguration'
+        BedrockAgentIntentConfiguration:
+          $ref: '#/components/schemas/BedrockAgentIntentConfiguration'
+        SlotPriorities:
+          $ref: '#/components/schemas/SlotPrioritiesList'
+        Slots:
+          type: array
+          maxItems: 100
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Slot'
+      required:
+        - Name
+      additionalProperties: false
+    ParentSlotTypeSignature:
+      type: string
+    SlotTypeName:
+      type: string
+    SampleValue:
+      type: object
+      properties:
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 140
+      required:
+        - Value
+      additionalProperties: false
+    SynonymList:
+      type: array
+      maxItems: 10000
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/SampleValue'
+    SlotTypeValue:
+      type: object
+      properties:
+        SampleValue:
+          $ref: '#/components/schemas/SampleValue'
+        Synonyms:
+          $ref: '#/components/schemas/SynonymList'
+      required:
+        - SampleValue
+      additionalProperties: false
+    SlotTypeValues:
+      type: array
+      maxItems: 10000
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/SlotTypeValue'
+    SlotValueResolutionStrategy:
+      type: string
+      enum:
+        - ORIGINAL_VALUE
+        - TOP_RESOLUTION
+        - CONCATENATION
+    SlotValueRegexFilter:
+      type: object
+      properties:
+        Pattern:
+          type: string
+          minLength: 1
+          maxLength: 300
+      required:
+        - Pattern
+      additionalProperties: false
+    AudioRecognitionStrategy:
+      type: string
+      enum:
+        - UseSlotValuesAsCustomVocabulary
+    AdvancedRecognitionSetting:
+      type: object
+      properties:
+        AudioRecognitionStrategy:
+          $ref: '#/components/schemas/AudioRecognitionStrategy'
+      additionalProperties: false
+    SlotValueSelectionSetting:
+      type: object
+      properties:
+        ResolutionStrategy:
+          $ref: '#/components/schemas/SlotValueResolutionStrategy'
+        RegexFilter:
+          $ref: '#/components/schemas/SlotValueRegexFilter'
+        AdvancedRecognitionSetting:
+          $ref: '#/components/schemas/AdvancedRecognitionSetting'
+      required:
+        - ResolutionStrategy
+      additionalProperties: false
+    S3BucketName:
+      type: string
+      minLength: 3
+      maxLength: 63
+      pattern: ^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
+    S3ObjectKey:
+      type: string
+      minLength: 1
+      maxLength: 1024
+      pattern: '[\.\-\!\*\_\''\(\)a-zA-Z0-9][\.\-\!\*\_\''\(\)\/a-zA-Z0-9]*$'
+    GrammarSlotTypeSource:
+      type: object
+      properties:
+        S3BucketName:
+          $ref: '#/components/schemas/S3BucketName'
+        S3ObjectKey:
+          $ref: '#/components/schemas/S3ObjectKey'
+        KmsKeyArn:
+          type: string
+          minLength: 20
+          maxLength: 2048
+          pattern: ^arn:[\w\-]+:kms:[\w\-]+:[\d]{12}:(?:key\/[\w\-]+|alias\/[a-zA-Z0-9:\/_\-]{1,256})$
+      required:
+        - S3BucketName
+        - S3ObjectKey
+      additionalProperties: false
+    GrammarSlotTypeSetting:
+      type: object
+      properties:
+        Source:
+          $ref: '#/components/schemas/GrammarSlotTypeSource'
+      additionalProperties: false
+    ExternalSourceSetting:
+      type: object
+      properties:
+        GrammarSlotTypeSetting:
+          $ref: '#/components/schemas/GrammarSlotTypeSetting'
+      additionalProperties: false
+    CompositeSlotTypeSetting:
+      type: object
+      properties:
+        SubSlots:
+          type: array
+          minItems: 1
+          maxItems: 6
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/SubSlotTypeComposition'
+      additionalProperties: false
+    SubSlotTypeComposition:
+      type: object
+      properties:
+        Name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+        SlotTypeId:
+          $ref: '#/components/schemas/SlotTypeId'
+      required:
+        - Name
+        - SlotTypeId
+      additionalProperties: false
+    SubSlotSetting:
+      type: object
+      properties:
+        Expression:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '[0-9A-Za-z_\-\s\(\)]+'
+        SlotSpecifications:
+          type: object
+          minProperties: 0
+          maxProperties: 6
+          x-patternProperties:
+            ^([0-9a-zA-Z][_-]?){1,100}$:
+              $ref: '#/components/schemas/Specifications'
+          additionalProperties: false
+      additionalProperties: false
+    Specifications:
+      type: object
+      properties:
+        SlotTypeId:
+          $ref: '#/components/schemas/SlotTypeId'
+        ValueElicitationSetting:
+          $ref: '#/components/schemas/SubSlotValueElicitationSetting'
+      required:
+        - SlotTypeId
+        - ValueElicitationSetting
+      additionalProperties: false
+    SlotTypeId:
+      type: string
+      minLength: 1
+      maxLength: 25
+      pattern: ^((AMAZON\.)[a-zA-Z_]+?|[0-9a-zA-Z]+)$
+    SubSlotValueElicitationSetting:
+      type: object
+      properties:
+        PromptSpecification:
+          $ref: '#/components/schemas/PromptSpecification'
+        DefaultValueSpecification:
+          $ref: '#/components/schemas/SlotDefaultValueSpecification'
+        SampleUtterances:
+          $ref: '#/components/schemas/SampleUtterancesList'
+        WaitAndContinueSpecification:
+          $ref: '#/components/schemas/WaitAndContinueSpecification'
+      additionalProperties: false
+    SlotType:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        Description:
+          $ref: '#/components/schemas/Description'
+        ParentSlotTypeSignature:
+          $ref: '#/components/schemas/ParentSlotTypeSignature'
+        SlotTypeValues:
+          $ref: '#/components/schemas/SlotTypeValues'
+        ValueSelectionSetting:
+          $ref: '#/components/schemas/SlotValueSelectionSetting'
+        ExternalSourceSetting:
+          $ref: '#/components/schemas/ExternalSourceSetting'
+        CompositeSlotTypeSetting:
+          $ref: '#/components/schemas/CompositeSlotTypeSetting'
+      required:
+        - Name
+      additionalProperties: false
+    CustomVocabularyItem:
+      type: object
+      properties:
+        Phrase:
+          type: string
+          minLength: 1
+          maxLength: 100
+        Weight:
+          type: integer
+          minimum: 0
+          maximum: 3
+        DisplayAs:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+        - Phrase
+      additionalProperties: false
+    CustomVocabularyItems:
+      type: array
+      maxItems: 500
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/CustomVocabularyItem'
+    CustomVocabulary:
+      type: object
+      properties:
+        CustomVocabularyItems:
+          $ref: '#/components/schemas/CustomVocabularyItems'
+      required:
+        - CustomVocabularyItems
+      additionalProperties: false
+    SlotDefaultValue:
+      type: object
+      properties:
+        DefaultValue:
+          type: string
+          minLength: 1
+          maxLength: 202
+      required:
+        - DefaultValue
+      additionalProperties: false
+    SlotDefaultValueSpecification:
+      type: object
+      properties:
+        DefaultValueList:
+          type: array
+          maxItems: 10
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/SlotDefaultValue'
+      required:
+        - DefaultValueList
+      additionalProperties: false
+    SlotConstraint:
+      type: string
+      enum:
+        - Required
+        - Optional
+    WaitAndContinueSpecification:
+      type: object
+      properties:
+        WaitingResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        ContinueResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        StillWaitingResponse:
+          $ref: '#/components/schemas/StillWaitingResponseSpecification'
+        IsActive:
+          type: boolean
+      required:
+        - WaitingResponse
+        - ContinueResponse
+      additionalProperties: false
+    SlotValueElicitationSetting:
+      type: object
+      properties:
+        DefaultValueSpecification:
+          $ref: '#/components/schemas/SlotDefaultValueSpecification'
+        SlotConstraint:
+          $ref: '#/components/schemas/SlotConstraint'
+        PromptSpecification:
+          $ref: '#/components/schemas/PromptSpecification'
+        SampleUtterances:
+          $ref: '#/components/schemas/SampleUtterancesList'
+        WaitAndContinueSpecification:
+          $ref: '#/components/schemas/WaitAndContinueSpecification'
+        SlotCaptureSetting:
+          $ref: '#/components/schemas/SlotCaptureSetting'
+      required:
+        - SlotConstraint
+      additionalProperties: false
+    ObfuscationSetting:
+      type: object
+      properties:
+        ObfuscationSettingType:
+          type: string
+          enum:
+            - None
+            - DefaultObfuscation
+      required:
+        - ObfuscationSettingType
+      additionalProperties: false
+    MultipleValuesSetting:
+      type: object
+      properties:
+        AllowMultipleValues:
+          type: boolean
+      required: []
+      additionalProperties: false
+    Slot:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        Description:
+          $ref: '#/components/schemas/Description'
+        SlotTypeName:
+          $ref: '#/components/schemas/SlotTypeName'
+        ValueElicitationSetting:
+          $ref: '#/components/schemas/SlotValueElicitationSetting'
+        ObfuscationSetting:
+          $ref: '#/components/schemas/ObfuscationSetting'
+        MultipleValuesSetting:
+          $ref: '#/components/schemas/MultipleValuesSetting'
+        SubSlotSetting:
+          $ref: '#/components/schemas/SubSlotSetting'
+      required:
+        - Name
+        - SlotTypeName
+        - ValueElicitationSetting
+      additionalProperties: false
+    BotLocale:
+      type: object
+      properties:
+        LocaleId:
+          $ref: '#/components/schemas/LocaleId'
+        Description:
+          $ref: '#/components/schemas/Description'
+        VoiceSettings:
+          $ref: '#/components/schemas/VoiceSettings'
+        GenerativeAISettings:
+          $ref: '#/components/schemas/GenerativeAISettings'
+        NluConfidenceThreshold:
+          $ref: '#/components/schemas/ConfidenceThreshold'
+        Intents:
+          type: array
+          maxItems: 1000
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Intent'
+        SlotTypes:
+          type: array
+          maxItems: 250
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/SlotType'
+        CustomVocabulary:
+          $ref: '#/components/schemas/CustomVocabulary'
+      required:
+        - LocaleId
+        - NluConfidenceThreshold
+      additionalProperties: false
+    S3Location:
+      type: object
+      properties:
+        S3Bucket:
+          $ref: '#/components/schemas/S3BucketName'
+        S3ObjectKey:
+          $ref: '#/components/schemas/S3ObjectKey'
+        S3ObjectVersion:
+          type: string
+          minLength: 1
+          maxLength: 1024
+      required:
+        - S3Bucket
+        - S3ObjectKey
+      additionalProperties: false
+    Condition:
+      type: object
+      properties:
+        ExpressionString:
+          $ref: '#/components/schemas/ConditionExpression'
+      required:
+        - ExpressionString
+      additionalProperties: false
+    Conditional:
+      type: object
+      properties:
+        IsActive:
+          type: boolean
+        ConditionalBranches:
+          $ref: '#/components/schemas/ConditionalBranches'
+      required:
+        - IsActive
+        - ConditionalBranches
+      additionalProperties: false
+    ConditionalSpecification:
+      type: object
+      properties:
+        IsActive:
+          type: boolean
+        ConditionalBranches:
+          $ref: '#/components/schemas/ConditionalBranches'
+        DefaultBranch:
+          $ref: '#/components/schemas/DefaultConditionalBranch'
+      required:
+        - IsActive
+        - ConditionalBranches
+        - DefaultBranch
+      additionalProperties: false
+    DefaultConditionalBranch:
+      type: object
+      properties:
+        NextStep:
+          $ref: '#/components/schemas/DialogState'
+        Response:
+          $ref: '#/components/schemas/ResponseSpecification'
+      additionalProperties: false
+    ConditionalBranch:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        Condition:
+          $ref: '#/components/schemas/Condition'
+        NextStep:
+          $ref: '#/components/schemas/DialogState'
+        Response:
+          $ref: '#/components/schemas/ResponseSpecification'
+      required:
+        - Name
+        - Condition
+        - NextStep
+      additionalProperties: false
+    ConditionalBranches:
+      type: array
+      minItems: 1
+      maxItems: 4
+      x-insertionOrder: true
+      items:
+        $ref: '#/components/schemas/ConditionalBranch'
+    InitialResponseSetting:
+      type: object
+      properties:
+        InitialResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        NextStep:
+          $ref: '#/components/schemas/DialogState'
+        Conditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        CodeHook:
+          $ref: '#/components/schemas/DialogCodeHookInvocationSetting'
+      additionalProperties: false
+    ConditionExpression:
+      type: string
+      minLength: 1
+      maxLength: 1024
+    DialogCodeHookInvocationSetting:
+      type: object
+      properties:
+        EnableCodeHookInvocation:
+          type: boolean
+        IsActive:
+          type: boolean
+        InvocationLabel:
+          $ref: '#/components/schemas/Name'
+        PostCodeHookSpecification:
+          $ref: '#/components/schemas/PostDialogCodeHookInvocationSpecification'
+      required:
+        - IsActive
+        - EnableCodeHookInvocation
+        - PostCodeHookSpecification
+      additionalProperties: false
+    ElicitationCodeHookInvocationSetting:
+      type: object
+      properties:
+        EnableCodeHookInvocation:
+          type: boolean
+        InvocationLabel:
+          $ref: '#/components/schemas/Name'
+      required:
+        - EnableCodeHookInvocation
+      additionalProperties: false
+    PostDialogCodeHookInvocationSpecification:
+      type: object
+      properties:
+        SuccessResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        SuccessNextStep:
+          $ref: '#/components/schemas/DialogState'
+        SuccessConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        FailureResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        FailureNextStep:
+          $ref: '#/components/schemas/DialogState'
+        FailureConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        TimeoutResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        TimeoutNextStep:
+          $ref: '#/components/schemas/DialogState'
+        TimeoutConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+      additionalProperties: false
+    DialogState:
+      type: object
+      properties:
+        DialogAction:
+          $ref: '#/components/schemas/DialogAction'
+        Intent:
+          $ref: '#/components/schemas/IntentOverride'
+        SessionAttributes:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/SessionAttribute'
+      additionalProperties: false
+    DialogAction:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/DialogActionType'
+        SlotToElicit:
+          $ref: '#/components/schemas/Name'
+        SuppressNextMessage:
+          type: boolean
+      required:
+        - Type
+      additionalProperties: false
+    DialogActionType:
+      type: string
+      enum:
+        - CloseIntent
+        - ConfirmIntent
+        - ElicitIntent
+        - ElicitSlot
+        - StartIntent
+        - FulfillIntent
+        - EndConversation
+        - EvaluateConditional
+        - InvokeDialogCodeHook
+    SessionAttribute:
+      type: object
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 1024
+        Value:
+          type: string
+          minLength: 0
+          maxLength: 1024
+      required:
+        - Key
+      additionalProperties: false
+    IntentOverride:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+        Slots:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/SlotValueOverrideMap'
+      additionalProperties: false
+    SlotValueOverrideMap:
+      type: object
+      properties:
+        SlotName:
+          $ref: '#/components/schemas/Name'
+        SlotValueOverride:
+          $ref: '#/components/schemas/SlotValueOverride'
+      additionalProperties: false
+    SlotValueOverride:
+      type: object
+      properties:
+        Shape:
+          $ref: '#/components/schemas/SlotShape'
+        Value:
+          $ref: '#/components/schemas/SlotValue'
+        Values:
+          $ref: '#/components/schemas/SlotValues'
+      additionalProperties: false
+    SlotValue:
+      type: object
+      properties:
+        InterpretedValue:
+          type: string
+          minLength: 1
+          maxLength: 202
+      additionalProperties: false
+    SlotValues:
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/SlotValueOverride'
+    SlotShape:
+      type: string
+      enum:
+        - Scalar
+        - List
+    SlotCaptureSetting:
+      type: object
+      properties:
+        CaptureResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        CaptureNextStep:
+          $ref: '#/components/schemas/DialogState'
+        CaptureConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        FailureResponse:
+          $ref: '#/components/schemas/ResponseSpecification'
+        FailureNextStep:
+          $ref: '#/components/schemas/DialogState'
+        FailureConditional:
+          $ref: '#/components/schemas/ConditionalSpecification'
+        CodeHook:
+          $ref: '#/components/schemas/DialogCodeHookInvocationSetting'
+        ElicitationCodeHook:
+          $ref: '#/components/schemas/ElicitationCodeHookInvocationSetting'
+      additionalProperties: false
+    Bot:
+      type: object
+      properties:
+        Id:
+          $ref: '#/components/schemas/Id'
+        Arn:
+          $ref: '#/components/schemas/BotArn'
+        Name:
+          $ref: '#/components/schemas/Name'
+        Description:
+          $ref: '#/components/schemas/Description'
+        RoleArn:
+          $ref: '#/components/schemas/RoleArn'
+        DataPrivacy:
+          type: object
+          properties:
+            ChildDirected:
+              type: boolean
+          required:
+            - ChildDirected
+          additionalProperties: false
+        ErrorLogSettings:
+          type: object
+          properties:
+            Enabled:
+              type: boolean
+          required:
+            - Enabled
+          additionalProperties: false
+        IdleSessionTTLInSeconds:
+          type: integer
+          minimum: 60
+          maximum: 86400
+        BotLocales:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/BotLocale'
+        BotFileS3Location:
+          $ref: '#/components/schemas/S3Location'
+        BotTags:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        TestBotAliasTags:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        AutoBuildBotLocales:
+          type: boolean
+        TestBotAliasSettings:
+          $ref: '#/components/schemas/TestBotAliasSettings'
+        Replication:
+          $ref: '#/components/schemas/Replication'
+      required:
+        - Name
+        - RoleArn
+        - DataPrivacy
+        - IdleSessionTTLInSeconds
+      x-stackql-resource-name: bot
+      description: Amazon Lex conversational bot performing automated tasks such as ordering a pizza, booking a hotel, and so on.
+      x-type-name: AWS::Lex::Bot
+      x-stackql-primary-identifier:
+        - Id
+      x-write-only-properties:
+        - BotLocales
+        - BotFileS3Location
+        - AutoBuildBotLocales
+        - BotTags
+        - TestBotAliasTags
+        - Replication
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-properties:
+        - Name
+        - RoleArn
+        - DataPrivacy
+        - IdleSessionTTLInSeconds
+      x-taggable: true
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - lex:DescribeBot
+          - lex:CreateUploadUrl
+          - lex:StartImport
+          - lex:DescribeImport
+          - lex:ListTagsForResource
+          - lex:TagResource
+          - lex:CreateBot
+          - lex:CreateBotLocale
+          - lex:CreateIntent
+          - lex:CreateSlot
+          - lex:CreateSlotType
+          - lex:UpdateBot
+          - lex:UpdateBotLocale
+          - lex:UpdateIntent
+          - lex:UpdateSlot
+          - lex:UpdateSlotType
+          - lex:DeleteBotLocale
+          - lex:DeleteIntent
+          - lex:DeleteSlot
+          - lex:DeleteSlotType
+          - lex:DescribeBotLocale
+          - lex:BuildBotLocale
+          - lex:ListBots
+          - lex:ListBotLocales
+          - lex:CreateCustomVocabulary
+          - lex:UpdateCustomVocabulary
+          - lex:DeleteCustomVocabulary
+          - s3:GetObject
+          - lex:UpdateBotAlias
+          - iam:CreateServiceLinkedRole
+          - iam:GetRole
+          - lex:CreateBotReplica
+          - lex:DescribeBotReplica
+          - lex:DeleteBotReplica
+        read:
+          - lex:DescribeBot
+          - lex:ListTagsForResource
+          - lex:DescribeBotReplica
+        update:
+          - iam:PassRole
+          - lex:DescribeBot
+          - lex:CreateUploadUrl
+          - lex:StartImport
+          - lex:DescribeImport
+          - lex:ListTagsForResource
+          - lex:TagResource
+          - lex:UntagResource
+          - lex:CreateBot
+          - lex:CreateBotLocale
+          - lex:CreateIntent
+          - lex:CreateSlot
+          - lex:CreateSlotType
+          - lex:UpdateBot
+          - lex:UpdateBotLocale
+          - lex:UpdateIntent
+          - lex:UpdateSlot
+          - lex:UpdateSlotType
+          - lex:DeleteBotLocale
+          - lex:DeleteIntent
+          - lex:DeleteSlot
+          - lex:DeleteSlotType
+          - lex:DescribeBotLocale
+          - lex:BuildBotLocale
+          - lex:ListBots
+          - lex:ListBotLocales
+          - lex:CreateCustomVocabulary
+          - lex:UpdateCustomVocabulary
+          - lex:DeleteCustomVocabulary
+          - s3:GetObject
+          - lex:UpdateBotAlias
+          - lex:CreateBotReplica
+          - lex:DescribeBotReplica
+          - lex:DeleteBotReplica
+        delete:
+          - lex:DeleteBot
+          - lex:DescribeBot
+          - lex:DeleteBotLocale
+          - lex:DeleteIntent
+          - lex:DeleteSlotType
+          - lex:DeleteSlot
+          - lex:DeleteBotVersion
+          - lex:DeleteBotChannel
+          - lex:DeleteBotAlias
+          - lex:DeleteCustomVocabulary
+          - lex:DeleteBotReplica
+        list:
+          - lex:ListBots
+          - lex:ListBotReplicas
+    BotAliasStatus:
+      type: string
+      enum:
+        - Creating
+        - Available
+        - Deleting
+        - Failed
+    BotVersion:
+      type: object
+      properties:
+        BotId:
+          $ref: '#/components/schemas/Id'
+        BotVersion:
+          $ref: '#/components/schemas/BotVersion'
+        Description:
+          $ref: '#/components/schemas/Description'
+        BotVersionLocaleSpecification:
+          $ref: '#/components/schemas/BotVersionLocaleSpecificationList'
+      required:
+        - BotId
+        - BotVersionLocaleSpecification
+      x-stackql-resource-name: bot_version
+      description: A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.
+      x-type-name: AWS::Lex::BotVersion
+      x-stackql-primary-identifier:
+        - BotId
+        - BotVersion
+      x-create-only-properties:
+        - BotId
+      x-write-only-properties:
+        - BotVersionLocaleSpecification
+      x-read-only-properties:
+        - BotVersion
+      x-required-properties:
+        - BotId
+        - BotVersionLocaleSpecification
+      x-required-permissions:
+        create:
+          - lex:CreateBotVersion
+          - lex:DescribeBotVersion
+          - lex:DescribeBot
+          - lex:DescribeBotLocale
+          - lex:BuildBotLocale
+        read:
+          - lex:DescribeBotVersion
+        delete:
+          - lex:DeleteBotVersion
+          - lex:DescribeBotVersion
+        list:
+          - lex:ListBotVersions
+    Arn:
+      type: string
+      maxLength: 1000
+    BotAlias:
+      type: object
+      properties:
+        BotAliasId:
+          $ref: '#/components/schemas/Id'
+        BotId:
+          $ref: '#/components/schemas/Id'
+        Arn:
+          $ref: '#/components/schemas/Arn'
+        BotAliasStatus:
+          $ref: '#/components/schemas/BotAliasStatus'
+        BotAliasLocaleSettings:
+          $ref: '#/components/schemas/BotAliasLocaleSettingsList'
+        BotAliasName:
+          $ref: '#/components/schemas/Name'
+        BotVersion:
+          $ref: '#/components/schemas/BotVersion'
+        ConversationLogSettings:
+          $ref: '#/components/schemas/ConversationLogSettings'
+        Description:
+          $ref: '#/components/schemas/Description'
+        SentimentAnalysisSettings:
+          description: Determines whether Amazon Lex will use Amazon Comprehend to detect the sentiment of user utterances.
+          type: object
+          properties:
+            DetectSentiment:
+              type: boolean
+              description: Enable to call Amazon Comprehend for Sentiment natively within Lex
+          required:
+            - DetectSentiment
+          additionalProperties: false
+        BotAliasTags:
+          description: A list of tags to add to the bot alias.
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - BotId
+        - BotAliasName
+      x-stackql-resource-name: bot_alias
+      description: A Bot Alias enables you to change the version of a bot without updating applications that use the bot
+      x-type-name: AWS::Lex::BotAlias
+      x-stackql-primary-identifier:
+        - BotAliasId
+        - BotId
+      x-create-only-properties:
+        - BotId
+      x-write-only-properties:
+        - BotAliasTags
+      x-read-only-properties:
+        - BotAliasId
+        - Arn
+        - BotAliasStatus
+      x-required-properties:
+        - BotId
+        - BotAliasName
+      x-required-permissions:
+        create:
+          - lex:CreateBotAlias
+          - lex:DescribeBot
+        update:
+          - lex:UpdateBotAlias
+          - lex:DescribeBotAlias
+          - lex:ListTagsForResource
+          - lex:TagResource
+          - lex:UntagResource
+        read:
+          - lex:DescribeBotAlias
+        delete:
+          - lex:DeleteBotAlias
+        list:
+          - lex:ListBotAliases
+    BotVersionLocaleDetails:
+      description: The version of a bot used for a bot locale.
+      type: object
+      properties:
+        SourceBotVersion:
+          $ref: '#/components/schemas/BotVersion'
+      required:
+        - SourceBotVersion
+      additionalProperties: false
+    BotVersionLocaleSpecification:
+      type: object
+      properties:
+        LocaleId:
+          $ref: '#/components/schemas/LocaleId'
+        BotVersionLocaleDetails:
+          $ref: '#/components/schemas/BotVersionLocaleDetails'
+      required:
+        - LocaleId
+        - BotVersionLocaleDetails
+      additionalProperties: false
+    BotVersionLocaleSpecificationList:
+      description: Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.
+      type: array
+      x-insertionOrder: false
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/BotVersionLocaleSpecification'
+    ResourceArn:
+      description: The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.
+      type: string
+      minLength: 1
+      maxLength: 1011
+    Policy:
+      description: A resource policy to add to the resource. The policy is a JSON structure following the IAM syntax that contains one or more statements that define the policy.
+      type: object
+    RevisionId:
+      description: The current revision of the resource policy. Use the revision ID to make sure that you are updating the most current version of a resource policy when you add a policy statement to a resource, delete a resource, or update a resource.
+      type: string
+      minLength: 1
+      maxLength: 5
+      pattern: ^[0-9]+$
+    PhysicalId:
+      description: The Physical ID of the resource policy.
+      type: string
+    ResourcePolicy:
+      type: object
+      properties:
+        ResourceArn:
+          $ref: '#/components/schemas/ResourceArn'
+        RevisionId:
+          $ref: '#/components/schemas/RevisionId'
+        Policy:
+          $ref: '#/components/schemas/Policy'
+        Id:
+          $ref: '#/components/schemas/PhysicalId'
+      required:
+        - ResourceArn
+        - Policy
+      x-stackql-resource-name: resource_policy
+      description: A resource policy with specified policy statements that attaches to a Lex bot or bot alias.
+      x-type-name: AWS::Lex::ResourcePolicy
+      x-stackql-primary-identifier:
+        - Id
+      x-stackql-additional-identifiers:
+        - - ResourceArn
+      x-read-only-properties:
+        - Id
+        - RevisionId
+      x-required-properties:
+        - ResourceArn
+        - Policy
+      x-required-permissions:
+        create:
+          - lex:CreateResourcePolicy
+          - lex:DescribeResourcePolicy
+        read:
+          - lex:DescribeResourcePolicy
+        update:
+          - lex:UpdateResourcePolicy
+          - lex:DescribeResourcePolicy
+        delete:
+          - lex:DeleteResourcePolicy
+          - lex:DescribeResourcePolicy
+        list:
+          - lex:DescribeResourcePolicy
+    CreateBotRequest:
+      properties:
+        ClientToken:
+          type: string
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+        DesiredState:
+          type: object
+          properties:
+            Id:
+              $ref: '#/components/schemas/Id'
+            Arn:
+              $ref: '#/components/schemas/BotArn'
+            Name:
+              $ref: '#/components/schemas/Name'
+            Description:
+              $ref: '#/components/schemas/Description'
+            RoleArn:
+              $ref: '#/components/schemas/RoleArn'
+            DataPrivacy:
+              type: object
+              properties:
+                ChildDirected:
+                  type: boolean
+              required:
+                - ChildDirected
+              additionalProperties: false
+            ErrorLogSettings:
+              type: object
+              properties:
+                Enabled:
+                  type: boolean
+              required:
+                - Enabled
+              additionalProperties: false
+            IdleSessionTTLInSeconds:
+              type: integer
+              minimum: 60
+              maximum: 86400
+            BotLocales:
+              type: array
+              uniqueItems: true
+              x-insertionOrder: false
+              items:
+                $ref: '#/components/schemas/BotLocale'
+            BotFileS3Location:
+              $ref: '#/components/schemas/S3Location'
+            BotTags:
+              type: array
+              uniqueItems: true
+              maxItems: 200
+              x-insertionOrder: false
+              items:
+                $ref: '#/components/schemas/Tag'
+            TestBotAliasTags:
+              type: array
+              uniqueItems: true
+              maxItems: 200
+              x-insertionOrder: false
+              items:
+                $ref: '#/components/schemas/Tag'
+            AutoBuildBotLocales:
+              type: boolean
+            TestBotAliasSettings:
+              $ref: '#/components/schemas/TestBotAliasSettings'
+            Replication:
+              $ref: '#/components/schemas/Replication'
+          x-stackQL-stringOnly: true
+      x-title: CreateBotRequest
+      type: object
+      required: []
+    CreateBotVersionRequest:
+      properties:
+        ClientToken:
+          type: string
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+        DesiredState:
+          type: object
+          properties:
+            BotId:
+              $ref: '#/components/schemas/Id'
+            BotVersion:
+              $ref: '#/components/schemas/BotVersion'
+            Description:
+              $ref: '#/components/schemas/Description'
+            BotVersionLocaleSpecification:
+              $ref: '#/components/schemas/BotVersionLocaleSpecificationList'
+          x-stackQL-stringOnly: true
+      x-title: CreateBotVersionRequest
+      type: object
+      required: []
+    CreateBotAliasRequest:
+      properties:
+        ClientToken:
+          type: string
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+        DesiredState:
+          type: object
+          properties:
+            BotAliasId:
+              $ref: '#/components/schemas/Id'
+            BotId:
+              $ref: '#/components/schemas/Id'
+            Arn:
+              $ref: '#/components/schemas/Arn'
+            BotAliasStatus:
+              $ref: '#/components/schemas/BotAliasStatus'
+            BotAliasLocaleSettings:
+              $ref: '#/components/schemas/BotAliasLocaleSettingsList'
+            BotAliasName:
+              $ref: '#/components/schemas/Name'
+            BotVersion:
+              $ref: '#/components/schemas/BotVersion'
+            ConversationLogSettings:
+              $ref: '#/components/schemas/ConversationLogSettings'
+            Description:
+              $ref: '#/components/schemas/Description'
+            SentimentAnalysisSettings:
+              description: Determines whether Amazon Lex will use Amazon Comprehend to detect the sentiment of user utterances.
+              type: object
+              properties:
+                DetectSentiment:
+                  type: boolean
+                  description: Enable to call Amazon Comprehend for Sentiment natively within Lex
+              required:
+                - DetectSentiment
+              additionalProperties: false
+            BotAliasTags:
+              description: A list of tags to add to the bot alias.
+              type: array
+              uniqueItems: true
+              maxItems: 200
+              x-insertionOrder: false
+              items:
+                $ref: '#/components/schemas/Tag'
+          x-stackQL-stringOnly: true
+      x-title: CreateBotAliasRequest
+      type: object
+      required: []
+    CreateResourcePolicyRequest:
+      properties:
+        ClientToken:
+          type: string
+        RoleArn:
+          type: string
+        TypeName:
+          type: string
+        TypeVersionId:
+          type: string
+        DesiredState:
+          type: object
+          properties:
+            ResourceArn:
+              $ref: '#/components/schemas/ResourceArn'
+            RevisionId:
+              $ref: '#/components/schemas/RevisionId'
+            Policy:
+              $ref: '#/components/schemas/Policy'
+            Id:
+              $ref: '#/components/schemas/PhysicalId'
+          x-stackQL-stringOnly: true
+      x-title: CreateResourcePolicyRequest
+      type: object
+      required: []
+  securitySchemes:
+    hmac:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Amazon Signature authorization v4
+      x-amazon-apigateway-authtype: awsSigv4
+  x-stackQL-resources:
+    bots:
+      name: bots
+      id: awscc.lex.bots
+      x-cfn-schema-name: Bot
+      x-cfn-type-name: AWS::Lex::Bot
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods:
+        create_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive_DesiredState
+          operation:
+            $ref: '#/paths/~1?Action=CreateResource&Version=2021-09-30&__Bot&__detailTransformed=true/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::Bot"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        update_resource:
+          operation:
+            $ref: '#/paths/~1?Action=UpdateResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::Bot"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        delete_resource:
+          operation:
+            $ref: '#/paths/~1?Action=DeleteResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::Bot"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+      sqlVerbs:
+        insert:
+          - $ref: '#/components/x-stackQL-resources/bots/methods/create_resource'
+        delete:
+          - $ref: '#/components/x-stackQL-resources/bots/methods/delete_resource'
+        update:
+          - $ref: '#/components/x-stackQL-resources/bots/methods/update_resource'
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3" && requiredParams == [ data__Identifier ]
+            ddl: |-
+              SELECT
+              region,
+              data__Identifier,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.DataPrivacy') as data_privacy,
+              JSON_EXTRACT(Properties, '$.ErrorLogSettings') as error_log_settings,
+              JSON_EXTRACT(Properties, '$.IdleSessionTTLInSeconds') as idle_session_ttl_in_seconds,
+              JSON_EXTRACT(Properties, '$.BotLocales') as bot_locales,
+              JSON_EXTRACT(Properties, '$.BotFileS3Location') as bot_file_s3_location,
+              JSON_EXTRACT(Properties, '$.BotTags') as bot_tags,
+              JSON_EXTRACT(Properties, '$.TestBotAliasTags') as test_bot_alias_tags,
+              JSON_EXTRACT(Properties, '$.AutoBuildBotLocales') as auto_build_bot_locales,
+              JSON_EXTRACT(Properties, '$.TestBotAliasSettings') as test_bot_alias_settings,
+              JSON_EXTRACT(Properties, '$.Replication') as replication
+              FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
+              AND data__Identifier = '<Id>'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres" && requiredParams == [ data__Identifier ]
+              ddl: |-
+                SELECT
+                region,
+                data__Identifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'DataPrivacy') as data_privacy,
+                json_extract_path_text(Properties, 'ErrorLogSettings') as error_log_settings,
+                json_extract_path_text(Properties, 'IdleSessionTTLInSeconds') as idle_session_ttl_in_seconds,
+                json_extract_path_text(Properties, 'BotLocales') as bot_locales,
+                json_extract_path_text(Properties, 'BotFileS3Location') as bot_file_s3_location,
+                json_extract_path_text(Properties, 'BotTags') as bot_tags,
+                json_extract_path_text(Properties, 'TestBotAliasTags') as test_bot_alias_tags,
+                json_extract_path_text(Properties, 'AutoBuildBotLocales') as auto_build_bot_locales,
+                json_extract_path_text(Properties, 'TestBotAliasSettings') as test_bot_alias_settings,
+                json_extract_path_text(Properties, 'Replication') as replication
+                FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
+                AND data__Identifier = '<Id>'
+                AND region = 'us-east-1'
+    bots_list_only:
+      name: bots_list_only
+      id: awscc.lex.bots_list_only
+      x-cfn-schema-name: Bot
+      x-cfn-type-name: AWS::Lex::Bot
+      x-identifiers:
+        - Id
+      x-type: cloud_control_view
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot'
+                AND region = 'us-east-1'
+    bot_versions:
+      name: bot_versions
+      id: awscc.lex.bot_versions
+      x-cfn-schema-name: BotVersion
+      x-cfn-type-name: AWS::Lex::BotVersion
+      x-identifiers:
+        - BotId
+        - BotVersion
+      x-type: cloud_control
+      methods:
+        create_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive_DesiredState
+          operation:
+            $ref: '#/paths/~1?Action=CreateResource&Version=2021-09-30&__BotVersion&__detailTransformed=true/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::BotVersion"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        delete_resource:
+          operation:
+            $ref: '#/paths/~1?Action=DeleteResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::BotVersion"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+      sqlVerbs:
+        insert:
+          - $ref: '#/components/x-stackQL-resources/bot_versions/methods/create_resource'
+        delete:
+          - $ref: '#/components/x-stackQL-resources/bot_versions/methods/delete_resource'
+        update: []
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3" && requiredParams == [ data__Identifier ]
+            ddl: |-
+              SELECT
+              region,
+              data__Identifier,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.BotVersionLocaleSpecification') as bot_version_locale_specification
+              FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
+              AND data__Identifier = '<BotId>|<BotVersion>'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres" && requiredParams == [ data__Identifier ]
+              ddl: |-
+                SELECT
+                region,
+                data__Identifier,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'BotVersion') as bot_version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'BotVersionLocaleSpecification') as bot_version_locale_specification
+                FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
+                AND data__Identifier = '<BotId>|<BotVersion>'
+                AND region = 'us-east-1'
+    bot_versions_list_only:
+      name: bot_versions_list_only
+      id: awscc.lex.bot_versions_list_only
+      x-cfn-schema-name: BotVersion
+      x-cfn-type-name: AWS::Lex::BotVersion
+      x-identifiers:
+        - BotId
+        - BotVersion
+      x-type: cloud_control_view
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version
+              FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'BotVersion') as bot_version
+                FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion'
+                AND region = 'us-east-1'
+    bot_aliases:
+      name: bot_aliases
+      id: awscc.lex.bot_aliases
+      x-cfn-schema-name: BotAlias
+      x-cfn-type-name: AWS::Lex::BotAlias
+      x-identifiers:
+        - BotAliasId
+        - BotId
+      x-type: cloud_control
+      methods:
+        create_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive_DesiredState
+          operation:
+            $ref: '#/paths/~1?Action=CreateResource&Version=2021-09-30&__BotAlias&__detailTransformed=true/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::BotAlias"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        update_resource:
+          operation:
+            $ref: '#/paths/~1?Action=UpdateResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::BotAlias"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        delete_resource:
+          operation:
+            $ref: '#/paths/~1?Action=DeleteResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::BotAlias"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+      sqlVerbs:
+        insert:
+          - $ref: '#/components/x-stackQL-resources/bot_aliases/methods/create_resource'
+        delete:
+          - $ref: '#/components/x-stackQL-resources/bot_aliases/methods/delete_resource'
+        update:
+          - $ref: '#/components/x-stackQL-resources/bot_aliases/methods/update_resource'
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3" && requiredParams == [ data__Identifier ]
+            ddl: |-
+              SELECT
+              region,
+              data__Identifier,
+              JSON_EXTRACT(Properties, '$.BotAliasId') as bot_alias_id,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.BotAliasStatus') as bot_alias_status,
+              JSON_EXTRACT(Properties, '$.BotAliasLocaleSettings') as bot_alias_locale_settings,
+              JSON_EXTRACT(Properties, '$.BotAliasName') as bot_alias_name,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version,
+              JSON_EXTRACT(Properties, '$.ConversationLogSettings') as conversation_log_settings,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.SentimentAnalysisSettings') as sentiment_analysis_settings,
+              JSON_EXTRACT(Properties, '$.BotAliasTags') as bot_alias_tags
+              FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
+              AND data__Identifier = '<BotAliasId>|<BotId>'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres" && requiredParams == [ data__Identifier ]
+              ddl: |-
+                SELECT
+                region,
+                data__Identifier,
+                json_extract_path_text(Properties, 'BotAliasId') as bot_alias_id,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BotAliasStatus') as bot_alias_status,
+                json_extract_path_text(Properties, 'BotAliasLocaleSettings') as bot_alias_locale_settings,
+                json_extract_path_text(Properties, 'BotAliasName') as bot_alias_name,
+                json_extract_path_text(Properties, 'BotVersion') as bot_version,
+                json_extract_path_text(Properties, 'ConversationLogSettings') as conversation_log_settings,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SentimentAnalysisSettings') as sentiment_analysis_settings,
+                json_extract_path_text(Properties, 'BotAliasTags') as bot_alias_tags
+                FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
+                AND data__Identifier = '<BotAliasId>|<BotId>'
+                AND region = 'us-east-1'
+    bot_aliases_list_only:
+      name: bot_aliases_list_only
+      id: awscc.lex.bot_aliases_list_only
+      x-cfn-schema-name: BotAlias
+      x-cfn-type-name: AWS::Lex::BotAlias
+      x-identifiers:
+        - BotAliasId
+        - BotId
+      x-type: cloud_control_view
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BotAliasId') as bot_alias_id,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id
+              FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotAliasId') as bot_alias_id,
+                json_extract_path_text(Properties, 'BotId') as bot_id
+                FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias'
+                AND region = 'us-east-1'
+    resource_policies:
+      name: resource_policies
+      id: awscc.lex.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      x-cfn-type-name: AWS::Lex::ResourcePolicy
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods:
+        create_resource:
+          config:
+            requestBodyTranslate:
+              algorithm: naive_DesiredState
+          operation:
+            $ref: '#/paths/~1?Action=CreateResource&Version=2021-09-30&__ResourcePolicy&__detailTransformed=true/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::ResourcePolicy"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        update_resource:
+          operation:
+            $ref: '#/paths/~1?Action=UpdateResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::ResourcePolicy"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+        delete_resource:
+          operation:
+            $ref: '#/paths/~1?Action=DeleteResource&Version=2021-09-30/post'
+          request:
+            mediaType: application/x-amz-json-1.0
+            base: |-
+              {
+                "TypeName": "AWS::Lex::ResourcePolicy"
+              }
+          response:
+            mediaType: application/json
+            openAPIDocKey: '200'
+      sqlVerbs:
+        insert:
+          - $ref: '#/components/x-stackQL-resources/resource_policies/methods/create_resource'
+        delete:
+          - $ref: '#/components/x-stackQL-resources/resource_policies/methods/delete_resource'
+        update:
+          - $ref: '#/components/x-stackQL-resources/resource_policies/methods/update_resource'
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3" && requiredParams == [ data__Identifier ]
+            ddl: |-
+              SELECT
+              region,
+              data__Identifier,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.RevisionId') as revision_id,
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+              AND data__Identifier = '<Id>'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres" && requiredParams == [ data__Identifier ]
+              ddl: |-
+                SELECT
+                region,
+                data__Identifier,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'RevisionId') as revision_id,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+                AND data__Identifier = '<Id>'
+                AND region = 'us-east-1'
+    resource_policies_list_only:
+      name: resource_policies_list_only
+      id: awscc.lex.resource_policies_list_only
+      x-cfn-schema-name: ResourcePolicy
+      x-cfn-type-name: AWS::Lex::ResourcePolicy
+      x-identifiers:
+        - Id
+      x-type: cloud_control_view
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+              AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+                AND region = 'us-east-1'
+paths:
+  /?Action=CreateResource&Version=2021-09-30:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: CreateResource
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.CreateResource
+            enum:
+              - CloudApiService.CreateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/x-cloud-control-schemas/CreateResourceInput'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+          description: Success
+  /?Action=DeleteResource&Version=2021-09-30:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: DeleteResource
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.DeleteResource
+            enum:
+              - CloudApiService.DeleteResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/x-cloud-control-schemas/DeleteResourceInput'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/DeleteResourceOutput'
+          description: Success
+  /?Action=UpdateResource&Version=2021-09-30:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: UpdateResource
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.UpdateResource
+            enum:
+              - CloudApiService.UpdateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              properties:
+                ClientName:
+                  type: string
+                Identifier:
+                  $ref: '#/components/x-cloud-control-schemas/Identifier'
+                PatchDocument:
+                  type: string
+                RoleArn:
+                  $ref: '#/components/x-cloud-control-schemas/RoleArn'
+                TypeName:
+                  $ref: '#/components/x-cloud-control-schemas/TypeName'
+                TypeVersionId:
+                  $ref: '#/components/x-cloud-control-schemas/TypeVersionId'
+              required:
+                - Identifier
+                - PatchDocument
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/UpdateResourceOutput'
+          description: Success
+  /?Action=CreateResource&Version=2021-09-30&__Bot&__detailTransformed=true:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: CreateBot
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.CreateResource
+            enum:
+              - CloudApiService.CreateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/CreateBotRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+          description: Success
+  /?Action=CreateResource&Version=2021-09-30&__BotVersion&__detailTransformed=true:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: CreateBotVersion
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.CreateResource
+            enum:
+              - CloudApiService.CreateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/CreateBotVersionRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+          description: Success
+  /?Action=CreateResource&Version=2021-09-30&__BotAlias&__detailTransformed=true:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: CreateBotAlias
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.CreateResource
+            enum:
+              - CloudApiService.CreateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/CreateBotAliasRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+          description: Success
+  /?Action=CreateResource&Version=2021-09-30&__ResourcePolicy&__detailTransformed=true:
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      operationId: CreateResourcePolicy
+      parameters:
+        - description: Action Header
+          in: header
+          name: X-Amz-Target
+          required: false
+          schema:
+            default: CloudApiService.CreateResource
+            enum:
+              - CloudApiService.CreateResource
+            type: string
+        - in: header
+          name: Content-Type
+          required: false
+          schema:
+            default: application/x-amz-json-1.0
+            enum:
+              - application/x-amz-json-1.0
+            type: string
+      requestBody:
+        content:
+          application/x-amz-json-1.0:
+            schema:
+              $ref: '#/components/schemas/CreateResourcePolicyRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/x-cloud-control-schemas/ProgressEvent'
+          description: Success
+x-stackQL-config:
+  requestTranslate:
+    algorithm: drop_double_underscore_params
+  pagination:
+    requestToken:
+      key: NextToken
+      location: body
+    responseToken:
+      key: NextToken
+      location: body

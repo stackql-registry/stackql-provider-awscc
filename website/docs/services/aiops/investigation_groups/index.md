@@ -1,0 +1,320 @@
+---
+title: investigation_groups
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - investigation_groups
+  - aiops
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes or gets an <code>investigation_group</code> resource or lists <code>investigation_groups</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>investigation_groups</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Definition of AWS::AIOps::InvestigationGroup Resource Type</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.aiops.investigation_groups" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<table>
+<tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Investigation Role's ARN.</td></tr>
+<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
+<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
+<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp value.</td></tr>
+<tr><td><CopyableCode code="last_modified_by" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
+<tr><td><CopyableCode code="last_modified_at" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
+<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Investigation Group's ARN.</td></tr>
+<tr><td><CopyableCode code="retention_in_days" /></td><td><code>integer</code></td><td>The number of days to retain the investigation group</td></tr>
+<tr><td><CopyableCode code="encryption_config" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="investigation_group_policy" /></td><td><code>string</code></td><td>Investigation Group policy</td></tr>
+<tr><td><CopyableCode code="is_cloud_trail_event_history_enabled" /></td><td><code>boolean</code></td><td>Flag to enable cloud trail history</td></tr>
+<tr><td><CopyableCode code="tag_key_boundaries" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="chatbot_notification_channels" /></td><td><code>array</code></td><td>An array of key-value pairs of notification channels to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="cross_account_configurations" /></td><td><code>array</code></td><td>An array of cross account configurations.</td></tr>
+<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+
+</tbody>
+</table>
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-aiops-investigationgroup.html"><code>AWS::AIOps::InvestigationGroup</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Name, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+Gets all <code>investigation_groups</code> in a region.
+```sql
+SELECT
+region,
+role_arn,
+name,
+created_by,
+created_at,
+last_modified_by,
+last_modified_at,
+arn,
+retention_in_days,
+encryption_config,
+investigation_group_policy,
+is_cloud_trail_event_history_enabled,
+tag_key_boundaries,
+chatbot_notification_channels,
+cross_account_configurations,
+tags
+FROM awscc.aiops.investigation_groups
+WHERE region = 'us-east-1';
+```
+Gets all properties from an individual <code>investigation_group</code>.
+```sql
+SELECT
+region,
+role_arn,
+name,
+created_by,
+created_at,
+last_modified_by,
+last_modified_at,
+arn,
+retention_in_days,
+encryption_config,
+investigation_group_policy,
+is_cloud_trail_event_history_enabled,
+tag_key_boundaries,
+chatbot_notification_channels,
+cross_account_configurations,
+tags
+FROM awscc.aiops.investigation_groups
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>investigation_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.aiops.investigation_groups (
+ Name,
+ region
+)
+SELECT 
+'{{ Name }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.aiops.investigation_groups (
+ RoleArn,
+ Name,
+ RetentionInDays,
+ EncryptionConfig,
+ InvestigationGroupPolicy,
+ IsCloudTrailEventHistoryEnabled,
+ TagKeyBoundaries,
+ ChatbotNotificationChannels,
+ CrossAccountConfigurations,
+ Tags,
+ region
+)
+SELECT 
+ '{{ RoleArn }}',
+ '{{ Name }}',
+ '{{ RetentionInDays }}',
+ '{{ EncryptionConfig }}',
+ '{{ InvestigationGroupPolicy }}',
+ '{{ IsCloudTrailEventHistoryEnabled }}',
+ '{{ TagKeyBoundaries }}',
+ '{{ ChatbotNotificationChannels }}',
+ '{{ CrossAccountConfigurations }}',
+ '{{ Tags }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: investigation_group
+    props:
+      - name: RoleArn
+        value: '{{ RoleArn }}'
+      - name: Name
+        value: '{{ Name }}'
+      - name: RetentionInDays
+        value: '{{ RetentionInDays }}'
+      - name: EncryptionConfig
+        value:
+          EncryptionConfigurationType: '{{ EncryptionConfigurationType }}'
+          KmsKeyId: '{{ KmsKeyId }}'
+      - name: InvestigationGroupPolicy
+        value: '{{ InvestigationGroupPolicy }}'
+      - name: IsCloudTrailEventHistoryEnabled
+        value: '{{ IsCloudTrailEventHistoryEnabled }}'
+      - name: TagKeyBoundaries
+        value:
+          - '{{ TagKeyBoundaries[0] }}'
+      - name: ChatbotNotificationChannels
+        value:
+          - SNSTopicArn: '{{ SNSTopicArn }}'
+            ChatConfigurationArns:
+              - '{{ ChatConfigurationArns[0] }}'
+      - name: CrossAccountConfigurations
+        value:
+          - SourceRoleArn: null
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.aiops.investigation_groups
+WHERE data__Identifier = '<Arn>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>investigation_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+aiops:CreateInvestigationGroup,
+aiops:GetInvestigationGroup,
+aiops:GetInvestigationGroupPolicy,
+aiops:PutInvestigationGroupPolicy,
+aiops:TagResource,
+aiops:ListTagsForResource,
+iam:PassRole,
+kms:DescribeKey,
+kms:ListAliases,
+kms:Decrypt,
+kms:Encrypt,
+kms:GenerateDataKey
+```
+
+### Read
+```json
+aiops:GetInvestigationGroup,
+aiops:GetInvestigationGroupPolicy,
+aiops:ListTagsForResource,
+kms:DescribeKey,
+kms:ListAliases,
+kms:Decrypt,
+kms:Encrypt
+```
+
+### Update
+```json
+aiops:GetInvestigationGroup,
+aiops:UpdateInvestigationGroup,
+aiops:GetInvestigationGroupPolicy,
+aiops:PutInvestigationGroupPolicy,
+aiops:DeleteInvestigationGroupPolicy,
+aiops:TagResource,
+aiops:UntagResource,
+aiops:ListTagsForResource,
+iam:PassRole,
+kms:DescribeKey,
+kms:ListAliases,
+kms:Decrypt,
+kms:Encrypt,
+kms:GenerateDataKey
+```
+
+### Delete
+```json
+aiops:DeleteInvestigationGroup,
+aiops:GetInvestigationGroup,
+aiops:DeleteInvestigationGroupPolicy,
+aiops:GetInvestigationGroupPolicy,
+aiops:UntagResource,
+kms:DescribeKey,
+kms:ListAliases
+```
+
+### List
+```json
+aiops:ListInvestigationGroups,
+kms:DescribeKey,
+kms:ListAliases
+```

@@ -4,7 +4,12 @@
   "description": "Project that keep up-to-date AWS resource schema",
   "main": "process_all_docs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate-docs": "node ./bin/generate-docs.js",
+    "generate-provider": "node ./bin/generate-provider.js",
+    "start-server": "bash ./bin/start-server.sh",
+    "stop-server": "bash ./bin/stop-server.sh",
+    "server-status": "bash ./bin/server-status.sh",
+    "test-meta-routes": "node ./bin/test-meta-routes.cjs"
   },
   "type": "module",
   "repository": {
@@ -21,10 +26,11 @@
     "esm": "^3.2.25"
   },
   "dependencies": {
-    "@stackql/stackqljs": "^0.0.0-test-69cc407",
     "indefinite": "^2.5.1",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
-    "pluralize": "^8.0.0"
+    "pluralize": "^8.0.0",
+    "@stackql/pgwire-lite": "^1.0.1",
+    "@stackql/provider-utils": "^0.5.0"    
   }
 }

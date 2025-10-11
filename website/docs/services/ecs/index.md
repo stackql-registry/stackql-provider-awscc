@@ -1,0 +1,43 @@
+---
+title: ecs
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - ecs
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+The ecs service documentation.
+
+:::info Service Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>total resources:&nbsp;<b>8</b></span><br />
+</div>
+</div>
+
+:::
+
+## Resources
+<div class="row">
+<div class="providerDocColumn">
+<a href="/services/ecs/cluster_capacity_provider_associations/">cluster_capacity_provider_associations</a><br />
+<a href="/services/ecs/cluster_capacity_provider_associations_list_only/">cluster_capacity_provider_associations_list_only</a><br />
+<a href="/services/ecs/primary_task_sets/">primary_task_sets</a><br />
+<a href="/services/ecs/services/">services</a>
+</div>
+<div class="providerDocColumn">
+<a href="/services/ecs/services_list_only/">services_list_only</a><br />
+<a href="/services/ecs/task_definitions/">task_definitions</a><br />
+<a href="/services/ecs/task_definitions_list_only/">task_definitions_list_only</a><br />
+<a href="/services/ecs/task_sets/">task_sets</a>
+</div>
+</div>

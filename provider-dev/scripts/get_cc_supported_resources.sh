@@ -1,0 +1,1 @@
+python3 provider-dev/scripts/get_cc_supported_resources.py > provider-dev/config/cc_supported_resources.js

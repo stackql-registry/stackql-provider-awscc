@@ -1,0 +1,244 @@
+---
+title: db_parameter_groups
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - db_parameter_groups
+  - rds
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or lists <code>db_parameter_groups</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>db_parameter_groups</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::RDS::DBParameterGroup</code> resource creates a custom parameter group for an RDS database family.<br />This type can be declared in a template and referenced in the <code>DBParameterGroupName</code> property of an <code>AWS::RDS::DBInstance</code> resource.<br />For information about configuring parameters for Amazon RDS DB instances, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html) in the ASTERIX;Amazon RDS User GuideASTERIX;.<br />For information about configuring parameters for Amazon Aurora DB instances, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_WorkingWithParamGroups.html) in the ASTERIX;Amazon Aurora User GuideASTERIX;.<br />Applying a parameter group to a DB instance may require the DB instance to reboot, resulting in a database outage for the duration of the reboot.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.db_parameter_groups" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<table>
+<tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_parameter_group_name" /></td><td><code>string</code></td><td>The name of the DB parameter group.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens.<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />If you don't specify a value for <code>DBParameterGroupName</code> property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string.</td></tr>
+<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Provides the customer-specified description for this DB parameter group.</td></tr>
+<tr><td><CopyableCode code="family" /></td><td><code>string</code></td><td>The DB parameter group family name. A DB parameter group can be associated with one and only one DB parameter group family, and can be applied only to a DB instance running a database engine and engine version compatible with that DB parameter group family.<br />To list all of the available parameter group families for a DB engine, use the following command:<br /><code>aws rds describe-db-engine-versions --query "DBEngineVersions&#91;&#93;.DBParameterGroupFamily" --engine &lt;engine&gt;</code> <br />For example, to list all of the available parameter group families for the MySQL DB engine, use the following command:<br /><code>aws rds describe-db-engine-versions --query "DBEngineVersions&#91;&#93;.DBParameterGroupFamily" --engine mysql</code> <br />The output contains duplicates.<br />The following are the valid DB engine values:<br />+ <code>aurora-mysql</code> <br />+ <code>aurora-postgresql</code> <br />+ <code>db2-ae</code> <br />+ <code>db2-se</code> <br />+ <code>mysql</code> <br />+ <code>oracle-ee</code> <br />+ <code>oracle-ee-cdb</code> <br />+ <code>oracle-se2</code> <br />+ <code>oracle-se2-cdb</code> <br />+ <code>postgres</code> <br />+ <code>sqlserver-ee</code> <br />+ <code>sqlserver-se</code> <br />+ <code>sqlserver-ex</code> <br />+ <code>sqlserver-web</code></td></tr>
+<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>A mapping of parameter names and values for the parameter update. You must specify at least one parameter name and value.<br />For more information about parameter groups, see &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html) in the ASTERIX;Amazon RDS User GuideASTERIX;, or &#91;Working with parameter groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_WorkingWithParamGroups.html) in the ASTERIX;Amazon Aurora User GuideASTERIX;.<br />AWS CloudFormation doesn't support specifying an apply method for each individual parameter. The default apply method for each parameter is used.</td></tr>
+<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags to assign to the DB parameter group.</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+
+</tbody>
+</table>
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html"><code>AWS::RDS::DBParameterGroup</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Family, Description, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+Gets all <code>db_parameter_groups</code> in a region.
+```sql
+SELECT
+region,
+db_parameter_group_name,
+description,
+family,
+parameters,
+tags
+FROM awscc.rds.db_parameter_groups
+WHERE region = 'us-east-1';
+```
+Gets all properties from an individual <code>db_parameter_group</code>.
+```sql
+SELECT
+region,
+db_parameter_group_name,
+description,
+family,
+parameters,
+tags
+FROM awscc.rds.db_parameter_groups
+WHERE region = 'us-east-1' AND data__Identifier = '<DBParameterGroupName>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>db_parameter_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.rds.db_parameter_groups (
+ Description,
+ Family,
+ region
+)
+SELECT 
+'{{ Description }}',
+ '{{ Family }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.rds.db_parameter_groups (
+ DBParameterGroupName,
+ Description,
+ Family,
+ Parameters,
+ Tags,
+ region
+)
+SELECT 
+ '{{ DBParameterGroupName }}',
+ '{{ Description }}',
+ '{{ Family }}',
+ '{{ Parameters }}',
+ '{{ Tags }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: db_parameter_group
+    props:
+      - name: DBParameterGroupName
+        value: '{{ DBParameterGroupName }}'
+      - name: Description
+        value: '{{ Description }}'
+      - name: Family
+        value: '{{ Family }}'
+      - name: Parameters
+        value: {}
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.rds.db_parameter_groups
+WHERE data__Identifier = '<DBParameterGroupName>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>db_parameter_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+rds:AddTagsToResource,
+rds:CreateDBParameterGroup,
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:DescribeEngineDefaultParameters,
+rds:ListTagsForResource,
+rds:ModifyDBParameterGroup,
+rds:RemoveTagsFromResource
+```
+
+### Read
+```json
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:AddTagsToResource,
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:DescribeEngineDefaultParameters,
+rds:ListTagsForResource,
+rds:ModifyDBParameterGroup,
+rds:ResetDBParameterGroup,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteDBParameterGroup
+```
+
+### List
+```json
+rds:DescribeDBParameterGroups
+```

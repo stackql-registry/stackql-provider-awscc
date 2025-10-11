@@ -1,0 +1,20 @@
+---
+title: awscc
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - awscc
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS Cloud Control resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+id: 'provider-intro'
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+
+AWS Cloud Control API provider for StackQL.
