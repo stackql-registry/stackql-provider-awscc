@@ -1,0 +1,37 @@
+---
+title: ssmguiconnect
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - ssmguiconnect
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+The ssmguiconnect service documentation.
+
+:::info Service Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>total resources:&nbsp;<b>2</b></span><br />
+</div>
+</div>
+
+:::
+
+## Resources
+<div class="row">
+<div class="providerDocColumn">
+<a href="/services/ssmguiconnect/preferences/">preferences</a>
+</div>
+<div class="providerDocColumn">
+<a href="/services/ssmguiconnect/preferences_list_only/">preferences_list_only</a>
+</div>
+</div>

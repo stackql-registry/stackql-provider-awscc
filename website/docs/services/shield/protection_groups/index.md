@@ -1,0 +1,275 @@
+---
+title: protection_groups
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - protection_groups
+  - shield
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>protection_group</code> resource or lists <code>protection_groups</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>protection_groups</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>A grouping of protected resources so they can be handled as a collective. This resource grouping improves the accuracy of detection and reduces false positives.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.shield.protection_groups" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "protection_group_id",
+    "type": "string",
+    "description": "The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it."
+  },
+  {
+    "name": "protection_group_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the protection group."
+  },
+  {
+    "name": "aggregation",
+    "type": "string",
+    "description": "Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.<br />&#42; Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.<br />&#42; Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.<br />&#42; Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include Amazon CloudFront and origin resources for CloudFront distributions."
+  },
+  {
+    "name": "pattern",
+    "type": "string",
+    "description": "The criteria to use to choose the protected resources for inclusion in the group. You can include all resources that have protections, provide a list of resource Amazon Resource Names (ARNs), or include all resources of a specified resource type."
+  },
+  {
+    "name": "members",
+    "type": "array",
+    "description": "The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set &#96;Pattern&#96; to &#96;ARBITRARY&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The resource type to include in the protection group. All protected resources of this type are included in the protection group. Newly protected resources of this type are automatically added to the group. You must set this when you set &#96;Pattern&#96; to &#96;BY&#95;RESOURCE&#95;TYPE&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tag key-value pairs for the Protection object.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag key to describe a category of information, such as \"customer.\" Tag keys are case-sensitive."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag value to describe a specific value within a category, such as \"companyA\" or \"companyB.\" Tag values are case-sensitive."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-shield-protectiongroup.html"><code>AWS::Shield::ProtectionGroup</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Aggregation, Pattern, ProtectionGroupId, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>protection_group</code>.
+```sql
+SELECT
+region,
+protection_group_id,
+protection_group_arn,
+aggregation,
+pattern,
+members,
+resource_type,
+tags
+FROM awscc.shield.protection_groups
+WHERE data__Identifier = '<ProtectionGroupArn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>protection_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.shield.protection_groups (
+ ProtectionGroupId,
+ Aggregation,
+ Pattern,
+ region
+)
+SELECT 
+'{{ ProtectionGroupId }}',
+ '{{ Aggregation }}',
+ '{{ Pattern }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.shield.protection_groups (
+ ProtectionGroupId,
+ Aggregation,
+ Pattern,
+ Members,
+ ResourceType,
+ Tags,
+ region
+)
+SELECT 
+ '{{ ProtectionGroupId }}',
+ '{{ Aggregation }}',
+ '{{ Pattern }}',
+ '{{ Members }}',
+ '{{ ResourceType }}',
+ '{{ Tags }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: protection_group
+    props:
+      - name: ProtectionGroupId
+        value: '{{ ProtectionGroupId }}'
+      - name: Aggregation
+        value: '{{ Aggregation }}'
+      - name: Pattern
+        value: '{{ Pattern }}'
+      - name: Members
+        value:
+          - '{{ Members[0] }}'
+      - name: ResourceType
+        value: '{{ ResourceType }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.shield.protection_groups
+WHERE data__Identifier = '<ProtectionGroupArn>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>protection_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+shield:CreateProtectionGroup,
+shield:TagResource
+```
+
+### Delete
+```json
+shield:DeleteProtectionGroup,
+shield:UntagResource
+```
+
+### Read
+```json
+shield:DescribeProtectionGroup,
+shield:ListTagsForResource
+```
+
+### Update
+```json
+shield:UpdateProtectionGroup,
+shield:ListTagsForResource,
+shield:TagResource,
+shield:UntagResource
+```
+
+### List
+```json
+shield:ListProtectionGroups
+```

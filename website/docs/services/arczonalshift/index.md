@@ -1,0 +1,39 @@
+---
+title: arczonalshift
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - arczonalshift
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+The arczonalshift service documentation.
+
+:::info Service Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>total resources:&nbsp;<b>4</b></span><br />
+</div>
+</div>
+
+:::
+
+## Resources
+<div class="row">
+<div class="providerDocColumn">
+<a href="/services/arczonalshift/autoshift_observer_notification_statuses/">autoshift_observer_notification_statuses</a><br />
+<a href="/services/arczonalshift/autoshift_observer_notification_statuses_list_only/">autoshift_observer_notification_statuses_list_only</a>
+</div>
+<div class="providerDocColumn">
+<a href="/services/arczonalshift/zonal_autoshift_configurations/">zonal_autoshift_configurations</a><br />
+<a href="/services/arczonalshift/zonal_autoshift_configurations_list_only/">zonal_autoshift_configurations_list_only</a>
+</div>
+</div>

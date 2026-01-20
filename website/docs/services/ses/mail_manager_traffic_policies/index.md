@@ -1,0 +1,281 @@
+---
+title: mail_manager_traffic_policies
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - mail_manager_traffic_policies
+  - ses
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>mail_manager_traffic_policy</code> resource or lists <code>mail_manager_traffic_policies</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>mail_manager_traffic_policies</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Definition of AWS::SES::MailManagerTrafficPolicy Resource Type</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.ses.mail_manager_traffic_policies" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "default_action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_message_size_bytes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "policy_statements",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "conditions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "traffic_policy_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "traffic_policy_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "traffic_policy_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanagertrafficpolicy.html"><code>AWS::SES::MailManagerTrafficPolicy</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="DefaultAction, PolicyStatements, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>mail_manager_traffic_policy</code>.
+```sql
+SELECT
+region,
+default_action,
+max_message_size_bytes,
+policy_statements,
+tags,
+traffic_policy_arn,
+traffic_policy_id,
+traffic_policy_name
+FROM awscc.ses.mail_manager_traffic_policies
+WHERE region = 'us-east-1' AND data__Identifier = '<TrafficPolicyId>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>mail_manager_traffic_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.ses.mail_manager_traffic_policies (
+ DefaultAction,
+ PolicyStatements,
+ region
+)
+SELECT 
+'{{ DefaultAction }}',
+ '{{ PolicyStatements }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.ses.mail_manager_traffic_policies (
+ DefaultAction,
+ MaxMessageSizeBytes,
+ PolicyStatements,
+ Tags,
+ TrafficPolicyName,
+ region
+)
+SELECT 
+ '{{ DefaultAction }}',
+ '{{ MaxMessageSizeBytes }}',
+ '{{ PolicyStatements }}',
+ '{{ Tags }}',
+ '{{ TrafficPolicyName }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: mail_manager_traffic_policy
+    props:
+      - name: DefaultAction
+        value: '{{ DefaultAction }}'
+      - name: MaxMessageSizeBytes
+        value: null
+      - name: PolicyStatements
+        value:
+          - Conditions:
+              - null
+            Action: null
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+      - name: TrafficPolicyName
+        value: '{{ TrafficPolicyName }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.ses.mail_manager_traffic_policies
+WHERE data__Identifier = '<TrafficPolicyId>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>mail_manager_traffic_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+ses:TagResource,
+ses:ListTagsForResource,
+ses:GetTrafficPolicy,
+ses:CreateTrafficPolicy
+```
+
+### Read
+```json
+ses:ListTagsForResource,
+ses:GetTrafficPolicy
+```
+
+### Update
+```json
+ses:TagResource,
+ses:UntagResource,
+ses:ListTagsForResource,
+ses:GetTrafficPolicy,
+ses:UpdateTrafficPolicy
+```
+
+### Delete
+```json
+ses:GetTrafficPolicy,
+ses:DeleteTrafficPolicy
+```
+
+### List
+```json
+ses:ListTrafficPolicies
+```

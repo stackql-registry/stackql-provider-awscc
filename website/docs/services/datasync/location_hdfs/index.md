@@ -1,0 +1,381 @@
+---
+title: location_hdfs
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - location_hdfs
+  - datasync
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>location_hdf</code> resource or lists <code>location_hdfs</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>location_hdfs</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Resource schema for AWS::DataSync::LocationHDFS.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.datasync.location_hdfs" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "name_nodes",
+    "type": "array",
+    "description": "An array of Name Node(s) of the HDFS location.",
+    "children": [
+      {
+        "name": "hostname",
+        "type": "string",
+        "description": "The DNS name or IP address of the Name Node in the customer's on premises HDFS cluster."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The port on which the Name Node is listening on for client requests."
+      }
+    ]
+  },
+  {
+    "name": "block_size",
+    "type": "integer",
+    "description": "Size of chunks (blocks) in bytes that the data is divided into when stored in the HDFS cluster."
+  },
+  {
+    "name": "replication_factor",
+    "type": "integer",
+    "description": "Number of copies of each block that exists inside the HDFS cluster."
+  },
+  {
+    "name": "kms_key_provider_uri",
+    "type": "string",
+    "description": "The identifier for the Key Management Server where the encryption keys that encrypt data inside HDFS clusters are stored."
+  },
+  {
+    "name": "qop_configuration",
+    "type": "object",
+    "description": "Configuration information for RPC Protection and Data Transfer Protection. These parameters can be set to AUTHENTICATION, INTEGRITY, or PRIVACY. The default value is PRIVACY.",
+    "children": [
+      {
+        "name": "rpc_protection",
+        "type": "string",
+        "description": "Configuration for RPC Protection."
+      },
+      {
+        "name": "data_transfer_protection",
+        "type": "string",
+        "description": "Configuration for Data Transfer Protection."
+      }
+    ]
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": "The authentication mode used to determine identity of user."
+  },
+  {
+    "name": "simple_user",
+    "type": "string",
+    "description": "The user name that has read and write permissions on the specified HDFS cluster."
+  },
+  {
+    "name": "kerberos_principal",
+    "type": "string",
+    "description": "The unique identity, or principal, to which Kerberos can assign tickets."
+  },
+  {
+    "name": "kerberos_keytab",
+    "type": "string",
+    "description": "The Base64 string representation of the Keytab file."
+  },
+  {
+    "name": "kerberos_krb5_conf",
+    "type": "string",
+    "description": "The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "agent_arns",
+    "type": "array",
+    "description": "ARN(s) of the agent(s) to use for an HDFS location."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in HDFS that is used to read data from the HDFS source location or write data to the HDFS destination."
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the HDFS location."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the HDFS location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationhdf.html"><code>AWS::DataSync::LocationHDFS</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="NameNodes, AuthenticationType, AgentArns, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>location_hdf</code>.
+```sql
+SELECT
+region,
+name_nodes,
+block_size,
+replication_factor,
+kms_key_provider_uri,
+qop_configuration,
+authentication_type,
+simple_user,
+kerberos_principal,
+kerberos_keytab,
+kerberos_krb5_conf,
+tags,
+agent_arns,
+subdirectory,
+location_arn,
+location_uri
+FROM awscc.datasync.location_hdfs
+WHERE region = 'us-east-1' AND data__Identifier = '<LocationArn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>location_hdf</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.datasync.location_hdfs (
+ NameNodes,
+ AuthenticationType,
+ AgentArns,
+ region
+)
+SELECT 
+'{{ NameNodes }}',
+ '{{ AuthenticationType }}',
+ '{{ AgentArns }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.datasync.location_hdfs (
+ NameNodes,
+ BlockSize,
+ ReplicationFactor,
+ KmsKeyProviderUri,
+ QopConfiguration,
+ AuthenticationType,
+ SimpleUser,
+ KerberosPrincipal,
+ KerberosKeytab,
+ KerberosKrb5Conf,
+ Tags,
+ AgentArns,
+ Subdirectory,
+ region
+)
+SELECT 
+ '{{ NameNodes }}',
+ '{{ BlockSize }}',
+ '{{ ReplicationFactor }}',
+ '{{ KmsKeyProviderUri }}',
+ '{{ QopConfiguration }}',
+ '{{ AuthenticationType }}',
+ '{{ SimpleUser }}',
+ '{{ KerberosPrincipal }}',
+ '{{ KerberosKeytab }}',
+ '{{ KerberosKrb5Conf }}',
+ '{{ Tags }}',
+ '{{ AgentArns }}',
+ '{{ Subdirectory }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: location_hdf
+    props:
+      - name: NameNodes
+        value:
+          - Hostname: '{{ Hostname }}'
+            Port: '{{ Port }}'
+      - name: BlockSize
+        value: '{{ BlockSize }}'
+      - name: ReplicationFactor
+        value: '{{ ReplicationFactor }}'
+      - name: KmsKeyProviderUri
+        value: '{{ KmsKeyProviderUri }}'
+      - name: QopConfiguration
+        value:
+          RpcProtection: '{{ RpcProtection }}'
+          DataTransferProtection: '{{ DataTransferProtection }}'
+      - name: AuthenticationType
+        value: '{{ AuthenticationType }}'
+      - name: SimpleUser
+        value: '{{ SimpleUser }}'
+      - name: KerberosPrincipal
+        value: '{{ KerberosPrincipal }}'
+      - name: KerberosKeytab
+        value: '{{ KerberosKeytab }}'
+      - name: KerberosKrb5Conf
+        value: '{{ KerberosKrb5Conf }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+      - name: AgentArns
+        value:
+          - '{{ AgentArns[0] }}'
+      - name: Subdirectory
+        value: '{{ Subdirectory }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.datasync.location_hdfs
+WHERE data__Identifier = '<LocationArn>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>location_hdfs</code> resource, the following permissions are required:
+
+### Create
+```json
+datasync:CreateLocationHdfs,
+datasync:DescribeLocationHdfs,
+datasync:TagResource,
+datasync:ListTagsForResource
+```
+
+### Read
+```json
+datasync:DescribeLocationHdfs,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:UpdateLocationHdfs,
+datasync:DescribeLocationHdfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+
+### List
+```json
+datasync:ListLocations
+```

@@ -1,0 +1,190 @@
+---
+title: module_default_versions
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - module_default_versions
+  - cloudformation
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>module_default_version</code> resource or lists <code>module_default_versions</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>module_default_versions</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>A module that has been registered in the CloudFormation registry as the default version</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudformation.module_default_versions" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the module version to set as the default version."
+  },
+  {
+    "name": "module_name",
+    "type": "string",
+    "description": "The name of a module existing in the registry."
+  },
+  {
+    "name": "version_id",
+    "type": "string",
+    "description": "The ID of an existing version of the named module to set as the default."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-moduledefaultversion.html"><code>AWS::CloudFormation::ModuleDefaultVersion</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>module_default_version</code>.
+```sql
+SELECT
+region,
+arn,
+module_name,
+version_id
+FROM awscc.cloudformation.module_default_versions
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>module_default_version</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.cloudformation.module_default_versions (
+ Arn,
+ ModuleName,
+ VersionId,
+ region
+)
+SELECT 
+'{{ Arn }}',
+ '{{ ModuleName }}',
+ '{{ VersionId }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.cloudformation.module_default_versions (
+ Arn,
+ ModuleName,
+ VersionId,
+ region
+)
+SELECT 
+ '{{ Arn }}',
+ '{{ ModuleName }}',
+ '{{ VersionId }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: module_default_version
+    props:
+      - name: Arn
+        value: '{{ Arn }}'
+      - name: ModuleName
+        value: '{{ ModuleName }}'
+      - name: VersionId
+        value: '{{ VersionId }}'
+
+```
+</TabItem>
+</Tabs>
+
+## Permissions
+
+To operate on the <code>module_default_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudformation:DescribeType,
+cloudformation:SetTypeDefaultVersion
+```
+
+### Read
+```json
+cloudformation:DescribeType
+```
+
+### List
+```json
+cloudformation:ListTypes
+```

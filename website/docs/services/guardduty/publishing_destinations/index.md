@@ -1,0 +1,283 @@
+---
+title: publishing_destinations
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - publishing_destinations
+  - guardduty
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>publishing_destination</code> resource or lists <code>publishing_destinations</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>publishing_destinations</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Resource Type definition for AWS::GuardDuty::PublishingDestination.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.guardduty.publishing_destinations" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the publishing destination."
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": "The ID of the GuardDuty detector associated with the publishing destination."
+  },
+  {
+    "name": "destination_type",
+    "type": "string",
+    "description": "The type of resource for the publishing destination. Currently only Amazon S3 buckets are supported."
+  },
+  {
+    "name": "destination_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "destination_arn",
+        "type": "string",
+        "description": "The ARN of the resource to publish to."
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "The ARN of the KMS key to use for encryption."
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the publishing destination."
+  },
+  {
+    "name": "publishing_failure_start_timestamp",
+    "type": "string",
+    "description": "The time, in epoch millisecond format, at which GuardDuty was first unable to publish findings to the destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-publishingdestination.html"><code>AWS::GuardDuty::PublishingDestination</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="DetectorId, DestinationType, DestinationProperties, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>publishing_destination</code>.
+```sql
+SELECT
+region,
+id,
+detector_id,
+destination_type,
+destination_properties,
+status,
+publishing_failure_start_timestamp,
+tags
+FROM awscc.guardduty.publishing_destinations
+WHERE region = 'us-east-1' AND data__Identifier = '<DetectorId>|<Id>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>publishing_destination</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.guardduty.publishing_destinations (
+ DetectorId,
+ DestinationType,
+ DestinationProperties,
+ region
+)
+SELECT 
+'{{ DetectorId }}',
+ '{{ DestinationType }}',
+ '{{ DestinationProperties }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.guardduty.publishing_destinations (
+ DetectorId,
+ DestinationType,
+ DestinationProperties,
+ Tags,
+ region
+)
+SELECT 
+ '{{ DetectorId }}',
+ '{{ DestinationType }}',
+ '{{ DestinationProperties }}',
+ '{{ Tags }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: publishing_destination
+    props:
+      - name: DetectorId
+        value: '{{ DetectorId }}'
+      - name: DestinationType
+        value: '{{ DestinationType }}'
+      - name: DestinationProperties
+        value:
+          DestinationArn: '{{ DestinationArn }}'
+          KmsKeyArn: '{{ KmsKeyArn }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.guardduty.publishing_destinations
+WHERE data__Identifier = '<DetectorId|Id>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>publishing_destinations</code> resource, the following permissions are required:
+
+### Create
+```json
+guardduty:CreatePublishingDestination,
+guardduty:TagResource,
+guardduty:DescribePublishingDestination,
+guardduty:ListTagsForResource
+```
+
+### Read
+```json
+guardduty:DescribePublishingDestination,
+guardduty:ListTagsForResource
+```
+
+### Update
+```json
+guardduty:UpdatePublishingDestination,
+guardduty:TagResource,
+guardduty:UntagResource,
+guardduty:ListTagsForResource,
+guardduty:DescribePublishingDestination
+```
+
+### Delete
+```json
+guardduty:DeletePublishingDestination,
+guardduty:DescribePublishingDestination
+```
+
+### List
+```json
+guardduty:ListPublishingDestinations
+```

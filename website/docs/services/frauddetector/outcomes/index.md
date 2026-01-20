@@ -1,0 +1,256 @@
+---
+title: outcomes
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - outcomes
+  - frauddetector
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets an <code>outcome</code> resource or lists <code>outcomes</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>outcomes</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>An outcome for rule evaluation.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.frauddetector.outcomes" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the outcome."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with this outcome.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The outcome description."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The outcome ARN."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "The timestamp when the outcome was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The timestamp when the outcome was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-frauddetector-outcome.html"><code>AWS::FraudDetector::Outcome</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Name, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>outcome</code>.
+```sql
+SELECT
+region,
+name,
+tags,
+description,
+arn,
+created_time,
+last_updated_time
+FROM awscc.frauddetector.outcomes
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>outcome</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.frauddetector.outcomes (
+ Name,
+ region
+)
+SELECT 
+'{{ Name }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.frauddetector.outcomes (
+ Name,
+ Tags,
+ Description,
+ region
+)
+SELECT 
+ '{{ Name }}',
+ '{{ Tags }}',
+ '{{ Description }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: outcome
+    props:
+      - name: Name
+        value: '{{ Name }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+      - name: Description
+        value: '{{ Description }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.frauddetector.outcomes
+WHERE data__Identifier = '<Arn>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>outcomes</code> resource, the following permissions are required:
+
+### Create
+```json
+frauddetector:GetOutcomes,
+frauddetector:PutOutcome,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource
+```
+
+### Read
+```json
+frauddetector:GetOutcomes,
+frauddetector:ListTagsForResource
+```
+
+### Update
+```json
+frauddetector:GetOutcomes,
+frauddetector:PutOutcome,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource
+```
+
+### Delete
+```json
+frauddetector:GetOutcomes,
+frauddetector:DeleteOutcome
+```
+
+### List
+```json
+frauddetector:GetOutcomes,
+frauddetector:ListTagsForResource
+```

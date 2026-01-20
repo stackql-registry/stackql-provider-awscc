@@ -1,0 +1,14 @@
+## Authentication
+
+This provider uses AWS credentials for authentication. Configure your credentials using one of the following methods:
+
+- Environment variables: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+- AWS credentials file: `~/.aws/credentials`
+- IAM roles for EC2 instances
+- AWS STS temporary credentials
+
+For more information on AWS authentication, see the [AWS documentation](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html).
+
+## Regions
+
+Resources are available in all AWS regions. Use the `region` parameter to specify the target region for your operations.

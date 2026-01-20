@@ -1,0 +1,568 @@
+---
+title: campaigns
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - campaigns
+  - iotfleetwise
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>campaign</code> resource or lists <code>campaigns</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>campaigns</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Definition of AWS::IoTFleetWise::Campaign Resource Type</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotfleetwise.campaigns" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compression",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "signals_to_collect",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "max_sample_count",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "minimum_sampling_interval_ms",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "data_partition_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "signals_to_fetch",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "fully_qualified_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "signal_fetch_config",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "condition_language_version",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_destination_configs",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "start_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "expiry_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modification_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "spooling_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "signal_catalog_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "post_trigger_collection_duration",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "data_extra_dimensions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "diagnostics_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collection_scheme",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "data_partitions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "storage_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "maximum_size",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unit",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "minimum_time_to_live",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unit",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "storage_location",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "upload_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "condition_language_version",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-campaign.html"><code>AWS::IoTFleetWise::Campaign</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Name, CollectionScheme, SignalCatalogArn, TargetArn, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>campaign</code>.
+```sql
+SELECT
+region,
+status,
+action,
+creation_time,
+compression,
+description,
+priority,
+signals_to_collect,
+signals_to_fetch,
+data_destination_configs,
+start_time,
+name,
+expiry_time,
+last_modification_time,
+spooling_mode,
+signal_catalog_arn,
+post_trigger_collection_duration,
+data_extra_dimensions,
+diagnostics_mode,
+target_arn,
+arn,
+collection_scheme,
+data_partitions,
+tags
+FROM awscc.iotfleetwise.campaigns
+WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>campaign</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.iotfleetwise.campaigns (
+ Name,
+ SignalCatalogArn,
+ TargetArn,
+ CollectionScheme,
+ region
+)
+SELECT 
+'{{ Name }}',
+ '{{ SignalCatalogArn }}',
+ '{{ TargetArn }}',
+ '{{ CollectionScheme }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.iotfleetwise.campaigns (
+ Action,
+ Compression,
+ Description,
+ Priority,
+ SignalsToCollect,
+ SignalsToFetch,
+ DataDestinationConfigs,
+ StartTime,
+ Name,
+ ExpiryTime,
+ SpoolingMode,
+ SignalCatalogArn,
+ PostTriggerCollectionDuration,
+ DataExtraDimensions,
+ DiagnosticsMode,
+ TargetArn,
+ CollectionScheme,
+ DataPartitions,
+ Tags,
+ region
+)
+SELECT 
+ '{{ Action }}',
+ '{{ Compression }}',
+ '{{ Description }}',
+ '{{ Priority }}',
+ '{{ SignalsToCollect }}',
+ '{{ SignalsToFetch }}',
+ '{{ DataDestinationConfigs }}',
+ '{{ StartTime }}',
+ '{{ Name }}',
+ '{{ ExpiryTime }}',
+ '{{ SpoolingMode }}',
+ '{{ SignalCatalogArn }}',
+ '{{ PostTriggerCollectionDuration }}',
+ '{{ DataExtraDimensions }}',
+ '{{ DiagnosticsMode }}',
+ '{{ TargetArn }}',
+ '{{ CollectionScheme }}',
+ '{{ DataPartitions }}',
+ '{{ Tags }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: campaign
+    props:
+      - name: Action
+        value: '{{ Action }}'
+      - name: Compression
+        value: '{{ Compression }}'
+      - name: Description
+        value: '{{ Description }}'
+      - name: Priority
+        value: '{{ Priority }}'
+      - name: SignalsToCollect
+        value:
+          - MaxSampleCount: null
+            Name: '{{ Name }}'
+            MinimumSamplingIntervalMs: null
+            DataPartitionId: '{{ DataPartitionId }}'
+      - name: SignalsToFetch
+        value:
+          - FullyQualifiedName: '{{ FullyQualifiedName }}'
+            SignalFetchConfig: null
+            ConditionLanguageVersion: null
+            Actions:
+              - '{{ Actions[0] }}'
+      - name: DataDestinationConfigs
+        value:
+          - null
+      - name: StartTime
+        value: '{{ StartTime }}'
+      - name: Name
+        value: '{{ Name }}'
+      - name: ExpiryTime
+        value: '{{ ExpiryTime }}'
+      - name: SpoolingMode
+        value: '{{ SpoolingMode }}'
+      - name: SignalCatalogArn
+        value: '{{ SignalCatalogArn }}'
+      - name: PostTriggerCollectionDuration
+        value: null
+      - name: DataExtraDimensions
+        value:
+          - '{{ DataExtraDimensions[0] }}'
+      - name: DiagnosticsMode
+        value: '{{ DiagnosticsMode }}'
+      - name: TargetArn
+        value: '{{ TargetArn }}'
+      - name: CollectionScheme
+        value: null
+      - name: DataPartitions
+        value:
+          - Id: null
+            StorageOptions:
+              MaximumSize:
+                Unit: '{{ Unit }}'
+                Value: '{{ Value }}'
+              MinimumTimeToLive:
+                Unit: '{{ Unit }}'
+                Value: '{{ Value }}'
+              StorageLocation: '{{ StorageLocation }}'
+            UploadOptions:
+              Expression: '{{ Expression }}'
+              ConditionLanguageVersion: '{{ ConditionLanguageVersion }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.iotfleetwise.campaigns
+WHERE data__Identifier = '<Name>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>campaigns</code> resource, the following permissions are required:
+
+### Read
+```json
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource
+```
+
+### Create
+```json
+iotfleetwise:CreateCampaign,
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iam:PassRole,
+timestream:DescribeEndpoints,
+timestream:DescribeTable
+```
+
+### Update
+```json
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:UpdateCampaign,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource
+```
+
+### List
+```json
+iotfleetwise:ListCampaigns,
+iotfleetwise:GetCampaign
+```
+
+### Delete
+```json
+iotfleetwise:DeleteCampaign,
+iotfleetwise:GetCampaign
+```

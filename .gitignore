@@ -5,3 +5,7 @@ stackql*.sh
 stackql
 stackql-zip
 .stackql/
+stackql-server.log
+
+/provider-dev/downloaded/*
+dependent_schemas.yaml

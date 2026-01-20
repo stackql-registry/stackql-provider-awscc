@@ -1,0 +1,232 @@
+---
+title: request_validators
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - request_validators
+  - apigateway
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>request_validator</code> resource or lists <code>request_validators</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>request_validators</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::RequestValidator&#96;&#96; resource sets up basic validation rules for incoming requests to your API. For more information, see &#91;Enable Basic Request Validation for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.request_validators" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "request_validator_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "validate_request_body",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "validate_request_parameters",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-requestvalidator.html"><code>AWS::ApiGateway::RequestValidator</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="RestApiId, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>request_validator</code>.
+```sql
+SELECT
+region,
+request_validator_id,
+name,
+rest_api_id,
+validate_request_body,
+validate_request_parameters
+FROM awscc.apigateway.request_validators
+WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>request_validator</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.apigateway.request_validators (
+ RestApiId,
+ region
+)
+SELECT 
+'{{ RestApiId }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.apigateway.request_validators (
+ Name,
+ RestApiId,
+ ValidateRequestBody,
+ ValidateRequestParameters,
+ region
+)
+SELECT 
+ '{{ Name }}',
+ '{{ RestApiId }}',
+ '{{ ValidateRequestBody }}',
+ '{{ ValidateRequestParameters }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: request_validator
+    props:
+      - name: Name
+        value: '{{ Name }}'
+      - name: RestApiId
+        value: '{{ RestApiId }}'
+      - name: ValidateRequestBody
+        value: '{{ ValidateRequestBody }}'
+      - name: ValidateRequestParameters
+        value: '{{ ValidateRequestParameters }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.apigateway.request_validators
+WHERE data__Identifier = '<RestApiId|RequestValidatorId>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>request_validators</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:DELETE
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### List
+```json
+apigateway:GET
+```

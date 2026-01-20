@@ -1,0 +1,429 @@
+---
+title: stacks
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - stacks
+  - cloudformation
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>stack</code> resource or lists <code>stacks</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>stacks</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>The AWS::CloudFormation::Stack resource nests a stack as a resource in a top-level template.</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudformation.stacks" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "capabilities",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "outputs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "export_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "output_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "output_value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "disable_rollback",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_termination_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "notification_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "parent_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "root_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "change_set_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_policy_body",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "stack_policy_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_status_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag. You can specify a maximum of 127 characters for a tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value."
+      }
+    ]
+  },
+  {
+    "name": "template_body",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "template_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "timeout_in_minutes",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "last_update_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-stack.html"><code>AWS::CloudFormation::Stack</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="StackName, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>stack</code>.
+```sql
+SELECT
+region,
+capabilities,
+role_arn,
+outputs,
+description,
+disable_rollback,
+enable_termination_protection,
+notification_arns,
+parameters,
+parent_id,
+root_id,
+change_set_id,
+stack_name,
+stack_id,
+stack_policy_body,
+stack_policy_url,
+stack_status,
+stack_status_reason,
+tags,
+template_body,
+template_url,
+timeout_in_minutes,
+last_update_time,
+creation_time
+FROM awscc.cloudformation.stacks
+WHERE region = 'us-east-1' AND data__Identifier = '<StackId>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>stack</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.cloudformation.stacks (
+ StackName,
+ region
+)
+SELECT 
+'{{ StackName }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.cloudformation.stacks (
+ Capabilities,
+ RoleARN,
+ Description,
+ DisableRollback,
+ EnableTerminationProtection,
+ NotificationARNs,
+ Parameters,
+ StackName,
+ StackPolicyBody,
+ StackPolicyURL,
+ StackStatusReason,
+ Tags,
+ TemplateBody,
+ TemplateURL,
+ TimeoutInMinutes,
+ region
+)
+SELECT 
+ '{{ Capabilities }}',
+ '{{ RoleARN }}',
+ '{{ Description }}',
+ '{{ DisableRollback }}',
+ '{{ EnableTerminationProtection }}',
+ '{{ NotificationARNs }}',
+ '{{ Parameters }}',
+ '{{ StackName }}',
+ '{{ StackPolicyBody }}',
+ '{{ StackPolicyURL }}',
+ '{{ StackStatusReason }}',
+ '{{ Tags }}',
+ '{{ TemplateBody }}',
+ '{{ TemplateURL }}',
+ '{{ TimeoutInMinutes }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: stack
+    props:
+      - name: Capabilities
+        value:
+          - '{{ Capabilities[0] }}'
+      - name: RoleARN
+        value: '{{ RoleARN }}'
+      - name: Description
+        value: '{{ Description }}'
+      - name: DisableRollback
+        value: '{{ DisableRollback }}'
+      - name: EnableTerminationProtection
+        value: '{{ EnableTerminationProtection }}'
+      - name: NotificationARNs
+        value:
+          - '{{ NotificationARNs[0] }}'
+      - name: Parameters
+        value: {}
+      - name: StackName
+        value: '{{ StackName }}'
+      - name: StackPolicyBody
+        value: {}
+      - name: StackPolicyURL
+        value: '{{ StackPolicyURL }}'
+      - name: StackStatusReason
+        value: '{{ StackStatusReason }}'
+      - name: Tags
+        value:
+          - Key: '{{ Key }}'
+            Value: '{{ Value }}'
+      - name: TemplateBody
+        value: {}
+      - name: TemplateURL
+        value: '{{ TemplateURL }}'
+      - name: TimeoutInMinutes
+        value: '{{ TimeoutInMinutes }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.cloudformation.stacks
+WHERE data__Identifier = '<StackId>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>stacks</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudformation:DescribeStacks,
+cloudformation:CreateStack,
+iam:PassRole
+```
+
+### Update
+```json
+cloudformation:DescribeStacks,
+cloudformation:UpdateStack,
+cloudformation:UpdateTerminationProtection,
+cloudformation:SetStackPolicy,
+iam:PassRole
+```
+
+### Delete
+```json
+cloudformation:DescribeStacks,
+cloudformation:DeleteStack
+```
+
+### Read
+```json
+cloudformation:DescribeStacks,
+cloudformation:GetStackPolicy,
+cloudformation:GetTemplate
+```
+
+### List
+```json
+cloudformation:ListStacks
+```

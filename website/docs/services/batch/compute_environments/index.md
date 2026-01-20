@@ -1,0 +1,543 @@
+---
+title: compute_environments
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - compute_environments
+  - batch
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/stackql-aws-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
+
+Creates, updates, deletes or gets a <code>compute_environment</code> resource or lists <code>compute_environments</code> in a region
+
+## Overview
+<table>
+<tbody>
+<tr><td><b>Name</b></td><td><code>compute_environments</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td>Resource Type definition for AWS::Batch::ComputeEnvironment</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="awscc.batch.compute_environments" /></td></tr>
+</tbody>
+</table>
+
+## Fields
+<SchemaTable fields={[
+  {
+    "name": "compute_environment_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_resources",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allocation_strategy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bid_percentage",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "desiredv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ec2_configuration",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "image_id_override",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image_kubernetes_version",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ec2_key_pair",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "image_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_types",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "launch_template",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "launch_template_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "launch_template_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "userdata_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "overrides",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "launch_template_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "launch_template_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "version",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "userdata_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "target_instance_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "maxv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "minv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "placement_group",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "spot_iam_fleet_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subnets",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "object",
+        "description": "A key-value pair to associate with a resource."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "update_to_latest_image_version",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "replace_compute_environment",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "service_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "update_policy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "terminate_jobs_on_update",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "job_execution_timeout_minutes",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "unmanagedv_cpus",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "eks_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "eks_cluster_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kubernetes_namespace",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "context",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+
+For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html"><code>AWS::Batch::ComputeEnvironment</code></a>.
+
+## Methods
+
+<table>
+<tbody>
+  <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+  </tr>
+  <tr>
+    <td><CopyableCode code="create_resource" /></td>
+    <td><code>INSERT</code></td>
+    <td><CopyableCode code="Type, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="update_resource" /></td>
+    <td><code>UPDATE</code></td>
+    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="list_resources" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="get_resource" /></td>
+    <td><code>SELECT</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
+  </tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+Gets all properties from an individual <code>compute_environment</code>.
+```sql
+SELECT
+region,
+compute_environment_arn,
+compute_environment_name,
+compute_resources,
+replace_compute_environment,
+service_role,
+state,
+tags,
+type,
+update_policy,
+unmanagedv_cpus,
+eks_configuration,
+context
+FROM awscc.batch.compute_environments
+WHERE region = 'us-east-1' AND data__Identifier = '<ComputeEnvironmentArn>';
+```
+
+## `INSERT` example
+
+Use the following StackQL query and manifest file to create a new <code>compute_environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
+<Tabs
+    defaultValue="required"
+    values={[
+      { label: 'Required Properties', value: 'required', },
+      { label: 'All Properties', value: 'all', },
+      { label: 'Manifest', value: 'manifest', },
+    ]
+}>
+<TabItem value="required">
+
+```sql
+/*+ create */
+INSERT INTO awscc.batch.compute_environments (
+ Type,
+ region
+)
+SELECT 
+'{{ Type }}',
+'{{ region }}';
+```
+</TabItem>
+<TabItem value="all">
+
+```sql
+/*+ create */
+INSERT INTO awscc.batch.compute_environments (
+ ComputeEnvironmentName,
+ ComputeResources,
+ ReplaceComputeEnvironment,
+ ServiceRole,
+ State,
+ Tags,
+ Type,
+ UpdatePolicy,
+ UnmanagedvCpus,
+ EksConfiguration,
+ Context,
+ region
+)
+SELECT 
+ '{{ ComputeEnvironmentName }}',
+ '{{ ComputeResources }}',
+ '{{ ReplaceComputeEnvironment }}',
+ '{{ ServiceRole }}',
+ '{{ State }}',
+ '{{ Tags }}',
+ '{{ Type }}',
+ '{{ UpdatePolicy }}',
+ '{{ UnmanagedvCpus }}',
+ '{{ EksConfiguration }}',
+ '{{ Context }}',
+ '{{ region }}';
+```
+</TabItem>
+<TabItem value="manifest">
+
+```yaml
+version: 1
+name: stack name
+description: stack description
+providers:
+  - aws
+globals:
+  - name: region
+    value: '{{ vars.AWS_REGION }}'
+resources:
+  - name: compute_environment
+    props:
+      - name: ComputeEnvironmentName
+        value: '{{ ComputeEnvironmentName }}'
+      - name: ComputeResources
+        value:
+          AllocationStrategy: '{{ AllocationStrategy }}'
+          BidPercentage: '{{ BidPercentage }}'
+          DesiredvCpus: '{{ DesiredvCpus }}'
+          Ec2Configuration:
+            - ImageIdOverride: '{{ ImageIdOverride }}'
+              ImageType: '{{ ImageType }}'
+              ImageKubernetesVersion: '{{ ImageKubernetesVersion }}'
+          Ec2KeyPair: '{{ Ec2KeyPair }}'
+          ImageId: '{{ ImageId }}'
+          InstanceRole: '{{ InstanceRole }}'
+          InstanceTypes:
+            - '{{ InstanceTypes[0] }}'
+          LaunchTemplate:
+            LaunchTemplateId: '{{ LaunchTemplateId }}'
+            LaunchTemplateName: '{{ LaunchTemplateName }}'
+            Version: '{{ Version }}'
+            UserdataType: '{{ UserdataType }}'
+            Overrides:
+              - LaunchTemplateId: '{{ LaunchTemplateId }}'
+                LaunchTemplateName: '{{ LaunchTemplateName }}'
+                Version: '{{ Version }}'
+                UserdataType: '{{ UserdataType }}'
+                TargetInstanceTypes:
+                  - '{{ TargetInstanceTypes[0] }}'
+          MaxvCpus: '{{ MaxvCpus }}'
+          MinvCpus: '{{ MinvCpus }}'
+          PlacementGroup: '{{ PlacementGroup }}'
+          SecurityGroupIds:
+            - '{{ SecurityGroupIds[0] }}'
+          SpotIamFleetRole: '{{ SpotIamFleetRole }}'
+          Subnets:
+            - '{{ Subnets[0] }}'
+          Tags: {}
+          Type: '{{ Type }}'
+          UpdateToLatestImageVersion: '{{ UpdateToLatestImageVersion }}'
+      - name: ReplaceComputeEnvironment
+        value: '{{ ReplaceComputeEnvironment }}'
+      - name: ServiceRole
+        value: '{{ ServiceRole }}'
+      - name: State
+        value: '{{ State }}'
+      - name: Tags
+        value: {}
+      - name: Type
+        value: '{{ Type }}'
+      - name: UpdatePolicy
+        value:
+          TerminateJobsOnUpdate: '{{ TerminateJobsOnUpdate }}'
+          JobExecutionTimeoutMinutes: '{{ JobExecutionTimeoutMinutes }}'
+      - name: UnmanagedvCpus
+        value: '{{ UnmanagedvCpus }}'
+      - name: EksConfiguration
+        value:
+          EksClusterArn: '{{ EksClusterArn }}'
+          KubernetesNamespace: '{{ KubernetesNamespace }}'
+      - name: Context
+        value: '{{ Context }}'
+
+```
+</TabItem>
+</Tabs>
+
+## `DELETE` example
+
+```sql
+/*+ delete */
+DELETE FROM awscc.batch.compute_environments
+WHERE data__Identifier = '<ComputeEnvironmentArn>'
+AND region = 'us-east-1';
+```
+
+## Permissions
+
+To operate on the <code>compute_environments</code> resource, the following permissions are required:
+
+### Create
+```json
+Batch:CreateComputeEnvironment,
+Batch:TagResource,
+Batch:DescribeComputeEnvironments,
+iam:CreateServiceLinkedRole,
+Iam:PassRole,
+Eks:DescribeCluster,
+ec2:DescribeLaunchTemplateVersions
+```
+
+### Read
+```json
+Batch:DescribeComputeEnvironments
+```
+
+### Update
+```json
+Batch:UpdateComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:TagResource,
+Batch:UnTagResource,
+Iam:PassRole,
+Eks:DescribeCluster,
+ec2:DescribeLaunchTemplateVersions
+```
+
+### Delete
+```json
+Batch:DeleteComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:UpdateComputeEnvironment,
+Iam:PassRole,
+Eks:DescribeCluster,
+ec2:DescribeLaunchTemplateVersions
+```
+
+### List
+```json
+Batch:DescribeComputeEnvironments
+```
