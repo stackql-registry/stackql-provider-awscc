@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>direct_connect_gateway_attachment</code> resource or lists <code>direct_connect_gateway_attachments</code> in a region
 
@@ -32,29 +33,168 @@ Creates, updates, deletes or gets a <code>direct_connect_gateway_attachment</cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="core_network_id" /></td><td><code>string</code></td><td>The ID of a core network for the Direct Connect Gateway attachment.</td></tr>
-<tr><td><CopyableCode code="core_network_arn" /></td><td><code>string</code></td><td>The ARN of a core network for the Direct Connect Gateway attachment.</td></tr>
-<tr><td><CopyableCode code="attachment_id" /></td><td><code>string</code></td><td>Id of the attachment.</td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>Owner account of the attachment.</td></tr>
-<tr><td><CopyableCode code="attachment_type" /></td><td><code>string</code></td><td>Attachment type.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>State of the attachment.</td></tr>
-<tr><td><CopyableCode code="edge_locations" /></td><td><code>array</code></td><td>The Regions where the edges are located.</td></tr>
-<tr><td><CopyableCode code="direct_connect_gateway_arn" /></td><td><code>string</code></td><td>The ARN of the Direct Connect Gateway.</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The ARN of the Resource.</td></tr>
-<tr><td><CopyableCode code="attachment_policy_rule_number" /></td><td><code>integer</code></td><td>The policy rule number associated with the attachment.</td></tr>
-<tr><td><CopyableCode code="segment_name" /></td><td><code>string</code></td><td>The name of the segment attachment..</td></tr>
-<tr><td><CopyableCode code="proposed_segment_change" /></td><td><code>object</code></td><td>The attachment to move from one segment to another.</td></tr>
-<tr><td><CopyableCode code="network_function_group_name" /></td><td><code>string</code></td><td>The name of the network function group attachment.</td></tr>
-<tr><td><CopyableCode code="proposed_network_function_group_change" /></td><td><code>object</code></td><td>The attachment to move from one network function group to another.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for the attachment.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Creation time of the attachment.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Last update time of the attachment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "core_network_id",
+    "type": "string",
+    "description": "The ID of a core network for the Direct Connect Gateway attachment."
+  },
+  {
+    "name": "core_network_arn",
+    "type": "string",
+    "description": "The ARN of a core network for the Direct Connect Gateway attachment."
+  },
+  {
+    "name": "attachment_id",
+    "type": "string",
+    "description": "Id of the attachment."
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": "Owner account of the attachment."
+  },
+  {
+    "name": "attachment_type",
+    "type": "string",
+    "description": "Attachment type."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "State of the attachment."
+  },
+  {
+    "name": "edge_locations",
+    "type": "array",
+    "description": "The Regions where the edges are located."
+  },
+  {
+    "name": "direct_connect_gateway_arn",
+    "type": "string",
+    "description": "The ARN of the Direct Connect Gateway."
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The ARN of the Resource."
+  },
+  {
+    "name": "attachment_policy_rule_number",
+    "type": "integer",
+    "description": "The policy rule number associated with the attachment."
+  },
+  {
+    "name": "segment_name",
+    "type": "string",
+    "description": "The name of the segment attachment.."
+  },
+  {
+    "name": "proposed_segment_change",
+    "type": "object",
+    "description": "The attachment to move from one segment to another.",
+    "children": [
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "The key-value tags that changed for the segment.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      },
+      {
+        "name": "attachment_policy_rule_number",
+        "type": "integer",
+        "description": "The rule number in the policy document that applies to this change."
+      },
+      {
+        "name": "segment_name",
+        "type": "string",
+        "description": "The name of the segment to change."
+      }
+    ]
+  },
+  {
+    "name": "network_function_group_name",
+    "type": "string",
+    "description": "The name of the network function group attachment."
+  },
+  {
+    "name": "proposed_network_function_group_change",
+    "type": "object",
+    "description": "The attachment to move from one network function group to another.",
+    "children": [
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "The key-value tags that changed for the network function group.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      },
+      {
+        "name": "attachment_policy_rule_number",
+        "type": "integer",
+        "description": "The rule number in the policy document that applies to this change."
+      },
+      {
+        "name": "network_function_group_name",
+        "type": "string",
+        "description": "The name of the network function group to change."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for the attachment.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Creation time of the attachment."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Last update time of the attachment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-directconnectgatewayattachment.html"><code>AWS::NetworkManager::DirectConnectGatewayAttachment</code></a>.
 
@@ -96,30 +236,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>direct_connect_gateway_attachments</code> in a region.
-```sql
-SELECT
-region,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_locations,
-direct_connect_gateway_arn,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-tags,
-created_at,
-updated_at
-FROM awscc.networkmanager.direct_connect_gateway_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>direct_connect_gateway_attachment</code>.
 ```sql
 SELECT

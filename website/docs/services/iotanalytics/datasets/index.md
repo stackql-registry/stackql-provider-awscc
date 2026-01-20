@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code>datasets</code> in a region
 
@@ -32,21 +33,311 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="late_data_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="dataset_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="content_delivery_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="triggers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="versioning_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="retention_period" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "actions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "action_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "container_action",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "variables",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "variable_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "dataset_content_version_value",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "string_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "double_value",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "output_file_uri_value",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "execution_role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "volume_size_in_gb",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "compute_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "query_action",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "filters",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "filter",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "next",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "sql_query",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "late_data_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "rule_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "delta_time_session_window_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "timeout_in_minutes",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rule_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "dataset_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "content_delivery_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "destination",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "iot_events_destination_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "input_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "s3_destination_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "glue_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "entry_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "triggers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "triggering_dataset",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "dataset_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "schedule",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "schedule_expression",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "versioning_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "unlimited",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "max_versions",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "retention_period",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "number_of_days",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "unlimited",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html"><code>AWS::IoTAnalytics::Dataset</code></a>.
 
@@ -88,22 +379,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datasets</code> in a region.
-```sql
-SELECT
-region,
-actions,
-late_data_rules,
-dataset_name,
-content_delivery_rules,
-triggers,
-versioning_configuration,
-id,
-retention_period,
-tags
-FROM awscc.iotanalytics.datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT

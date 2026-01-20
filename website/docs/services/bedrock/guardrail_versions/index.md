@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>guardrail_version</code> resource or lists <code>guardrail_versions</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>guardrail_version</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Guardrail version</td></tr>
-<tr><td><CopyableCode code="guardrail_arn" /></td><td><code>string</code></td><td>Arn representation for the guardrail</td></tr>
-<tr><td><CopyableCode code="guardrail_id" /></td><td><code>string</code></td><td>Unique id for the guardrail</td></tr>
-<tr><td><CopyableCode code="guardrail_identifier" /></td><td><code>string</code></td><td>Identifier (GuardrailId or GuardrailArn) for the guardrail</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>Guardrail version</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Guardrail version"
+  },
+  {
+    "name": "guardrail_arn",
+    "type": "string",
+    "description": "Arn representation for the guardrail"
+  },
+  {
+    "name": "guardrail_id",
+    "type": "string",
+    "description": "Unique id for the guardrail"
+  },
+  {
+    "name": "guardrail_identifier",
+    "type": "string",
+    "description": "Identifier (GuardrailId or GuardrailArn) for the guardrail"
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "Guardrail version"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-guardrailversion.html"><code>AWS::Bedrock::GuardrailVersion</code></a>.
 

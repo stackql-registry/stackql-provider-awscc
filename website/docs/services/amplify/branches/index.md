@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>branch</code> resource or lists <code>branches</code> in a region
 
@@ -32,29 +33,146 @@ Creates, updates, deletes or gets a <code>branch</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="basic_auth_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="backend" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="branch_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="build_spec" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_auto_build" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_performance_mode" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_pull_request_preview" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_skew_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_variables" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="framework" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pull_request_environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stage" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "basic_auth_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enable_basic_auth",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "backend",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "stack_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "branch_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "build_spec",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable_auto_build",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_performance_mode",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_pull_request_preview",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_skew_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "environment_variables",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "framework",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pull_request_environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stage",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amplify-branch.html"><code>AWS::Amplify::Branch</code></a>.
 
@@ -96,30 +214,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>branches</code> in a region.
-```sql
-SELECT
-region,
-app_id,
-arn,
-basic_auth_config,
-backend,
-branch_name,
-build_spec,
-compute_role_arn,
-description,
-enable_auto_build,
-enable_performance_mode,
-enable_pull_request_preview,
-enable_skew_protection,
-environment_variables,
-framework,
-pull_request_environment_name,
-stage,
-tags
-FROM awscc.amplify.branches
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>branch</code>.
 ```sql
 SELECT

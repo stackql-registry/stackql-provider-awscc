@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>inference_components</code> in a region or regions, for all properties use <a href="/services/sagemaker/inference_components/"><code>inference_components</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>inference_components</code> in a region or regions, for all properti
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="inference_component_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the inference component</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "inference_component_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the inference component"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

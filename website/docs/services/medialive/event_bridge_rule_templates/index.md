@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> resource or lists <code>event_bridge_rule_templates</code> in a region
 
@@ -32,24 +33,80 @@ Creates, updates, deletes or gets an <code>event_bridge_rule_template</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>An eventbridge rule template's ARN (Amazon Resource Name)</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Placeholder documentation for __timestampIso8601</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A resource's optional description.</td></tr>
-<tr><td><CopyableCode code="event_targets" /></td><td><code>array</code></td><td>Placeholder documentation for __listOfEventBridgeRuleTemplateTarget</td></tr>
-<tr><td><CopyableCode code="event_type" /></td><td><code>string</code></td><td>The type of event to match with the rule.</td></tr>
-<tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>An eventbridge rule template group's id. AWS provided template groups have ids that start with `aws-`</td></tr>
-<tr><td><CopyableCode code="group_identifier" /></td><td><code>string</code></td><td>An eventbridge rule template group's identifier. Can be either be its id or current name.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>An eventbridge rule template's id. AWS provided templates have ids that start with `aws-`</td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td>Placeholder documentation for __string</td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td>Placeholder documentation for __timestampIso8601</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A resource's name. Names must be unique within the scope of a resource type in a specific region.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Represents the tags associated with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "An eventbridge rule template's ARN (Amazon Resource Name)"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Placeholder documentation for &#95;&#95;timestampIso8601"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A resource's optional description."
+  },
+  {
+    "name": "event_targets",
+    "type": "array",
+    "description": "Placeholder documentation for &#95;&#95;listOfEventBridgeRuleTemplateTarget",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "Target ARNs must be either an SNS topic or CloudWatch log group."
+      }
+    ]
+  },
+  {
+    "name": "event_type",
+    "type": "string",
+    "description": "The type of event to match with the rule."
+  },
+  {
+    "name": "group_id",
+    "type": "string",
+    "description": "An eventbridge rule template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+  },
+  {
+    "name": "group_identifier",
+    "type": "string",
+    "description": "An eventbridge rule template group's identifier. Can be either be its id or current name."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "An eventbridge rule template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": "Placeholder documentation for &#95;&#95;string"
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": "Placeholder documentation for &#95;&#95;timestampIso8601"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A resource's name. Names must be unique within the scope of a resource type in a specific region."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Represents the tags associated with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-eventbridgeruletemplate.html"><code>AWS::MediaLive::EventBridgeRuleTemplate</code></a>.
 
@@ -91,25 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_bridge_rule_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-description,
-event_targets,
-event_type,
-group_id,
-group_identifier,
-id,
-identifier,
-modified_at,
-name,
-tags
-FROM awscc.medialive.event_bridge_rule_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_bridge_rule_template</code>.
 ```sql
 SELECT

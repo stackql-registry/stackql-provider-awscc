@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_unit</code> resource or lists <code>domain_units</code> in a region
 
@@ -32,22 +33,63 @@ Creates, updates, deletes or gets a <code>domain_unit</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the domain where you want to create a domain unit.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the domain unit.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the domain unit.</td></tr>
-<tr><td><CopyableCode code="parent_domain_unit_identifier" /></td><td><code>string</code></td><td>The ID of the parent domain unit.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp at which the domain unit was created.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the domain where the domain unit was created.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the domain unit.</td></tr>
-<tr><td><CopyableCode code="parent_domain_unit_id" /></td><td><code>string</code></td><td>The ID of the parent domain unit.</td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td>The identifier of the domain unit that you want to get.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp at which the domain unit was last updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the domain where you want to create a domain unit."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the domain unit."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the domain unit."
+  },
+  {
+    "name": "parent_domain_unit_identifier",
+    "type": "string",
+    "description": "The ID of the parent domain unit."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp at which the domain unit was created."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the domain where the domain unit was created."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the domain unit."
+  },
+  {
+    "name": "parent_domain_unit_id",
+    "type": "string",
+    "description": "The ID of the parent domain unit."
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": "The identifier of the domain unit that you want to get."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The timestamp at which the domain unit was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-domainunit.html"><code>AWS::DataZone::DomainUnit</code></a>.
 
@@ -89,23 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_units</code> in a region.
-```sql
-SELECT
-region,
-domain_identifier,
-description,
-name,
-parent_domain_unit_identifier,
-created_at,
-domain_id,
-id,
-parent_domain_unit_id,
-identifier,
-last_updated_at
-FROM awscc.datazone.domain_units
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_unit</code>.
 ```sql
 SELECT

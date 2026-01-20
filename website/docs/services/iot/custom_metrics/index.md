@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_metric</code> resource or lists <code>custom_metrics</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>custom_metric</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="metric_name" /></td><td><code>string</code></td><td>The name of the custom metric. This will be used in the metric report submitted from the device/thing. Shouldn't begin with aws: . Cannot be updated once defined.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>Field represents a friendly name in the console for the custom metric; it doesn't have to be unique. Don't use this name as the metric identifier in the device metric report. Can be updated once defined.</td></tr>
-<tr><td><CopyableCode code="metric_type" /></td><td><code>string</code></td><td>The type of the custom metric. Types include string-list, ip-address-list, number-list, and number.</td></tr>
-<tr><td><CopyableCode code="metric_arn" /></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) of the custom metric.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "metric_name",
+    "type": "string",
+    "description": "The name of the custom metric. This will be used in the metric report submitted from the device/thing. Shouldn't begin with aws: . Cannot be updated once defined."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "Field represents a friendly name in the console for the custom metric; it doesn't have to be unique. Don't use this name as the metric identifier in the device metric report. Can be updated once defined."
+  },
+  {
+    "name": "metric_type",
+    "type": "string",
+    "description": "The type of the custom metric. Types include string-list, ip-address-list, number-list, and number."
+  },
+  {
+    "name": "metric_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) of the custom metric."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-custommetric.html"><code>AWS::IoT::CustomMetric</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_metrics</code> in a region.
-```sql
-SELECT
-region,
-metric_name,
-display_name,
-metric_type,
-metric_arn,
-tags
-FROM awscc.iot.custom_metrics
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_metric</code>.
 ```sql
 SELECT

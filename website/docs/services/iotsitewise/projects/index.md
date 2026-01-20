@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>project</code> resource or lists <code>projects</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>project</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="portal_id" /></td><td><code>string</code></td><td>The ID of the portal in which to create the project.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The ID of the project.</td></tr>
-<tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>A friendly name for the project.</td></tr>
-<tr><td><CopyableCode code="project_description" /></td><td><code>string</code></td><td>A description for the project.</td></tr>
-<tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>The ARN of the project.</td></tr>
-<tr><td><CopyableCode code="asset_ids" /></td><td><code>array</code></td><td>The IDs of the assets to be associated to the project.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the project.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "portal_id",
+    "type": "string",
+    "description": "The ID of the portal in which to create the project."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The ID of the project."
+  },
+  {
+    "name": "project_name",
+    "type": "string",
+    "description": "A friendly name for the project."
+  },
+  {
+    "name": "project_description",
+    "type": "string",
+    "description": "A description for the project."
+  },
+  {
+    "name": "project_arn",
+    "type": "string",
+    "description": "The ARN of the project."
+  },
+  {
+    "name": "asset_ids",
+    "type": "array",
+    "description": "The IDs of the assets to be associated to the project."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the project.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-project.html"><code>AWS::IoTSiteWise::Project</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>projects</code> in a region.
-```sql
-SELECT
-region,
-portal_id,
-project_id,
-project_name,
-project_description,
-project_arn,
-asset_ids,
-tags
-FROM awscc.iotsitewise.projects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT

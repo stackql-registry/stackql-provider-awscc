@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lists <code>db_subnet_groups</code> in a region
 
@@ -26,22 +27,51 @@ Creates, updates, deletes or gets a <code>db_subnet_group</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>db_subnet_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::RDS::DBSubnetGroup</code> resource creates a database subnet group. Subnet groups must contain at least two subnets in two different Availability Zones in the same region. <br />For more information, see &#91;Working with DB subnet groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Subnets) in the ASTERIX;Amazon RDS User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::DBSubnetGroup&#96;&#96; resource creates a database subnet group. Subnet groups must contain at least two subnets in two different Availability Zones in the same region. <br />For more information, see &#91;Working with DB subnet groups&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;VPC.WorkingWithRDSInstanceinaVPC.html#USER&#95;VPC.Subnets) in the &#42;Amazon RDS User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.db_subnet_groups" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_subnet_group_description" /></td><td><code>string</code></td><td>The description for the DB subnet group.</td></tr>
-<tr><td><CopyableCode code="db_subnet_group_name" /></td><td><code>string</code></td><td>The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints:<br />+ Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+ Must not be default.<br />+ First character must be a letter.<br /><br />Example: <code>mydbsubnetgroup</code></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The EC2 Subnet IDs for the DB subnet group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags to assign to the DB subnet group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "db_subnet_group_description",
+    "type": "string",
+    "description": "The description for the DB subnet group."
+  },
+  {
+    "name": "db_subnet_group_name",
+    "type": "string",
+    "description": "The name for the DB subnet group. This value is stored as a lowercase string.<br />Constraints:<br />+ Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.<br />+ Must not be default.<br />+ First character must be a letter.<br /><br />Example: &#96;&#96;mydbsubnetgroup&#96;&#96;"
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The EC2 Subnet IDs for the DB subnet group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags to assign to the DB subnet group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html"><code>AWS::RDS::DBSubnetGroup</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>db_subnet_groups</code> in a region.
-```sql
-SELECT
-region,
-db_subnet_group_description,
-db_subnet_group_name,
-subnet_ids,
-tags
-FROM awscc.rds.db_subnet_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>db_subnet_group</code>.
 ```sql
 SELECT

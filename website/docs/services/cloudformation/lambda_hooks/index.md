@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>lambda_hook</code> resource or lists <code>lambda_hooks</code> in a region
 
@@ -32,21 +33,99 @@ Creates, updates, deletes or gets a <code>lambda_hook</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="lambda_function" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN), Partial ARN, name, version, or alias of the Lambda function to invoke with this hook.</td></tr>
-<tr><td><CopyableCode code="hook_status" /></td><td><code>string</code></td><td>Attribute to specify which stacks this hook applies to or should get invoked for</td></tr>
-<tr><td><CopyableCode code="target_operations" /></td><td><code>array</code></td><td>Which operations should this Hook run against? Resource changes, stacks or change sets.</td></tr>
-<tr><td><CopyableCode code="failure_mode" /></td><td><code>string</code></td><td>Attribute to specify CloudFormation behavior on hook failure.</td></tr>
-<tr><td><CopyableCode code="target_filters" /></td><td><code>object</code></td><td>Attribute to specify which targets should invoke the hook</td></tr>
-<tr><td><CopyableCode code="stack_filters" /></td><td><code>object</code></td><td>Filters to allow hooks to target specific stack attributes</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>The typename alias for the hook.</td></tr>
-<tr><td><CopyableCode code="hook_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the activated hook</td></tr>
-<tr><td><CopyableCode code="execution_role" /></td><td><code>string</code></td><td>The execution role ARN assumed by Hooks to invoke Lambda.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "lambda_function",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN), Partial ARN, name, version, or alias of the Lambda function to invoke with this hook."
+  },
+  {
+    "name": "hook_status",
+    "type": "string",
+    "description": "Attribute to specify which stacks this hook applies to or should get invoked for"
+  },
+  {
+    "name": "target_operations",
+    "type": "array",
+    "description": "Which operations should this Hook run against? Resource changes, stacks or change sets."
+  },
+  {
+    "name": "failure_mode",
+    "type": "string",
+    "description": "Attribute to specify CloudFormation behavior on hook failure."
+  },
+  {
+    "name": "target_filters",
+    "type": "object",
+    "description": "Attribute to specify which targets should invoke the hook"
+  },
+  {
+    "name": "stack_filters",
+    "type": "object",
+    "description": "Filters to allow hooks to target specific stack attributes",
+    "children": [
+      {
+        "name": "filtering_criteria",
+        "type": "string",
+        "description": "Attribute to specify the filtering behavior. ANY will make the Hook pass if one filter matches. ALL will make the Hook pass if all filters match"
+      },
+      {
+        "name": "stack_names",
+        "type": "object",
+        "description": "List of stack names as filters",
+        "children": [
+          {
+            "name": "include",
+            "type": "array",
+            "description": "List of stack names that the hook is going to target"
+          },
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": "List of stack names that the hook is going to be excluded from"
+          }
+        ]
+      },
+      {
+        "name": "stack_roles",
+        "type": "object",
+        "description": "List of stack roles that are performing the stack operations.",
+        "children": [
+          {
+            "name": "include",
+            "type": "array",
+            "description": "List of stack roles that the hook is going to target"
+          },
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": "List of stack roles that the hook is going to be excluded from"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "The typename alias for the hook."
+  },
+  {
+    "name": "hook_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the activated hook"
+  },
+  {
+    "name": "execution_role",
+    "type": "string",
+    "description": "The execution role ARN assumed by Hooks to invoke Lambda."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-lambdahook.html"><code>AWS::CloudFormation::LambdaHook</code></a>.
 
@@ -88,22 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>lambda_hooks</code> in a region.
-```sql
-SELECT
-region,
-lambda_function,
-hook_status,
-target_operations,
-failure_mode,
-target_filters,
-stack_filters,
-alias,
-hook_arn,
-execution_role
-FROM awscc.cloudformation.lambda_hooks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>lambda_hook</code>.
 ```sql
 SELECT

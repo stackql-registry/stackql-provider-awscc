@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_gateway</code> resource or lists <code>resource_gateways</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>resource_gateway</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ipv4_addresses_per_eni" /></td><td><code>integer</code></td><td>The number of IPv4 addresses to allocate per ENI for the resource gateway</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The ID of one or more subnets in which to create an endpoint network interface.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The ID of one or more security groups to associate with the endpoint network interface.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ipv4_addresses_per_eni",
+    "type": "integer",
+    "description": "The number of IPv4 addresses to allocate per ENI for the resource gateway"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The ID of one or more subnets in which to create an endpoint network interface."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The ID of one or more security groups to associate with the endpoint network interface."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-resourcegateway.html"><code>AWS::VpcLattice::ResourceGateway</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_gateways</code> in a region.
-```sql
-SELECT
-region,
-ip_address_type,
-vpc_identifier,
-ipv4_addresses_per_eni,
-id,
-arn,
-subnet_ids,
-security_group_ids,
-tags,
-name
-FROM awscc.vpclattice.resource_gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_gateway</code>.
 ```sql
 SELECT

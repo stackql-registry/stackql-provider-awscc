@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>experiment</code> resource or lists <code>experiments</code> in a region
 
@@ -32,25 +33,190 @@ Creates, updates, deletes or gets an <code>experiment</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="project" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="running_status" /></td><td><code>object</code></td><td>Start Experiment. Default is False</td></tr>
-<tr><td><CopyableCode code="randomization_salt" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="treatments" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="metric_goals" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sampling_rate" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="online_ab_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="segment" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="remove_segment" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "project",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "running_status",
+    "type": "object",
+    "description": "Start Experiment. Default is False",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Provide START or STOP action to apply on an experiment"
+      },
+      {
+        "name": "analysis_complete_time",
+        "type": "string",
+        "description": "Provide the analysis Completion time for an experiment"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "description": "Reason is a required input for stopping the experiment"
+      },
+      {
+        "name": "desired_state",
+        "type": "string",
+        "description": "Provide CANCELLED or COMPLETED desired state when stopping an experiment"
+      }
+    ]
+  },
+  {
+    "name": "randomization_salt",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "treatments",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "treatment_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "feature",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "variation",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "metric_goals",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "metric_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "entity_id_key",
+        "type": "string",
+        "description": "The JSON path to reference the entity id in the event."
+      },
+      {
+        "name": "value_key",
+        "type": "string",
+        "description": "The JSON path to reference the numerical metric value in the event."
+      },
+      {
+        "name": "event_pattern",
+        "type": "string",
+        "description": "Event patterns have the same structure as the events they match. Rules use event patterns to select events. An event pattern either matches an event or it doesn't."
+      },
+      {
+        "name": "unit_label",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "desired_change",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "sampling_rate",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "online_ab_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "control_treatment_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "treatment_weights",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "treatment",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "split_weight",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "segment",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "remove_segment",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-evidently-experiment.html"><code>AWS::Evidently::Experiment</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,22 +33,104 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deletion_protection_enabled" /></td><td><code>boolean</code></td><td>Whether deletion protection is enabled in this cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the cluster.</td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td>The ID of the created cluster.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time of when the cluster was created in ISO-8601 format.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the cluster.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint_service_name" /></td><td><code>string</code></td><td>The VPC endpoint service name.</td></tr>
-<tr><td><CopyableCode code="multi_region_properties" /></td><td><code>object</code></td><td>The Multi-region properties associated to this cluster.</td></tr>
-<tr><td><CopyableCode code="kms_encryption_key" /></td><td><code>string</code></td><td>The KMS key that encrypts data on the cluster.</td></tr>
-<tr><td><CopyableCode code="encryption_details" /></td><td><code>object</code></td><td>The encryption configuration details for the cluster.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deletion_protection_enabled",
+    "type": "boolean",
+    "description": "Whether deletion protection is enabled in this cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the cluster."
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": "The ID of the created cluster."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time of when the cluster was created in ISO-8601 format."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the cluster."
+  },
+  {
+    "name": "vpc_endpoint_service_name",
+    "type": "string",
+    "description": "The VPC endpoint service name."
+  },
+  {
+    "name": "multi_region_properties",
+    "type": "object",
+    "description": "The Multi-region properties associated to this cluster.",
+    "children": [
+      {
+        "name": "witness_region",
+        "type": "string",
+        "description": "The witness region in a multi-region cluster."
+      },
+      {
+        "name": "clusters",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "kms_encryption_key",
+    "type": "string",
+    "description": "The KMS key that encrypts data on the cluster."
+  },
+  {
+    "name": "encryption_details",
+    "type": "object",
+    "description": "The encryption configuration details for the cluster.",
+    "children": [
+      {
+        "name": "encryption_status",
+        "type": "string",
+        "description": "The status of encryption for the cluster."
+      },
+      {
+        "name": "encryption_type",
+        "type": "string",
+        "description": "The type of encryption that protects data in the cluster."
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the KMS key that encrypts data in the cluster."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dsql-cluster.html"><code>AWS::DSQL::Cluster</code></a>.
 
@@ -89,23 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-deletion_protection_enabled,
-tags,
-resource_arn,
-identifier,
-creation_time,
-status,
-vpc_endpoint_service_name,
-multi_region_properties,
-kms_encryption_key,
-encryption_details
-FROM awscc.dsql.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

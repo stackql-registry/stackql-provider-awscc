@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>execution_plan</code> resource or lists <code>execution_plans</code> in a region
 
@@ -32,18 +33,62 @@ Creates, updates, deletes or gets an <code>execution_plan</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique ID of rescore execution plan</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the execution plan</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the execution plan</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of kendra ranking rescore execution plan</td></tr>
-<tr><td><CopyableCode code="capacity_units" /></td><td><code>object</code></td><td>Capacity units</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique ID of rescore execution plan"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the execution plan"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for labeling the execution plan",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of kendra ranking rescore execution plan"
+  },
+  {
+    "name": "capacity_units",
+    "type": "object",
+    "description": "Capacity units",
+    "children": [
+      {
+        "name": "rescore_capacity_units",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kendraranking-executionplan.html"><code>AWS::KendraRanking::ExecutionPlan</code></a>.
 
@@ -85,19 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>execution_plans</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-description,
-tags,
-name,
-capacity_units
-FROM awscc.kendraranking.execution_plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>execution_plan</code>.
 ```sql
 SELECT

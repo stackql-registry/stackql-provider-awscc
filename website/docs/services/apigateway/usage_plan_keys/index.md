@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>usage_plan_key</code> resource or lists <code>usage_plan_keys</code> in a region
 
@@ -26,22 +27,39 @@ Creates, updates, deletes or gets an <code>usage_plan_key</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>usage_plan_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::UsagePlanKey</code> resource associates an API key with a usage plan. This association determines which users the usage plan is applied to.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::UsagePlanKey&#96;&#96; resource associates an API key with a usage plan. This association determines which users the usage plan is applied to.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.usage_plan_keys" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="key_id" /></td><td><code>string</code></td><td>The Id of the UsagePlanKey resource.</td></tr>
-<tr><td><CopyableCode code="key_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="usage_plan_id" /></td><td><code>string</code></td><td>The Id of the UsagePlan resource representing the usage plan containing the UsagePlanKey resource representing a plan customer.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "key_id",
+    "type": "string",
+    "description": "The Id of the UsagePlanKey resource."
+  },
+  {
+    "name": "key_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "usage_plan_id",
+    "type": "string",
+    "description": "The Id of the UsagePlan resource representing the usage plan containing the UsagePlanKey resource representing a plan customer."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplankey.html"><code>AWS::ApiGateway::UsagePlanKey</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>usage_plan_keys</code> in a region.
-```sql
-SELECT
-region,
-key_id,
-key_type,
-usage_plan_id,
-id
-FROM awscc.apigateway.usage_plan_keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>usage_plan_key</code>.
 ```sql
 SELECT

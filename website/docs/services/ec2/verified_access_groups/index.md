@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>verified_access_group</code> resource or lists <code>verified_access_groups</code> in a region
 
@@ -32,23 +33,92 @@ Creates, updates, deletes or gets a <code>verified_access_group</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="verified_access_group_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access group.</td></tr>
-<tr><td><CopyableCode code="verified_access_instance_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access instance.</td></tr>
-<tr><td><CopyableCode code="verified_access_group_arn" /></td><td><code>string</code></td><td>The ARN of the Verified Access group.</td></tr>
-<tr><td><CopyableCode code="owner" /></td><td><code>string</code></td><td>The AWS account number that owns the group.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Time this Verified Access Group was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>Time this Verified Access Group was last updated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the AWS Verified Access group.</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>string</code></td><td>The AWS Verified Access policy document.</td></tr>
-<tr><td><CopyableCode code="policy_enabled" /></td><td><code>boolean</code></td><td>The status of the Verified Access policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="sse_specification" /></td><td><code>object</code></td><td>The configuration options for customer provided KMS encryption.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "verified_access_group_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access group."
+  },
+  {
+    "name": "verified_access_instance_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access instance."
+  },
+  {
+    "name": "verified_access_group_arn",
+    "type": "string",
+    "description": "The ARN of the Verified Access group."
+  },
+  {
+    "name": "owner",
+    "type": "string",
+    "description": "The AWS account number that owns the group."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Time this Verified Access Group was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "Time this Verified Access Group was last updated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the AWS Verified Access group."
+  },
+  {
+    "name": "policy_document",
+    "type": "string",
+    "description": "The AWS Verified Access policy document."
+  },
+  {
+    "name": "policy_enabled",
+    "type": "boolean",
+    "description": "The status of the Verified Access policy."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "sse_specification",
+    "type": "object",
+    "description": "The configuration options for customer provided KMS encryption.",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "KMS Key Arn used to encrypt the group policy"
+      },
+      {
+        "name": "customer_managed_key_enabled",
+        "type": "boolean",
+        "description": "Whether to encrypt the policy with the provided key or disable encryption"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-verifiedaccessgroup.html"><code>AWS::EC2::VerifiedAccessGroup</code></a>.
 
@@ -90,24 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>verified_access_groups</code> in a region.
-```sql
-SELECT
-region,
-verified_access_group_id,
-verified_access_instance_id,
-verified_access_group_arn,
-owner,
-creation_time,
-last_updated_time,
-description,
-policy_document,
-policy_enabled,
-tags,
-sse_specification
-FROM awscc.ec2.verified_access_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>verified_access_group</code>.
 ```sql
 SELECT

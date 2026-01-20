@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>composite_alarm</code> resource or lists <code>composite_alarms</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets a <code>composite_alarm</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the alarm</td></tr>
-<tr><td><CopyableCode code="alarm_name" /></td><td><code>string</code></td><td>The name of the Composite Alarm</td></tr>
-<tr><td><CopyableCode code="alarm_rule" /></td><td><code>string</code></td><td>Expression which aggregates the state of other Alarms (Metric or Composite Alarms)</td></tr>
-<tr><td><CopyableCode code="alarm_description" /></td><td><code>string</code></td><td>The description of the alarm</td></tr>
-<tr><td><CopyableCode code="actions_enabled" /></td><td><code>boolean</code></td><td>Indicates whether actions should be executed during any changes to the alarm state. The default is TRUE.</td></tr>
-<tr><td><CopyableCode code="ok_actions" /></td><td><code>array</code></td><td>The actions to execute when this alarm transitions to the OK state from any other state. Each action is specified as an Amazon Resource Name (ARN).</td></tr>
-<tr><td><CopyableCode code="alarm_actions" /></td><td><code>array</code></td><td>The list of actions to execute when this alarm transitions into an ALARM state from any other state. Specify each action as an Amazon Resource Name (ARN).</td></tr>
-<tr><td><CopyableCode code="insufficient_data_actions" /></td><td><code>array</code></td><td>The actions to execute when this alarm transitions to the INSUFFICIENT_DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN).</td></tr>
-<tr><td><CopyableCode code="actions_suppressor" /></td><td><code>string</code></td><td>Actions will be suppressed if the suppressor alarm is in the ALARM state. ActionsSuppressor can be an AlarmName or an Amazon Resource Name (ARN) from an existing alarm.</td></tr>
-<tr><td><CopyableCode code="actions_suppressor_wait_period" /></td><td><code>integer</code></td><td>Actions will be suppressed if ExtensionPeriod is active. The length of time that actions are suppressed is in seconds.</td></tr>
-<tr><td><CopyableCode code="actions_suppressor_extension_period" /></td><td><code>integer</code></td><td>Actions will be suppressed if WaitPeriod is active. The length of time that actions are suppressed is in seconds.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs to associate with the composite alarm. You can associate as many as 50 tags with an alarm.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the alarm"
+  },
+  {
+    "name": "alarm_name",
+    "type": "string",
+    "description": "The name of the Composite Alarm"
+  },
+  {
+    "name": "alarm_rule",
+    "type": "string",
+    "description": "Expression which aggregates the state of other Alarms (Metric or Composite Alarms)"
+  },
+  {
+    "name": "alarm_description",
+    "type": "string",
+    "description": "The description of the alarm"
+  },
+  {
+    "name": "actions_enabled",
+    "type": "boolean",
+    "description": "Indicates whether actions should be executed during any changes to the alarm state. The default is TRUE."
+  },
+  {
+    "name": "ok_actions",
+    "type": "array",
+    "description": "The actions to execute when this alarm transitions to the OK state from any other state. Each action is specified as an Amazon Resource Name (ARN)."
+  },
+  {
+    "name": "alarm_actions",
+    "type": "array",
+    "description": "The list of actions to execute when this alarm transitions into an ALARM state from any other state. Specify each action as an Amazon Resource Name (ARN)."
+  },
+  {
+    "name": "insufficient_data_actions",
+    "type": "array",
+    "description": "The actions to execute when this alarm transitions to the INSUFFICIENT&#95;DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN)."
+  },
+  {
+    "name": "actions_suppressor",
+    "type": "string",
+    "description": "Actions will be suppressed if the suppressor alarm is in the ALARM state. ActionsSuppressor can be an AlarmName or an Amazon Resource Name (ARN) from an existing alarm."
+  },
+  {
+    "name": "actions_suppressor_wait_period",
+    "type": "integer",
+    "description": "Actions will be suppressed if ExtensionPeriod is active. The length of time that actions are suppressed is in seconds."
+  },
+  {
+    "name": "actions_suppressor_extension_period",
+    "type": "integer",
+    "description": "Actions will be suppressed if WaitPeriod is active. The length of time that actions are suppressed is in seconds."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs to associate with the composite alarm. You can associate as many as 50 tags with an alarm.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A unique identifier for the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "String which you can use to describe or define the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"><code>AWS::CloudWatch::CompositeAlarm</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>composite_alarms</code> in a region.
-```sql
-SELECT
-region,
-arn,
-alarm_name,
-alarm_rule,
-alarm_description,
-actions_enabled,
-ok_actions,
-alarm_actions,
-insufficient_data_actions,
-actions_suppressor,
-actions_suppressor_wait_period,
-actions_suppressor_extension_period,
-tags
-FROM awscc.cloudwatch.composite_alarms
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>composite_alarm</code>.
 ```sql
 SELECT

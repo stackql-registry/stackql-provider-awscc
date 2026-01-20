@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>assistant_associations</code> in a region or regions, for all properties use <a href="/services/wisdom/assistant_associations/"><code>assistant_associations</code></a>
 
@@ -32,15 +33,35 @@ Lists <code>assistant_associations</code> in a region or regions, for all proper
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="assistant_association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="association" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "assistant_association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "association",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "knowledge_base_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

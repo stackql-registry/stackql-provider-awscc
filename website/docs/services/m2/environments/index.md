@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,28 +33,100 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the environment.</td></tr>
-<tr><td><CopyableCode code="engine_type" /></td><td><code>string</code></td><td>The target platform for the environment.</td></tr>
-<tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The version of the runtime engine for the environment.</td></tr>
-<tr><td><CopyableCode code="environment_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the runtime environment.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The unique identifier of the environment.</td></tr>
-<tr><td><CopyableCode code="high_availability_config" /></td><td><code>object</code></td><td>Defines the details of a high availability configuration.</td></tr>
-<tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td>The type of instance underlying the environment.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The ID or the Amazon Resource Name (ARN) of the customer managed KMS Key used for encrypting environment-related resources.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the environment.</td></tr>
-<tr><td><CopyableCode code="network_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="preferred_maintenance_window" /></td><td><code>string</code></td><td>Configures a desired maintenance window for the environment. If you do not provide a value, a random system-generated value will be assigned.</td></tr>
-<tr><td><CopyableCode code="publicly_accessible" /></td><td><code>boolean</code></td><td>Specifies whether the environment is publicly accessible.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The list of security groups for the VPC associated with this environment.</td></tr>
-<tr><td><CopyableCode code="storage_configurations" /></td><td><code>array</code></td><td>The storage configurations defined for the runtime environment.</td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The unique identifiers of the subnets assigned to this runtime environment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Tags associated to this environment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the environment."
+  },
+  {
+    "name": "engine_type",
+    "type": "string",
+    "description": "The target platform for the environment."
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": "The version of the runtime engine for the environment."
+  },
+  {
+    "name": "environment_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the runtime environment."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The unique identifier of the environment."
+  },
+  {
+    "name": "high_availability_config",
+    "type": "object",
+    "description": "Defines the details of a high availability configuration.",
+    "children": [
+      {
+        "name": "desired_capacity",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "instance_type",
+    "type": "string",
+    "description": "The type of instance underlying the environment."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The ID or the Amazon Resource Name (ARN) of the customer managed KMS Key used for encrypting environment-related resources."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the environment."
+  },
+  {
+    "name": "network_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "preferred_maintenance_window",
+    "type": "string",
+    "description": "Configures a desired maintenance window for the environment. If you do not provide a value, a random system-generated value will be assigned."
+  },
+  {
+    "name": "publicly_accessible",
+    "type": "boolean",
+    "description": "Specifies whether the environment is publicly accessible."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The list of security groups for the VPC associated with this environment."
+  },
+  {
+    "name": "storage_configurations",
+    "type": "array",
+    "description": "The storage configurations defined for the runtime environment."
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The unique identifiers of the subnets assigned to this runtime environment."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Tags associated to this environment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-m2-environment.html"><code>AWS::M2::Environment</code></a>.
 
@@ -95,29 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-description,
-engine_type,
-engine_version,
-environment_arn,
-environment_id,
-high_availability_config,
-instance_type,
-kms_key_id,
-name,
-network_type,
-preferred_maintenance_window,
-publicly_accessible,
-security_group_ids,
-storage_configurations,
-subnet_ids,
-tags
-FROM awscc.m2.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

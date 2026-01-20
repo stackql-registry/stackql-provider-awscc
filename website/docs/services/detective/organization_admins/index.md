@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>organization_admin</code> resource or lists <code>organization_admins</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets an <code>organization_admin</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The account ID of the account that should be registered as your Organization's delegated administrator for Detective</td></tr>
-<tr><td><CopyableCode code="graph_arn" /></td><td><code>string</code></td><td>The Detective graph ARN</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The account ID of the account that should be registered as your Organization's delegated administrator for Detective"
+  },
+  {
+    "name": "graph_arn",
+    "type": "string",
+    "description": "The Detective graph ARN"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-detective-organizationadmin.html"><code>AWS::Detective::OrganizationAdmin</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>organization_admins</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-graph_arn
-FROM awscc.detective.organization_admins
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>organization_admin</code>.
 ```sql
 SELECT

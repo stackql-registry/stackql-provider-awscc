@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>inference_scheduler</code> resource or lists <code>inference_schedulers</code> in a region
 
@@ -32,22 +33,140 @@ Creates, updates, deletes or gets an <code>inference_scheduler</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="data_delay_offset_in_minutes" /></td><td><code>integer</code></td><td>A period of time (in minutes) by which inference on the data is delayed after the data starts.</td></tr>
-<tr><td><CopyableCode code="data_input_configuration" /></td><td><code>object</code></td><td>Specifies configuration information for the input data for the inference scheduler, including delimiter, format, and dataset location.</td></tr>
-<tr><td><CopyableCode code="data_output_configuration" /></td><td><code>object</code></td><td>Specifies configuration information for the output results for the inference scheduler, including the S3 location for the output.</td></tr>
-<tr><td><CopyableCode code="data_upload_frequency" /></td><td><code>string</code></td><td>How often data is uploaded to the source S3 bucket for the input data.</td></tr>
-<tr><td><CopyableCode code="inference_scheduler_name" /></td><td><code>string</code></td><td>The name of the inference scheduler being created.</td></tr>
-<tr><td><CopyableCode code="model_name" /></td><td><code>string</code></td><td>The name of the previously trained ML model being used to create the inference scheduler.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of a role with permission to access the data source being used for the inference.</td></tr>
-<tr><td><CopyableCode code="server_side_kms_key_id" /></td><td><code>string</code></td><td>Provides the identifier of the AWS KMS customer master key (CMK) used to encrypt inference scheduler data by Amazon Lookout for Equipment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags associated with the inference scheduler.</td></tr>
-<tr><td><CopyableCode code="inference_scheduler_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the inference scheduler being created.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "data_delay_offset_in_minutes",
+    "type": "integer",
+    "description": "A period of time (in minutes) by which inference on the data is delayed after the data starts."
+  },
+  {
+    "name": "data_input_configuration",
+    "type": "object",
+    "description": "Specifies configuration information for the input data for the inference scheduler, including delimiter, format, and dataset location.",
+    "children": [
+      {
+        "name": "input_time_zone_offset",
+        "type": "string",
+        "description": "Indicates the difference between your time zone and Greenwich Mean Time (GMT)."
+      },
+      {
+        "name": "inference_input_name_configuration",
+        "type": "object",
+        "description": "Specifies configuration information for the input data for the inference, including timestamp format and delimiter.",
+        "children": [
+          {
+            "name": "component_timestamp_delimiter",
+            "type": "string",
+            "description": "Indicates the delimiter character used between items in the data."
+          },
+          {
+            "name": "timestamp_format",
+            "type": "string",
+            "description": "The format of the timestamp, whether Epoch time, or standard, with or without hyphens (-)."
+          }
+        ]
+      },
+      {
+        "name": "s3_input_configuration",
+        "type": "object",
+        "description": "Specifies configuration information for the input data for the inference, including input data S3 location.",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "data_output_configuration",
+    "type": "object",
+    "description": "Specifies configuration information for the output results for the inference scheduler, including the S3 location for the output.",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": "The ID number for the AWS KMS key used to encrypt the inference output."
+      },
+      {
+        "name": "s3_output_configuration",
+        "type": "object",
+        "description": "Specifies configuration information for the output results from the inference, including output S3 location.",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "data_upload_frequency",
+    "type": "string",
+    "description": "How often data is uploaded to the source S3 bucket for the input data."
+  },
+  {
+    "name": "inference_scheduler_name",
+    "type": "string",
+    "description": "The name of the inference scheduler being created."
+  },
+  {
+    "name": "model_name",
+    "type": "string",
+    "description": "The name of the previously trained ML model being used to create the inference scheduler."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of a role with permission to access the data source being used for the inference."
+  },
+  {
+    "name": "server_side_kms_key_id",
+    "type": "string",
+    "description": "Provides the identifier of the AWS KMS customer master key (CMK) used to encrypt inference scheduler data by Amazon Lookout for Equipment."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags associated with the inference scheduler.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for the specified tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the specified tag."
+      }
+    ]
+  },
+  {
+    "name": "inference_scheduler_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the inference scheduler being created."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lookoutequipment-inferencescheduler.html"><code>AWS::LookoutEquipment::InferenceScheduler</code></a>.
 
@@ -89,23 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>inference_schedulers</code> in a region.
-```sql
-SELECT
-region,
-data_delay_offset_in_minutes,
-data_input_configuration,
-data_output_configuration,
-data_upload_frequency,
-inference_scheduler_name,
-model_name,
-role_arn,
-server_side_kms_key_id,
-tags,
-inference_scheduler_arn
-FROM awscc.lookoutequipment.inference_schedulers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>inference_scheduler</code>.
 ```sql
 SELECT

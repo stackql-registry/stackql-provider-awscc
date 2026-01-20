@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>code_security_integration</code> resource or lists <code>code_security_integrations</code> in a region
 
@@ -32,23 +33,118 @@ Creates, updates, deletes or gets a <code>code_security_integration</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Code Security Integration name</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Integration Type</td></tr>
-<tr><td><CopyableCode code="create_integration_details" /></td><td><code>object</code></td><td>Create Integration Details</td></tr>
-<tr><td><CopyableCode code="update_integration_details" /></td><td><code>object</code></td><td>Update Integration Details</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Integration Status</td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td>Reason for the current status</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Code Security Integration ARN</td></tr>
-<tr><td><CopyableCode code="authorization_url" /></td><td><code>string</code></td><td>Authorization URL for OAuth flow</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Creation timestamp</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>Last update timestamp</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Code Security Integration name"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Integration Type"
+  },
+  {
+    "name": "create_integration_details",
+    "type": "object",
+    "description": "Create Integration Details",
+    "children": [
+      {
+        "name": "gitlab_self_managed",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "instance_url",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "access_token",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "update_integration_details",
+    "type": "object",
+    "description": "Update Integration Details",
+    "children": [
+      {
+        "name": "gitlab_self_managed",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "auth_code",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "github",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "code",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "installation_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Integration Status"
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": "Reason for the current status"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Code Security Integration ARN"
+  },
+  {
+    "name": "authorization_url",
+    "type": "string",
+    "description": "Authorization URL for OAuth flow"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Creation timestamp"
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "Last update timestamp"
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspectorv2-codesecurityintegration.html"><code>AWS::InspectorV2::CodeSecurityIntegration</code></a>.
 
@@ -90,24 +186,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>code_security_integrations</code> in a region.
-```sql
-SELECT
-region,
-name,
-type,
-create_integration_details,
-update_integration_details,
-status,
-status_reason,
-arn,
-authorization_url,
-created_at,
-last_updated_at,
-tags
-FROM awscc.inspectorv2.code_security_integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>code_security_integration</code>.
 ```sql
 SELECT

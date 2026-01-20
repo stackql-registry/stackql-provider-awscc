@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_block_public_access_option</code> resource or lists <code>vpc_block_public_access_options</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>vpc_block_public_access_option</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="internet_gateway_block_mode" /></td><td><code>string</code></td><td>The desired Block Public Access mode for Internet Gateways in your account. We do not allow to create in a off mode as this is the default value</td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The identifier for the specified AWS account.</td></tr>
-<tr><td><CopyableCode code="exclusions_allowed" /></td><td><code>string</code></td><td>Determines if exclusions are allowed. If you have enabled VPC BPA at the Organization level, exclusions may be not-allowed. Otherwise, they are allowed.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "internet_gateway_block_mode",
+    "type": "string",
+    "description": "The desired Block Public Access mode for Internet Gateways in your account. We do not allow to create in a off mode as this is the default value"
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The identifier for the specified AWS account."
+  },
+  {
+    "name": "exclusions_allowed",
+    "type": "string",
+    "description": "Determines if exclusions are allowed. If you have enabled VPC BPA at the Organization level, exclusions may be not-allowed. Otherwise, they are allowed."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcblockpublicaccessoption.html"><code>AWS::EC2::VPCBlockPublicAccessOptions</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>integration</code> resource or lists <code>integrations</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="integration_name" /></td><td><code>string</code></td><td>The name of the integration.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the integration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags. For more information, see &#91;Tagging Amazon RDS Resources&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the ASTERIX;Amazon RDS User Guide.ASTERIX;.</td></tr>
-<tr><td><CopyableCode code="data_filter" /></td><td><code>string</code></td><td>Data filters for the integration. These filters determine which tables from the source database are sent to the target Amazon Redshift data warehouse.</td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the database to use as the source for replication.</td></tr>
-<tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td>The ARN of the Redshift data warehouse to use as the target for replication.</td></tr>
-<tr><td><CopyableCode code="integration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The AWS Key Management System (AWS KMS) key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, RDS uses a default AWS owned key.</td></tr>
-<tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td>An optional set of non-secret key–value pairs that contains additional contextual information about the data. For more information, see &#91;Encryption context&#93;(https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context) in the ASTERIX;Key Management Service Developer GuideASTERIX;.<br />You can only include this parameter if you specify the <code>KMSKeyId</code> parameter.</td></tr>
-<tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "integration_name",
+    "type": "string",
+    "description": "The name of the integration."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the integration."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags. For more information, see &#91;Tagging Amazon RDS Resources&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;Tagging.html) in the &#42;Amazon RDS User Guide.&#42;.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      }
+    ]
+  },
+  {
+    "name": "data_filter",
+    "type": "string",
+    "description": "Data filters for the integration. These filters determine which tables from the source database are sent to the target Amazon Redshift data warehouse."
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the database to use as the source for replication."
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": "The ARN of the Redshift data warehouse to use as the target for replication."
+  },
+  {
+    "name": "integration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The AWS Key Management System (AWS KMS) key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, RDS uses a default AWS owned key."
+  },
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": "An optional set of non-secret key–value pairs that contains additional contextual information about the data. For more information, see &#91;Encryption context&#93;(https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt&#95;context) in the &#42;Key Management Service Developer Guide&#42;.<br />You can only include this parameter if you specify the &#96;&#96;KMSKeyId&#96;&#96; parameter."
+  },
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-integration.html"><code>AWS::RDS::Integration</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>integrations</code> in a region.
-```sql
-SELECT
-region,
-integration_name,
-description,
-tags,
-data_filter,
-source_arn,
-target_arn,
-integration_arn,
-kms_key_id,
-additional_encryption_context,
-create_time
-FROM awscc.rds.integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT

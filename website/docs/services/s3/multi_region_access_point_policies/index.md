@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>multi_region_access_point_policy</code> resource or lists <code>multi_region_access_point_policies</code> in a region
 
@@ -32,15 +33,35 @@ Creates, updates, deletes or gets a <code>multi_region_access_point_policy</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="mrap_name" /></td><td><code>string</code></td><td>The name of the Multi Region Access Point to apply policy</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>Policy document to apply to a Multi Region Access Point</td></tr>
-<tr><td><CopyableCode code="policy_status" /></td><td><code>object</code></td><td>The Policy Status associated with this Multi Region Access Point</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "mrap_name",
+    "type": "string",
+    "description": "The name of the Multi Region Access Point to apply policy"
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "Policy document to apply to a Multi Region Access Point"
+  },
+  {
+    "name": "policy_status",
+    "type": "object",
+    "description": "The Policy Status associated with this Multi Region Access Point",
+    "children": [
+      {
+        "name": "is_public",
+        "type": "string",
+        "description": "Specifies whether the policy is public or not."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-multiregionaccesspointpolicy.html"><code>AWS::S3::MultiRegionAccessPointPolicy</code></a>.
 
@@ -82,16 +103,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>multi_region_access_point_policies</code> in a region.
-```sql
-SELECT
-region,
-mrap_name,
-policy,
-policy_status
-FROM awscc.s3.multi_region_access_point_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>multi_region_access_point_policy</code>.
 ```sql
 SELECT

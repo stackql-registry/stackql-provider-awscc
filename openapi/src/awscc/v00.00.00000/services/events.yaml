@@ -1057,6 +1057,47 @@ components:
         list:
           - events:ListEventBuses
           - events:ListTagsForResource
+    Condition:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Type:
+          type: string
+        Key:
+          type: string
+    EventBusPolicy:
+      type: object
+      properties:
+        EventBusName:
+          type: string
+        Condition:
+          $ref: '#/components/schemas/Condition'
+        Action:
+          type: string
+        StatementId:
+          type: string
+        Statement:
+          type: object
+        Id:
+          type: string
+        Principal:
+          type: string
+      required:
+        - StatementId
+      x-stackql-resource-name: event_bus_policy
+      description: Resource Type definition for AWS::Events::EventBusPolicy
+      x-type-name: AWS::Events::EventBusPolicy
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - EventBusName
+        - StatementId
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - StatementId
     CapacityProviderStrategyItem:
       additionalProperties: false
       type: object
@@ -2443,6 +2484,19 @@ components:
                 json_extract_path_text(Properties, 'Name') as name
                 FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus'
                 AND region = 'us-east-1'
+    event_bus_policies:
+      name: event_bus_policies
+      id: awscc.events.event_bus_policies
+      x-cfn-schema-name: EventBusPolicy
+      x-cfn-type-name: AWS::Events::EventBusPolicy
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
     rules:
       name: rules
       id: awscc.events.rules

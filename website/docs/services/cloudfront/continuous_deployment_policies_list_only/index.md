@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>continuous_deployment_policies</code> in a region or regions, for all properties use <a href="/services/cloudfront/continuous_deployment_policies/"><code>continuous_deployment_policies</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>continuous_deployment_policies</code> in a region or regions, for al
 <tbody>
 <tr><td><b>Name</b></td><td><code>continuous_deployment_policies_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a continuous deployment policy that routes a subset of production traffic from a primary distribution to a staging distribution.<br />After you create and update a staging distribution, you can use a continuous deployment policy to incrementally move traffic to the staging distribution. This enables you to test changes to a distribution's configuration before moving all of your production traffic to the new configuration.<br />For more information, see &#91;Using CloudFront continuous deployment to safely test CDN configuration changes&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/continuous-deployment.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Creates a continuous deployment policy that routes a subset of production traffic from a primary distribution to a staging distribution.<br />After you create and update a staging distribution, you can use a continuous deployment policy to incrementally move traffic to the staging distribution. This enables you to test changes to a distribution's configuration before moving all of your production traffic to the new configuration.<br />For more information, see &#91;Using CloudFront continuous deployment to safely test CDN configuration changes&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/continuous-deployment.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.continuous_deployment_policies_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>load_balancer</code> resource or lists <code>load_balancers</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>load_balancer</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="load_balancer_name" /></td><td><code>string</code></td><td>The name of your load balancer.</td></tr>
-<tr><td><CopyableCode code="load_balancer_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_port" /></td><td><code>integer</code></td><td>The instance port where you're creating your load balancer.</td></tr>
-<tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td>The IP address type for the load balancer. The possible values are ipv4 for IPv4 only, and dualstack for IPv4 and IPv6. The default value is dualstack.</td></tr>
-<tr><td><CopyableCode code="attached_instances" /></td><td><code>array</code></td><td>The names of the instances attached to the load balancer.</td></tr>
-<tr><td><CopyableCode code="health_check_path" /></td><td><code>string</code></td><td>The path you provided to perform the load balancer health check. If you didn't specify a health check path, Lightsail uses the root path of your website (e.g., "/").</td></tr>
-<tr><td><CopyableCode code="session_stickiness_enabled" /></td><td><code>boolean</code></td><td>Configuration option to enable session stickiness.</td></tr>
-<tr><td><CopyableCode code="session_stickiness_lb_cookie_duration_seconds" /></td><td><code>string</code></td><td>Configuration option to adjust session stickiness cookie duration parameter.</td></tr>
-<tr><td><CopyableCode code="tls_policy_name" /></td><td><code>string</code></td><td>The name of the TLS policy to apply to the load balancer.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "load_balancer_name",
+    "type": "string",
+    "description": "The name of your load balancer."
+  },
+  {
+    "name": "load_balancer_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_port",
+    "type": "integer",
+    "description": "The instance port where you're creating your load balancer."
+  },
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": "The IP address type for the load balancer. The possible values are ipv4 for IPv4 only, and dualstack for IPv4 and IPv6. The default value is dualstack."
+  },
+  {
+    "name": "attached_instances",
+    "type": "array",
+    "description": "The names of the instances attached to the load balancer."
+  },
+  {
+    "name": "health_check_path",
+    "type": "string",
+    "description": "The path you provided to perform the load balancer health check. If you didn't specify a health check path, Lightsail uses the root path of your website (e.g., \"/\")."
+  },
+  {
+    "name": "session_stickiness_enabled",
+    "type": "boolean",
+    "description": "Configuration option to enable session stickiness."
+  },
+  {
+    "name": "session_stickiness_lb_cookie_duration_seconds",
+    "type": "string",
+    "description": "Configuration option to adjust session stickiness cookie duration parameter."
+  },
+  {
+    "name": "tls_policy_name",
+    "type": "string",
+    "description": "The name of the TLS policy to apply to the load balancer."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-loadbalancer.html"><code>AWS::Lightsail::LoadBalancer</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>load_balancers</code> in a region.
-```sql
-SELECT
-region,
-load_balancer_name,
-load_balancer_arn,
-instance_port,
-ip_address_type,
-attached_instances,
-health_check_path,
-session_stickiness_enabled,
-session_stickiness_lb_cookie_duration_seconds,
-tls_policy_name,
-tags
-FROM awscc.lightsail.load_balancers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>load_balancer</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>deployments</code> in a region or regions, for all properties use <a href="/services/appconfig/deployments/"><code>deployments</code></a>
 
@@ -32,15 +33,28 @@ Lists <code>deployments</code> in a region or regions, for all properties use <a
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The environment ID.</td></tr>
-<tr><td><CopyableCode code="deployment_number" /></td><td><code>string</code></td><td>The sequence number of the deployment.</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The environment ID."
+  },
+  {
+    "name": "deployment_number",
+    "type": "string",
+    "description": "The sequence number of the deployment."
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>global_cluster</code> resource or lists <code>global_clusters</code> in a region
 
@@ -32,21 +33,77 @@ Creates, updates, deletes or gets a <code>global_cluster</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora).<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="engine_lifecycle_support" /></td><td><code>string</code></td><td>The life cycle type of the global cluster. You can use this setting to enroll your global cluster into Amazon RDS Extended Support.</td></tr>
-<tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The version number of the database engine to use. If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster.</td></tr>
-<tr><td><CopyableCode code="deletion_protection" /></td><td><code>boolean</code></td><td>The deletion protection setting for the new global database. The global database can't be deleted when deletion protection is enabled.</td></tr>
-<tr><td><CopyableCode code="global_cluster_identifier" /></td><td><code>string</code></td><td>The cluster identifier of the new global database cluster. This parameter is stored as a lowercase string.</td></tr>
-<tr><td><CopyableCode code="source_db_cluster_identifier" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) to use as the primary cluster of the global database. This parameter is optional. This parameter is stored as a lowercase string.</td></tr>
-<tr><td><CopyableCode code="storage_encrypted" /></td><td><code>boolean</code></td><td>The storage encryption setting for the new global database cluster.<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster.</td></tr>
-<tr><td><CopyableCode code="global_endpoint" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "engine",
+    "type": "string",
+    "description": "The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora).<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      }
+    ]
+  },
+  {
+    "name": "engine_lifecycle_support",
+    "type": "string",
+    "description": "The life cycle type of the global cluster. You can use this setting to enroll your global cluster into Amazon RDS Extended Support."
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": "The version number of the database engine to use. If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster."
+  },
+  {
+    "name": "deletion_protection",
+    "type": "boolean",
+    "description": "The deletion protection setting for the new global database. The global database can't be deleted when deletion protection is enabled."
+  },
+  {
+    "name": "global_cluster_identifier",
+    "type": "string",
+    "description": "The cluster identifier of the new global database cluster. This parameter is stored as a lowercase string."
+  },
+  {
+    "name": "source_db_cluster_identifier",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) to use as the primary cluster of the global database. This parameter is optional. This parameter is stored as a lowercase string."
+  },
+  {
+    "name": "storage_encrypted",
+    "type": "boolean",
+    "description": "The storage encryption setting for the new global database cluster.<br />If you specify the SourceDBClusterIdentifier property, don't specify this property. The value is inherited from the cluster."
+  },
+  {
+    "name": "global_endpoint",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "address",
+        "type": "string",
+        "description": "The writer endpoint for the global database cluster. This endpoint always points to the writer DB instance in the current primary cluster."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-globalcluster.html"><code>AWS::RDS::GlobalCluster</code></a>.
 
@@ -88,22 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>global_clusters</code> in a region.
-```sql
-SELECT
-region,
-engine,
-tags,
-engine_lifecycle_support,
-engine_version,
-deletion_protection,
-global_cluster_identifier,
-source_db_cluster_identifier,
-storage_encrypted,
-global_endpoint
-FROM awscc.rds.global_clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>global_cluster</code>.
 ```sql
 SELECT

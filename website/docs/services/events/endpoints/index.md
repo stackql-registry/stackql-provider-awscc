@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <code>endpoints</code> in a region
 
@@ -32,23 +33,115 @@ Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="routing_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="replication_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_buses" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "routing_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "failover_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "primary",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "health_check",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "secondary",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "route",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "replication_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "event_buses",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "event_bus_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "endpoint_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-endpoint.html"><code>AWS::Events::Endpoint</code></a>.
 
@@ -90,24 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>endpoints</code> in a region.
-```sql
-SELECT
-region,
-name,
-arn,
-role_arn,
-description,
-routing_config,
-replication_config,
-event_buses,
-endpoint_id,
-endpoint_url,
-state,
-state_reason
-FROM awscc.events.endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>endpoint</code>.
 ```sql
 SELECT

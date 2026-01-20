@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_data_identifier</code> resource or lists <code>custom_data_identifiers</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>custom_data_identifier</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of custom data identifier.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of custom data identifier.</td></tr>
-<tr><td><CopyableCode code="regex" /></td><td><code>string</code></td><td>Regular expression for custom data identifier.</td></tr>
-<tr><td><CopyableCode code="maximum_match_distance" /></td><td><code>integer</code></td><td>Maximum match distance.</td></tr>
-<tr><td><CopyableCode code="keywords" /></td><td><code>array</code></td><td>Keywords to be matched against.</td></tr>
-<tr><td><CopyableCode code="ignore_words" /></td><td><code>array</code></td><td>Words to be ignored.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Custom data identifier ID.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Custom data identifier ARN.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of custom data identifier."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of custom data identifier."
+  },
+  {
+    "name": "regex",
+    "type": "string",
+    "description": "Regular expression for custom data identifier."
+  },
+  {
+    "name": "maximum_match_distance",
+    "type": "integer",
+    "description": "Maximum match distance."
+  },
+  {
+    "name": "keywords",
+    "type": "array",
+    "description": "Keywords to be matched against."
+  },
+  {
+    "name": "ignore_words",
+    "type": "array",
+    "description": "Words to be ignored."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Custom data identifier ID."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Custom data identifier ARN."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag's key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag's value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-customdataidentifier.html"><code>AWS::Macie::CustomDataIdentifier</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_data_identifiers</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-regex,
-maximum_match_distance,
-keywords,
-ignore_words,
-id,
-arn,
-tags
-FROM awscc.macie.custom_data_identifiers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_data_identifier</code>.
 ```sql
 SELECT

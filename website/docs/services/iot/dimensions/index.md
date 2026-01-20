@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dimension</code> resource or lists <code>dimensions</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>dimension</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A unique identifier for the dimension.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Specifies the type of the dimension.</td></tr>
-<tr><td><CopyableCode code="string_values" /></td><td><code>array</code></td><td>Specifies the value or list of values for the dimension.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that can be used to manage the dimension.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN (Amazon resource name) of the created dimension.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A unique identifier for the dimension."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Specifies the type of the dimension."
+  },
+  {
+    "name": "string_values",
+    "type": "array",
+    "description": "Specifies the value or list of values for the dimension."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that can be used to manage the dimension.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN (Amazon resource name) of the created dimension."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-dimension.html"><code>AWS::IoT::Dimension</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dimensions</code> in a region.
-```sql
-SELECT
-region,
-name,
-type,
-string_values,
-tags,
-arn
-FROM awscc.iot.dimensions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dimension</code>.
 ```sql
 SELECT

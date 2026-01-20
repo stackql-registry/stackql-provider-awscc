@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_peering</code> resource or lists <code>transit_gateway_peerings</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets a <code>transit_gateway_peering</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="core_network_id" /></td><td><code>string</code></td><td>The Id of the core network that you want to peer a transit gateway to.</td></tr>
-<tr><td><CopyableCode code="core_network_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the core network that you want to peer a transit gateway to.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the transit gateway that you will peer to a core network</td></tr>
-<tr><td><CopyableCode code="transit_gateway_peering_attachment_id" /></td><td><code>string</code></td><td>The ID of the TransitGatewayPeeringAttachment</td></tr>
-<tr><td><CopyableCode code="peering_id" /></td><td><code>string</code></td><td>The Id of the transit gateway peering</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the transit gateway peering</td></tr>
-<tr><td><CopyableCode code="edge_location" /></td><td><code>string</code></td><td>The location of the transit gateway peering</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the resource that you will peer to a core network</td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>Peering owner account Id</td></tr>
-<tr><td><CopyableCode code="peering_type" /></td><td><code>string</code></td><td>Peering type (TransitGatewayPeering)</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The creation time of the transit gateway peering</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "core_network_id",
+    "type": "string",
+    "description": "The Id of the core network that you want to peer a transit gateway to."
+  },
+  {
+    "name": "core_network_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the core network that you want to peer a transit gateway to."
+  },
+  {
+    "name": "transit_gateway_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the transit gateway that you will peer to a core network"
+  },
+  {
+    "name": "transit_gateway_peering_attachment_id",
+    "type": "string",
+    "description": "The ID of the TransitGatewayPeeringAttachment"
+  },
+  {
+    "name": "peering_id",
+    "type": "string",
+    "description": "The Id of the transit gateway peering"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the transit gateway peering"
+  },
+  {
+    "name": "edge_location",
+    "type": "string",
+    "description": "The location of the transit gateway peering"
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the resource that you will peer to a core network"
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": "Peering owner account Id"
+  },
+  {
+    "name": "peering_type",
+    "type": "string",
+    "description": "Peering type (TransitGatewayPeering)"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The creation time of the transit gateway peering"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-transitgatewaypeering.html"><code>AWS::NetworkManager::TransitGatewayPeering</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_peerings</code> in a region.
-```sql
-SELECT
-region,
-core_network_id,
-core_network_arn,
-transit_gateway_arn,
-transit_gateway_peering_attachment_id,
-peering_id,
-state,
-edge_location,
-resource_arn,
-owner_account_id,
-peering_type,
-created_at,
-tags
-FROM awscc.networkmanager.transit_gateway_peerings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_peering</code>.
 ```sql
 SELECT

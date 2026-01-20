@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subscriber</code> resource or lists <code>subscribers</code> in a region
 
@@ -32,24 +33,133 @@ Creates, updates, deletes or gets a <code>subscriber</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_types" /></td><td><code>array</code></td><td>The Amazon S3 or AWS Lake Formation access type.</td></tr>
-<tr><td><CopyableCode code="data_lake_arn" /></td><td><code>string</code></td><td>The ARN for the data lake.</td></tr>
-<tr><td><CopyableCode code="subscriber_identity" /></td><td><code>object</code></td><td>The AWS identity used to access your data.</td></tr>
-<tr><td><CopyableCode code="subscriber_name" /></td><td><code>string</code></td><td>The name of your Security Lake subscriber account.</td></tr>
-<tr><td><CopyableCode code="subscriber_description" /></td><td><code>string</code></td><td>The description for your subscriber account in Security Lake.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of objects, one for each tag to associate with the subscriber. For each tag, you must specify both a tag key and a tag value. A tag value cannot be null, but it can be an empty string.</td></tr>
-<tr><td><CopyableCode code="sources" /></td><td><code>array</code></td><td>The supported AWS services from which logs and events are collected.</td></tr>
-<tr><td><CopyableCode code="resource_share_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_share_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subscriber_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="s3_bucket_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subscriber_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_types",
+    "type": "array",
+    "description": "The Amazon S3 or AWS Lake Formation access type."
+  },
+  {
+    "name": "data_lake_arn",
+    "type": "string",
+    "description": "The ARN for the data lake."
+  },
+  {
+    "name": "subscriber_identity",
+    "type": "object",
+    "description": "The AWS identity used to access your data.",
+    "children": [
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "The external ID used to establish trust relationship with the AWS identity."
+      },
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "The AWS identity principal."
+      }
+    ]
+  },
+  {
+    "name": "subscriber_name",
+    "type": "string",
+    "description": "The name of your Security Lake subscriber account."
+  },
+  {
+    "name": "subscriber_description",
+    "type": "string",
+    "description": "The description for your subscriber account in Security Lake."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of objects, one for each tag to associate with the subscriber. For each tag, you must specify both a tag key and a tag value. A tag value cannot be null, but it can be an empty string.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name of the tag. This is a general label that acts as a category for a more specific tag value (value)."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value that is associated with the specified tag key (key). This value acts as a descriptor for the tag key. A tag value cannot be null, but it can be an empty string."
+      }
+    ]
+  },
+  {
+    "name": "sources",
+    "type": "array",
+    "description": "The supported AWS services from which logs and events are collected.",
+    "children": [
+      {
+        "name": "aws_log_source",
+        "type": "object",
+        "description": "Amazon Security Lake supports log and event collection for natively supported AWS services.",
+        "children": [
+          {
+            "name": "source_name",
+            "type": "string",
+            "description": "The name for a AWS source. This must be a Regionally unique value."
+          },
+          {
+            "name": "source_version",
+            "type": "string",
+            "description": "The version for a AWS source. This must be a Regionally unique value."
+          }
+        ]
+      },
+      {
+        "name": "custom_log_source",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source_name",
+            "type": "string",
+            "description": "The name for a third-party custom source. This must be a Regionally unique value."
+          },
+          {
+            "name": "source_version",
+            "type": "string",
+            "description": "The version for a third-party custom source. This must be a Regionally unique value."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "resource_share_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_share_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subscriber_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "s3_bucket_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subscriber_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securitylake-subscriber.html"><code>AWS::SecurityLake::Subscriber</code></a>.
 
@@ -91,25 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subscribers</code> in a region.
-```sql
-SELECT
-region,
-access_types,
-data_lake_arn,
-subscriber_identity,
-subscriber_name,
-subscriber_description,
-tags,
-sources,
-resource_share_arn,
-resource_share_name,
-subscriber_role_arn,
-s3_bucket_arn,
-subscriber_arn
-FROM awscc.securitylake.subscribers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subscriber</code>.
 ```sql
 SELECT

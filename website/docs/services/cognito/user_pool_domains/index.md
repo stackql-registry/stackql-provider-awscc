@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool_domain</code> resource or lists <code>user_pool_domains</code> in a region
 
@@ -32,17 +33,45 @@ Creates, updates, deletes or gets an <code>user_pool_domain</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_domain_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="cloud_front_distribution" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="managed_login_version" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "custom_domain_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "certificate_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "cloud_front_distribution",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "managed_login_version",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpooldomain.html"><code>AWS::Cognito::UserPoolDomain</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>calculated_attribute_definition</code> resource or lists <code>calculated_attribute_definitions</code> in a region
 
@@ -32,25 +33,189 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="calculated_attribute_name" /></td><td><code>string</code></td><td>The unique name of the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name of the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event trigger.</td></tr>
-<tr><td><CopyableCode code="attribute_details" /></td><td><code>object</code></td><td>Mathematical expression and a list of attribute items specified in that expression.</td></tr>
-<tr><td><CopyableCode code="conditions" /></td><td><code>object</code></td><td>The conditions including range, object count, and threshold for the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="statistic" /></td><td><code>string</code></td><td>The aggregation operation to perform for the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="use_historical_data" /></td><td><code>boolean</code></td><td>Whether to use historical data for the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the calculated attribute definition was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp of when the calculated attribute definition was most recently edited.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the calculated attribute definition.</td></tr>
-<tr><td><CopyableCode code="readiness" /></td><td><code>object</code></td><td>The readiness status of the calculated attribute.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "calculated_attribute_name",
+    "type": "string",
+    "description": "The unique name of the calculated attribute."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name of the calculated attribute."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the event trigger."
+  },
+  {
+    "name": "attribute_details",
+    "type": "object",
+    "description": "Mathematical expression and a list of attribute items specified in that expression.",
+    "children": [
+      {
+        "name": "attributes",
+        "type": "array",
+        "description": "A list of attribute items specified in the mathematical expression.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of an attribute defined in a profile object type."
+          }
+        ]
+      },
+      {
+        "name": "expression",
+        "type": "string",
+        "description": "Mathematical expression that is performed on attribute items provided in the attribute list. Each element in the expression should follow the structure of \"&#123;ObjectTypeName.AttributeName&#125;\"."
+      }
+    ]
+  },
+  {
+    "name": "conditions",
+    "type": "object",
+    "description": "The conditions including range, object count, and threshold for the calculated attribute.",
+    "children": [
+      {
+        "name": "range",
+        "type": "object",
+        "description": "The relative time period over which data is included in the aggregation.",
+        "children": [
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "The amount of time of the specified unit."
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "The unit of time."
+          },
+          {
+            "name": "value_range",
+            "type": "object",
+            "description": "A structure specifying the endpoints of the relative time period over which data is included in the aggregation.",
+            "children": [
+              {
+                "name": "start",
+                "type": "integer",
+                "description": "The starting point for this range. Positive numbers indicate how many days in the past data should be included, and negative numbers indicate how many days in the future."
+              },
+              {
+                "name": "end",
+                "type": "integer",
+                "description": "The ending point for this range. Positive numbers indicate how many days in the past data should be included, and negative numbers indicate how many days in the future."
+              }
+            ]
+          },
+          {
+            "name": "timestamp_source",
+            "type": "string",
+            "description": "An expression specifying the field in your JSON object from which the date should be parsed. The expression should follow the structure of \\\"&#123;ObjectTypeName.&lt;Location of timestamp field in JSON pointer format&gt;&#125;\\\". E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"1737587945945\"&#125;&#125;, then TimestampSource should be \"&#123;MyType.generatedAt.timestamp&#125;\"."
+          },
+          {
+            "name": "timestamp_format",
+            "type": "string",
+            "description": "The format the timestamp field in your JSON object is specified. This value should be one of EPOCHMILLI or ISO&#95;8601. E.g. if your object type is MyType and source JSON is &#123;\"generatedAt\": &#123;\"timestamp\": \"2001-07-04T12:08:56.235Z\"&#125;&#125;, then TimestampFormat should be \"ISO&#95;8601\"."
+          }
+        ]
+      },
+      {
+        "name": "object_count",
+        "type": "integer",
+        "description": "The number of profile objects used for the calculated attribute."
+      },
+      {
+        "name": "threshold",
+        "type": "object",
+        "description": "The threshold for the calculated attribute.",
+        "children": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value of the threshold."
+          },
+          {
+            "name": "operator",
+            "type": "string",
+            "description": "The operator of the threshold."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "statistic",
+    "type": "string",
+    "description": "The aggregation operation to perform for the calculated attribute."
+  },
+  {
+    "name": "use_historical_data",
+    "type": "boolean",
+    "description": "Whether to use historical data for the calculated attribute."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the calculated attribute definition was created."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The timestamp of when the calculated attribute definition was most recently edited."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the calculated attribute definition."
+  },
+  {
+    "name": "readiness",
+    "type": "object",
+    "description": "The readiness status of the calculated attribute.",
+    "children": [
+      {
+        "name": "progress_percentage",
+        "type": "integer",
+        "description": "The progress percentage for including historical data in your calculated attribute."
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "Any information pertaining to the status of the calculated attribute if required."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-calculatedattributedefinition.html"><code>AWS::CustomerProfiles::CalculatedAttributeDefinition</code></a>.
 
@@ -92,26 +257,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>calculated_attribute_definitions</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-calculated_attribute_name,
-display_name,
-description,
-attribute_details,
-conditions,
-statistic,
-use_historical_data,
-created_at,
-last_updated_at,
-status,
-readiness,
-tags
-FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>calculated_attribute_definition</code>.
 ```sql
 SELECT

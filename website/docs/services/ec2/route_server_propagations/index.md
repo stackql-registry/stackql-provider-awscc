@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route_server_propagation</code> resource or lists <code>route_server_propagations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>route_server_propagation</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="route_server_id" /></td><td><code>string</code></td><td>Route Server ID</td></tr>
-<tr><td><CopyableCode code="route_table_id" /></td><td><code>string</code></td><td>Route Table ID</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "route_server_id",
+    "type": "string",
+    "description": "Route Server ID"
+  },
+  {
+    "name": "route_table_id",
+    "type": "string",
+    "description": "Route Table ID"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routeserverpropagation.html"><code>AWS::EC2::RouteServerPropagation</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>route_server_propagations</code> in a region.
-```sql
-SELECT
-region,
-route_server_id,
-route_table_id
-FROM awscc.ec2.route_server_propagations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route_server_propagation</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_cells_filter</code> resource or lists <code>data_cells_filters</code> in a region
 
@@ -32,19 +33,50 @@ Creates, updates, deletes or gets a <code>data_cells_filter</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="table_catalog_id" /></td><td><code>string</code></td><td>The Catalog Id of the Table on which to create a Data Cells Filter.</td></tr>
-<tr><td><CopyableCode code="database_name" /></td><td><code>string</code></td><td>The name of the Database that the Table resides in.</td></tr>
-<tr><td><CopyableCode code="table_name" /></td><td><code>string</code></td><td>The name of the Table to create a Data Cells Filter for.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The desired name of the Data Cells Filter.</td></tr>
-<tr><td><CopyableCode code="row_filter" /></td><td><code>object</code></td><td>An object representing the Data Cells Filter's Row Filter. Either a Filter Expression or a Wildcard is required</td></tr>
-<tr><td><CopyableCode code="column_names" /></td><td><code>array</code></td><td>A list of columns to be included in this Data Cells Filter.</td></tr>
-<tr><td><CopyableCode code="column_wildcard" /></td><td><code>object</code></td><td>An object representing the Data Cells Filter's Columns. Either Column Names or a Wildcard is required</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "table_catalog_id",
+    "type": "string",
+    "description": "The Catalog Id of the Table on which to create a Data Cells Filter."
+  },
+  {
+    "name": "database_name",
+    "type": "string",
+    "description": "The name of the Database that the Table resides in."
+  },
+  {
+    "name": "row_filter",
+    "type": "object",
+    "description": "An object representing the Data Cells Filter's Row Filter. Either a Filter Expression or a Wildcard is required",
+    "children": [
+      {
+        "name": "filter_expression",
+        "type": "string",
+        "description": "A PartiQL predicate."
+      },
+      {
+        "name": "all_rows_wildcard",
+        "type": "object",
+        "description": "An empty object representing a row wildcard."
+      }
+    ]
+  },
+  {
+    "name": "column_names",
+    "type": "array",
+    "description": "A list of columns to be included in this Data Cells Filter."
+  },
+  {
+    "name": "column_wildcard",
+    "type": "object",
+    "description": "An object representing the Data Cells Filter's Columns. Either Column Names or a Wildcard is required"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lakeformation-datacellsfilter.html"><code>AWS::LakeFormation::DataCellsFilter</code></a>.
 
@@ -81,20 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_cells_filters</code> in a region.
-```sql
-SELECT
-region,
-table_catalog_id,
-database_name,
-table_name,
-name,
-row_filter,
-column_names,
-column_wildcard
-FROM awscc.lakeformation.data_cells_filters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_cells_filter</code>.
 ```sql
 SELECT

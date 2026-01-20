@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_link</code> resource or lists <code>vpc_links</code> in a region
 
@@ -26,23 +27,44 @@ Creates, updates, deletes or gets a <code>vpc_link</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpc_links</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::VpcLink</code> resource creates a VPC link. Supported only for HTTP APIs. The VPC link status must transition from <code>PENDING</code> to <code>AVAILABLE</code> to successfully create a VPC link, which can take up to 10 minutes. To learn more, see &#91;Working with VPC Links for HTTP APIs&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vpc-links.html) in the ASTERIX;API Gateway Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::VpcLink&#96;&#96; resource creates a VPC link. Supported only for HTTP APIs. The VPC link status must transition from &#96;&#96;PENDING&#96;&#96; to &#96;&#96;AVAILABLE&#96;&#96; to successfully create a VPC link, which can take up to 10 minutes. To learn more, see &#91;Working with VPC Links for HTTP APIs&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vpc-links.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.vpc_links" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpc_link_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>A list of subnet IDs to include in the VPC link.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>A list of security group IDs for the VPC link.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the VPC link.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vpc_link_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "A list of subnet IDs to include in the VPC link."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "A list of security group IDs for the VPC link."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The collection of tags. Each tag element is associated with a given resource."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the VPC link."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-vpclink.html"><code>AWS::ApiGatewayV2::VpcLink</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_links</code> in a region.
-```sql
-SELECT
-region,
-vpc_link_id,
-subnet_ids,
-security_group_ids,
-tags,
-name
-FROM awscc.apigatewayv2.vpc_links
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_link</code>.
 ```sql
 SELECT

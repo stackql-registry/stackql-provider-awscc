@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>email_identity</code> resource or lists <code>email_identities</code> in a region
 
@@ -32,25 +33,140 @@ Creates, updates, deletes or gets an <code>email_identity</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="email_identity" /></td><td><code>string</code></td><td>The email address or domain to verify.</td></tr>
-<tr><td><CopyableCode code="configuration_set_attributes" /></td><td><code>object</code></td><td>Used to associate a configuration set with an email identity.</td></tr>
-<tr><td><CopyableCode code="dkim_signing_attributes" /></td><td><code>object</code></td><td>If your request includes this object, Amazon SES configures the identity to use Bring Your Own DKIM (BYODKIM) for DKIM authentication purposes, or, configures the key length to be used for Easy DKIM.</td></tr>
-<tr><td><CopyableCode code="dkim_attributes" /></td><td><code>object</code></td><td>Used to enable or disable DKIM authentication for an email identity.</td></tr>
-<tr><td><CopyableCode code="mail_from_attributes" /></td><td><code>object</code></td><td>Used to enable or disable the custom Mail-From domain configuration for an email identity.</td></tr>
-<tr><td><CopyableCode code="feedback_attributes" /></td><td><code>object</code></td><td>Used to enable or disable feedback forwarding for an identity.</td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_name1" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_name2" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_name3" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_value1" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_value2" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dkim_dns_token_value3" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the email identity.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "email_identity",
+    "type": "string",
+    "description": "The email address or domain to verify."
+  },
+  {
+    "name": "configuration_set_attributes",
+    "type": "object",
+    "description": "Used to associate a configuration set with an email identity.",
+    "children": [
+      {
+        "name": "configuration_set_name",
+        "type": "string",
+        "description": "The configuration set to use by default when sending from this identity. Note that any configuration set defined in the email sending request takes precedence."
+      }
+    ]
+  },
+  {
+    "name": "dkim_signing_attributes",
+    "type": "object",
+    "description": "If your request includes this object, Amazon SES configures the identity to use Bring Your Own DKIM (BYODKIM) for DKIM authentication purposes, or, configures the key length to be used for Easy DKIM.",
+    "children": [
+      {
+        "name": "domain_signing_selector",
+        "type": "string",
+        "description": "&#91;Bring Your Own DKIM&#93; A string that's used to identify a public key in the DNS configuration for a domain."
+      },
+      {
+        "name": "domain_signing_private_key",
+        "type": "string",
+        "description": "&#91;Bring Your Own DKIM&#93; A private key that's used to generate a DKIM signature. The private key must use 1024 or 2048-bit RSA encryption, and must be encoded using base64 encoding."
+      },
+      {
+        "name": "next_signing_key_length",
+        "type": "string",
+        "description": "&#91;Easy DKIM&#93; The key length of the future DKIM key pair to be generated. This can be changed at most once per day."
+      }
+    ]
+  },
+  {
+    "name": "dkim_attributes",
+    "type": "object",
+    "description": "Used to enable or disable DKIM authentication for an email identity.",
+    "children": [
+      {
+        "name": "signing_enabled",
+        "type": "boolean",
+        "description": "Sets the DKIM signing configuration for the identity. When you set this value true, then the messages that are sent from the identity are signed using DKIM. If you set this value to false, your messages are sent without DKIM signing."
+      }
+    ]
+  },
+  {
+    "name": "mail_from_attributes",
+    "type": "object",
+    "description": "Used to enable or disable the custom Mail-From domain configuration for an email identity.",
+    "children": [
+      {
+        "name": "mail_from_domain",
+        "type": "string",
+        "description": "The custom MAIL FROM domain that you want the verified identity to use"
+      },
+      {
+        "name": "behavior_on_mx_failure",
+        "type": "string",
+        "description": "The action to take if the required MX record isn't found when you send an email. When you set this value to UseDefaultValue , the mail is sent using amazonses.com as the MAIL FROM domain. When you set this value to RejectMessage , the Amazon SES API v2 returns a MailFromDomainNotVerified error, and doesn't attempt to deliver the email."
+      }
+    ]
+  },
+  {
+    "name": "feedback_attributes",
+    "type": "object",
+    "description": "Used to enable or disable feedback forwarding for an identity.",
+    "children": [
+      {
+        "name": "email_forwarding_enabled",
+        "type": "boolean",
+        "description": "If the value is true, you receive email notifications when bounce or complaint events occur"
+      }
+    ]
+  },
+  {
+    "name": "dkim_dns_token_name1",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dkim_dns_token_name2",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dkim_dns_token_name3",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dkim_dns_token_value1",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dkim_dns_token_value2",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dkim_dns_token_value3",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the email identity.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-emailidentity.html"><code>AWS::SES::EmailIdentity</code></a>.
 
@@ -92,26 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>email_identities</code> in a region.
-```sql
-SELECT
-region,
-email_identity,
-configuration_set_attributes,
-dkim_signing_attributes,
-dkim_attributes,
-mail_from_attributes,
-feedback_attributes,
-dkim_dns_token_name1,
-dkim_dns_token_name2,
-dkim_dns_token_name3,
-dkim_dns_token_value1,
-dkim_dns_token_value2,
-dkim_dns_token_value3,
-tags
-FROM awscc.ses.email_identities
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>email_identity</code>.
 ```sql
 SELECT

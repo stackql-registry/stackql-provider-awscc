@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_name_access_association</code> resource or lists <code>domain_name_access_associations</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>domain_name_access_association</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name_access_association_arn" /></td><td><code>string</code></td><td>The amazon resource name (ARN) of the domain name access association resource.</td></tr>
-<tr><td><CopyableCode code="domain_name_arn" /></td><td><code>string</code></td><td>The amazon resource name (ARN) of the domain name resource.</td></tr>
-<tr><td><CopyableCode code="access_association_source" /></td><td><code>string</code></td><td>The source of the domain name access association resource.</td></tr>
-<tr><td><CopyableCode code="access_association_source_type" /></td><td><code>string</code></td><td>The source type of the domain name access association resource.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of arbitrary tags (key-value pairs) to associate with the domainname access association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name_access_association_arn",
+    "type": "string",
+    "description": "The amazon resource name (ARN) of the domain name access association resource."
+  },
+  {
+    "name": "domain_name_arn",
+    "type": "string",
+    "description": "The amazon resource name (ARN) of the domain name resource."
+  },
+  {
+    "name": "access_association_source",
+    "type": "string",
+    "description": "The source of the domain name access association resource."
+  },
+  {
+    "name": "access_association_source_type",
+    "type": "string",
+    "description": "The source type of the domain name access association resource."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of arbitrary tags (key-value pairs) to associate with the domainname access association.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-domainnameaccessassociation.html"><code>AWS::ApiGateway::DomainNameAccessAssociation</code></a>.
 
@@ -79,18 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_name_access_associations</code> in a region.
-```sql
-SELECT
-region,
-domain_name_access_association_arn,
-domain_name_arn,
-access_association_source,
-access_association_source_type,
-tags
-FROM awscc.apigateway.domain_name_access_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_name_access_association</code>.
 ```sql
 SELECT

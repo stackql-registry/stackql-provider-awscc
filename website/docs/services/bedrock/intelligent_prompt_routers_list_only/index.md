@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>intelligent_prompt_routers</code> in a region or regions, for all properties use <a href="/services/bedrock/intelligent_prompt_routers/"><code>intelligent_prompt_routers</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>intelligent_prompt_routers</code> in a region or regions, for all pr
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="prompt_router_arn" /></td><td><code>string</code></td><td>Arn of the Prompt Router.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "prompt_router_arn",
+    "type": "string",
+    "description": "Arn of the Prompt Router."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

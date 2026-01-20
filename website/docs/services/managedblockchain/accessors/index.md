@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>accessor</code> resource or lists <code>accessors</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>accessor</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="billing_token" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="accessor_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "billing_token",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "accessor_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-managedblockchain-accessor.html"><code>AWS::ManagedBlockchain::Accessor</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>accessors</code> in a region.
-```sql
-SELECT
-region,
-arn,
-billing_token,
-creation_date,
-id,
-status,
-accessor_type,
-network_type,
-tags
-FROM awscc.managedblockchain.accessors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>accessor</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <code>rule_groups</code> in a region
 
@@ -32,21 +33,133 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_group_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="rule_group_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_group" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::RuleGroup</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capacity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="summary_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rule_group_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "rule_group_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rule_group",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::RuleGroup",
+    "children": [
+      {
+        "name": "rule_group_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "rule_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "capacity",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "summary_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_options",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capacity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "summary_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "rule_options",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-rulegroup.html"><code>AWS::NetworkFirewall::RuleGroup</code></a>.
 
@@ -88,22 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rule_groups</code> in a region.
-```sql
-SELECT
-region,
-rule_group_name,
-rule_group_arn,
-rule_group_id,
-rule_group,
-type,
-capacity,
-summary_configuration,
-description,
-tags
-FROM awscc.networkfirewall.rule_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>rule_group</code>.
 ```sql
 SELECT

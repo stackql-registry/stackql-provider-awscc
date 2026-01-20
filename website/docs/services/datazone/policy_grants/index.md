@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy_grant</code> resource or lists <code>policy_grants</code> in a region
 
@@ -32,21 +33,58 @@ Creates, updates, deletes or gets a <code>policy_grant</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="entity_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>Specifies the user who created the policy grant member.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Specifies the timestamp at which policy grant member was created.</td></tr>
-<tr><td><CopyableCode code="grant_id" /></td><td><code>string</code></td><td>The unique identifier of the policy grant returned by the AddPolicyGrant API</td></tr>
-<tr><td><CopyableCode code="entity_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="detail" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "entity_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": "Specifies the user who created the policy grant member."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Specifies the timestamp at which policy grant member was created."
+  },
+  {
+    "name": "grant_id",
+    "type": "string",
+    "description": "The unique identifier of the policy grant returned by the AddPolicyGrant API"
+  },
+  {
+    "name": "entity_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "detail",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "principal",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-policygrant.html"><code>AWS::DataZone::PolicyGrant</code></a>.
 
@@ -83,22 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policy_grants</code> in a region.
-```sql
-SELECT
-region,
-entity_type,
-policy_type,
-created_by,
-created_at,
-grant_id,
-entity_identifier,
-detail,
-principal,
-domain_identifier
-FROM awscc.datazone.policy_grants
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy_grant</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>component_version</code> resource or lists <code>component_versions</code> in a region
 
@@ -32,18 +33,168 @@ Creates, updates, deletes or gets a <code>component_version</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="component_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="component_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="inline_recipe" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="lambda_function" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "component_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "component_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "inline_recipe",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "lambda_function",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "lambda_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "component_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "component_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "component_platforms",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attributes",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "component_dependencies",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "component_lambda_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "event_sources",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "topic",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "max_queue_size",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "max_instances_count",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "max_idle_time_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "status_timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "pinned",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "input_payload_encoding_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "exec_args",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "environment_variables",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "linux_process_params",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "isolation_mode",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "container_params",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrassv2-componentversion.html"><code>AWS::GreengrassV2::ComponentVersion</code></a>.
 
@@ -85,19 +236,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>component_versions</code> in a region.
-```sql
-SELECT
-region,
-arn,
-component_name,
-component_version,
-inline_recipe,
-lambda_function,
-tags
-FROM awscc.greengrassv2.component_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>component_version</code>.
 ```sql
 SELECT

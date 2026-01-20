@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>training_dataset</code> resource or lists <code>training_datasets</code> in a region
 
@@ -32,19 +33,103 @@ Creates, updates, deletes or gets a <code>training_dataset</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms-ml training dataset.</td></tr>
-<tr><td><CopyableCode code="training_data" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="training_dataset_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms-ml training dataset.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "training_data",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "input_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "schema",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "column_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "column_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "data_source",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "glue_data_source",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "training_dataset_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanroomsml-trainingdataset.html"><code>AWS::CleanRoomsML::TrainingDataset</code></a>.
 
@@ -86,20 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>training_datasets</code> in a region.
-```sql
-SELECT
-region,
-description,
-name,
-role_arn,
-tags,
-training_data,
-training_dataset_arn,
-status
-FROM awscc.cleanroomsml.training_datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>training_dataset</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration_profile</code> resource or lists <code>configuration_profiles</code> in a region
 
@@ -32,24 +33,97 @@ Creates, updates, deletes or gets a <code>configuration_profile</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration_profile_id" /></td><td><code>string</code></td><td>The configuration profile ID</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>A URI to locate the configuration. You can specify the AWS AppConfig hosted configuration store, Systems Manager (SSM) document, an SSM Parameter Store parameter, or an Amazon S3 object.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of configurations contained in the profile. When calling this API, enter one of the following values for Type: AWS.AppConfig.FeatureFlags, AWS.Freeform</td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td>The AWS Key Management Service key identifier (key ID, key alias, or key ARN) provided when the resource was created or updated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the configuration profile.</td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name of the AWS Key Management Service key to encrypt new configuration data versions in the AWS AppConfig hosted configuration store. This attribute is only used for hosted configuration types. To encrypt data managed in other configuration stores, see the documentation for how to specify an AWS KMS key for that particular service.</td></tr>
-<tr><td><CopyableCode code="validators" /></td><td><code>array</code></td><td>A list of methods for validating the configuration.</td></tr>
-<tr><td><CopyableCode code="retrieval_role_arn" /></td><td><code>string</code></td><td>The ARN of an IAM role with permission to access the configuration at the specified LocationUri.</td></tr>
-<tr><td><CopyableCode code="deletion_protection_check" /></td><td><code>string</code></td><td>On resource deletion this controls whether the Deletion Protection check should be applied, bypassed, or (the default) whether the behavior should be controlled by the account-level Deletion Protection setting. See https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata to assign to the configuration profile. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the configuration profile.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration_profile_id",
+    "type": "string",
+    "description": "The configuration profile ID"
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "A URI to locate the configuration. You can specify the AWS AppConfig hosted configuration store, Systems Manager (SSM) document, an SSM Parameter Store parameter, or an Amazon S3 object."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of configurations contained in the profile. When calling this API, enter one of the following values for Type: AWS.AppConfig.FeatureFlags, AWS.Freeform"
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": "The AWS Key Management Service key identifier (key ID, key alias, or key ARN) provided when the resource was created or updated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the configuration profile."
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name of the AWS Key Management Service key to encrypt new configuration data versions in the AWS AppConfig hosted configuration store. This attribute is only used for hosted configuration types. To encrypt data managed in other configuration stores, see the documentation for how to specify an AWS KMS key for that particular service."
+  },
+  {
+    "name": "validators",
+    "type": "array",
+    "description": "A list of methods for validating the configuration.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "AWS AppConfig supports validators of type JSON&#95;SCHEMA and LAMBDA."
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "Either the JSON Schema content or the Amazon Resource Name (ARN) of an Lambda function."
+      }
+    ]
+  },
+  {
+    "name": "retrieval_role_arn",
+    "type": "string",
+    "description": "The ARN of an IAM role with permission to access the configuration at the specified LocationUri."
+  },
+  {
+    "name": "deletion_protection_check",
+    "type": "string",
+    "description": "On resource deletion this controls whether the Deletion Protection check should be applied, bypassed, or (the default) whether the behavior should be controlled by the account-level Deletion Protection setting. See https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html"
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata to assign to the configuration profile. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value can be up to 256 characters."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key-value string map. The tag key can be up to 128 characters and must not start with aws:."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the configuration profile."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-configurationprofile.html"><code>AWS::AppConfig::ConfigurationProfile</code></a>.
 
@@ -91,25 +165,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configuration_profiles</code> in a region.
-```sql
-SELECT
-region,
-configuration_profile_id,
-location_uri,
-type,
-kms_key_identifier,
-description,
-kms_key_arn,
-validators,
-retrieval_role_arn,
-deletion_protection_check,
-application_id,
-tags,
-name
-FROM awscc.appconfig.configuration_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration_profile</code>.
 ```sql
 SELECT

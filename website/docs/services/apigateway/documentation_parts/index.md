@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>documentation_part</code> resource or lists <code>documentation_parts</code> in a region
 
@@ -26,22 +27,66 @@ Creates, updates, deletes or gets a <code>documentation_part</code> resource or 
 <tbody>
 <tr><td><b>Name</b></td><td><code>documentation_parts</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::DocumentationPart</code> resource creates a documentation part for an API. For more information, see &#91;Representation of API Documentation in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html) in the ASTERIX;API Gateway Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::DocumentationPart&#96;&#96; resource creates a documentation part for an API. For more information, see &#91;Representation of API Documentation in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api-content-representation.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.documentation_parts" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="documentation_part_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>The <code>Location</code> property specifies the location of the Amazon API Gateway API entity that the documentation applies to. <code>Location</code> is a property of the &#91;AWS::ApiGateway::DocumentationPart&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-documentationpart.html) resource.<br />For more information about each property, including constraints and valid values, see &#91;DocumentationPart&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API_DocumentationPartLocation.html) in the ASTERIX;Amazon API Gateway REST API ReferenceASTERIX;.</td></tr>
-<tr><td><CopyableCode code="properties" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "documentation_part_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "location",
+    "type": "object",
+    "description": "The &#96;&#96;Location&#96;&#96; property specifies the location of the Amazon API Gateway API entity that the documentation applies to. &#96;&#96;Location&#96;&#96; is a property of the &#91;AWS::ApiGateway::DocumentationPart&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-documentationpart.html) resource.<br />For more information about each property, including constraints and valid values, see &#91;DocumentationPart&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;DocumentationPartLocation.html) in the &#42;Amazon API Gateway REST API Reference&#42;.",
+    "children": [
+      {
+        "name": "method",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status_code",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "properties",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-documentationpart.html"><code>AWS::ApiGateway::DocumentationPart</code></a>.
 
@@ -83,17 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>documentation_parts</code> in a region.
-```sql
-SELECT
-region,
-documentation_part_id,
-location,
-properties,
-rest_api_id
-FROM awscc.apigateway.documentation_parts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>documentation_part</code>.
 ```sql
 SELECT

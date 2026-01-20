@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>device_profile</code> resource or lists <code>device_profiles</code> in a region
 
@@ -32,17 +33,147 @@ Creates, updates, deletes or gets a <code>device_profile</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of service profile</td></tr>
-<tr><td><CopyableCode code="lo_ra_wan" /></td><td><code>object</code></td><td>LoRaWANDeviceProfile supports all LoRa specific attributes for service profile for CreateDeviceProfile operation</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the device profile.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Service profile Arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Service profile Id. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of service profile"
+  },
+  {
+    "name": "lo_ra_wan",
+    "type": "object",
+    "description": "LoRaWANDeviceProfile supports all LoRa specific attributes for service profile for CreateDeviceProfile operation",
+    "children": [
+      {
+        "name": "supports_class_b",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "class_btimeout",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ping_slot_period",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ping_slot_dr",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ping_slot_freq",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "supports_class_c",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "class_ctimeout",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "mac_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reg_params_revision",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "rx_delay1",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "rx_dr_offset1",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "rx_freq2",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "rx_data_rate2",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "factory_preset_freqs_list",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "max_eirp",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "max_duty_cycle",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "supports_join",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "rf_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "supports32_bit_fcnt",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the device profile.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Service profile Arn. Returned after successful create."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Service profile Id. Returned after successful create."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-deviceprofile.html"><code>AWS::IoTWireless::DeviceProfile</code></a>.
 
@@ -84,18 +215,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>device_profiles</code> in a region.
-```sql
-SELECT
-region,
-name,
-lo_ra_wan,
-tags,
-arn,
-id
-FROM awscc.iotwireless.device_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>device_profile</code>.
 ```sql
 SELECT

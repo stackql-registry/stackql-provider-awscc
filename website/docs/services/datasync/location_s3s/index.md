@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_s3</code> resource or lists <code>location_s3s</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>location_s3</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="s3_config" /></td><td><code>object</code></td><td>The Amazon Resource Name (ARN) of the AWS IAM role that is used to access an Amazon S3 bucket.</td></tr>
-<tr><td><CopyableCode code="s3_bucket_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon S3 bucket.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>A subdirectory in the Amazon S3 bucket. This subdirectory in Amazon S3 is used to read data from the S3 source location or write data to the S3 destination.</td></tr>
-<tr><td><CopyableCode code="s3_storage_class" /></td><td><code>string</code></td><td>The Amazon S3 storage class you want to store your files in when this location is used as a task destination.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon S3 bucket location.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the S3 location that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "s3_config",
+    "type": "object",
+    "description": "The Amazon Resource Name (ARN) of the AWS IAM role that is used to access an Amazon S3 bucket.",
+    "children": [
+      {
+        "name": "bucket_access_role_arn",
+        "type": "string",
+        "description": "The ARN of the IAM role of the Amazon S3 bucket."
+      }
+    ]
+  },
+  {
+    "name": "s3_bucket_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon S3 bucket."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "A subdirectory in the Amazon S3 bucket. This subdirectory in Amazon S3 is used to read data from the S3 source location or write data to the S3 destination."
+  },
+  {
+    "name": "s3_storage_class",
+    "type": "string",
+    "description": "The Amazon S3 storage class you want to store your files in when this location is used as a task destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon S3 bucket location."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the S3 location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locations3.html"><code>AWS::DataSync::LocationS3</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_s3s</code> in a region.
-```sql
-SELECT
-region,
-s3_config,
-s3_bucket_arn,
-subdirectory,
-s3_storage_class,
-tags,
-location_arn,
-location_uri
-FROM awscc.datasync.location_s3s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_s3</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>group</code> resource or lists <code>groups</code> in a region
 
@@ -32,19 +33,125 @@ Creates, updates, deletes or gets a <code>group</code> resource or lists <code>g
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the resource group</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the resource group</td></tr>
-<tr><td><CopyableCode code="resource_query" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Resource Group ARN.</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resources" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the resource group"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the resource group"
+  },
+  {
+    "name": "resource_query",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "query",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_type_filters",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "stack_identifier",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "tag_filters",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "values",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Resource Group ARN."
+  },
+  {
+    "name": "configuration",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "resources",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resourcegroups-group.html"><code>AWS::ResourceGroups::Group</code></a>.
 
@@ -86,20 +193,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>groups</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-resource_query,
-tags,
-arn,
-configuration,
-resources
-FROM awscc.resourcegroups.groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>locationf_sx_window</code> resource or lists <code>locationf_sx_windows</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>locationf_sx_window</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td>The name of the Windows domain that the FSx for Windows server belongs to.</td></tr>
-<tr><td><CopyableCode code="fsx_filesystem_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the FSx for Windows file system.</td></tr>
-<tr><td><CopyableCode code="password" /></td><td><code>string</code></td><td>The password of the user who has the permissions to access files and folders in the FSx for Windows file system.</td></tr>
-<tr><td><CopyableCode code="security_group_arns" /></td><td><code>array</code></td><td>The ARNs of the security groups that are to use to configure the FSx for Windows file system.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>A subdirectory in the location's path.</td></tr>
-<tr><td><CopyableCode code="user" /></td><td><code>string</code></td><td>The user who has the permissions to access files and folders in the FSx for Windows file system.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon FSx for Windows file system location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the FSx for Windows location that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain",
+    "type": "string",
+    "description": "The name of the Windows domain that the FSx for Windows server belongs to."
+  },
+  {
+    "name": "fsx_filesystem_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the FSx for Windows file system."
+  },
+  {
+    "name": "password",
+    "type": "string",
+    "description": "The password of the user who has the permissions to access files and folders in the FSx for Windows file system."
+  },
+  {
+    "name": "security_group_arns",
+    "type": "array",
+    "description": "The ARNs of the security groups that are to use to configure the FSx for Windows file system."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "A subdirectory in the location's path."
+  },
+  {
+    "name": "user",
+    "type": "string",
+    "description": "The user who has the permissions to access files and folders in the FSx for Windows file system."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon FSx for Windows file system location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the FSx for Windows location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationfsxwindow.html"><code>AWS::DataSync::LocationFSxWindows</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>locationf_sx_windows</code> in a region.
-```sql
-SELECT
-region,
-domain,
-fsx_filesystem_arn,
-password,
-security_group_arns,
-subdirectory,
-user,
-tags,
-location_arn,
-location_uri
-FROM awscc.datasync.locationf_sx_windows
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>locationf_sx_window</code>.
 ```sql
 SELECT

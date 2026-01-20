@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>restore_testing_plan</code> resource or lists <code>restore_testing_plans</code> in a region
 
@@ -32,19 +33,87 @@ Creates, updates, deletes or gets a <code>restore_testing_plan</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="schedule_expression" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="start_window_hours" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="recovery_point_selection" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="restore_testing_plan_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="restore_testing_plan_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schedule_expression_timezone" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "schedule_expression",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "start_window_hours",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "recovery_point_selection",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "selection_window_days",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "recovery_point_types",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "include_vaults",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "exclude_vaults",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "algorithm",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "restore_testing_plan_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "restore_testing_plan_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schedule_expression_timezone",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-restoretestingplan.html"><code>AWS::Backup::RestoreTestingPlan</code></a>.
 
@@ -86,20 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>restore_testing_plans</code> in a region.
-```sql
-SELECT
-region,
-schedule_expression,
-start_window_hours,
-recovery_point_selection,
-restore_testing_plan_arn,
-restore_testing_plan_name,
-schedule_expression_timezone,
-tags
-FROM awscc.backup.restore_testing_plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>restore_testing_plan</code>.
 ```sql
 SELECT

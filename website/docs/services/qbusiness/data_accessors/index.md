@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_accessor</code> resource or lists <code>data_accessors</code> in a region
 
@@ -32,23 +33,133 @@ Creates, updates, deletes or gets a <code>data_accessor</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action_configurations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authentication_detail" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_accessor_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_accessor_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="idc_application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action_configurations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "action",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "filter_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "document_attribute_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "and_all_filters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "or_all_filters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "equals_to",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authentication_detail",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "authentication_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "authentication_configuration",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "external_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_accessor_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_accessor_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "idc_application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "principal",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-dataaccessor.html"><code>AWS::QBusiness::DataAccessor</code></a>.
 
@@ -90,24 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_accessors</code> in a region.
-```sql
-SELECT
-region,
-action_configurations,
-application_id,
-authentication_detail,
-created_at,
-data_accessor_arn,
-data_accessor_id,
-display_name,
-idc_application_arn,
-principal,
-tags,
-updated_at
-FROM awscc.qbusiness.data_accessors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_accessor</code>.
 ```sql
 SELECT

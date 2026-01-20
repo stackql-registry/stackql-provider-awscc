@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_query_logging_config_association</code> resource or lists <code>resolver_query_logging_config_associations</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets a <code>resolver_query_logging_config_associat
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id</td></tr>
-<tr><td><CopyableCode code="resolver_query_log_config_id" /></td><td><code>string</code></td><td>ResolverQueryLogConfigId</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>ResourceId</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationStatus</td></tr>
-<tr><td><CopyableCode code="error" /></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationError</td></tr>
-<tr><td><CopyableCode code="error_message" /></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationErrorMessage</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id"
+  },
+  {
+    "name": "resolver_query_log_config_id",
+    "type": "string",
+    "description": "ResolverQueryLogConfigId"
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "ResourceId"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "ResolverQueryLogConfigAssociationStatus"
+  },
+  {
+    "name": "error",
+    "type": "string",
+    "description": "ResolverQueryLogConfigAssociationError"
+  },
+  {
+    "name": "error_message",
+    "type": "string",
+    "description": "ResolverQueryLogConfigAssociationErrorMessage"
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverqueryloggingconfigassociation.html"><code>AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation</code></a>.
 
@@ -81,20 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_query_logging_config_associations</code> in a region.
-```sql
-SELECT
-region,
-id,
-resolver_query_log_config_id,
-resource_id,
-status,
-error,
-error_message,
-creation_time
-FROM awscc.route53resolver.resolver_query_logging_config_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_query_logging_config_association</code>.
 ```sql
 SELECT

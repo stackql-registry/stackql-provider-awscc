@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>detector</code> resource or lists <code>detectors</code> in a region
 
@@ -32,18 +33,136 @@ Creates, updates, deletes or gets a <code>detector</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="finding_publishing_frequency" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_sources" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="features" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "finding_publishing_frequency",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "data_sources",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_logs",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enable",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "kubernetes",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "audit_logs",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enable",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "malware_protection",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "scan_ec2_instance_with_findings",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "ebs_volumes",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "features",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "additional_configuration",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-detector.html"><code>AWS::GuardDuty::Detector</code></a>.
 
@@ -85,19 +204,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>detectors</code> in a region.
-```sql
-SELECT
-region,
-finding_publishing_frequency,
-enable,
-data_sources,
-features,
-id,
-tags
-FROM awscc.guardduty.detectors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>detector</code>.
 ```sql
 SELECT

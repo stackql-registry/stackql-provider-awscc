@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>security_keys</code> in a region or regions, for all properties use <a href="/services/connect/security_keys/"><code>security_keys</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>security_keys</code> in a region or regions, for all properties use 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>An associationID is automatically generated when a storage config is associated with an instance</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "An associationID is automatically generated when a storage config is associated with an instance"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

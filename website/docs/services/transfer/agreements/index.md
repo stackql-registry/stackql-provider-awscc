@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>agreement</code> resource or lists <code>agreements</code> in a region
 
@@ -32,25 +33,117 @@ Creates, updates, deletes or gets an <code>agreement</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A textual description for the agreement.</td></tr>
-<tr><td><CopyableCode code="server_id" /></td><td><code>string</code></td><td>A unique identifier for the server.</td></tr>
-<tr><td><CopyableCode code="local_profile_id" /></td><td><code>string</code></td><td>A unique identifier for the local profile.</td></tr>
-<tr><td><CopyableCode code="partner_profile_id" /></td><td><code>string</code></td><td>A unique identifier for the partner profile.</td></tr>
-<tr><td><CopyableCode code="base_directory" /></td><td><code>string</code></td><td>Specifies the base directory for the agreement.</td></tr>
-<tr><td><CopyableCode code="access_role" /></td><td><code>string</code></td><td>Specifies the access role for the agreement.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Specifies the status of the agreement.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for agreements. Tags are metadata attached to agreements for any purpose.</td></tr>
-<tr><td><CopyableCode code="agreement_id" /></td><td><code>string</code></td><td>A unique identifier for the agreement.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the agreement.</td></tr>
-<tr><td><CopyableCode code="preserve_filename" /></td><td><code>string</code></td><td>Specifies whether to preserve the filename received for this agreement.</td></tr>
-<tr><td><CopyableCode code="enforce_message_signing" /></td><td><code>string</code></td><td>Specifies whether to enforce an AS2 message is signed for this agreement.</td></tr>
-<tr><td><CopyableCode code="custom_directories" /></td><td><code>object</code></td><td>Specifies a separate directory for each type of file to store for an AS2 message.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A textual description for the agreement."
+  },
+  {
+    "name": "server_id",
+    "type": "string",
+    "description": "A unique identifier for the server."
+  },
+  {
+    "name": "local_profile_id",
+    "type": "string",
+    "description": "A unique identifier for the local profile."
+  },
+  {
+    "name": "partner_profile_id",
+    "type": "string",
+    "description": "A unique identifier for the partner profile."
+  },
+  {
+    "name": "base_directory",
+    "type": "string",
+    "description": "Specifies the base directory for the agreement."
+  },
+  {
+    "name": "access_role",
+    "type": "string",
+    "description": "Specifies the access role for the agreement."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Specifies the status of the agreement."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Key-value pairs that can be used to group and search for agreements. Tags are metadata attached to agreements for any purpose.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "agreement_id",
+    "type": "string",
+    "description": "A unique identifier for the agreement."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the agreement."
+  },
+  {
+    "name": "preserve_filename",
+    "type": "string",
+    "description": "Specifies whether to preserve the filename received for this agreement."
+  },
+  {
+    "name": "enforce_message_signing",
+    "type": "string",
+    "description": "Specifies whether to enforce an AS2 message is signed for this agreement."
+  },
+  {
+    "name": "custom_directories",
+    "type": "object",
+    "description": "Specifies a separate directory for each type of file to store for an AS2 message.",
+    "children": [
+      {
+        "name": "failed_files_directory",
+        "type": "string",
+        "description": "Specifies a location to store the failed files for an AS2 message."
+      },
+      {
+        "name": "mdn_files_directory",
+        "type": "string",
+        "description": "Specifies a location to store the MDN file for an AS2 message."
+      },
+      {
+        "name": "payload_files_directory",
+        "type": "string",
+        "description": "Specifies a location to store the payload file for an AS2 message."
+      },
+      {
+        "name": "status_files_directory",
+        "type": "string",
+        "description": "Specifies a location to store the status file for an AS2 message."
+      },
+      {
+        "name": "temporary_files_directory",
+        "type": "string",
+        "description": "Specifies a location to store the temporary processing file for an AS2 message."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html"><code>AWS::Transfer::Agreement</code></a>.
 
@@ -92,26 +185,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>agreements</code> in a region.
-```sql
-SELECT
-region,
-description,
-server_id,
-local_profile_id,
-partner_profile_id,
-base_directory,
-access_role,
-status,
-tags,
-agreement_id,
-arn,
-preserve_filename,
-enforce_message_signing,
-custom_directories
-FROM awscc.transfer.agreements
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>agreement</code>.
 ```sql
 SELECT

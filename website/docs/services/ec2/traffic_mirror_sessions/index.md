@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>traffic_mirror_session</code> resource or lists <code>traffic_mirror_sessions</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>traffic_mirror_session</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of a Traffic Mirror session.</td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The ID of the source network interface.</td></tr>
-<tr><td><CopyableCode code="traffic_mirror_target_id" /></td><td><code>string</code></td><td>The ID of a Traffic Mirror target.</td></tr>
-<tr><td><CopyableCode code="traffic_mirror_filter_id" /></td><td><code>string</code></td><td>The ID of a Traffic Mirror filter.</td></tr>
-<tr><td><CopyableCode code="packet_length" /></td><td><code>integer</code></td><td>The number of bytes in each packet to mirror.</td></tr>
-<tr><td><CopyableCode code="session_number" /></td><td><code>integer</code></td><td>The session number determines the order in which sessions are evaluated when an interface is used by multiple sessions. The first session with a matching filter is the one that mirrors the packets.</td></tr>
-<tr><td><CopyableCode code="virtual_network_id" /></td><td><code>integer</code></td><td>The VXLAN ID for the Traffic Mirror session.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Traffic Mirror session.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The ID of the account that owns the Traffic Mirror session.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags assigned to the Traffic Mirror session.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of a Traffic Mirror session."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of the source network interface."
+  },
+  {
+    "name": "traffic_mirror_target_id",
+    "type": "string",
+    "description": "The ID of a Traffic Mirror target."
+  },
+  {
+    "name": "traffic_mirror_filter_id",
+    "type": "string",
+    "description": "The ID of a Traffic Mirror filter."
+  },
+  {
+    "name": "packet_length",
+    "type": "integer",
+    "description": "The number of bytes in each packet to mirror."
+  },
+  {
+    "name": "session_number",
+    "type": "integer",
+    "description": "The session number determines the order in which sessions are evaluated when an interface is used by multiple sessions. The first session with a matching filter is the one that mirrors the packets."
+  },
+  {
+    "name": "virtual_network_id",
+    "type": "integer",
+    "description": "The VXLAN ID for the Traffic Mirror session."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Traffic Mirror session."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "The ID of the account that owns the Traffic Mirror session."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags assigned to the Traffic Mirror session.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-trafficmirrorsession.html"><code>AWS::EC2::TrafficMirrorSession</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>traffic_mirror_sessions</code> in a region.
-```sql
-SELECT
-region,
-id,
-network_interface_id,
-traffic_mirror_target_id,
-traffic_mirror_filter_id,
-packet_length,
-session_number,
-virtual_network_id,
-description,
-owner_id,
-tags
-FROM awscc.ec2.traffic_mirror_sessions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>traffic_mirror_session</code>.
 ```sql
 SELECT

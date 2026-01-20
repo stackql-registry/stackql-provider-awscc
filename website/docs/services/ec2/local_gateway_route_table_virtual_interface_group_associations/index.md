@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>local_gateway_route_table_virtual_interface_group_association</code> resource or lists <code>local_gateway_route_table_virtual_interface_group_associations</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>local_gateway_route_table_virtual_inte
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="local_gateway_route_table_virtual_interface_group_association_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table virtual interface group association.</td></tr>
-<tr><td><CopyableCode code="local_gateway_id" /></td><td><code>string</code></td><td>The ID of the local gateway.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_arn" /></td><td><code>string</code></td><td>The ARN of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_virtual_interface_group_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table virtual interface group.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The owner of the local gateway route table virtual interface group association.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the local gateway route table virtual interface group association.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the local gateway route table virtual interface group association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "local_gateway_route_table_virtual_interface_group_association_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table virtual interface group association."
+  },
+  {
+    "name": "local_gateway_id",
+    "type": "string",
+    "description": "The ID of the local gateway."
+  },
+  {
+    "name": "local_gateway_route_table_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table."
+  },
+  {
+    "name": "local_gateway_route_table_arn",
+    "type": "string",
+    "description": "The ARN of the local gateway route table."
+  },
+  {
+    "name": "local_gateway_virtual_interface_group_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table virtual interface group."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "The owner of the local gateway route table virtual interface group association."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the local gateway route table virtual interface group association."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the local gateway route table virtual interface group association.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-localgatewayroutetablevirtualinterfacegroupassociation.html"><code>AWS::EC2::LocalGatewayRouteTableVirtualInterfaceGroupAssociation</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>local_gateway_route_table_virtual_interface_group_associations</code> in a region.
-```sql
-SELECT
-region,
-local_gateway_route_table_virtual_interface_group_association_id,
-local_gateway_id,
-local_gateway_route_table_id,
-local_gateway_route_table_arn,
-local_gateway_virtual_interface_group_id,
-owner_id,
-state,
-tags
-FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>local_gateway_route_table_virtual_interface_group_association</code>.
 ```sql
 SELECT

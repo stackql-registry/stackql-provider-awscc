@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>reference_store</code> resource or lists <code>reference_stores</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>reference_store</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The store's ARN.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>When the store was created.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the store.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the store.</td></tr>
-<tr><td><CopyableCode code="reference_store_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sse_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of resource tags</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The store's ARN."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "When the store was created."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the store."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the store."
+  },
+  {
+    "name": "reference_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sse_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of resource tags"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-omics-referencestore.html"><code>AWS::Omics::ReferenceStore</code></a>.
 
@@ -81,20 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>reference_stores</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_time,
-description,
-name,
-reference_store_id,
-sse_config,
-tags
-FROM awscc.omics.reference_stores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>reference_store</code>.
 ```sql
 SELECT

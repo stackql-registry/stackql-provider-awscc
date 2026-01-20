@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>gateway_response</code> resource or lists <code>gateway_responses</code> in a region
 
@@ -26,24 +27,49 @@ Creates, updates, deletes or gets a <code>gateway_response</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>gateway_responses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::GatewayResponse</code> resource creates a gateway response for your API. For more information, see &#91;API Gateway Responses&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/customize-gateway-responses.html#api-gateway-gatewayResponse-definition) in the ASTERIX;API Gateway Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::GatewayResponse&#96;&#96; resource creates a gateway response for your API. For more information, see &#91;API Gateway Responses&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/customize-gateway-responses.html#api-gateway-gatewayResponse-definition) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.gateway_responses" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="response_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_code" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="response_parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="response_templates" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "response_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "response_parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "response_templates",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html"><code>AWS::ApiGateway::GatewayResponse</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>gateway_responses</code> in a region.
-```sql
-SELECT
-region,
-id,
-rest_api_id,
-response_type,
-status_code,
-response_parameters,
-response_templates
-FROM awscc.apigateway.gateway_responses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>gateway_response</code>.
 ```sql
 SELECT

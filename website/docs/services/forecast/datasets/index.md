@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code>datasets</code> in a region
 
@@ -32,20 +33,96 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dataset_name" /></td><td><code>string</code></td><td>A name for the dataset</td></tr>
-<tr><td><CopyableCode code="dataset_type" /></td><td><code>string</code></td><td>The dataset type</td></tr>
-<tr><td><CopyableCode code="data_frequency" /></td><td><code>string</code></td><td>Frequency of data collection. This parameter is required for RELATED_TIME_SERIES</td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td>The domain associated with the dataset</td></tr>
-<tr><td><CopyableCode code="encryption_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dataset_name",
+    "type": "string",
+    "description": "A name for the dataset"
+  },
+  {
+    "name": "dataset_type",
+    "type": "string",
+    "description": "The dataset type"
+  },
+  {
+    "name": "data_frequency",
+    "type": "string",
+    "description": "Frequency of data collection. This parameter is required for RELATED&#95;TIME&#95;SERIES"
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": "The domain associated with the dataset"
+  },
+  {
+    "name": "encryption_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "KMS key used to encrypt the Dataset data"
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The ARN of the IAM role that Amazon Forecast can assume to access the AWS KMS key."
+      }
+    ]
+  },
+  {
+    "name": "schema",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attributes",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute_name",
+            "type": "string",
+            "description": "Name of the dataset field"
+          },
+          {
+            "name": "attribute_type",
+            "type": "string",
+            "description": "Data type of the field"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-forecast-dataset.html"><code>AWS::Forecast::Dataset</code></a>.
 
@@ -82,21 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datasets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-dataset_name,
-dataset_type,
-data_frequency,
-domain,
-encryption_config,
-schema,
-tags
-FROM awscc.forecast.datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT

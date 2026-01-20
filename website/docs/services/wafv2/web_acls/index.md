@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>web_acl</code> resource or lists <code>web_acls</code> in a region
 
@@ -32,30 +33,745 @@ Creates, updates, deletes or gets a <code>web_acl</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capacity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_action" /></td><td><code>object</code></td><td>Default Action WebACL will take against ingress traffic when there is no matching Rule.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the entity.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the WebACL.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the WebACL</td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway.</td></tr>
-<tr><td><CopyableCode code="rules" /></td><td><code>array</code></td><td>Collection of Rules.</td></tr>
-<tr><td><CopyableCode code="visibility_config" /></td><td><code>object</code></td><td>Visibility Metric of the WebACL.</td></tr>
-<tr><td><CopyableCode code="data_protection_config" /></td><td><code>object</code></td><td>Collection of dataProtects.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="label_namespace" /></td><td><code>string</code></td><td>Name of the Label.</td></tr>
-<tr><td><CopyableCode code="custom_response_bodies" /></td><td><code>object</code></td><td>Custom response key and body map.</td></tr>
-<tr><td><CopyableCode code="captcha_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="challenge_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="token_domains" /></td><td><code>array</code></td><td>List of domains to accept in web request tokens, in addition to the domain of the protected resource.</td></tr>
-<tr><td><CopyableCode code="association_config" /></td><td><code>object</code></td><td>AssociationConfig for body inspection</td></tr>
-<tr><td><CopyableCode code="on_source_ddo_sprotection_config" /></td><td><code>object</code></td><td>Configures the options for on-source DDoS protection provided by supported resource type.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capacity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "default_action",
+    "type": "object",
+    "description": "Default Action WebACL will take against ingress traffic when there is no matching Rule.",
+    "children": [
+      {
+        "name": "allow",
+        "type": "object",
+        "description": "Allow traffic towards application.",
+        "children": [
+          {
+            "name": "custom_request_handling",
+            "type": "object",
+            "description": "Custom request handling.",
+            "children": [
+              {
+                "name": "insert_headers",
+                "type": "array",
+                "description": "Collection of HTTP headers."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "block",
+        "type": "object",
+        "description": "Block traffic towards application.",
+        "children": [
+          {
+            "name": "custom_response",
+            "type": "object",
+            "description": "Custom response.",
+            "children": [
+              {
+                "name": "response_code",
+                "type": "integer",
+                "description": "Custom response code."
+              },
+              {
+                "name": "custom_response_body_key",
+                "type": "string",
+                "description": "Custom response body key."
+              },
+              {
+                "name": "response_headers",
+                "type": "array",
+                "description": "Collection of HTTP headers."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the entity."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the WebACL."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the WebACL"
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+  },
+  {
+    "name": "rules",
+    "type": "array",
+    "description": "Collection of Rules.",
+    "children": [
+      {
+        "name": "priority",
+        "type": "integer",
+        "description": "Priority of the Rule, Rules get evaluated from lower to higher priority."
+      },
+      {
+        "name": "statement",
+        "type": "object",
+        "description": "First level statement that contains conditions, such as ByteMatch, SizeConstraint, etc",
+        "children": [
+          {
+            "name": "byte_match_statement",
+            "type": "object",
+            "description": "Byte Match statement.",
+            "children": [
+              {
+                "name": "search_string",
+                "type": "string",
+                "description": "String that is searched to find a match."
+              },
+              {
+                "name": "search_string_base64",
+                "type": "string",
+                "description": "Base64 encoded string that is searched to find a match."
+              },
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "positional_constraint",
+                "type": "string",
+                "description": "Position of the evaluation in the FieldToMatch of request."
+              }
+            ]
+          },
+          {
+            "name": "sqli_match_statement",
+            "type": "object",
+            "description": "Sqli Match Statement.",
+            "children": [
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "sensitivity_level",
+                "type": "string",
+                "description": "Sensitivity Level current only used for sqli match statements."
+              }
+            ]
+          },
+          {
+            "name": "xss_match_statement",
+            "type": "object",
+            "description": "Xss Match Statement.",
+            "children": [
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "size_constraint_statement",
+            "type": "object",
+            "description": "Size Constraint statement.",
+            "children": [
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "comparison_operator",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "geo_match_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "country_codes",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "forwarded_ip_config",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "rule_group_reference_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "excluded_rules",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "rule_action_overrides",
+                "type": "array",
+                "description": "Action overrides for rules in the rule group."
+              }
+            ]
+          },
+          {
+            "name": "ip_set_reference_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "ip_set_forwarded_ip_config",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "regex_pattern_set_reference_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "managed_rule_group_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "vendor_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "version",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "excluded_rules",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "managed_rule_group_configs",
+                "type": "array",
+                "description": "Collection of ManagedRuleGroupConfig."
+              },
+              {
+                "name": "rule_action_overrides",
+                "type": "array",
+                "description": "Action overrides for rules in the rule group."
+              }
+            ]
+          },
+          {
+            "name": "rate_based_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "limit",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "evaluation_window_sec",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "aggregate_key_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "custom_keys",
+                "type": "array",
+                "description": "Specifies the aggregate keys to use in a rate-base rule."
+              },
+              {
+                "name": "forwarded_ip_config",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "and_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "statements",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "or_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "statements",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "not_statement",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "label_match_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "scope",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "regex_match_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "regex_string",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "field_to_match",
+                "type": "object",
+                "description": "Field of the request to match."
+              },
+              {
+                "name": "text_transformations",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "asn_match_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "asn_list",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "forwarded_ip_config",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "action",
+        "type": "object",
+        "description": "Action taken when Rule matches its condition.",
+        "children": [
+          {
+            "name": "allow",
+            "type": "object",
+            "description": "Allow traffic towards application.",
+            "children": [
+              {
+                "name": "custom_request_handling",
+                "type": "object",
+                "description": "Custom request handling."
+              }
+            ]
+          },
+          {
+            "name": "block",
+            "type": "object",
+            "description": "Block traffic towards application.",
+            "children": [
+              {
+                "name": "custom_response",
+                "type": "object",
+                "description": "Custom response."
+              }
+            ]
+          },
+          {
+            "name": "count",
+            "type": "object",
+            "description": "Allow traffic towards application.",
+            "children": [
+              {
+                "name": "custom_request_handling",
+                "type": "object",
+                "description": "Custom request handling."
+              }
+            ]
+          },
+          {
+            "name": "captcha",
+            "type": "object",
+            "description": "Checks valid token exists with request.",
+            "children": [
+              {
+                "name": "custom_request_handling",
+                "type": "object",
+                "description": "Custom request handling."
+              }
+            ]
+          },
+          {
+            "name": "challenge",
+            "type": "object",
+            "description": "Checks that the request has a valid token with an unexpired challenge timestamp and, if not, returns a browser challenge to the client.",
+            "children": [
+              {
+                "name": "custom_request_handling",
+                "type": "object",
+                "description": "Custom request handling."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "override_action",
+        "type": "object",
+        "description": "Override a RuleGroup or ManagedRuleGroup behavior. This can only be applied to Rule that has RuleGroupReferenceStatement or ManagedRuleGroupReferenceStatement.",
+        "children": [
+          {
+            "name": "count",
+            "type": "object",
+            "description": "Count traffic towards application."
+          },
+          {
+            "name": "none",
+            "type": "object",
+            "description": "Keep the RuleGroup or ManagedRuleGroup behavior as is."
+          }
+        ]
+      },
+      {
+        "name": "rule_labels",
+        "type": "array",
+        "description": "Collection of Rule Labels.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Name of the Label."
+          }
+        ]
+      },
+      {
+        "name": "visibility_config",
+        "type": "object",
+        "description": "Visibility Metric of the WebACL.",
+        "children": [
+          {
+            "name": "sampled_requests_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_metrics_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "metric_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "captcha_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "immunity_time_property",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "immunity_time",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "challenge_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "immunity_time_property",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "immunity_time",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "visibility_config",
+    "type": "object",
+    "description": "Visibility Metric of the WebACL.",
+    "children": [
+      {
+        "name": "sampled_requests_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_metrics_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "metric_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_protection_config",
+    "type": "object",
+    "description": "Collection of dataProtects.",
+    "children": [
+      {
+        "name": "data_protections",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "field",
+            "type": "object",
+            "description": "Field in log to protect.",
+            "children": [
+              {
+                "name": "field_type",
+                "type": "string",
+                "description": "Field type to protect"
+              },
+              {
+                "name": "field_keys",
+                "type": "array",
+                "description": "List of field keys to protect"
+              }
+            ]
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "exclude_rule_match_details",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "exclude_rate_based_details",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "label_namespace",
+    "type": "string",
+    "description": "Name of the Label."
+  },
+  {
+    "name": "custom_response_bodies",
+    "type": "object",
+    "description": "Custom response key and body map."
+  },
+  {
+    "name": "captcha_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "immunity_time_property",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "immunity_time",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "challenge_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "immunity_time_property",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "immunity_time",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "token_domains",
+    "type": "array",
+    "description": "List of domains to accept in web request tokens, in addition to the domain of the protected resource."
+  },
+  {
+    "name": "association_config",
+    "type": "object",
+    "description": "AssociationConfig for body inspection",
+    "children": [
+      {
+        "name": "request_body",
+        "type": "object",
+        "description": "Map of AssociatedResourceType and RequestBodyAssociatedResourceTypeConfig"
+      }
+    ]
+  },
+  {
+    "name": "on_source_ddo_sprotection_config",
+    "type": "object",
+    "description": "Configures the options for on-source DDoS protection provided by supported resource type.",
+    "children": [
+      {
+        "name": "a_lb_low_reputation_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-webacl.html"><code>AWS::WAFv2::WebACL</code></a>.
 
@@ -97,31 +813,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>web_acls</code> in a region.
-```sql
-SELECT
-region,
-arn,
-capacity,
-default_action,
-description,
-name,
-id,
-scope,
-rules,
-visibility_config,
-data_protection_config,
-tags,
-label_namespace,
-custom_response_bodies,
-captcha_config,
-challenge_config,
-token_domains,
-association_config,
-on_source_ddo_sprotection_config
-FROM awscc.wafv2.web_acls
-;
-```
+
 Gets all properties from an individual <code>web_acl</code>.
 ```sql
 SELECT

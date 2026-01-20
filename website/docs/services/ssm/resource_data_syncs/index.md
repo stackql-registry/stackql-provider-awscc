@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_data_sync</code> resource or lists <code>resource_data_syncs</code> in a region
 
@@ -32,21 +33,119 @@ Creates, updates, deletes or gets a <code>resource_data_sync</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="s3_destination" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sync_source" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bucket_region" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sync_format" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sync_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sync_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bucket_prefix" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "s3_destination",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sync_format",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sync_source",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "include_future_regions",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "source_regions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "source_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "aws_organizations_source",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "organizational_units",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "organization_source_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bucket_region",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sync_format",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sync_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sync_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bucket_prefix",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-resourcedatasync.html"><code>AWS::SSM::ResourceDataSync</code></a>.
 
@@ -88,22 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_data_syncs</code> in a region.
-```sql
-SELECT
-region,
-s3_destination,
-kms_key_arn,
-sync_source,
-bucket_name,
-bucket_region,
-sync_format,
-sync_name,
-sync_type,
-bucket_prefix
-FROM awscc.ssm.resource_data_syncs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_data_sync</code>.
 ```sql
 SELECT

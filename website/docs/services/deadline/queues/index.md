@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>queues</code> in a region
 
@@ -32,24 +33,138 @@ Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>q
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="allowed_storage_profile_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_budget_action" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_attachment_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_run_as_user" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="queue_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="required_file_system_location_names" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "allowed_storage_profile_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "default_budget_action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_attachment_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_bucket_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "root_prefix",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "job_run_as_user",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "posix",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "windows",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "run_as",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "queue_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "required_file_system_location_names",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-queue.html"><code>AWS::Deadline::Queue</code></a>.
 
@@ -91,25 +206,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>queues</code> in a region.
-```sql
-SELECT
-region,
-allowed_storage_profile_ids,
-default_budget_action,
-description,
-display_name,
-farm_id,
-job_attachment_settings,
-job_run_as_user,
-queue_id,
-required_file_system_location_names,
-role_arn,
-arn,
-tags
-FROM awscc.deadline.queues
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>queue</code>.
 ```sql
 SELECT

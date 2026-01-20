@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>client_certificate</code> resource or lists <code>client_certificates</code> in a region
 
@@ -26,21 +27,46 @@ Creates, updates, deletes or gets a <code>client_certificate</code> resource or 
 <tbody>
 <tr><td><b>Name</b></td><td><code>client_certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::ClientCertificate</code> resource creates a client certificate that API Gateway uses to configure client-side SSL authentication for sending requests to the integration endpoint.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::ClientCertificate&#96;&#96; resource creates a client certificate that API Gateway uses to configure client-side SSL authentication for sending requests to the integration endpoint.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.client_certificates" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="client_certificate_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "client_certificate_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-clientcertificate.html"><code>AWS::ApiGateway::ClientCertificate</code></a>.
 
@@ -82,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>client_certificates</code> in a region.
-```sql
-SELECT
-region,
-client_certificate_id,
-description,
-tags
-FROM awscc.apigateway.client_certificates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>client_certificate</code>.
 ```sql
 SELECT

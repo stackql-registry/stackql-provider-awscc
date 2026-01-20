@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the application.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_tag_key" /></td><td><code>string</code></td><td>The key of the AWS application tag, which is awsApplication. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value.</td></tr>
-<tr><td><CopyableCode code="application_tag_value" /></td><td><code>string</code></td><td>The value of the AWS application tag, which is the identifier of an associated resource. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value.</td></tr>
-<tr><td><CopyableCode code="application_name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the application."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the application."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "application_tag_key",
+    "type": "string",
+    "description": "The key of the AWS application tag, which is awsApplication. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value."
+  },
+  {
+    "name": "application_tag_value",
+    "type": "string",
+    "description": "The value of the AWS application tag, which is the identifier of an associated resource. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value."
+  },
+  {
+    "name": "application_name",
+    "type": "string",
+    "description": "The name of the application."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalogappregistry-application.html"><code>AWS::ServiceCatalogAppRegistry::Application</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-name,
-description,
-tags,
-application_tag_key,
-application_tag_value,
-application_name
-FROM awscc.servicecatalogappregistry.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>enabled_control</code> resource or lists <code>enabled_controls</code> in a region
 
@@ -32,16 +33,57 @@ Creates, updates, deletes or gets an <code>enabled_control</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="control_identifier" /></td><td><code>string</code></td><td>Arn of the control.</td></tr>
-<tr><td><CopyableCode code="target_identifier" /></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>Parameters to configure the enabled control behavior.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags to assign to the enabled control.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "control_identifier",
+    "type": "string",
+    "description": "Arn of the control."
+  },
+  {
+    "name": "target_identifier",
+    "type": "string",
+    "description": "Arn for Organizational unit to which the control needs to be applied"
+  },
+  {
+    "name": "parameters",
+    "type": "array",
+    "description": "Parameters to configure the enabled control behavior.",
+    "children": [
+      {
+        "name": "value",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A set of tags to assign to the enabled control.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-controltower-enabledcontrol.html"><code>AWS::ControlTower::EnabledControl</code></a>.
 
@@ -83,17 +125,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>enabled_controls</code> in a region.
-```sql
-SELECT
-region,
-control_identifier,
-target_identifier,
-parameters,
-tags
-FROM awscc.controltower.enabled_controls
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>enabled_control</code>.
 ```sql
 SELECT

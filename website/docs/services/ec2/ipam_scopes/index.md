@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ipam_scope</code> resource or lists <code>ipam_scopes</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets an <code>ipam_scope</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ipam_scope_id" /></td><td><code>string</code></td><td>Id of the IPAM scope.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IPAM scope.</td></tr>
-<tr><td><CopyableCode code="ipam_id" /></td><td><code>string</code></td><td>The Id of the IPAM this scope is a part of.</td></tr>
-<tr><td><CopyableCode code="ipam_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IPAM this scope is a part of.</td></tr>
-<tr><td><CopyableCode code="ipam_scope_type" /></td><td><code>string</code></td><td>Determines whether this scope contains publicly routable space or space for a private network</td></tr>
-<tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td>Is this one of the default scopes created with the IPAM.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pool_count" /></td><td><code>integer</code></td><td>The number of pools that currently exist in this scope.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ipam_scope_id",
+    "type": "string",
+    "description": "Id of the IPAM scope."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IPAM scope."
+  },
+  {
+    "name": "ipam_id",
+    "type": "string",
+    "description": "The Id of the IPAM this scope is a part of."
+  },
+  {
+    "name": "ipam_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IPAM this scope is a part of."
+  },
+  {
+    "name": "ipam_scope_type",
+    "type": "string",
+    "description": "Determines whether this scope contains publicly routable space or space for a private network"
+  },
+  {
+    "name": "is_default",
+    "type": "boolean",
+    "description": "Is this one of the default scopes created with the IPAM."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pool_count",
+    "type": "integer",
+    "description": "The number of pools that currently exist in this scope."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipamscope.html"><code>AWS::EC2::IPAMScope</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ipam_scopes</code> in a region.
-```sql
-SELECT
-region,
-ipam_scope_id,
-arn,
-ipam_id,
-ipam_arn,
-ipam_scope_type,
-is_default,
-description,
-pool_count,
-tags
-FROM awscc.ec2.ipam_scopes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ipam_scope</code>.
 ```sql
 SELECT

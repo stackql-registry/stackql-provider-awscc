@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>base_path_mapping_v2</code> resource or lists <code>base_path_mapping_v2s</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>base_path_mapping_v2</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="base_path" /></td><td><code>string</code></td><td>The base path name that callers of the API must provide in the URL after the domain name.</td></tr>
-<tr><td><CopyableCode code="domain_name_arn" /></td><td><code>string</code></td><td>The Arn of an AWS::ApiGateway::DomainNameV2 resource.</td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td>The ID of the API.</td></tr>
-<tr><td><CopyableCode code="stage" /></td><td><code>string</code></td><td>The name of the API's stage.</td></tr>
-<tr><td><CopyableCode code="base_path_mapping_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "base_path",
+    "type": "string",
+    "description": "The base path name that callers of the API must provide in the URL after the domain name."
+  },
+  {
+    "name": "domain_name_arn",
+    "type": "string",
+    "description": "The Arn of an AWS::ApiGateway::DomainNameV2 resource."
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": "The ID of the API."
+  },
+  {
+    "name": "stage",
+    "type": "string",
+    "description": "The name of the API's stage."
+  },
+  {
+    "name": "base_path_mapping_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-basepathmappingv2.html"><code>AWS::ApiGateway::BasePathMappingV2</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>base_path_mapping_v2s</code> in a region.
-```sql
-SELECT
-region,
-base_path,
-domain_name_arn,
-rest_api_id,
-stage,
-base_path_mapping_arn
-FROM awscc.apigateway.base_path_mapping_v2s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>base_path_mapping_v2</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_automation_project</code> resource or lists <code>data_automation_projects</code> in a region
 
@@ -32,25 +33,389 @@ Creates, updates, deletes or gets a <code>data_automation_project</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="custom_output_configuration" /></td><td><code>object</code></td><td>Custom output configuration</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="override_configuration" /></td><td><code>object</code></td><td>Override configuration</td></tr>
-<tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>ARN of a DataAutomationProject</td></tr>
-<tr><td><CopyableCode code="project_description" /></td><td><code>string</code></td><td>Description of the DataAutomationProject</td></tr>
-<tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>Name of the DataAutomationProject</td></tr>
-<tr><td><CopyableCode code="project_stage" /></td><td><code>string</code></td><td>Stage of the Project</td></tr>
-<tr><td><CopyableCode code="standard_output_configuration" /></td><td><code>object</code></td><td>Standard output configuration</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>KMS key identifier</td></tr>
-<tr><td><CopyableCode code="kms_encryption_context" /></td><td><code>object</code></td><td>KMS encryption context</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "custom_output_configuration",
+    "type": "object",
+    "description": "Custom output configuration",
+    "children": [
+      {
+        "name": "blueprints",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "blueprint_arn",
+            "type": "string",
+            "description": "ARN of a Blueprint"
+          },
+          {
+            "name": "blueprint_version",
+            "type": "string",
+            "description": "Blueprint Version"
+          },
+          {
+            "name": "blueprint_stage",
+            "type": "string",
+            "description": "Stage of the Blueprint"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "override_configuration",
+    "type": "object",
+    "description": "Override configuration",
+    "children": [
+      {
+        "name": "document",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "splitter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "modality_processing",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "audio",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "modality_processing",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "video",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "modality_processing",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "image",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "modality_processing",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "modality_routing",
+        "type": "object",
+        "description": "Modality routing configuration",
+        "children": [
+          {
+            "name": "jpeg",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "project_arn",
+    "type": "string",
+    "description": "ARN of a DataAutomationProject"
+  },
+  {
+    "name": "project_description",
+    "type": "string",
+    "description": "Description of the DataAutomationProject"
+  },
+  {
+    "name": "project_name",
+    "type": "string",
+    "description": "Name of the DataAutomationProject"
+  },
+  {
+    "name": "project_stage",
+    "type": "string",
+    "description": "Stage of the Project"
+  },
+  {
+    "name": "standard_output_configuration",
+    "type": "object",
+    "description": "Standard output configuration",
+    "children": [
+      {
+        "name": "document",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "extraction",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "granularity",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bounding_box",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "generative_field",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "output_format",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "text_format",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "additional_file_format",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "image",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "extraction",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "category",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bounding_box",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "generative_field",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "video",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "extraction",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "category",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bounding_box",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "generative_field",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "audio",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "extraction",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "category",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "generative_field",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "KMS key identifier"
+  },
+  {
+    "name": "kms_encryption_context",
+    "type": "object",
+    "description": "KMS encryption context"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-dataautomationproject.html"><code>AWS::Bedrock::DataAutomationProject</code></a>.
 
@@ -92,26 +457,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_automation_projects</code> in a region.
-```sql
-SELECT
-region,
-creation_time,
-custom_output_configuration,
-last_modified_time,
-override_configuration,
-project_arn,
-project_description,
-project_name,
-project_stage,
-standard_output_configuration,
-status,
-kms_key_id,
-kms_encryption_context,
-tags
-FROM awscc.bedrock.data_automation_projects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_automation_project</code>.
 ```sql
 SELECT

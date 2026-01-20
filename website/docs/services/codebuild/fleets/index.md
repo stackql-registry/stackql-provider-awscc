@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>fleets</code> in a region
 
@@ -32,25 +33,192 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="base_capacity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="overflow_behavior" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fleet_service_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fleet_vpc_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="fleet_proxy_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="image_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="scaling_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "base_capacity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "environment_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "overflow_behavior",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "fleet_service_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "fleet_vpc_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subnets",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "fleet_proxy_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "default_behavior",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ordered_proxy_rules",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "effect",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "entities",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "image_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "scaling_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "max_capacity",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "scaling_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "target_tracking_scaling_configs",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "metric_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_value",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "compute_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "v_cpu",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "memory",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "disk",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "machine_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-fleet.html"><code>AWS::CodeBuild::Fleet</code></a>.
 
@@ -92,26 +260,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>fleets</code> in a region.
-```sql
-SELECT
-region,
-name,
-base_capacity,
-environment_type,
-compute_type,
-overflow_behavior,
-fleet_service_role,
-fleet_vpc_config,
-fleet_proxy_configuration,
-tags,
-arn,
-image_id,
-scaling_configuration,
-compute_configuration
-FROM awscc.codebuild.fleets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT

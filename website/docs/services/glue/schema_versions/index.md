@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schema_version</code> resource or lists <code>schema_versions</code> in a region
 
@@ -32,15 +33,45 @@ Creates, updates, deletes or gets a <code>schema_version</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td>Identifier for the schema where the schema version will be created.</td></tr>
-<tr><td><CopyableCode code="schema_definition" /></td><td><code>string</code></td><td>Complete definition of the schema in plain-text.</td></tr>
-<tr><td><CopyableCode code="version_id" /></td><td><code>string</code></td><td>Represents the version ID associated with the schema version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "schema",
+    "type": "object",
+    "description": "Identifier for the schema where the schema version will be created.",
+    "children": [
+      {
+        "name": "schema_arn",
+        "type": "string",
+        "description": "Amazon Resource Name for the Schema. This attribute can be used to uniquely represent the Schema."
+      },
+      {
+        "name": "schema_name",
+        "type": "string",
+        "description": "Name of the schema. This parameter requires RegistryName to be provided."
+      },
+      {
+        "name": "registry_name",
+        "type": "string",
+        "description": "Name of the registry to identify where the Schema is located."
+      }
+    ]
+  },
+  {
+    "name": "schema_definition",
+    "type": "string",
+    "description": "Complete definition of the schema in plain-text."
+  },
+  {
+    "name": "version_id",
+    "type": "string",
+    "description": "Represents the version ID associated with the schema version."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-schemaversion.html"><code>AWS::Glue::SchemaVersion</code></a>.
 
@@ -77,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schema_versions</code> in a region.
-```sql
-SELECT
-region,
-schema,
-schema_definition,
-version_id
-FROM awscc.glue.schema_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schema_version</code>.
 ```sql
 SELECT

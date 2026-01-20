@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code>datasets</code> in a region
 
@@ -32,19 +33,275 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Dataset name</td></tr>
-<tr><td><CopyableCode code="format" /></td><td><code>string</code></td><td>Dataset format</td></tr>
-<tr><td><CopyableCode code="format_options" /></td><td><code>object</code></td><td>Format options for dataset</td></tr>
-<tr><td><CopyableCode code="input" /></td><td><code>object</code></td><td>Input</td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td>Source type of the dataset</td></tr>
-<tr><td><CopyableCode code="path_options" /></td><td><code>object</code></td><td>PathOptions</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Dataset name"
+  },
+  {
+    "name": "format",
+    "type": "string",
+    "description": "Dataset format"
+  },
+  {
+    "name": "format_options",
+    "type": "object",
+    "description": "Format options for dataset",
+    "children": [
+      {
+        "name": "json",
+        "type": "object",
+        "description": "Json options",
+        "children": [
+          {
+            "name": "multi_line",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "excel",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "sheet_names",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "sheet_indexes",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "header_row",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "csv",
+        "type": "object",
+        "description": "Csv options",
+        "children": [
+          {
+            "name": "delimiter",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "header_row",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "input",
+    "type": "object",
+    "description": "Input",
+    "children": [
+      {
+        "name": "s3_input_definition",
+        "type": "object",
+        "description": "Input location",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "data_catalog_input_definition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "catalog_id",
+            "type": "string",
+            "description": "Catalog id"
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": "Database name"
+          },
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": "Table name"
+          }
+        ]
+      },
+      {
+        "name": "database_input_definition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "glue_connection_name",
+            "type": "string",
+            "description": "Glue connection name"
+          },
+          {
+            "name": "database_table_name",
+            "type": "string",
+            "description": "Database table name"
+          },
+          {
+            "name": "query_string",
+            "type": "string",
+            "description": "Custom SQL to run against the provided AWS Glue connection. This SQL will be used as the input for DataBrew projects and jobs."
+          }
+        ]
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source_arn",
+            "type": "string",
+            "description": "Arn of the source of the dataset. For e.g.: AppFlow Flow ARN."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "source",
+    "type": "string",
+    "description": "Source type of the dataset"
+  },
+  {
+    "name": "path_options",
+    "type": "object",
+    "description": "PathOptions",
+    "children": [
+      {
+        "name": "files_limit",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "max_files",
+            "type": "integer",
+            "description": "Maximum number of files"
+          },
+          {
+            "name": "ordered_by",
+            "type": "string",
+            "description": "Ordered by"
+          },
+          {
+            "name": "order",
+            "type": "string",
+            "description": "Order"
+          }
+        ]
+      },
+      {
+        "name": "last_modified_date_condition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "expression",
+            "type": "string",
+            "description": "Filtering expression for a parameter"
+          },
+          {
+            "name": "values_map",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "value_reference",
+                "type": "string",
+                "description": "Variable name"
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "parameters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "path_parameter_name",
+            "type": "string",
+            "description": "Parameter name"
+          },
+          {
+            "name": "dataset_parameter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Parameter type"
+              },
+              {
+                "name": "datetime_options",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "create_column",
+                "type": "boolean",
+                "description": "Add the value of this parameter as a column in a dataset."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-dataset.html"><code>AWS::DataBrew::Dataset</code></a>.
 
@@ -86,20 +343,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datasets</code> in a region.
-```sql
-SELECT
-region,
-name,
-format,
-format_options,
-input,
-source,
-path_options,
-tags
-FROM awscc.databrew.datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT

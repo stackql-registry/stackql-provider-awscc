@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>traffic_mirror_filter_rules</code> in a region or regions, for all properties use <a href="/services/ec2/traffic_mirror_filter_rules/"><code>traffic_mirror_filter_rules</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>traffic_mirror_filter_rules</code> in a region or regions, for all p
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="traffic_mirror_filter_rule_id" /></td><td><code>string</code></td><td>The ID of the Traffic Mirror Filter rule.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "traffic_mirror_filter_rule_id",
+    "type": "string",
+    "description": "The ID of the Traffic Mirror Filter rule."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

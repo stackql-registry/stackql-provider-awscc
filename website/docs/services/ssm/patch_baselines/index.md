@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>patch_baseline</code> resource or lists <code>patch_baselines</code> in a region
 
@@ -32,28 +33,182 @@ Creates, updates, deletes or gets a <code>patch_baseline</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the patch baseline.</td></tr>
-<tr><td><CopyableCode code="default_baseline" /></td><td><code>boolean</code></td><td>Set the baseline as default baseline. Only registering to default patch baseline is allowed.</td></tr>
-<tr><td><CopyableCode code="operating_system" /></td><td><code>string</code></td><td>Defines the operating system the patch baseline applies to. The Default value is WINDOWS.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the patch baseline.</td></tr>
-<tr><td><CopyableCode code="approval_rules" /></td><td><code>object</code></td><td>A set of rules defining the approval rules for a patch baseline.</td></tr>
-<tr><td><CopyableCode code="sources" /></td><td><code>array</code></td><td>Information about the patches to use to update the instances, including target operating systems and source repository. Applies to Linux instances only.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the patch baseline.</td></tr>
-<tr><td><CopyableCode code="rejected_patches" /></td><td><code>array</code></td><td>A list of explicitly rejected patches for the baseline.</td></tr>
-<tr><td><CopyableCode code="approved_patches" /></td><td><code>array</code></td><td>A list of explicitly approved patches for the baseline.</td></tr>
-<tr><td><CopyableCode code="rejected_patches_action" /></td><td><code>string</code></td><td>The action for Patch Manager to take on patches included in the RejectedPackages list.</td></tr>
-<tr><td><CopyableCode code="patch_groups" /></td><td><code>array</code></td><td>PatchGroups is used to associate instances with a specific patch baseline</td></tr>
-<tr><td><CopyableCode code="approved_patches_compliance_level" /></td><td><code>string</code></td><td>Defines the compliance level for approved patches. This means that if an approved patch is reported as missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.</td></tr>
-<tr><td><CopyableCode code="approved_patches_enable_non_security" /></td><td><code>boolean</code></td><td>Indicates whether the list of approved patches includes non-security updates that should be applied to the instances. The default value is 'false'. Applies to Linux instances only.</td></tr>
-<tr><td><CopyableCode code="global_filters" /></td><td><code>object</code></td><td>A set of global filters used to include patches in the baseline.</td></tr>
-<tr><td><CopyableCode code="available_security_updates_compliance_status" /></td><td><code>string</code></td><td>The compliance status for vendor recommended security updates that are not approved by this patch baseline.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the patch baseline."
+  },
+  {
+    "name": "default_baseline",
+    "type": "boolean",
+    "description": "Set the baseline as default baseline. Only registering to default patch baseline is allowed."
+  },
+  {
+    "name": "operating_system",
+    "type": "string",
+    "description": "Defines the operating system the patch baseline applies to. The Default value is WINDOWS."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the patch baseline."
+  },
+  {
+    "name": "approval_rules",
+    "type": "object",
+    "description": "A set of rules defining the approval rules for a patch baseline.",
+    "children": [
+      {
+        "name": "patch_rules",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "approve_until_date",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enable_non_security",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "patch_filter_group",
+            "type": "object",
+            "description": "The patch filter group that defines the criteria for the rule.",
+            "children": [
+              {
+                "name": "patch_filters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "approve_after_days",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "compliance_level",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sources",
+    "type": "array",
+    "description": "Information about the patches to use to update the instances, including target operating systems and source repository. Applies to Linux instances only.",
+    "children": [
+      {
+        "name": "products",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "configuration",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the patch baseline."
+  },
+  {
+    "name": "rejected_patches",
+    "type": "array",
+    "description": "A list of explicitly rejected patches for the baseline."
+  },
+  {
+    "name": "approved_patches",
+    "type": "array",
+    "description": "A list of explicitly approved patches for the baseline."
+  },
+  {
+    "name": "rejected_patches_action",
+    "type": "string",
+    "description": "The action for Patch Manager to take on patches included in the RejectedPackages list."
+  },
+  {
+    "name": "patch_groups",
+    "type": "array",
+    "description": "PatchGroups is used to associate instances with a specific patch baseline"
+  },
+  {
+    "name": "approved_patches_compliance_level",
+    "type": "string",
+    "description": "Defines the compliance level for approved patches. This means that if an approved patch is reported as missing, this is the severity of the compliance violation. The default value is UNSPECIFIED."
+  },
+  {
+    "name": "approved_patches_enable_non_security",
+    "type": "boolean",
+    "description": "Indicates whether the list of approved patches includes non-security updates that should be applied to the instances. The default value is 'false'. Applies to Linux instances only."
+  },
+  {
+    "name": "global_filters",
+    "type": "object",
+    "description": "A set of global filters used to include patches in the baseline.",
+    "children": [
+      {
+        "name": "patch_filters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "available_security_updates_compliance_status",
+    "type": "string",
+    "description": "The compliance status for vendor recommended security updates that are not approved by this patch baseline."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html"><code>AWS::SSM::PatchBaseline</code></a>.
 
@@ -95,29 +250,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>patch_baselines</code> in a region.
-```sql
-SELECT
-region,
-id,
-default_baseline,
-operating_system,
-description,
-approval_rules,
-sources,
-name,
-rejected_patches,
-approved_patches,
-rejected_patches_action,
-patch_groups,
-approved_patches_compliance_level,
-approved_patches_enable_non_security,
-global_filters,
-available_security_updates_compliance_status,
-tags
-FROM awscc.ssm.patch_baselines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>patch_baseline</code>.
 ```sql
 SELECT

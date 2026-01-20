@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route_table</code> resource or lists <code>route_tables</code> in a region
 
@@ -26,21 +27,46 @@ Creates, updates, deletes or gets a <code>route_table</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>route_tables</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a route table for the specified VPC. After you create a route table, you can add routes and associate the table with a subnet.<br />For more information, see &#91;Route tables&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) in the ASTERIX;Amazon VPC User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a route table for the specified VPC. After you create a route table, you can add routes and associate the table with a subnet.<br />For more information, see &#91;Route tables&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC&#95;Route&#95;Tables.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.route_tables" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="route_table_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the route table.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "route_table_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the route table.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routetable.html"><code>AWS::EC2::RouteTable</code></a>.
 
@@ -82,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>route_tables</code> in a region.
-```sql
-SELECT
-region,
-route_table_id,
-vpc_id,
-tags
-FROM awscc.ec2.route_tables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route_table</code>.
 ```sql
 SELECT

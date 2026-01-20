@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>group</code> resource or lists <code>groups</code> in a region
 
@@ -32,17 +33,62 @@ Creates, updates, deletes or gets a <code>group</code> resource or lists <code>g
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="filter_expression" /></td><td><code>string</code></td><td>The filter expression defining criteria by which to group traces.</td></tr>
-<tr><td><CopyableCode code="group_name" /></td><td><code>string</code></td><td>The case-sensitive name of the new group. Names must be unique.</td></tr>
-<tr><td><CopyableCode code="group_arn" /></td><td><code>string</code></td><td>The ARN of the group that was generated on creation.</td></tr>
-<tr><td><CopyableCode code="insights_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "filter_expression",
+    "type": "string",
+    "description": "The filter expression defining criteria by which to group traces."
+  },
+  {
+    "name": "group_name",
+    "type": "string",
+    "description": "The case-sensitive name of the new group. Names must be unique."
+  },
+  {
+    "name": "group_arn",
+    "type": "string",
+    "description": "The ARN of the group that was generated on creation."
+  },
+  {
+    "name": "insights_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "insights_enabled",
+        "type": "boolean",
+        "description": "Set the InsightsEnabled value to true to enable insights or false to disable insights."
+      },
+      {
+        "name": "notifications_enabled",
+        "type": "boolean",
+        "description": "Set the NotificationsEnabled value to true to enable insights notifications. Notifications can only be enabled on a group with InsightsEnabled set to true."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-xray-group.html"><code>AWS::XRay::Group</code></a>.
 
@@ -84,18 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>groups</code> in a region.
-```sql
-SELECT
-region,
-filter_expression,
-group_name,
-group_arn,
-insights_configuration,
-tags
-FROM awscc.xray.groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT

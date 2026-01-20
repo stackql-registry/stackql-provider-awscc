@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stream_key</code> resource or lists <code>stream_keys</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>stream_key</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Stream Key ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>Channel ARN for the stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>Stream-key value.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Stream Key ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "channel_arn",
+    "type": "string",
+    "description": "Channel ARN for the stream."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": "Stream-key value."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-streamkey.html"><code>AWS::IVS::StreamKey</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stream_keys</code> in a region.
-```sql
-SELECT
-region,
-arn,
-channel_arn,
-tags,
-value
-FROM awscc.ivs.stream_keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stream_key</code>.
 ```sql
 SELECT

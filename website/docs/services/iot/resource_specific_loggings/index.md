@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_specific_logging</code> resource or lists <code>resource_specific_loggings</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>resource_specific_logging</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="target_type" /></td><td><code>string</code></td><td>The target type. Value must be THING_GROUP, CLIENT_ID, SOURCE_IP, PRINCIPAL_ID, or EVENT_TYPE.</td></tr>
-<tr><td><CopyableCode code="target_name" /></td><td><code>string</code></td><td>The target name.</td></tr>
-<tr><td><CopyableCode code="log_level" /></td><td><code>string</code></td><td>The log level for a specific target. Valid values are: ERROR, WARN, INFO, DEBUG, or DISABLED.</td></tr>
-<tr><td><CopyableCode code="target_id" /></td><td><code>string</code></td><td>Unique Id for a Target (TargetType:TargetName), this will be internally built to serve as primary identifier for a log target.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "target_type",
+    "type": "string",
+    "description": "The target type. Value must be THING&#95;GROUP, CLIENT&#95;ID, SOURCE&#95;IP, PRINCIPAL&#95;ID, or EVENT&#95;TYPE."
+  },
+  {
+    "name": "target_name",
+    "type": "string",
+    "description": "The target name."
+  },
+  {
+    "name": "log_level",
+    "type": "string",
+    "description": "The log level for a specific target. Valid values are: ERROR, WARN, INFO, DEBUG, or DISABLED."
+  },
+  {
+    "name": "target_id",
+    "type": "string",
+    "description": "Unique Id for a Target (TargetType:TargetName), this will be internally built to serve as primary identifier for a log target."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-resourcespecificlogging.html"><code>AWS::IoT::ResourceSpecificLogging</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_specific_loggings</code> in a region.
-```sql
-SELECT
-region,
-target_type,
-target_name,
-log_level,
-target_id
-FROM awscc.iot.resource_specific_loggings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_specific_logging</code>.
 ```sql
 SELECT

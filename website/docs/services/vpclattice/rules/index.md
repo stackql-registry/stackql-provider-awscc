@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>rules</code> in a region
 
@@ -32,21 +33,161 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="listener_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="match" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="priority" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "forward",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "target_groups",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "target_group_identifier",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "weight",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "fixed_response",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "status_code",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "listener_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "match",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "http_match",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "method",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "path_match",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "match",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "case_sensitive",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "header_matches",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "match",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "case_sensitive",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "service_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-rule.html"><code>AWS::VpcLattice::Rule</code></a>.
 
@@ -88,22 +229,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rules</code> in a region.
-```sql
-SELECT
-region,
-action,
-arn,
-id,
-listener_identifier,
-match,
-name,
-priority,
-service_identifier,
-tags
-FROM awscc.vpclattice.rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT

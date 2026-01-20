@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resiliency_policy</code> resource or lists <code>resiliency_policies</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>resiliency_policy</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td>Name of Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="policy_description" /></td><td><code>string</code></td><td>Description of Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="data_location_constraint" /></td><td><code>string</code></td><td>Data Location Constraint of the Policy.</td></tr>
-<tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>Resiliency Policy Tier.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": "Name of Resiliency Policy."
+  },
+  {
+    "name": "policy_description",
+    "type": "string",
+    "description": "Description of Resiliency Policy."
+  },
+  {
+    "name": "data_location_constraint",
+    "type": "string",
+    "description": "Data Location Constraint of the Policy."
+  },
+  {
+    "name": "tier",
+    "type": "string",
+    "description": "Resiliency Policy Tier."
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "az",
+        "type": "object",
+        "description": "Failure Policy.",
+        "children": [
+          {
+            "name": "rto_in_secs",
+            "type": "integer",
+            "description": "RTO in seconds."
+          },
+          {
+            "name": "rpo_in_secs",
+            "type": "integer",
+            "description": "RPO in seconds."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "policy_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the Resiliency Policy."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resiliencehub-resiliencypolicy.html"><code>AWS::ResilienceHub::ResiliencyPolicy</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resiliency_policies</code> in a region.
-```sql
-SELECT
-region,
-policy_name,
-policy_description,
-data_location_constraint,
-tier,
-policy,
-policy_arn,
-tags
-FROM awscc.resiliencehub.resiliency_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resiliency_policy</code>.
 ```sql
 SELECT

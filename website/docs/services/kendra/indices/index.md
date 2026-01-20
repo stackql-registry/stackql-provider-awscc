@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>index</code> resource or lists <code>indices</code> in a region
 
@@ -32,24 +33,238 @@ Creates, updates, deletes or gets an <code>index</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique ID of index</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the index</td></tr>
-<tr><td><CopyableCode code="server_side_encryption_configuration" /></td><td><code>object</code></td><td>Server side encryption configuration</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the index</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of index</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
-<tr><td><CopyableCode code="edition" /></td><td><code>string</code></td><td>Edition of index</td></tr>
-<tr><td><CopyableCode code="document_metadata_configurations" /></td><td><code>array</code></td><td>Document metadata configurations</td></tr>
-<tr><td><CopyableCode code="capacity_units" /></td><td><code>object</code></td><td>Capacity units</td></tr>
-<tr><td><CopyableCode code="user_context_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_token_configurations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique ID of index"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the index"
+  },
+  {
+    "name": "server_side_encryption_configuration",
+    "type": "object",
+    "description": "Server side encryption configuration",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for labeling the index",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of index"
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role Arn"
+  },
+  {
+    "name": "edition",
+    "type": "string",
+    "description": "Edition of index"
+  },
+  {
+    "name": "document_metadata_configurations",
+    "type": "array",
+    "description": "Document metadata configurations",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "relevance",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "freshness",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "importance",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "duration",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "rank_order",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value_importance_items",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "search",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "facetable",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "searchable",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "displayable",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "sortable",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "capacity_units",
+    "type": "object",
+    "description": "Capacity units",
+    "children": [
+      {
+        "name": "storage_capacity_units",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "query_capacity_units",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_context_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_token_configurations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "jwt_token_type_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "key_location",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "user_name_attribute_field",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group_attribute_field",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "issuer",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "claim_regex",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "json_token_type_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "user_name_attribute_field",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group_attribute_field",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kendra-index.html"><code>AWS::Kendra::Index</code></a>.
 
@@ -91,25 +306,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>indices</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-description,
-server_side_encryption_configuration,
-tags,
-name,
-role_arn,
-edition,
-document_metadata_configurations,
-capacity_units,
-user_context_policy,
-user_token_configurations
-FROM awscc.kendra.indices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT

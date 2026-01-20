@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>sequence_store</code> resource or lists <code>sequence_stores</code> in a region
 
@@ -32,29 +33,110 @@ Creates, updates, deletes or gets a <code>sequence_store</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_log_location" /></td><td><code>string</code></td><td>Location of the access logs.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The store's ARN.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>When the store was created.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the store.</td></tr>
-<tr><td><CopyableCode code="e_tag_algorithm_family" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fallback_location" /></td><td><code>string</code></td><td>An S3 location that is used to store files that have failed a direct upload.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the store.</td></tr>
-<tr><td><CopyableCode code="propagated_set_level_tags" /></td><td><code>array</code></td><td>The tags keys to propagate to the S3 objects associated with read sets in the sequence store.</td></tr>
-<tr><td><CopyableCode code="s3_access_point_arn" /></td><td><code>string</code></td><td>This is ARN of the access point associated with the S3 bucket storing read sets.</td></tr>
-<tr><td><CopyableCode code="s3_access_policy" /></td><td><code>object</code></td><td>The resource policy that controls S3 access on the store</td></tr>
-<tr><td><CopyableCode code="s3_uri" /></td><td><code>string</code></td><td>The S3 URI of the sequence store.</td></tr>
-<tr><td><CopyableCode code="sequence_store_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sse_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>The status message of the sequence store.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of resource tags</td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The last-updated time of the sequence store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_log_location",
+    "type": "string",
+    "description": "Location of the access logs."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The store's ARN."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "When the store was created."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the store."
+  },
+  {
+    "name": "e_tag_algorithm_family",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "fallback_location",
+    "type": "string",
+    "description": "An S3 location that is used to store files that have failed a direct upload."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the store."
+  },
+  {
+    "name": "propagated_set_level_tags",
+    "type": "array",
+    "description": "The tags keys to propagate to the S3 objects associated with read sets in the sequence store."
+  },
+  {
+    "name": "s3_access_point_arn",
+    "type": "string",
+    "description": "This is ARN of the access point associated with the S3 bucket storing read sets."
+  },
+  {
+    "name": "s3_access_policy",
+    "type": "object",
+    "description": "The resource policy that controls S3 access on the store"
+  },
+  {
+    "name": "s3_uri",
+    "type": "string",
+    "description": "The S3 URI of the sequence store."
+  },
+  {
+    "name": "sequence_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sse_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": "The status message of the sequence store."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of resource tags"
+  },
+  {
+    "name": "update_time",
+    "type": "string",
+    "description": "The last-updated time of the sequence store."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-omics-sequencestore.html"><code>AWS::Omics::SequenceStore</code></a>.
 
@@ -96,30 +178,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sequence_stores</code> in a region.
-```sql
-SELECT
-region,
-access_log_location,
-arn,
-creation_time,
-description,
-e_tag_algorithm_family,
-fallback_location,
-name,
-propagated_set_level_tags,
-s3_access_point_arn,
-s3_access_policy,
-s3_uri,
-sequence_store_id,
-sse_config,
-status,
-status_message,
-tags,
-update_time
-FROM awscc.omics.sequence_stores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>sequence_store</code>.
 ```sql
 SELECT

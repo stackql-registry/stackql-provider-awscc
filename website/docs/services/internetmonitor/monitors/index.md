@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>monitor</code> resource or lists <code>monitors</code> in a region
 
@@ -32,29 +33,163 @@ Creates, updates, deletes or gets a <code>monitor</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ssZ)</td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td>The date value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ssZ)</td></tr>
-<tr><td><CopyableCode code="monitor_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="monitor_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="linked_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="include_linked_accounts" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="processing_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="processing_status_info" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resources" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resources_to_add" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resources_to_remove" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_city_networks_to_monitor" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="traffic_percentage_to_monitor" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="internet_measurements_log_delivery" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="health_events_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ssZ)"
+  },
+  {
+    "name": "monitor_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "monitor_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "linked_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "include_linked_accounts",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "processing_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "processing_status_info",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resources",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "resources_to_add",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "resources_to_remove",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "max_city_networks_to_monitor",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "traffic_percentage_to_monitor",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "internet_measurements_log_delivery",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "bucket_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "log_delivery_status",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "health_events_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "availability_score_threshold",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "performance_score_threshold",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "availability_local_health_events_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "status",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "health_score_threshold",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "min_traffic_impact",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-internetmonitor-monitor.html"><code>AWS::InternetMonitor::Monitor</code></a>.
 
@@ -96,30 +231,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>monitors</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-modified_at,
-monitor_arn,
-monitor_name,
-linked_account_id,
-include_linked_accounts,
-processing_status,
-processing_status_info,
-resources,
-resources_to_add,
-resources_to_remove,
-status,
-tags,
-max_city_networks_to_monitor,
-traffic_percentage_to_monitor,
-internet_measurements_log_delivery,
-health_events_config
-FROM awscc.internetmonitor.monitors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>monitor</code>.
 ```sql
 SELECT

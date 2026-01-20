@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dhcp_option</code> resource or lists <code>dhcp_options</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>dhcp_option</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="dhcp_options_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>This value is used to complete unqualified DNS hostnames.</td></tr>
-<tr><td><CopyableCode code="domain_name_servers" /></td><td><code>array</code></td><td>The IPv4 addresses of up to four domain name servers, or AmazonProvidedDNS.</td></tr>
-<tr><td><CopyableCode code="netbios_name_servers" /></td><td><code>array</code></td><td>The IPv4 addresses of up to four NetBIOS name servers.</td></tr>
-<tr><td><CopyableCode code="netbios_node_type" /></td><td><code>integer</code></td><td>The NetBIOS node type (1, 2, 4, or 8).</td></tr>
-<tr><td><CopyableCode code="ntp_servers" /></td><td><code>array</code></td><td>The IPv4 addresses of up to four Network Time Protocol (NTP) servers.</td></tr>
-<tr><td><CopyableCode code="ipv6_address_preferred_lease_time" /></td><td><code>integer</code></td><td>The preferred Lease Time for ipV6 address in seconds.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the DHCP options set.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "dhcp_options_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "This value is used to complete unqualified DNS hostnames."
+  },
+  {
+    "name": "domain_name_servers",
+    "type": "array",
+    "description": "The IPv4 addresses of up to four domain name servers, or AmazonProvidedDNS."
+  },
+  {
+    "name": "netbios_name_servers",
+    "type": "array",
+    "description": "The IPv4 addresses of up to four NetBIOS name servers."
+  },
+  {
+    "name": "netbios_node_type",
+    "type": "integer",
+    "description": "The NetBIOS node type (1, 2, 4, or 8)."
+  },
+  {
+    "name": "ntp_servers",
+    "type": "array",
+    "description": "The IPv4 addresses of up to four Network Time Protocol (NTP) servers."
+  },
+  {
+    "name": "ipv6_address_preferred_lease_time",
+    "type": "integer",
+    "description": "The preferred Lease Time for ipV6 address in seconds."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the DHCP options set.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-dhcpoption.html"><code>AWS::EC2::DHCPOptions</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dhcp_options</code> in a region.
-```sql
-SELECT
-region,
-dhcp_options_id,
-domain_name,
-domain_name_servers,
-netbios_name_servers,
-netbios_node_type,
-ntp_servers,
-ipv6_address_preferred_lease_time,
-tags
-FROM awscc.ec2.dhcp_options
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dhcp_option</code>.
 ```sql
 SELECT

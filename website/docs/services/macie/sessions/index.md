@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>session</code> resource or lists <code>sessions</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>session</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td>AWS account ID of customer</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>A enumeration value that specifies the status of the Macie Session.</td></tr>
-<tr><td><CopyableCode code="finding_publishing_frequency" /></td><td><code>string</code></td><td>A enumeration value that specifies how frequently finding updates are published.</td></tr>
-<tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td>Service role used by Macie</td></tr>
-<tr><td><CopyableCode code="automated_discovery_status" /></td><td><code>string</code></td><td>The status of automated sensitive data discovery for the Macie session.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": "AWS account ID of customer"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "A enumeration value that specifies the status of the Macie Session."
+  },
+  {
+    "name": "finding_publishing_frequency",
+    "type": "string",
+    "description": "A enumeration value that specifies how frequently finding updates are published."
+  },
+  {
+    "name": "service_role",
+    "type": "string",
+    "description": "Service role used by Macie"
+  },
+  {
+    "name": "automated_discovery_status",
+    "type": "string",
+    "description": "The status of automated sensitive data discovery for the Macie session."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-session.html"><code>AWS::Macie::Session</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sessions</code> in a region.
-```sql
-SELECT
-region,
-aws_account_id,
-status,
-finding_publishing_frequency,
-service_role,
-automated_discovery_status
-FROM awscc.macie.sessions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>session</code>.
 ```sql
 SELECT

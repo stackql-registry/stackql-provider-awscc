@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>asset_model</code> resource or lists <code>asset_models</code> in a region
 
@@ -32,23 +33,283 @@ Creates, updates, deletes or gets an <code>asset_model</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="asset_model_id" /></td><td><code>string</code></td><td>The ID of the asset model.</td></tr>
-<tr><td><CopyableCode code="asset_model_type" /></td><td><code>string</code></td><td>The type of the asset model (ASSET_MODEL OR COMPONENT_MODEL or INTERFACE)</td></tr>
-<tr><td><CopyableCode code="asset_model_external_id" /></td><td><code>string</code></td><td>The external ID of the asset model.</td></tr>
-<tr><td><CopyableCode code="asset_model_arn" /></td><td><code>string</code></td><td>The ARN of the asset model, which has the following format.</td></tr>
-<tr><td><CopyableCode code="asset_model_name" /></td><td><code>string</code></td><td>A unique, friendly name for the asset model.</td></tr>
-<tr><td><CopyableCode code="asset_model_description" /></td><td><code>string</code></td><td>A description for the asset model.</td></tr>
-<tr><td><CopyableCode code="asset_model_properties" /></td><td><code>array</code></td><td>The property definitions of the asset model. You can specify up to 200 properties per asset model.</td></tr>
-<tr><td><CopyableCode code="asset_model_composite_models" /></td><td><code>array</code></td><td>The composite asset models that are part of this asset model. Composite asset models are asset models that contain specific properties.</td></tr>
-<tr><td><CopyableCode code="asset_model_hierarchies" /></td><td><code>array</code></td><td>The hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. You can specify up to 10 hierarchies per asset model.</td></tr>
-<tr><td><CopyableCode code="enforced_asset_model_interface_relationships" /></td><td><code>array</code></td><td>a list of asset model and interface relationships</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "asset_model_id",
+    "type": "string",
+    "description": "The ID of the asset model."
+  },
+  {
+    "name": "asset_model_type",
+    "type": "string",
+    "description": "The type of the asset model (ASSET&#95;MODEL OR COMPONENT&#95;MODEL or INTERFACE)"
+  },
+  {
+    "name": "asset_model_external_id",
+    "type": "string",
+    "description": "The external ID of the asset model."
+  },
+  {
+    "name": "asset_model_arn",
+    "type": "string",
+    "description": "The ARN of the asset model, which has the following format."
+  },
+  {
+    "name": "asset_model_name",
+    "type": "string",
+    "description": "A unique, friendly name for the asset model."
+  },
+  {
+    "name": "asset_model_description",
+    "type": "string",
+    "description": "A description for the asset model."
+  },
+  {
+    "name": "asset_model_properties",
+    "type": "array",
+    "description": "The property definitions of the asset model. You can specify up to 200 properties per asset model.",
+    "children": [
+      {
+        "name": "logical_id",
+        "type": "string",
+        "description": "Customer provided Logical ID for property."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID of the Asset Model Property"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "The External ID of the Asset Model Property"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the asset model property."
+      },
+      {
+        "name": "data_type",
+        "type": "string",
+        "description": "The data type of the asset model property."
+      },
+      {
+        "name": "data_type_spec",
+        "type": "string",
+        "description": "The data type of the structure for this property."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "description": "The unit of the asset model property, such as Newtons or RPM."
+      },
+      {
+        "name": "type",
+        "type": "object",
+        "description": "The property type",
+        "children": [
+          {
+            "name": "type_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attribute",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "default_value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "transform",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "expression",
+                "type": "string",
+                "description": "The mathematical expression that defines the transformation function. You can specify up to 10 functions per expression."
+              },
+              {
+                "name": "variables",
+                "type": "array",
+                "description": "The list of variables used in the expression."
+              }
+            ]
+          },
+          {
+            "name": "metric",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "expression",
+                "type": "string",
+                "description": "The mathematical expression that defines the metric aggregation function. You can specify up to 10 functions per expression."
+              },
+              {
+                "name": "variables",
+                "type": "array",
+                "description": "The list of variables used in the expression."
+              },
+              {
+                "name": "window",
+                "type": "object",
+                "description": "The window (time interval) over which AWS IoT SiteWise computes the metric's aggregation expression"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "asset_model_composite_models",
+    "type": "array",
+    "description": "The composite asset models that are part of this asset model. Composite asset models are asset models that contain specific properties.",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The Actual ID of the composite model"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "The External ID of the composite model"
+      },
+      {
+        "name": "composed_asset_model_id",
+        "type": "string",
+        "description": "The component model ID for which the composite model is composed of"
+      },
+      {
+        "name": "parent_asset_model_composite_model_external_id",
+        "type": "string",
+        "description": "The parent composite model External ID"
+      },
+      {
+        "name": "path",
+        "type": "array",
+        "description": "The path of the composite model. This is only for derived composite models"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description for the asset composite model."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "A unique, friendly name for the asset composite model."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of the composite model. For alarm composite models, this type is AWS/ALARM"
+      },
+      {
+        "name": "composite_model_properties",
+        "type": "array",
+        "description": "The property definitions of the asset model. You can specify up to 200 properties per asset model."
+      }
+    ]
+  },
+  {
+    "name": "asset_model_hierarchies",
+    "type": "array",
+    "description": "The hierarchy definitions of the asset model. Each hierarchy specifies an asset model whose assets can be children of any other assets created from this asset model. You can specify up to 10 hierarchies per asset model.",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "Customer provided actual ID for hierarchy"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "Customer provided external ID for hierarchy"
+      },
+      {
+        "name": "logical_id",
+        "type": "string",
+        "description": "Customer provided logical ID for hierarchy."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the asset model hierarchy."
+      },
+      {
+        "name": "child_asset_model_id",
+        "type": "string",
+        "description": "The ID of the asset model. All assets in this hierarchy must be instances of the child AssetModelId asset model."
+      }
+    ]
+  },
+  {
+    "name": "enforced_asset_model_interface_relationships",
+    "type": "array",
+    "description": "a list of asset model and interface relationships",
+    "children": [
+      {
+        "name": "interface_asset_model_id",
+        "type": "string",
+        "description": "The ID of the interface that is enforced to the asset model"
+      },
+      {
+        "name": "property_mappings",
+        "type": "array",
+        "description": "Contains information about enforced interface property and asset model property",
+        "children": [
+          {
+            "name": "asset_model_property_external_id",
+            "type": "string",
+            "description": "The external ID of the enforced asset model property"
+          },
+          {
+            "name": "asset_model_property_logical_id",
+            "type": "string",
+            "description": "The logical ID of the enforced asset model property"
+          },
+          {
+            "name": "interface_asset_model_property_external_id",
+            "type": "string",
+            "description": "The external ID of the enforced interface property"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-assetmodel.html"><code>AWS::IoTSiteWise::AssetModel</code></a>.
 
@@ -90,24 +351,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>asset_models</code> in a region.
-```sql
-SELECT
-region,
-asset_model_id,
-asset_model_type,
-asset_model_external_id,
-asset_model_arn,
-asset_model_name,
-asset_model_description,
-asset_model_properties,
-asset_model_composite_models,
-asset_model_hierarchies,
-enforced_asset_model_interface_relationships,
-tags
-FROM awscc.iotsitewise.asset_models
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>asset_model</code>.
 ```sql
 SELECT

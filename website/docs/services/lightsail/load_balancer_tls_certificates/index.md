@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>load_balancer_tls_certificate</code> resource or lists <code>load_balancer_tls_certificates</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>load_balancer_tls_certificate</code> r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="load_balancer_name" /></td><td><code>string</code></td><td>The name of your load balancer.</td></tr>
-<tr><td><CopyableCode code="certificate_name" /></td><td><code>string</code></td><td>The SSL/TLS certificate name.</td></tr>
-<tr><td><CopyableCode code="certificate_domain_name" /></td><td><code>string</code></td><td>The domain name (e.g., example.com ) for your SSL/TLS certificate.</td></tr>
-<tr><td><CopyableCode code="certificate_alternative_names" /></td><td><code>array</code></td><td>An array of strings listing alternative domains and subdomains for your SSL/TLS certificate.</td></tr>
-<tr><td><CopyableCode code="load_balancer_tls_certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="is_attached" /></td><td><code>boolean</code></td><td>When true, the SSL/TLS certificate is attached to the Lightsail load balancer.</td></tr>
-<tr><td><CopyableCode code="https_redirection_enabled" /></td><td><code>boolean</code></td><td>A Boolean value that indicates whether HTTPS redirection is enabled for the load balancer.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The validation status of the SSL/TLS certificate.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "load_balancer_name",
+    "type": "string",
+    "description": "The name of your load balancer."
+  },
+  {
+    "name": "certificate_name",
+    "type": "string",
+    "description": "The SSL/TLS certificate name."
+  },
+  {
+    "name": "certificate_domain_name",
+    "type": "string",
+    "description": "The domain name (e.g., example.com ) for your SSL/TLS certificate."
+  },
+  {
+    "name": "certificate_alternative_names",
+    "type": "array",
+    "description": "An array of strings listing alternative domains and subdomains for your SSL/TLS certificate."
+  },
+  {
+    "name": "load_balancer_tls_certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "is_attached",
+    "type": "boolean",
+    "description": "When true, the SSL/TLS certificate is attached to the Lightsail load balancer."
+  },
+  {
+    "name": "https_redirection_enabled",
+    "type": "boolean",
+    "description": "A Boolean value that indicates whether HTTPS redirection is enabled for the load balancer."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The validation status of the SSL/TLS certificate."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-loadbalancertlscertificate.html"><code>AWS::Lightsail::LoadBalancerTlsCertificate</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>load_balancer_tls_certificates</code> in a region.
-```sql
-SELECT
-region,
-load_balancer_name,
-certificate_name,
-certificate_domain_name,
-certificate_alternative_names,
-load_balancer_tls_certificate_arn,
-is_attached,
-https_redirection_enabled,
-status
-FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>load_balancer_tls_certificate</code>.
 ```sql
 SELECT

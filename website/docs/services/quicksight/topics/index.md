@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>topics</code> in a region
 
@@ -32,23 +33,686 @@ Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>t
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="config_options" /></td><td><code>object</code></td><td>Model for configuration of a Topic</td></tr>
-<tr><td><CopyableCode code="custom_instructions" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_sets" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="folder_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="topic_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_experience_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "config_options",
+    "type": "object",
+    "description": "Model for configuration of a Topic",
+    "children": [
+      {
+        "name": "q_business_insights_enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "custom_instructions",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "custom_instructions_string",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_sets",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "dataset_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dataset_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dataset_description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_aggregation",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "dataset_row_date_granularity",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "default_date_column_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "filters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "filter_description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filter_class",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filter_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filter_synonyms",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "operand_field_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filter_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "category_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "category_filter_function",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "category_filter_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "constant",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "inverse",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "numeric_equality_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "constant",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "aggregation",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "numeric_range_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "inclusive",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "constant",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "aggregation",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "date_range_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "inclusive",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "constant",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "relative_date_filter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "time_granularity",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "relative_date_filter_function",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "constant",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "columns",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "column_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "column_friendly_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "column_description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "column_synonyms",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "column_data_role",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "aggregation",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "is_included_in_topic",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "disable_indexing",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "comparative_order",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "use_ordering",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "specifed_order",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "treat_undefined_specified_values",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "semantic_type",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "sub_type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type_parameters",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "truthy_cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "truthy_cell_value_synonyms",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "falsey_cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "falsey_cell_value_synonyms",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "time_granularity",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "allowed_aggregations",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "not_allowed_aggregations",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "default_formatting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "display_format",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "display_format_options",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "never_aggregate_in_filter",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "cell_value_synonyms",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "synonyms",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "non_additive",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "calculated_fields",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "calculated_field_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "calculated_field_description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "calculated_field_synonyms",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "is_included_in_topic",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "disable_indexing",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "column_data_role",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "time_granularity",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "default_formatting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "display_format",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "display_format_options",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "aggregation",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "comparative_order",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "use_ordering",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "specifed_order",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "treat_undefined_specified_values",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "semantic_type",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "sub_type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type_parameters",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "truthy_cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "truthy_cell_value_synonyms",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "falsey_cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "falsey_cell_value_synonyms",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "allowed_aggregations",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "not_allowed_aggregations",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "never_aggregate_in_filter",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "cell_value_synonyms",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "cell_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "synonyms",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "non_additive",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "named_entities",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "entity_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "entity_description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "entity_synonyms",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "semantic_entity_type",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "sub_type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type_parameters",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "definition",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "field_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "property_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "property_role",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "property_usage",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "folder_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "topic_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_experience_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-topic.html"><code>AWS::QuickSight::Topic</code></a>.
 
@@ -90,24 +754,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>topics</code> in a region.
-```sql
-SELECT
-region,
-arn,
-aws_account_id,
-config_options,
-custom_instructions,
-data_sets,
-description,
-folder_arns,
-name,
-tags,
-topic_id,
-user_experience_version
-FROM awscc.quicksight.topics
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>topic</code>.
 ```sql
 SELECT

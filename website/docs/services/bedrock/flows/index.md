@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>flows</code> in a region
 
@@ -32,29 +33,202 @@ Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>fl
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn representation of the Flow</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="definition" /></td><td><code>object</code></td><td>Flow definition</td></tr>
-<tr><td><CopyableCode code="definition_string" /></td><td><code>string</code></td><td>A JSON string containing a Definition with the same schema as the Definition property of this resource</td></tr>
-<tr><td><CopyableCode code="definition_s3_location" /></td><td><code>object</code></td><td>An Amazon S3 location.</td></tr>
-<tr><td><CopyableCode code="definition_substitutions" /></td><td><code>object</code></td><td>When supplied with DefinitionString or DefinitionS3Location, substrings in the definition matching $&#123;keyname&#125; will be replaced with the associated value from this map</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the flow</td></tr>
-<tr><td><CopyableCode code="execution_role_arn" /></td><td><code>string</code></td><td>ARN of a IAM role</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Identifier for a Flow</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name for the flow</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Schema Type for Flow APIs</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="customer_encryption_key_arn" /></td><td><code>string</code></td><td>A KMS key ARN</td></tr>
-<tr><td><CopyableCode code="validations" /></td><td><code>array</code></td><td>List of flow validations</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>Draft Version.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
-<tr><td><CopyableCode code="test_alias_tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn representation of the Flow"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "definition",
+    "type": "object",
+    "description": "Flow definition",
+    "children": [
+      {
+        "name": "nodes",
+        "type": "array",
+        "description": "List of nodes in a flow",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Name of a node in a flow"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Flow node types"
+          },
+          {
+            "name": "configuration",
+            "type": "object",
+            "description": "Node configuration in a flow"
+          },
+          {
+            "name": "inputs",
+            "type": "array",
+            "description": "List of node inputs in a flow",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "Name of a node input in a flow"
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Type of input/output for a node in a flow"
+              },
+              {
+                "name": "expression",
+                "type": "string",
+                "description": "Expression for a node input in a flow"
+              }
+            ]
+          },
+          {
+            "name": "outputs",
+            "type": "array",
+            "description": "List of node outputs in a flow",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "Name of a node output in a flow"
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Type of input/output for a node in a flow"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "connections",
+        "type": "array",
+        "description": "List of connections",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Connection type"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Name of a connection in a flow"
+          },
+          {
+            "name": "source",
+            "type": "string",
+            "description": "Name of a node in a flow"
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": "Name of a node in a flow"
+          },
+          {
+            "name": "configuration",
+            "type": "object",
+            "description": "Connection configuration"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "definition_string",
+    "type": "string",
+    "description": "A JSON string containing a Definition with the same schema as the Definition property of this resource"
+  },
+  {
+    "name": "definition_s3_location",
+    "type": "object",
+    "description": "An Amazon S3 location.",
+    "children": [
+      {
+        "name": "uri",
+        "type": "string",
+        "description": "The location's URI"
+      }
+    ]
+  },
+  {
+    "name": "definition_substitutions",
+    "type": "object",
+    "description": "When supplied with DefinitionString or DefinitionS3Location, substrings in the definition matching $&#123;keyname&#125; will be replaced with the associated value from this map"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the flow"
+  },
+  {
+    "name": "execution_role_arn",
+    "type": "string",
+    "description": "ARN of a IAM role"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Identifier for a Flow"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name for the flow"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Schema Type for Flow APIs"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "customer_encryption_key_arn",
+    "type": "string",
+    "description": "A KMS key ARN"
+  },
+  {
+    "name": "validations",
+    "type": "array",
+    "description": "List of flow validations",
+    "children": [
+      {
+        "name": "message",
+        "type": "string",
+        "description": "validation message"
+      }
+    ]
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "Draft Version."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of tag keys and values"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-flow.html"><code>AWS::Bedrock::Flow</code></a>.
 
@@ -96,30 +270,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>flows</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-definition,
-definition_string,
-definition_s3_location,
-definition_substitutions,
-description,
-execution_role_arn,
-id,
-name,
-status,
-updated_at,
-customer_encryption_key_arn,
-validations,
-version,
-tags,
-test_alias_tags
-FROM awscc.bedrock.flows
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>flow</code>.
 ```sql
 SELECT

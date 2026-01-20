@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connect_peer</code> resource or lists <code>connect_peers</code> in a region
 
@@ -32,25 +33,146 @@ Creates, updates, deletes or gets a <code>connect_peer</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="peer_address" /></td><td><code>string</code></td><td>The IP address of the Connect peer.</td></tr>
-<tr><td><CopyableCode code="core_network_address" /></td><td><code>string</code></td><td>The IP address of a core network.</td></tr>
-<tr><td><CopyableCode code="bgp_options" /></td><td><code>object</code></td><td>Bgp options for connect peer.</td></tr>
-<tr><td><CopyableCode code="inside_cidr_blocks" /></td><td><code>array</code></td><td>The inside IP addresses used for a Connect peer configuration.</td></tr>
-<tr><td><CopyableCode code="core_network_id" /></td><td><code>string</code></td><td>The ID of the core network.</td></tr>
-<tr><td><CopyableCode code="connect_attachment_id" /></td><td><code>string</code></td><td>The ID of the attachment to connect.</td></tr>
-<tr><td><CopyableCode code="connect_peer_id" /></td><td><code>string</code></td><td>The ID of the Connect peer.</td></tr>
-<tr><td><CopyableCode code="edge_location" /></td><td><code>string</code></td><td>The Connect peer Regions where edges are located.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>State of the connect peer.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Connect peer creation time.</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>object</code></td><td>Configuration of the connect peer.</td></tr>
-<tr><td><CopyableCode code="subnet_arn" /></td><td><code>string</code></td><td>The subnet ARN for the connect peer.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "peer_address",
+    "type": "string",
+    "description": "The IP address of the Connect peer."
+  },
+  {
+    "name": "core_network_address",
+    "type": "string",
+    "description": "The IP address of a core network."
+  },
+  {
+    "name": "bgp_options",
+    "type": "object",
+    "description": "Bgp options for connect peer.",
+    "children": [
+      {
+        "name": "peer_asn",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "inside_cidr_blocks",
+    "type": "array",
+    "description": "The inside IP addresses used for a Connect peer configuration."
+  },
+  {
+    "name": "core_network_id",
+    "type": "string",
+    "description": "The ID of the core network."
+  },
+  {
+    "name": "connect_attachment_id",
+    "type": "string",
+    "description": "The ID of the attachment to connect."
+  },
+  {
+    "name": "connect_peer_id",
+    "type": "string",
+    "description": "The ID of the Connect peer."
+  },
+  {
+    "name": "edge_location",
+    "type": "string",
+    "description": "The Connect peer Regions where edges are located."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "State of the connect peer."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Connect peer creation time."
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": "Configuration of the connect peer.",
+    "children": [
+      {
+        "name": "core_network_address",
+        "type": "string",
+        "description": "The IP address of a core network."
+      },
+      {
+        "name": "peer_address",
+        "type": "string",
+        "description": "The IP address of the Connect peer."
+      },
+      {
+        "name": "inside_cidr_blocks",
+        "type": "array",
+        "description": "The inside IP addresses used for a Connect peer configuration."
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The protocol used for a Connect peer configuration."
+      },
+      {
+        "name": "bgp_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "core_network_asn",
+            "type": "number",
+            "description": "The ASN of the Coret Network."
+          },
+          {
+            "name": "peer_asn",
+            "type": "number",
+            "description": "The ASN of the Connect peer."
+          },
+          {
+            "name": "core_network_address",
+            "type": "string",
+            "description": "The address of a core network."
+          },
+          {
+            "name": "peer_address",
+            "type": "string",
+            "description": "The address of a core network Connect peer."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "subnet_arn",
+    "type": "string",
+    "description": "The subnet ARN for the connect peer."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html"><code>AWS::NetworkManager::ConnectPeer</code></a>.
 
@@ -92,26 +214,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connect_peers</code> in a region.
-```sql
-SELECT
-region,
-peer_address,
-core_network_address,
-bgp_options,
-inside_cidr_blocks,
-core_network_id,
-connect_attachment_id,
-connect_peer_id,
-edge_location,
-state,
-created_at,
-configuration,
-subnet_arn,
-tags
-FROM awscc.networkmanager.connect_peers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connect_peer</code>.
 ```sql
 SELECT

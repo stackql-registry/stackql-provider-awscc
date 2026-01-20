@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>queues</code> in a region
 
@@ -32,20 +33,72 @@ Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>q
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The unique Amazon Resource Name (ARN) of the queue.</td></tr>
-<tr><td><CopyableCode code="cluster_id" /></td><td><code>string</code></td><td>The ID of the cluster of the queue.</td></tr>
-<tr><td><CopyableCode code="compute_node_group_configurations" /></td><td><code>array</code></td><td>The list of compute node group configurations associated with the queue. Queues assign jobs to associated compute node groups.</td></tr>
-<tr><td><CopyableCode code="error_info" /></td><td><code>array</code></td><td>The list of errors that occurred during queue provisioning.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The generated unique ID of the queue.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name that identifies the queue.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The provisioning status of the queue. The provisioning status doesn't indicate the overall health of the queue.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The unique Amazon Resource Name (ARN) of the queue."
+  },
+  {
+    "name": "cluster_id",
+    "type": "string",
+    "description": "The ID of the cluster of the queue."
+  },
+  {
+    "name": "compute_node_group_configurations",
+    "type": "array",
+    "description": "The list of compute node group configurations associated with the queue. Queues assign jobs to associated compute node groups.",
+    "children": [
+      {
+        "name": "compute_node_group_id",
+        "type": "string",
+        "description": "The compute node group ID for the compute node group configuration."
+      }
+    ]
+  },
+  {
+    "name": "error_info",
+    "type": "array",
+    "description": "The list of errors that occurred during queue provisioning.",
+    "children": [
+      {
+        "name": "code",
+        "type": "string",
+        "description": "The short-form error code."
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "The detailed error information."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The generated unique ID of the queue."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name that identifies the queue."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The provisioning status of the queue. The provisioning status doesn't indicate the overall health of the queue."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcs-queue.html"><code>AWS::PCS::Queue</code></a>.
 
@@ -87,21 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>queues</code> in a region.
-```sql
-SELECT
-region,
-arn,
-cluster_id,
-compute_node_group_configurations,
-error_info,
-id,
-name,
-status,
-tags
-FROM awscc.pcs.queues
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>queue</code>.
 ```sql
 SELECT

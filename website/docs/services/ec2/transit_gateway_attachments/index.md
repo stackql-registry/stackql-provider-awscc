@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_attachment</code> resource or lists <code>transit_gateway_attachments</code> in a region
 
@@ -32,18 +33,77 @@ Creates, updates, deletes or gets a <code>transit_gateway_attachment</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="options" /></td><td><code>object</code></td><td>The options for the transit gateway vpc attachment.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "options",
+    "type": "object",
+    "description": "The options for the transit gateway vpc attachment.",
+    "children": [
+      {
+        "name": "ipv6_support",
+        "type": "string",
+        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable &#124; disable"
+      },
+      {
+        "name": "appliance_mode_support",
+        "type": "string",
+        "description": "Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable &#124; disable"
+      },
+      {
+        "name": "security_group_referencing_support",
+        "type": "string",
+        "description": "Indicates whether to enable Security Group referencing support for Vpc Attachment. Valid Values: enable &#124; disable"
+      },
+      {
+        "name": "dns_support",
+        "type": "string",
+        "description": "Indicates whether to enable DNS Support for Vpc Attachment. Valid Values: enable &#124; disable"
+      }
+    ]
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewayattachment.html"><code>AWS::EC2::TransitGatewayAttachment</code></a>.
 
@@ -85,19 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_attachments</code> in a region.
-```sql
-SELECT
-region,
-options,
-transit_gateway_id,
-vpc_id,
-id,
-subnet_ids,
-tags
-FROM awscc.ec2.transit_gateway_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_attachment</code>.
 ```sql
 SELECT

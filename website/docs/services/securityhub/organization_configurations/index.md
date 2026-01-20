@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>organization_configuration</code> resource or lists <code>organization_configurations</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets an <code>organization_configuration</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auto_enable" /></td><td><code>boolean</code></td><td>Whether to automatically enable Security Hub in new member accounts when they join the organization.</td></tr>
-<tr><td><CopyableCode code="auto_enable_standards" /></td><td><code>string</code></td><td>Whether to automatically enable Security Hub default standards in new member accounts when they join the organization.</td></tr>
-<tr><td><CopyableCode code="configuration_type" /></td><td><code>string</code></td><td>Indicates whether the organization uses local or central configuration.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Describes whether central configuration could be enabled as the ConfigurationType for the organization.</td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>Provides an explanation if the value of Status is equal to FAILED when ConfigurationType is equal to CENTRAL.</td></tr>
-<tr><td><CopyableCode code="member_account_limit_reached" /></td><td><code>boolean</code></td><td>Whether the maximum number of allowed member accounts are already associated with the Security Hub administrator account.</td></tr>
-<tr><td><CopyableCode code="organization_configuration_identifier" /></td><td><code>string</code></td><td>The identifier of the OrganizationConfiguration being created and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auto_enable",
+    "type": "boolean",
+    "description": "Whether to automatically enable Security Hub in new member accounts when they join the organization."
+  },
+  {
+    "name": "auto_enable_standards",
+    "type": "string",
+    "description": "Whether to automatically enable Security Hub default standards in new member accounts when they join the organization."
+  },
+  {
+    "name": "configuration_type",
+    "type": "string",
+    "description": "Indicates whether the organization uses local or central configuration."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Describes whether central configuration could be enabled as the ConfigurationType for the organization."
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": "Provides an explanation if the value of Status is equal to FAILED when ConfigurationType is equal to CENTRAL."
+  },
+  {
+    "name": "member_account_limit_reached",
+    "type": "boolean",
+    "description": "Whether the maximum number of allowed member accounts are already associated with the Security Hub administrator account."
+  },
+  {
+    "name": "organization_configuration_identifier",
+    "type": "string",
+    "description": "The identifier of the OrganizationConfiguration being created and assigned as the unique identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-organizationconfiguration.html"><code>AWS::SecurityHub::OrganizationConfiguration</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>organization_configurations</code> in a region.
-```sql
-SELECT
-region,
-auto_enable,
-auto_enable_standards,
-configuration_type,
-status,
-status_message,
-member_account_limit_reached,
-organization_configuration_identifier
-FROM awscc.securityhub.organization_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>organization_configuration</code>.
 ```sql
 SELECT

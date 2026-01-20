@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>task_set</code> resource or lists <code>task_sets</code> in a region
 
@@ -32,25 +33,182 @@ Creates, updates, deletes or gets a <code>task_set</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="platform_version" /></td><td><code>string</code></td><td>The platform version that the tasks in the task set should use. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the LATEST platform version is used by default.</td></tr>
-<tr><td><CopyableCode code="external_id" /></td><td><code>string</code></td><td>An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the ECS_TASK_SET_EXTERNAL_ID AWS Cloud Map attribute set to the provided value.</td></tr>
-<tr><td><CopyableCode code="cluster" /></td><td><code>string</code></td><td>The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in.</td></tr>
-<tr><td><CopyableCode code="load_balancers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="service" /></td><td><code>string</code></td><td>The short name or full Amazon Resource Name (ARN) of the service to create the task set in.</td></tr>
-<tr><td><CopyableCode code="scale" /></td><td><code>object</code></td><td>A floating-point percentage of the desired number of tasks to place and keep running in the task set.</td></tr>
-<tr><td><CopyableCode code="service_registries" /></td><td><code>array</code></td><td>The details of the service discovery registries to assign to this task set. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html.</td></tr>
-<tr><td><CopyableCode code="capacity_provider_strategy" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="launch_type" /></td><td><code>string</code></td><td>The launch type that new tasks in the task set will use. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html in the Amazon Elastic Container Service Developer Guide.</td></tr>
-<tr><td><CopyableCode code="task_definition" /></td><td><code>string</code></td><td>The short name or full Amazon Resource Name (ARN) of the task definition for the tasks in the task set to use.</td></tr>
-<tr><td><CopyableCode code="network_configuration" /></td><td><code>object</code></td><td>An object representing the network configuration for a task or service.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the task set.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "platform_version",
+    "type": "string",
+    "description": "The platform version that the tasks in the task set should use. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the LATEST platform version is used by default."
+  },
+  {
+    "name": "external_id",
+    "type": "string",
+    "description": "An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the ECS&#95;TASK&#95;SET&#95;EXTERNAL&#95;ID AWS Cloud Map attribute set to the provided value."
+  },
+  {
+    "name": "cluster",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in."
+  },
+  {
+    "name": "load_balancers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "target_group_arn",
+        "type": "string",
+        "description": "The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service or task set. A target group ARN is only specified when using an Application Load Balancer or Network Load Balancer. If you are using a Classic Load Balancer this should be omitted. For services using the ECS deployment controller, you can specify one or multiple target groups. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html in the Amazon Elastic Container Service Developer Guide. For services using the CODE&#95;DEPLOY deployment controller, you are required to define two target groups for the load balancer. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html in the Amazon Elastic Container Service Developer Guide. If your service's task definition uses the awsvpc network mode (which is required for the Fargate launch type), you must choose ip as the target type, not instance, when creating your target groups because tasks that use the awsvpc network mode are associated with an elastic network interface, not an Amazon EC2 instance."
+      },
+      {
+        "name": "container_name",
+        "type": "string",
+        "description": "The name of the container (as it appears in a container definition) to associate with the load balancer."
+      },
+      {
+        "name": "container_port",
+        "type": "integer",
+        "description": "The port on the container to associate with the load balancer. This port must correspond to a containerPort in the task definition the tasks in the service are using. For tasks that use the EC2 launch type, the container instance they are launched on must allow ingress traffic on the hostPort of the port mapping."
+      }
+    ]
+  },
+  {
+    "name": "service",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the service to create the task set in."
+  },
+  {
+    "name": "scale",
+    "type": "object",
+    "description": "A floating-point percentage of the desired number of tasks to place and keep running in the task set.",
+    "children": [
+      {
+        "name": "value",
+        "type": "number",
+        "description": "The value, specified as a percent total of a service's desiredCount, to scale the task set. Accepted values are numbers between 0 and 100."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "description": "The unit of measure for the scale value."
+      }
+    ]
+  },
+  {
+    "name": "service_registries",
+    "type": "array",
+    "description": "The details of the service discovery registries to assign to this task set. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html.",
+    "children": [
+      {
+        "name": "container_name",
+        "type": "string",
+        "description": "The container name value, already specified in the task definition, to be used for your service discovery service. If the task definition that your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition that your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The port value used if your service discovery service specified an SRV record. This field may be used if both the awsvpc network mode and SRV records are used."
+      },
+      {
+        "name": "container_port",
+        "type": "integer",
+        "description": "The port value, already specified in the task definition, to be used for your service discovery service. If the task definition your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both."
+      },
+      {
+        "name": "registry_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is AWS Cloud Map. For more information, see https://docs.aws.amazon.com/cloud-map/latest/api/API&#95;CreateService.html"
+      }
+    ]
+  },
+  {
+    "name": "capacity_provider_strategy",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "capacity_provider",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "base",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "weight",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "launch_type",
+    "type": "string",
+    "description": "The launch type that new tasks in the task set will use. For more information, see https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch&#95;types.html in the Amazon Elastic Container Service Developer Guide."
+  },
+  {
+    "name": "task_definition",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the task definition for the tasks in the task set to use."
+  },
+  {
+    "name": "network_configuration",
+    "type": "object",
+    "description": "An object representing the network configuration for a task or service.",
+    "children": [
+      {
+        "name": "aws_vpc_configuration",
+        "type": "object",
+        "description": "The VPC subnets and security groups associated with a task. All specified subnets and security groups must be from the same VPC.",
+        "children": [
+          {
+            "name": "security_groups",
+            "type": "array",
+            "description": "The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used. There is a limit of 5 security groups that can be specified per AwsVpcConfiguration."
+          },
+          {
+            "name": "subnets",
+            "type": "array",
+            "description": "The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per AwsVpcConfiguration."
+          },
+          {
+            "name": "assign_public_ip",
+            "type": "string",
+            "description": "Whether the task's elastic network interface receives a public IP address. The default value is DISABLED."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the task set."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskset.html"><code>AWS::ECS::TaskSet</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>permission</code> resource or lists <code>permissions</code> in a region
 
@@ -32,17 +33,55 @@ Creates, updates, deletes or gets a <code>permission</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="statement_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="conditions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "statement_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "actions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "conditions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "condition_operator",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "condition_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "condition_values",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "principal",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-permission.html"><code>AWS::QBusiness::Permission</code></a>.
 
@@ -79,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>permissions</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-statement_id,
-actions,
-conditions,
-principal
-FROM awscc.qbusiness.permissions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>permission</code>.
 ```sql
 SELECT

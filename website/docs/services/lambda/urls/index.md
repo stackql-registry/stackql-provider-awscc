@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>url</code> resource or lists <code>urls</code> in a region
 
@@ -32,19 +33,80 @@ Creates, updates, deletes or gets an <code>url</code> resource or lists <code>ur
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="target_function_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the function associated with the Function URL.</td></tr>
-<tr><td><CopyableCode code="qualifier" /></td><td><code>string</code></td><td>The alias qualifier for the target function. If TargetFunctionArn is unqualified then Qualifier must be passed.</td></tr>
-<tr><td><CopyableCode code="auth_type" /></td><td><code>string</code></td><td>Can be either AWS_IAM if the requests are authorized via IAM, or NONE if no authorization is configured on the Function URL.</td></tr>
-<tr><td><CopyableCode code="invoke_mode" /></td><td><code>string</code></td><td>The invocation mode for the function's URL. Set to BUFFERED if you want to buffer responses before returning them to the client. Set to RESPONSE_STREAM if you want to stream responses, allowing faster time to first byte and larger response payload sizes. If not set, defaults to BUFFERED.</td></tr>
-<tr><td><CopyableCode code="function_arn" /></td><td><code>string</code></td><td>The full Amazon Resource Name (ARN) of the function associated with the Function URL.</td></tr>
-<tr><td><CopyableCode code="function_url" /></td><td><code>string</code></td><td>The generated url for this resource.</td></tr>
-<tr><td><CopyableCode code="cors" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "target_function_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the function associated with the Function URL."
+  },
+  {
+    "name": "qualifier",
+    "type": "string",
+    "description": "The alias qualifier for the target function. If TargetFunctionArn is unqualified then Qualifier must be passed."
+  },
+  {
+    "name": "auth_type",
+    "type": "string",
+    "description": "Can be either AWS&#95;IAM if the requests are authorized via IAM, or NONE if no authorization is configured on the Function URL."
+  },
+  {
+    "name": "invoke_mode",
+    "type": "string",
+    "description": "The invocation mode for the function's URL. Set to BUFFERED if you want to buffer responses before returning them to the client. Set to RESPONSE&#95;STREAM if you want to stream responses, allowing faster time to first byte and larger response payload sizes. If not set, defaults to BUFFERED."
+  },
+  {
+    "name": "function_arn",
+    "type": "string",
+    "description": "The full Amazon Resource Name (ARN) of the function associated with the Function URL."
+  },
+  {
+    "name": "function_url",
+    "type": "string",
+    "description": "The generated url for this resource."
+  },
+  {
+    "name": "cors",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_credentials",
+        "type": "boolean",
+        "description": "Specifies whether credentials are included in the CORS request."
+      },
+      {
+        "name": "allow_headers",
+        "type": "array",
+        "description": "Represents a collection of allowed headers."
+      },
+      {
+        "name": "allow_methods",
+        "type": "array",
+        "description": "Represents a collection of allowed HTTP methods."
+      },
+      {
+        "name": "allow_origins",
+        "type": "array",
+        "description": "Represents a collection of allowed origins."
+      },
+      {
+        "name": "expose_headers",
+        "type": "array",
+        "description": "Represents a collection of exposed headers."
+      },
+      {
+        "name": "max_age",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-url.html"><code>AWS::Lambda::Url</code></a>.
 
@@ -86,20 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>urls</code> in a region.
-```sql
-SELECT
-region,
-target_function_arn,
-qualifier,
-auth_type,
-invoke_mode,
-function_arn,
-function_url,
-cors
-FROM awscc.lambda.urls
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>url</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_grants_instance</code> resource or lists <code>access_grants_instances</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets an <code>access_grants_instance</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_grants_instance_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified Access Grants instance.</td></tr>
-<tr><td><CopyableCode code="identity_center_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AWS Identity Center.</td></tr>
-<tr><td><CopyableCode code="access_grants_instance_id" /></td><td><code>string</code></td><td>A unique identifier for the specified access grants instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_grants_instance_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified Access Grants instance."
+  },
+  {
+    "name": "identity_center_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified AWS Identity Center."
+  },
+  {
+    "name": "access_grants_instance_id",
+    "type": "string",
+    "description": "A unique identifier for the specified access grants instance."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-accessgrantsinstance.html"><code>AWS::S3::AccessGrantsInstance</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_grants_instances</code> in a region.
-```sql
-SELECT
-region,
-access_grants_instance_arn,
-identity_center_arn,
-access_grants_instance_id,
-tags
-FROM awscc.s3.access_grants_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_grants_instance</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>scheduled_audit</code> resource or lists <code>scheduled_audits</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>scheduled_audit</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scheduled_audit_name" /></td><td><code>string</code></td><td>The name you want to give to the scheduled audit.</td></tr>
-<tr><td><CopyableCode code="frequency" /></td><td><code>string</code></td><td>How often the scheduled audit takes place. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY.</td></tr>
-<tr><td><CopyableCode code="day_of_month" /></td><td><code>string</code></td><td>The day of the month on which the scheduled audit takes place. Can be 1 through 31 or LAST. This field is required if the frequency parameter is set to MONTHLY.</td></tr>
-<tr><td><CopyableCode code="day_of_week" /></td><td><code>string</code></td><td>The day of the week on which the scheduled audit takes place. Can be one of SUN, MON, TUE,WED, THU, FRI, or SAT. This field is required if the frequency parameter is set to WEEKLY or BIWEEKLY.</td></tr>
-<tr><td><CopyableCode code="target_check_names" /></td><td><code>array</code></td><td>Which checks are performed during the scheduled audit. Checks must be enabled for your account.</td></tr>
-<tr><td><CopyableCode code="scheduled_audit_arn" /></td><td><code>string</code></td><td>The ARN (Amazon resource name) of the scheduled audit.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scheduled_audit_name",
+    "type": "string",
+    "description": "The name you want to give to the scheduled audit."
+  },
+  {
+    "name": "frequency",
+    "type": "string",
+    "description": "How often the scheduled audit takes place. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY."
+  },
+  {
+    "name": "day_of_month",
+    "type": "string",
+    "description": "The day of the month on which the scheduled audit takes place. Can be 1 through 31 or LAST. This field is required if the frequency parameter is set to MONTHLY."
+  },
+  {
+    "name": "day_of_week",
+    "type": "string",
+    "description": "The day of the week on which the scheduled audit takes place. Can be one of SUN, MON, TUE,WED, THU, FRI, or SAT. This field is required if the frequency parameter is set to WEEKLY or BIWEEKLY."
+  },
+  {
+    "name": "target_check_names",
+    "type": "array",
+    "description": "Which checks are performed during the scheduled audit. Checks must be enabled for your account."
+  },
+  {
+    "name": "scheduled_audit_arn",
+    "type": "string",
+    "description": "The ARN (Amazon resource name) of the scheduled audit."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-scheduledaudit.html"><code>AWS::IoT::ScheduledAudit</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>scheduled_audits</code> in a region.
-```sql
-SELECT
-region,
-scheduled_audit_name,
-frequency,
-day_of_month,
-day_of_week,
-target_check_names,
-scheduled_audit_arn,
-tags
-FROM awscc.iot.scheduled_audits
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>scheduled_audit</code>.
 ```sql
 SELECT

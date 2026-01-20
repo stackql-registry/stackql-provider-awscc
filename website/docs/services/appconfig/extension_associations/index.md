@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>extension_association</code> resource or lists <code>extension_associations</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets an <code>extension_association</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="extension_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="extension_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="extension_version_number" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "extension_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "extension_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "extension_version_number",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-extensionassociation.html"><code>AWS::AppConfig::ExtensionAssociation</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>extension_associations</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-extension_arn,
-resource_arn,
-extension_identifier,
-resource_identifier,
-extension_version_number,
-parameters,
-tags
-FROM awscc.appconfig.extension_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>extension_association</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stored_query</code> resource or lists <code>stored_queries</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>stored_query</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="query_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_expression" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the stored query.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "query_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_expression",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the stored query.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-storedquery.html"><code>AWS::Config::StoredQuery</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stored_queries</code> in a region.
-```sql
-SELECT
-region,
-query_arn,
-query_id,
-query_name,
-query_description,
-query_expression,
-tags
-FROM awscc.config.stored_queries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stored_query</code>.
 ```sql
 SELECT

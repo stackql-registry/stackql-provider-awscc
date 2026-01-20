@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>inference_component</code> resource or lists <code>inference_components</code> in a region
 
@@ -32,25 +33,232 @@ Creates, updates, deletes or gets an <code>inference_component</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="inference_component_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the inference component</td></tr>
-<tr><td><CopyableCode code="inference_component_name" /></td><td><code>string</code></td><td>The name of the inference component</td></tr>
-<tr><td><CopyableCode code="endpoint_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the endpoint the inference component is associated with</td></tr>
-<tr><td><CopyableCode code="endpoint_name" /></td><td><code>string</code></td><td>The name of the endpoint used to run the monitoring job.</td></tr>
-<tr><td><CopyableCode code="variant_name" /></td><td><code>string</code></td><td>The name of the endpoint variant the inference component is associated with</td></tr>
-<tr><td><CopyableCode code="failure_reason" /></td><td><code>string</code></td><td>The failure reason if the inference component is in a failed state</td></tr>
-<tr><td><CopyableCode code="specification" /></td><td><code>object</code></td><td>The specification for the inference component</td></tr>
-<tr><td><CopyableCode code="runtime_config" /></td><td><code>object</code></td><td>The runtime config for the inference component</td></tr>
-<tr><td><CopyableCode code="deployment_config" /></td><td><code>object</code></td><td>The deployment config for the inference component</td></tr>
-<tr><td><CopyableCode code="inference_component_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of tags to apply to the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "inference_component_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the inference component"
+  },
+  {
+    "name": "inference_component_name",
+    "type": "string",
+    "description": "The name of the inference component"
+  },
+  {
+    "name": "endpoint_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the endpoint the inference component is associated with"
+  },
+  {
+    "name": "endpoint_name",
+    "type": "string",
+    "description": "The name of the endpoint used to run the monitoring job."
+  },
+  {
+    "name": "variant_name",
+    "type": "string",
+    "description": "The name of the endpoint variant the inference component is associated with"
+  },
+  {
+    "name": "failure_reason",
+    "type": "string",
+    "description": "The failure reason if the inference component is in a failed state"
+  },
+  {
+    "name": "specification",
+    "type": "object",
+    "description": "The specification for the inference component",
+    "children": [
+      {
+        "name": "model_name",
+        "type": "string",
+        "description": "The name of the model to use with the inference component"
+      },
+      {
+        "name": "base_inference_component_name",
+        "type": "string",
+        "description": "The name of the base inference component"
+      },
+      {
+        "name": "container",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "deployed_image",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "specified_image",
+                "type": "string",
+                "description": "The image to use for the container that will be materialized for the inference component"
+              },
+              {
+                "name": "resolution_time",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "image",
+            "type": "string",
+            "description": "The image to use for the container that will be materialized for the inference component"
+          },
+          {
+            "name": "artifact_url",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "environment",
+            "type": "object",
+            "description": "Environment variables to specify on the container"
+          }
+        ]
+      },
+      {
+        "name": "startup_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "model_data_download_timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "compute_resource_requirements",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "number_of_cpu_cores_required",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "number_of_accelerator_devices_required",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "min_memory_required_in_mb",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "runtime_config",
+    "type": "object",
+    "description": "The runtime config for the inference component",
+    "children": [
+      {
+        "name": "copy_count",
+        "type": "integer",
+        "description": "The number of copies for the inference component"
+      }
+    ]
+  },
+  {
+    "name": "deployment_config",
+    "type": "object",
+    "description": "The deployment config for the inference component",
+    "children": [
+      {
+        "name": "rolling_update_policy",
+        "type": "object",
+        "description": "The rolling update policy for the inference component",
+        "children": [
+          {
+            "name": "maximum_batch_size",
+            "type": "object",
+            "description": "Capacity size configuration for the inference component",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": "The number of copies for the inference component"
+              }
+            ]
+          },
+          {
+            "name": "wait_interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "maximum_execution_timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "auto_rollback_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "alarms",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "alarm_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "inference_component_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of tags to apply to the resource",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-inferencecomponent.html"><code>AWS::SageMaker::InferenceComponent</code></a>.
 
@@ -92,26 +300,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>inference_components</code> in a region.
-```sql
-SELECT
-region,
-inference_component_arn,
-inference_component_name,
-endpoint_arn,
-endpoint_name,
-variant_name,
-failure_reason,
-specification,
-runtime_config,
-deployment_config,
-inference_component_status,
-creation_time,
-last_modified_time,
-tags
-FROM awscc.sagemaker.inference_components
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>inference_component</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>source_api_association</code> resource or lists <code>source_api_associations</code> in a region
 
@@ -32,25 +33,85 @@ Creates, updates, deletes or gets a <code>source_api_association</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="source_api_identifier" /></td><td><code>string</code></td><td>Identifier of the Source GraphQLApi to associate. It could be either GraphQLApi ApiId or ARN</td></tr>
-<tr><td><CopyableCode code="merged_api_identifier" /></td><td><code>string</code></td><td>Identifier of the Merged GraphQLApi to associate. It could be either GraphQLApi ApiId or ARN</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the SourceApiAssociation.</td></tr>
-<tr><td><CopyableCode code="source_api_association_config" /></td><td><code>undefined</code></td><td>Customized configuration for SourceApiAssociation.</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>Id of the SourceApiAssociation.</td></tr>
-<tr><td><CopyableCode code="association_arn" /></td><td><code>string</code></td><td>ARN of the SourceApiAssociation.</td></tr>
-<tr><td><CopyableCode code="source_api_id" /></td><td><code>string</code></td><td>GraphQLApiId of the source API in the association.</td></tr>
-<tr><td><CopyableCode code="source_api_arn" /></td><td><code>string</code></td><td>ARN of the source API in the association.</td></tr>
-<tr><td><CopyableCode code="merged_api_id" /></td><td><code>string</code></td><td>GraphQLApiId of the Merged API in the association.</td></tr>
-<tr><td><CopyableCode code="merged_api_arn" /></td><td><code>string</code></td><td>ARN of the Merged API in the association.</td></tr>
-<tr><td><CopyableCode code="source_api_association_status" /></td><td><code>string</code></td><td>Current status of SourceApiAssociation.</td></tr>
-<tr><td><CopyableCode code="source_api_association_status_detail" /></td><td><code>string</code></td><td>Current SourceApiAssociation status details.</td></tr>
-<tr><td><CopyableCode code="last_successful_merge_date" /></td><td><code>string</code></td><td>Date of last schema successful merge.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "source_api_identifier",
+    "type": "string",
+    "description": "Identifier of the Source GraphQLApi to associate. It could be either GraphQLApi ApiId or ARN"
+  },
+  {
+    "name": "merged_api_identifier",
+    "type": "string",
+    "description": "Identifier of the Merged GraphQLApi to associate. It could be either GraphQLApi ApiId or ARN"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the SourceApiAssociation."
+  },
+  {
+    "name": "source_api_association_config",
+    "type": "object",
+    "description": "Customized configuration for SourceApiAssociation.",
+    "children": [
+      {
+        "name": "merge_type",
+        "type": "string",
+        "description": "Configuration of the merged behavior for the association. For example when it could be auto or has to be manual."
+      }
+    ]
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "Id of the SourceApiAssociation."
+  },
+  {
+    "name": "association_arn",
+    "type": "string",
+    "description": "ARN of the SourceApiAssociation."
+  },
+  {
+    "name": "source_api_id",
+    "type": "string",
+    "description": "GraphQLApiId of the source API in the association."
+  },
+  {
+    "name": "source_api_arn",
+    "type": "string",
+    "description": "ARN of the source API in the association."
+  },
+  {
+    "name": "merged_api_id",
+    "type": "string",
+    "description": "GraphQLApiId of the Merged API in the association."
+  },
+  {
+    "name": "merged_api_arn",
+    "type": "string",
+    "description": "ARN of the Merged API in the association."
+  },
+  {
+    "name": "source_api_association_status",
+    "type": "string",
+    "description": "Current status of SourceApiAssociation."
+  },
+  {
+    "name": "source_api_association_status_detail",
+    "type": "string",
+    "description": "Current SourceApiAssociation status details."
+  },
+  {
+    "name": "last_successful_merge_date",
+    "type": "string",
+    "description": "Date of last schema successful merge."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-sourceapiassociation.html"><code>AWS::AppSync::SourceApiAssociation</code></a>.
 
@@ -92,26 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>source_api_associations</code> in a region.
-```sql
-SELECT
-region,
-source_api_identifier,
-merged_api_identifier,
-description,
-source_api_association_config,
-association_id,
-association_arn,
-source_api_id,
-source_api_arn,
-merged_api_id,
-merged_api_arn,
-source_api_association_status,
-source_api_association_status_detail,
-last_successful_merge_date
-FROM awscc.appsync.source_api_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>source_api_association</code>.
 ```sql
 SELECT

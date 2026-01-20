@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>license_endpoint</code> resource or lists <code>license_endpoints</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>license_endpoint</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="dns_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="license_endpoint_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "dns_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "license_endpoint_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-licenseendpoint.html"><code>AWS::Deadline::LicenseEndpoint</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>license_endpoints</code> in a region.
-```sql
-SELECT
-region,
-dns_name,
-license_endpoint_id,
-security_group_ids,
-status,
-status_message,
-subnet_ids,
-vpc_id,
-arn,
-tags
-FROM awscc.deadline.license_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>license_endpoint</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_catalog</code> resource or lists <code>data_catalogs</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>data_catalog</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the data catalog to be created.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of comma separated tags to add to the data catalog that is created.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of data catalog to create: LAMBDA for a federated catalog, GLUE for AWS Glue Catalog, or HIVE for an external hive metastore. FEDERATED is a federated catalog for which Athena creates the connection and the Lambda function for you based on the parameters that you pass.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the creation or deletion of the data catalog. LAMBDA, GLUE, and HIVE data catalog types are created synchronously. Their status is either CREATE_COMPLETE or CREATE_FAILED. The FEDERATED data catalog type is created asynchronously.</td></tr>
-<tr><td><CopyableCode code="connection_type" /></td><td><code>string</code></td><td>The type of connection for a FEDERATED data catalog</td></tr>
-<tr><td><CopyableCode code="error" /></td><td><code>string</code></td><td>Text of the error that occurred during data catalog creation or deletion.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the data catalog to be created."
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of comma separated tags to add to the data catalog that is created.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of data catalog to create: LAMBDA for a federated catalog, GLUE for AWS Glue Catalog, or HIVE for an external hive metastore. FEDERATED is a federated catalog for which Athena creates the connection and the Lambda function for you based on the parameters that you pass."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the creation or deletion of the data catalog. LAMBDA, GLUE, and HIVE data catalog types are created synchronously. Their status is either CREATE&#95;COMPLETE or CREATE&#95;FAILED. The FEDERATED data catalog type is created asynchronously."
+  },
+  {
+    "name": "connection_type",
+    "type": "string",
+    "description": "The type of connection for a FEDERATED data catalog"
+  },
+  {
+    "name": "error",
+    "type": "string",
+    "description": "Text of the error that occurred during data catalog creation or deletion."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-datacatalog.html"><code>AWS::Athena::DataCatalog</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_catalogs</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-parameters,
-tags,
-type,
-status,
-connection_type,
-error
-FROM awscc.athena.data_catalogs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_catalog</code>.
 ```sql
 SELECT

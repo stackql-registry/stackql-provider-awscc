@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>verified_access_trust_provider</code> resource or lists <code>verified_access_trust_providers</code> in a region
 
@@ -32,25 +33,193 @@ Creates, updates, deletes or gets a <code>verified_access_trust_provider</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="trust_provider_type" /></td><td><code>string</code></td><td>Type of trust provider. Possible values: user|device</td></tr>
-<tr><td><CopyableCode code="device_trust_provider_type" /></td><td><code>string</code></td><td>The type of device-based trust provider. Possible values: jamf|crowdstrike</td></tr>
-<tr><td><CopyableCode code="user_trust_provider_type" /></td><td><code>string</code></td><td>The type of device-based trust provider. Possible values: oidc|iam-identity-center</td></tr>
-<tr><td><CopyableCode code="oidc_options" /></td><td><code>object</code></td><td>The OpenID Connect details for an oidc -type, user-identity based trust provider.</td></tr>
-<tr><td><CopyableCode code="device_options" /></td><td><code>object</code></td><td>The options for device identity based trust providers.</td></tr>
-<tr><td><CopyableCode code="policy_reference_name" /></td><td><code>string</code></td><td>The identifier to be used when working with policy rules.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The creation time.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The last updated time.</td></tr>
-<tr><td><CopyableCode code="verified_access_trust_provider_id" /></td><td><code>string</code></td><td>The ID of the Amazon Web Services Verified Access trust provider.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the Amazon Web Services Verified Access trust provider.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="sse_specification" /></td><td><code>object</code></td><td>The configuration options for customer provided KMS encryption.</td></tr>
-<tr><td><CopyableCode code="native_application_oidc_options" /></td><td><code>object</code></td><td>The OpenID Connect details for an oidc -type, user-identity based trust provider for L4.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "trust_provider_type",
+    "type": "string",
+    "description": "Type of trust provider. Possible values: user&#124;device"
+  },
+  {
+    "name": "device_trust_provider_type",
+    "type": "string",
+    "description": "The type of device-based trust provider. Possible values: jamf&#124;crowdstrike"
+  },
+  {
+    "name": "user_trust_provider_type",
+    "type": "string",
+    "description": "The type of device-based trust provider. Possible values: oidc&#124;iam-identity-center"
+  },
+  {
+    "name": "oidc_options",
+    "type": "object",
+    "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider.",
+    "children": [
+      {
+        "name": "issuer",
+        "type": "string",
+        "description": "The OIDC issuer."
+      },
+      {
+        "name": "authorization_endpoint",
+        "type": "string",
+        "description": "The OIDC authorization endpoint."
+      },
+      {
+        "name": "token_endpoint",
+        "type": "string",
+        "description": "The OIDC token endpoint."
+      },
+      {
+        "name": "user_info_endpoint",
+        "type": "string",
+        "description": "The OIDC user info endpoint."
+      },
+      {
+        "name": "client_id",
+        "type": "string",
+        "description": "The client identifier."
+      },
+      {
+        "name": "client_secret",
+        "type": "string",
+        "description": "The client secret."
+      },
+      {
+        "name": "scope",
+        "type": "string",
+        "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
+      }
+    ]
+  },
+  {
+    "name": "device_options",
+    "type": "object",
+    "description": "The options for device identity based trust providers.",
+    "children": [
+      {
+        "name": "tenant_id",
+        "type": "string",
+        "description": "The ID of the tenant application with the device-identity provider."
+      },
+      {
+        "name": "public_signing_key_url",
+        "type": "string",
+        "description": "URL Verified Access will use to verify authenticity of the device tokens."
+      }
+    ]
+  },
+  {
+    "name": "policy_reference_name",
+    "type": "string",
+    "description": "The identifier to be used when working with policy rules."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The creation time."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The last updated time."
+  },
+  {
+    "name": "verified_access_trust_provider_id",
+    "type": "string",
+    "description": "The ID of the Amazon Web Services Verified Access trust provider."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the Amazon Web Services Verified Access trust provider."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "sse_specification",
+    "type": "object",
+    "description": "The configuration options for customer provided KMS encryption.",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "KMS Key Arn used to encrypt the group policy"
+      },
+      {
+        "name": "customer_managed_key_enabled",
+        "type": "boolean",
+        "description": "Whether to encrypt the policy with the provided key or disable encryption"
+      }
+    ]
+  },
+  {
+    "name": "native_application_oidc_options",
+    "type": "object",
+    "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider for L4.",
+    "children": [
+      {
+        "name": "issuer",
+        "type": "string",
+        "description": "The OIDC issuer."
+      },
+      {
+        "name": "authorization_endpoint",
+        "type": "string",
+        "description": "The OIDC authorization endpoint."
+      },
+      {
+        "name": "token_endpoint",
+        "type": "string",
+        "description": "The OIDC token endpoint."
+      },
+      {
+        "name": "user_info_endpoint",
+        "type": "string",
+        "description": "The OIDC user info endpoint."
+      },
+      {
+        "name": "client_id",
+        "type": "string",
+        "description": "The client identifier."
+      },
+      {
+        "name": "client_secret",
+        "type": "string",
+        "description": "The client secret."
+      },
+      {
+        "name": "scope",
+        "type": "string",
+        "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
+      },
+      {
+        "name": "public_signing_key_endpoint",
+        "type": "string",
+        "description": "The public signing key for endpoint"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-verifiedaccesstrustprovider.html"><code>AWS::EC2::VerifiedAccessTrustProvider</code></a>.
 
@@ -92,26 +261,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>verified_access_trust_providers</code> in a region.
-```sql
-SELECT
-region,
-trust_provider_type,
-device_trust_provider_type,
-user_trust_provider_type,
-oidc_options,
-device_options,
-policy_reference_name,
-creation_time,
-last_updated_time,
-verified_access_trust_provider_id,
-description,
-tags,
-sse_specification,
-native_application_oidc_options
-FROM awscc.ec2.verified_access_trust_providers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>verified_access_trust_provider</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <code>endpoints</code> in a region
 
@@ -32,20 +33,166 @@ Creates, updates, deletes or gets an <code>endpoint</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deployment_config" /></td><td><code>object</code></td><td>Specifies deployment configuration for updating the SageMaker endpoint. Includes rollback and update policies.</td></tr>
-<tr><td><CopyableCode code="endpoint_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the endpoint.</td></tr>
-<tr><td><CopyableCode code="endpoint_config_name" /></td><td><code>string</code></td><td>The name of the endpoint configuration for the SageMaker endpoint. This is a required property.</td></tr>
-<tr><td><CopyableCode code="endpoint_name" /></td><td><code>string</code></td><td>The name of the SageMaker endpoint. This name must be unique within an AWS Region.</td></tr>
-<tr><td><CopyableCode code="exclude_retained_variant_properties" /></td><td><code>array</code></td><td>Specifies a list of variant properties that you want to exclude when updating an endpoint.</td></tr>
-<tr><td><CopyableCode code="retain_all_variant_properties" /></td><td><code>boolean</code></td><td>When set to true, retains all variant properties for an endpoint when it is updated.</td></tr>
-<tr><td><CopyableCode code="retain_deployment_config" /></td><td><code>boolean</code></td><td>When set to true, retains the deployment configuration during endpoint updates.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deployment_config",
+    "type": "object",
+    "description": "Specifies deployment configuration for updating the SageMaker endpoint. Includes rollback and update policies.",
+    "children": [
+      {
+        "name": "auto_rollback_configuration",
+        "type": "object",
+        "description": "Configuration for automatic rollback if an error occurs during deployment.",
+        "children": [
+          {
+            "name": "alarms",
+            "type": "array",
+            "description": "List of CloudWatch alarms to monitor during the deployment. If any alarm goes off, the deployment is rolled back.",
+            "children": [
+              {
+                "name": "alarm_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "blue_green_update_policy",
+        "type": "object",
+        "description": "Configuration for blue-green update deployment policies.",
+        "children": [
+          {
+            "name": "maximum_execution_timeout_in_seconds",
+            "type": "integer",
+            "description": "The maximum time allowed for the blue/green update, in seconds."
+          },
+          {
+            "name": "termination_wait_in_seconds",
+            "type": "integer",
+            "description": "The wait time before terminating the old endpoint during a blue/green deployment."
+          },
+          {
+            "name": "traffic_routing_configuration",
+            "type": "object",
+            "description": "The traffic routing configuration for the blue/green deployment.",
+            "children": [
+              {
+                "name": "canary_size",
+                "type": "object",
+                "description": "Specifies the size of the canary traffic in a canary deployment."
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Specifies the type of traffic routing (e.g., 'AllAtOnce', 'Canary', 'Linear')."
+              },
+              {
+                "name": "wait_interval_in_seconds",
+                "type": "integer",
+                "description": "Specifies the wait interval between traffic shifts, in seconds."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rolling_update_policy",
+        "type": "object",
+        "description": "Configuration for rolling update deployment policies.",
+        "children": [
+          {
+            "name": "maximum_batch_size",
+            "type": "object",
+            "description": "Specifies the maximum batch size for each rolling update.",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Specifies whether the &#96;Value&#96; is an instance count or a capacity unit."
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": "The value representing either the number of instances or the number of capacity units."
+              }
+            ]
+          },
+          {
+            "name": "maximum_execution_timeout_in_seconds",
+            "type": "integer",
+            "description": "The maximum time allowed for the rolling update, in seconds."
+          },
+          {
+            "name": "wait_interval_in_seconds",
+            "type": "integer",
+            "description": "The time to wait between steps during the rolling update, in seconds."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "endpoint_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the endpoint."
+  },
+  {
+    "name": "endpoint_config_name",
+    "type": "string",
+    "description": "The name of the endpoint configuration for the SageMaker endpoint. This is a required property."
+  },
+  {
+    "name": "endpoint_name",
+    "type": "string",
+    "description": "The name of the SageMaker endpoint. This name must be unique within an AWS Region."
+  },
+  {
+    "name": "exclude_retained_variant_properties",
+    "type": "array",
+    "description": "Specifies a list of variant properties that you want to exclude when updating an endpoint.",
+    "children": [
+      {
+        "name": "variant_property_type",
+        "type": "string",
+        "description": "The type of variant property (e.g., 'DesiredInstanceCount', 'DesiredWeight', 'DataCaptureConfig')."
+      }
+    ]
+  },
+  {
+    "name": "retain_all_variant_properties",
+    "type": "boolean",
+    "description": "When set to true, retains all variant properties for an endpoint when it is updated."
+  },
+  {
+    "name": "retain_deployment_config",
+    "type": "boolean",
+    "description": "When set to true, retains the deployment configuration during endpoint updates."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html"><code>AWS::SageMaker::Endpoint</code></a>.
 
@@ -87,21 +234,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>endpoints</code> in a region.
-```sql
-SELECT
-region,
-deployment_config,
-endpoint_arn,
-endpoint_config_name,
-endpoint_name,
-exclude_retained_variant_properties,
-retain_all_variant_properties,
-retain_deployment_config,
-tags
-FROM awscc.sagemaker.endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>endpoint</code>.
 ```sql
 SELECT

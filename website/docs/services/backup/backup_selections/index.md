@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>backup_selection</code> resource or lists <code>backup_selections</code> in a region
 
@@ -32,16 +33,116 @@ Creates, updates, deletes or gets a <code>backup_selection</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_plan_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_selection" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="selection_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_plan_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_selection",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "iam_role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "list_of_tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "condition_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "condition_value",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "condition_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "resources",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "selection_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "not_resources",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "conditions",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "string_equals",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "condition_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "condition_value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "string_not_equals",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "string_like",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "string_not_like",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "selection_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-backupselection.html"><code>AWS::Backup::BackupSelection</code></a>.
 
@@ -78,17 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>backup_selections</code> in a region.
-```sql
-SELECT
-region,
-id,
-backup_plan_id,
-backup_selection,
-selection_id
-FROM awscc.backup.backup_selections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>backup_selection</code>.
 ```sql
 SELECT

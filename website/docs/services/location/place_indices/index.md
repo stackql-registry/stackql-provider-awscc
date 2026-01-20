@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>place_index</code> resource or lists <code>place_indices</code> in a region
 
@@ -32,22 +33,77 @@ Creates, updates, deletes or gets a <code>place_index</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="data_source" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_source_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pricing_plan" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": "The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)"
+  },
+  {
+    "name": "data_source",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_source_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "intended_use",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "index_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "index_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pricing_plan",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-location-placeindex.html"><code>AWS::Location::PlaceIndex</code></a>.
 
@@ -89,23 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>place_indices</code> in a region.
-```sql
-SELECT
-region,
-create_time,
-data_source,
-data_source_configuration,
-description,
-index_arn,
-index_name,
-pricing_plan,
-tags,
-update_time,
-arn
-FROM awscc.location.place_indices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>place_index</code>.
 ```sql
 SELECT

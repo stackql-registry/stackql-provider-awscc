@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>simple_ad</code> resource or lists <code>simple_ads</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>simple_ad</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="directory_id" /></td><td><code>string</code></td><td>The unique identifier for a directory.</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>The alias for a directory.</td></tr>
-<tr><td><CopyableCode code="dns_ip_addresses" /></td><td><code>array</code></td><td>The IP addresses of the DNS servers for the directory, such as &#91; "172.31.3.154", "172.31.63.203" &#93;.</td></tr>
-<tr><td><CopyableCode code="create_alias" /></td><td><code>boolean</code></td><td>The name of the configuration set.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description for the directory.</td></tr>
-<tr><td><CopyableCode code="enable_sso" /></td><td><code>boolean</code></td><td>Whether to enable single sign-on for a Simple Active Directory in AWS.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The fully qualified domain name for the AWS Managed Simple AD directory.</td></tr>
-<tr><td><CopyableCode code="password" /></td><td><code>string</code></td><td>The password for the default administrative user named Admin.</td></tr>
-<tr><td><CopyableCode code="short_name" /></td><td><code>string</code></td><td>The NetBIOS name for your domain.</td></tr>
-<tr><td><CopyableCode code="size" /></td><td><code>string</code></td><td>The size of the directory.</td></tr>
-<tr><td><CopyableCode code="vpc_settings" /></td><td><code>object</code></td><td>VPC settings of the Simple AD directory server in AWS.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "directory_id",
+    "type": "string",
+    "description": "The unique identifier for a directory."
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "The alias for a directory."
+  },
+  {
+    "name": "dns_ip_addresses",
+    "type": "array",
+    "description": "The IP addresses of the DNS servers for the directory, such as &#91; \"172.31.3.154\", \"172.31.63.203\" &#93;."
+  },
+  {
+    "name": "create_alias",
+    "type": "boolean",
+    "description": "The name of the configuration set."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description for the directory."
+  },
+  {
+    "name": "enable_sso",
+    "type": "boolean",
+    "description": "Whether to enable single sign-on for a Simple Active Directory in AWS."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The fully qualified domain name for the AWS Managed Simple AD directory."
+  },
+  {
+    "name": "password",
+    "type": "string",
+    "description": "The password for the default administrative user named Admin."
+  },
+  {
+    "name": "short_name",
+    "type": "string",
+    "description": "The NetBIOS name for your domain."
+  },
+  {
+    "name": "size",
+    "type": "string",
+    "description": "The size of the directory."
+  },
+  {
+    "name": "vpc_settings",
+    "type": "object",
+    "description": "VPC settings of the Simple AD directory server in AWS.",
+    "children": [
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The identifiers of the subnets for the directory servers. The two subnets must be in different Availability Zones. AWS Directory Service specifies a directory server and a DNS server in each of these subnets."
+      },
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "The identifier of the VPC in which to create the directory."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html"><code>AWS::DirectoryService::SimpleAD</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>simple_ads</code> in a region.
-```sql
-SELECT
-region,
-directory_id,
-alias,
-dns_ip_addresses,
-create_alias,
-description,
-enable_sso,
-name,
-password,
-short_name,
-size,
-vpc_settings
-FROM awscc.directoryservice.simple_ads
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>simple_ad</code>.
 ```sql
 SELECT

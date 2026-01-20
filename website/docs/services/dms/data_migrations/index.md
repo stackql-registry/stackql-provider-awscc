@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_migration</code> resource or lists <code>data_migrations</code> in a region
 
@@ -32,22 +33,114 @@ Creates, updates, deletes or gets a <code>data_migration</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="data_migration_name" /></td><td><code>string</code></td><td>The property describes a name to identify the data migration.</td></tr>
-<tr><td><CopyableCode code="data_migration_arn" /></td><td><code>string</code></td><td>The property describes an ARN of the data migration.</td></tr>
-<tr><td><CopyableCode code="data_migration_identifier" /></td><td><code>string</code></td><td>The property describes an ARN of the data migration.</td></tr>
-<tr><td><CopyableCode code="data_migration_create_time" /></td><td><code>string</code></td><td>The property describes the create time of the data migration.</td></tr>
-<tr><td><CopyableCode code="service_access_role_arn" /></td><td><code>string</code></td><td>The property describes Amazon Resource Name (ARN) of the service access role.</td></tr>
-<tr><td><CopyableCode code="migration_project_identifier" /></td><td><code>string</code></td><td>The property describes an identifier for the migration project. It is used for describing/deleting/modifying can be name/arn</td></tr>
-<tr><td><CopyableCode code="data_migration_type" /></td><td><code>string</code></td><td>The property describes the type of migration.</td></tr>
-<tr><td><CopyableCode code="data_migration_settings" /></td><td><code>object</code></td><td>The property describes the settings for the data migration.</td></tr>
-<tr><td><CopyableCode code="source_data_settings" /></td><td><code>array</code></td><td>The property describes the settings for the data migration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "data_migration_name",
+    "type": "string",
+    "description": "The property describes a name to identify the data migration."
+  },
+  {
+    "name": "data_migration_arn",
+    "type": "string",
+    "description": "The property describes an ARN of the data migration."
+  },
+  {
+    "name": "data_migration_identifier",
+    "type": "string",
+    "description": "The property describes an ARN of the data migration."
+  },
+  {
+    "name": "data_migration_create_time",
+    "type": "string",
+    "description": "The property describes the create time of the data migration."
+  },
+  {
+    "name": "service_access_role_arn",
+    "type": "string",
+    "description": "The property describes Amazon Resource Name (ARN) of the service access role."
+  },
+  {
+    "name": "migration_project_identifier",
+    "type": "string",
+    "description": "The property describes an identifier for the migration project. It is used for describing/deleting/modifying can be name/arn"
+  },
+  {
+    "name": "data_migration_type",
+    "type": "string",
+    "description": "The property describes the type of migration."
+  },
+  {
+    "name": "data_migration_settings",
+    "type": "object",
+    "description": "The property describes the settings for the data migration.",
+    "children": [
+      {
+        "name": "cloudwatch_logs_enabled",
+        "type": "boolean",
+        "description": "The property specifies whether to enable the CloudWatch log."
+      },
+      {
+        "name": "number_of_jobs",
+        "type": "integer",
+        "description": "The number of parallel jobs that trigger parallel threads to unload the tables from the source, and then load them to the target."
+      },
+      {
+        "name": "selection_rules",
+        "type": "string",
+        "description": "The property specifies the rules of selecting objects for data migration."
+      }
+    ]
+  },
+  {
+    "name": "source_data_settings",
+    "type": "array",
+    "description": "The property describes the settings for the data migration.",
+    "children": [
+      {
+        "name": "c_dc_start_position",
+        "type": "string",
+        "description": "The property is a point in the database engine's log that defines a time where you can begin CDC."
+      },
+      {
+        "name": "c_dc_start_time",
+        "type": "string",
+        "description": "The property indicates the start time for a change data capture (CDC) operation. The value is server time in UTC format."
+      },
+      {
+        "name": "c_dc_stop_time",
+        "type": "string",
+        "description": "The property indicates the stop time for a change data capture (CDC) operation. The value is server time in UTC format."
+      },
+      {
+        "name": "slot_name",
+        "type": "string",
+        "description": "The property sets the name of a previously created logical replication slot for a change data capture (CDC) load of the source instance."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-datamigration.html"><code>AWS::DMS::DataMigration</code></a>.
 
@@ -89,23 +182,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_migrations</code> in a region.
-```sql
-SELECT
-region,
-data_migration_name,
-data_migration_arn,
-data_migration_identifier,
-data_migration_create_time,
-service_access_role_arn,
-migration_project_identifier,
-data_migration_type,
-data_migration_settings,
-source_data_settings,
-tags
-FROM awscc.dms.data_migrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_migration</code>.
 ```sql
 SELECT

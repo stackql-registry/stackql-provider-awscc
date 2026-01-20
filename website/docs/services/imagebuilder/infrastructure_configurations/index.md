@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>infrastructure_configuration</code> resource or lists <code>infrastructure_configurations</code> in a region
 
@@ -32,27 +33,141 @@ Creates, updates, deletes or gets an <code>infrastructure_configuration</code> r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="instance_types" /></td><td><code>array</code></td><td>The instance types of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The security group IDs of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="logging" /></td><td><code>object</code></td><td>The logging configuration of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The subnet ID of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="key_pair" /></td><td><code>string</code></td><td>The EC2 key pair of the infrastructure configuration..</td></tr>
-<tr><td><CopyableCode code="terminate_instance_on_failure" /></td><td><code>boolean</code></td><td>The terminate instance on failure configuration of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="instance_profile_name" /></td><td><code>string</code></td><td>The instance profile of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="instance_metadata_options" /></td><td><code>object</code></td><td>The instance metadata option settings for the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="sns_topic_arn" /></td><td><code>string</code></td><td>The SNS Topic Amazon Resource Name (ARN) of the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>object</code></td><td>The tags attached to the resource created by Image Builder.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags associated with the component.</td></tr>
-<tr><td><CopyableCode code="placement" /></td><td><code>object</code></td><td>The placement option settings for the infrastructure configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the infrastructure configuration."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the infrastructure configuration."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the infrastructure configuration."
+  },
+  {
+    "name": "instance_types",
+    "type": "array",
+    "description": "The instance types of the infrastructure configuration."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The security group IDs of the infrastructure configuration."
+  },
+  {
+    "name": "logging",
+    "type": "object",
+    "description": "The logging configuration of the infrastructure configuration.",
+    "children": [
+      {
+        "name": "s3_logs",
+        "type": "object",
+        "description": "The S3 path in which to store the logs.",
+        "children": [
+          {
+            "name": "s3_bucket_name",
+            "type": "string",
+            "description": "S3BucketName"
+          },
+          {
+            "name": "s3_key_prefix",
+            "type": "string",
+            "description": "S3KeyPrefix"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The subnet ID of the infrastructure configuration."
+  },
+  {
+    "name": "key_pair",
+    "type": "string",
+    "description": "The EC2 key pair of the infrastructure configuration.."
+  },
+  {
+    "name": "terminate_instance_on_failure",
+    "type": "boolean",
+    "description": "The terminate instance on failure configuration of the infrastructure configuration."
+  },
+  {
+    "name": "instance_profile_name",
+    "type": "string",
+    "description": "The instance profile of the infrastructure configuration."
+  },
+  {
+    "name": "instance_metadata_options",
+    "type": "object",
+    "description": "The instance metadata option settings for the infrastructure configuration.",
+    "children": [
+      {
+        "name": "http_put_response_hop_limit",
+        "type": "integer",
+        "description": "Limit the number of hops that an instance metadata request can traverse to reach its destination."
+      },
+      {
+        "name": "http_tokens",
+        "type": "string",
+        "description": "Indicates whether a signed token header is required for instance metadata retrieval requests. The values affect the response as follows:"
+      }
+    ]
+  },
+  {
+    "name": "sns_topic_arn",
+    "type": "string",
+    "description": "The SNS Topic Amazon Resource Name (ARN) of the infrastructure configuration."
+  },
+  {
+    "name": "resource_tags",
+    "type": "object",
+    "description": "The tags attached to the resource created by Image Builder."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags associated with the component."
+  },
+  {
+    "name": "placement",
+    "type": "object",
+    "description": "The placement option settings for the infrastructure configuration.",
+    "children": [
+      {
+        "name": "availability_zone",
+        "type": "string",
+        "description": "AvailabilityZone"
+      },
+      {
+        "name": "tenancy",
+        "type": "string",
+        "description": "Tenancy"
+      },
+      {
+        "name": "host_id",
+        "type": "string",
+        "description": "HostId"
+      },
+      {
+        "name": "host_resource_group_arn",
+        "type": "string",
+        "description": "HostResourceGroupArn"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-infrastructureconfiguration.html"><code>AWS::ImageBuilder::InfrastructureConfiguration</code></a>.
 
@@ -94,28 +209,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>infrastructure_configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-instance_types,
-security_group_ids,
-logging,
-subnet_id,
-key_pair,
-terminate_instance_on_failure,
-instance_profile_name,
-instance_metadata_options,
-sns_topic_arn,
-resource_tags,
-tags,
-placement
-FROM awscc.imagebuilder.infrastructure_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>infrastructure_configuration</code>.
 ```sql
 SELECT

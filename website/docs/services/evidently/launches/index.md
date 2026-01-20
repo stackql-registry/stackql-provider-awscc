@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>launch</code> resource or lists <code>launches</code> in a region
 
@@ -32,22 +33,187 @@ Creates, updates, deletes or gets a <code>launch</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="project" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="randomization_salt" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="scheduled_splits_config" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="groups" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="metric_monitors" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="execution_status" /></td><td><code>object</code></td><td>Start or Stop Launch Launch. Default is not started.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "project",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "randomization_salt",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "scheduled_splits_config",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "start_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "group_weights",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "group_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "split_weight",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "segment_overrides",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "segment",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "evaluation_order",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "weights",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "groups",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "group_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "feature",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "variation",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "metric_monitors",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "metric_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "entity_id_key",
+        "type": "string",
+        "description": "The JSON path to reference the entity id in the event."
+      },
+      {
+        "name": "value_key",
+        "type": "string",
+        "description": "The JSON path to reference the numerical metric value in the event."
+      },
+      {
+        "name": "event_pattern",
+        "type": "string",
+        "description": "Event patterns have the same structure as the events they match. Rules use event patterns to select events. An event pattern either matches an event or it doesn't."
+      },
+      {
+        "name": "unit_label",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "execution_status",
+    "type": "object",
+    "description": "Start or Stop Launch Launch. Default is not started.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Provide START or STOP action to apply on a launch"
+      },
+      {
+        "name": "desired_state",
+        "type": "string",
+        "description": "Provide CANCELLED or COMPLETED as the launch desired state. Defaults to Completed if not provided."
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "description": "Provide a reason for stopping the launch. Defaults to empty if not provided."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-evidently-launch.html"><code>AWS::Evidently::Launch</code></a>.
 

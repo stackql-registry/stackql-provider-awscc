@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>firewall</code> resource or lists <code>firewalls</code> in a region
 
@@ -32,28 +33,119 @@ Creates, updates, deletes or gets a <code>firewall</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="firewall_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="firewall_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="firewall_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="firewall_policy_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_mappings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="availability_zone_mappings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="delete_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_change_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="availability_zone_change_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="firewall_policy_change_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled_analysis_types" /></td><td><code>array</code></td><td>The types of analysis to enable for the firewall. Can be TLS_SNI, HTTP_HOST, or both.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "firewall_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "firewall_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "firewall_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_mappings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "subnet_id",
+        "type": "string",
+        "description": "A SubnetId."
+      },
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": "A IPAddressType"
+      }
+    ]
+  },
+  {
+    "name": "availability_zone_mappings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "availability_zone",
+        "type": "string",
+        "description": "A AvailabilityZone"
+      }
+    ]
+  },
+  {
+    "name": "delete_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "subnet_change_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "availability_zone_change_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "firewall_policy_change_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "enabled_analysis_types",
+    "type": "array",
+    "description": "The types of analysis to enable for the firewall. Can be TLS&#95;SNI, HTTP&#95;HOST, or both."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-firewall.html"><code>AWS::NetworkFirewall::Firewall</code></a>.
 
@@ -95,29 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>firewalls</code> in a region.
-```sql
-SELECT
-region,
-firewall_name,
-firewall_arn,
-firewall_id,
-firewall_policy_arn,
-vpc_id,
-subnet_mappings,
-availability_zone_mappings,
-delete_protection,
-subnet_change_protection,
-availability_zone_change_protection,
-firewall_policy_change_protection,
-transit_gateway_id,
-description,
-endpoint_ids,
-enabled_analysis_types,
-tags
-FROM awscc.networkfirewall.firewalls
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>firewall</code>.
 ```sql
 SELECT

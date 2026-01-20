@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>task_definition</code> resource or lists <code>task_definitions</code> in a region
 
@@ -32,20 +33,140 @@ Creates, updates, deletes or gets a <code>task_definition</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the new resource.</td></tr>
-<tr><td><CopyableCode code="auto_create_tasks" /></td><td><code>boolean</code></td><td>Whether to automatically create tasks using this task definition for all gateways with the specified current version. If false, the task must me created by calling CreateWirelessGatewayTask.</td></tr>
-<tr><td><CopyableCode code="update" /></td><td><code>object</code></td><td>Information about the gateways to update.</td></tr>
-<tr><td><CopyableCode code="lo_ra_wan_update_gateway_task_entry" /></td><td><code>object</code></td><td>The list of task definitions.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the new wireless gateway task definition</td></tr>
-<tr><td><CopyableCode code="task_definition_type" /></td><td><code>string</code></td><td>A filter to list only the wireless gateway task definitions that use this task definition type</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>TaskDefinition arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the new resource."
+  },
+  {
+    "name": "auto_create_tasks",
+    "type": "boolean",
+    "description": "Whether to automatically create tasks using this task definition for all gateways with the specified current version. If false, the task must me created by calling CreateWirelessGatewayTask."
+  },
+  {
+    "name": "update",
+    "type": "object",
+    "description": "Information about the gateways to update.",
+    "children": [
+      {
+        "name": "update_data_source",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "update_data_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "lo_ra_wan",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "update_signature",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "sig_key_crc",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "current_version",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "package_version",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "model",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "station",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "lo_ra_wan_update_gateway_task_entry",
+    "type": "object",
+    "description": "The list of task definitions.",
+    "children": [
+      {
+        "name": "current_version",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "package_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "station",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the new wireless gateway task definition"
+  },
+  {
+    "name": "task_definition_type",
+    "type": "string",
+    "description": "A filter to list only the wireless gateway task definitions that use this task definition type"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "TaskDefinition arn. Returned after successful create."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the destination.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-taskdefinition.html"><code>AWS::IoTWireless::TaskDefinition</code></a>.
 
@@ -87,21 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>task_definitions</code> in a region.
-```sql
-SELECT
-region,
-name,
-auto_create_tasks,
-update,
-lo_ra_wan_update_gateway_task_entry,
-id,
-task_definition_type,
-arn,
-tags
-FROM awscc.iotwireless.task_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>task_definition</code>.
 ```sql
 SELECT

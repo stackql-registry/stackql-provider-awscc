@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>safety_rule</code> resource or lists <code>safety_rules</code> in a region
 
@@ -32,20 +33,111 @@ Creates, updates, deletes or gets a <code>safety_rule</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="assertion_rule" /></td><td><code>object</code></td><td>An assertion rule enforces that, when a routing control state is changed, that the criteria set by the rule configuration is met. Otherwise, the change to the routing control is not accepted.</td></tr>
-<tr><td><CopyableCode code="gating_rule" /></td><td><code>object</code></td><td>A gating rule verifies that a set of gating controls evaluates as true, based on a rule configuration that you specify. If the gating rule evaluates to true, Amazon Route 53 Application Recovery Controller allows a set of routing control state changes to run and complete against the set of target controls.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the safety rule.</td></tr>
-<tr><td><CopyableCode code="safety_rule_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the safety rule.</td></tr>
-<tr><td><CopyableCode code="control_panel_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the control panel.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.</td></tr>
-<tr><td><CopyableCode code="rule_config" /></td><td><code>object</code></td><td>The rule configuration for an assertion rule or gating rule. This is the criteria that you set for specific assertion controls (routing controls) or gating controls. This configuration specifies how many controls must be enabled after a transaction completes.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "assertion_rule",
+    "type": "object",
+    "description": "An assertion rule enforces that, when a routing control state is changed, that the criteria set by the rule configuration is met. Otherwise, the change to the routing control is not accepted.",
+    "children": [
+      {
+        "name": "wait_period_ms",
+        "type": "integer",
+        "description": "An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent \"flapping\" of state. The wait period is 5000 ms by default, but you can choose a custom value."
+      },
+      {
+        "name": "asserted_controls",
+        "type": "array",
+        "description": "The routing controls that are part of transactions that are evaluated to determine if a request to change a routing control state is allowed. For example, you might include three routing controls, one for each of three AWS Regions."
+      }
+    ]
+  },
+  {
+    "name": "gating_rule",
+    "type": "object",
+    "description": "A gating rule verifies that a set of gating controls evaluates as true, based on a rule configuration that you specify. If the gating rule evaluates to true, Amazon Route 53 Application Recovery Controller allows a set of routing control state changes to run and complete against the set of target controls.",
+    "children": [
+      {
+        "name": "gating_controls",
+        "type": "array",
+        "description": "The gating controls for the gating rule. That is, routing controls that are evaluated by the rule configuration that you specify."
+      },
+      {
+        "name": "target_controls",
+        "type": "array",
+        "description": "Routing controls that can only be set or unset if the specified RuleConfig evaluates to true for the specified GatingControls. For example, say you have three gating controls, one for each of three AWS Regions. Now you specify AtLeast 2 as your RuleConfig. With these settings, you can only change (set or unset) the routing controls that you have specified as TargetControls if that rule evaluates to true. <br />In other words, your ability to change the routing controls that you have specified as TargetControls is gated by the rule that you set for the routing controls in GatingControls."
+      },
+      {
+        "name": "wait_period_ms",
+        "type": "integer",
+        "description": "An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent \"flapping\" of state. The wait period is 5000 ms by default, but you can choose a custom value."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the safety rule."
+  },
+  {
+    "name": "safety_rule_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the safety rule."
+  },
+  {
+    "name": "control_panel_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the control panel."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+  },
+  {
+    "name": "rule_config",
+    "type": "object",
+    "description": "The rule configuration for an assertion rule or gating rule. This is the criteria that you set for specific assertion controls (routing controls) or gating controls. This configuration specifies how many controls must be enabled after a transaction completes.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "A rule can be one of the following: ATLEAST, AND, or OR."
+      },
+      {
+        "name": "threshold",
+        "type": "integer",
+        "description": "The value of N, when you specify an ATLEAST rule type. That is, Threshold is the number of controls that must be set when you specify an ATLEAST type."
+      },
+      {
+        "name": "inverted",
+        "type": "boolean",
+        "description": "Logical negation of the rule. If the rule would usually evaluate true, it's evaluated as false, and vice versa."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoverycontrol-safetyrule.html"><code>AWS::Route53RecoveryControl::SafetyRule</code></a>.
 
@@ -87,21 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>safety_rules</code> in a region.
-```sql
-SELECT
-region,
-assertion_rule,
-gating_rule,
-name,
-safety_rule_arn,
-control_panel_arn,
-status,
-rule_config,
-tags
-FROM awscc.route53recoverycontrol.safety_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>safety_rule</code>.
 ```sql
 SELECT

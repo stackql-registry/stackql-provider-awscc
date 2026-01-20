@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,15 +33,86 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_name" /></td><td><code>string</code></td><td>A name for the Elastic Beanstalk application. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the application name.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Your description of the application.</td></tr>
-<tr><td><CopyableCode code="resource_lifecycle_config" /></td><td><code>object</code></td><td>Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_name",
+    "type": "string",
+    "description": "A name for the Elastic Beanstalk application. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the application name."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Your description of the application."
+  },
+  {
+    "name": "resource_lifecycle_config",
+    "type": "object",
+    "description": "Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.",
+    "children": [
+      {
+        "name": "service_role",
+        "type": "string",
+        "description": "The ARN of an IAM service role that Elastic Beanstalk has permission to assume. The ServiceRole property is required the first time that you provide a ResourceLifecycleConfig for the application. After you provide it once, Elastic Beanstalk persists the Service Role with the application, and you don't need to specify it again. You can, however, specify it in subsequent updates to change the Service Role to another value."
+      },
+      {
+        "name": "version_lifecycle_config",
+        "type": "object",
+        "description": "Defines lifecycle settings for application versions.",
+        "children": [
+          {
+            "name": "max_age_rule",
+            "type": "object",
+            "description": "Specify a max age rule to restrict the length of time that application versions are retained for an application.",
+            "children": [
+              {
+                "name": "delete_source_from_s3",
+                "type": "boolean",
+                "description": "Set to true to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version."
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": "Specify true to apply the rule, or false to disable it."
+              },
+              {
+                "name": "max_age_in_days",
+                "type": "integer",
+                "description": "Specify the number of days to retain an application versions."
+              }
+            ]
+          },
+          {
+            "name": "max_count_rule",
+            "type": "object",
+            "description": "Specify a max count rule to restrict the number of application versions that are retained for an application.",
+            "children": [
+              {
+                "name": "delete_source_from_s3",
+                "type": "boolean",
+                "description": "Set to true to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version."
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": "Specify true to apply the rule, or false to disable it."
+              },
+              {
+                "name": "max_count",
+                "type": "integer",
+                "description": "Specify the maximum number of application versions to retain."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-application.html"><code>AWS::ElasticBeanstalk::Application</code></a>.
 
@@ -82,16 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-application_name,
-description,
-resource_lifecycle_config
-FROM awscc.elasticbeanstalk.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

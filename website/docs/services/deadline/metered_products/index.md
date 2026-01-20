@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>metered_product</code> resource or lists <code>metered_products</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>metered_product</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="license_endpoint_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="product_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="port" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="family" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vendor" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "license_endpoint_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "product_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "port",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "family",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vendor",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-meteredproduct.html"><code>AWS::Deadline::MeteredProduct</code></a>.
 
@@ -80,19 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>metered_products</code> in a region.
-```sql
-SELECT
-region,
-license_endpoint_id,
-product_id,
-port,
-family,
-vendor,
-arn
-FROM awscc.deadline.metered_products
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>metered_product</code>.
 ```sql
 SELECT

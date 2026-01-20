@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>buckets</code> in a region
 
@@ -32,22 +33,87 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td>The name for the bucket.</td></tr>
-<tr><td><CopyableCode code="bundle_id" /></td><td><code>string</code></td><td>The ID of the bundle to use for the bucket.</td></tr>
-<tr><td><CopyableCode code="bucket_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="object_versioning" /></td><td><code>boolean</code></td><td>Specifies whether to enable or disable versioning of objects in the bucket.</td></tr>
-<tr><td><CopyableCode code="access_rules" /></td><td><code>object</code></td><td>An object that sets the public accessibility of objects in the specified bucket.</td></tr>
-<tr><td><CopyableCode code="resources_receiving_access" /></td><td><code>array</code></td><td>The names of the Lightsail resources for which to set bucket access.</td></tr>
-<tr><td><CopyableCode code="read_only_access_accounts" /></td><td><code>array</code></td><td>An array of strings to specify the AWS account IDs that can access the bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>The URL of the bucket.</td></tr>
-<tr><td><CopyableCode code="able_to_update_bundle" /></td><td><code>boolean</code></td><td>Indicates whether the bundle that is currently applied to a bucket can be changed to another bundle. You can update a bucket's bundle only one time within a monthly AWS billing cycle.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "The name for the bucket."
+  },
+  {
+    "name": "bundle_id",
+    "type": "string",
+    "description": "The ID of the bundle to use for the bucket."
+  },
+  {
+    "name": "bucket_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "object_versioning",
+    "type": "boolean",
+    "description": "Specifies whether to enable or disable versioning of objects in the bucket."
+  },
+  {
+    "name": "access_rules",
+    "type": "object",
+    "description": "An object that sets the public accessibility of objects in the specified bucket.",
+    "children": [
+      {
+        "name": "get_object",
+        "type": "string",
+        "description": "Specifies the anonymous access to all objects in a bucket."
+      },
+      {
+        "name": "allow_public_overrides",
+        "type": "boolean",
+        "description": "A Boolean value that indicates whether the access control list (ACL) permissions that are applied to individual objects override the getObject option that is currently specified."
+      }
+    ]
+  },
+  {
+    "name": "resources_receiving_access",
+    "type": "array",
+    "description": "The names of the Lightsail resources for which to set bucket access."
+  },
+  {
+    "name": "read_only_access_accounts",
+    "type": "array",
+    "description": "An array of strings to specify the AWS account IDs that can access the bucket."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "url",
+    "type": "string",
+    "description": "The URL of the bucket."
+  },
+  {
+    "name": "able_to_update_bundle",
+    "type": "boolean",
+    "description": "Indicates whether the bundle that is currently applied to a bucket can be changed to another bundle. You can update a bucket's bundle only one time within a monthly AWS billing cycle."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-bucket.html"><code>AWS::Lightsail::Bucket</code></a>.
 
@@ -89,23 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>buckets</code> in a region.
-```sql
-SELECT
-region,
-bucket_name,
-bundle_id,
-bucket_arn,
-object_versioning,
-access_rules,
-resources_receiving_access,
-read_only_access_accounts,
-tags,
-url,
-able_to_update_bundle
-FROM awscc.lightsail.buckets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>bucket</code>.
 ```sql
 SELECT

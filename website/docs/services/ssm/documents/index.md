@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>document</code> resource or lists <code>documents</code> in a region
 
@@ -32,22 +33,104 @@ Creates, updates, deletes or gets a <code>document</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="content" /></td><td><code>object</code></td><td>The content for the Systems Manager document in JSON, YAML or String format.</td></tr>
-<tr><td><CopyableCode code="attachments" /></td><td><code>array</code></td><td>A list of key and value pairs that describe attachments to a version of a document.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the Systems Manager document.</td></tr>
-<tr><td><CopyableCode code="version_name" /></td><td><code>string</code></td><td>An optional field specifying the version of the artifact you are creating with the document. This value is unique across all versions of a document, and cannot be changed.</td></tr>
-<tr><td><CopyableCode code="document_type" /></td><td><code>string</code></td><td>The type of document to create.</td></tr>
-<tr><td><CopyableCode code="document_format" /></td><td><code>string</code></td><td>Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default format.</td></tr>
-<tr><td><CopyableCode code="target_type" /></td><td><code>string</code></td><td>Specify a target type to define the kinds of resources the document can run on.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment.</td></tr>
-<tr><td><CopyableCode code="requires" /></td><td><code>array</code></td><td>A list of SSM documents required by a document. For example, an ApplicationConfiguration document requires an ApplicationConfigurationSchema document.</td></tr>
-<tr><td><CopyableCode code="update_method" /></td><td><code>string</code></td><td>Update method - when set to 'Replace', the update will replace the existing document; when set to 'NewVersion', the update will create a new version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "content",
+    "type": "object",
+    "description": "The content for the Systems Manager document in JSON, YAML or String format."
+  },
+  {
+    "name": "attachments",
+    "type": "array",
+    "description": "A list of key and value pairs that describe attachments to a version of a document.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key of a key-value pair that identifies the location of an attachment to a document."
+      },
+      {
+        "name": "values",
+        "type": "array",
+        "description": "The value of a key-value pair that identifies the location of an attachment to a document. The format for Value depends on the type of key you specify."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the document attachment file."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the Systems Manager document."
+  },
+  {
+    "name": "version_name",
+    "type": "string",
+    "description": "An optional field specifying the version of the artifact you are creating with the document. This value is unique across all versions of a document, and cannot be changed."
+  },
+  {
+    "name": "document_type",
+    "type": "string",
+    "description": "The type of document to create."
+  },
+  {
+    "name": "document_format",
+    "type": "string",
+    "description": "Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default format."
+  },
+  {
+    "name": "target_type",
+    "type": "string",
+    "description": "Specify a target type to define the kinds of resources the document can run on."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "requires",
+    "type": "array",
+    "description": "A list of SSM documents required by a document. For example, an ApplicationConfiguration document requires an ApplicationConfigurationSchema document.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the required SSM document. The name can be an Amazon Resource Name (ARN)."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The document version required by the current document."
+      }
+    ]
+  },
+  {
+    "name": "update_method",
+    "type": "string",
+    "description": "Update method - when set to 'Replace', the update will replace the existing document; when set to 'NewVersion', the update will create a new version."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html"><code>AWS::SSM::Document</code></a>.
 
@@ -89,23 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>documents</code> in a region.
-```sql
-SELECT
-region,
-content,
-attachments,
-name,
-version_name,
-document_type,
-document_format,
-target_type,
-tags,
-requires,
-update_method
-FROM awscc.ssm.documents
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>document</code>.
 ```sql
 SELECT

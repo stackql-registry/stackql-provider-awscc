@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_link</code> resource or lists <code>vpc_links</code> in a region
 
@@ -26,23 +27,56 @@ Creates, updates, deletes or gets a <code>vpc_link</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpc_links</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::VpcLink</code> resource creates an API Gateway VPC link for a REST API to access resources in an Amazon Virtual Private Cloud (VPC). For more information, see &#91;vpclink:create&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API_CreateVpcLink.html) in the <code>Amazon API Gateway REST API Reference</code>.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::VpcLink&#96;&#96; resource creates an API Gateway VPC link for a REST API to access resources in an Amazon Virtual Private Cloud (VPC). For more information, see &#91;vpclink:create&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;CreateVpcLink.html) in the &#96;&#96;Amazon API Gateway REST API Reference&#96;&#96;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.vpc_links" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of arbitrary tags (key-value pairs) to associate with the VPC link.</td></tr>
-<tr><td><CopyableCode code="target_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_link_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of arbitrary tags (key-value pairs) to associate with the VPC link.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "target_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "vpc_link_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-vpclink.html"><code>AWS::ApiGateway::VpcLink</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_links</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-tags,
-target_arns,
-vpc_link_id
-FROM awscc.apigateway.vpc_links
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_link</code>.
 ```sql
 SELECT

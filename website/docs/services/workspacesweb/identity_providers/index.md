@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>identity_provider</code> resource or lists <code>identity_providers</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets an <code>identity_provider</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="identity_provider_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portal_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "identity_provider_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_details",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portal_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-identityprovider.html"><code>AWS::WorkSpacesWeb::IdentityProvider</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>identity_providers</code> in a region.
-```sql
-SELECT
-region,
-identity_provider_arn,
-identity_provider_details,
-identity_provider_name,
-identity_provider_type,
-portal_arn,
-tags
-FROM awscc.workspacesweb.identity_providers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>identity_provider</code>.
 ```sql
 SELECT

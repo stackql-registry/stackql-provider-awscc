@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>aggregation_authorizations</code> in a region or regions, for all properties use <a href="/services/config/aggregation_authorizations/"><code>aggregation_authorizations</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>aggregation_authorizations</code> in a region or regions, for all pr
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="authorized_account_id" /></td><td><code>string</code></td><td>The 12-digit account ID of the account authorized to aggregate data.</td></tr>
-<tr><td><CopyableCode code="authorized_aws_region" /></td><td><code>string</code></td><td>The region authorized to collect aggregated data.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "authorized_account_id",
+    "type": "string",
+    "description": "The 12-digit account ID of the account authorized to aggregate data."
+  },
+  {
+    "name": "authorized_aws_region",
+    "type": "string",
+    "description": "The region authorized to collect aggregated data."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

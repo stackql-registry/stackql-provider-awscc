@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <code>dashboards</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="dashboard_name" /></td><td><code>string</code></td><td>The name of the dashboard. The name must be between 1 and 255 characters. If you do not specify a name, one will be generated automatically.</td></tr>
-<tr><td><CopyableCode code="dashboard_body" /></td><td><code>string</code></td><td>The detailed information about the dashboard in JSON format, including the widgets to include and their location on the dashboard</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "dashboard_name",
+    "type": "string",
+    "description": "The name of the dashboard. The name must be between 1 and 255 characters. If you do not specify a name, one will be generated automatically."
+  },
+  {
+    "name": "dashboard_body",
+    "type": "string",
+    "description": "The detailed information about the dashboard in JSON format, including the widgets to include and their location on the dashboard"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-dashboard.html"><code>AWS::CloudWatch::Dashboard</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dashboards</code> in a region.
-```sql
-SELECT
-region,
-dashboard_name,
-dashboard_body
-FROM awscc.cloudwatch.dashboards
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT

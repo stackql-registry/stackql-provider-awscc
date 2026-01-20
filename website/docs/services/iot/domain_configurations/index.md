@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_configuration</code> resource or lists <code>domain_configurations</code> in a region
 
@@ -32,28 +33,165 @@ Creates, updates, deletes or gets a <code>domain_configuration</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_configuration_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_certificate_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="validation_certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_configuration_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_certificate_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_certificates" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tls_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="authentication_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_protocol" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_certificate_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_configuration_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorizer_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_authorizer_override",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "default_authorizer_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_certificate_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "service_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "validation_certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_configuration_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_certificate_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enable_oc_sp_check",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "ocsp_lambda_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ocsp_authorized_responder_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "server_certificates",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "server_certificate_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "server_certificate_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "server_certificate_status_detail",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tls_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_policy",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_protocol",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_certificate_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "client_certificate_callback_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-domainconfiguration.html"><code>AWS::IoT::DomainConfiguration</code></a>.
 
@@ -95,29 +233,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_configurations</code> in a region.
-```sql
-SELECT
-region,
-domain_configuration_name,
-authorizer_config,
-domain_name,
-server_certificate_arns,
-service_type,
-validation_certificate_arn,
-arn,
-domain_configuration_status,
-domain_type,
-server_certificate_config,
-server_certificates,
-tls_config,
-authentication_type,
-application_protocol,
-client_certificate_config,
-tags
-FROM awscc.iot.domain_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_configuration</code>.
 ```sql
 SELECT

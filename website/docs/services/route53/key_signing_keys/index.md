@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>key_signing_key</code> resource or lists <code>key_signing_keys</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>key_signing_key</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="hosted_zone_id" /></td><td><code>string</code></td><td>The unique string (ID) used to identify a hosted zone.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>A string specifying the initial status of the key signing key (KSK). You can set the value to ACTIVE or INACTIVE.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>An alphanumeric string used to identify a key signing key (KSK). Name must be unique for each key signing key in the same hosted zone.</td></tr>
-<tr><td><CopyableCode code="key_management_service_arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) for a customer managed key (CMK) in AWS Key Management Service (KMS). The KeyManagementServiceArn must be unique for each key signing key (KSK) in a single hosted zone.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "hosted_zone_id",
+    "type": "string",
+    "description": "The unique string (ID) used to identify a hosted zone."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "A string specifying the initial status of the key signing key (KSK). You can set the value to ACTIVE or INACTIVE."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "An alphanumeric string used to identify a key signing key (KSK). Name must be unique for each key signing key in the same hosted zone."
+  },
+  {
+    "name": "key_management_service_arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) for a customer managed key (CMK) in AWS Key Management Service (KMS). The KeyManagementServiceArn must be unique for each key signing key (KSK) in a single hosted zone."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-keysigningkey.html"><code>AWS::Route53::KeySigningKey</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>key_signing_keys</code> in a region.
-```sql
-SELECT
-region,
-hosted_zone_id,
-status,
-name,
-key_management_service_arn
-FROM awscc.route53.key_signing_keys
-;
-```
+
 Gets all properties from an individual <code>key_signing_key</code>.
 ```sql
 SELECT

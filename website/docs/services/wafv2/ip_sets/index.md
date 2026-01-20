@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ip_set</code> resource or lists <code>ip_sets</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>ip_set</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the entity.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the WebACL.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the WebACL</td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway.</td></tr>
-<tr><td><CopyableCode code="ip_address_version" /></td><td><code>string</code></td><td>Type of addresses in the IPSet, use IPV4 for IPV4 IP addresses, IPV6 for IPV6 address.</td></tr>
-<tr><td><CopyableCode code="addresses" /></td><td><code>array</code></td><td>List of IPAddresses.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the entity."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the WebACL."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the WebACL"
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+  },
+  {
+    "name": "ip_address_version",
+    "type": "string",
+    "description": "Type of addresses in the IPSet, use IPV4 for IPV4 IP addresses, IPV6 for IPV6 address."
+  },
+  {
+    "name": "addresses",
+    "type": "array",
+    "description": "List of IPAddresses."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-ipset.html"><code>AWS::WAFv2::IPSet</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ip_sets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-description,
-name,
-id,
-scope,
-ip_address_version,
-addresses,
-tags
-FROM awscc.wafv2.ip_sets
-;
-```
+
 Gets all properties from an individual <code>ip_set</code>.
 ```sql
 SELECT

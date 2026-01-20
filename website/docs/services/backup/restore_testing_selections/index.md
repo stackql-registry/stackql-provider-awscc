@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>restore_testing_selection</code> resource or lists <code>restore_testing_selections</code> in a region
 
@@ -32,20 +33,77 @@ Creates, updates, deletes or gets a <code>restore_testing_selection</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="protected_resource_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="protected_resource_conditions" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="protected_resource_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="restore_metadata_overrides" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="restore_testing_plan_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="restore_testing_selection_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="validation_window_hours" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "iam_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "protected_resource_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "protected_resource_conditions",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "string_equals",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "string_not_equals",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "protected_resource_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "restore_metadata_overrides",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "restore_testing_plan_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "restore_testing_selection_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "validation_window_hours",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-restoretestingselection.html"><code>AWS::Backup::RestoreTestingSelection</code></a>.
 
@@ -87,21 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>restore_testing_selections</code> in a region.
-```sql
-SELECT
-region,
-iam_role_arn,
-protected_resource_arns,
-protected_resource_conditions,
-protected_resource_type,
-restore_metadata_overrides,
-restore_testing_plan_name,
-restore_testing_selection_name,
-validation_window_hours
-FROM awscc.backup.restore_testing_selections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>restore_testing_selection</code>.
 ```sql
 SELECT

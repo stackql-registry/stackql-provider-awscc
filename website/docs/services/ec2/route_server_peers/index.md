@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route_server_peer</code> resource or lists <code>route_server_peers</code> in a region
 
@@ -32,23 +33,92 @@ Creates, updates, deletes or gets a <code>route_server_peer</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="route_server_id" /></td><td><code>string</code></td><td>Route Server ID</td></tr>
-<tr><td><CopyableCode code="route_server_endpoint_id" /></td><td><code>string</code></td><td>Route Server Endpoint ID</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Route Server Peer.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Route Server Peer.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>Subnet ID</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>VPC ID</td></tr>
-<tr><td><CopyableCode code="endpoint_eni_id" /></td><td><code>string</code></td><td>Elastic Network Interface ID owned by the Route Server Endpoint</td></tr>
-<tr><td><CopyableCode code="endpoint_eni_address" /></td><td><code>string</code></td><td>Elastic Network Interface IP address owned by the Route Server Endpoint</td></tr>
-<tr><td><CopyableCode code="peer_address" /></td><td><code>string</code></td><td>IP address of the Route Server Peer</td></tr>
-<tr><td><CopyableCode code="bgp_options" /></td><td><code>object</code></td><td>BGP Options</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "route_server_id",
+    "type": "string",
+    "description": "Route Server ID"
+  },
+  {
+    "name": "route_server_endpoint_id",
+    "type": "string",
+    "description": "Route Server Endpoint ID"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Route Server Peer."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Route Server Peer."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "Subnet ID"
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "VPC ID"
+  },
+  {
+    "name": "endpoint_eni_id",
+    "type": "string",
+    "description": "Elastic Network Interface ID owned by the Route Server Endpoint"
+  },
+  {
+    "name": "endpoint_eni_address",
+    "type": "string",
+    "description": "Elastic Network Interface IP address owned by the Route Server Endpoint"
+  },
+  {
+    "name": "peer_address",
+    "type": "string",
+    "description": "IP address of the Route Server Peer"
+  },
+  {
+    "name": "bgp_options",
+    "type": "object",
+    "description": "BGP Options",
+    "children": [
+      {
+        "name": "peer_asn",
+        "type": "integer",
+        "description": "BGP ASN of the Route Server Peer"
+      },
+      {
+        "name": "peer_liveness_detection",
+        "type": "string",
+        "description": "BGP Liveness Detection"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routeserverpeer.html"><code>AWS::EC2::RouteServerPeer</code></a>.
 
@@ -90,24 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>route_server_peers</code> in a region.
-```sql
-SELECT
-region,
-route_server_id,
-route_server_endpoint_id,
-arn,
-id,
-subnet_id,
-vpc_id,
-endpoint_eni_id,
-endpoint_eni_address,
-peer_address,
-bgp_options,
-tags
-FROM awscc.ec2.route_server_peers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route_server_peer</code>.
 ```sql
 SELECT

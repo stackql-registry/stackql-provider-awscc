@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>replication_set</code> resource or lists <code>replication_sets</code> in a region
 
@@ -32,16 +33,64 @@ Creates, updates, deletes or gets a <code>replication_set</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the ReplicationSet.</td></tr>
-<tr><td><CopyableCode code="regions" /></td><td><code>array</code></td><td>The ReplicationSet configuration.</td></tr>
-<tr><td><CopyableCode code="deletion_protected" /></td><td><code>boolean</code></td><td>Configures the ReplicationSet deletion protection.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the replication set.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the ReplicationSet."
+  },
+  {
+    "name": "regions",
+    "type": "array",
+    "description": "The ReplicationSet configuration.",
+    "children": [
+      {
+        "name": "region_name",
+        "type": "string",
+        "description": "The AWS region name."
+      },
+      {
+        "name": "region_configuration",
+        "type": "object",
+        "description": "The ReplicationSet regional configuration.",
+        "children": [
+          {
+            "name": "sse_kms_key_id",
+            "type": "string",
+            "description": "The AWS Key Management Service key ID or Key Alias to use to encrypt your replication set."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "deletion_protected",
+    "type": "boolean",
+    "description": "Configures the ReplicationSet deletion protection."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to apply to the replication set.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmincidents-replicationset.html"><code>AWS::SSMIncidents::ReplicationSet</code></a>.
 
@@ -83,17 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>replication_sets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-regions,
-deletion_protected,
-tags
-FROM awscc.ssmincidents.replication_sets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>replication_set</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>locationf_sx_ontap</code> resource or lists <code>locationf_sx_ontaps</code> in a region
 
@@ -32,20 +33,86 @@ Creates, updates, deletes or gets a <code>locationf_sx_ontap</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="storage_virtual_machine_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the FSx ONTAP SVM.</td></tr>
-<tr><td><CopyableCode code="fsx_filesystem_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the FSx ONAP file system.</td></tr>
-<tr><td><CopyableCode code="security_group_arns" /></td><td><code>array</code></td><td>The ARNs of the security groups that are to use to configure the FSx ONTAP file system.</td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>object</code></td><td>Configuration settings for an NFS or SMB protocol, currently only support NFS</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>A subdirectory in the location's path.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon FSx ONTAP file system location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the FSx ONTAP file system that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "storage_virtual_machine_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the FSx ONTAP SVM."
+  },
+  {
+    "name": "fsx_filesystem_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the FSx ONAP file system."
+  },
+  {
+    "name": "security_group_arns",
+    "type": "array",
+    "description": "The ARNs of the security groups that are to use to configure the FSx ONTAP file system."
+  },
+  {
+    "name": "protocol",
+    "type": "object",
+    "description": "Configuration settings for an NFS or SMB protocol, currently only support NFS",
+    "children": [
+      {
+        "name": "n_fs",
+        "type": "object",
+        "description": "FSx OpenZFS file system NFS protocol information",
+        "children": [
+          {
+            "name": "mount_options",
+            "type": "object",
+            "description": "The mount options used by DataSync to access the SMB server.",
+            "children": [
+              {
+                "name": "version",
+                "type": "string",
+                "description": "The specific SMB version that you want DataSync to use to mount your SMB share."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "A subdirectory in the location's path."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon FSx ONTAP file system location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the FSx ONTAP file system that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationfsxontap.html"><code>AWS::DataSync::LocationFSxONTAP</code></a>.
 
@@ -87,21 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>locationf_sx_ontaps</code> in a region.
-```sql
-SELECT
-region,
-storage_virtual_machine_arn,
-fsx_filesystem_arn,
-security_group_arns,
-protocol,
-subdirectory,
-tags,
-location_arn,
-location_uri
-FROM awscc.datasync.locationf_sx_ontaps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>locationf_sx_ontap</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster_policy</code> resource or lists <code>cluster_policies</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>cluster_policy</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>A policy document containing permissions to add to the specified cluster.</td></tr>
-<tr><td><CopyableCode code="cluster_arn" /></td><td><code>string</code></td><td>The arn of the cluster for the resource policy.</td></tr>
-<tr><td><CopyableCode code="current_version" /></td><td><code>string</code></td><td>The current version of the policy attached to the specified cluster</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "A policy document containing permissions to add to the specified cluster."
+  },
+  {
+    "name": "cluster_arn",
+    "type": "string",
+    "description": "The arn of the cluster for the resource policy."
+  },
+  {
+    "name": "current_version",
+    "type": "string",
+    "description": "The current version of the policy attached to the specified cluster"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-msk-clusterpolicy.html"><code>AWS::MSK::ClusterPolicy</code></a>.
 
@@ -82,16 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cluster_policies</code> in a region.
-```sql
-SELECT
-region,
-policy,
-cluster_arn,
-current_version
-FROM awscc.msk.cluster_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster_policy</code>.
 ```sql
 SELECT

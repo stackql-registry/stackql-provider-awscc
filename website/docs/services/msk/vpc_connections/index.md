@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_connection</code> resource or lists <code>vpc_connections</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets a <code>vpc_connection</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authentication" /></td><td><code>string</code></td><td>The type of private link authentication</td></tr>
-<tr><td><CopyableCode code="client_subnets" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_cluster_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the target cluster</td></tr>
-<tr><td><CopyableCode code="security_groups" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authentication",
+    "type": "string",
+    "description": "The type of private link authentication"
+  },
+  {
+    "name": "client_subnets",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "target_cluster_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the target cluster"
+  },
+  {
+    "name": "security_groups",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-msk-vpcconnection.html"><code>AWS::MSK::VpcConnection</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_connections</code> in a region.
-```sql
-SELECT
-region,
-arn,
-authentication,
-client_subnets,
-target_cluster_arn,
-security_groups,
-tags,
-vpc_id
-FROM awscc.msk.vpc_connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_connection</code>.
 ```sql
 SELECT

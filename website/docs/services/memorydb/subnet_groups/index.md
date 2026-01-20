@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists <code>subnet_groups</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="subnet_group_name" /></td><td><code>string</code></td><td>The name of the subnet group. This value must be unique as it also serves as the subnet group identifier.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>An optional description of the subnet group.</td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>A list of VPC subnet IDs for the subnet group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this subnet group.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the subnet group.</td></tr>
-<tr><td><CopyableCode code="supported_network_types" /></td><td><code>array</code></td><td>Supported network types would be a list of network types supported by subnet group and can be either &#91;ipv4&#93; or &#91;ipv4, dual_stack&#93; or &#91;ipv6&#93;.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "subnet_group_name",
+    "type": "string",
+    "description": "The name of the subnet group. This value must be unique as it also serves as the subnet group identifier."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "An optional description of the subnet group."
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "A list of VPC subnet IDs for the subnet group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this subnet group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the subnet group."
+  },
+  {
+    "name": "supported_network_types",
+    "type": "array",
+    "description": "Supported network types would be a list of network types supported by subnet group and can be either &#91;ipv4&#93; or &#91;ipv4, dual&#95;stack&#93; or &#91;ipv6&#93;."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-memorydb-subnetgroup.html"><code>AWS::MemoryDB::SubnetGroup</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subnet_groups</code> in a region.
-```sql
-SELECT
-region,
-subnet_group_name,
-description,
-subnet_ids,
-tags,
-arn,
-supported_network_types
-FROM awscc.memorydb.subnet_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subnet_group</code>.
 ```sql
 SELECT

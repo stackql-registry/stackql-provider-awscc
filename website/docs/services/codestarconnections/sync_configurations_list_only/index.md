@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>sync_configurations</code> in a region or regions, for all properties use <a href="/services/codestarconnections/sync_configurations/"><code>sync_configurations</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>sync_configurations</code> in a region or regions, for all propertie
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_name" /></td><td><code>string</code></td><td>The name of the resource that is being synchronized to the repository.</td></tr>
-<tr><td><CopyableCode code="sync_type" /></td><td><code>string</code></td><td>The type of resource synchronization service that is to be configured, for example, CFN_STACK_SYNC.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_name",
+    "type": "string",
+    "description": "The name of the resource that is being synchronized to the repository."
+  },
+  {
+    "name": "sync_type",
+    "type": "string",
+    "description": "The type of resource synchronization service that is to be configured, for example, CFN&#95;STACK&#95;SYNC."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

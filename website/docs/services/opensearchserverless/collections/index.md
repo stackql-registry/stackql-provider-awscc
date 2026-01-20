@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>collection</code> resource or lists <code>collections</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>collection</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the collection</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The identifier of the collection</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the collection.<br />The name must meet the following criteria:<br />Unique to your account and AWS Region<br />Starts with a lowercase letter<br />Contains only lowercase letters a-z, the numbers 0-9 and the hyphen (-)<br />Contains between 3 and 32 characters<br /></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of tags to be added to the resource</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the collection.</td></tr>
-<tr><td><CopyableCode code="collection_endpoint" /></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr>
-<tr><td><CopyableCode code="dashboard_endpoint" /></td><td><code>string</code></td><td>The OpenSearch Dashboards endpoint for the collection.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The possible types for the collection</td></tr>
-<tr><td><CopyableCode code="standby_replicas" /></td><td><code>string</code></td><td>The possible standby replicas for the collection</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the collection"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The identifier of the collection"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the collection.<br />The name must meet the following criteria:<br />Unique to your account and AWS Region<br />Starts with a lowercase letter<br />Contains only lowercase letters a-z, the numbers 0-9 and the hyphen (-)<br />Contains between 3 and 32 characters<br />"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of tags to be added to the resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key in the key-value pair"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value in the key-value pair"
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the collection."
+  },
+  {
+    "name": "collection_endpoint",
+    "type": "string",
+    "description": "The endpoint for the collection."
+  },
+  {
+    "name": "dashboard_endpoint",
+    "type": "string",
+    "description": "The OpenSearch Dashboards endpoint for the collection."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The possible types for the collection"
+  },
+  {
+    "name": "standby_replicas",
+    "type": "string",
+    "description": "The possible standby replicas for the collection"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchserverless-collection.html"><code>AWS::OpenSearchServerless::Collection</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>collections</code> in a region.
-```sql
-SELECT
-region,
-description,
-id,
-name,
-tags,
-arn,
-collection_endpoint,
-dashboard_endpoint,
-type,
-standby_replicas
-FROM awscc.opensearchserverless.collections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>collection</code>.
 ```sql
 SELECT

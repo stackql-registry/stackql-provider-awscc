@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>anycast_ip_lists</code> in a region or regions, for all properties use <a href="/services/cloudfront/anycast_ip_lists/"><code>anycast_ip_lists</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>anycast_ip_lists</code> in a region or regions, for all properties u
 <tbody>
 <tr><td><b>Name</b></td><td><code>anycast_ip_lists_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.anycast_ip_lists_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>collaboration</code> resource or lists <code>collaborations</code> in a region
 
@@ -32,26 +33,236 @@ Creates, updates, deletes or gets a <code>collaboration</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms collaboration.</td></tr>
-<tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creator_display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creator_member_abilities" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="creator_ml_member_abilities" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_encryption_metadata" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="members" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_log_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_log_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="analytics_engine" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creator_payment_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms collaboration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "collaboration_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creator_display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creator_member_abilities",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "creator_ml_member_abilities",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "custom_ml_member_abilities",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_encryption_metadata",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_cleartext",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "allow_duplicates",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "allow_joins_on_columns_with_different_names",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "preserve_nulls",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "members",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "account_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "job_compute",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "query_compute",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "machine_learning",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "model_training",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "model_inference",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_log_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_log_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "analytics_engine",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creator_payment_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "job_compute",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "is_responsible",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "query_compute",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "is_responsible",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "machine_learning",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "model_training",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "model_inference",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-collaboration.html"><code>AWS::CleanRooms::Collaboration</code></a>.
 
@@ -93,27 +304,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>collaborations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-tags,
-collaboration_identifier,
-creator_display_name,
-creator_member_abilities,
-creator_ml_member_abilities,
-data_encryption_metadata,
-description,
-members,
-name,
-job_log_status,
-query_log_status,
-analytics_engine,
-creator_payment_configuration
-FROM awscc.cleanrooms.collaborations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>collaboration</code>.
 ```sql
 SELECT

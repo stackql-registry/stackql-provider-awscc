@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_insights_path</code> resource or lists <code>network_insights_paths</code> in a region
 
@@ -32,26 +33,104 @@ Creates, updates, deletes or gets a <code>network_insights_path</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="network_insights_path_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_path_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_ip" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="filter_at_source" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="filter_at_destination" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination_ip" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination_port" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "network_insights_path_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_insights_path_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_ip",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "filter_at_source",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "source_port_range",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "from_port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "to_port",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "source",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "destination",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "destination_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "protocol",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "destination_port",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinsightspath.html"><code>AWS::EC2::NetworkInsightsPath</code></a>.
 
@@ -93,27 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_insights_paths</code> in a region.
-```sql
-SELECT
-region,
-network_insights_path_id,
-network_insights_path_arn,
-created_date,
-source_ip,
-filter_at_source,
-filter_at_destination,
-destination_ip,
-source,
-destination,
-source_arn,
-destination_arn,
-protocol,
-destination_port,
-tags
-FROM awscc.ec2.network_insights_paths
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_insights_path</code>.
 ```sql
 SELECT

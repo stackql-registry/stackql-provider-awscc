@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <code>flow_outputs</code> in a region
 
@@ -32,31 +33,220 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="flow_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.</td></tr>
-<tr><td><CopyableCode code="output_arn" /></td><td><code>string</code></td><td>The ARN of the output.</td></tr>
-<tr><td><CopyableCode code="cidr_allow_list" /></td><td><code>array</code></td><td>The range of IP addresses that should be allowed to initiate output requests to this flow. These IP addresses should be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16.</td></tr>
-<tr><td><CopyableCode code="encryption" /></td><td><code>object</code></td><td>The type of key used for the encryption. If no keyType is provided, the service will use the default setting (static-key).</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the output.</td></tr>
-<tr><td><CopyableCode code="destination" /></td><td><code>string</code></td><td>The address where you want to send the output.</td></tr>
-<tr><td><CopyableCode code="max_latency" /></td><td><code>integer</code></td><td>The maximum latency in milliseconds. This parameter applies only to RIST-based and Zixi-based streams.</td></tr>
-<tr><td><CopyableCode code="min_latency" /></td><td><code>integer</code></td><td>The minimum latency in milliseconds.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the output. This value must be unique within the current flow.</td></tr>
-<tr><td><CopyableCode code="port" /></td><td><code>integer</code></td><td>The port to use when content is distributed to this output.</td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>string</code></td><td>The protocol that is used by the source or output.</td></tr>
-<tr><td><CopyableCode code="remote_id" /></td><td><code>string</code></td><td>The remote ID for the Zixi-pull stream.</td></tr>
-<tr><td><CopyableCode code="smoothing_latency" /></td><td><code>integer</code></td><td>The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.</td></tr>
-<tr><td><CopyableCode code="stream_id" /></td><td><code>string</code></td><td>The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.</td></tr>
-<tr><td><CopyableCode code="vpc_interface_attachment" /></td><td><code>object</code></td><td>The name of the VPC interface attachment to use for this output.</td></tr>
-<tr><td><CopyableCode code="media_stream_output_configurations" /></td><td><code>array</code></td><td>The definition for each media stream that is associated with the output.</td></tr>
-<tr><td><CopyableCode code="output_status" /></td><td><code>string</code></td><td>An indication of whether the output should transmit data or not.</td></tr>
-<tr><td><CopyableCode code="ndi_program_name" /></td><td><code>string</code></td><td>A suffix for the names of the NDI sources that the flow creates. If a custom name isn't specified, MediaConnect uses the output name.</td></tr>
-<tr><td><CopyableCode code="ndi_speed_hq_quality" /></td><td><code>integer</code></td><td>A quality setting for the NDI Speed HQ encoder.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "flow_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow."
+  },
+  {
+    "name": "output_arn",
+    "type": "string",
+    "description": "The ARN of the output."
+  },
+  {
+    "name": "cidr_allow_list",
+    "type": "array",
+    "description": "The range of IP addresses that should be allowed to initiate output requests to this flow. These IP addresses should be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16."
+  },
+  {
+    "name": "encryption",
+    "type": "object",
+    "description": "The type of key used for the encryption. If no keyType is provided, the service will use the default setting (static-key).",
+    "children": [
+      {
+        "name": "algorithm",
+        "type": "string",
+        "description": "The type of algorithm that is used for the encryption (such as aes128, aes192, or aes256)."
+      },
+      {
+        "name": "constant_initialization_vector",
+        "type": "string",
+        "description": "A 128-bit, 16-byte hex value represented by a 32-character string, to be used with the key for encrypting content. This parameter is not valid for static key encryption."
+      },
+      {
+        "name": "device_id",
+        "type": "string",
+        "description": "The value of one of the devices that you configured with your digital rights management (DRM) platform key provider. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "key_type",
+        "type": "string",
+        "description": "The type of key that is used for the encryption. If no keyType is provided, the service will use the default setting (static-key)."
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": "The AWS Region that the API Gateway proxy endpoint was created in. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "description": "An identifier for the content. The service sends this value to the key server to identify the current endpoint. The resource ID is also known as the content ID. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The ARN of the role that you created during setup (when you set up AWS Elemental MediaConnect as a trusted entity)."
+      },
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "The ARN of the secret that you created in AWS Secrets Manager to store the encryption key. This parameter is required for static key encryption and is not valid for SPEKE encryption."
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "The URL from the API Gateway proxy that you set up to talk to your key server. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the output."
+  },
+  {
+    "name": "destination",
+    "type": "string",
+    "description": "The address where you want to send the output."
+  },
+  {
+    "name": "max_latency",
+    "type": "integer",
+    "description": "The maximum latency in milliseconds. This parameter applies only to RIST-based and Zixi-based streams."
+  },
+  {
+    "name": "min_latency",
+    "type": "integer",
+    "description": "The minimum latency in milliseconds."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the output. This value must be unique within the current flow."
+  },
+  {
+    "name": "port",
+    "type": "integer",
+    "description": "The port to use when content is distributed to this output."
+  },
+  {
+    "name": "protocol",
+    "type": "string",
+    "description": "The protocol that is used by the source or output."
+  },
+  {
+    "name": "remote_id",
+    "type": "string",
+    "description": "The remote ID for the Zixi-pull stream."
+  },
+  {
+    "name": "smoothing_latency",
+    "type": "integer",
+    "description": "The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams."
+  },
+  {
+    "name": "stream_id",
+    "type": "string",
+    "description": "The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams."
+  },
+  {
+    "name": "vpc_interface_attachment",
+    "type": "object",
+    "description": "The name of the VPC interface attachment to use for this output.",
+    "children": [
+      {
+        "name": "vpc_interface_name",
+        "type": "string",
+        "description": "The name of the VPC interface to use for this resource."
+      }
+    ]
+  },
+  {
+    "name": "media_stream_output_configurations",
+    "type": "array",
+    "description": "The definition for each media stream that is associated with the output.",
+    "children": [
+      {
+        "name": "encoding_name",
+        "type": "string",
+        "description": "The format that will be used to encode the data. For ancillary data streams, set the encoding name to smpte291. For audio streams, set the encoding name to pcm. For video streams on sources or outputs that use the CDI protocol, set the encoding name to raw. For video streams on sources or outputs that use the ST 2110 JPEG XS protocol, set the encoding name to jxsv."
+      },
+      {
+        "name": "destination_configurations",
+        "type": "array",
+        "description": "The media streams that you want to associate with the output.",
+        "children": [
+          {
+            "name": "destination_ip",
+            "type": "string",
+            "description": "The IP address where contents of the media stream will be sent."
+          },
+          {
+            "name": "destination_port",
+            "type": "integer",
+            "description": "The port to use when the content of the media stream is distributed to the output."
+          },
+          {
+            "name": "interface",
+            "type": "object",
+            "description": "The VPC interface that is used for the media stream associated with the output.",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "The name of the VPC interface that you want to use for the media stream associated with the output."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "media_stream_name",
+        "type": "string",
+        "description": "A name that helps you distinguish one media stream from another."
+      },
+      {
+        "name": "encoding_parameters",
+        "type": "object",
+        "description": "A collection of parameters that determine how MediaConnect will convert the content. These fields only apply to outputs on flows that have a CDI source.",
+        "children": [
+          {
+            "name": "compression_factor",
+            "type": "number",
+            "description": "A value that is used to calculate compression for an output. The bitrate of the output is calculated as follows: Output bitrate = (1 / compressionFactor) &#42; (source bitrate) This property only applies to outputs that use the ST 2110 JPEG XS protocol, with a flow source that uses the CDI protocol. Valid values are in the range of 3.0 to 10.0, inclusive."
+          },
+          {
+            "name": "encoder_profile",
+            "type": "string",
+            "description": "A setting on the encoder that drives compression settings. This property only applies to video media streams associated with outputs that use the ST 2110 JPEG XS protocol, with a flow source that uses the CDI protocol."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "output_status",
+    "type": "string",
+    "description": "An indication of whether the output should transmit data or not."
+  },
+  {
+    "name": "ndi_program_name",
+    "type": "string",
+    "description": "A suffix for the names of the NDI sources that the flow creates. If a custom name isn't specified, MediaConnect uses the output name."
+  },
+  {
+    "name": "ndi_speed_hq_quality",
+    "type": "integer",
+    "description": "A quality setting for the NDI Speed HQ encoder."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-flowoutput.html"><code>AWS::MediaConnect::FlowOutput</code></a>.
 
@@ -98,32 +288,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>flow_outputs</code> in a region.
-```sql
-SELECT
-region,
-flow_arn,
-output_arn,
-cidr_allow_list,
-encryption,
-description,
-destination,
-max_latency,
-min_latency,
-name,
-port,
-protocol,
-remote_id,
-smoothing_latency,
-stream_id,
-vpc_interface_attachment,
-media_stream_output_configurations,
-output_status,
-ndi_program_name,
-ndi_speed_hq_quality
-FROM awscc.mediaconnect.flow_outputs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>flow_output</code>.
 ```sql
 SELECT

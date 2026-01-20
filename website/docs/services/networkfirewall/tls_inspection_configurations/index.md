@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tls_inspection_configuration</code> resource or lists <code>tls_inspection_configurations</code> in a region
 
@@ -32,18 +33,89 @@ Creates, updates, deletes or gets a <code>tls_inspection_configuration</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="tls_inspection_configuration_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tls_inspection_configuration_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="tls_inspection_configuration" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::TLSInspectionConfiguration</td></tr>
-<tr><td><CopyableCode code="tls_inspection_configuration_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "tls_inspection_configuration_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tls_inspection_configuration_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "tls_inspection_configuration",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::TLSInspectionConfiguration",
+    "children": [
+      {
+        "name": "tls_inspection_configuration_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tls_inspection_configuration_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tls_inspection_configuration_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-tlsinspectionconfiguration.html"><code>AWS::NetworkFirewall::TLSInspectionConfiguration</code></a>.
 
@@ -85,19 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tls_inspection_configurations</code> in a region.
-```sql
-SELECT
-region,
-tls_inspection_configuration_name,
-tls_inspection_configuration_arn,
-tls_inspection_configuration,
-tls_inspection_configuration_id,
-description,
-tags
-FROM awscc.networkfirewall.tls_inspection_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tls_inspection_configuration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transformer</code> resource or lists <code>transformers</code> in a region
 
@@ -32,14 +33,490 @@ Creates, updates, deletes or gets a <code>transformer</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="log_group_identifier" /></td><td><code>string</code></td><td>Existing log group that you want to associate with this transformer.</td></tr>
-<tr><td><CopyableCode code="transformer_config" /></td><td><code>array</code></td><td>List of processors in a transformer</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "log_group_identifier",
+    "type": "string",
+    "description": "Existing log group that you want to associate with this transformer."
+  },
+  {
+    "name": "transformer_config",
+    "type": "array",
+    "description": "List of processors in a transformer",
+    "children": [
+      {
+        "name": "parse_cloudfront",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_vpc",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_wa_f",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_js_on",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_route53",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_postgres",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_to_oc_sf",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "event_source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ocsf_version",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "parse_key_value",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "field_delimiter",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key_value_delimiter",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "overwrite_if_exists",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "copy_value",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "source",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "target",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "overwrite_if_exists",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "csv",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "quote_character",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "delimiter",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "columns",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "date_time_converter",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "match_patterns",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "source_timezone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_timezone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "delete_keys",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "with_keys",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "grok",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "match",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "list_to_map",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "flatten",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "flattened_element",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "add_keys",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "overwrite_if_exists",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "move_keys",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "source",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "overwrite_if_exists",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rename_keys",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "overwrite_if_exists",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "lower_case_string",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "with_keys",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "split_string",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "source",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "delimiter",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "substitute_string",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "source",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "from",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "trim_string",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "with_keys",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "upper_case_string",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "with_keys",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "type_converter",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entries",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-transformer.html"><code>AWS::Logs::Transformer</code></a>.
 
@@ -81,15 +558,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transformers</code> in a region.
-```sql
-SELECT
-region,
-log_group_identifier,
-transformer_config
-FROM awscc.logs.transformers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transformer</code>.
 ```sql
 SELECT

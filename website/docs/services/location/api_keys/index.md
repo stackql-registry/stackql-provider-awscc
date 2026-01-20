@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>api_key</code> resource or lists <code>api_keys</code> in a region
 
@@ -32,24 +33,92 @@ Creates, updates, deletes or gets an <code>api_key</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="expire_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="force_update" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="no_expiry" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="restrictions" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="force_delete" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": "The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "force_update",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "key_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "no_expiry",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "restrictions",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_actions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "allow_resources",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "allow_referers",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "force_delete",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-location-apikey.html"><code>AWS::Location::APIKey</code></a>.
 
@@ -91,25 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>api_keys</code> in a region.
-```sql
-SELECT
-region,
-create_time,
-description,
-expire_time,
-force_update,
-key_arn,
-key_name,
-no_expiry,
-restrictions,
-tags,
-update_time,
-force_delete,
-arn
-FROM awscc.location.api_keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>api_key</code>.
 ```sql
 SELECT

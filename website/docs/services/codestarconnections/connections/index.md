@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connection</code> resource or lists <code>connections</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>connection</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="connection_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the connection. The ARN is used as the connection reference when the connection is shared between AWS services.</td></tr>
-<tr><td><CopyableCode code="connection_name" /></td><td><code>string</code></td><td>The name of the connection. Connection names must be unique in an AWS user account.</td></tr>
-<tr><td><CopyableCode code="connection_status" /></td><td><code>string</code></td><td>The current status of the connection.</td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>The name of the external provider where your third-party code repository is configured. For Bitbucket, this is the account ID of the owner of the Bitbucket repository.</td></tr>
-<tr><td><CopyableCode code="provider_type" /></td><td><code>string</code></td><td>The name of the external provider where your third-party code repository is configured. You must specify either a ProviderType or a HostArn.</td></tr>
-<tr><td><CopyableCode code="host_arn" /></td><td><code>string</code></td><td>The host arn configured to represent the infrastructure where your third-party provider is installed. You must specify either a ProviderType or a HostArn.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Specifies the tags applied to a connection.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "connection_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the connection. The ARN is used as the connection reference when the connection is shared between AWS services."
+  },
+  {
+    "name": "connection_name",
+    "type": "string",
+    "description": "The name of the connection. Connection names must be unique in an AWS user account."
+  },
+  {
+    "name": "connection_status",
+    "type": "string",
+    "description": "The current status of the connection."
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": "The name of the external provider where your third-party code repository is configured. For Bitbucket, this is the account ID of the owner of the Bitbucket repository."
+  },
+  {
+    "name": "provider_type",
+    "type": "string",
+    "description": "The name of the external provider where your third-party code repository is configured. You must specify either a ProviderType or a HostArn."
+  },
+  {
+    "name": "host_arn",
+    "type": "string",
+    "description": "The host arn configured to represent the infrastructure where your third-party provider is installed. You must specify either a ProviderType or a HostArn."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Specifies the tags applied to a connection.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, , ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, , ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html"><code>AWS::CodeStarConnections::Connection</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connections</code> in a region.
-```sql
-SELECT
-region,
-connection_arn,
-connection_name,
-connection_status,
-owner_account_id,
-provider_type,
-host_arn,
-tags
-FROM awscc.codestarconnections.connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT

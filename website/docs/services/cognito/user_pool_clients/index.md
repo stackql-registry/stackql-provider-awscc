@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool_client</code> resource or lists <code>user_pool_clients</code> in a region
 
@@ -32,38 +33,199 @@ Creates, updates, deletes or gets an <code>user_pool_client</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="client_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="explicit_auth_flows" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="generate_secret" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="read_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="auth_session_validity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="refresh_token_validity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="access_token_validity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_token_validity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="token_validity_units" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="refresh_token_rotation" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="write_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="allowed_oauth_flows" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="allowed_oauth_flows_user_pool_client" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="allowed_oauth_scopes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="callback_urls" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_redirect_uri" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="logout_urls" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="supported_identity_providers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="analytics_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="prevent_user_existence_errors" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_token_revocation" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_propagate_additional_user_context_data" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_secret" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "client_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "explicit_auth_flows",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "generate_secret",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "read_attributes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "auth_session_validity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "refresh_token_validity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "access_token_validity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "id_token_validity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "token_validity_units",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "access_token",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id_token",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "refresh_token",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "refresh_token_rotation",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "feature",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "retry_grace_period_seconds",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "write_attributes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "allowed_oauth_flows",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "allowed_oauth_flows_user_pool_client",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "allowed_oauth_scopes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "callback_urls",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "default_redirect_uri",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "logout_urls",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "supported_identity_providers",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "analytics_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "application_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "user_data_shared",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "prevent_user_existence_errors",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable_token_revocation",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_propagate_additional_user_context_data",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_secret",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html"><code>AWS::Cognito::UserPoolClient</code></a>.
 
@@ -105,39 +267,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_pool_clients</code> in a region.
-```sql
-SELECT
-region,
-client_name,
-explicit_auth_flows,
-generate_secret,
-read_attributes,
-auth_session_validity,
-refresh_token_validity,
-access_token_validity,
-id_token_validity,
-token_validity_units,
-refresh_token_rotation,
-user_pool_id,
-write_attributes,
-allowed_oauth_flows,
-allowed_oauth_flows_user_pool_client,
-allowed_oauth_scopes,
-callback_urls,
-default_redirect_uri,
-logout_urls,
-supported_identity_providers,
-analytics_configuration,
-prevent_user_existence_errors,
-enable_token_revocation,
-enable_propagate_additional_user_context_data,
-name,
-client_secret,
-client_id
-FROM awscc.cognito.user_pool_clients
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_pool_client</code>.
 ```sql
 SELECT

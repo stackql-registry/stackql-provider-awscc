@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>logging</code> resource or lists <code>loggings</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>logging</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>Your 12-digit account ID (used as the primary identifier for the CloudFormation resource).</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of the role that allows IoT to write to Cloudwatch logs.</td></tr>
-<tr><td><CopyableCode code="default_log_level" /></td><td><code>string</code></td><td>The log level to use. Valid values are: ERROR, WARN, INFO, DEBUG, or DISABLED.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "Your 12-digit account ID (used as the primary identifier for the CloudFormation resource)."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of the role that allows IoT to write to Cloudwatch logs."
+  },
+  {
+    "name": "default_log_level",
+    "type": "string",
+    "description": "The log level to use. Valid values are: ERROR, WARN, INFO, DEBUG, or DISABLED."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-logging.html"><code>AWS::IoT::Logging</code></a>.
 
@@ -82,16 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>loggings</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-role_arn,
-default_log_level
-FROM awscc.iot.loggings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>logging</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>storage_configuration</code> resource or lists <code>storage_configurations</code> in a region
 
@@ -32,16 +33,52 @@ Creates, updates, deletes or gets a <code>storage_configuration</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Storage Configuration ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Storage Configuration Name.</td></tr>
-<tr><td><CopyableCode code="s3" /></td><td><code>object</code></td><td>A complex type that describes an S3 location where recorded videos will be stored.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Storage Configuration ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Storage Configuration Name."
+  },
+  {
+    "name": "s3",
+    "type": "object",
+    "description": "A complex type that describes an S3 location where recorded videos will be stored.",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": "Location (S3 bucket name) where recorded videos will be stored. Note that the StorageConfiguration and S3 bucket must be in the same region as the Composition."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-storageconfiguration.html"><code>AWS::IVS::StorageConfiguration</code></a>.
 
@@ -83,17 +120,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>storage_configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-s3,
-tags
-FROM awscc.ivs.storage_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>storage_configuration</code>.
 ```sql
 SELECT

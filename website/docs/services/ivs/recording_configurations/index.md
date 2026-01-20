@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>recording_configuration</code> resource or lists <code>recording_configurations</code> in a region
 
@@ -32,20 +33,115 @@ Creates, updates, deletes or gets a <code>recording_configuration</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Recording Configuration ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Recording Configuration Name.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Recording Configuration State.</td></tr>
-<tr><td><CopyableCode code="recording_reconnect_window_seconds" /></td><td><code>integer</code></td><td>Recording Reconnect Window Seconds. (0 means disabled)</td></tr>
-<tr><td><CopyableCode code="destination_configuration" /></td><td><code>object</code></td><td>Recording Destination Configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="thumbnail_configuration" /></td><td><code>object</code></td><td>A complex type that allows you to enable/disable the recording of thumbnails for individual participant recording and modify the interval at which thumbnails are generated for the live session.</td></tr>
-<tr><td><CopyableCode code="rendition_configuration" /></td><td><code>object</code></td><td>Rendition Configuration describes which renditions should be recorded for a stream.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Recording Configuration ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Recording Configuration Name."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "Recording Configuration State."
+  },
+  {
+    "name": "recording_reconnect_window_seconds",
+    "type": "integer",
+    "description": "Recording Reconnect Window Seconds. (0 means disabled)"
+  },
+  {
+    "name": "destination_configuration",
+    "type": "object",
+    "description": "Recording Destination Configuration.",
+    "children": [
+      {
+        "name": "s3",
+        "type": "object",
+        "description": "Recording S3 Destination Configuration.",
+        "children": [
+          {
+            "name": "bucket_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "thumbnail_configuration",
+    "type": "object",
+    "description": "A complex type that allows you to enable/disable the recording of thumbnails for individual participant recording and modify the interval at which thumbnails are generated for the live session.",
+    "children": [
+      {
+        "name": "participant_thumbnail_configuration",
+        "type": "object",
+        "description": "An object representing a configuration of thumbnails for recorded video from an individual participant.",
+        "children": [
+          {
+            "name": "recording_mode",
+            "type": "string",
+            "description": "Thumbnail recording mode. Default: DISABLED."
+          },
+          {
+            "name": "storage",
+            "type": "array",
+            "description": "Indicates the format in which thumbnails are recorded. SEQUENTIAL records all generated thumbnails in a serial manner, to the media/thumbnails/high directory. LATEST saves the latest thumbnail in media/latest&#95;thumbnail/high/thumb.jpg and overwrites it at the interval specified by targetIntervalSeconds. You can enable both SEQUENTIAL and LATEST. Default: SEQUENTIAL."
+          },
+          {
+            "name": "target_interval_seconds",
+            "type": "integer",
+            "description": "The targeted thumbnail-generation interval in seconds. This is configurable only if recordingMode is INTERVAL. Default: 60."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "rendition_configuration",
+    "type": "object",
+    "description": "Rendition Configuration describes which renditions should be recorded for a stream.",
+    "children": [
+      {
+        "name": "rendition_selection",
+        "type": "string",
+        "description": "Resolution Selection indicates which set of renditions are recorded for a stream."
+      },
+      {
+        "name": "renditions",
+        "type": "array",
+        "description": "Renditions indicates which renditions are recorded for a stream."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-recordingconfiguration.html"><code>AWS::IVS::RecordingConfiguration</code></a>.
 
@@ -87,21 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>recording_configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-state,
-recording_reconnect_window_seconds,
-destination_configuration,
-tags,
-thumbnail_configuration,
-rendition_configuration
-FROM awscc.ivs.recording_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>recording_configuration</code>.
 ```sql
 SELECT

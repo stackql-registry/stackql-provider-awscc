@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>delivery_destination</code> resource or lists <code>delivery_destinations</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>delivery_destination</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of this delivery destination.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) that uniquely identifies this delivery destination.</td></tr>
-<tr><td><CopyableCode code="destination_resource_arn" /></td><td><code>string</code></td><td>The ARN of the Amazon Web Services destination that this delivery destination represents. That Amazon Web Services destination can be a log group in CloudWatch Logs, an Amazon S3 bucket, or a delivery stream in Firehose.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags that have been assigned to this delivery destination.</td></tr>
-<tr><td><CopyableCode code="delivery_destination_type" /></td><td><code>string</code></td><td>Displays whether this delivery destination is CloudWatch Logs, Amazon S3, or Kinesis Data Firehose.</td></tr>
-<tr><td><CopyableCode code="delivery_destination_policy" /></td><td><code>object</code></td><td>IAM policy that grants permissions to CloudWatch Logs to deliver logs cross-account to a specified destination in this account.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 51200</td></tr>
-<tr><td><CopyableCode code="output_format" /></td><td><code>string</code></td><td>The format of the logs that are sent to this delivery destination.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of this delivery destination."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) that uniquely identifies this delivery destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags that have been assigned to this delivery destination.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of this key-value pair."
+      }
+    ]
+  },
+  {
+    "name": "delivery_destination_type",
+    "type": "string",
+    "description": "Displays whether this delivery destination is CloudWatch Logs, Amazon S3, or Kinesis Data Firehose."
+  },
+  {
+    "name": "delivery_destination_policy",
+    "type": "object",
+    "description": "IAM policy that grants permissions to CloudWatch Logs to deliver logs cross-account to a specified destination in this account.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 51200",
+    "children": [
+      {
+        "name": "delivery_destination_name",
+        "type": "string",
+        "description": "The name of the delivery destination to assign this policy to"
+      },
+      {
+        "name": "delivery_destination_policy",
+        "type": "object",
+        "description": "The contents of the policy attached to the delivery destination"
+      }
+    ]
+  },
+  {
+    "name": "output_format",
+    "type": "string",
+    "description": "The format of the logs that are sent to this delivery destination."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-deliverydestination.html"><code>AWS::Logs::DeliveryDestination</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>delivery_destinations</code> in a region.
-```sql
-SELECT
-region,
-name,
-arn,
-destination_resource_arn,
-tags,
-delivery_destination_type,
-delivery_destination_policy,
-output_format
-FROM awscc.logs.delivery_destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>delivery_destination</code>.
 ```sql
 SELECT

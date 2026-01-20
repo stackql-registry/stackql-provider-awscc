@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>endpoint_authorization</code> resource or lists <code>endpoint_authorizations</code> in a region
 
@@ -32,24 +33,63 @@ Creates, updates, deletes or gets an <code>endpoint_authorization</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the authorization action.</td></tr>
-<tr><td><CopyableCode code="grantee" /></td><td><code>string</code></td><td>The AWS account ID of the grantee of the cluster.</td></tr>
-<tr><td><CopyableCode code="account" /></td><td><code>string</code></td><td>The target AWS account ID to grant or revoke access for.</td></tr>
-<tr><td><CopyableCode code="grantor" /></td><td><code>string</code></td><td>The AWS account ID of the cluster owner.</td></tr>
-<tr><td><CopyableCode code="endpoint_count" /></td><td><code>integer</code></td><td>The number of Redshift-managed VPC endpoints created for the authorization.</td></tr>
-<tr><td><CopyableCode code="authorize_time" /></td><td><code>string</code></td><td>The time (UTC) when the authorization was created.</td></tr>
-<tr><td><CopyableCode code="allowed_vpcs" /></td><td><code>array</code></td><td>The VPCs allowed access to the cluster.</td></tr>
-<tr><td><CopyableCode code="force" /></td><td><code>boolean</code></td><td>Indicates whether to force the revoke action. If true, the Redshift-managed VPC endpoints associated with the endpoint authorization are also deleted.</td></tr>
-<tr><td><CopyableCode code="allowed_all_vpcs" /></td><td><code>boolean</code></td><td>Indicates whether all VPCs in the grantee account are allowed access to the cluster.</td></tr>
-<tr><td><CopyableCode code="vpc_ids" /></td><td><code>array</code></td><td>The virtual private cloud (VPC) identifiers to grant or revoke access to.</td></tr>
-<tr><td><CopyableCode code="cluster_identifier" /></td><td><code>string</code></td><td>The cluster identifier.</td></tr>
-<tr><td><CopyableCode code="cluster_status" /></td><td><code>string</code></td><td>The status of the cluster.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the authorization action."
+  },
+  {
+    "name": "grantee",
+    "type": "string",
+    "description": "The AWS account ID of the grantee of the cluster."
+  },
+  {
+    "name": "endpoint_count",
+    "type": "integer",
+    "description": "The number of Redshift-managed VPC endpoints created for the authorization."
+  },
+  {
+    "name": "authorize_time",
+    "type": "string",
+    "description": "The time (UTC) when the authorization was created."
+  },
+  {
+    "name": "allowed_vpcs",
+    "type": "array",
+    "description": "The VPCs allowed access to the cluster."
+  },
+  {
+    "name": "force",
+    "type": "boolean",
+    "description": "Indicates whether to force the revoke action. If true, the Redshift-managed VPC endpoints associated with the endpoint authorization are also deleted."
+  },
+  {
+    "name": "allowed_all_vpcs",
+    "type": "boolean",
+    "description": "Indicates whether all VPCs in the grantee account are allowed access to the cluster."
+  },
+  {
+    "name": "vpc_ids",
+    "type": "array",
+    "description": "The virtual private cloud (VPC) identifiers to grant or revoke access to."
+  },
+  {
+    "name": "cluster_identifier",
+    "type": "string",
+    "description": "The cluster identifier."
+  },
+  {
+    "name": "cluster_status",
+    "type": "string",
+    "description": "The status of the cluster."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-endpointauthorization.html"><code>AWS::Redshift::EndpointAuthorization</code></a>.
 
@@ -91,25 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>endpoint_authorizations</code> in a region.
-```sql
-SELECT
-region,
-status,
-grantee,
-account,
-grantor,
-endpoint_count,
-authorize_time,
-allowed_vpcs,
-force,
-allowed_all_vpcs,
-vpc_ids,
-cluster_identifier,
-cluster_status
-FROM awscc.redshift.endpoint_authorizations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>endpoint_authorization</code>.
 ```sql
 SELECT

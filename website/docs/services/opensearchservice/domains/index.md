@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>domains</code> in a region
 
@@ -32,39 +33,643 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="access_policies" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="advanced_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="log_publishing_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="snapshot_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="node_to_node_encryption_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_endpoint_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="cognito_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="advanced_security_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_endpoint_v2" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_endpoints" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="ebs_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_at_rest_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this Domain.</td></tr>
-<tr><td><CopyableCode code="service_software_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="off_peak_window_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="software_update_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="skip_shard_migration_wait" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_center_options" /></td><td><code>object</code></td><td>Options for configuring Identity Center</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "instance_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "warm_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "warm_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "dedicated_master_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "zone_awareness_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "availability_zone_count",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "dedicated_master_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "warm_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "zone_awareness_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "dedicated_master_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "multi_az_with_standby_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "cold_storage_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "node_options",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "node_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "node_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "count",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "access_policies",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "advanced_options",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "log_publishing_options",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "snapshot_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "automated_snapshot_start_hour",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vpc_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "node_to_node_encryption_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "domain_endpoint_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "custom_endpoint_certificate_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_endpoint_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enforce_ht_tp_s",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "custom_endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tls_security_policy",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "cognito_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "identity_pool_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "user_pool_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "advanced_security_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "master_user_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "master_user_password",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "master_user_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "master_user_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "internal_user_database_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "anonymous_auth_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "s_aml_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "idp",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "metadata_content",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "entity_id",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "master_user_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "master_backend_role",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "subject_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "roles_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "session_timeout_minutes",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "j_wt_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "public_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "subject_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "roles_key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "iam_federation_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "roles_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "subject_key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "anonymous_auth_disable_date",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "domain_endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_endpoint_v2",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_endpoints",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "ebs_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "ebs_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "volume_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "iops",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "volume_size",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "throughput",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "encryption_at_rest_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this Domain.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The key of the tag."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The value of the tag."
+      }
+    ]
+  },
+  {
+    "name": "service_software_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "current_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "new_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "update_available",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "cancellable",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "update_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "automated_update_date",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "optional_deployment",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "off_peak_window_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "off_peak_window",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "window_start_time",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "hours",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "minutes",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "software_update_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "auto_software_update_enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "skip_shard_migration_wait",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "identity_center_options",
+    "type": "object",
+    "description": "Options for configuring Identity Center",
+    "children": [
+      {
+        "name": "enabled_api_access",
+        "type": "boolean",
+        "description": "Whether Identity Center is enabled."
+      },
+      {
+        "name": "identity_center_instance_arn",
+        "type": "string",
+        "description": "The ARN of the Identity Center instance."
+      },
+      {
+        "name": "subject_key",
+        "type": "string",
+        "description": "The subject key for Identity Center options."
+      },
+      {
+        "name": "roles_key",
+        "type": "string",
+        "description": "The roles key for Identity Center options."
+      },
+      {
+        "name": "identity_center_application_arn",
+        "type": "string",
+        "description": "The ARN of the Identity Center application."
+      },
+      {
+        "name": "identity_store_id",
+        "type": "string",
+        "description": "The IdentityStoreId for Identity Center options."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchservice-domain.html"><code>AWS::OpenSearchService::Domain</code></a>.
 

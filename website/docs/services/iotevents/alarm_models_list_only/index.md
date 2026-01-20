@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>alarm_models</code> in a region or regions, for all properties use <a href="/services/iotevents/alarm_models/"><code>alarm_models</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>alarm_models</code> in a region or regions, for all properties use <
 <tbody>
 <tr><td><b>Name</b></td><td><code>alarm_models_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Represents an alarm model to monitor an ITE input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see &#91;Create an alarm model&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html) in the ASTERIX;Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Represents an alarm model to monitor an ITE input attribute. You can use the alarm to get notified when the value is outside a specified range. For more information, see &#91;Create an alarm model&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/create-alarms.html) in the &#42;Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotevents.alarm_models_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="alarm_model_name" /></td><td><code>string</code></td><td>The name of the alarm model.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "alarm_model_name",
+    "type": "string",
+    "description": "The name of the alarm model."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

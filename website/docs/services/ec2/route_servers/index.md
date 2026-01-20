@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route_server</code> resource or lists <code>route_servers</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>route_server</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="amazon_side_asn" /></td><td><code>integer</code></td><td>The Amazon-side ASN of the Route Server.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Route Server.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Route Server.</td></tr>
-<tr><td><CopyableCode code="persist_routes" /></td><td><code>string</code></td><td>Whether to enable persistent routes</td></tr>
-<tr><td><CopyableCode code="persist_routes_duration" /></td><td><code>integer</code></td><td>The duration of persistent routes in minutes</td></tr>
-<tr><td><CopyableCode code="sns_notifications_enabled" /></td><td><code>boolean</code></td><td>Whether to enable SNS notifications</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "amazon_side_asn",
+    "type": "integer",
+    "description": "The Amazon-side ASN of the Route Server."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Route Server."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Route Server."
+  },
+  {
+    "name": "persist_routes",
+    "type": "string",
+    "description": "Whether to enable persistent routes"
+  },
+  {
+    "name": "persist_routes_duration",
+    "type": "integer",
+    "description": "The duration of persistent routes in minutes"
+  },
+  {
+    "name": "sns_notifications_enabled",
+    "type": "boolean",
+    "description": "Whether to enable SNS notifications"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routeserver.html"><code>AWS::EC2::RouteServer</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>route_servers</code> in a region.
-```sql
-SELECT
-region,
-amazon_side_asn,
-arn,
-id,
-persist_routes,
-persist_routes_duration,
-sns_notifications_enabled,
-tags
-FROM awscc.ec2.route_servers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route_server</code>.
 ```sql
 SELECT

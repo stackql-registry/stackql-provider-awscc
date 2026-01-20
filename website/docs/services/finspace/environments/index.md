@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,27 +33,161 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>Unique identifier for representing FinSpace Environment</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the Environment</td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td>AWS account ID associated with the Environment</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Environment</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>State of the Environment</td></tr>
-<tr><td><CopyableCode code="environment_url" /></td><td><code>string</code></td><td>URL used to login to the Environment</td></tr>
-<tr><td><CopyableCode code="environment_arn" /></td><td><code>string</code></td><td>ARN of the Environment</td></tr>
-<tr><td><CopyableCode code="sage_maker_studio_domain_url" /></td><td><code>string</code></td><td>SageMaker Studio Domain URL associated with the Environment</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>KMS key used to encrypt customer data within FinSpace Environment infrastructure</td></tr>
-<tr><td><CopyableCode code="dedicated_service_account_id" /></td><td><code>string</code></td><td>ID for FinSpace created account used to store Environment artifacts</td></tr>
-<tr><td><CopyableCode code="federation_mode" /></td><td><code>string</code></td><td>Federation mode used with the Environment</td></tr>
-<tr><td><CopyableCode code="federation_parameters" /></td><td><code>object</code></td><td>Additional parameters to identify Federation mode</td></tr>
-<tr><td><CopyableCode code="superuser_parameters" /></td><td><code>object</code></td><td>Parameters of the first Superuser for the FinSpace Environment</td></tr>
-<tr><td><CopyableCode code="data_bundles" /></td><td><code>array</code></td><td>ARNs of FinSpace Data Bundles to install</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "Unique identifier for representing FinSpace Environment"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the Environment"
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": "AWS account ID associated with the Environment"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Environment"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "State of the Environment"
+  },
+  {
+    "name": "environment_url",
+    "type": "string",
+    "description": "URL used to login to the Environment"
+  },
+  {
+    "name": "environment_arn",
+    "type": "string",
+    "description": "ARN of the Environment"
+  },
+  {
+    "name": "sage_maker_studio_domain_url",
+    "type": "string",
+    "description": "SageMaker Studio Domain URL associated with the Environment"
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "KMS key used to encrypt customer data within FinSpace Environment infrastructure"
+  },
+  {
+    "name": "dedicated_service_account_id",
+    "type": "string",
+    "description": "ID for FinSpace created account used to store Environment artifacts"
+  },
+  {
+    "name": "federation_mode",
+    "type": "string",
+    "description": "Federation mode used with the Environment"
+  },
+  {
+    "name": "federation_parameters",
+    "type": "object",
+    "description": "Additional parameters to identify Federation mode",
+    "children": [
+      {
+        "name": "saml_metadata_url",
+        "type": "string",
+        "description": "SAML metadata URL to link with the Environment"
+      },
+      {
+        "name": "federation_provider_name",
+        "type": "string",
+        "description": "Federation provider name to link with the Environment"
+      },
+      {
+        "name": "saml_metadata_document",
+        "type": "string",
+        "description": "SAML metadata document to link the federation provider to the Environment"
+      },
+      {
+        "name": "application_call_back_url",
+        "type": "string",
+        "description": "SAML metadata URL to link with the Environment"
+      },
+      {
+        "name": "federation_ur_n",
+        "type": "string",
+        "description": "SAML metadata URL to link with the Environment"
+      },
+      {
+        "name": "attribute_map",
+        "type": "array",
+        "description": "Attribute map for SAML configuration",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "superuser_parameters",
+    "type": "object",
+    "description": "Parameters of the first Superuser for the FinSpace Environment",
+    "children": [
+      {
+        "name": "first_name",
+        "type": "string",
+        "description": "First name"
+      },
+      {
+        "name": "last_name",
+        "type": "string",
+        "description": "Last name"
+      },
+      {
+        "name": "email_address",
+        "type": "string",
+        "description": "Email address"
+      }
+    ]
+  },
+  {
+    "name": "data_bundles",
+    "type": "array",
+    "description": "ARNs of FinSpace Data Bundles to install"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-finspace-environment.html"><code>AWS::FinSpace::Environment</code></a>.
 
@@ -94,28 +229,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-environment_id,
-name,
-aws_account_id,
-description,
-status,
-environment_url,
-environment_arn,
-sage_maker_studio_domain_url,
-kms_key_id,
-dedicated_service_account_id,
-federation_mode,
-federation_parameters,
-superuser_parameters,
-data_bundles,
-tags
-FROM awscc.finspace.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

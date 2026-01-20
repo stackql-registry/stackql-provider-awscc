@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>protection</code> resource or lists <code>protections</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets a <code>protection</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="protection_id" /></td><td><code>string</code></td><td>The unique identifier (ID) of the protection.</td></tr>
-<tr><td><CopyableCode code="protection_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the protection.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Friendly name for the Protection.</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the resource to be protected.</td></tr>
-<tr><td><CopyableCode code="health_check_arns" /></td><td><code>array</code></td><td>The Amazon Resource Names (ARNs) of the health check to associate with the protection.</td></tr>
-<tr><td><CopyableCode code="application_layer_automatic_response_configuration" /></td><td><code>object</code></td><td>The automatic application layer DDoS mitigation settings for a Protection. This configuration determines whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer events that Shield Advanced determines to be DDoS attacks.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tag key-value pairs for the Protection object.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "protection_id",
+    "type": "string",
+    "description": "The unique identifier (ID) of the protection."
+  },
+  {
+    "name": "protection_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the protection."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Friendly name for the Protection."
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the resource to be protected."
+  },
+  {
+    "name": "health_check_arns",
+    "type": "array",
+    "description": "The Amazon Resource Names (ARNs) of the health check to associate with the protection."
+  },
+  {
+    "name": "application_layer_automatic_response_configuration",
+    "type": "object",
+    "description": "The automatic application layer DDoS mitigation settings for a Protection. This configuration determines whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer events that Shield Advanced determines to be DDoS attacks.",
+    "children": [
+      {
+        "name": "action",
+        "type": "object",
+        "description": "Specifies the action setting that Shield Advanced should use in the AWS WAF rules that it creates on behalf of the protected resource in response to DDoS attacks. You specify this as part of the configuration for the automatic application layer DDoS mitigation feature, when you enable or update automatic mitigation. Shield Advanced creates the AWS WAF rules in a Shield Advanced-managed rule group, inside the web ACL that you have associated with the resource."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Indicates whether automatic application layer DDoS mitigation is enabled for the protection."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tag key-value pairs for the Protection object.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag key to describe a category of information, such as \"customer.\" Tag keys are case-sensitive."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag value to describe a specific value within a category, such as \"companyA\" or \"companyB.\" Tag values are case-sensitive."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-shield-protection.html"><code>AWS::Shield::Protection</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>protections</code> in a region.
-```sql
-SELECT
-region,
-protection_id,
-protection_arn,
-name,
-resource_arn,
-health_check_arns,
-application_layer_automatic_response_configuration,
-tags
-FROM awscc.shield.protections
-;
-```
+
 Gets all properties from an individual <code>protection</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cidr_collection</code> resource or lists <code>cidr_collections</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>cidr_collection</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>UUID of the CIDR collection.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A unique name for the CIDR collection.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) to uniquely identify the AWS resource.</td></tr>
-<tr><td><CopyableCode code="locations" /></td><td><code>array</code></td><td>A complex type that contains information about the list of CIDR locations.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "UUID of the CIDR collection."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A unique name for the CIDR collection."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) to uniquely identify the AWS resource."
+  },
+  {
+    "name": "locations",
+    "type": "array",
+    "description": "A complex type that contains information about the list of CIDR locations.",
+    "children": [
+      {
+        "name": "location_name",
+        "type": "string",
+        "description": "The name of the location that is associated with the CIDR collection."
+      },
+      {
+        "name": "cidr_list",
+        "type": "array",
+        "description": "A list of CIDR blocks."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-cidrcollection.html"><code>AWS::Route53::CidrCollection</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cidr_collections</code> in a region.
-```sql
-SELECT
-region,
-id,
-name,
-arn,
-locations
-FROM awscc.route53.cidr_collections
-;
-```
+
 Gets all properties from an individual <code>cidr_collection</code>.
 ```sql
 SELECT

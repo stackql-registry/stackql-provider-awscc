@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>segment_definition</code> resource or lists <code>segment_definitions</code> in a region
 
@@ -32,20 +33,101 @@ Creates, updates, deletes or gets a <code>segment_definition</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this segment definition got created.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the segment definition.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name of the segment definition.</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="segment_definition_name" /></td><td><code>string</code></td><td>The unique name of the segment definition.</td></tr>
-<tr><td><CopyableCode code="segment_groups" /></td><td><code>object</code></td><td>An array that defines the set of segment criteria to evaluate when handling segment groups for the segment.</td></tr>
-<tr><td><CopyableCode code="segment_definition_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the segment definition.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags used to organize, track, or control access for this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time of this segment definition got created."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the segment definition."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name of the segment definition."
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "segment_definition_name",
+    "type": "string",
+    "description": "The unique name of the segment definition."
+  },
+  {
+    "name": "segment_groups",
+    "type": "object",
+    "description": "An array that defines the set of segment criteria to evaluate when handling segment groups for the segment.",
+    "children": [
+      {
+        "name": "groups",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "dimensions",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "source_segments",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "segment_definition_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "source_type",
+            "type": "string",
+            "description": "Specifies the operator on how to handle multiple groups within the same segment."
+          }
+        ]
+      },
+      {
+        "name": "include",
+        "type": "string",
+        "description": "Specifies the operator on how to handle multiple groups within the same segment."
+      }
+    ]
+  },
+  {
+    "name": "segment_definition_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the segment definition."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags used to organize, track, or control access for this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-segmentdefinition.html"><code>AWS::CustomerProfiles::SegmentDefinition</code></a>.
 
@@ -87,21 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>segment_definitions</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-description,
-display_name,
-domain_name,
-segment_definition_name,
-segment_groups,
-segment_definition_arn,
-tags
-FROM awscc.customerprofiles.segment_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>segment_definition</code>.
 ```sql
 SELECT

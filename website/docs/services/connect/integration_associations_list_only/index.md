@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>integration_associations</code> in a region or regions, for all properties use <a href="/services/connect/integration_associations/"><code>integration_associations</code></a>
 
@@ -32,15 +33,28 @@ Lists <code>integration_associations</code> in a region or regions, for all prop
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="integration_arn" /></td><td><code>string</code></td><td>ARN of Integration being associated with the instance</td></tr>
-<tr><td><CopyableCode code="integration_type" /></td><td><code>string</code></td><td>Specifies the integration type to be associated with the instance</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "integration_arn",
+    "type": "string",
+    "description": "ARN of Integration being associated with the instance"
+  },
+  {
+    "name": "integration_type",
+    "type": "string",
+    "description": "Specifies the integration type to be associated with the instance"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

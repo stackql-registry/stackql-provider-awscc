@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code>datasets</code> in a region
 
@@ -32,18 +33,91 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="dataset_id" /></td><td><code>string</code></td><td>The ID of the dataset.</td></tr>
-<tr><td><CopyableCode code="dataset_arn" /></td><td><code>string</code></td><td>The ARN of the dataset.</td></tr>
-<tr><td><CopyableCode code="dataset_name" /></td><td><code>string</code></td><td>The name of the dataset.</td></tr>
-<tr><td><CopyableCode code="dataset_description" /></td><td><code>string</code></td><td>A description about the dataset, and its functionality.</td></tr>
-<tr><td><CopyableCode code="dataset_source" /></td><td><code>object</code></td><td>The data source for the dataset.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "dataset_id",
+    "type": "string",
+    "description": "The ID of the dataset."
+  },
+  {
+    "name": "dataset_arn",
+    "type": "string",
+    "description": "The ARN of the dataset."
+  },
+  {
+    "name": "dataset_name",
+    "type": "string",
+    "description": "The name of the dataset."
+  },
+  {
+    "name": "dataset_description",
+    "type": "string",
+    "description": "A description about the dataset, and its functionality."
+  },
+  {
+    "name": "dataset_source",
+    "type": "object",
+    "description": "The data source for the dataset.",
+    "children": [
+      {
+        "name": "source_format",
+        "type": "string",
+        "description": "The format of the dataset source associated with the dataset."
+      },
+      {
+        "name": "source_type",
+        "type": "string",
+        "description": "The type of data source for the dataset."
+      },
+      {
+        "name": "source_detail",
+        "type": "object",
+        "description": "The details of the dataset source associated with the dataset.",
+        "children": [
+          {
+            "name": "kendra",
+            "type": "object",
+            "description": "Contains details about the Kendra dataset source.",
+            "children": [
+              {
+                "name": "knowledge_base_arn",
+                "type": "string",
+                "description": "The knowledgeBaseArn details for the Kendra dataset source."
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": "The roleARN details for the Kendra dataset source."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-dataset.html"><code>AWS::IoTSiteWise::Dataset</code></a>.
 
@@ -85,19 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datasets</code> in a region.
-```sql
-SELECT
-region,
-dataset_id,
-dataset_arn,
-dataset_name,
-dataset_description,
-dataset_source,
-tags
-FROM awscc.iotsitewise.datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT

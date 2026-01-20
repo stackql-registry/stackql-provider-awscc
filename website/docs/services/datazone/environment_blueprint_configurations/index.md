@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment_blueprint_configuration</code> resource or lists <code>environment_blueprint_configurations</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets an <code>environment_blueprint_configuration</
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled_regions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_blueprint_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_blueprint_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="regional_parameters" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_configurations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_role_permission_boundary" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="manage_access_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled_regions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "environment_blueprint_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_blueprint_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "regional_parameters",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "parameters",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "provisioning_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provisioning_configurations",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_role_permission_boundary",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "manage_access_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-environmentblueprintconfiguration.html"><code>AWS::DataZone::EnvironmentBlueprintConfiguration</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environment_blueprint_configurations</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-enabled_regions,
-environment_blueprint_identifier,
-environment_blueprint_id,
-updated_at,
-regional_parameters,
-provisioning_role_arn,
-domain_id,
-provisioning_configurations,
-domain_identifier,
-environment_role_permission_boundary,
-manage_access_role_arn
-FROM awscc.datazone.environment_blueprint_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment_blueprint_configuration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>resiliency_policies</code> in a region or regions, for all properties use <a href="/services/resiliencehub/resiliency_policies/"><code>resiliency_policies</code></a>
 
@@ -32,14 +33,42 @@ Lists <code>resiliency_policies</code> in a region or regions, for all propertie
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "az",
+        "type": "object",
+        "description": "Failure Policy.",
+        "children": [
+          {
+            "name": "rto_in_secs",
+            "type": "integer",
+            "description": "RTO in seconds."
+          },
+          {
+            "name": "rpo_in_secs",
+            "type": "integer",
+            "description": "RPO in seconds."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "policy_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the Resiliency Policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

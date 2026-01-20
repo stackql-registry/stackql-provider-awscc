@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>thing_group</code> resource or lists <code>thing_groups</code> in a region
 
@@ -32,19 +33,79 @@ Creates, updates, deletes or gets a <code>thing_group</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="thing_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parent_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_string" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="thing_group_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "thing_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parent_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_string",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "thing_group_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attribute_payload",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attributes",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "thing_group_description",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-thinggroup.html"><code>AWS::IoT::ThingGroup</code></a>.
 
@@ -86,20 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>thing_groups</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-thing_group_name,
-parent_group_name,
-query_string,
-thing_group_properties,
-tags
-FROM awscc.iot.thing_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>thing_group</code>.
 ```sql
 SELECT

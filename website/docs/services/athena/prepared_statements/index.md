@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>prepared_statement</code> resource or lists <code>prepared_statements</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>prepared_statement</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="statement_name" /></td><td><code>string</code></td><td>The name of the prepared statement.</td></tr>
-<tr><td><CopyableCode code="work_group" /></td><td><code>string</code></td><td>The name of the workgroup to which the prepared statement belongs.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the prepared statement.</td></tr>
-<tr><td><CopyableCode code="query_statement" /></td><td><code>string</code></td><td>The query string for the prepared statement.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "statement_name",
+    "type": "string",
+    "description": "The name of the prepared statement."
+  },
+  {
+    "name": "work_group",
+    "type": "string",
+    "description": "The name of the workgroup to which the prepared statement belongs."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the prepared statement."
+  },
+  {
+    "name": "query_statement",
+    "type": "string",
+    "description": "The query string for the prepared statement."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html"><code>AWS::Athena::PreparedStatement</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>prepared_statements</code> in a region.
-```sql
-SELECT
-region,
-statement_name,
-work_group,
-description,
-query_statement
-FROM awscc.athena.prepared_statements
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>prepared_statement</code>.
 ```sql
 SELECT

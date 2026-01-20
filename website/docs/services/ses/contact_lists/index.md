@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>contact_list</code> resource or lists <code>contact_lists</code> in a region
 
@@ -32,16 +33,67 @@ Creates, updates, deletes or gets a <code>contact_list</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="contact_list_name" /></td><td><code>string</code></td><td>The name of the contact list.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the contact list.</td></tr>
-<tr><td><CopyableCode code="topics" /></td><td><code>array</code></td><td>The topics associated with the contact list.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the contact list.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "contact_list_name",
+    "type": "string",
+    "description": "The name of the contact list."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the contact list."
+  },
+  {
+    "name": "topics",
+    "type": "array",
+    "description": "The topics associated with the contact list.",
+    "children": [
+      {
+        "name": "topic_name",
+        "type": "string",
+        "description": "The name of the topic."
+      },
+      {
+        "name": "display_name",
+        "type": "string",
+        "description": "The display name of the topic."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "The description of the topic."
+      },
+      {
+        "name": "default_subscription_status",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the contact list.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-contactlist.html"><code>AWS::SES::ContactList</code></a>.
 
@@ -83,17 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>contact_lists</code> in a region.
-```sql
-SELECT
-region,
-contact_list_name,
-description,
-topics,
-tags
-FROM awscc.ses.contact_lists
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>contact_list</code>.
 ```sql
 SELECT

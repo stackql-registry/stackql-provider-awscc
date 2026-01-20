@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>vpn_connections</code> in a region or regions, for all properties use <a href="/services/ec2/vpn_connections/"><code>vpn_connections</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>vpn_connections</code> in a region or regions, for all properties us
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_connections_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.<br />To specify a VPN connection between a transit gateway and customer gateway, use the <code>TransitGatewayId</code> and <code>CustomerGatewayId</code> properties.<br />To specify a VPN connection between a virtual private gateway and customer gateway, use the <code>VpnGatewayId</code> and <code>CustomerGatewayId</code> properties.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the ASTERIX;User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.<br />To specify a VPN connection between a transit gateway and customer gateway, use the &#96;&#96;TransitGatewayId&#96;&#96; and &#96;&#96;CustomerGatewayId&#96;&#96; properties.<br />To specify a VPN connection between a virtual private gateway and customer gateway, use the &#96;&#96;VpnGatewayId&#96;&#96; and &#96;&#96;CustomerGatewayId&#96;&#96; properties.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_connections_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpn_connection_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vpn_connection_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

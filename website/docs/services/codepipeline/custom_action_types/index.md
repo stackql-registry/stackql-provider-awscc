@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_action_type</code> resource or lists <code>custom_action_types</code> in a region
 
@@ -32,21 +33,136 @@ Creates, updates, deletes or gets a <code>custom_action_type</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="category" /></td><td><code>string</code></td><td>The category of the custom action, such as a build action or a test action.</td></tr>
-<tr><td><CopyableCode code="configuration_properties" /></td><td><code>array</code></td><td>The configuration properties for the custom action.</td></tr>
-<tr><td><CopyableCode code="input_artifact_details" /></td><td><code>object</code></td><td>The details of the input artifact for the action, such as its commit ID.</td></tr>
-<tr><td><CopyableCode code="output_artifact_details" /></td><td><code>object</code></td><td>The details of the output artifact of the action, such as its commit ID.</td></tr>
-<tr><td><CopyableCode code="provider" /></td><td><code>string</code></td><td>The provider of the service used in the custom action, such as AWS CodeDeploy.</td></tr>
-<tr><td><CopyableCode code="settings" /></td><td><code>object</code></td><td>URLs that provide users information about this custom action.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the custom action.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version identifier of the custom action.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "category",
+    "type": "string",
+    "description": "The category of the custom action, such as a build action or a test action."
+  },
+  {
+    "name": "configuration_properties",
+    "type": "array",
+    "description": "The configuration properties for the custom action.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "The description of the action configuration property that is displayed to users."
+      },
+      {
+        "name": "key",
+        "type": "boolean",
+        "description": "Whether the configuration property is a key."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the action configuration property."
+      },
+      {
+        "name": "queryable",
+        "type": "boolean",
+        "description": "Indicates that the property is used with PollForJobs. When creating a custom action, an action can have up to one queryable property. If it has one, that property must be both required and not secret.If you create a pipeline with a custom action type, and that custom action contains a queryable property, the value for that configuration property is subject to other restrictions. The value must be less than or equal to twenty (20) characters. The value can contain only alphanumeric characters, underscores, and hyphens."
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "description": "Whether the configuration property is a required value."
+      },
+      {
+        "name": "secret",
+        "type": "boolean",
+        "description": "Whether the configuration property is secret. Secrets are hidden from all calls except for GetJobDetails, GetThirdPartyJobDetails, PollForJobs, and PollForThirdPartyJobs."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of the configuration property."
+      }
+    ]
+  },
+  {
+    "name": "input_artifact_details",
+    "type": "object",
+    "description": "The details of the input artifact for the action, such as its commit ID.",
+    "children": [
+      {
+        "name": "maximum_count",
+        "type": "integer",
+        "description": "The maximum number of artifacts allowed for the action type."
+      },
+      {
+        "name": "minimum_count",
+        "type": "integer",
+        "description": "The minimum number of artifacts allowed for the action type."
+      }
+    ]
+  },
+  {
+    "name": "provider",
+    "type": "string",
+    "description": "The provider of the service used in the custom action, such as AWS CodeDeploy."
+  },
+  {
+    "name": "settings",
+    "type": "object",
+    "description": "URLs that provide users information about this custom action.",
+    "children": [
+      {
+        "name": "entity_url_template",
+        "type": "string",
+        "description": "The URL returned to the AWS CodePipeline console that provides a deep link to the resources of the external system, such as the configuration page for an AWS CodeDeploy deployment group. This link is provided as part of the action display in the pipeline."
+      },
+      {
+        "name": "execution_url_template",
+        "type": "string",
+        "description": "The URL returned to the AWS CodePipeline console that contains a link to the top-level landing page for the external system, such as the console page for AWS CodeDeploy. This link is shown on the pipeline view page in the AWS CodePipeline console and provides a link to the execution entity of the external action."
+      },
+      {
+        "name": "revision_url_template",
+        "type": "string",
+        "description": "The URL returned to the AWS CodePipeline console that contains a link to the page where customers can update or change the configuration of the external action."
+      },
+      {
+        "name": "third_party_configuration_url",
+        "type": "string",
+        "description": "The URL of a sign-up page where users can sign up for an external service and perform initial configuration of the action provided by that service."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the custom action.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag's value."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag's key."
+      }
+    ]
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version identifier of the custom action."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html"><code>AWS::CodePipeline::CustomActionType</code></a>.
 
@@ -88,22 +204,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_action_types</code> in a region.
-```sql
-SELECT
-region,
-category,
-configuration_properties,
-input_artifact_details,
-output_artifact_details,
-provider,
-settings,
-tags,
-version,
-id
-FROM awscc.codepipeline.custom_action_types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_action_type</code>.
 ```sql
 SELECT

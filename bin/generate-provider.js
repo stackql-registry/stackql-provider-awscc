@@ -248,9 +248,9 @@ async function processService(servicePrefix, outputFilename) {
     cleanedOpenAPI.components.schemas.SseSpecification['additionalProperties'] = false;
   }
  
-  const finalAPI = addAdditionalRoutes(cleanedOpenAPI, serviceTitle);
+  // const finalAPI = addAdditionalRoutes(cleanedOpenAPI, serviceTitle);
 
-  writeObjectToYamlFile(finalAPI, outputFilename);
+  writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
   return true;
 }
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <code>graphql_apis</code> in a region
 
@@ -32,37 +33,323 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_authentication_providers" /></td><td><code>array</code></td><td>A list of additional authentication providers for the GraphqlApi API.</td></tr>
-<tr><td><CopyableCode code="api_id" /></td><td><code>string</code></td><td>Unique AWS AppSync GraphQL API identifier.</td></tr>
-<tr><td><CopyableCode code="api_type" /></td><td><code>string</code></td><td>The value that indicates whether the GraphQL API is a standard API (GRAPHQL) or merged API (MERGED).</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the API key</td></tr>
-<tr><td><CopyableCode code="authentication_type" /></td><td><code>string</code></td><td>Security configuration for your GraphQL API</td></tr>
-<tr><td><CopyableCode code="enhanced_metrics_config" /></td><td><code>object</code></td><td>Enables and controls the enhanced metrics feature. Enhanced metrics emit granular data on API usage and performance such as AppSync request and error counts, latency, and cache hits/misses. All enhanced metric data is sent to your CloudWatch account, and you can configure the types of data that will be sent.</td></tr>
-<tr><td><CopyableCode code="environment_variables" /></td><td><code>object</code></td><td>A map containing the list of resources with their properties and environment variables.</td></tr>
-<tr><td><CopyableCode code="graph_ql_dns" /></td><td><code>string</code></td><td>The fully qualified domain name (FQDN) of the endpoint URL of your GraphQL API.</td></tr>
-<tr><td><CopyableCode code="graph_ql_endpoint_arn" /></td><td><code>string</code></td><td>The GraphQL endpoint ARN.</td></tr>
-<tr><td><CopyableCode code="graph_ql_url" /></td><td><code>string</code></td><td>The Endpoint URL of your GraphQL API.</td></tr>
-<tr><td><CopyableCode code="introspection_config" /></td><td><code>string</code></td><td>Sets the value of the GraphQL API to enable (ENABLED) or disable (DISABLED) introspection. If no value is provided, the introspection configuration will be set to ENABLED by default. This field will produce an error if the operation attempts to use the introspection feature while this field is disabled.</td></tr>
-<tr><td><CopyableCode code="lambda_authorizer_config" /></td><td><code>object</code></td><td>A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS_LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.</td></tr>
-<tr><td><CopyableCode code="log_config" /></td><td><code>object</code></td><td>The Amazon CloudWatch Logs configuration.</td></tr>
-<tr><td><CopyableCode code="merged_api_execution_role_arn" /></td><td><code>string</code></td><td>The AWS Identity and Access Management service role ARN for a merged API.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The API name</td></tr>
-<tr><td><CopyableCode code="open_id_connect_config" /></td><td><code>object</code></td><td>The OpenID Connect configuration.</td></tr>
-<tr><td><CopyableCode code="owner_contact" /></td><td><code>string</code></td><td>The owner contact information for an API resource.</td></tr>
-<tr><td><CopyableCode code="query_depth_limit" /></td><td><code>integer</code></td><td>The maximum depth a query can have in a single request. Depth refers to the amount of nested levels allowed in the body of query.</td></tr>
-<tr><td><CopyableCode code="realtime_dns" /></td><td><code>string</code></td><td>The fully qualified domain name (FQDN) of the real-time endpoint URL of your GraphQL API.</td></tr>
-<tr><td><CopyableCode code="realtime_url" /></td><td><code>string</code></td><td>The GraphQL API real-time endpoint URL.</td></tr>
-<tr><td><CopyableCode code="resolver_count_limit" /></td><td><code>integer</code></td><td>The maximum number of resolvers that can be invoked in a single request.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this GraphQL API.<br /></td></tr>
-<tr><td><CopyableCode code="user_pool_config" /></td><td><code>object</code></td><td>Optional authorization configuration for using Amazon Cognito user pools with your GraphQL endpoint.<br /></td></tr>
-<tr><td><CopyableCode code="visibility" /></td><td><code>string</code></td><td>Sets the scope of the GraphQL API to public (GLOBAL) or private (PRIVATE). By default, the scope is set to Global if no value is provided.</td></tr>
-<tr><td><CopyableCode code="xray_enabled" /></td><td><code>boolean</code></td><td>A flag indicating whether to use AWS X-Ray tracing for this GraphqlApi.<br /></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_authentication_providers",
+    "type": "array",
+    "description": "A list of additional authentication providers for the GraphqlApi API.",
+    "children": [
+      {
+        "name": "lambda_authorizer_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "identity_validation_expression",
+            "type": "string",
+            "description": "A regular expression for validation of tokens before the Lambda function is called."
+          },
+          {
+            "name": "authorizer_uri",
+            "type": "string",
+            "description": "The ARN of the Lambda function to be called for authorization."
+          },
+          {
+            "name": "authorizer_result_ttl_in_seconds",
+            "type": "integer",
+            "description": "The number of seconds a response should be cached for."
+          }
+        ]
+      },
+      {
+        "name": "open_id_connect_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "client_id",
+            "type": "string",
+            "description": "The client identifier of the Relying party at the OpenID identity provider."
+          },
+          {
+            "name": "auth_ttl",
+            "type": "number",
+            "description": "The number of milliseconds that a token is valid after being authenticated."
+          },
+          {
+            "name": "issuer",
+            "type": "string",
+            "description": "The issuer for the OIDC configuration."
+          },
+          {
+            "name": "iat_ttl",
+            "type": "number",
+            "description": "The number of milliseconds that a token is valid after it's issued to a user.<br />"
+          }
+        ]
+      },
+      {
+        "name": "user_pool_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "app_id_client_regex",
+            "type": "string",
+            "description": "A regular expression for validating the incoming Amazon Cognito user pool app client ID."
+          },
+          {
+            "name": "user_pool_id",
+            "type": "string",
+            "description": "The user pool ID"
+          },
+          {
+            "name": "aws_region",
+            "type": "string",
+            "description": "The AWS Region in which the user pool was created."
+          }
+        ]
+      },
+      {
+        "name": "authentication_type",
+        "type": "string",
+        "description": "The authentication type for API key, AWS Identity and Access Management, OIDC, Amazon Cognito user pools, or AWS Lambda."
+      }
+    ]
+  },
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "Unique AWS AppSync GraphQL API identifier."
+  },
+  {
+    "name": "api_type",
+    "type": "string",
+    "description": "The value that indicates whether the GraphQL API is a standard API (GRAPHQL) or merged API (MERGED)."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the API key"
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": "Security configuration for your GraphQL API"
+  },
+  {
+    "name": "enhanced_metrics_config",
+    "type": "object",
+    "description": "Enables and controls the enhanced metrics feature. Enhanced metrics emit granular data on API usage and performance such as AppSync request and error counts, latency, and cache hits/misses. All enhanced metric data is sent to your CloudWatch account, and you can configure the types of data that will be sent.",
+    "children": [
+      {
+        "name": "operation_level_metrics_config",
+        "type": "string",
+        "description": "Controls how operation metrics will be emitted to CloudWatch. Operation metrics include:<br />"
+      },
+      {
+        "name": "resolver_level_metrics_behavior",
+        "type": "string",
+        "description": "Controls how resolver metrics will be emitted to CloudWatch. Resolver metrics include:<br />"
+      },
+      {
+        "name": "data_source_level_metrics_behavior",
+        "type": "string",
+        "description": "Controls how data source metrics will be emitted to CloudWatch. Data source metrics include:<br />"
+      }
+    ]
+  },
+  {
+    "name": "environment_variables",
+    "type": "object",
+    "description": "A map containing the list of resources with their properties and environment variables."
+  },
+  {
+    "name": "graph_ql_dns",
+    "type": "string",
+    "description": "The fully qualified domain name (FQDN) of the endpoint URL of your GraphQL API."
+  },
+  {
+    "name": "graph_ql_endpoint_arn",
+    "type": "string",
+    "description": "The GraphQL endpoint ARN."
+  },
+  {
+    "name": "graph_ql_url",
+    "type": "string",
+    "description": "The Endpoint URL of your GraphQL API."
+  },
+  {
+    "name": "introspection_config",
+    "type": "string",
+    "description": "Sets the value of the GraphQL API to enable (ENABLED) or disable (DISABLED) introspection. If no value is provided, the introspection configuration will be set to ENABLED by default. This field will produce an error if the operation attempts to use the introspection feature while this field is disabled."
+  },
+  {
+    "name": "lambda_authorizer_config",
+    "type": "object",
+    "description": "A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS&#95;LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.",
+    "children": [
+      {
+        "name": "identity_validation_expression",
+        "type": "string",
+        "description": "A regular expression for validation of tokens before the Lambda function is called."
+      },
+      {
+        "name": "authorizer_uri",
+        "type": "string",
+        "description": "The ARN of the Lambda function to be called for authorization."
+      },
+      {
+        "name": "authorizer_result_ttl_in_seconds",
+        "type": "integer",
+        "description": "The number of seconds a response should be cached for."
+      }
+    ]
+  },
+  {
+    "name": "log_config",
+    "type": "object",
+    "description": "The Amazon CloudWatch Logs configuration.",
+    "children": [
+      {
+        "name": "exclude_verbose_content",
+        "type": "boolean",
+        "description": "Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping templates, regardless of logging level."
+      },
+      {
+        "name": "field_log_level",
+        "type": "string",
+        "description": "The field logging level. Values can be NONE, ERROR, INFO, DEBUG, or ALL."
+      },
+      {
+        "name": "cloud_watch_logs_role_arn",
+        "type": "string",
+        "description": "The service role that AWS AppSync will assume to publish to Amazon CloudWatch Logs in your account."
+      }
+    ]
+  },
+  {
+    "name": "merged_api_execution_role_arn",
+    "type": "string",
+    "description": "The AWS Identity and Access Management service role ARN for a merged API."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The API name"
+  },
+  {
+    "name": "open_id_connect_config",
+    "type": "object",
+    "description": "The OpenID Connect configuration.",
+    "children": [
+      {
+        "name": "client_id",
+        "type": "string",
+        "description": "The client identifier of the Relying party at the OpenID identity provider."
+      },
+      {
+        "name": "auth_ttl",
+        "type": "number",
+        "description": "The number of milliseconds that a token is valid after being authenticated."
+      },
+      {
+        "name": "issuer",
+        "type": "string",
+        "description": "The issuer for the OIDC configuration."
+      },
+      {
+        "name": "iat_ttl",
+        "type": "number",
+        "description": "The number of milliseconds that a token is valid after it's issued to a user.<br />"
+      }
+    ]
+  },
+  {
+    "name": "owner_contact",
+    "type": "string",
+    "description": "The owner contact information for an API resource."
+  },
+  {
+    "name": "query_depth_limit",
+    "type": "integer",
+    "description": "The maximum depth a query can have in a single request. Depth refers to the amount of nested levels allowed in the body of query."
+  },
+  {
+    "name": "realtime_dns",
+    "type": "string",
+    "description": "The fully qualified domain name (FQDN) of the real-time endpoint URL of your GraphQL API."
+  },
+  {
+    "name": "realtime_url",
+    "type": "string",
+    "description": "The GraphQL API real-time endpoint URL."
+  },
+  {
+    "name": "resolver_count_limit",
+    "type": "integer",
+    "description": "The maximum number of resolvers that can be invoked in a single request."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this GraphQL API.<br />",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_pool_config",
+    "type": "object",
+    "description": "Optional authorization configuration for using Amazon Cognito user pools with your GraphQL endpoint.<br />",
+    "children": [
+      {
+        "name": "app_id_client_regex",
+        "type": "string",
+        "description": "A regular expression for validating the incoming Amazon Cognito user pool app client ID."
+      },
+      {
+        "name": "user_pool_id",
+        "type": "string",
+        "description": "The user pool ID."
+      },
+      {
+        "name": "aws_region",
+        "type": "string",
+        "description": "The AWS Region in which the user pool was created."
+      },
+      {
+        "name": "default_action",
+        "type": "string",
+        "description": "The action that you want your GraphQL API to take when a request that uses Amazon Cognito user pool authentication doesn't match the Amazon Cognito user pool configuration."
+      }
+    ]
+  },
+  {
+    "name": "visibility",
+    "type": "string",
+    "description": "Sets the scope of the GraphQL API to public (GLOBAL) or private (PRIVATE). By default, the scope is set to Global if no value is provided."
+  },
+  {
+    "name": "xray_enabled",
+    "type": "boolean",
+    "description": "A flag indicating whether to use AWS X-Ray tracing for this GraphqlApi.<br />"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html"><code>AWS::AppSync::GraphQLApi</code></a>.
 
@@ -104,38 +391,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>graphql_apis</code> in a region.
-```sql
-SELECT
-region,
-additional_authentication_providers,
-api_id,
-api_type,
-arn,
-authentication_type,
-enhanced_metrics_config,
-environment_variables,
-graph_ql_dns,
-graph_ql_endpoint_arn,
-graph_ql_url,
-introspection_config,
-lambda_authorizer_config,
-log_config,
-merged_api_execution_role_arn,
-name,
-open_id_connect_config,
-owner_contact,
-query_depth_limit,
-realtime_dns,
-realtime_url,
-resolver_count_limit,
-tags,
-user_pool_config,
-visibility,
-xray_enabled
-FROM awscc.appsync.graphql_apis
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>graphql_api</code>.
 ```sql
 SELECT

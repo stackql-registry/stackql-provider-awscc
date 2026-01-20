@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>partnership</code> resource or lists <code>partnerships</code> in a region
 
@@ -32,24 +33,111 @@ Creates, updates, deletes or gets a <code>partnership</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="capabilities" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="capability_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="partnership_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="partnership_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="phone" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="trading_partner_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "capabilities",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "capability_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "outbound_edi",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "inbound_edi",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "x12",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "acknowledgment_options",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "partnership_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "partnership_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "phone",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "trading_partner_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-b2bi-partnership.html"><code>AWS::B2BI::Partnership</code></a>.
 
@@ -91,25 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>partnerships</code> in a region.
-```sql
-SELECT
-region,
-capabilities,
-capability_options,
-created_at,
-email,
-modified_at,
-name,
-partnership_arn,
-partnership_id,
-phone,
-profile_id,
-tags,
-trading_partner_id
-FROM awscc.b2bi.partnerships
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>partnership</code>.
 ```sql
 SELECT

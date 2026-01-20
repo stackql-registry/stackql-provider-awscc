@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>distribution</code> resource or lists <code>distributions</code> in a region
 
@@ -32,25 +33,204 @@ Creates, updates, deletes or gets a <code>distribution</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="distribution_name" /></td><td><code>string</code></td><td>The name for the distribution.</td></tr>
-<tr><td><CopyableCode code="distribution_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bundle_id" /></td><td><code>string</code></td><td>The bundle ID to use for the distribution.</td></tr>
-<tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td>The IP address type for the distribution.</td></tr>
-<tr><td><CopyableCode code="cache_behaviors" /></td><td><code>array</code></td><td>An array of objects that describe the per-path cache behavior for the distribution.</td></tr>
-<tr><td><CopyableCode code="cache_behavior_settings" /></td><td><code>object</code></td><td>An object that describes the cache behavior settings for the distribution.</td></tr>
-<tr><td><CopyableCode code="default_cache_behavior" /></td><td><code>object</code></td><td>An object that describes the default cache behavior for the distribution.</td></tr>
-<tr><td><CopyableCode code="origin" /></td><td><code>object</code></td><td>An object that describes the origin resource for the distribution, such as a Lightsail instance or load balancer.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the distribution.</td></tr>
-<tr><td><CopyableCode code="able_to_update_bundle" /></td><td><code>boolean</code></td><td>Indicates whether the bundle that is currently applied to your distribution, specified using the distributionName parameter, can be changed to another bundle.</td></tr>
-<tr><td><CopyableCode code="is_enabled" /></td><td><code>boolean</code></td><td>Indicates whether the distribution is enabled.</td></tr>
-<tr><td><CopyableCode code="certificate_name" /></td><td><code>string</code></td><td>The certificate attached to the Distribution.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "distribution_name",
+    "type": "string",
+    "description": "The name for the distribution."
+  },
+  {
+    "name": "distribution_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bundle_id",
+    "type": "string",
+    "description": "The bundle ID to use for the distribution."
+  },
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": "The IP address type for the distribution."
+  },
+  {
+    "name": "cache_behaviors",
+    "type": "array",
+    "description": "An array of objects that describe the per-path cache behavior for the distribution.",
+    "children": [
+      {
+        "name": "behavior",
+        "type": "string",
+        "description": "The cache behavior for the specified path."
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "description": "The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify wildcard directories (path/to/assets/&#42;), and file types (&#42;.html, &#42;jpg, &#42;js). Directories and file paths are case-sensitive."
+      }
+    ]
+  },
+  {
+    "name": "cache_behavior_settings",
+    "type": "object",
+    "description": "An object that describes the cache behavior settings for the distribution.",
+    "children": [
+      {
+        "name": "allowed_ht_tp_methods",
+        "type": "string",
+        "description": "The HTTP methods that are processed and forwarded to the distribution's origin."
+      },
+      {
+        "name": "cached_ht_tp_methods",
+        "type": "string",
+        "description": "The HTTP method responses that are cached by your distribution."
+      },
+      {
+        "name": "default_ttl",
+        "type": "integer",
+        "description": "The default amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the content has been updated."
+      },
+      {
+        "name": "maximum_ttl",
+        "type": "integer",
+        "description": "The maximum amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the object has been updated."
+      },
+      {
+        "name": "minimum_ttl",
+        "type": "integer",
+        "description": "The minimum amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the object has been updated."
+      },
+      {
+        "name": "forwarded_cookies",
+        "type": "object",
+        "description": "An object that describes the cookies that are forwarded to the origin. Your content is cached based on the cookies that are forwarded.",
+        "children": [
+          {
+            "name": "cookies_allow_list",
+            "type": "array",
+            "description": "The specific cookies to forward to your distribution's origin."
+          },
+          {
+            "name": "option",
+            "type": "string",
+            "description": "Specifies which cookies to forward to the distribution's origin for a cache behavior: all, none, or allow-list to forward only the cookies specified in the cookiesAllowList parameter."
+          }
+        ]
+      },
+      {
+        "name": "forwarded_headers",
+        "type": "object",
+        "description": "An object that describes the headers that are forwarded to the origin. Your content is cached based on the headers that are forwarded.",
+        "children": [
+          {
+            "name": "headers_allow_list",
+            "type": "array",
+            "description": "The specific headers to forward to your distribution's origin."
+          },
+          {
+            "name": "option",
+            "type": "string",
+            "description": "The headers that you want your distribution to forward to your origin and base caching on."
+          }
+        ]
+      },
+      {
+        "name": "forwarded_query_strings",
+        "type": "object",
+        "description": "An object that describes the query strings that are forwarded to the origin. Your content is cached based on the query strings that are forwarded.",
+        "children": [
+          {
+            "name": "query_strings_allow_list",
+            "type": "array",
+            "description": "The specific query strings that the distribution forwards to the origin."
+          },
+          {
+            "name": "option",
+            "type": "boolean",
+            "description": "Indicates whether the distribution forwards and caches based on query strings."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "default_cache_behavior",
+    "type": "object",
+    "description": "An object that describes the default cache behavior for the distribution.",
+    "children": [
+      {
+        "name": "behavior",
+        "type": "string",
+        "description": "The cache behavior of the distribution."
+      }
+    ]
+  },
+  {
+    "name": "origin",
+    "type": "object",
+    "description": "An object that describes the origin resource for the distribution, such as a Lightsail instance or load balancer.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the origin resource."
+      },
+      {
+        "name": "protocol_policy",
+        "type": "string",
+        "description": "The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content."
+      },
+      {
+        "name": "region_name",
+        "type": "string",
+        "description": "The AWS Region name of the origin resource."
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the distribution."
+  },
+  {
+    "name": "able_to_update_bundle",
+    "type": "boolean",
+    "description": "Indicates whether the bundle that is currently applied to your distribution, specified using the distributionName parameter, can be changed to another bundle."
+  },
+  {
+    "name": "is_enabled",
+    "type": "boolean",
+    "description": "Indicates whether the distribution is enabled."
+  },
+  {
+    "name": "certificate_name",
+    "type": "string",
+    "description": "The certificate attached to the Distribution."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-distribution.html"><code>AWS::Lightsail::Distribution</code></a>.
 
@@ -92,26 +272,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>distributions</code> in a region.
-```sql
-SELECT
-region,
-distribution_name,
-distribution_arn,
-bundle_id,
-ip_address_type,
-cache_behaviors,
-cache_behavior_settings,
-default_cache_behavior,
-origin,
-status,
-able_to_update_bundle,
-is_enabled,
-certificate_name,
-tags
-FROM awscc.lightsail.distributions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>distribution</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>source_location</code> resource or lists <code>source_locations</code> in a region
 
@@ -32,19 +33,115 @@ Creates, updates, deletes or gets a <code>source_location</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_configuration" /></td><td><code>object</code></td><td><p>Access configuration parameters.</p></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The ARN of the source location.</p></td></tr>
-<tr><td><CopyableCode code="default_segment_delivery_configuration" /></td><td><code>object</code></td><td><p>The optional configuration for a server that serves segments. Use this if you want the segment delivery server to be different from the source location server. For example, you can configure your source location server to be an origination server, such as MediaPackage, and the segment delivery server to be a content delivery network (CDN), such as CloudFront. If you don't specify a segment delivery server, then the source location server is used.</p></td></tr>
-<tr><td><CopyableCode code="http_configuration" /></td><td><code>object</code></td><td><p>The HTTP configuration for the source location.</p></td></tr>
-<tr><td><CopyableCode code="segment_delivery_configurations" /></td><td><code>array</code></td><td><p>A list of the segment delivery configurations associated with this resource.</p></td></tr>
-<tr><td><CopyableCode code="source_location_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the source location.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_configuration",
+    "type": "object",
+    "description": "<p>Access configuration parameters.</p>",
+    "children": [
+      {
+        "name": "access_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets_manager_access_token_configuration",
+        "type": "object",
+        "description": "<p>AWS Secrets Manager access token configuration parameters. For information about Secrets Manager access token authentication, see <a href=\"https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-access-configuration-access-token.html\">Working with AWS Secrets Manager access token authentication</a>.</p>",
+        "children": [
+          {
+            "name": "header_name",
+            "type": "string",
+            "description": "<p>The name of the HTTP header used to supply the access token in requests to the source location.</p>"
+          },
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": "<p>The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the access token.</p>"
+          },
+          {
+            "name": "secret_string_key",
+            "type": "string",
+            "description": "<p>The AWS Secrets Manager <a href=\"https://docs.aws.amazon.com/secretsmanager/latest/apireference/API&#95;CreateSecret.html#SecretsManager-CreateSecret-request-SecretString.html\">SecretString</a> key associated with the access token. MediaTailor uses the key to look up SecretString key and value pair containing the access token.</p>"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The ARN of the source location.</p>"
+  },
+  {
+    "name": "default_segment_delivery_configuration",
+    "type": "object",
+    "description": "<p>The optional configuration for a server that serves segments. Use this if you want the segment delivery server to be different from the source location server. For example, you can configure your source location server to be an origination server, such as MediaPackage, and the segment delivery server to be a content delivery network (CDN), such as CloudFront. If you don't specify a segment delivery server, then the source location server is used.</p>",
+    "children": [
+      {
+        "name": "base_url",
+        "type": "string",
+        "description": "<p>The hostname of the server that will be used to serve segments. This string must include the protocol, such as <b>https://</b>.</p>"
+      }
+    ]
+  },
+  {
+    "name": "http_configuration",
+    "type": "object",
+    "description": "<p>The HTTP configuration for the source location.</p>",
+    "children": [
+      {
+        "name": "base_url",
+        "type": "string",
+        "description": "<p>The base URL for the source location host server. This string must include the protocol, such as <b>https://</b>.</p>"
+      }
+    ]
+  },
+  {
+    "name": "segment_delivery_configurations",
+    "type": "array",
+    "description": "<p>A list of the segment delivery configurations associated with this resource.</p>",
+    "children": [
+      {
+        "name": "base_url",
+        "type": "string",
+        "description": "<p>The base URL of the host or path of the segment delivery server that you're using to serve segments. This is typically a content delivery network (CDN). The URL can be absolute or relative. To use an absolute URL include the protocol, such as &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;. To use a relative URL specify the relative path, such as &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "<p>A unique identifier used to distinguish between multiple segment delivery configurations in a source location.</p>"
+      }
+    ]
+  },
+  {
+    "name": "source_location_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to assign to the source location.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediatailor-sourcelocation.html"><code>AWS::MediaTailor::SourceLocation</code></a>.
 
@@ -86,20 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>source_locations</code> in a region.
-```sql
-SELECT
-region,
-access_configuration,
-arn,
-default_segment_delivery_configuration,
-http_configuration,
-segment_delivery_configurations,
-source_location_name,
-tags
-FROM awscc.mediatailor.source_locations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>source_location</code>.
 ```sql
 SELECT

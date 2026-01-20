@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app_block_builder</code> resource or lists <code>app_block_builders</code> in a region
 
@@ -32,25 +33,114 @@ Creates, updates, deletes or gets an <code>app_block_builder</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="platform" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="access_endpoints" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_default_internet_access" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_block_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "platform",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "access_endpoints",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "endpoint_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpce_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vpc_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "enable_default_internet_access",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "iam_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "app_block_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-appblockbuilder.html"><code>AWS::AppStream::AppBlockBuilder</code></a>.
 
@@ -92,26 +182,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>app_block_builders</code> in a region.
-```sql
-SELECT
-region,
-name,
-arn,
-description,
-display_name,
-platform,
-access_endpoints,
-tags,
-vpc_config,
-enable_default_internet_access,
-iam_role_arn,
-created_time,
-instance_type,
-app_block_arns
-FROM awscc.appstream.app_block_builders
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>app_block_builder</code>.
 ```sql
 SELECT

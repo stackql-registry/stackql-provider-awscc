@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>table</code> resource or lists <code>tables</code> in a region
 
@@ -32,23 +33,128 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="without_metadata" /></td><td><code>string</code></td><td>Indicates that you don't want to specify a schema for the table. This property is mutually exclusive to 'IcebergMetadata', and its only possible value is 'Yes'.</td></tr>
-<tr><td><CopyableCode code="compaction" /></td><td><code>object</code></td><td>Settings governing the Compaction maintenance action. Contains details about the compaction settings for an Iceberg table.</td></tr>
-<tr><td><CopyableCode code="namespace" /></td><td><code>string</code></td><td>The namespace that the table belongs to.</td></tr>
-<tr><td><CopyableCode code="table_name" /></td><td><code>string</code></td><td>The name for the table.</td></tr>
-<tr><td><CopyableCode code="table_bucket_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified table bucket.</td></tr>
-<tr><td><CopyableCode code="version_token" /></td><td><code>string</code></td><td>The version token of the table</td></tr>
-<tr><td><CopyableCode code="table_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified table.</td></tr>
-<tr><td><CopyableCode code="open_table_format" /></td><td><code>string</code></td><td>Format of the table.</td></tr>
-<tr><td><CopyableCode code="iceberg_metadata" /></td><td><code>object</code></td><td>Contains details about the metadata for an Iceberg table.</td></tr>
-<tr><td><CopyableCode code="warehouse_location" /></td><td><code>string</code></td><td>The warehouse location of the table.</td></tr>
-<tr><td><CopyableCode code="snapshot_management" /></td><td><code>object</code></td><td>Contains details about the snapshot management settings for an Iceberg table. A snapshot is expired when it exceeds MinSnapshotsToKeep and MaxSnapshotAgeHours.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "without_metadata",
+    "type": "string",
+    "description": "Indicates that you don't want to specify a schema for the table. This property is mutually exclusive to 'IcebergMetadata', and its only possible value is 'Yes'."
+  },
+  {
+    "name": "compaction",
+    "type": "object",
+    "description": "Settings governing the Compaction maintenance action. Contains details about the compaction settings for an Iceberg table.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Indicates whether the Compaction maintenance action is enabled."
+      },
+      {
+        "name": "target_file_size_mb",
+        "type": "integer",
+        "description": "The target file size for the table in MB."
+      }
+    ]
+  },
+  {
+    "name": "namespace",
+    "type": "string",
+    "description": "The namespace that the table belongs to."
+  },
+  {
+    "name": "table_name",
+    "type": "string",
+    "description": "The name for the table."
+  },
+  {
+    "name": "table_bucket_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified table bucket."
+  },
+  {
+    "name": "version_token",
+    "type": "string",
+    "description": "The version token of the table"
+  },
+  {
+    "name": "table_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified table."
+  },
+  {
+    "name": "open_table_format",
+    "type": "string",
+    "description": "Format of the table."
+  },
+  {
+    "name": "iceberg_metadata",
+    "type": "object",
+    "description": "Contains details about the metadata for an Iceberg table.",
+    "children": [
+      {
+        "name": "iceberg_schema",
+        "type": "object",
+        "description": "Contains details about the schema for an Iceberg table",
+        "children": [
+          {
+            "name": "schema_field_list",
+            "type": "array",
+            "description": "Contains details about the schema for an Iceberg table",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": "The field type"
+              },
+              {
+                "name": "required",
+                "type": "boolean",
+                "description": "A Boolean value that specifies whether values are required for each row in this field"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "The name of the field"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "warehouse_location",
+    "type": "string",
+    "description": "The warehouse location of the table."
+  },
+  {
+    "name": "snapshot_management",
+    "type": "object",
+    "description": "Contains details about the snapshot management settings for an Iceberg table. A snapshot is expired when it exceeds MinSnapshotsToKeep and MaxSnapshotAgeHours.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Indicates whether the SnapshotManagement maintenance action is enabled."
+      },
+      {
+        "name": "min_snapshots_to_keep",
+        "type": "integer",
+        "description": "The minimum number of snapshots to keep."
+      },
+      {
+        "name": "max_snapshot_age_hours",
+        "type": "integer",
+        "description": "The maximum age of a snapshot before it can be expired."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3tables-table.html"><code>AWS::S3Tables::Table</code></a>.
 
@@ -90,24 +196,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tables</code> in a region.
-```sql
-SELECT
-region,
-without_metadata,
-compaction,
-namespace,
-table_name,
-table_bucket_arn,
-version_token,
-table_arn,
-open_table_format,
-iceberg_metadata,
-warehouse_location,
-snapshot_management
-FROM awscc.s3tables.tables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT

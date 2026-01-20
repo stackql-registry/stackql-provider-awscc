@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_ef</code> resource or lists <code>location_efs</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>location_ef</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ec2_config" /></td><td><code>object</code></td><td>The subnet and security group that DataSync uses to access target EFS file system.</td></tr>
-<tr><td><CopyableCode code="efs_filesystem_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Amazon EFS file system.</td></tr>
-<tr><td><CopyableCode code="access_point_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Amazon EFS Access point that DataSync uses when accessing the EFS file system.</td></tr>
-<tr><td><CopyableCode code="file_system_access_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AWS IAM role that the DataSync will assume when mounting the EFS file system.</td></tr>
-<tr><td><CopyableCode code="in_transit_encryption" /></td><td><code>string</code></td><td>Protocol that is used for encrypting the traffic exchanged between the DataSync Agent and the EFS file system.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>A subdirectory in the location's path. This subdirectory in the EFS file system is used to read data from the EFS source location or write data to the EFS destination.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the EFS location that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ec2_config",
+    "type": "object",
+    "description": "The subnet and security group that DataSync uses to access target EFS file system.",
+    "children": [
+      {
+        "name": "security_group_arns",
+        "type": "array",
+        "description": "The Amazon Resource Names (ARNs) of the security groups that are configured for the Amazon EC2 resource."
+      },
+      {
+        "name": "subnet_arn",
+        "type": "string",
+        "description": "The ARN of the subnet that DataSync uses to access the target EFS file system."
+      }
+    ]
+  },
+  {
+    "name": "efs_filesystem_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the Amazon EFS file system."
+  },
+  {
+    "name": "access_point_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the Amazon EFS Access point that DataSync uses when accessing the EFS file system."
+  },
+  {
+    "name": "file_system_access_role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the AWS IAM role that the DataSync will assume when mounting the EFS file system."
+  },
+  {
+    "name": "in_transit_encryption",
+    "type": "string",
+    "description": "Protocol that is used for encrypting the traffic exchanged between the DataSync Agent and the EFS file system."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "A subdirectory in the location's path. This subdirectory in the EFS file system is used to read data from the EFS source location or write data to the EFS destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the EFS location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationef.html"><code>AWS::DataSync::LocationEFS</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_efs</code> in a region.
-```sql
-SELECT
-region,
-ec2_config,
-efs_filesystem_arn,
-access_point_arn,
-file_system_access_role_arn,
-in_transit_encryption,
-subdirectory,
-tags,
-location_arn,
-location_uri
-FROM awscc.datasync.location_efs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_ef</code>.
 ```sql
 SELECT

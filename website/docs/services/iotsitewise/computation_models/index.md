@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>computation_model</code> resource or lists <code>computation_models</code> in a region
 
@@ -32,19 +33,79 @@ Creates, updates, deletes or gets a <code>computation_model</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="computation_model_id" /></td><td><code>string</code></td><td>The ID of the computation model.</td></tr>
-<tr><td><CopyableCode code="computation_model_arn" /></td><td><code>string</code></td><td>The ARN of the computation model.</td></tr>
-<tr><td><CopyableCode code="computation_model_name" /></td><td><code>string</code></td><td>The name of the computation model.</td></tr>
-<tr><td><CopyableCode code="computation_model_description" /></td><td><code>string</code></td><td>A description about the computation model.</td></tr>
-<tr><td><CopyableCode code="computation_model_configuration" /></td><td><code>object</code></td><td>The configuration for the computation model.</td></tr>
-<tr><td><CopyableCode code="computation_model_data_binding" /></td><td><code>object</code></td><td>The data binding for the computation model.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "computation_model_id",
+    "type": "string",
+    "description": "The ID of the computation model."
+  },
+  {
+    "name": "computation_model_arn",
+    "type": "string",
+    "description": "The ARN of the computation model."
+  },
+  {
+    "name": "computation_model_name",
+    "type": "string",
+    "description": "The name of the computation model."
+  },
+  {
+    "name": "computation_model_description",
+    "type": "string",
+    "description": "A description about the computation model."
+  },
+  {
+    "name": "computation_model_configuration",
+    "type": "object",
+    "description": "The configuration for the computation model.",
+    "children": [
+      {
+        "name": "anomaly_detection",
+        "type": "object",
+        "description": "Contains configuration for anomaly detection computation model.",
+        "children": [
+          {
+            "name": "input_properties",
+            "type": "string",
+            "description": "Input properties for anomaly detection."
+          },
+          {
+            "name": "result_property",
+            "type": "string",
+            "description": "Result property for anomaly detection."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "computation_model_data_binding",
+    "type": "object",
+    "description": "The data binding for the computation model."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-computationmodel.html"><code>AWS::IoTSiteWise::ComputationModel</code></a>.
 
@@ -86,20 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>computation_models</code> in a region.
-```sql
-SELECT
-region,
-computation_model_id,
-computation_model_arn,
-computation_model_name,
-computation_model_description,
-computation_model_configuration,
-computation_model_data_binding,
-tags
-FROM awscc.iotsitewise.computation_models
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>computation_model</code>.
 ```sql
 SELECT

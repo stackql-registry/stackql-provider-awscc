@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tag_association</code> resource or lists <code>tag_associations</code> in a region
 
@@ -32,16 +33,118 @@ Creates, updates, deletes or gets a <code>tag_association</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource" /></td><td><code>object</code></td><td>Resource to tag with the Lake Formation Tags</td></tr>
-<tr><td><CopyableCode code="lf_tags" /></td><td><code>array</code></td><td>List of Lake Formation Tags to associate with the Lake Formation Resource</td></tr>
-<tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td>Unique string identifying the resource. Used as primary identifier, which ideally should be a string</td></tr>
-<tr><td><CopyableCode code="tags_identifier" /></td><td><code>string</code></td><td>Unique string identifying the resource's tags. Used as primary identifier, which ideally should be a string</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource",
+    "type": "object",
+    "description": "Resource to tag with the Lake Formation Tags",
+    "children": [
+      {
+        "name": "catalog",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "database",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "catalog_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "catalog_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "table_wildcard",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table_with_columns",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "catalog_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "column_names",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "lf_tags",
+    "type": "array",
+    "description": "List of Lake Formation Tags to associate with the Lake Formation Resource",
+    "children": [
+      {
+        "name": "catalog_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tag_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tag_values",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": "Unique string identifying the resource. Used as primary identifier, which ideally should be a string"
+  },
+  {
+    "name": "tags_identifier",
+    "type": "string",
+    "description": "Unique string identifying the resource's tags. Used as primary identifier, which ideally should be a string"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lakeformation-tagassociation.html"><code>AWS::LakeFormation::TagAssociation</code></a>.
 

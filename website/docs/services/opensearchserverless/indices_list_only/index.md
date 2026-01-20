@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>indices</code> in a region or regions, for all properties use <a href="/services/opensearchserverless/indices/"><code>indices</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>indices</code> in a region or regions, for all properties use <a hre
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="collection_endpoint" /></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr>
-<tr><td><CopyableCode code="index_name" /></td><td><code>string</code></td><td>The name of the OpenSearch Serverless index.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "collection_endpoint",
+    "type": "string",
+    "description": "The endpoint for the collection."
+  },
+  {
+    "name": "index_name",
+    "type": "string",
+    "description": "The name of the OpenSearch Serverless index."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

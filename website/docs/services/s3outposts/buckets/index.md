@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>buckets</code> in a region
 
@@ -32,17 +33,113 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified bucket.</td></tr>
-<tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td>A name for the bucket.</td></tr>
-<tr><td><CopyableCode code="outpost_id" /></td><td><code>string</code></td><td>The id of the customer outpost on which the bucket resides.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this S3Outposts bucket.</td></tr>
-<tr><td><CopyableCode code="lifecycle_configuration" /></td><td><code>object</code></td><td>Rules that define how Amazon S3Outposts manages objects during their lifetime.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified bucket."
+  },
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "A name for the bucket."
+  },
+  {
+    "name": "outpost_id",
+    "type": "string",
+    "description": "The id of the customer outpost on which the bucket resides."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this S3Outposts bucket.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "lifecycle_configuration",
+    "type": "object",
+    "description": "Rules that define how Amazon S3Outposts manages objects during their lifetime.",
+    "children": [
+      {
+        "name": "rules",
+        "type": "array",
+        "description": "A list of lifecycle rules for individual objects in an Amazon S3Outposts bucket.",
+        "children": [
+          {
+            "name": "status",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Unique identifier for the lifecycle rule. The value can't be longer than 255 characters."
+          },
+          {
+            "name": "abort_incomplete_multipart_upload",
+            "type": "object",
+            "description": "Specifies a lifecycle rule that stops incomplete multipart uploads to an Amazon S3Outposts bucket.",
+            "children": [
+              {
+                "name": "days_after_initiation",
+                "type": "integer",
+                "description": "Specifies the number of days after which Amazon S3Outposts aborts an incomplete multipart upload."
+              }
+            ]
+          },
+          {
+            "name": "expiration_date",
+            "type": "string",
+            "description": "Indicates when objects are deleted from Amazon S3Outposts. The date value must be in ISO 8601 format. The time is always midnight UTC."
+          },
+          {
+            "name": "expiration_in_days",
+            "type": "integer",
+            "description": "Indicates the number of days after creation when objects are deleted from Amazon S3Outposts."
+          },
+          {
+            "name": "filter",
+            "type": "object",
+            "description": "The container for the filter of the lifecycle rule.",
+            "children": [
+              {
+                "name": "prefix",
+                "type": "string",
+                "description": "Object key prefix that identifies one or more objects to which this rule applies."
+              },
+              {
+                "name": "tag",
+                "type": "object",
+                "description": "Specifies a tag used to identify a subset of objects for an Amazon S3Outposts bucket."
+              },
+              {
+                "name": "and_operator",
+                "type": "object",
+                "description": "The container for the AND condition for the lifecycle rule. A combination of Prefix and 1 or more Tags OR a minimum of 2 or more tags."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3outposts-bucket.html"><code>AWS::S3Outposts::Bucket</code></a>.
 
@@ -84,18 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>buckets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-bucket_name,
-outpost_id,
-tags,
-lifecycle_configuration
-FROM awscc.s3outposts.buckets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>bucket</code>.
 ```sql
 SELECT

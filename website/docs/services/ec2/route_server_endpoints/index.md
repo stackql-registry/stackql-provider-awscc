@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route_server_endpoint</code> resource or lists <code>route_server_endpoints</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>route_server_endpoint</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="route_server_id" /></td><td><code>string</code></td><td>Route Server ID</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Route Server Endpoint.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Route Server Endpoint.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>Subnet ID</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>VPC ID</td></tr>
-<tr><td><CopyableCode code="eni_id" /></td><td><code>string</code></td><td>Elastic Network Interface ID owned by the Route Server Endpoint</td></tr>
-<tr><td><CopyableCode code="eni_address" /></td><td><code>string</code></td><td>Elastic Network Interface IP address owned by the Route Server Endpoint</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "route_server_id",
+    "type": "string",
+    "description": "Route Server ID"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Route Server Endpoint."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Route Server Endpoint."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "Subnet ID"
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "VPC ID"
+  },
+  {
+    "name": "eni_id",
+    "type": "string",
+    "description": "Elastic Network Interface ID owned by the Route Server Endpoint"
+  },
+  {
+    "name": "eni_address",
+    "type": "string",
+    "description": "Elastic Network Interface IP address owned by the Route Server Endpoint"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routeserverendpoint.html"><code>AWS::EC2::RouteServerEndpoint</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>route_server_endpoints</code> in a region.
-```sql
-SELECT
-region,
-route_server_id,
-arn,
-id,
-subnet_id,
-vpc_id,
-eni_id,
-eni_address,
-tags
-FROM awscc.ec2.route_server_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route_server_endpoint</code>.
 ```sql
 SELECT

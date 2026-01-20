@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>segment_definitions</code> in a region or regions, for all properties use <a href="/services/customerprofiles/segment_definitions/"><code>segment_definitions</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>segment_definitions</code> in a region or regions, for all propertie
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="segment_definition_name" /></td><td><code>string</code></td><td>The unique name of the segment definition.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "segment_definition_name",
+    "type": "string",
+    "description": "The unique name of the segment definition."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

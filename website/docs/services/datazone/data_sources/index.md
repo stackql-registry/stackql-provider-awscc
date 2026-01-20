@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_source</code> resource or lists <code>data_sources</code> in a region
 
@@ -32,36 +33,174 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="asset_forms_input" /></td><td><code>array</code></td><td>The metadata forms that are to be attached to the assets that this data source works with.</td></tr>
-<tr><td><CopyableCode code="connection_id" /></td><td><code>string</code></td><td>The unique identifier of a connection used to fetch relevant parameters from connection during Datasource run</td></tr>
-<tr><td><CopyableCode code="connection_identifier" /></td><td><code>string</code></td><td>The unique identifier of a connection used to fetch relevant parameters from connection during Datasource run</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the data source was created.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the data source.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain where the data source is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain where the data source is created.</td></tr>
-<tr><td><CopyableCode code="enable_setting" /></td><td><code>string</code></td><td>Specifies whether the data source is enabled.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The unique identifier of the Amazon DataZone environment to which the data source publishes assets.</td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td>The unique identifier of the Amazon DataZone environment to which the data source publishes assets.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique identifier of the data source.</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>undefined</code></td><td>Configuration of the data source. It can be set to either glueRunConfiguration or redshiftRunConfiguration.</td></tr>
-<tr><td><CopyableCode code="last_run_asset_count" /></td><td><code>number</code></td><td>The number of assets created by the data source during its last run.</td></tr>
-<tr><td><CopyableCode code="last_run_at" /></td><td><code>string</code></td><td>The timestamp that specifies when the data source was last run.</td></tr>
-<tr><td><CopyableCode code="last_run_status" /></td><td><code>string</code></td><td>The status of the last run of this data source.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the data source.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone project to which the data source is added.</td></tr>
-<tr><td><CopyableCode code="project_identifier" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone project in which you want to add the data source.</td></tr>
-<tr><td><CopyableCode code="publish_on_import" /></td><td><code>boolean</code></td><td>Specifies whether the assets that this data source creates in the inventory are to be also automatically published to the catalog.</td></tr>
-<tr><td><CopyableCode code="recommendation" /></td><td><code>object</code></td><td>Specifies whether the business name generation is to be enabled for this data source.</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>object</code></td><td>The schedule of the data source runs.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the data source.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the data source.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp of when this data source was updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "asset_forms_input",
+    "type": "array",
+    "description": "The metadata forms that are to be attached to the assets that this data source works with.",
+    "children": [
+      {
+        "name": "form_name",
+        "type": "string",
+        "description": "The name of the metadata form."
+      },
+      {
+        "name": "type_identifier",
+        "type": "string",
+        "description": "The ID of the metadata form type."
+      },
+      {
+        "name": "type_revision",
+        "type": "string",
+        "description": "The revision of the metadata form type."
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "The content of the metadata form."
+      }
+    ]
+  },
+  {
+    "name": "connection_id",
+    "type": "string",
+    "description": "The unique identifier of a connection used to fetch relevant parameters from connection during Datasource run"
+  },
+  {
+    "name": "connection_identifier",
+    "type": "string",
+    "description": "The unique identifier of a connection used to fetch relevant parameters from connection during Datasource run"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the data source was created."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the data source."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain where the data source is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain where the data source is created."
+  },
+  {
+    "name": "enable_setting",
+    "type": "string",
+    "description": "Specifies whether the data source is enabled."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The unique identifier of the Amazon DataZone environment to which the data source publishes assets."
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": "The unique identifier of the Amazon DataZone environment to which the data source publishes assets."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique identifier of the data source."
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": "Configuration of the data source. It can be set to either glueRunConfiguration or redshiftRunConfiguration."
+  },
+  {
+    "name": "last_run_asset_count",
+    "type": "number",
+    "description": "The number of assets created by the data source during its last run."
+  },
+  {
+    "name": "last_run_at",
+    "type": "string",
+    "description": "The timestamp that specifies when the data source was last run."
+  },
+  {
+    "name": "last_run_status",
+    "type": "string",
+    "description": "The status of the last run of this data source."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the data source."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone project to which the data source is added."
+  },
+  {
+    "name": "project_identifier",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone project in which you want to add the data source."
+  },
+  {
+    "name": "publish_on_import",
+    "type": "boolean",
+    "description": "Specifies whether the assets that this data source creates in the inventory are to be also automatically published to the catalog."
+  },
+  {
+    "name": "recommendation",
+    "type": "object",
+    "description": "Specifies whether the business name generation is to be enabled for this data source.",
+    "children": [
+      {
+        "name": "enable_business_name_generation",
+        "type": "boolean",
+        "description": "Specifies whether automatic business name generation is to be enabled or not as part of the recommendation configuration."
+      }
+    ]
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "The schedule of the data source runs.",
+    "children": [
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "The timezone of the data source run."
+      },
+      {
+        "name": "schedule",
+        "type": "string",
+        "description": "The schedule of the data source runs."
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the data source."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the data source."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The timestamp of when this data source was updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-datasource.html"><code>AWS::DataZone::DataSource</code></a>.
 
@@ -103,37 +242,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_sources</code> in a region.
-```sql
-SELECT
-region,
-asset_forms_input,
-connection_id,
-connection_identifier,
-created_at,
-description,
-domain_id,
-domain_identifier,
-enable_setting,
-environment_id,
-environment_identifier,
-id,
-configuration,
-last_run_asset_count,
-last_run_at,
-last_run_status,
-name,
-project_id,
-project_identifier,
-publish_on_import,
-recommendation,
-schedule,
-status,
-type,
-updated_at
-FROM awscc.datazone.data_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT

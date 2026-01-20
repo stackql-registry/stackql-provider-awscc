@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>id_namespace_association</code> resource or lists <code>id_namespace_associations</code> in a region
 
@@ -32,24 +33,106 @@ Creates, updates, deletes or gets an <code>id_namespace_association</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id_namespace_association_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="input_reference_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_mapping_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="input_reference_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id_namespace_association_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "membership_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "input_reference_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "input_reference_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "manage_resource_policies",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id_mapping_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_use_as_dimension_column",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "input_reference_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "id_namespace_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id_mapping_workflows_supported",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-idnamespaceassociation.html"><code>AWS::CleanRooms::IdNamespaceAssociation</code></a>.
 
@@ -91,25 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>id_namespace_associations</code> in a region.
-```sql
-SELECT
-region,
-id_namespace_association_identifier,
-arn,
-membership_identifier,
-membership_arn,
-collaboration_identifier,
-collaboration_arn,
-input_reference_config,
-tags,
-name,
-description,
-id_mapping_config,
-input_reference_properties
-FROM awscc.cleanrooms.id_namespace_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>id_namespace_association</code>.
 ```sql
 SELECT

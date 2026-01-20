@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>asset</code> resource or lists <code>assets</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets an <code>asset</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the Asset.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time the Asset was initially submitted for Ingest.</td></tr>
-<tr><td><CopyableCode code="egress_endpoints" /></td><td><code>array</code></td><td>The list of egress endpoints available for the Asset.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique identifier for the Asset.</td></tr>
-<tr><td><CopyableCode code="packaging_group_id" /></td><td><code>string</code></td><td>The ID of the PackagingGroup for the Asset.</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The resource ID to include in SPEKE key requests.</td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>ARN of the source object in S3.</td></tr>
-<tr><td><CopyableCode code="source_role_arn" /></td><td><code>string</code></td><td>The IAM role_arn used to access the source S3 bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the Asset."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time the Asset was initially submitted for Ingest."
+  },
+  {
+    "name": "egress_endpoints",
+    "type": "array",
+    "description": "The list of egress endpoints available for the Asset.",
+    "children": [
+      {
+        "name": "packaging_configuration_id",
+        "type": "string",
+        "description": "The ID of the PackagingConfiguration being applied to the Asset."
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "The URL of the parent manifest for the repackaged Asset."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique identifier for the Asset."
+  },
+  {
+    "name": "packaging_group_id",
+    "type": "string",
+    "description": "The ID of the PackagingGroup for the Asset."
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "The resource ID to include in SPEKE key requests."
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": "ARN of the source object in S3."
+  },
+  {
+    "name": "source_role_arn",
+    "type": "string",
+    "description": "The IAM role&#95;arn used to access the source S3 bucket."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediapackage-asset.html"><code>AWS::MediaPackage::Asset</code></a>.
 
@@ -83,22 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>assets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-egress_endpoints,
-id,
-packaging_group_id,
-resource_id,
-source_arn,
-source_role_arn,
-tags
-FROM awscc.mediapackage.assets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>asset</code>.
 ```sql
 SELECT

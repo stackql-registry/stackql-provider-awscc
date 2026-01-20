@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpn_connection_route</code> resource or lists <code>vpn_connection_routes</code> in a region
 
@@ -26,20 +27,29 @@ Creates, updates, deletes or gets a <code>vpn_connection_route</code> resource o
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_connection_routes</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a static route for a VPN connection between an existing virtual private gateway and a VPN customer gateway. The static route allows traffic to be routed from the virtual private gateway to the VPN customer gateway.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the ASTERIX;User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a static route for a VPN connection between an existing virtual private gateway and a VPN customer gateway. The static route allows traffic to be routed from the virtual private gateway to the VPN customer gateway.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_connection_routes" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="destination_cidr_block" /></td><td><code>string</code></td><td>The CIDR block associated with the local subnet of the customer network.</td></tr>
-<tr><td><CopyableCode code="vpn_connection_id" /></td><td><code>string</code></td><td>The ID of the VPN connection.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The CIDR block associated with the local subnet of the customer network."
+  },
+  {
+    "name": "vpn_connection_id",
+    "type": "string",
+    "description": "The ID of the VPN connection."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpnconnectionroute.html"><code>AWS::EC2::VPNConnectionRoute</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpn_connection_routes</code> in a region.
-```sql
-SELECT
-region,
-destination_cidr_block,
-vpn_connection_id
-FROM awscc.ec2.vpn_connection_routes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpn_connection_route</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subscriber_notification</code> resource or lists <code>subscriber_notifications</code> in a region
 
@@ -32,15 +33,67 @@ Creates, updates, deletes or gets a <code>subscriber_notification</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="notification_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="subscriber_arn" /></td><td><code>string</code></td><td>The ARN for the subscriber</td></tr>
-<tr><td><CopyableCode code="subscriber_endpoint" /></td><td><code>string</code></td><td>The endpoint the subscriber should listen to for notifications</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "notification_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "https_notification_configuration",
+        "type": "object",
+        "description": "The configuration for HTTPS subscriber notification.",
+        "children": [
+          {
+            "name": "authorization_api_key_name",
+            "type": "string",
+            "description": "The key name for the notification subscription."
+          },
+          {
+            "name": "authorization_api_key_value",
+            "type": "string",
+            "description": "The key value for the notification subscription."
+          },
+          {
+            "name": "endpoint",
+            "type": "string",
+            "description": "The subscription endpoint in Security Lake."
+          },
+          {
+            "name": "http_method",
+            "type": "string",
+            "description": "The HTTPS method used for the notification subscription."
+          },
+          {
+            "name": "target_role_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the EventBridge API destinations IAM role that you created."
+          }
+        ]
+      },
+      {
+        "name": "sqs_notification_configuration",
+        "type": "object",
+        "description": "The configurations for SQS subscriber notification. The members of this structure are context-dependent."
+      }
+    ]
+  },
+  {
+    "name": "subscriber_arn",
+    "type": "string",
+    "description": "The ARN for the subscriber"
+  },
+  {
+    "name": "subscriber_endpoint",
+    "type": "string",
+    "description": "The endpoint the subscriber should listen to for notifications"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securitylake-subscribernotification.html"><code>AWS::SecurityLake::SubscriberNotification</code></a>.
 
@@ -82,16 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subscriber_notifications</code> in a region.
-```sql
-SELECT
-region,
-notification_configuration,
-subscriber_arn,
-subscriber_endpoint
-FROM awscc.securitylake.subscriber_notifications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subscriber_notification</code>.
 ```sql
 SELECT

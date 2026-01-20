@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>destination</code> resource or lists <code>destinations</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>destination</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Unique name of destination</td></tr>
-<tr><td><CopyableCode code="expression" /></td><td><code>string</code></td><td>Destination expression</td></tr>
-<tr><td><CopyableCode code="expression_type" /></td><td><code>string</code></td><td>Must be RuleName</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Destination description</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>AWS role ARN that grants access</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Destination arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Unique name of destination"
+  },
+  {
+    "name": "expression",
+    "type": "string",
+    "description": "Destination expression"
+  },
+  {
+    "name": "expression_type",
+    "type": "string",
+    "description": "Must be RuleName"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Destination description"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the destination.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "AWS role ARN that grants access"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Destination arn. Returned after successful create."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-destination.html"><code>AWS::IoTWireless::Destination</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>destinations</code> in a region.
-```sql
-SELECT
-region,
-name,
-expression,
-expression_type,
-description,
-tags,
-role_arn,
-arn
-FROM awscc.iotwireless.destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>destination</code>.
 ```sql
 SELECT

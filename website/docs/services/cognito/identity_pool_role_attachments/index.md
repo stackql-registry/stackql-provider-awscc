@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>identity_pool_role_attachment</code> resource or lists <code>identity_pool_role_attachments</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets an <code>identity_pool_role_attachment</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="identity_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="roles" /></td><td><code></code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_mappings" /></td><td><code></code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "identity_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "roles",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_mappings",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolroleattachment.html"><code>AWS::Cognito::IdentityPoolRoleAttachment</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>identity_pool_role_attachments</code> in a region.
-```sql
-SELECT
-region,
-identity_pool_id,
-roles,
-id,
-role_mappings
-FROM awscc.cognito.identity_pool_role_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>identity_pool_role_attachment</code>.
 ```sql
 SELECT

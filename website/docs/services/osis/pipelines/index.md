@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <code>pipelines</code> in a region
 
@@ -32,25 +33,169 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="buffer_options" /></td><td><code>object</code></td><td>Key-value pairs to configure buffering.</td></tr>
-<tr><td><CopyableCode code="encryption_at_rest_options" /></td><td><code>object</code></td><td>Key-value pairs to configure encryption at rest.</td></tr>
-<tr><td><CopyableCode code="log_publishing_options" /></td><td><code>object</code></td><td>Key-value pairs to configure log publishing.</td></tr>
-<tr><td><CopyableCode code="max_units" /></td><td><code>integer</code></td><td>The maximum pipeline capacity, in Ingestion OpenSearch Compute Units (OCUs).</td></tr>
-<tr><td><CopyableCode code="min_units" /></td><td><code>integer</code></td><td>The minimum pipeline capacity, in Ingestion OpenSearch Compute Units (OCUs).</td></tr>
-<tr><td><CopyableCode code="pipeline_configuration_body" /></td><td><code>string</code></td><td>The Data Prepper pipeline configuration.</td></tr>
-<tr><td><CopyableCode code="pipeline_name" /></td><td><code>string</code></td><td>Name of the OpenSearch Ingestion Service pipeline to create. Pipeline names are unique across the pipelines owned by an account within an AWS Region.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="vpc_options" /></td><td><code>object</code></td><td>Container for the values required to configure VPC access for the pipeline. If you don't specify these values, OpenSearch Ingestion Service creates the pipeline with a public endpoint.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoints" /></td><td><code>array</code></td><td>The VPC interface endpoints that have access to the pipeline.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint_service" /></td><td><code>string</code></td><td>The VPC endpoint service name for the pipeline.</td></tr>
-<tr><td><CopyableCode code="pipeline_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the pipeline.</td></tr>
-<tr><td><CopyableCode code="ingest_endpoint_urls" /></td><td><code>array</code></td><td>A list of endpoints that can be used for ingesting data into a pipeline</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "buffer_options",
+    "type": "object",
+    "description": "Key-value pairs to configure buffering.",
+    "children": [
+      {
+        "name": "persistent_buffer_enabled",
+        "type": "boolean",
+        "description": "Whether persistent buffering should be enabled."
+      }
+    ]
+  },
+  {
+    "name": "encryption_at_rest_options",
+    "type": "object",
+    "description": "Key-value pairs to configure encryption at rest.",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "The KMS key to use for encrypting data. By default an AWS owned key is used"
+      }
+    ]
+  },
+  {
+    "name": "log_publishing_options",
+    "type": "object",
+    "description": "Key-value pairs to configure log publishing.",
+    "children": [
+      {
+        "name": "is_logging_enabled",
+        "type": "boolean",
+        "description": "Whether logs should be published."
+      },
+      {
+        "name": "cloud_watch_log_destination",
+        "type": "object",
+        "description": "The destination for OpenSearch Ingestion Service logs sent to Amazon CloudWatch.",
+        "children": [
+          {
+            "name": "log_group",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "max_units",
+    "type": "integer",
+    "description": "The maximum pipeline capacity, in Ingestion OpenSearch Compute Units (OCUs)."
+  },
+  {
+    "name": "min_units",
+    "type": "integer",
+    "description": "The minimum pipeline capacity, in Ingestion OpenSearch Compute Units (OCUs)."
+  },
+  {
+    "name": "pipeline_configuration_body",
+    "type": "string",
+    "description": "The Data Prepper pipeline configuration."
+  },
+  {
+    "name": "pipeline_name",
+    "type": "string",
+    "description": "Name of the OpenSearch Ingestion Service pipeline to create. Pipeline names are unique across the pipelines owned by an account within an AWS Region."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "vpc_options",
+    "type": "object",
+    "description": "Container for the values required to configure VPC access for the pipeline. If you don't specify these values, OpenSearch Ingestion Service creates the pipeline with a public endpoint.",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "A list of security groups associated with the VPC endpoint."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "A list of subnet IDs associated with the VPC endpoint."
+      },
+      {
+        "name": "vpc_endpoint_management",
+        "type": "string",
+        "description": "Defines whether you or Amazon OpenSearch Ingestion service create and manage the VPC endpoint configured for the pipeline."
+      },
+      {
+        "name": "vpc_attachment_options",
+        "type": "object",
+        "description": "Options for attaching a VPC to the pipeline.",
+        "children": [
+          {
+            "name": "attach_to_vpc",
+            "type": "boolean",
+            "description": "Whether the pipeline should be attached to the provided VPC"
+          },
+          {
+            "name": "cidr_block",
+            "type": "string",
+            "description": "The CIDR block to be reserved for OpenSearch Ingestion to create elastic network interfaces (ENIs)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "vpc_endpoints",
+    "type": "array",
+    "description": "The VPC interface endpoints that have access to the pipeline.",
+    "children": [
+      {
+        "name": "vpc_endpoint_id",
+        "type": "string",
+        "description": "The unique identifier of the endpoint."
+      },
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "The ID for your VPC. AWS Privatelink generates this value when you create a VPC."
+      }
+    ]
+  },
+  {
+    "name": "vpc_endpoint_service",
+    "type": "string",
+    "description": "The VPC endpoint service name for the pipeline."
+  },
+  {
+    "name": "pipeline_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the pipeline."
+  },
+  {
+    "name": "ingest_endpoint_urls",
+    "type": "array",
+    "description": "A list of endpoints that can be used for ingesting data into a pipeline"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-osis-pipeline.html"><code>AWS::OSIS::Pipeline</code></a>.
 
@@ -92,26 +237,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pipelines</code> in a region.
-```sql
-SELECT
-region,
-buffer_options,
-encryption_at_rest_options,
-log_publishing_options,
-max_units,
-min_units,
-pipeline_configuration_body,
-pipeline_name,
-tags,
-vpc_options,
-vpc_endpoints,
-vpc_endpoint_service,
-pipeline_arn,
-ingest_endpoint_urls
-FROM awscc.osis.pipelines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT

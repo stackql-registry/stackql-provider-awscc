@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>network_performance_metric_subscriptions</code> in a region or regions, for all properties use <a href="/services/ec2/network_performance_metric_subscriptions/"><code>network_performance_metric_subscriptions</code></a>
 
@@ -32,16 +33,33 @@ Lists <code>network_performance_metric_subscriptions</code> in a region or regio
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td>The starting Region or Availability Zone for metric to subscribe to.</td></tr>
-<tr><td><CopyableCode code="destination" /></td><td><code>string</code></td><td>The target Region or Availability Zone for the metric to subscribe to.</td></tr>
-<tr><td><CopyableCode code="metric" /></td><td><code>string</code></td><td>The metric type to subscribe to.</td></tr>
-<tr><td><CopyableCode code="statistic" /></td><td><code>string</code></td><td>The statistic to subscribe to.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "source",
+    "type": "string",
+    "description": "The starting Region or Availability Zone for metric to subscribe to."
+  },
+  {
+    "name": "destination",
+    "type": "string",
+    "description": "The target Region or Availability Zone for the metric to subscribe to."
+  },
+  {
+    "name": "metric",
+    "type": "string",
+    "description": "The metric type to subscribe to."
+  },
+  {
+    "name": "statistic",
+    "type": "string",
+    "description": "The statistic to subscribe to."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

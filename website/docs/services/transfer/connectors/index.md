@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connector</code> resource or lists <code>connectors</code> in a region
 
@@ -32,22 +33,144 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_role" /></td><td><code>string</code></td><td>Specifies the access role for the connector.</td></tr>
-<tr><td><CopyableCode code="as2_config" /></td><td><code>object</code></td><td>Configuration for an AS2 connector.</td></tr>
-<tr><td><CopyableCode code="sftp_config" /></td><td><code>object</code></td><td>Configuration for an SFTP connector.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the connector.</td></tr>
-<tr><td><CopyableCode code="connector_id" /></td><td><code>string</code></td><td>A unique identifier for the connector.</td></tr>
-<tr><td><CopyableCode code="logging_role" /></td><td><code>string</code></td><td>Specifies the logging role for the connector.</td></tr>
-<tr><td><CopyableCode code="service_managed_egress_ip_addresses" /></td><td><code>array</code></td><td>The list of egress IP addresses of this connector. These IP addresses are assigned automatically when you create the connector.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for connectors. Tags are metadata attached to connectors for any purpose.</td></tr>
-<tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>URL for Connector</td></tr>
-<tr><td><CopyableCode code="security_policy_name" /></td><td><code>string</code></td><td>Security policy for SFTP Connector</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_role",
+    "type": "string",
+    "description": "Specifies the access role for the connector."
+  },
+  {
+    "name": "as2_config",
+    "type": "object",
+    "description": "Configuration for an AS2 connector.",
+    "children": [
+      {
+        "name": "local_profile_id",
+        "type": "string",
+        "description": "A unique identifier for the local profile."
+      },
+      {
+        "name": "partner_profile_id",
+        "type": "string",
+        "description": "A unique identifier for the partner profile."
+      },
+      {
+        "name": "message_subject",
+        "type": "string",
+        "description": "The message subject for this AS2 connector configuration."
+      },
+      {
+        "name": "compression",
+        "type": "string",
+        "description": "Compression setting for this AS2 connector configuration."
+      },
+      {
+        "name": "encryption_algorithm",
+        "type": "string",
+        "description": "Encryption algorithm for this AS2 connector configuration."
+      },
+      {
+        "name": "signing_algorithm",
+        "type": "string",
+        "description": "Signing algorithm for this AS2 connector configuration."
+      },
+      {
+        "name": "mdn_signing_algorithm",
+        "type": "string",
+        "description": "MDN Signing algorithm for this AS2 connector configuration."
+      },
+      {
+        "name": "mdn_response",
+        "type": "string",
+        "description": "MDN Response setting for this AS2 connector configuration."
+      },
+      {
+        "name": "basic_auth_secret_id",
+        "type": "string",
+        "description": "ARN or name of the secret in AWS Secrets Manager which contains the credentials for Basic authentication. If empty, Basic authentication is disabled for the AS2 connector"
+      },
+      {
+        "name": "preserve_content_type",
+        "type": "string",
+        "description": "Specifies whether to use the AWS S3 object content-type as the content-type for the AS2 message."
+      }
+    ]
+  },
+  {
+    "name": "sftp_config",
+    "type": "object",
+    "description": "Configuration for an SFTP connector.",
+    "children": [
+      {
+        "name": "user_secret_id",
+        "type": "string",
+        "description": "ARN or name of the secret in AWS Secrets Manager which contains the SFTP user's private keys or passwords."
+      },
+      {
+        "name": "trusted_host_keys",
+        "type": "array",
+        "description": "List of public host keys, for the external server to which you are connecting."
+      },
+      {
+        "name": "max_concurrent_connections",
+        "type": "integer",
+        "description": "Specifies the number of active connections that your connector can establish with the remote server at the same time."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the connector."
+  },
+  {
+    "name": "connector_id",
+    "type": "string",
+    "description": "A unique identifier for the connector."
+  },
+  {
+    "name": "logging_role",
+    "type": "string",
+    "description": "Specifies the logging role for the connector."
+  },
+  {
+    "name": "service_managed_egress_ip_addresses",
+    "type": "array",
+    "description": "The list of egress IP addresses of this connector. These IP addresses are assigned automatically when you create the connector."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Key-value pairs that can be used to group and search for connectors. Tags are metadata attached to connectors for any purpose.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "url",
+    "type": "string",
+    "description": "URL for Connector"
+  },
+  {
+    "name": "security_policy_name",
+    "type": "string",
+    "description": "Security policy for SFTP Connector"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html"><code>AWS::Transfer::Connector</code></a>.
 
@@ -89,23 +212,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connectors</code> in a region.
-```sql
-SELECT
-region,
-access_role,
-as2_config,
-sftp_config,
-arn,
-connector_id,
-logging_role,
-service_managed_egress_ip_addresses,
-tags,
-url,
-security_policy_name
-FROM awscc.transfer.connectors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT

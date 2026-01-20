@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>api_key</code> resource or lists <code>api_keys</code> in a region
 
@@ -26,27 +27,88 @@ Creates, updates, deletes or gets an <code>api_key</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>api_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::ApiKey</code> resource creates a unique key that you can distribute to clients who are executing API Gateway <code>Method</code> resources that require an API key. To specify which API key clients must use, map the API key with the <code>RestApi</code> and <code>Stage</code> resources that include the methods that require a key.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::ApiKey&#96;&#96; resource creates a unique key that you can distribute to clients who are executing API Gateway &#96;&#96;Method&#96;&#96; resources that require an API key. To specify which API key clients must use, map the API key with the &#96;&#96;RestApi&#96;&#96; and &#96;&#96;Stage&#96;&#96; resources that include the methods that require a key.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.api_keys" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="api_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="generate_distinct_id" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the API key. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the API key name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</td></tr>
-<tr><td><CopyableCode code="stage_keys" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "api_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "generate_distinct_id",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the API key. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the API key name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "stage_keys",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "rest_api_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "stage_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-apikey.html"><code>AWS::ApiGateway::ApiKey</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>api_keys</code> in a region.
-```sql
-SELECT
-region,
-api_key_id,
-customer_id,
-description,
-enabled,
-generate_distinct_id,
-name,
-stage_keys,
-tags,
-value
-FROM awscc.apigateway.api_keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>api_key</code>.
 ```sql
 SELECT

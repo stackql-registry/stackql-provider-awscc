@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bots</code> in a region
 
@@ -32,27 +33,689 @@ Creates, updates, deletes or gets a <code>bot</code> resource or lists <code>bot
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique ID of resource</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A unique identifier for a resource.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the version. Use the description to help identify the version in lists.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_privacy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="error_log_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="idle_session_ttl_in_seconds" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="bot_locales" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="bot_file_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="bot_tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="test_bot_alias_tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_build_bot_locales" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="test_bot_alias_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="replication" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique ID of resource"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A unique identifier for a resource."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the version. Use the description to help identify the version in lists."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_privacy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "child_directed",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "error_log_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "idle_session_ttl_in_seconds",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "bot_locales",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "locale_id",
+        "type": "string",
+        "description": "The identifier of the language and locale that the bot will be used in."
+      },
+      {
+        "name": "voice_settings",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "voice_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "engine",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "generative_ai_settings",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "buildtime_settings",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "descriptive_bot_builder_specification",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "sample_utterance_generation_specification",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "runtime_settings",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "nlu_improvement_specification",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "slot_resolution_improvement_specification",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "nlu_confidence_threshold",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "intents",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "parent_intent_signature",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "sample_utterances",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "utterance",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "dialog_code_hook",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "fulfillment_code_hook",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "fulfillment_updates_specification",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "post_fulfillment_status_specification",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "is_active",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "intent_confirmation_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "prompt_specification",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "is_active",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "confirmation_response",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "confirmation_next_step",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "confirmation_conditional",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "code_hook",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "elicitation_code_hook",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "intent_closing_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "closing_response",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "is_active",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "conditional",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "next_step",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "initial_response_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "initial_response",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "next_step",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "conditional",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "code_hook",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "input_contexts",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "output_contexts",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "time_to_live_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "turns_to_live",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "kendra_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kendra_index",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "query_filter_string_enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "query_filter_string",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "qn_aintent_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "data_source_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bedrock_model_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "q_in_connect_intent_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "q_in_connect_assistant_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "bedrock_agent_intent_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "bedrock_agent_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bedrock_agent_intent_knowledge_base_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "slot_priorities",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "priority",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "slots",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "slot_type_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_elicitation_setting",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "obfuscation_setting",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "multiple_values_setting",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "sub_slot_setting",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "slot_types",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "parent_slot_type_signature",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "slot_type_values",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "sample_value",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "synonyms",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "value_selection_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resolution_strategy",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "regex_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "advanced_recognition_setting",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "external_source_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "grammar_slot_type_setting",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "composite_slot_type_setting",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "sub_slots",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "custom_vocabulary",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "custom_vocabulary_items",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "phrase",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "weight",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "display_as",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bot_file_s3_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_object_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_object_version",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "bot_tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "test_bot_alias_tags",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "auto_build_bot_locales",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "test_bot_alias_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "bot_alias_locale_settings",
+        "type": "array",
+        "description": "A list of bot alias locale settings to add to the bot alias.",
+        "children": [
+          {
+            "name": "locale_id",
+            "type": "string",
+            "description": "A string used to identify the locale"
+          },
+          {
+            "name": "bot_alias_locale_setting",
+            "type": "object",
+            "description": "You can use this parameter to specify a specific Lambda function to run different functions in different locales.",
+            "children": [
+              {
+                "name": "code_hook_specification",
+                "type": "object",
+                "description": "Contains information about code hooks that Amazon Lex calls during a conversation."
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": "Whether the Lambda code hook is enabled"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "conversation_log_settings",
+        "type": "object",
+        "description": "Contains information about code hooks that Amazon Lex calls during a conversation.",
+        "children": [
+          {
+            "name": "audio_log_settings",
+            "type": "array",
+            "description": "List of audio log settings",
+            "children": [
+              {
+                "name": "destination",
+                "type": "object",
+                "description": "The location of audio log files collected when conversation logging is enabled for a bot."
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "text_log_settings",
+            "type": "array",
+            "description": "List of text log settings",
+            "children": [
+              {
+                "name": "destination",
+                "type": "object",
+                "description": "Defines the Amazon CloudWatch Logs destination log group for conversation text logs."
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sentiment_analysis_settings",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "detect_sentiment",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "replication",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "replica_regions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lex-bot.html"><code>AWS::Lex::Bot</code></a>.
 
@@ -94,28 +757,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>bots</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-name,
-description,
-role_arn,
-data_privacy,
-error_log_settings,
-idle_session_ttl_in_seconds,
-bot_locales,
-bot_file_s3_location,
-bot_tags,
-test_bot_alias_tags,
-auto_build_bot_locales,
-test_bot_alias_settings,
-replication
-FROM awscc.lex.bots
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>bot</code>.
 ```sql
 SELECT

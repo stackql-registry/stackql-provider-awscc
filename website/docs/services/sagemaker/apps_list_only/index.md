@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>apps</code> in a region or regions, for all properties use <a href="/services/sagemaker/apps/"><code>apps</code></a>
 
@@ -32,16 +33,33 @@ Lists <code>apps</code> in a region or regions, for all properties use <a href="
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_name" /></td><td><code>string</code></td><td>The name of the app.</td></tr>
-<tr><td><CopyableCode code="app_type" /></td><td><code>string</code></td><td>The type of app.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The domain ID.</td></tr>
-<tr><td><CopyableCode code="user_profile_name" /></td><td><code>string</code></td><td>The user profile name.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_name",
+    "type": "string",
+    "description": "The name of the app."
+  },
+  {
+    "name": "app_type",
+    "type": "string",
+    "description": "The type of app."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The domain ID."
+  },
+  {
+    "name": "user_profile_name",
+    "type": "string",
+    "description": "The user profile name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

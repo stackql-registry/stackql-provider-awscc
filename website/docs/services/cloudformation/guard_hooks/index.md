@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>guard_hook</code> resource or lists <code>guard_hooks</code> in a region
 
@@ -32,23 +33,121 @@ Creates, updates, deletes or gets a <code>guard_hook</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule_location" /></td><td><code>object</code></td><td>S3 Source Location for the Guard files.</td></tr>
-<tr><td><CopyableCode code="log_bucket" /></td><td><code>string</code></td><td>S3 Bucket where the guard validate report will be uploaded to</td></tr>
-<tr><td><CopyableCode code="hook_status" /></td><td><code>string</code></td><td>Attribute to specify which stacks this hook applies to or should get invoked for</td></tr>
-<tr><td><CopyableCode code="target_operations" /></td><td><code>array</code></td><td>Which operations should this Hook run against? Resource changes, stacks or change sets.</td></tr>
-<tr><td><CopyableCode code="failure_mode" /></td><td><code>string</code></td><td>Attribute to specify CloudFormation behavior on hook failure.</td></tr>
-<tr><td><CopyableCode code="target_filters" /></td><td><code>object</code></td><td>Attribute to specify which targets should invoke the hook</td></tr>
-<tr><td><CopyableCode code="stack_filters" /></td><td><code>object</code></td><td>Filters to allow hooks to target specific stack attributes</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>The typename alias for the hook.</td></tr>
-<tr><td><CopyableCode code="hook_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the activated hook</td></tr>
-<tr><td><CopyableCode code="execution_role" /></td><td><code>string</code></td><td>The execution role ARN assumed by hooks to read Guard rules from S3 and write Guard outputs to S3.</td></tr>
-<tr><td><CopyableCode code="options" /></td><td><code></code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule_location",
+    "type": "object",
+    "description": "S3 Source Location for the Guard files.",
+    "children": [
+      {
+        "name": "uri",
+        "type": "string",
+        "description": "S3 uri of Guard files."
+      },
+      {
+        "name": "version_id",
+        "type": "string",
+        "description": "S3 object version"
+      }
+    ]
+  },
+  {
+    "name": "log_bucket",
+    "type": "string",
+    "description": "S3 Bucket where the guard validate report will be uploaded to"
+  },
+  {
+    "name": "hook_status",
+    "type": "string",
+    "description": "Attribute to specify which stacks this hook applies to or should get invoked for"
+  },
+  {
+    "name": "target_operations",
+    "type": "array",
+    "description": "Which operations should this Hook run against? Resource changes, stacks or change sets."
+  },
+  {
+    "name": "failure_mode",
+    "type": "string",
+    "description": "Attribute to specify CloudFormation behavior on hook failure."
+  },
+  {
+    "name": "target_filters",
+    "type": "object",
+    "description": "Attribute to specify which targets should invoke the hook"
+  },
+  {
+    "name": "stack_filters",
+    "type": "object",
+    "description": "Filters to allow hooks to target specific stack attributes",
+    "children": [
+      {
+        "name": "filtering_criteria",
+        "type": "string",
+        "description": "Attribute to specify the filtering behavior. ANY will make the Hook pass if one filter matches. ALL will make the Hook pass if all filters match"
+      },
+      {
+        "name": "stack_names",
+        "type": "object",
+        "description": "List of stack names as filters",
+        "children": [
+          {
+            "name": "include",
+            "type": "array",
+            "description": "List of stack names that the hook is going to target"
+          },
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": "List of stack names that the hook is going to be excluded from"
+          }
+        ]
+      },
+      {
+        "name": "stack_roles",
+        "type": "object",
+        "description": "List of stack roles that are performing the stack operations.",
+        "children": [
+          {
+            "name": "include",
+            "type": "array",
+            "description": "List of stack roles that the hook is going to target"
+          },
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": "List of stack roles that the hook is going to be excluded from"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "The typename alias for the hook."
+  },
+  {
+    "name": "hook_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the activated hook"
+  },
+  {
+    "name": "execution_role",
+    "type": "string",
+    "description": "The execution role ARN assumed by hooks to read Guard rules from S3 and write Guard outputs to S3."
+  },
+  {
+    "name": "options",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-guardhook.html"><code>AWS::CloudFormation::GuardHook</code></a>.
 
@@ -90,24 +189,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>guard_hooks</code> in a region.
-```sql
-SELECT
-region,
-rule_location,
-log_bucket,
-hook_status,
-target_operations,
-failure_mode,
-target_filters,
-stack_filters,
-alias,
-hook_arn,
-execution_role,
-options
-FROM awscc.cloudformation.guard_hooks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>guard_hook</code>.
 ```sql
 SELECT

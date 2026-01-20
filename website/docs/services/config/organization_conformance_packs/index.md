@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>organization_conformance_pack</code> resource or lists <code>organization_conformance_packs</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets an <code>organization_conformance_pack</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="organization_conformance_pack_name" /></td><td><code>string</code></td><td>The name of the organization conformance pack.</td></tr>
-<tr><td><CopyableCode code="template_s3_uri" /></td><td><code>string</code></td><td>Location of file containing the template body.</td></tr>
-<tr><td><CopyableCode code="template_body" /></td><td><code>string</code></td><td>A string containing full conformance pack template body.</td></tr>
-<tr><td><CopyableCode code="delivery_s3_bucket" /></td><td><code>string</code></td><td>AWS Config stores intermediate files while processing conformance pack template.</td></tr>
-<tr><td><CopyableCode code="delivery_s3_key_prefix" /></td><td><code>string</code></td><td>The prefix for the delivery S3 bucket.</td></tr>
-<tr><td><CopyableCode code="conformance_pack_input_parameters" /></td><td><code>array</code></td><td>A list of ConformancePackInputParameter objects.</td></tr>
-<tr><td><CopyableCode code="excluded_accounts" /></td><td><code>array</code></td><td>A list of AWS accounts to be excluded from an organization conformance pack while deploying a conformance pack.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "organization_conformance_pack_name",
+    "type": "string",
+    "description": "The name of the organization conformance pack."
+  },
+  {
+    "name": "template_s3_uri",
+    "type": "string",
+    "description": "Location of file containing the template body."
+  },
+  {
+    "name": "template_body",
+    "type": "string",
+    "description": "A string containing full conformance pack template body."
+  },
+  {
+    "name": "delivery_s3_bucket",
+    "type": "string",
+    "description": "AWS Config stores intermediate files while processing conformance pack template."
+  },
+  {
+    "name": "delivery_s3_key_prefix",
+    "type": "string",
+    "description": "The prefix for the delivery S3 bucket."
+  },
+  {
+    "name": "conformance_pack_input_parameters",
+    "type": "array",
+    "description": "A list of ConformancePackInputParameter objects.",
+    "children": [
+      {
+        "name": "parameter_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameter_value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "excluded_accounts",
+    "type": "array",
+    "description": "A list of AWS accounts to be excluded from an organization conformance pack while deploying a conformance pack."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-organizationconformancepack.html"><code>AWS::Config::OrganizationConformancePack</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>organization_conformance_packs</code> in a region.
-```sql
-SELECT
-region,
-organization_conformance_pack_name,
-template_s3_uri,
-template_body,
-delivery_s3_bucket,
-delivery_s3_key_prefix,
-conformance_pack_input_parameters,
-excluded_accounts
-FROM awscc.config.organization_conformance_packs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>organization_conformance_pack</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>signing_profile</code> resource or lists <code>signing_profiles</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>signing_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="profile_name" /></td><td><code>string</code></td><td>A name for the signing profile. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the signing profile name.</td></tr>
-<tr><td><CopyableCode code="profile_version" /></td><td><code>string</code></td><td>A version for the signing profile. AWS Signer generates a unique version for each profile of the same profile name.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified signing profile.</td></tr>
-<tr><td><CopyableCode code="profile_version_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified signing profile version.</td></tr>
-<tr><td><CopyableCode code="signature_validity_period" /></td><td><code>object</code></td><td>Signature validity period of the profile.</td></tr>
-<tr><td><CopyableCode code="platform_id" /></td><td><code>string</code></td><td>The ID of the target signing platform.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags associated with the signing profile.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "profile_name",
+    "type": "string",
+    "description": "A name for the signing profile. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the signing profile name."
+  },
+  {
+    "name": "profile_version",
+    "type": "string",
+    "description": "A version for the signing profile. AWS Signer generates a unique version for each profile of the same profile name."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified signing profile."
+  },
+  {
+    "name": "signature_validity_period",
+    "type": "object",
+    "description": "Signature validity period of the profile.",
+    "children": [
+      {
+        "name": "value",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "platform_id",
+    "type": "string",
+    "description": "The ID of the target signing platform."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags associated with the signing profile.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-signer-signingprofile.html"><code>AWS::Signer::SigningProfile</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>signing_profiles</code> in a region.
-```sql
-SELECT
-region,
-profile_name,
-profile_version,
-arn,
-profile_version_arn,
-signature_validity_period,
-platform_id,
-tags
-FROM awscc.signer.signing_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>signing_profile</code>.
 ```sql
 SELECT

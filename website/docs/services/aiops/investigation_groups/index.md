@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>investigation_group</code> resource or lists <code>investigation_groups</code> in a region
 
@@ -32,27 +33,109 @@ Creates, updates, deletes or gets an <code>investigation_group</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Investigation Role's ARN.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp value.</td></tr>
-<tr><td><CopyableCode code="last_modified_by" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
-<tr><td><CopyableCode code="last_modified_at" /></td><td><code>string</code></td><td>User friendly name for resources.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Investigation Group's ARN.</td></tr>
-<tr><td><CopyableCode code="retention_in_days" /></td><td><code>integer</code></td><td>The number of days to retain the investigation group</td></tr>
-<tr><td><CopyableCode code="encryption_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="investigation_group_policy" /></td><td><code>string</code></td><td>Investigation Group policy</td></tr>
-<tr><td><CopyableCode code="is_cloud_trail_event_history_enabled" /></td><td><code>boolean</code></td><td>Flag to enable cloud trail history</td></tr>
-<tr><td><CopyableCode code="tag_key_boundaries" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="chatbot_notification_channels" /></td><td><code>array</code></td><td>An array of key-value pairs of notification channels to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="cross_account_configurations" /></td><td><code>array</code></td><td>An array of cross account configurations.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Investigation Role's ARN."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "User friendly name for resources."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp value."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Investigation Group's ARN."
+  },
+  {
+    "name": "retention_in_days",
+    "type": "integer",
+    "description": "The number of days to retain the investigation group"
+  },
+  {
+    "name": "encryption_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "encryption_configuration_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "investigation_group_policy",
+    "type": "string",
+    "description": "Investigation Group policy"
+  },
+  {
+    "name": "is_cloud_trail_event_history_enabled",
+    "type": "boolean",
+    "description": "Flag to enable cloud trail history"
+  },
+  {
+    "name": "tag_key_boundaries",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "chatbot_notification_channels",
+    "type": "array",
+    "description": "An array of key-value pairs of notification channels to apply to this resource.",
+    "children": [
+      {
+        "name": "sns_topic_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "chat_configuration_arns",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "cross_account_configurations",
+    "type": "array",
+    "description": "An array of cross account configurations."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-aiops-investigationgroup.html"><code>AWS::AIOps::InvestigationGroup</code></a>.
 
@@ -94,28 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>investigation_groups</code> in a region.
-```sql
-SELECT
-region,
-role_arn,
-name,
-created_by,
-created_at,
-last_modified_by,
-last_modified_at,
-arn,
-retention_in_days,
-encryption_config,
-investigation_group_policy,
-is_cloud_trail_event_history_enabled,
-tag_key_boundaries,
-chatbot_notification_channels,
-cross_account_configurations,
-tags
-FROM awscc.aiops.investigation_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>investigation_group</code>.
 ```sql
 SELECT

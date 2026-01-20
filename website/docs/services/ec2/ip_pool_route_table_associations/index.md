@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ip_pool_route_table_association</code> resource or lists <code>ip_pool_route_table_associations</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets an <code>ip_pool_route_table_association</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>The route table association ID.</td></tr>
-<tr><td><CopyableCode code="public_ipv4_pool" /></td><td><code>string</code></td><td>The ID of the public IPv4 pool.</td></tr>
-<tr><td><CopyableCode code="route_table_id" /></td><td><code>string</code></td><td>The ID of the route table.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "The route table association ID."
+  },
+  {
+    "name": "public_ipv4_pool",
+    "type": "string",
+    "description": "The ID of the public IPv4 pool."
+  },
+  {
+    "name": "route_table_id",
+    "type": "string",
+    "description": "The ID of the route table."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ippoolroutetableassociation.html"><code>AWS::EC2::IpPoolRouteTableAssociation</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ip_pool_route_table_associations</code> in a region.
-```sql
-SELECT
-region,
-association_id,
-public_ipv4_pool,
-route_table_id
-FROM awscc.ec2.ip_pool_route_table_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ip_pool_route_table_association</code>.
 ```sql
 SELECT

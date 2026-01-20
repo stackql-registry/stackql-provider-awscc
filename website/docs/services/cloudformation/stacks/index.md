@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stack</code> resource or lists <code>stacks</code> in a region
 
@@ -32,35 +33,162 @@ Creates, updates, deletes or gets a <code>stack</code> resource or lists <code>s
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="capabilities" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="outputs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="disable_rollback" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_termination_protection" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="notification_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="parent_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="root_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="change_set_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_policy_body" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_policy_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stack_status_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_body" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="timeout_in_minutes" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_update_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "capabilities",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "outputs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "export_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "output_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "output_value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "disable_rollback",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "enable_termination_protection",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "notification_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "parent_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "root_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "change_set_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_policy_body",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "stack_policy_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stack_status_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag. You can specify a maximum of 127 characters for a tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value."
+      }
+    ]
+  },
+  {
+    "name": "template_body",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "template_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "timeout_in_minutes",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "last_update_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-stack.html"><code>AWS::CloudFormation::Stack</code></a>.
 
@@ -102,36 +230,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stacks</code> in a region.
-```sql
-SELECT
-region,
-capabilities,
-role_arn,
-outputs,
-description,
-disable_rollback,
-enable_termination_protection,
-notification_arns,
-parameters,
-parent_id,
-root_id,
-change_set_id,
-stack_name,
-stack_id,
-stack_policy_body,
-stack_policy_url,
-stack_status,
-stack_status_reason,
-tags,
-template_body,
-template_url,
-timeout_in_minutes,
-last_update_time,
-creation_time
-FROM awscc.cloudformation.stacks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stack</code>.
 ```sql
 SELECT

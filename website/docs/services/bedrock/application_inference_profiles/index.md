@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application_inference_profile</code> resource or lists <code>application_inference_profiles</code> in a region
 
@@ -32,24 +33,92 @@ Creates, updates, deletes or gets an <code>application_inference_profile</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the inference profile</td></tr>
-<tr><td><CopyableCode code="inference_profile_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="inference_profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="inference_profile_identifier" /></td><td><code>string</code></td><td>Inference profile identifier. Supports both system-defined inference profile ids, and inference profile ARNs.</td></tr>
-<tr><td><CopyableCode code="inference_profile_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_source" /></td><td><code>undefined</code></td><td>Various ways to encode a list of models in a CreateInferenceProfile request</td></tr>
-<tr><td><CopyableCode code="models" /></td><td><code>array</code></td><td>List of model configuration</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of the Inference Profile</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Type of the Inference Profile</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the inference profile"
+  },
+  {
+    "name": "inference_profile_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "inference_profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "inference_profile_identifier",
+    "type": "string",
+    "description": "Inference profile identifier. Supports both system-defined inference profile ids, and inference profile ARNs."
+  },
+  {
+    "name": "inference_profile_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_source",
+    "type": "object",
+    "description": "Various ways to encode a list of models in a CreateInferenceProfile request"
+  },
+  {
+    "name": "models",
+    "type": "array",
+    "description": "List of model configuration",
+    "children": [
+      {
+        "name": "model_arn",
+        "type": "string",
+        "description": "ARN for Foundation Models in Bedrock. These models can be used as base models for model customization jobs"
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status of the Inference Profile"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Type of the Inference Profile"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-applicationinferenceprofile.html"><code>AWS::Bedrock::ApplicationInferenceProfile</code></a>.
 
@@ -91,25 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>application_inference_profiles</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-description,
-inference_profile_arn,
-inference_profile_id,
-inference_profile_identifier,
-inference_profile_name,
-model_source,
-models,
-status,
-tags,
-type,
-updated_at
-FROM awscc.bedrock.application_inference_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application_inference_profile</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>keyspace</code> resource or lists <code>keyspaces</code> in a region
 
@@ -32,16 +33,57 @@ Creates, updates, deletes or gets a <code>keyspace</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="keyspace_name" /></td><td><code>string</code></td><td>Name for Cassandra keyspace</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="replication_specification" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_side_timestamps_enabled" /></td><td><code>boolean</code></td><td>Indicates whether client-side timestamps are enabled (true) or disabled (false) for all tables in the keyspace. To add a Region to a single-Region keyspace with at least one table, the value must be set to true. After you enabled client-side timestamps for a table, you can’t disable it again.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "keyspace_name",
+    "type": "string",
+    "description": "Name for Cassandra keyspace"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "replication_specification",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "replication_strategy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "region_list",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "client_side_timestamps_enabled",
+    "type": "boolean",
+    "description": "Indicates whether client-side timestamps are enabled (true) or disabled (false) for all tables in the keyspace. To add a Region to a single-Region keyspace with at least one table, the value must be set to true. After you enabled client-side timestamps for a table, you can’t disable it again."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cassandra-keyspace.html"><code>AWS::Cassandra::Keyspace</code></a>.
 
@@ -83,17 +125,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>keyspaces</code> in a region.
-```sql
-SELECT
-region,
-keyspace_name,
-tags,
-replication_specification,
-client_side_timestamps_enabled
-FROM awscc.cassandra.keyspaces
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>keyspace</code>.
 ```sql
 SELECT

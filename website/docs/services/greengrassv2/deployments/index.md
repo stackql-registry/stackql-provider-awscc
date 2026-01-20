@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment</code> resource or lists <code>deployments</code> in a region
 
@@ -32,20 +33,171 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parent_target_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deployment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="components" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="iot_job_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="deployment_policies" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parent_target_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "deployment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "components",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "iot_job_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "job_executions_rollout_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "exponential_rate",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "base_rate_per_minute",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "increment_factor",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "rate_increase_criteria",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "maximum_per_minute",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "abort_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "criteria_list",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "failure_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "threshold_percentage",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "min_number_of_executed_things",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "timeout_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "in_progress_timeout_in_minutes",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "deployment_policies",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "failure_handling_policy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "component_update_policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "configuration_validation_policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "timeout_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrassv2-deployment.html"><code>AWS::GreengrassV2::Deployment</code></a>.
 
@@ -87,21 +239,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployments</code> in a region.
-```sql
-SELECT
-region,
-target_arn,
-parent_target_arn,
-deployment_id,
-deployment_name,
-components,
-iot_job_configuration,
-deployment_policies,
-tags
-FROM awscc.greengrassv2.deployments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>certificate_provider</code> resource or lists <code>certificate_providers</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>certificate_provider</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="certificate_provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="lambda_function_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_default_for_operations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "certificate_provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "lambda_function_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "account_default_for_operations",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-certificateprovider.html"><code>AWS::IoT::CertificateProvider</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>certificate_providers</code> in a region.
-```sql
-SELECT
-region,
-certificate_provider_name,
-lambda_function_arn,
-account_default_for_operations,
-tags,
-arn
-FROM awscc.iot.certificate_providers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>certificate_provider</code>.
 ```sql
 SELECT

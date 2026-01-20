@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>index</code> resource or lists <code>indices</code> in a region
 
@@ -32,25 +33,133 @@ Creates, updates, deletes or gets an <code>index</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capacity_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="document_attribute_configurations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_statistics" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capacity_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "units",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "document_attribute_configurations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "search",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "index_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "index_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "index_statistics",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "text_document_statistics",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "indexed_text_bytes",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "indexed_text_document_count",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-index.html"><code>AWS::QBusiness::Index</code></a>.
 
@@ -92,26 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>indices</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-capacity_configuration,
-created_at,
-description,
-display_name,
-document_attribute_configurations,
-index_arn,
-index_id,
-index_statistics,
-type,
-status,
-tags,
-updated_at
-FROM awscc.qbusiness.indices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT

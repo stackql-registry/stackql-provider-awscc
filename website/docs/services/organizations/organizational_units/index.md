@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>organizational_unit</code> resource or lists <code>organizational_units</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets an <code>organizational_unit</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of this OU.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique identifier (ID) associated with this OU.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The friendly name of this OU.</td></tr>
-<tr><td><CopyableCode code="parent_id" /></td><td><code>string</code></td><td>The unique identifier (ID) of the parent root or OU that you want to create the new OU in.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags that you want to attach to the newly created OU.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of this OU."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique identifier (ID) associated with this OU."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The friendly name of this OU."
+  },
+  {
+    "name": "parent_id",
+    "type": "string",
+    "description": "The unique identifier (ID) of the parent root or OU that you want to create the new OU in."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags that you want to attach to the newly created OU.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key identifier, or name, of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The string value that's associated with the key of the tag. You can set the value of a tag to an empty string, but you can't set the value of a tag to null."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-organizations-organizationalunit.html"><code>AWS::Organizations::OrganizationalUnit</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>organizational_units</code> in a region.
-```sql
-SELECT
-region,
-arn,
-id,
-name,
-parent_id,
-tags
-FROM awscc.organizations.organizational_units
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>organizational_unit</code>.
 ```sql
 SELECT

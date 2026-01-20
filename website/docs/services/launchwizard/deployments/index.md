@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment</code> resource or lists <code>deployments</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN of the LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Timestamp of LaunchWizard deployment creation</td></tr>
-<tr><td><CopyableCode code="deleted_at" /></td><td><code>string</code></td><td>Timestamp of LaunchWizard deployment deletion</td></tr>
-<tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td>Deployment ID of the LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="deployment_pattern_name" /></td><td><code>string</code></td><td>Workload deployment pattern name</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="resource_group" /></td><td><code>string</code></td><td>Resource Group Name created for LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="specifications" /></td><td><code>object</code></td><td>LaunchWizard deployment specifications</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="workload_name" /></td><td><code>string</code></td><td>Workload Name for LaunchWizard deployment</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "ARN of the LaunchWizard deployment"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Timestamp of LaunchWizard deployment creation"
+  },
+  {
+    "name": "deleted_at",
+    "type": "string",
+    "description": "Timestamp of LaunchWizard deployment deletion"
+  },
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": "Deployment ID of the LaunchWizard deployment"
+  },
+  {
+    "name": "deployment_pattern_name",
+    "type": "string",
+    "description": "Workload deployment pattern name"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of LaunchWizard deployment"
+  },
+  {
+    "name": "resource_group",
+    "type": "string",
+    "description": "Resource Group Name created for LaunchWizard deployment"
+  },
+  {
+    "name": "specifications",
+    "type": "object",
+    "description": "LaunchWizard deployment specifications"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status of LaunchWizard deployment"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for LaunchWizard deployment",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "workload_name",
+    "type": "string",
+    "description": "Workload Name for LaunchWizard deployment"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-launchwizard-deployment.html"><code>AWS::LaunchWizard::Deployment</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployments</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-deleted_at,
-deployment_id,
-deployment_pattern_name,
-name,
-resource_group,
-specifications,
-status,
-tags,
-workload_name
-FROM awscc.launchwizard.deployments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT

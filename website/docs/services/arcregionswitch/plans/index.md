@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>plan</code> resource or lists <code>plans</code> in a region
 
@@ -32,28 +33,198 @@ Creates, updates, deletes or gets a <code>plan</code> resource or lists <code>pl
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_alarms" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="execution_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="owner" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="primary_region" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="recovery_approach" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="recovery_time_objective_minutes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="regions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="triggers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="workflows" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="health_checks_for_plan" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="route53_health_checks" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "associated_alarms",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "execution_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "owner",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "primary_region",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "recovery_approach",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "recovery_time_objective_minutes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "regions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "triggers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "target_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "conditions",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "associated_alarm_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "condition",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "min_delay_minutes_between_executions",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "workflows",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "steps",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "execution_block_configuration",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "execution_block_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "workflow_target_action",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "workflow_target_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "workflow_description",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "health_checks_for_plan",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "route53_health_checks",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "health_check_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "record_names",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "regions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "hosted_zone_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-arcregionswitch-plan.html"><code>AWS::ARCRegionSwitch::Plan</code></a>.
 
@@ -95,29 +266,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>plans</code> in a region.
-```sql
-SELECT
-region,
-arn,
-associated_alarms,
-description,
-execution_role,
-name,
-owner,
-primary_region,
-recovery_approach,
-recovery_time_objective_minutes,
-regions,
-tags,
-triggers,
-version,
-workflows,
-health_checks_for_plan,
-route53_health_checks
-FROM awscc.arcregionswitch.plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>plan</code>.
 ```sql
 SELECT

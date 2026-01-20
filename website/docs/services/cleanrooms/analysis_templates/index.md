@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>analysis_template</code> resource or lists <code>analysis_templates</code> in a region
 
@@ -32,26 +33,119 @@ Creates, updates, deletes or gets an <code>analysis_template</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms analysis template.</td></tr>
-<tr><td><CopyableCode code="analysis_parameters" /></td><td><code>array</code></td><td>The member who can query can provide this placeholder for a literal data value in an analysis template</td></tr>
-<tr><td><CopyableCode code="analysis_template_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_metadata" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="format" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms analysis template.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "analysis_parameters",
+    "type": "array",
+    "description": "The member who can query can provide this placeholder for a literal data value in an analysis template",
+    "children": [
+      {
+        "name": "default_value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "analysis_template_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "membership_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "membership_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schema",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "referenced_tables",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "source",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "source_metadata",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "format",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-analysistemplate.html"><code>AWS::CleanRooms::AnalysisTemplate</code></a>.
 
@@ -93,27 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>analysis_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-collaboration_arn,
-collaboration_identifier,
-tags,
-analysis_parameters,
-analysis_template_identifier,
-description,
-membership_arn,
-membership_identifier,
-name,
-schema,
-source,
-source_metadata,
-format
-FROM awscc.cleanrooms.analysis_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>analysis_template</code>.
 ```sql
 SELECT

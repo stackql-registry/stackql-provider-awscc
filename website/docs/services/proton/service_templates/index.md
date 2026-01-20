@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service_template</code> resource or lists <code>service_templates</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>service_template</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) of the service template.</p></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>A description of the service template.</p></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td><p>The name of the service template as displayed in the developer interface.</p></td></tr>
-<tr><td><CopyableCode code="encryption_key" /></td><td><code>string</code></td><td><p>A customer provided encryption key that's used to encrypt data.</p></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pipeline_provisioning" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td><p>An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.</p><br /><p>For more information, see <a href="https://docs.aws.amazon.com/proton/latest/userguide/resources.html">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) of the service template.</p>"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "<p>A description of the service template.</p>"
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "<p>The name of the service template as displayed in the developer interface.</p>"
+  },
+  {
+    "name": "encryption_key",
+    "type": "string",
+    "description": "<p>A customer provided encryption key that's used to encrypt data.</p>"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pipeline_provisioning",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "<p>An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.</p><br /><p>For more information, see <a href=\"https://docs.aws.amazon.com/proton/latest/userguide/resources.html\">Proton resources and tagging</a> in the<br /><i>Proton User Guide</i>.</p>",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>The key of the resource tag.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>The value of the resource tag.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-proton-servicetemplate.html"><code>AWS::Proton::ServiceTemplate</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>service_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-description,
-display_name,
-encryption_key,
-name,
-pipeline_provisioning,
-tags
-FROM awscc.proton.service_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service_template</code>.
 ```sql
 SELECT

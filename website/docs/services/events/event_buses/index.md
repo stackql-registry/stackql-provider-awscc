@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_bus</code> resource or lists <code>event_buses</code> in a region
 
@@ -32,21 +33,89 @@ Creates, updates, deletes or gets an <code>event_bus</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="event_source_name" /></td><td><code>string</code></td><td>If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the event bus.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the event bus.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event bus.</td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td>Kms Key Identifier used to encrypt events at rest in the event bus.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>A JSON string that describes the permission policy statement for the event bus.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the event bus.</td></tr>
-<tr><td><CopyableCode code="dead_letter_config" /></td><td><code>object</code></td><td>Dead Letter Queue for the event bus.</td></tr>
-<tr><td><CopyableCode code="log_config" /></td><td><code>object</code></td><td>The logging configuration settings for vended logs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "event_source_name",
+    "type": "string",
+    "description": "If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the event bus."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the event bus.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the event bus."
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": "Kms Key Identifier used to encrypt events at rest in the event bus."
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "A JSON string that describes the permission policy statement for the event bus."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the event bus."
+  },
+  {
+    "name": "dead_letter_config",
+    "type": "object",
+    "description": "Dead Letter Queue for the event bus.",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "log_config",
+    "type": "object",
+    "description": "The logging configuration settings for vended logs.",
+    "children": [
+      {
+        "name": "include_detail",
+        "type": "string",
+        "description": "Configures whether or not to include event detail, input transformer details, target properties, and target input in the applicable log messages."
+      },
+      {
+        "name": "level",
+        "type": "string",
+        "description": "Configures the log level of the EventBus and determines which log messages are sent to Ingestion Hub for delivery."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-eventbus.html"><code>AWS::Events::EventBus</code></a>.
 
@@ -88,22 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_buses</code> in a region.
-```sql
-SELECT
-region,
-event_source_name,
-name,
-tags,
-description,
-kms_key_identifier,
-policy,
-arn,
-dead_letter_config,
-log_config
-FROM awscc.events.event_buses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_bus</code>.
 ```sql
 SELECT

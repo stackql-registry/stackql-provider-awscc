@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>profile</code> resource or lists <code>profiles</code> in a region
 
@@ -32,24 +33,104 @@ Creates, updates, deletes or gets a <code>profile</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="duration_seconds" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="managed_policy_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="profile_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="require_instance_properties" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="session_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="attribute_mappings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="accept_role_session_name" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "duration_seconds",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "managed_policy_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "profile_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "require_instance_properties",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "role_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "session_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "attribute_mappings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "mapping_rules",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "specifier",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "certificate_field",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "accept_role_session_name",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rolesanywhere-profile.html"><code>AWS::RolesAnywhere::Profile</code></a>.
 
@@ -91,25 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>profiles</code> in a region.
-```sql
-SELECT
-region,
-duration_seconds,
-enabled,
-managed_policy_arns,
-name,
-profile_arn,
-profile_id,
-require_instance_properties,
-role_arns,
-session_policy,
-tags,
-attribute_mappings,
-accept_role_session_name
-FROM awscc.rolesanywhere.profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT

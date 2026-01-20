@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subnet_cidr_block</code> resource or lists <code>subnet_cidr_blocks</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets a <code>subnet_cidr_block</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Information about the IPv6 association.</td></tr>
-<tr><td><CopyableCode code="ipv6_cidr_block" /></td><td><code>string</code></td><td>The IPv6 network range for the subnet, in CIDR notation. The subnet size must use a /64 prefix length</td></tr>
-<tr><td><CopyableCode code="ipv6_ipam_pool_id" /></td><td><code>string</code></td><td>The ID of an IPv6 Amazon VPC IP Address Manager (IPAM) pool from which to allocate, to get the subnet's CIDR</td></tr>
-<tr><td><CopyableCode code="ipv6_netmask_length" /></td><td><code>integer</code></td><td>The netmask length of the IPv6 CIDR to allocate to the subnet from an IPAM pool</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet</td></tr>
-<tr><td><CopyableCode code="ipv6_address_attribute" /></td><td><code>string</code></td><td>The value denoting whether an IPv6 Subnet CIDR Block is public or private.</td></tr>
-<tr><td><CopyableCode code="ip_source" /></td><td><code>string</code></td><td>The IP Source of an IPv6 Subnet CIDR Block.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Information about the IPv6 association."
+  },
+  {
+    "name": "ipv6_cidr_block",
+    "type": "string",
+    "description": "The IPv6 network range for the subnet, in CIDR notation. The subnet size must use a /64 prefix length"
+  },
+  {
+    "name": "ipv6_ipam_pool_id",
+    "type": "string",
+    "description": "The ID of an IPv6 Amazon VPC IP Address Manager (IPAM) pool from which to allocate, to get the subnet's CIDR"
+  },
+  {
+    "name": "ipv6_netmask_length",
+    "type": "integer",
+    "description": "The netmask length of the IPv6 CIDR to allocate to the subnet from an IPAM pool"
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The ID of the subnet"
+  },
+  {
+    "name": "ipv6_address_attribute",
+    "type": "string",
+    "description": "The value denoting whether an IPv6 Subnet CIDR Block is public or private."
+  },
+  {
+    "name": "ip_source",
+    "type": "string",
+    "description": "The IP Source of an IPv6 Subnet CIDR Block."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetcidrblock.html"><code>AWS::EC2::SubnetCidrBlock</code></a>.
 
@@ -81,20 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subnet_cidr_blocks</code> in a region.
-```sql
-SELECT
-region,
-id,
-ipv6_cidr_block,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-subnet_id,
-ipv6_address_attribute,
-ip_source
-FROM awscc.ec2.subnet_cidr_blocks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subnet_cidr_block</code>.
 ```sql
 SELECT

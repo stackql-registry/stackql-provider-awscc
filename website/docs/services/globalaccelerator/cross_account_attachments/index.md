@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cross_account_attachment</code> resource or lists <code>cross_account_attachments</code> in a region
 
@@ -32,17 +33,67 @@ Creates, updates, deletes or gets a <code>cross_account_attachment</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The Friendly identifier of the attachment.</td></tr>
-<tr><td><CopyableCode code="attachment_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the attachment.</td></tr>
-<tr><td><CopyableCode code="principals" /></td><td><code>array</code></td><td>Principals to share the resources with.</td></tr>
-<tr><td><CopyableCode code="resources" /></td><td><code>array</code></td><td>Resources shared using the attachment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The Friendly identifier of the attachment."
+  },
+  {
+    "name": "attachment_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the attachment."
+  },
+  {
+    "name": "principals",
+    "type": "array",
+    "description": "Principals to share the resources with."
+  },
+  {
+    "name": "resources",
+    "type": "array",
+    "description": "Resources shared using the attachment.",
+    "children": [
+      {
+        "name": "endpoint_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cidr",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Key of the tag. Value can be 1 to 127 characters."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Value for the tag. Value can be 1 to 255 characters."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-globalaccelerator-crossaccountattachment.html"><code>AWS::GlobalAccelerator::CrossAccountAttachment</code></a>.
 
@@ -84,18 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cross_account_attachments</code> in a region.
-```sql
-SELECT
-region,
-name,
-attachment_arn,
-principals,
-resources,
-tags
-FROM awscc.globalaccelerator.cross_account_attachments
-;
-```
+
 Gets all properties from an individual <code>cross_account_attachment</code>.
 ```sql
 SELECT

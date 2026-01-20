@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool_identity_provider</code> resource or lists <code>user_pool_identity_providers</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets an <code>user_pool_identity_provider</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="idp_identifiers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="attribute_mapping" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provider_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provider_details",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "idp_identifiers",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "attribute_mapping",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolidentityprovider.html"><code>AWS::Cognito::UserPoolIdentityProvider</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_pool_identity_providers</code> in a region.
-```sql
-SELECT
-region,
-user_pool_id,
-provider_name,
-provider_type,
-provider_details,
-idp_identifiers,
-attribute_mapping
-FROM awscc.cognito.user_pool_identity_providers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_pool_identity_provider</code>.
 ```sql
 SELECT

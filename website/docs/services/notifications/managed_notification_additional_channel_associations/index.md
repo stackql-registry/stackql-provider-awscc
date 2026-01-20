@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>managed_notification_additional_channel_association</code> resource or lists <code>managed_notification_additional_channel_associations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>managed_notification_additional_channe
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</td></tr>
-<tr><td><CopyableCode code="managed_notification_configuration_arn" /></td><td><code>string</code></td><td>ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "channel_arn",
+    "type": "string",
+    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+  },
+  {
+    "name": "managed_notification_configuration_arn",
+    "type": "string",
+    "description": "ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-managednotificationadditionalchannelassociation.html"><code>AWS::Notifications::ManagedNotificationAdditionalChannelAssociation</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>managed_notification_additional_channel_associations</code> in a region.
-```sql
-SELECT
-region,
-channel_arn,
-managed_notification_configuration_arn
-FROM awscc.notifications.managed_notification_additional_channel_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>managed_notification_additional_channel_association</code>.
 ```sql
 SELECT

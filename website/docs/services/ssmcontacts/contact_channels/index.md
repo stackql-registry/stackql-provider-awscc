@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>contact_channel</code> resource or lists <code>contact_channels</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>contact_channel</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="contact_id" /></td><td><code>string</code></td><td>ARN of the contact resource</td></tr>
-<tr><td><CopyableCode code="channel_name" /></td><td><code>string</code></td><td>The device name. String of 6 to 50 alphabetical, numeric, dash, and underscore characters.</td></tr>
-<tr><td><CopyableCode code="channel_type" /></td><td><code>string</code></td><td>Device type, which specify notification channel. Currently supported values: “SMS”, “VOICE”, “EMAIL”, “CHATBOT.</td></tr>
-<tr><td><CopyableCode code="defer_activation" /></td><td><code>boolean</code></td><td>If you want to activate the channel at a later time, you can choose to defer activation. SSM Incident Manager can't engage your contact channel until it has been activated.</td></tr>
-<tr><td><CopyableCode code="channel_address" /></td><td><code>string</code></td><td>The details that SSM Incident Manager uses when trying to engage the contact channel.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the engagement to a contact channel.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "contact_id",
+    "type": "string",
+    "description": "ARN of the contact resource"
+  },
+  {
+    "name": "channel_name",
+    "type": "string",
+    "description": "The device name. String of 6 to 50 alphabetical, numeric, dash, and underscore characters."
+  },
+  {
+    "name": "channel_type",
+    "type": "string",
+    "description": "Device type, which specify notification channel. Currently supported values: “SMS”, “VOICE”, “EMAIL”, “CHATBOT."
+  },
+  {
+    "name": "defer_activation",
+    "type": "boolean",
+    "description": "If you want to activate the channel at a later time, you can choose to defer activation. SSM Incident Manager can't engage your contact channel until it has been activated."
+  },
+  {
+    "name": "channel_address",
+    "type": "string",
+    "description": "The details that SSM Incident Manager uses when trying to engage the contact channel."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the engagement to a contact channel."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmcontacts-contactchannel.html"><code>AWS::SSMContacts::ContactChannel</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>contact_channels</code> in a region.
-```sql
-SELECT
-region,
-contact_id,
-channel_name,
-channel_type,
-defer_activation,
-channel_address,
-arn
-FROM awscc.ssmcontacts.contact_channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>contact_channel</code>.
 ```sql
 SELECT

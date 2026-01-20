@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>capability</code> resource or lists <code>capabilities</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>capability</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="capability_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capability_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instructions_documents" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "capability_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capability_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instructions_documents",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-b2bi-capability.html"><code>AWS::B2BI::Capability</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>capabilities</code> in a region.
-```sql
-SELECT
-region,
-capability_arn,
-capability_id,
-configuration,
-created_at,
-instructions_documents,
-modified_at,
-name,
-tags,
-type
-FROM awscc.b2bi.capabilities
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>capability</code>.
 ```sql
 SELECT

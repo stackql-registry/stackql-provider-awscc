@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>aggregator_v2</code> resource or lists <code>aggregator_v2s</code> in a region
 
@@ -32,17 +33,33 @@ Creates, updates, deletes or gets an <code>aggregator_v2</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="aggregator_v2_arn" /></td><td><code>string</code></td><td>The ARN of the AggregatorV2 being created and assigned as the unique identifier</td></tr>
-<tr><td><CopyableCode code="region_linking_mode" /></td><td><code>string</code></td><td>Indicates to link a list of included Regions</td></tr>
-<tr><td><CopyableCode code="linked_regions" /></td><td><code>array</code></td><td>The list of included Regions</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.</td></tr>
-<tr><td><CopyableCode code="aggregation_region" /></td><td><code>string</code></td><td>The aggregation Region of the AggregatorV2</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "aggregator_v2_arn",
+    "type": "string",
+    "description": "The ARN of the AggregatorV2 being created and assigned as the unique identifier"
+  },
+  {
+    "name": "region_linking_mode",
+    "type": "string",
+    "description": "Indicates to link a list of included Regions"
+  },
+  {
+    "name": "linked_regions",
+    "type": "array",
+    "description": "The list of included Regions"
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-aggregatorv2.html"><code>AWS::SecurityHub::AggregatorV2</code></a>.
 
@@ -84,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>aggregator_v2s</code> in a region.
-```sql
-SELECT
-region,
-aggregator_v2_arn,
-region_linking_mode,
-linked_regions,
-tags,
-aggregation_region
-FROM awscc.securityhub.aggregator_v2s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>aggregator_v2</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_poolui_customization_attachment</code> resource or lists <code>user_poolui_customization_attachments</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets an <code>user_poolui_customization_attachment<
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="c_ss" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "c_ss",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpooluicustomizationattachment.html"><code>AWS::Cognito::UserPoolUICustomizationAttachment</code></a>.
 

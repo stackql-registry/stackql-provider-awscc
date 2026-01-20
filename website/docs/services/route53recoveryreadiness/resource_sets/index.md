@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_set</code> resource or lists <code>resource_sets</code> in a region
 
@@ -32,17 +33,111 @@ Creates, updates, deletes or gets a <code>resource_set</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_set_name" /></td><td><code>string</code></td><td>The name of the resource set to create.</td></tr>
-<tr><td><CopyableCode code="resources" /></td><td><code>array</code></td><td>A list of resource objects in the resource set.</td></tr>
-<tr><td><CopyableCode code="resource_set_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the resource set.</td></tr>
-<tr><td><CopyableCode code="resource_set_type" /></td><td><code>string</code></td><td>The resource type of the resources in the resource set. Enter one of the following values for resource type: <br />AWS: :AutoScaling: :AutoScalingGroup, AWS: :CloudWatch: :Alarm, AWS: :EC2: :CustomerGateway, AWS: :DynamoDB: :Table, AWS: :EC2: :Volume, AWS: :ElasticLoadBalancing: :LoadBalancer, AWS: :ElasticLoadBalancingV2: :LoadBalancer, AWS: :MSK: :Cluster, AWS: :RDS: :DBCluster, AWS: :Route53: :HealthCheck, AWS: :SQS: :Queue, AWS: :SNS: :Topic, AWS: :SNS: :Subscription, AWS: :EC2: :VPC, AWS: :EC2: :VPNConnection, AWS: :EC2: :VPNGateway, AWS::Route53RecoveryReadiness::DNSTargetResource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A tag to associate with the parameters for a resource set.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_set_name",
+    "type": "string",
+    "description": "The name of the resource set to create."
+  },
+  {
+    "name": "resources",
+    "type": "array",
+    "description": "A list of resource objects in the resource set.",
+    "children": [
+      {
+        "name": "resource_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the AWS resource."
+      },
+      {
+        "name": "component_id",
+        "type": "string",
+        "description": "The component identifier of the resource, generated when DNS target resource is used."
+      },
+      {
+        "name": "dns_target_resource",
+        "type": "object",
+        "description": "A component for DNS/routing control readiness checks.",
+        "children": [
+          {
+            "name": "domain_name",
+            "type": "string",
+            "description": "The domain name that acts as an ingress point to a portion of the customer application."
+          },
+          {
+            "name": "record_set_id",
+            "type": "string",
+            "description": "The Route 53 record set ID that will uniquely identify a DNS record, given a name and a type."
+          },
+          {
+            "name": "hosted_zone_arn",
+            "type": "string",
+            "description": "The hosted zone Amazon Resource Name (ARN) that contains the DNS record with the provided name of the target resource."
+          },
+          {
+            "name": "record_type",
+            "type": "string",
+            "description": "The type of DNS record of the target resource."
+          },
+          {
+            "name": "target_resource",
+            "type": "object",
+            "description": "The target resource that the Route 53 record points to.",
+            "children": [
+              {
+                "name": "n_lb_resource",
+                "type": "object",
+                "description": "The Network Load Balancer resource that a DNS target resource points to."
+              },
+              {
+                "name": "r53_resource",
+                "type": "object",
+                "description": "The Route 53 resource that a DNS target resource record points to."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "readiness_scopes",
+        "type": "array",
+        "description": "A list of recovery group Amazon Resource Names (ARNs) and cell ARNs that this resource is contained within."
+      }
+    ]
+  },
+  {
+    "name": "resource_set_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the resource set."
+  },
+  {
+    "name": "resource_set_type",
+    "type": "string",
+    "description": "The resource type of the resources in the resource set. Enter one of the following values for resource type: <br />AWS: :AutoScaling: :AutoScalingGroup, AWS: :CloudWatch: :Alarm, AWS: :EC2: :CustomerGateway, AWS: :DynamoDB: :Table, AWS: :EC2: :Volume, AWS: :ElasticLoadBalancing: :LoadBalancer, AWS: :ElasticLoadBalancingV2: :LoadBalancer, AWS: :MSK: :Cluster, AWS: :RDS: :DBCluster, AWS: :Route53: :HealthCheck, AWS: :SQS: :Queue, AWS: :SNS: :Topic, AWS: :SNS: :Subscription, AWS: :EC2: :VPC, AWS: :EC2: :VPNConnection, AWS: :EC2: :VPNGateway, AWS::Route53RecoveryReadiness::DNSTargetResource"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A tag to associate with the parameters for a resource set.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoveryreadiness-resourceset.html"><code>AWS::Route53RecoveryReadiness::ResourceSet</code></a>.
 
@@ -84,18 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_sets</code> in a region.
-```sql
-SELECT
-region,
-resource_set_name,
-resources,
-resource_set_arn,
-resource_set_type,
-tags
-FROM awscc.route53recoveryreadiness.resource_sets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_set</code>.
 ```sql
 SELECT

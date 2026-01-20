@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>template</code> resource or lists <code>templates</code> in a region
 
@@ -32,25 +33,1004 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td><p>Time when this was created.</p></td></tr>
-<tr><td><CopyableCode code="version_description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_entity" /></td><td><code>object</code></td><td><p>The source entity of the template.</p></td></tr>
-<tr><td><CopyableCode code="definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td><p>Time when this was last updated.</p></td></tr>
-<tr><td><CopyableCode code="validation_strategy" /></td><td><code>object</code></td><td><p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>object</code></td><td><p>A version of a template.</p></td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) of the template.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "<p>Time when this was created.</p>"
+  },
+  {
+    "name": "version_description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_entity",
+    "type": "object",
+    "description": "<p>The source entity of the template.</p>",
+    "children": [
+      {
+        "name": "source_analysis",
+        "type": "object",
+        "description": "<p>The source analysis of the template.</p>",
+        "children": [
+          {
+            "name": "data_set_references",
+            "type": "array",
+            "description": "<p>A structure containing information about the dataset references used as placeholders<br />in the template.</p>",
+            "children": [
+              {
+                "name": "data_set_arn",
+                "type": "string",
+                "description": "<p>Dataset Amazon Resource Name (ARN).</p>"
+              },
+              {
+                "name": "data_set_placeholder",
+                "type": "string",
+                "description": "<p>Dataset placeholder.</p>"
+              }
+            ]
+          },
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "<p>The Amazon Resource Name (ARN) of the resource.</p>"
+          }
+        ]
+      },
+      {
+        "name": "source_template",
+        "type": "object",
+        "description": "<p>The source template of the template.</p>",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "<p>The Amazon Resource Name (ARN) of the resource.</p>"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "definition",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "timezone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "week_start",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "filter_groups",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "status",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filters",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "nested_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "numeric_equality_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "numeric_range_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "time_range_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "relative_dates_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "top_bottom_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "time_equality_filter",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "category_filter",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "cross_dataset",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "scope_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "all_sheets",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "selected_sheets",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "filter_group_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "query_execution_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "query_execution_mode",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "calculated_fields",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "data_set_identifier",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "data_set_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "<p>Placeholder.</p>"
+          },
+          {
+            "name": "data_set_schema",
+            "type": "object",
+            "description": "<p>Dataset schema.</p>",
+            "children": [
+              {
+                "name": "column_schema_list",
+                "type": "array",
+                "description": "<p>A structure containing the list of column schemas.</p>"
+              }
+            ]
+          },
+          {
+            "name": "column_group_schema_list",
+            "type": "array",
+            "description": "<p>A structure containing the list of column group schemas.</p>",
+            "children": [
+              {
+                "name": "column_group_column_schema_list",
+                "type": "array",
+                "description": "<p>A structure containing the list of schemas for column group columns.</p>"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "<p>The name of the column group schema.</p>"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "column_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "role",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "format_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "number_format_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "date_time_format_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "string_format_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "column",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "column_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "data_set_identifier",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "colors_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "custom_colors",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "analysis_defaults",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "default_new_sheet_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "sheet_content_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "interactive_layout_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "paginated_layout_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sheets",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "parameter_controls",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "slider",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "text_area",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "dropdown",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "text_field",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "list",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "date_time_picker",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "content_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "sheet_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "images",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "actions",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "sheet_image_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "tooltip",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "scaling",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "interactions",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "source",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "image_content_alt_text",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "sheet_control_layouts",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "text_boxes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "sheet_text_box_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "content",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "layouts",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "filter_controls",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "slider",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "text_area",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "dropdown",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "text_field",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "list",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "date_time_picker",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "relative_date_time",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "cross_sheet",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "visuals",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "funnel_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "box_plot_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "geospatial_map_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "scatter_plot_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "radar_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "combo_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "word_cloud_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "sankey_diagram_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "gauge_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "filled_map_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "waterfall_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "custom_content_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "pie_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "k_pi_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "histogram_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "plugin_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "table_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "pivot_table_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bar_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "heat_map_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "tree_map_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "insight_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "line_chart_visual",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "empty_visual",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "parameter_declarations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "string_parameter_declaration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "mapped_data_set_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "default_values",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "parameter_value_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_when_unset",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "date_time_parameter_declaration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "mapped_data_set_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "default_values",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "time_granularity",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_when_unset",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "decimal_parameter_declaration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "mapped_data_set_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "default_values",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "parameter_value_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_when_unset",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "integer_parameter_declaration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "mapped_data_set_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "default_values",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "parameter_value_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_when_unset",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "<p>Time when this was last updated.</p>"
+  },
+  {
+    "name": "validation_strategy",
+    "type": "object",
+    "description": "<p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;, validation is skipped for specific errors.</p>",
+    "children": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "version",
+    "type": "object",
+    "description": "<p>A version of a template.</p>",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "errors",
+        "type": "array",
+        "description": "<p>Errors associated with this template version.</p>",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "<p>Description of the error type.</p>"
+          },
+          {
+            "name": "violated_entities",
+            "type": "array",
+            "description": "<p>An error path that shows which entities caused the template error.</p>",
+            "children": [
+              {
+                "name": "path",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "created_time",
+        "type": "string",
+        "description": "<p>The time that this template version was created.</p>"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "<p>The description of the template.</p>"
+      },
+      {
+        "name": "theme_arn",
+        "type": "string",
+        "description": "<p>The ARN of the theme associated with this version of the template.</p>"
+      },
+      {
+        "name": "data_set_configurations",
+        "type": "array",
+        "description": "<p>Schema of the dataset identified by the placeholder. Any dashboard created from this<br />template should be bound to new datasets matching the same schema described through this<br />API operation.</p>",
+        "children": [
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "<p>Placeholder.</p>"
+          },
+          {
+            "name": "data_set_schema",
+            "type": "object",
+            "description": "<p>Dataset schema.</p>",
+            "children": [
+              {
+                "name": "column_schema_list",
+                "type": "array",
+                "description": "<p>A structure containing the list of column schemas.</p>"
+              }
+            ]
+          },
+          {
+            "name": "column_group_schema_list",
+            "type": "array",
+            "description": "<p>A structure containing the list of column group schemas.</p>",
+            "children": [
+              {
+                "name": "column_group_column_schema_list",
+                "type": "array",
+                "description": "<p>A structure containing the list of schemas for column group columns.</p>"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "<p>The name of the column group schema.</p>"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "source_entity_arn",
+        "type": "string",
+        "description": "<p>The Amazon Resource Name (ARN) of an analysis or template that was used to create this<br />template.</p>"
+      },
+      {
+        "name": "version_number",
+        "type": "number",
+        "description": "<p>The version number of the template version.</p>"
+      },
+      {
+        "name": "sheets",
+        "type": "array",
+        "description": "<p>A list of the associated sheets with the unique identifier and name of each sheet.</p>",
+        "children": [
+          {
+            "name": "sheet_id",
+            "type": "string",
+            "description": "<p>The unique identifier associated with a sheet.</p>"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "<p>The name of a sheet. This name is displayed on the sheet's tab in the Amazon QuickSight<br />console.</p>"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "permissions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "description": "<p>The IAM action to grant or revoke permissions on.</p>"
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) of the template.</p>"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "template_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-template.html"><code>AWS::QuickSight::Template</code></a>.
 
@@ -92,26 +1072,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>templates</code> in a region.
-```sql
-SELECT
-region,
-created_time,
-version_description,
-source_entity,
-definition,
-last_updated_time,
-validation_strategy,
-name,
-version,
-aws_account_id,
-permissions,
-arn,
-tags,
-template_id
-FROM awscc.quicksight.templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>template</code>.
 ```sql
 SELECT

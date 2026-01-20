@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>portal</code> resource or lists <code>portals</code> in a region
 
@@ -32,35 +33,140 @@ Creates, updates, deletes or gets a <code>portal</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="authentication_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="browser_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="browser_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_key" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_protection_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_access_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_concurrent_sessions" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portal_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portal_endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portal_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="renderer_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_provider_saml_metadata" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="session_logger_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_access_logging_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "browser_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "browser_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_managed_key",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_protection_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_access_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_concurrent_sessions",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "network_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portal_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portal_endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portal_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "renderer_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_provider_saml_metadata",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "session_logger_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "trust_store_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_access_logging_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-portal.html"><code>AWS::WorkSpacesWeb::Portal</code></a>.
 
@@ -102,36 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>portals</code> in a region.
-```sql
-SELECT
-region,
-additional_encryption_context,
-authentication_type,
-browser_settings_arn,
-browser_type,
-creation_date,
-customer_managed_key,
-data_protection_settings_arn,
-display_name,
-instance_type,
-ip_access_settings_arn,
-max_concurrent_sessions,
-network_settings_arn,
-portal_arn,
-portal_endpoint,
-portal_status,
-renderer_type,
-service_provider_saml_metadata,
-session_logger_arn,
-status_reason,
-tags,
-trust_store_arn,
-user_access_logging_settings_arn,
-user_settings_arn
-FROM awscc.workspacesweb.portals
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>portal</code>.
 ```sql
 SELECT

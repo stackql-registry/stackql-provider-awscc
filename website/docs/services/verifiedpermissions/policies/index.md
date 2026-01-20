@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>policies</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="definition" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_store_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "definition",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "policy_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-verifiedpermissions-policy.html"><code>AWS::VerifiedPermissions::Policy</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policies</code> in a region.
-```sql
-SELECT
-region,
-definition,
-policy_id,
-policy_store_id,
-policy_type
-FROM awscc.verifiedpermissions.policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT

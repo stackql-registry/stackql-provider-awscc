@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_ingress_connection</code> resource or lists <code>vpc_ingress_connections</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets a <code>vpc_ingress_connection</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpc_ingress_connection_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the VpcIngressConnection.</td></tr>
-<tr><td><CopyableCode code="vpc_ingress_connection_name" /></td><td><code>string</code></td><td>The customer-provided Vpc Ingress Connection name.</td></tr>
-<tr><td><CopyableCode code="service_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the service.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The current status of the VpcIngressConnection.</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The Domain name associated with the VPC Ingress Connection.</td></tr>
-<tr><td><CopyableCode code="ingress_vpc_configuration" /></td><td><code>object</code></td><td>The configuration of customer’s VPC and related VPC endpoint</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vpc_ingress_connection_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the VpcIngressConnection."
+  },
+  {
+    "name": "vpc_ingress_connection_name",
+    "type": "string",
+    "description": "The customer-provided Vpc Ingress Connection name."
+  },
+  {
+    "name": "service_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the service."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The current status of the VpcIngressConnection."
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The Domain name associated with the VPC Ingress Connection."
+  },
+  {
+    "name": "ingress_vpc_configuration",
+    "type": "object",
+    "description": "The configuration of customer’s VPC and related VPC endpoint",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "The ID of the VPC that the VPC endpoint is used in."
+      },
+      {
+        "name": "vpc_endpoint_id",
+        "type": "string",
+        "description": "The ID of the VPC endpoint that your App Runner service connects to."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcingressconnection.html"><code>AWS::AppRunner::VpcIngressConnection</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_ingress_connections</code> in a region.
-```sql
-SELECT
-region,
-vpc_ingress_connection_arn,
-vpc_ingress_connection_name,
-service_arn,
-status,
-domain_name,
-ingress_vpc_configuration,
-tags
-FROM awscc.apprunner.vpc_ingress_connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_ingress_connection</code>.
 ```sql
 SELECT

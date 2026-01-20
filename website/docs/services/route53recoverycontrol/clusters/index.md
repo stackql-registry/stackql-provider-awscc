@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,18 +33,67 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of a Cluster. You can use any non-white space character in the name</td></tr>
-<tr><td><CopyableCode code="cluster_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the cluster.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Deployment status of a resource. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.</td></tr>
-<tr><td><CopyableCode code="cluster_endpoints" /></td><td><code>array</code></td><td>Endpoints for the cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="network_type" /></td><td><code>string</code></td><td>Cluster supports IPv4 endpoints and Dual-stack IPv4 and IPv6 endpoints. NetworkType can be IPV4 or DUALSTACK.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of a Cluster. You can use any non-white space character in the name"
+  },
+  {
+    "name": "cluster_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the cluster."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Deployment status of a resource. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+  },
+  {
+    "name": "cluster_endpoints",
+    "type": "array",
+    "description": "Endpoints for the cluster.",
+    "children": [
+      {
+        "name": "endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "network_type",
+    "type": "string",
+    "description": "Cluster supports IPv4 endpoints and Dual-stack IPv4 and IPv6 endpoints. NetworkType can be IPV4 or DUALSTACK."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoverycontrol-cluster.html"><code>AWS::Route53RecoveryControl::Cluster</code></a>.
 
@@ -85,19 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-name,
-cluster_arn,
-status,
-cluster_endpoints,
-tags,
-network_type
-FROM awscc.route53recoverycontrol.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

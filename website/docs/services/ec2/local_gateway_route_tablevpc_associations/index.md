@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>local_gateway_route_tablevpc_association</code> resource or lists <code>local_gateway_route_tablevpc_associations</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>local_gateway_route_tablevpc_associati
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="local_gateway_id" /></td><td><code>string</code></td><td>The ID of the local gateway.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_vpc_association_id" /></td><td><code>string</code></td><td>The ID of the association.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the association.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "local_gateway_id",
+    "type": "string",
+    "description": "The ID of the local gateway."
+  },
+  {
+    "name": "local_gateway_route_table_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table."
+  },
+  {
+    "name": "local_gateway_route_table_vpc_association_id",
+    "type": "string",
+    "description": "The ID of the association."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the association."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the association.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-localgatewayroutetablevpcassociation.html"><code>AWS::EC2::LocalGatewayRouteTableVPCAssociation</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>local_gateway_route_tablevpc_associations</code> in a region.
-```sql
-SELECT
-region,
-local_gateway_id,
-local_gateway_route_table_id,
-local_gateway_route_table_vpc_association_id,
-state,
-vpc_id,
-tags
-FROM awscc.ec2.local_gateway_route_tablevpc_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>local_gateway_route_tablevpc_association</code>.
 ```sql
 SELECT

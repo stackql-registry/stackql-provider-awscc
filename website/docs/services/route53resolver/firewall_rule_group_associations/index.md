@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>firewall_rule_group_association</code> resource or lists <code>firewall_rule_group_associations</code> in a region
 
@@ -32,26 +33,95 @@ Creates, updates, deletes or gets a <code>firewall_rule_group_association</code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn</td></tr>
-<tr><td><CopyableCode code="firewall_rule_group_id" /></td><td><code>string</code></td><td>FirewallRuleGroupId</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>VpcId</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>FirewallRuleGroupAssociationName</td></tr>
-<tr><td><CopyableCode code="priority" /></td><td><code>integer</code></td><td>Priority</td></tr>
-<tr><td><CopyableCode code="mutation_protection" /></td><td><code>string</code></td><td>MutationProtectionStatus</td></tr>
-<tr><td><CopyableCode code="managed_owner_name" /></td><td><code>string</code></td><td>ServicePrincipal</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>ResolverFirewallRuleGroupAssociation, possible values are COMPLETE, DELETING, UPDATING, and INACTIVE_OWNER_ACCOUNT_CLOSED.</td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>FirewallDomainListAssociationStatus</td></tr>
-<tr><td><CopyableCode code="creator_request_id" /></td><td><code>string</code></td><td>The id of the creator request.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="modification_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn"
+  },
+  {
+    "name": "firewall_rule_group_id",
+    "type": "string",
+    "description": "FirewallRuleGroupId"
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "VpcId"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "FirewallRuleGroupAssociationName"
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": "Priority"
+  },
+  {
+    "name": "mutation_protection",
+    "type": "string",
+    "description": "MutationProtectionStatus"
+  },
+  {
+    "name": "managed_owner_name",
+    "type": "string",
+    "description": "ServicePrincipal"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "ResolverFirewallRuleGroupAssociation, possible values are COMPLETE, DELETING, UPDATING, and INACTIVE&#95;OWNER&#95;ACCOUNT&#95;CLOSED."
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": "FirewallDomainListAssociationStatus"
+  },
+  {
+    "name": "creator_request_id",
+    "type": "string",
+    "description": "The id of the creator request."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "modification_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-firewallrulegroupassociation.html"><code>AWS::Route53Resolver::FirewallRuleGroupAssociation</code></a>.
 
@@ -93,27 +163,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>firewall_rule_group_associations</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-firewall_rule_group_id,
-vpc_id,
-name,
-priority,
-mutation_protection,
-managed_owner_name,
-status,
-status_message,
-creator_request_id,
-creation_time,
-modification_time,
-tags
-FROM awscc.route53resolver.firewall_rule_group_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>firewall_rule_group_association</code>.
 ```sql
 SELECT

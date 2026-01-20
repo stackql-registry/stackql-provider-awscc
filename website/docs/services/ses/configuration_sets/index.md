@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration_set</code> resource or lists <code>configuration_sets</code> in a region
 
@@ -32,20 +33,141 @@ Creates, updates, deletes or gets a <code>configuration_set</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the configuration set.</td></tr>
-<tr><td><CopyableCode code="tracking_options" /></td><td><code>object</code></td><td>An object that defines the open and click tracking options for emails that you send using the configuration set.</td></tr>
-<tr><td><CopyableCode code="delivery_options" /></td><td><code>object</code></td><td>An object that defines the dedicated IP pool that is used to send emails that you send using the configuration set.</td></tr>
-<tr><td><CopyableCode code="reputation_options" /></td><td><code>object</code></td><td>An object that defines whether or not Amazon SES collects reputation metrics for the emails that you send that use the configuration set.</td></tr>
-<tr><td><CopyableCode code="sending_options" /></td><td><code>object</code></td><td>An object that defines whether or not Amazon SES can send email that you send using the configuration set.</td></tr>
-<tr><td><CopyableCode code="suppression_options" /></td><td><code>object</code></td><td>An object that contains information about the suppression list preferences for your account.</td></tr>
-<tr><td><CopyableCode code="vdm_options" /></td><td><code>object</code></td><td>An object that contains Virtual Deliverability Manager (VDM) settings for this configuration set.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the contact list.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the configuration set."
+  },
+  {
+    "name": "tracking_options",
+    "type": "object",
+    "description": "An object that defines the open and click tracking options for emails that you send using the configuration set.",
+    "children": [
+      {
+        "name": "custom_redirect_domain",
+        "type": "string",
+        "description": "The domain to use for tracking open and click events."
+      },
+      {
+        "name": "https_policy",
+        "type": "string",
+        "description": "The https policy to use for tracking open and click events."
+      }
+    ]
+  },
+  {
+    "name": "delivery_options",
+    "type": "object",
+    "description": "An object that defines the dedicated IP pool that is used to send emails that you send using the configuration set.",
+    "children": [
+      {
+        "name": "tls_policy",
+        "type": "string",
+        "description": "Specifies whether messages that use the configuration set are required to use Transport Layer Security (TLS). If the value is Require , messages are only delivered if a TLS connection can be established. If the value is Optional , messages can be delivered in plain text if a TLS connection can't be established."
+      },
+      {
+        "name": "sending_pool_name",
+        "type": "string",
+        "description": "The name of the dedicated IP pool to associate with the configuration set."
+      },
+      {
+        "name": "max_delivery_seconds",
+        "type": "number",
+        "description": "Specifies the maximum time until which SES will retry sending emails"
+      }
+    ]
+  },
+  {
+    "name": "reputation_options",
+    "type": "object",
+    "description": "An object that defines whether or not Amazon SES collects reputation metrics for the emails that you send that use the configuration set.",
+    "children": [
+      {
+        "name": "reputation_metrics_enabled",
+        "type": "boolean",
+        "description": "If true , tracking of reputation metrics is enabled for the configuration set. If false , tracking of reputation metrics is disabled for the configuration set."
+      }
+    ]
+  },
+  {
+    "name": "sending_options",
+    "type": "object",
+    "description": "An object that defines whether or not Amazon SES can send email that you send using the configuration set.",
+    "children": [
+      {
+        "name": "sending_enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "suppression_options",
+    "type": "object",
+    "description": "An object that contains information about the suppression list preferences for your account.",
+    "children": [
+      {
+        "name": "suppressed_reasons",
+        "type": "array",
+        "description": "A list that contains the reasons that email addresses are automatically added to the suppression list for your account."
+      }
+    ]
+  },
+  {
+    "name": "vdm_options",
+    "type": "object",
+    "description": "An object that contains Virtual Deliverability Manager (VDM) settings for this configuration set.",
+    "children": [
+      {
+        "name": "dashboard_options",
+        "type": "object",
+        "description": "Preferences regarding the Dashboard feature.",
+        "children": [
+          {
+            "name": "engagement_metrics",
+            "type": "string",
+            "description": "Whether emails sent with this configuration set have engagement tracking enabled."
+          }
+        ]
+      },
+      {
+        "name": "guardian_options",
+        "type": "object",
+        "description": "Preferences regarding the Guardian feature.",
+        "children": [
+          {
+            "name": "optimized_shared_delivery",
+            "type": "string",
+            "description": "Whether emails sent with this configuration set have optimized delivery algorithm enabled."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the contact list.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-configurationset.html"><code>AWS::SES::ConfigurationSet</code></a>.
 
@@ -87,21 +209,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configuration_sets</code> in a region.
-```sql
-SELECT
-region,
-name,
-tracking_options,
-delivery_options,
-reputation_options,
-sending_options,
-suppression_options,
-vdm_options,
-tags
-FROM awscc.ses.configuration_sets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration_set</code>.
 ```sql
 SELECT

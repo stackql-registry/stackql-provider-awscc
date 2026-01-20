@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dedicated_ip_pool</code> resource or lists <code>dedicated_ip_pools</code> in a region
 
@@ -32,15 +33,40 @@ Creates, updates, deletes or gets a <code>dedicated_ip_pool</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="pool_name" /></td><td><code>string</code></td><td>The name of the dedicated IP pool.</td></tr>
-<tr><td><CopyableCode code="scaling_mode" /></td><td><code>string</code></td><td>Specifies whether the dedicated IP pool is managed or not. The default value is STANDARD.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the dedicated IP pool.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "pool_name",
+    "type": "string",
+    "description": "The name of the dedicated IP pool."
+  },
+  {
+    "name": "scaling_mode",
+    "type": "string",
+    "description": "Specifies whether the dedicated IP pool is managed or not. The default value is STANDARD."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the dedicated IP pool.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-dedicatedippool.html"><code>AWS::SES::DedicatedIpPool</code></a>.
 
@@ -82,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dedicated_ip_pools</code> in a region.
-```sql
-SELECT
-region,
-pool_name,
-scaling_mode,
-tags
-FROM awscc.ses.dedicated_ip_pools
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dedicated_ip_pool</code>.
 ```sql
 SELECT

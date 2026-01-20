@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ipam_resource_discovery</code> resource or lists <code>ipam_resource_discoveries</code> in a region
 
@@ -32,22 +33,89 @@ Creates, updates, deletes or gets an <code>ipam_resource_discovery</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ipam_resource_discovery_id" /></td><td><code>string</code></td><td>Id of the IPAM Pool.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>Owner Account ID of the Resource Discovery</td></tr>
-<tr><td><CopyableCode code="operating_regions" /></td><td><code>array</code></td><td>The regions Resource Discovery is enabled for. Allows resource discoveries to be created in these regions, as well as enabling monitoring</td></tr>
-<tr><td><CopyableCode code="ipam_resource_discovery_region" /></td><td><code>string</code></td><td>The region the resource discovery is setup in.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="organizational_unit_exclusions" /></td><td><code>array</code></td><td>A set of organizational unit (OU) exclusions for this resource.</td></tr>
-<tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td>Determines whether or not address space from this pool is publicly advertised. Must be set if and only if the pool is IPv6.</td></tr>
-<tr><td><CopyableCode code="ipam_resource_discovery_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (Arn) for the Resource Discovery.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of this Resource Discovery.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ipam_resource_discovery_id",
+    "type": "string",
+    "description": "Id of the IPAM Pool."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "Owner Account ID of the Resource Discovery"
+  },
+  {
+    "name": "operating_regions",
+    "type": "array",
+    "description": "The regions Resource Discovery is enabled for. Allows resource discoveries to be created in these regions, as well as enabling monitoring",
+    "children": [
+      {
+        "name": "region_name",
+        "type": "string",
+        "description": "The name of the region."
+      }
+    ]
+  },
+  {
+    "name": "ipam_resource_discovery_region",
+    "type": "string",
+    "description": "The region the resource discovery is setup in."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "organizational_unit_exclusions",
+    "type": "array",
+    "description": "A set of organizational unit (OU) exclusions for this resource.",
+    "children": [
+      {
+        "name": "organizations_entity_path",
+        "type": "string",
+        "description": "An AWS Organizations entity path. Build the path for the OU(s) using AWS Organizations IDs separated by a '/'. Include all child OUs by ending the path with '/&#42;'."
+      }
+    ]
+  },
+  {
+    "name": "is_default",
+    "type": "boolean",
+    "description": "Determines whether or not address space from this pool is publicly advertised. Must be set if and only if the pool is IPv6."
+  },
+  {
+    "name": "ipam_resource_discovery_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (Arn) for the Resource Discovery."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of this Resource Discovery."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipamresourcediscovery.html"><code>AWS::EC2::IPAMResourceDiscovery</code></a>.
 
@@ -89,23 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ipam_resource_discoveries</code> in a region.
-```sql
-SELECT
-region,
-ipam_resource_discovery_id,
-owner_id,
-operating_regions,
-ipam_resource_discovery_region,
-description,
-organizational_unit_exclusions,
-is_default,
-ipam_resource_discovery_arn,
-state,
-tags
-FROM awscc.ec2.ipam_resource_discoveries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ipam_resource_discovery</code>.
 ```sql
 SELECT

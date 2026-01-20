@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>delegated_admin</code> resource or lists <code>delegated_admins</code> in a region
 
@@ -26,21 +27,34 @@ Creates, updates, deletes or gets a <code>delegated_admin</code> resource or lis
 <tbody>
 <tr><td><b>Name</b></td><td><code>delegated_admins</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::SecurityHub::DelegatedAdmin</code> resource designates the delegated ASHlong administrator account for an organization. You must enable the integration between ASH and AOlong before you can designate a delegated ASH administrator. Only the management account for an organization can designate the delegated ASH administrator account. For more information, see &#91;Designating the delegated administrator&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/designate-orgs-admin-account.html#designate-admin-instructions) in the ASTERIX;User GuideASTERIX;.<br />To change the delegated administrator account, remove the current delegated administrator account, and then designate the new account.<br />To designate multiple delegated administrators in different organizations and AWS-Regions, we recommend using &#91;mappings&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html).<br />Tags aren't supported for this resource.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SecurityHub::DelegatedAdmin&#96;&#96; resource designates the delegated ASHlong administrator account for an organization. You must enable the integration between ASH and AOlong before you can designate a delegated ASH administrator. Only the management account for an organization can designate the delegated ASH administrator account. For more information, see &#91;Designating the delegated administrator&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/designate-orgs-admin-account.html#designate-admin-instructions) in the &#42;User Guide&#42;.<br />To change the delegated administrator account, remove the current delegated administrator account, and then designate the new account.<br />To designate multiple delegated administrators in different organizations and AWS-Regions, we recommend using &#91;mappings&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html).<br />Tags aren't supported for this resource.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.securityhub.delegated_admins" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="delegated_admin_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="admin_account_id" /></td><td><code>string</code></td><td>The AWS-account identifier of the account to designate as the Security Hub administrator account.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "delegated_admin_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "admin_account_id",
+    "type": "string",
+    "description": "The AWS-account identifier of the account to designate as the Security Hub administrator account."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-delegatedadmin.html"><code>AWS::SecurityHub::DelegatedAdmin</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>delegated_admins</code> in a region.
-```sql
-SELECT
-region,
-delegated_admin_identifier,
-admin_account_id,
-status
-FROM awscc.securityhub.delegated_admins
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>delegated_admin</code>.
 ```sql
 SELECT

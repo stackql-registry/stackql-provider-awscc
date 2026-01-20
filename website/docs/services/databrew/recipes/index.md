@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>recipe</code> resource or lists <code>recipes</code> in a region
 
@@ -32,16 +33,86 @@ Creates, updates, deletes or gets a <code>recipe</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the recipe</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Recipe name</td></tr>
-<tr><td><CopyableCode code="steps" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the recipe"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Recipe name"
+  },
+  {
+    "name": "steps",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "action",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "operation",
+            "type": "string",
+            "description": "Step action operation"
+          },
+          {
+            "name": "parameters",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "condition_expressions",
+        "type": "array",
+        "description": "Condition expressions applied to the step action",
+        "children": [
+          {
+            "name": "condition",
+            "type": "string",
+            "description": "Input condition to be applied to the target column"
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Value of the condition"
+          },
+          {
+            "name": "target_column",
+            "type": "string",
+            "description": "Name of the target column"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-recipe.html"><code>AWS::DataBrew::Recipe</code></a>.
 
@@ -83,17 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>recipes</code> in a region.
-```sql
-SELECT
-region,
-description,
-name,
-steps,
-tags
-FROM awscc.databrew.recipes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>recipe</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_plugin</code> resource or lists <code>custom_plugins</code> in a region
 
@@ -32,20 +33,101 @@ Creates, updates, deletes or gets a <code>custom_plugin</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the custom plugin.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A summary description of the custom plugin.</td></tr>
-<tr><td><CopyableCode code="custom_plugin_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the custom plugin to use.</td></tr>
-<tr><td><CopyableCode code="content_type" /></td><td><code>string</code></td><td>The type of the plugin file.</td></tr>
-<tr><td><CopyableCode code="file_description" /></td><td><code>object</code></td><td>Details about the custom plugin file.</td></tr>
-<tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>Information about the location of a custom plugin.</td></tr>
-<tr><td><CopyableCode code="revision" /></td><td><code>integer</code></td><td>The revision of the custom plugin.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the custom plugin."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A summary description of the custom plugin."
+  },
+  {
+    "name": "custom_plugin_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the custom plugin to use."
+  },
+  {
+    "name": "content_type",
+    "type": "string",
+    "description": "The type of the plugin file."
+  },
+  {
+    "name": "file_description",
+    "type": "object",
+    "description": "Details about the custom plugin file.",
+    "children": [
+      {
+        "name": "file_md5",
+        "type": "string",
+        "description": "The hex-encoded MD5 checksum of the custom plugin file. You can use it to validate the file."
+      },
+      {
+        "name": "file_size",
+        "type": "integer",
+        "description": "The size in bytes of the custom plugin file. You can use it to validate the file."
+      }
+    ]
+  },
+  {
+    "name": "location",
+    "type": "object",
+    "description": "Information about the location of a custom plugin.",
+    "children": [
+      {
+        "name": "s3_location",
+        "type": "object",
+        "description": "The S3 bucket Amazon Resource Name (ARN), file key, and object version of the plugin file stored in Amazon S3.",
+        "children": [
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of an S3 bucket."
+          },
+          {
+            "name": "file_key",
+            "type": "string",
+            "description": "The file key for an object in an S3 bucket."
+          },
+          {
+            "name": "object_version",
+            "type": "string",
+            "description": "The version of an object in an S3 bucket."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "revision",
+    "type": "integer",
+    "description": "The revision of the custom plugin."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kafkaconnect-customplugin.html"><code>AWS::KafkaConnect::CustomPlugin</code></a>.
 
@@ -87,21 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_plugins</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-custom_plugin_arn,
-content_type,
-file_description,
-location,
-revision,
-tags
-FROM awscc.kafkaconnect.custom_plugins
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_plugin</code>.
 ```sql
 SELECT

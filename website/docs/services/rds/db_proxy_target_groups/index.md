@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>db_proxy_target_group</code> resource or lists <code>db_proxy_target_groups</code> in a region
 
@@ -32,18 +33,70 @@ Creates, updates, deletes or gets a <code>db_proxy_target_group</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_proxy_name" /></td><td><code>string</code></td><td>The identifier for the proxy.</td></tr>
-<tr><td><CopyableCode code="target_group_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) representing the target group.</td></tr>
-<tr><td><CopyableCode code="target_group_name" /></td><td><code>string</code></td><td>The identifier for the DBProxyTargetGroup</td></tr>
-<tr><td><CopyableCode code="connection_pool_configuration_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="db_instance_identifiers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="db_cluster_identifiers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "db_proxy_name",
+    "type": "string",
+    "description": "The identifier for the proxy."
+  },
+  {
+    "name": "target_group_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) representing the target group."
+  },
+  {
+    "name": "target_group_name",
+    "type": "string",
+    "description": "The identifier for the DBProxyTargetGroup"
+  },
+  {
+    "name": "connection_pool_configuration_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "max_connections_percent",
+        "type": "integer",
+        "description": "The maximum size of the connection pool for each target in a target group."
+      },
+      {
+        "name": "max_idle_connections_percent",
+        "type": "integer",
+        "description": "Controls how actively the proxy closes idle database connections in the connection pool."
+      },
+      {
+        "name": "connection_borrow_timeout",
+        "type": "integer",
+        "description": "The number of seconds for a proxy to wait for a connection to become available in the connection pool."
+      },
+      {
+        "name": "session_pinning_filters",
+        "type": "array",
+        "description": "Each item in the list represents a class of SQL operations that normally cause all later statements in a session using a proxy to be pinned to the same underlying database connection."
+      },
+      {
+        "name": "init_query",
+        "type": "string",
+        "description": "One or more SQL statements for the proxy to run when opening each new database connection."
+      }
+    ]
+  },
+  {
+    "name": "db_instance_identifiers",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "db_cluster_identifiers",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbproxytargetgroup.html"><code>AWS::RDS::DBProxyTargetGroup</code></a>.
 
@@ -85,19 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>db_proxy_target_groups</code> in a region.
-```sql
-SELECT
-region,
-db_proxy_name,
-target_group_arn,
-target_group_name,
-connection_pool_configuration_info,
-db_instance_identifiers,
-db_cluster_identifiers
-FROM awscc.rds.db_proxy_target_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>db_proxy_target_group</code>.
 ```sql
 SELECT

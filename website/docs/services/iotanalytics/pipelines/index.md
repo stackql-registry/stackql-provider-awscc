@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <code>pipelines</code> in a region
 
@@ -32,16 +33,292 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pipeline_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="pipeline_activities" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pipeline_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "pipeline_activities",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "select_attributes",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attributes",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "datastore",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "datastore_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "filter",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "filter",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "add_attributes",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attributes",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "channel",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "channel_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "device_shadow_enrich",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "thing_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "math",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "math",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "lambda",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "batch_size",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "lambda_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "device_registry_enrich",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "thing_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "remove_attributes",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "next",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attributes",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-pipeline.html"><code>AWS::IoTAnalytics::Pipeline</code></a>.
 
@@ -83,17 +360,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pipelines</code> in a region.
-```sql
-SELECT
-region,
-id,
-pipeline_name,
-tags,
-pipeline_activities
-FROM awscc.iotanalytics.pipelines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT

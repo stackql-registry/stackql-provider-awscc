@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>analyzer</code> resource or lists <code>analyzers</code> in a region
 
@@ -32,18 +33,139 @@ Creates, updates, deletes or gets an <code>analyzer</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="analyzer_name" /></td><td><code>string</code></td><td>Analyzer name</td></tr>
-<tr><td><CopyableCode code="archive_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the analyzer</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the analyzer, must be one of ACCOUNT, ORGANIZATION, ACCOUNT_INTERNAL_ACCESS, ORGANIZATION_INTERNAL_ACCESS, ACCOUNT_UNUSED_ACCESS and ORGANIZATION_UNUSED_ACCESS</td></tr>
-<tr><td><CopyableCode code="analyzer_configuration" /></td><td><code>object</code></td><td>The configuration for the analyzer</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "analyzer_name",
+    "type": "string",
+    "description": "Analyzer name"
+  },
+  {
+    "name": "archive_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "filter",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "contains",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "eq",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "exists",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "property",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "neq",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "rule_name",
+        "type": "string",
+        "description": "The archive rule name"
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the analyzer"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the analyzer, must be one of ACCOUNT, ORGANIZATION, ACCOUNT&#95;INTERNAL&#95;ACCESS, ORGANIZATION&#95;INTERNAL&#95;ACCESS, ACCOUNT&#95;UNUSED&#95;ACCESS and ORGANIZATION&#95;UNUSED&#95;ACCESS"
+  },
+  {
+    "name": "analyzer_configuration",
+    "type": "object",
+    "description": "The configuration for the analyzer",
+    "children": [
+      {
+        "name": "unused_access_configuration",
+        "type": "object",
+        "description": "The Configuration for Unused Access Analyzer",
+        "children": [
+          {
+            "name": "unused_access_age",
+            "type": "integer",
+            "description": "The specified access age in days for which to generate findings for unused access. For example, if you specify 90 days, the analyzer will generate findings for IAM entities within the accounts of the selected organization for any access that hasn't been used in 90 or more days since the analyzer's last scan. You can choose a value between 1 and 365 days."
+          },
+          {
+            "name": "analysis_rule",
+            "type": "object",
+            "description": "Contains information about rules for the analyzer.",
+            "children": [
+              {
+                "name": "exclusions",
+                "type": "array",
+                "description": "A list of rules for the analyzer containing criteria to exclude from analysis. Entities that meet the rule criteria will not generate findings."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "internal_access_configuration",
+        "type": "object",
+        "description": "Specifies the configuration of an internal access analyzer for an AWS organization or account. This configuration determines how the analyzer evaluates internal access within your AWS environment.",
+        "children": [
+          {
+            "name": "internal_access_analysis_rule",
+            "type": "object",
+            "description": "Contains information about analysis rules for the internal access analyzer. Analysis rules determine which entities will generate findings based on the criteria you define when you create the rule.",
+            "children": [
+              {
+                "name": "inclusions",
+                "type": "array",
+                "description": "A list of rules for the internal access analyzer containing criteria to include in analysis. Only resources that meet the rule criteria will generate findings."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-accessanalyzer-analyzer.html"><code>AWS::AccessAnalyzer::Analyzer</code></a>.
 
@@ -85,19 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>analyzers</code> in a region.
-```sql
-SELECT
-region,
-analyzer_name,
-archive_rules,
-arn,
-tags,
-type,
-analyzer_configuration
-FROM awscc.accessanalyzer.analyzers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>analyzer</code>.
 ```sql
 SELECT

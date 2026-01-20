@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>findings_filter</code> resource or lists <code>findings_filters</code> in a region
 
@@ -32,20 +33,72 @@ Creates, updates, deletes or gets a <code>findings_filter</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Findings filter name</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Findings filter description</td></tr>
-<tr><td><CopyableCode code="finding_criteria" /></td><td><code>object</code></td><td>Findings filter criteria.</td></tr>
-<tr><td><CopyableCode code="action" /></td><td><code>string</code></td><td>Findings filter action.</td></tr>
-<tr><td><CopyableCode code="position" /></td><td><code>integer</code></td><td>Findings filter position.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Findings filter ID.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Findings filter ARN.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Findings filter name"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Findings filter description"
+  },
+  {
+    "name": "finding_criteria",
+    "type": "object",
+    "description": "Findings filter criteria.",
+    "children": [
+      {
+        "name": "criterion",
+        "type": "object",
+        "description": "Map of filter criteria."
+      }
+    ]
+  },
+  {
+    "name": "action",
+    "type": "string",
+    "description": "Findings filter action."
+  },
+  {
+    "name": "position",
+    "type": "integer",
+    "description": "Findings filter position."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Findings filter ID."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Findings filter ARN."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag's key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag's value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-findingsfilter.html"><code>AWS::Macie::FindingsFilter</code></a>.
 
@@ -87,21 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>findings_filters</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-finding_criteria,
-action,
-position,
-id,
-arn,
-tags
-FROM awscc.macie.findings_filters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>findings_filter</code>.
 ```sql
 SELECT

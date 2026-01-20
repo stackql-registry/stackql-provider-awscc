@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>integration</code> resource or lists <code>integrations</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="integration_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the integration.</td></tr>
-<tr><td><CopyableCode code="integration_name" /></td><td><code>string</code></td><td>The name of the integration.</td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the database to use as the source for replication</td></tr>
-<tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Redshift data warehouse to use as the target for replication</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td>The time (UTC) when the integration was created.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>An KMS key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, the default AWS owned KMS key is used.</td></tr>
-<tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td>An optional set of non-secret key–value pairs that contains additional contextual information about the data.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "integration_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the integration."
+  },
+  {
+    "name": "integration_name",
+    "type": "string",
+    "description": "The name of the integration."
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the database to use as the source for replication"
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Redshift data warehouse to use as the target for replication"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": "The time (UTC) when the integration was created."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "An KMS key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, the default AWS owned KMS key is used."
+  },
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": "An optional set of non-secret key–value pairs that contains additional contextual information about the data."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-integration.html"><code>AWS::Redshift::Integration</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>integrations</code> in a region.
-```sql
-SELECT
-region,
-integration_arn,
-integration_name,
-source_arn,
-target_arn,
-tags,
-create_time,
-kms_key_id,
-additional_encryption_context
-FROM awscc.redshift.integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT

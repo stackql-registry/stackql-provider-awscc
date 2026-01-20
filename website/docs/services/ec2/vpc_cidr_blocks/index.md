@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_cidr_block</code> resource or lists <code>vpc_cidr_blocks</code> in a region
 
@@ -32,25 +33,78 @@ Creates, updates, deletes or gets a <code>vpc_cidr_block</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cidr_block" /></td><td><code>string</code></td><td>An IPv4 CIDR block to associate with the VPC.</td></tr>
-<tr><td><CopyableCode code="ipv6_pool" /></td><td><code>string</code></td><td>The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The Id of the VPC associated CIDR Block.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC.</td></tr>
-<tr><td><CopyableCode code="ipv6_cidr_block" /></td><td><code>string</code></td><td>An IPv6 CIDR block from the IPv6 address pool.</td></tr>
-<tr><td><CopyableCode code="ipv4_ipam_pool_id" /></td><td><code>string</code></td><td>The ID of the IPv4 IPAM pool to Associate a CIDR from to a VPC.</td></tr>
-<tr><td><CopyableCode code="ipv4_netmask_length" /></td><td><code>integer</code></td><td>The netmask length of the IPv4 CIDR you would like to associate from an Amazon VPC IP Address Manager (IPAM) pool.</td></tr>
-<tr><td><CopyableCode code="ipv6_ipam_pool_id" /></td><td><code>string</code></td><td>The ID of the IPv6 IPAM pool to Associate a CIDR from to a VPC.</td></tr>
-<tr><td><CopyableCode code="ipv6_netmask_length" /></td><td><code>integer</code></td><td>The netmask length of the IPv6 CIDR you would like to associate from an Amazon VPC IP Address Manager (IPAM) pool.</td></tr>
-<tr><td><CopyableCode code="amazon_provided_ipv6_cidr_block" /></td><td><code>boolean</code></td><td>Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IPv6 addresses, or the size of the CIDR block.</td></tr>
-<tr><td><CopyableCode code="ipv6_address_attribute" /></td><td><code>string</code></td><td>The value denoting whether an IPv6 VPC CIDR Block is public or private.</td></tr>
-<tr><td><CopyableCode code="ip_source" /></td><td><code>string</code></td><td>The IP Source of an IPv6 VPC CIDR Block.</td></tr>
-<tr><td><CopyableCode code="ipv6_cidr_block_network_border_group" /></td><td><code>string</code></td><td>The name of the location from which we advertise the IPV6 CIDR block.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cidr_block",
+    "type": "string",
+    "description": "An IPv4 CIDR block to associate with the VPC."
+  },
+  {
+    "name": "ipv6_pool",
+    "type": "string",
+    "description": "The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The Id of the VPC associated CIDR Block."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC."
+  },
+  {
+    "name": "ipv6_cidr_block",
+    "type": "string",
+    "description": "An IPv6 CIDR block from the IPv6 address pool."
+  },
+  {
+    "name": "ipv4_ipam_pool_id",
+    "type": "string",
+    "description": "The ID of the IPv4 IPAM pool to Associate a CIDR from to a VPC."
+  },
+  {
+    "name": "ipv4_netmask_length",
+    "type": "integer",
+    "description": "The netmask length of the IPv4 CIDR you would like to associate from an Amazon VPC IP Address Manager (IPAM) pool."
+  },
+  {
+    "name": "ipv6_ipam_pool_id",
+    "type": "string",
+    "description": "The ID of the IPv6 IPAM pool to Associate a CIDR from to a VPC."
+  },
+  {
+    "name": "ipv6_netmask_length",
+    "type": "integer",
+    "description": "The netmask length of the IPv6 CIDR you would like to associate from an Amazon VPC IP Address Manager (IPAM) pool."
+  },
+  {
+    "name": "amazon_provided_ipv6_cidr_block",
+    "type": "boolean",
+    "description": "Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IPv6 addresses, or the size of the CIDR block."
+  },
+  {
+    "name": "ipv6_address_attribute",
+    "type": "string",
+    "description": "The value denoting whether an IPv6 VPC CIDR Block is public or private."
+  },
+  {
+    "name": "ip_source",
+    "type": "string",
+    "description": "The IP Source of an IPv6 VPC CIDR Block."
+  },
+  {
+    "name": "ipv6_cidr_block_network_border_group",
+    "type": "string",
+    "description": "The name of the location from which we advertise the IPV6 CIDR block."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html"><code>AWS::EC2::VPCCidrBlock</code></a>.
 
@@ -87,26 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_cidr_blocks</code> in a region.
-```sql
-SELECT
-region,
-cidr_block,
-ipv6_pool,
-id,
-vpc_id,
-ipv6_cidr_block,
-ipv4_ipam_pool_id,
-ipv4_netmask_length,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-amazon_provided_ipv6_cidr_block,
-ipv6_address_attribute,
-ip_source,
-ipv6_cidr_block_network_border_group
-FROM awscc.ec2.vpc_cidr_blocks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_cidr_block</code>.
 ```sql
 SELECT

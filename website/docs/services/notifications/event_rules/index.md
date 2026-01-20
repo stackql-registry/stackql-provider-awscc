@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_rule</code> resource or lists <code>event_rules</code> in a region
 
@@ -32,21 +33,58 @@ Creates, updates, deletes or gets an <code>event_rule</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_pattern" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="managed_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="notification_configuration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="regions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_summary_by_region" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_pattern",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "managed_rules",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "notification_configuration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "regions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "source",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_summary_by_region",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-eventrule.html"><code>AWS::Notifications::EventRule</code></a>.
 
@@ -88,22 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_rules</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_time,
-event_pattern,
-event_type,
-managed_rules,
-notification_configuration_arn,
-regions,
-source,
-status_summary_by_region
-FROM awscc.notifications.event_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_rule</code>.
 ```sql
 SELECT

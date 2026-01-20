@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>state_template</code> resource or lists <code>state_templates</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>state_template</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modification_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="signal_catalog_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_template_properties" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_extra_dimensions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="metadata_extra_dimensions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modification_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "signal_catalog_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_template_properties",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "data_extra_dimensions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "metadata_extra_dimensions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-statetemplate.html"><code>AWS::IoTFleetWise::StateTemplate</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>state_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-name,
-id,
-signal_catalog_arn,
-state_template_properties,
-data_extra_dimensions,
-metadata_extra_dimensions,
-tags
-FROM awscc.iotfleetwise.state_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>state_template</code>.
 ```sql
 SELECT

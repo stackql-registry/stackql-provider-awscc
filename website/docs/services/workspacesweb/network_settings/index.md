@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_setting</code> resource or lists <code>network_settings</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>network_setting</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "network_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-networksetting.html"><code>AWS::WorkSpacesWeb::NetworkSettings</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_settings</code> in a region.
-```sql
-SELECT
-region,
-associated_portal_arns,
-network_settings_arn,
-security_group_ids,
-subnet_ids,
-tags,
-vpc_id
-FROM awscc.workspacesweb.network_settings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_setting</code>.
 ```sql
 SELECT

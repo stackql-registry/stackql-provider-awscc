@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_rule</code> resource or lists <code>resolver_rules</code> in a region
 
@@ -32,21 +33,97 @@ Creates, updates, deletes or gets a <code>resolver_rule</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resolver_endpoint_id" /></td><td><code>string</code></td><td>The ID of the endpoint that the rule is associated with.</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>DNS queries for this domain name are forwarded to the IP addresses that are specified in TargetIps</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the Resolver rule</td></tr>
-<tr><td><CopyableCode code="rule_type" /></td><td><code>string</code></td><td>When you want to forward DNS queries for specified domain name to resolvers on your network, specify FORWARD. When you have a forwarding rule to forward DNS queries for a domain to your network and you want Resolver to process queries for a subdomain of that domain, specify SYSTEM.</td></tr>
-<tr><td><CopyableCode code="delegation_record" /></td><td><code>string</code></td><td>The name server domain for queries to be delegated to if a query matches the delegation record.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="target_ips" /></td><td><code>array</code></td><td>An array that contains the IP addresses and ports that an outbound endpoint forwards DNS queries to. Typically, these are the IP addresses of DNS resolvers on your network. Specify IPv4 addresses. IPv6 is not supported.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the resolver rule.</td></tr>
-<tr><td><CopyableCode code="resolver_rule_id" /></td><td><code>string</code></td><td>The ID of the endpoint that the rule is associated with.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resolver_endpoint_id",
+    "type": "string",
+    "description": "The ID of the endpoint that the rule is associated with."
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "DNS queries for this domain name are forwarded to the IP addresses that are specified in TargetIps"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the Resolver rule"
+  },
+  {
+    "name": "rule_type",
+    "type": "string",
+    "description": "When you want to forward DNS queries for specified domain name to resolvers on your network, specify FORWARD. When you have a forwarding rule to forward DNS queries for a domain to your network and you want Resolver to process queries for a subdomain of that domain, specify SYSTEM."
+  },
+  {
+    "name": "delegation_record",
+    "type": "string",
+    "description": "The name server domain for queries to be delegated to if a query matches the delegation record."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "target_ips",
+    "type": "array",
+    "description": "An array that contains the IP addresses and ports that an outbound endpoint forwards DNS queries to. Typically, these are the IP addresses of DNS resolvers on your network. Specify IPv4 addresses. IPv6 is not supported.",
+    "children": [
+      {
+        "name": "ip",
+        "type": "string",
+        "description": "One IP address that you want to forward DNS queries to. You can specify only IPv4 addresses."
+      },
+      {
+        "name": "ipv6",
+        "type": "string",
+        "description": "One IPv6 address that you want to forward DNS queries to. You can specify only IPv6 addresses."
+      },
+      {
+        "name": "port",
+        "type": "string",
+        "description": "The port at Ip that you want to forward DNS queries to."
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The protocol that you want to use to forward DNS queries."
+      },
+      {
+        "name": "server_name_indication",
+        "type": "string",
+        "description": "The SNI of the target name servers for DoH/DoH-FIPS outbound endpoints"
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the resolver rule."
+  },
+  {
+    "name": "resolver_rule_id",
+    "type": "string",
+    "description": "The ID of the endpoint that the rule is associated with."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverrule.html"><code>AWS::Route53Resolver::ResolverRule</code></a>.
 
@@ -88,22 +165,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_rules</code> in a region.
-```sql
-SELECT
-region,
-resolver_endpoint_id,
-domain_name,
-name,
-rule_type,
-delegation_record,
-tags,
-target_ips,
-arn,
-resolver_rule_id
-FROM awscc.route53resolver.resolver_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_rule</code>.
 ```sql
 SELECT

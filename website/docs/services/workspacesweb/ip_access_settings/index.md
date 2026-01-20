@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ip_access_setting</code> resource or lists <code>ip_access_settings</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets an <code>ip_access_setting</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_key" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_access_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_managed_key",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_access_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "ip_range",
+        "type": "string",
+        "description": "A single IP address or an IP address range in CIDR notation"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-ipaccesssetting.html"><code>AWS::WorkSpacesWeb::IpAccessSettings</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ip_access_settings</code> in a region.
-```sql
-SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-description,
-display_name,
-ip_access_settings_arn,
-ip_rules,
-tags
-FROM awscc.workspacesweb.ip_access_settings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ip_access_setting</code>.
 ```sql
 SELECT

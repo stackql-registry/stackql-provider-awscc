@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>prefix_list</code> resource or lists <code>prefix_lists</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>prefix_list</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="prefix_list_name" /></td><td><code>string</code></td><td>Name of Prefix List.</td></tr>
-<tr><td><CopyableCode code="prefix_list_id" /></td><td><code>string</code></td><td>Id of Prefix List.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>Owner Id of Prefix List.</td></tr>
-<tr><td><CopyableCode code="address_family" /></td><td><code>string</code></td><td>Ip Version of Prefix List.</td></tr>
-<tr><td><CopyableCode code="max_entries" /></td><td><code>integer</code></td><td>Max Entries of Prefix List.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>integer</code></td><td>Version of Prefix List.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for Prefix List</td></tr>
-<tr><td><CopyableCode code="entries" /></td><td><code>array</code></td><td>Entries of Prefix List.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Prefix List.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "prefix_list_name",
+    "type": "string",
+    "description": "Name of Prefix List."
+  },
+  {
+    "name": "prefix_list_id",
+    "type": "string",
+    "description": "Id of Prefix List."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "Owner Id of Prefix List."
+  },
+  {
+    "name": "address_family",
+    "type": "string",
+    "description": "Ip Version of Prefix List."
+  },
+  {
+    "name": "max_entries",
+    "type": "integer",
+    "description": "Max Entries of Prefix List."
+  },
+  {
+    "name": "version",
+    "type": "integer",
+    "description": "Version of Prefix List."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for Prefix List",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "entries",
+    "type": "array",
+    "description": "Entries of Prefix List.",
+    "children": [
+      {
+        "name": "cidr",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Prefix List."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-prefixlist.html"><code>AWS::EC2::PrefixList</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>prefix_lists</code> in a region.
-```sql
-SELECT
-region,
-prefix_list_name,
-prefix_list_id,
-owner_id,
-address_family,
-max_entries,
-version,
-tags,
-entries,
-arn
-FROM awscc.ec2.prefix_lists
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>prefix_list</code>.
 ```sql
 SELECT

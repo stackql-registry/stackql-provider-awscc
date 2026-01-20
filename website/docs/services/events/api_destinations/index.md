@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>api_destination</code> resource or lists <code>api_destinations</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets an <code>api_destination</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the apiDestination.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="connection_arn" /></td><td><code>string</code></td><td>The arn of the connection.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The arn of the api destination.</td></tr>
-<tr><td><CopyableCode code="arn_for_policy" /></td><td><code>string</code></td><td>The arn of the api destination to be used in IAM policies.</td></tr>
-<tr><td><CopyableCode code="invocation_rate_limit_per_second" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="invocation_endpoint" /></td><td><code>string</code></td><td>Url endpoint to invoke.</td></tr>
-<tr><td><CopyableCode code="http_method" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the apiDestination."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "connection_arn",
+    "type": "string",
+    "description": "The arn of the connection."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The arn of the api destination."
+  },
+  {
+    "name": "arn_for_policy",
+    "type": "string",
+    "description": "The arn of the api destination to be used in IAM policies."
+  },
+  {
+    "name": "invocation_rate_limit_per_second",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "invocation_endpoint",
+    "type": "string",
+    "description": "Url endpoint to invoke."
+  },
+  {
+    "name": "http_method",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-apidestination.html"><code>AWS::Events::ApiDestination</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>api_destinations</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-connection_arn,
-arn,
-arn_for_policy,
-invocation_rate_limit_per_second,
-invocation_endpoint,
-http_method
-FROM awscc.events.api_destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>api_destination</code>.
 ```sql
 SELECT

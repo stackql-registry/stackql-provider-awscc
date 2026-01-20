@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>channel_namespaces</code> in a region or regions, for all properties use <a href="/services/appsync/channel_namespaces/"><code>channel_namespaces</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>channel_namespaces</code> in a region or regions, for all properties
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Namespace indentifier.</td></tr>
-<tr><td><CopyableCode code="channel_namespace_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Channel Namespace.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Namespace indentifier."
+  },
+  {
+    "name": "channel_namespace_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the Channel Namespace."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool_user</code> resource or lists <code>user_pool_users</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>user_pool_user</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="desired_delivery_mediums" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="force_alias_creation" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="message_action" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="username" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="validation_data" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_metadata" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "desired_delivery_mediums",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "force_alias_creation",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "user_attributes",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "message_action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "username",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "validation_data",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "client_metadata",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpooluser.html"><code>AWS::Cognito::UserPoolUser</code></a>.
 
@@ -82,21 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_pool_users</code> in a region.
-```sql
-SELECT
-region,
-desired_delivery_mediums,
-force_alias_creation,
-user_attributes,
-message_action,
-username,
-user_pool_id,
-validation_data,
-client_metadata
-FROM awscc.cognito.user_pool_users
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_pool_user</code>.
 ```sql
 SELECT

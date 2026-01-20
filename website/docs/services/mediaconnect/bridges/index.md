@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>bridges</code> in a region
 
@@ -32,21 +33,225 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the bridge.</td></tr>
-<tr><td><CopyableCode code="bridge_arn" /></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) of the bridge.</td></tr>
-<tr><td><CopyableCode code="placement_arn" /></td><td><code>string</code></td><td>The placement Amazon Resource Number (ARN) of the bridge.</td></tr>
-<tr><td><CopyableCode code="bridge_state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_failover_config" /></td><td><code>object</code></td><td>The settings for source failover</td></tr>
-<tr><td><CopyableCode code="outputs" /></td><td><code>array</code></td><td>The outputs on this bridge.</td></tr>
-<tr><td><CopyableCode code="sources" /></td><td><code>array</code></td><td>The sources on this bridge.</td></tr>
-<tr><td><CopyableCode code="ingress_gateway_bridge" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="egress_gateway_bridge" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the bridge."
+  },
+  {
+    "name": "bridge_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) of the bridge."
+  },
+  {
+    "name": "placement_arn",
+    "type": "string",
+    "description": "The placement Amazon Resource Number (ARN) of the bridge."
+  },
+  {
+    "name": "bridge_state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_failover_config",
+    "type": "object",
+    "description": "The settings for source failover",
+    "children": [
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "recovery_window",
+        "type": "integer",
+        "description": "Search window time to look for dash-7 packets"
+      },
+      {
+        "name": "failover_mode",
+        "type": "string",
+        "description": "The type of failover you choose for this flow. MERGE combines the source streams into a single stream, allowing graceful recovery from any single-source loss. FAILOVER allows switching between different streams."
+      },
+      {
+        "name": "source_priority",
+        "type": "object",
+        "description": "The priority you want to assign to a source. You can have a primary stream and a backup stream or two equally prioritized streams.",
+        "children": [
+          {
+            "name": "primary_source",
+            "type": "string",
+            "description": "The name of the source you choose as the primary source for this flow."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "outputs",
+    "type": "array",
+    "description": "The outputs on this bridge.",
+    "children": [
+      {
+        "name": "bridge_arn",
+        "type": "string",
+        "description": "The Amazon Resource Number (ARN) of the bridge."
+      },
+      {
+        "name": "network_output",
+        "type": "object",
+        "description": "The output of the bridge.",
+        "children": [
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": "The network output protocol."
+          },
+          {
+            "name": "ip_address",
+            "type": "string",
+            "description": "The network output IP Address."
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": "The network output port."
+          },
+          {
+            "name": "network_name",
+            "type": "string",
+            "description": "The network output's gateway network name."
+          },
+          {
+            "name": "ttl",
+            "type": "integer",
+            "description": "The network output TTL."
+          }
+        ]
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The network output name."
+      }
+    ]
+  },
+  {
+    "name": "sources",
+    "type": "array",
+    "description": "The sources on this bridge.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the source."
+      },
+      {
+        "name": "bridge_arn",
+        "type": "string",
+        "description": "The Amazon Resource Number (ARN) of the bridge."
+      },
+      {
+        "name": "flow_source",
+        "type": "object",
+        "description": "The source of the bridge. A flow source originates in MediaConnect as an existing cloud flow.",
+        "children": [
+          {
+            "name": "flow_arn",
+            "type": "string",
+            "description": "The ARN of the cloud flow used as a source of this bridge."
+          },
+          {
+            "name": "flow_vpc_interface_attachment",
+            "type": "object",
+            "description": "The name of the VPC interface attachment to use for this source.",
+            "children": [
+              {
+                "name": "vpc_interface_name",
+                "type": "string",
+                "description": "The name of the VPC interface to use for this resource."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "network_source",
+        "type": "object",
+        "description": "The source of the bridge. A network source originates at your premises.",
+        "children": [
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": "The network source protocol."
+          },
+          {
+            "name": "multicast_ip",
+            "type": "string",
+            "description": "The network source multicast IP."
+          },
+          {
+            "name": "multicast_source_settings",
+            "type": "object",
+            "description": "The settings related to the multicast source.",
+            "children": [
+              {
+                "name": "multicast_source_ip",
+                "type": "string",
+                "description": "The IP address of the source for source-specific multicast (SSM)."
+              }
+            ]
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": "The network source port."
+          },
+          {
+            "name": "network_name",
+            "type": "string",
+            "description": "The network source's gateway network name."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ingress_gateway_bridge",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "max_bitrate",
+        "type": "integer",
+        "description": "The maximum expected bitrate of the ingress bridge."
+      },
+      {
+        "name": "max_outputs",
+        "type": "integer",
+        "description": "The maximum number of outputs on the ingress bridge."
+      }
+    ]
+  },
+  {
+    "name": "egress_gateway_bridge",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "max_bitrate",
+        "type": "integer",
+        "description": "The maximum expected bitrate of the egress bridge."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-bridge.html"><code>AWS::MediaConnect::Bridge</code></a>.
 
@@ -88,22 +293,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>bridges</code> in a region.
-```sql
-SELECT
-region,
-name,
-bridge_arn,
-placement_arn,
-bridge_state,
-source_failover_config,
-outputs,
-sources,
-ingress_gateway_bridge,
-egress_gateway_bridge
-FROM awscc.mediaconnect.bridges
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>bridge</code>.
 ```sql
 SELECT

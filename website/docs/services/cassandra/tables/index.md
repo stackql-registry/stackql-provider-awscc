@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>table</code> resource or lists <code>tables</code> in a region
 
@@ -32,26 +33,249 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="keyspace_name" /></td><td><code>string</code></td><td>Name for Cassandra keyspace</td></tr>
-<tr><td><CopyableCode code="table_name" /></td><td><code>string</code></td><td>Name for Cassandra table</td></tr>
-<tr><td><CopyableCode code="regular_columns" /></td><td><code>array</code></td><td>Non-key columns of the table</td></tr>
-<tr><td><CopyableCode code="partition_key_columns" /></td><td><code>array</code></td><td>Partition key columns of the table</td></tr>
-<tr><td><CopyableCode code="clustering_key_columns" /></td><td><code>array</code></td><td>Clustering key columns of the table</td></tr>
-<tr><td><CopyableCode code="billing_mode" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="point_in_time_recovery_enabled" /></td><td><code>boolean</code></td><td>Indicates whether point in time recovery is enabled (true) or disabled (false) on the table</td></tr>
-<tr><td><CopyableCode code="client_side_timestamps_enabled" /></td><td><code>boolean</code></td><td>Indicates whether client side timestamps are enabled (true) or disabled (false) on the table. False by default, once it is enabled it cannot be disabled again.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource</td></tr>
-<tr><td><CopyableCode code="default_time_to_live" /></td><td><code>integer</code></td><td>Default TTL (Time To Live) in seconds, where zero is disabled. If the value is greater than zero, TTL is enabled for the entire table and an expiration timestamp is added to each column.</td></tr>
-<tr><td><CopyableCode code="encryption_specification" /></td><td><code>object</code></td><td>Represents the settings used to enable server-side encryption</td></tr>
-<tr><td><CopyableCode code="auto_scaling_specifications" /></td><td><code>object</code></td><td>Represents the read and write settings used for AutoScaling.</td></tr>
-<tr><td><CopyableCode code="cdc_specification" /></td><td><code>object</code></td><td>Represents the CDC configuration for the table</td></tr>
-<tr><td><CopyableCode code="replica_specifications" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "keyspace_name",
+    "type": "string",
+    "description": "Name for Cassandra keyspace"
+  },
+  {
+    "name": "table_name",
+    "type": "string",
+    "description": "Name for Cassandra table"
+  },
+  {
+    "name": "regular_columns",
+    "type": "array",
+    "description": "Non-key columns of the table",
+    "children": [
+      {
+        "name": "column_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "column_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "partition_key_columns",
+    "type": "array",
+    "description": "Partition key columns of the table"
+  },
+  {
+    "name": "clustering_key_columns",
+    "type": "array",
+    "description": "Clustering key columns of the table",
+    "children": [
+      {
+        "name": "order_by",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "billing_mode",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "Capacity mode for the specified table"
+      },
+      {
+        "name": "provisioned_throughput",
+        "type": "object",
+        "description": "Throughput for the specified table, which consists of values for ReadCapacityUnits and WriteCapacityUnits",
+        "children": [
+          {
+            "name": "read_capacity_units",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "write_capacity_units",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "point_in_time_recovery_enabled",
+    "type": "boolean",
+    "description": "Indicates whether point in time recovery is enabled (true) or disabled (false) on the table"
+  },
+  {
+    "name": "client_side_timestamps_enabled",
+    "type": "boolean",
+    "description": "Indicates whether client side timestamps are enabled (true) or disabled (false) on the table. False by default, once it is enabled it cannot be disabled again."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "default_time_to_live",
+    "type": "integer",
+    "description": "Default TTL (Time To Live) in seconds, where zero is disabled. If the value is greater than zero, TTL is enabled for the entire table and an expiration timestamp is added to each column."
+  },
+  {
+    "name": "encryption_specification",
+    "type": "object",
+    "description": "Represents the settings used to enable server-side encryption",
+    "children": [
+      {
+        "name": "encryption_type",
+        "type": "string",
+        "description": "Server-side encryption type"
+      },
+      {
+        "name": "kms_key_identifier",
+        "type": "string",
+        "description": "The AWS KMS customer master key (CMK) that should be used for the AWS KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN."
+      }
+    ]
+  },
+  {
+    "name": "auto_scaling_specifications",
+    "type": "object",
+    "description": "Represents the read and write settings used for AutoScaling.",
+    "children": [
+      {
+        "name": "write_capacity_auto_scaling",
+        "type": "object",
+        "description": "Represents configuration for auto scaling.",
+        "children": [
+          {
+            "name": "auto_scaling_disabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "minimum_units",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "maximum_units",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "scaling_policy",
+            "type": "object",
+            "description": "Represents scaling policy.",
+            "children": [
+              {
+                "name": "target_tracking_scaling_policy_configuration",
+                "type": "object",
+                "description": "Represents configuration for target tracking scaling policy."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cdc_specification",
+    "type": "object",
+    "description": "Represents the CDC configuration for the table",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Indicates whether CDC is enabled or disabled for the table"
+      },
+      {
+        "name": "view_type",
+        "type": "string",
+        "description": "Specifies what data should be captured in the change data stream"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to the CDC stream resource"
+      }
+    ]
+  },
+  {
+    "name": "replica_specifications",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "read_capacity_units",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "read_capacity_auto_scaling",
+        "type": "object",
+        "description": "Represents configuration for auto scaling.",
+        "children": [
+          {
+            "name": "auto_scaling_disabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "minimum_units",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "maximum_units",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "scaling_policy",
+            "type": "object",
+            "description": "Represents scaling policy.",
+            "children": [
+              {
+                "name": "target_tracking_scaling_policy_configuration",
+                "type": "object",
+                "description": "Represents configuration for target tracking scaling policy."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cassandra-table.html"><code>AWS::Cassandra::Table</code></a>.
 
@@ -93,27 +317,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tables</code> in a region.
-```sql
-SELECT
-region,
-keyspace_name,
-table_name,
-regular_columns,
-partition_key_columns,
-clustering_key_columns,
-billing_mode,
-point_in_time_recovery_enabled,
-client_side_timestamps_enabled,
-tags,
-default_time_to_live,
-encryption_specification,
-auto_scaling_specifications,
-cdc_specification,
-replica_specifications
-FROM awscc.cassandra.tables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>table</code>.
 ```sql
 SELECT

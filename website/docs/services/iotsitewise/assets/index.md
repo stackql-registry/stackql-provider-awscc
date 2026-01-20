@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>asset</code> resource or lists <code>assets</code> in a region
 
@@ -32,21 +33,124 @@ Creates, updates, deletes or gets an <code>asset</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="asset_id" /></td><td><code>string</code></td><td>The ID of the asset</td></tr>
-<tr><td><CopyableCode code="asset_external_id" /></td><td><code>string</code></td><td>The External ID of the asset</td></tr>
-<tr><td><CopyableCode code="asset_model_id" /></td><td><code>string</code></td><td>The ID of the asset model from which to create the asset.</td></tr>
-<tr><td><CopyableCode code="asset_arn" /></td><td><code>string</code></td><td>The ARN of the asset</td></tr>
-<tr><td><CopyableCode code="asset_name" /></td><td><code>string</code></td><td>A unique, friendly name for the asset.</td></tr>
-<tr><td><CopyableCode code="asset_description" /></td><td><code>string</code></td><td>A description for the asset</td></tr>
-<tr><td><CopyableCode code="asset_properties" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="asset_hierarchies" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "asset_id",
+    "type": "string",
+    "description": "The ID of the asset"
+  },
+  {
+    "name": "asset_external_id",
+    "type": "string",
+    "description": "The External ID of the asset"
+  },
+  {
+    "name": "asset_model_id",
+    "type": "string",
+    "description": "The ID of the asset model from which to create the asset."
+  },
+  {
+    "name": "asset_arn",
+    "type": "string",
+    "description": "The ARN of the asset"
+  },
+  {
+    "name": "asset_name",
+    "type": "string",
+    "description": "A unique, friendly name for the asset."
+  },
+  {
+    "name": "asset_description",
+    "type": "string",
+    "description": "A description for the asset"
+  },
+  {
+    "name": "asset_properties",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "Customer provided actual UUID for property"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "String-friendly customer provided external ID"
+      },
+      {
+        "name": "logical_id",
+        "type": "string",
+        "description": "Customer provided ID for property."
+      },
+      {
+        "name": "alias",
+        "type": "string",
+        "description": "The property alias that identifies the property."
+      },
+      {
+        "name": "notification_state",
+        "type": "string",
+        "description": "The MQTT notification state (ENABLED or DISABLED) for this asset property."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "description": "The unit of measure (such as Newtons or RPM) of the asset property. If you don't specify a value for this parameter, the service uses the value of the assetModelProperty in the asset model."
+      }
+    ]
+  },
+  {
+    "name": "asset_hierarchies",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "Customer provided actual UUID for property"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "String-friendly customer provided external ID"
+      },
+      {
+        "name": "logical_id",
+        "type": "string",
+        "description": "The LogicalID of a hierarchy in the parent asset's model."
+      },
+      {
+        "name": "child_asset_id",
+        "type": "string",
+        "description": "The ID of the child asset to be associated."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-asset.html"><code>AWS::IoTSiteWise::Asset</code></a>.
 
@@ -88,22 +192,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>assets</code> in a region.
-```sql
-SELECT
-region,
-asset_id,
-asset_external_id,
-asset_model_id,
-asset_arn,
-asset_name,
-asset_description,
-asset_properties,
-asset_hierarchies,
-tags
-FROM awscc.iotsitewise.assets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>asset</code>.
 ```sql
 SELECT

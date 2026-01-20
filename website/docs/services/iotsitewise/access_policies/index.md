@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_policy</code> resource or lists <code>access_policies</code> in a region
 
@@ -32,17 +33,233 @@ Creates, updates, deletes or gets an <code>access_policy</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_policy_id" /></td><td><code>string</code></td><td>The ID of the access policy.</td></tr>
-<tr><td><CopyableCode code="access_policy_arn" /></td><td><code>string</code></td><td>The ARN of the access policy.</td></tr>
-<tr><td><CopyableCode code="access_policy_identity" /></td><td><code>object</code></td><td>The identity for this access policy. Choose either a user or a group but not both.</td></tr>
-<tr><td><CopyableCode code="access_policy_permission" /></td><td><code>string</code></td><td>The permission level for this access policy. Valid values are ADMINISTRATOR or VIEWER.</td></tr>
-<tr><td><CopyableCode code="access_policy_resource" /></td><td><code>object</code></td><td>The AWS IoT SiteWise Monitor resource for this access policy. Choose either portal or project but not both.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_policy_id",
+    "type": "string",
+    "description": "The ID of the access policy."
+  },
+  {
+    "name": "access_policy_arn",
+    "type": "string",
+    "description": "The ARN of the access policy."
+  },
+  {
+    "name": "access_policy_identity",
+    "type": "object",
+    "description": "The identity for this access policy. Choose either a user or a group but not both.",
+    "children": [
+      {
+        "name": "user",
+        "type": "object",
+        "description": "Contains information for a user identity in an access policy.",
+        "children": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The AWS SSO ID of the user."
+          }
+        ]
+      },
+      {
+        "name": "iam_user",
+        "type": "object",
+        "description": "Contains information for an IAM user identity in an access policy.",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "The ARN of the IAM user."
+          }
+        ]
+      },
+      {
+        "name": "iam_role",
+        "type": "object",
+        "description": "Contains information for an IAM role identity in an access policy.",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "The ARN of the IAM role."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "access_policy_permission",
+    "type": "string",
+    "description": "The permission level for this access policy. Valid values are ADMINISTRATOR or VIEWER."
+  },
+  {
+    "name": "access_policy_resource",
+    "type": "object",
+    "description": "The AWS IoT SiteWise Monitor resource for this access policy. Choose either portal or project but not both.",
+    "children": [
+      {
+        "name": "portal",
+        "type": "object",
+        "description": "Resource schema for AWS::IoTSiteWise::Portal",
+        "children": [
+          {
+            "name": "portal_auth_mode",
+            "type": "string",
+            "description": "The service to use to authenticate users to the portal. Choose from SSO or IAM. You can't change this value after you create a portal."
+          },
+          {
+            "name": "portal_arn",
+            "type": "string",
+            "description": "The ARN of the portal, which has the following format."
+          },
+          {
+            "name": "portal_client_id",
+            "type": "string",
+            "description": "The AWS SSO application generated client ID (used with AWS SSO APIs)."
+          },
+          {
+            "name": "portal_contact_email",
+            "type": "string",
+            "description": "The AWS administrator's contact email address."
+          },
+          {
+            "name": "portal_description",
+            "type": "string",
+            "description": "A description for the portal."
+          },
+          {
+            "name": "portal_id",
+            "type": "string",
+            "description": "The ID of the portal."
+          },
+          {
+            "name": "portal_name",
+            "type": "string",
+            "description": "A friendly name for the portal."
+          },
+          {
+            "name": "portal_start_url",
+            "type": "string",
+            "description": "The public root URL for the AWS IoT AWS IoT SiteWise Monitor application portal."
+          },
+          {
+            "name": "portal_type",
+            "type": "string",
+            "description": "The type of portal"
+          },
+          {
+            "name": "portal_type_configuration",
+            "type": "object",
+            "description": "Map to associate detail of configuration related with a PortalType."
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": "The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf."
+          },
+          {
+            "name": "notification_sender_email",
+            "type": "string",
+            "description": "The email address that sends alarm notifications."
+          },
+          {
+            "name": "alarms",
+            "type": "object",
+            "description": "Contains the configuration information of an alarm created in an AWS IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range.",
+            "children": [
+              {
+                "name": "alarm_role_arn",
+                "type": "string",
+                "description": "The ARN of the IAM role that allows the alarm to perform actions and access AWS resources and services, such as AWS IoT Events."
+              },
+              {
+                "name": "notification_lambda_arn",
+                "type": "string",
+                "description": "The ARN of the AWS Lambda function that manages alarm notifications. For more information, see Managing alarm notifications in the AWS IoT Events Developer Guide."
+              }
+            ]
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "A list of key-value pairs that contain metadata for the portal.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "project",
+        "type": "object",
+        "description": "Resource schema for AWS::IoTSiteWise::Project",
+        "children": [
+          {
+            "name": "portal_id",
+            "type": "string",
+            "description": "The ID of the portal in which to create the project."
+          },
+          {
+            "name": "project_id",
+            "type": "string",
+            "description": "The ID of the project."
+          },
+          {
+            "name": "project_name",
+            "type": "string",
+            "description": "A friendly name for the project."
+          },
+          {
+            "name": "project_description",
+            "type": "string",
+            "description": "A description for the project."
+          },
+          {
+            "name": "project_arn",
+            "type": "string",
+            "description": "The ARN of the project."
+          },
+          {
+            "name": "asset_ids",
+            "type": "array",
+            "description": "The IDs of the assets to be associated to the project."
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "A list of key-value pairs that contain metadata for the project.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-accesspolicy.html"><code>AWS::IoTSiteWise::AccessPolicy</code></a>.
 
@@ -84,18 +301,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_policies</code> in a region.
-```sql
-SELECT
-region,
-access_policy_id,
-access_policy_arn,
-access_policy_identity,
-access_policy_permission,
-access_policy_resource
-FROM awscc.iotsitewise.access_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_policy</code>.
 ```sql
 SELECT

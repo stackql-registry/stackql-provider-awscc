@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>traffic_mirror_target</code> resource or lists <code>traffic_mirror_targets</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>traffic_mirror_target</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="network_load_balancer_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Traffic Mirror target.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The network interface ID that is associated with the target.</td></tr>
-<tr><td><CopyableCode code="gateway_load_balancer_endpoint_id" /></td><td><code>string</code></td><td>The ID of the Gateway Load Balancer endpoint.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the Traffic Mirror target.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "network_load_balancer_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Traffic Mirror target."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The network interface ID that is associated with the target."
+  },
+  {
+    "name": "gateway_load_balancer_endpoint_id",
+    "type": "string",
+    "description": "The ID of the Gateway Load Balancer endpoint."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to assign to the Traffic Mirror target.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-trafficmirrortarget.html"><code>AWS::EC2::TrafficMirrorTarget</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>traffic_mirror_targets</code> in a region.
-```sql
-SELECT
-region,
-network_load_balancer_arn,
-description,
-id,
-network_interface_id,
-gateway_load_balancer_endpoint_id,
-tags
-FROM awscc.ec2.traffic_mirror_targets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>traffic_mirror_target</code>.
 ```sql
 SELECT

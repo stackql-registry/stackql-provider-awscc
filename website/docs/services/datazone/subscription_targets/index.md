@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subscription_target</code> resource or lists <code>subscription_targets</code> in a region
 
@@ -32,29 +33,110 @@ Creates, updates, deletes or gets a <code>subscription_target</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="applicable_asset_types" /></td><td><code>array</code></td><td>The asset types that can be included in the subscription target.</td></tr>
-<tr><td><CopyableCode code="authorized_principals" /></td><td><code>array</code></td><td>The authorized principals of the subscription target.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the subscription target was created.</td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>The Amazon DataZone user who created the subscription target.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which subscription target is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which subscription target would be created.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The ID of the environment in which subscription target is created.</td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td>The ID of the environment in which subscription target would be created.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the subscription target.</td></tr>
-<tr><td><CopyableCode code="manage_access_role" /></td><td><code>string</code></td><td>The manage access role that is used to create the subscription target.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the subscription target.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The identifier of the project specified in the subscription target.</td></tr>
-<tr><td><CopyableCode code="provider" /></td><td><code>string</code></td><td>The provider of the subscription target.</td></tr>
-<tr><td><CopyableCode code="subscription_target_config" /></td><td><code>array</code></td><td>The configuration of the subscription target.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the subscription target.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp of when the subscription target was updated.</td></tr>
-<tr><td><CopyableCode code="updated_by" /></td><td><code>string</code></td><td>The Amazon DataZone user who updated the subscription target.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "applicable_asset_types",
+    "type": "array",
+    "description": "The asset types that can be included in the subscription target."
+  },
+  {
+    "name": "authorized_principals",
+    "type": "array",
+    "description": "The authorized principals of the subscription target."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the subscription target was created."
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": "The Amazon DataZone user who created the subscription target."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which subscription target is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which subscription target would be created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The ID of the environment in which subscription target is created."
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": "The ID of the environment in which subscription target would be created."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the subscription target."
+  },
+  {
+    "name": "manage_access_role",
+    "type": "string",
+    "description": "The manage access role that is used to create the subscription target."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the subscription target."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The identifier of the project specified in the subscription target."
+  },
+  {
+    "name": "provider",
+    "type": "string",
+    "description": "The provider of the subscription target."
+  },
+  {
+    "name": "subscription_target_config",
+    "type": "array",
+    "description": "The configuration of the subscription target.",
+    "children": [
+      {
+        "name": "form_name",
+        "type": "string",
+        "description": "The form name included in the subscription target configuration."
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "The content of the subscription target configuration."
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the subscription target."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The timestamp of when the subscription target was updated."
+  },
+  {
+    "name": "updated_by",
+    "type": "string",
+    "description": "The Amazon DataZone user who updated the subscription target."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-subscriptiontarget.html"><code>AWS::DataZone::SubscriptionTarget</code></a>.
 
@@ -96,30 +178,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subscription_targets</code> in a region.
-```sql
-SELECT
-region,
-applicable_asset_types,
-authorized_principals,
-created_at,
-created_by,
-domain_id,
-domain_identifier,
-environment_id,
-environment_identifier,
-id,
-manage_access_role,
-name,
-project_id,
-provider,
-subscription_target_config,
-type,
-updated_at,
-updated_by
-FROM awscc.datazone.subscription_targets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subscription_target</code>.
 ```sql
 SELECT

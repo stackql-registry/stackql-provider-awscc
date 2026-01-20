@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment</code> resource or lists <code>deployments</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The environment ID.</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="application_version" /></td><td><code>integer</code></td><td>The version number of the application to deploy</td></tr>
-<tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td>The deployment ID.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the deployment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The environment ID."
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "application_version",
+    "type": "integer",
+    "description": "The version number of the application to deploy"
+  },
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": "The deployment ID."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the deployment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-m2-deployment.html"><code>AWS::M2::Deployment</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployments</code> in a region.
-```sql
-SELECT
-region,
-environment_id,
-application_id,
-application_version,
-deployment_id,
-status
-FROM awscc.m2.deployments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT

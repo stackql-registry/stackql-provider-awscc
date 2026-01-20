@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_config</code> resource or lists <code>resolver_configs</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>resolver_config</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>AccountId</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>ResourceId</td></tr>
-<tr><td><CopyableCode code="autodefined_reverse" /></td><td><code>string</code></td><td>ResolverAutodefinedReverseStatus, possible values are ENABLING, ENABLED, DISABLING AND DISABLED.</td></tr>
-<tr><td><CopyableCode code="autodefined_reverse_flag" /></td><td><code>string</code></td><td>Represents the desired status of AutodefinedReverse. The only supported value on creation is DISABLE. Deletion of this resource will return AutodefinedReverse to its default value (ENABLED).</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id"
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "AccountId"
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "ResourceId"
+  },
+  {
+    "name": "autodefined_reverse",
+    "type": "string",
+    "description": "ResolverAutodefinedReverseStatus, possible values are ENABLING, ENABLED, DISABLING AND DISABLED."
+  },
+  {
+    "name": "autodefined_reverse_flag",
+    "type": "string",
+    "description": "Represents the desired status of AutodefinedReverse. The only supported value on creation is DISABLE. Deletion of this resource will return AutodefinedReverse to its default value (ENABLED)."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverconfig.html"><code>AWS::Route53Resolver::ResolverConfig</code></a>.
 
@@ -79,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_configs</code> in a region.
-```sql
-SELECT
-region,
-id,
-owner_id,
-resource_id,
-autodefined_reverse,
-autodefined_reverse_flag
-FROM awscc.route53resolver.resolver_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_config</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>packaging_group</code> resource or lists <code>packaging_groups</code> in a region
 
@@ -32,18 +33,74 @@ Creates, updates, deletes or gets a <code>packaging_group</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The fully qualified domain name for Assets in the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="authorization" /></td><td><code>object</code></td><td>CDN Authorization</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="egress_access_logs" /></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the PackagingGroup."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the PackagingGroup."
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The fully qualified domain name for Assets in the PackagingGroup."
+  },
+  {
+    "name": "authorization",
+    "type": "object",
+    "description": "CDN Authorization",
+    "children": [
+      {
+        "name": "cdn_identifier_secret",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) for the secret in AWS Secrets Manager that is used for CDN authorization."
+      },
+      {
+        "name": "secrets_role_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) for the IAM role that allows MediaPackage to communicate with AWS Secrets Manager."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "egress_access_logs",
+    "type": "object",
+    "description": "The configuration parameters for egress access logging.",
+    "children": [
+      {
+        "name": "log_group_name",
+        "type": "string",
+        "description": "Sets a custom AWS CloudWatch log group name for egress logs. If a log group name isn't specified, the default name is used: /aws/MediaPackage/VodEgressAccessLogs."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediapackage-packaginggroup.html"><code>AWS::MediaPackage::PackagingGroup</code></a>.
 
@@ -85,19 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>packaging_groups</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-domain_name,
-authorization,
-tags,
-egress_access_logs
-FROM awscc.mediapackage.packaging_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>packaging_group</code>.
 ```sql
 SELECT

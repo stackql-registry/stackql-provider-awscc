@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>workflow</code> resource or lists <code>workflows</code> in a region
 
@@ -32,34 +33,157 @@ Creates, updates, deletes or gets a <code>workflow</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition_uri" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="main" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameter_template" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="accelerators" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_capacity" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of resource tags</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="uuid" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="workflow_bucket_owner_id" /></td><td><code>string</code></td><td>Optional workflow bucket owner ID to verify the workflow bucket</td></tr>
-<tr><td><CopyableCode code="definition_repository" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameter_template_path" /></td><td><code>string</code></td><td>Path to the primary workflow parameter template JSON file inside the repository</td></tr>
-<tr><td><CopyableCode code="readme_path" /></td><td><code>string</code></td><td>The path to the workflow README markdown file within the repository. This file provides documentation and usage information for the workflow. If not specified, the README.md file from the root directory of the repository will be used.</td></tr>
-<tr><td><CopyableCode code="readme_uri" /></td><td><code>string</code></td><td>The S3 URI of the README file for the workflow. This file provides documentation and usage information for the workflow. The S3 URI must begin with s3://USER-OWNED-BUCKET/. The requester must have access to the S3 bucket and object. The max README content length is 500 KiB.</td></tr>
-<tr><td><CopyableCode code="readme_markdown" /></td><td><code>string</code></td><td>The markdown content for the workflow's README file. This provides documentation and usage information for users of the workflow.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "definition_uri",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "engine",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "main",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parameter_template",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "accelerators",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "storage_capacity",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of resource tags"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "storage_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "uuid",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "workflow_bucket_owner_id",
+    "type": "string",
+    "description": "Optional workflow bucket owner ID to verify the workflow bucket"
+  },
+  {
+    "name": "definition_repository",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "connection_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "full_repository_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source_reference",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "exclude_file_patterns",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "parameter_template_path",
+    "type": "string",
+    "description": "Path to the primary workflow parameter template JSON file inside the repository"
+  },
+  {
+    "name": "readme_path",
+    "type": "string",
+    "description": "The path to the workflow README markdown file within the repository. This file provides documentation and usage information for the workflow. If not specified, the README.md file from the root directory of the repository will be used."
+  },
+  {
+    "name": "readme_uri",
+    "type": "string",
+    "description": "The S3 URI of the README file for the workflow. This file provides documentation and usage information for the workflow. The S3 URI must begin with s3://USER-OWNED-BUCKET/. The requester must have access to the S3 bucket and object. The max README content length is 500 KiB."
+  },
+  {
+    "name": "readme_markdown",
+    "type": "string",
+    "description": "The markdown content for the workflow's README file. This provides documentation and usage information for users of the workflow."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-omics-workflow.html"><code>AWS::Omics::Workflow</code></a>.
 
@@ -101,35 +225,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>workflows</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_time,
-definition_uri,
-description,
-engine,
-id,
-main,
-name,
-parameter_template,
-status,
-accelerators,
-storage_capacity,
-tags,
-type,
-storage_type,
-uuid,
-workflow_bucket_owner_id,
-definition_repository,
-parameter_template_path,
-readme_path,
-readme_uri,
-readme_markdown
-FROM awscc.omics.workflows
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>workflow</code>.
 ```sql
 SELECT

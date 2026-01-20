@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>oidc_provider</code> resource or lists <code>oidc_providers</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets an <code>oidc_provider</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="client_id_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="thumbprint_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the OIDC provider</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "client_id_list",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "thumbprint_list",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the OIDC provider"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-oidcprovider.html"><code>AWS::IAM::OIDCProvider</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>oidc_providers</code> in a region.
-```sql
-SELECT
-region,
-client_id_list,
-url,
-thumbprint_list,
-arn,
-tags
-FROM awscc.iam.oidc_providers
-;
-```
+
 Gets all properties from an individual <code>oidc_provider</code>.
 ```sql
 SELECT

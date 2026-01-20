@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tag</code> resource or lists <code>tags</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>tag</code> resource or lists <code>tag
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="catalog_id" /></td><td><code>string</code></td><td>The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment.</td></tr>
-<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>The key-name for the LF-tag.</td></tr>
-<tr><td><CopyableCode code="tag_values" /></td><td><code>array</code></td><td>A list of possible values an attribute can take.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "catalog_id",
+    "type": "string",
+    "description": "The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment."
+  },
+  {
+    "name": "tag_key",
+    "type": "string",
+    "description": "The key-name for the LF-tag."
+  },
+  {
+    "name": "tag_values",
+    "type": "array",
+    "description": "A list of possible values an attribute can take."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lakeformation-tag.html"><code>AWS::LakeFormation::Tag</code></a>.
 
@@ -82,16 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tags</code> in a region.
-```sql
-SELECT
-region,
-catalog_id,
-tag_key,
-tag_values
-FROM awscc.lakeformation.tags
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tag</code>.
 ```sql
 SELECT

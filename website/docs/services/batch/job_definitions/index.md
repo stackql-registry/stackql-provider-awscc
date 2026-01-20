@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>job_definition</code> resource or lists <code>job_definitions</code> in a region
 
@@ -32,27 +33,1049 @@ Creates, updates, deletes or gets a <code>job_definition</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="container_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="ecs_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="node_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_definition_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_definition_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="scheduling_priority" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="platform_capabilities" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="propagate_tags" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="retry_strategy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="timeout" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="eks_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="consumable_resource_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "container_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "command",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "environment",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "image",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "job_role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "memory",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "mount_points",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "container_path",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "read_only",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "source_volume",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "privileged",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "readonly_root_filesystem",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "ulimits",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "hard_limit",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "soft_limit",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vcpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "volumes",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "host",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "source_path",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "efs_volume_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "file_system_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "root_directory",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "transit_encryption",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "transit_encryption_port",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "authorization_config",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "resource_requirements",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "linux_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "devices",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "host_path",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "container_path",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "permissions",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "init_process_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "max_swap",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "swappiness",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "shared_memory_size",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "tmpfs",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "container_path",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "size",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "mount_options",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "log_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_driver",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "options",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "secret_options",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value_from",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "execution_role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value_from",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "network_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "assign_public_ip",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "fargate_platform_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "platform_version",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ephemeral_storage",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "size_in_gi_b",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "runtime_platform",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "operating_system_family",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cpu_architecture",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "repository_credentials",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "credentials_parameter",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "enable_execute_command",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "ecs_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "task_properties",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "containers",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "command",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "environment",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "depends_on",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "image",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "linux_parameters",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "log_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "mount_points",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "essential",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "privileged",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "readonly_root_filesystem",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "ulimits",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "user",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "secrets",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "repository_credentials",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "resource_requirements",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "firelens_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "ephemeral_storage",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "size_in_gi_b",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "execution_role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "runtime_platform",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "operating_system_family",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "cpu_architecture",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "network_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "assign_public_ip",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "volumes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "host",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "efs_volume_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "pid_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ipc_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "platform_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "task_role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enable_execute_command",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "node_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "num_nodes",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "main_node",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "node_range_properties",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "target_nodes",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "container",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "command",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "environment",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "image",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "job_role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "memory",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "mount_points",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "privileged",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "readonly_root_filesystem",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "ulimits",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "user",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "vcpus",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "volumes",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "resource_requirements",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "linux_parameters",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "log_configuration",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "execution_role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "secrets",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "ephemeral_storage",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "runtime_platform",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "repository_credentials",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "enable_execute_command",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "ecs_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "task_properties",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "eks_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "pod_properties",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "consumable_resource_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "consumable_resource_list",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "instance_types",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "job_definition_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_definition_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "scheduling_priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "platform_capabilities",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "propagate_tags",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "retry_strategy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attempts",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "evaluate_on_exit",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "on_exit_code",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "on_status_reason",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "on_reason",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "timeout",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attempt_duration_seconds",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "eks_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "pod_properties",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "service_account_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "host_network",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "dns_policy",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "init_containers",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "image",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "image_pull_policy",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "command",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "args",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "env",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "resources",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "volume_mounts",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "security_context",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "containers",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "volumes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "host_path",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "empty_dir",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "secret",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "persistent_volume_claim",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "image_pull_secrets",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "metadata",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "labels",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "annotations",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "namespace",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "share_process_namespace",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "consumable_resource_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "consumable_resource_list",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "consumable_resource",
+            "type": "string",
+            "description": "The ARN of the consumable resource the job definition should consume."
+          },
+          {
+            "name": "quantity",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html"><code>AWS::Batch::JobDefinition</code></a>.
 
@@ -94,28 +1117,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>job_definitions</code> in a region.
-```sql
-SELECT
-region,
-container_properties,
-ecs_properties,
-node_properties,
-job_definition_name,
-job_definition_arn,
-scheduling_priority,
-parameters,
-platform_capabilities,
-propagate_tags,
-retry_strategy,
-timeout,
-type,
-tags,
-eks_properties,
-consumable_resource_properties
-FROM awscc.batch.job_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>job_definition</code>.
 ```sql
 SELECT

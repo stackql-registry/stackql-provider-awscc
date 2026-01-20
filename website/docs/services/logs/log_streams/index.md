@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>log_stream</code> resource or lists <code>log_streams</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>log_stream</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="log_stream_name" /></td><td><code>string</code></td><td>The name of the log stream. The name must be unique wihtin the log group.</td></tr>
-<tr><td><CopyableCode code="log_group_name" /></td><td><code>string</code></td><td>The name of the log group where the log stream is created.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "log_stream_name",
+    "type": "string",
+    "description": "The name of the log stream. The name must be unique wihtin the log group."
+  },
+  {
+    "name": "log_group_name",
+    "type": "string",
+    "description": "The name of the log group where the log stream is created."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-logstream.html"><code>AWS::Logs::LogStream</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>log_streams</code> in a region.
-```sql
-SELECT
-region,
-log_stream_name,
-log_group_name
-FROM awscc.logs.log_streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>log_stream</code>.
 ```sql
 SELECT

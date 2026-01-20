@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vehicle</code> resource or lists <code>vehicles</code> in a region
 
@@ -32,22 +33,87 @@ Creates, updates, deletes or gets a <code>vehicle</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="association_behavior" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="attributes" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="decoder_manifest_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modification_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_manifest_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_templates" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "association_behavior",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "attributes",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "decoder_manifest_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modification_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_manifest_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "state_templates",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "identifier",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "state_template_update_strategy",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-vehicle.html"><code>AWS::IoTFleetWise::Vehicle</code></a>.
 
@@ -89,23 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vehicles</code> in a region.
-```sql
-SELECT
-region,
-arn,
-association_behavior,
-attributes,
-creation_time,
-decoder_manifest_arn,
-name,
-last_modification_time,
-model_manifest_arn,
-tags,
-state_templates
-FROM awscc.iotfleetwise.vehicles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vehicle</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>authorizer</code> resource or lists <code>authorizers</code> in a region
 
@@ -26,29 +27,74 @@ Creates, updates, deletes or gets an <code>authorizer</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>authorizers</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Authorizer</code> resource creates an authorization layer that API Gateway activates for methods that have authorization enabled. API Gateway activates the authorizer when a client calls those methods.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Authorizer&#96;&#96; resource creates an authorization layer that API Gateway activates for methods that have authorization enabled. API Gateway activates the authorizer when a client calls those methods.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.authorizers" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auth_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_credentials" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_result_ttl_in_seconds" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_uri" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_source" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_validation_expression" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorizer_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auth_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorizer_credentials",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorizer_result_ttl_in_seconds",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "authorizer_uri",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_source",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_validation_expression",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provider_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-authorizer.html"><code>AWS::ApiGateway::Authorizer</code></a>.
 
@@ -90,24 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>authorizers</code> in a region.
-```sql
-SELECT
-region,
-rest_api_id,
-authorizer_id,
-auth_type,
-authorizer_credentials,
-authorizer_result_ttl_in_seconds,
-authorizer_uri,
-identity_source,
-identity_validation_expression,
-name,
-provider_arns,
-type
-FROM awscc.apigateway.authorizers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>authorizer</code>.
 ```sql
 SELECT

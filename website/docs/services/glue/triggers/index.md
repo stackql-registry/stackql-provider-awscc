@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>trigger</code> resource or lists <code>triggers</code> in a region
 
@@ -32,22 +33,153 @@ Creates, updates, deletes or gets a <code>trigger</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of trigger that this is.</td></tr>
-<tr><td><CopyableCode code="start_on_creation" /></td><td><code>boolean</code></td><td>Set to true to start SCHEDULED and CONDITIONAL triggers when created. True is not supported for ON_DEMAND triggers.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of this trigger.</td></tr>
-<tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>The actions initiated by this trigger.</td></tr>
-<tr><td><CopyableCode code="event_batching_condition" /></td><td><code>object</code></td><td>Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires.</td></tr>
-<tr><td><CopyableCode code="workflow_name" /></td><td><code>string</code></td><td>The name of the workflow associated with the trigger.</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>string</code></td><td>A cron expression used to specify the schedule.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags to use with this trigger.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the trigger.</td></tr>
-<tr><td><CopyableCode code="predicate" /></td><td><code>object</code></td><td>The predicate of this trigger, which defines when it will fire.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of trigger that this is."
+  },
+  {
+    "name": "start_on_creation",
+    "type": "boolean",
+    "description": "Set to true to start SCHEDULED and CONDITIONAL triggers when created. True is not supported for ON&#95;DEMAND triggers."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of this trigger."
+  },
+  {
+    "name": "actions",
+    "type": "array",
+    "description": "The actions initiated by this trigger.",
+    "children": [
+      {
+        "name": "notification_property",
+        "type": "object",
+        "description": "Specifies configuration properties of a job run notification.",
+        "children": [
+          {
+            "name": "notify_delay_after",
+            "type": "integer",
+            "description": "After a job run starts, the number of minutes to wait before sending a job run delay notification"
+          }
+        ]
+      },
+      {
+        "name": "crawler_name",
+        "type": "string",
+        "description": "The name of the crawler to be used with this action."
+      },
+      {
+        "name": "timeout",
+        "type": "integer",
+        "description": "The JobRun timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters TIMEOUT status. The default is 2,880 minutes (48 hours). This overrides the timeout value set in the parent job."
+      },
+      {
+        "name": "job_name",
+        "type": "string",
+        "description": "The name of a job to be executed."
+      },
+      {
+        "name": "arguments",
+        "type": "object",
+        "description": "The job arguments used when this trigger fires. For this job run, they replace the default arguments set in the job definition itself."
+      },
+      {
+        "name": "security_configuration",
+        "type": "string",
+        "description": "The name of the SecurityConfiguration structure to be used with this action."
+      }
+    ]
+  },
+  {
+    "name": "event_batching_condition",
+    "type": "object",
+    "description": "Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires.",
+    "children": [
+      {
+        "name": "batch_size",
+        "type": "integer",
+        "description": "Number of events that must be received from Amazon EventBridge before EventBridge event trigger fires."
+      },
+      {
+        "name": "batch_window",
+        "type": "integer",
+        "description": "Window of time in seconds after which EventBridge event trigger fires. Window starts when first event is received."
+      }
+    ]
+  },
+  {
+    "name": "workflow_name",
+    "type": "string",
+    "description": "The name of the workflow associated with the trigger."
+  },
+  {
+    "name": "schedule",
+    "type": "string",
+    "description": "A cron expression used to specify the schedule."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags to use with this trigger."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the trigger."
+  },
+  {
+    "name": "predicate",
+    "type": "object",
+    "description": "The predicate of this trigger, which defines when it will fire.",
+    "children": [
+      {
+        "name": "logical",
+        "type": "string",
+        "description": "An optional field if only one condition is listed. If multiple conditions are listed, then this field is required."
+      },
+      {
+        "name": "conditions",
+        "type": "array",
+        "description": "A list of the conditions that determine when the trigger will fire.",
+        "children": [
+          {
+            "name": "job_name",
+            "type": "string",
+            "description": "The name of the job whose JobRuns this condition applies to, and on which this trigger waits."
+          },
+          {
+            "name": "crawler_name",
+            "type": "string",
+            "description": "The name of the crawler to which this condition applies."
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "The condition state. Currently, the values supported are SUCCEEDED, STOPPED, TIMEOUT, and FAILED."
+          },
+          {
+            "name": "crawl_state",
+            "type": "string",
+            "description": "The state of the crawler to which this condition applies."
+          },
+          {
+            "name": "logical_operator",
+            "type": "string",
+            "description": "A logical operator."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-trigger.html"><code>AWS::Glue::Trigger</code></a>.
 
@@ -89,23 +221,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>triggers</code> in a region.
-```sql
-SELECT
-region,
-type,
-start_on_creation,
-description,
-actions,
-event_batching_condition,
-workflow_name,
-schedule,
-tags,
-name,
-predicate
-FROM awscc.glue.triggers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>trigger</code>.
 ```sql
 SELECT

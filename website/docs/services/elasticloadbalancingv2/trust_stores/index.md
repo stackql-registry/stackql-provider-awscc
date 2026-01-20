@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>trust_store</code> resource or lists <code>trust_stores</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>trust_store</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the trust store.</td></tr>
-<tr><td><CopyableCode code="ca_certificates_bundle_s3_bucket" /></td><td><code>string</code></td><td>The name of the S3 bucket to fetch the CA certificate bundle from.</td></tr>
-<tr><td><CopyableCode code="ca_certificates_bundle_s3_key" /></td><td><code>string</code></td><td>The name of the S3 object to fetch the CA certificate bundle from.</td></tr>
-<tr><td><CopyableCode code="ca_certificates_bundle_s3_object_version" /></td><td><code>string</code></td><td>The version of the S3 bucket that contains the CA certificate bundle.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the trust store, could be either of ACTIVE or CREATING.</td></tr>
-<tr><td><CopyableCode code="number_of_ca_certificates" /></td><td><code>integer</code></td><td>The number of certificates associated with the trust store.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the trust store.</td></tr>
-<tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the trust store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the trust store."
+  },
+  {
+    "name": "ca_certificates_bundle_s3_bucket",
+    "type": "string",
+    "description": "The name of the S3 bucket to fetch the CA certificate bundle from."
+  },
+  {
+    "name": "ca_certificates_bundle_s3_key",
+    "type": "string",
+    "description": "The name of the S3 object to fetch the CA certificate bundle from."
+  },
+  {
+    "name": "ca_certificates_bundle_s3_object_version",
+    "type": "string",
+    "description": "The version of the S3 bucket that contains the CA certificate bundle."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the trust store, could be either of ACTIVE or CREATING."
+  },
+  {
+    "name": "number_of_ca_certificates",
+    "type": "integer",
+    "description": "The number of certificates associated with the trust store."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to assign to the trust store.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "trust_store_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the trust store."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-truststore.html"><code>AWS::ElasticLoadBalancingV2::TrustStore</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>trust_stores</code> in a region.
-```sql
-SELECT
-region,
-name,
-ca_certificates_bundle_s3_bucket,
-ca_certificates_bundle_s3_key,
-ca_certificates_bundle_s3_object_version,
-status,
-number_of_ca_certificates,
-tags,
-trust_store_arn
-FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>trust_store</code>.
 ```sql
 SELECT

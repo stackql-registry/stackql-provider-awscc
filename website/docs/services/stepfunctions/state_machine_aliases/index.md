@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>state_machine_alias</code> resource or lists <code>state_machine_aliases</code> in a region
 
@@ -32,17 +33,77 @@ Creates, updates, deletes or gets a <code>state_machine_alias</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the alias.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The alias name.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>An optional description of the alias.</td></tr>
-<tr><td><CopyableCode code="routing_configuration" /></td><td><code>array</code></td><td>The routing configuration of the alias. One or two versions can be mapped to an alias to split StartExecution requests of the same state machine.</td></tr>
-<tr><td><CopyableCode code="deployment_preference" /></td><td><code>object</code></td><td>The settings to enable gradual state machine deployments.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the alias."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The alias name."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "An optional description of the alias."
+  },
+  {
+    "name": "routing_configuration",
+    "type": "array",
+    "description": "The routing configuration of the alias. One or two versions can be mapped to an alias to split StartExecution requests of the same state machine.",
+    "children": [
+      {
+        "name": "state_machine_version_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) that identifies one or two state machine versions defined in the routing configuration."
+      },
+      {
+        "name": "weight",
+        "type": "integer",
+        "description": "The percentage of traffic you want to route to the state machine version. The sum of the weights in the routing configuration must be equal to 100."
+      }
+    ]
+  },
+  {
+    "name": "deployment_preference",
+    "type": "object",
+    "description": "The settings to enable gradual state machine deployments.",
+    "children": [
+      {
+        "name": "state_machine_version_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of deployment to perform."
+      },
+      {
+        "name": "percentage",
+        "type": "integer",
+        "description": "The percentage of traffic to shift to the new version in each increment."
+      },
+      {
+        "name": "interval",
+        "type": "integer",
+        "description": "The time in minutes between each traffic shifting increment."
+      },
+      {
+        "name": "alarms",
+        "type": "array",
+        "description": "A list of CloudWatch alarm names that will be monitored during the deployment. The deployment will fail and rollback if any alarms go into ALARM state."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachinealias.html"><code>AWS::StepFunctions::StateMachineAlias</code></a>.
 
@@ -84,18 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>state_machine_aliases</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-routing_configuration,
-deployment_preference
-FROM awscc.stepfunctions.state_machine_aliases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>state_machine_alias</code>.
 ```sql
 SELECT

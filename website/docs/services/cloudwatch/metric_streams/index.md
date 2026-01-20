@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>metric_stream</code> resource or lists <code>metric_streams</code> in a region
 
@@ -32,25 +33,126 @@ Creates, updates, deletes or gets a <code>metric_stream</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name of the metric stream.</td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td>The date of creation of the metric stream.</td></tr>
-<tr><td><CopyableCode code="exclude_filters" /></td><td><code>array</code></td><td>Define which metrics will be not streamed. Metrics matched by multiple instances of MetricStreamFilter are joined with an OR operation by default. If both IncludeFilters and ExcludeFilters are omitted, all metrics in the account will be streamed. IncludeFilters and ExcludeFilters are mutually exclusive. Default to null.</td></tr>
-<tr><td><CopyableCode code="firehose_arn" /></td><td><code>string</code></td><td>The ARN of the Kinesis Firehose where to stream the data.</td></tr>
-<tr><td><CopyableCode code="include_filters" /></td><td><code>array</code></td><td>Define which metrics will be streamed. Metrics matched by multiple instances of MetricStreamFilter are joined with an OR operation by default. If both IncludeFilters and ExcludeFilters are omitted, all metrics in the account will be streamed. IncludeFilters and ExcludeFilters are mutually exclusive. Default to null.</td></tr>
-<tr><td><CopyableCode code="last_update_date" /></td><td><code>string</code></td><td>The date of the last update of the metric stream.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the metric stream.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of the role that provides access to the Kinesis Firehose.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Displays the state of the Metric Stream.</td></tr>
-<tr><td><CopyableCode code="output_format" /></td><td><code>string</code></td><td>The output format of the data streamed to the Kinesis Firehose.</td></tr>
-<tr><td><CopyableCode code="statistics_configurations" /></td><td><code>array</code></td><td>By default, a metric stream always sends the MAX, MIN, SUM, and SAMPLECOUNT statistics for each metric that is streamed. You can use this parameter to have the metric stream also send additional statistics in the stream. This array can have up to 100 members.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags to assign to the delivery stream.</td></tr>
-<tr><td><CopyableCode code="include_linked_accounts_metrics" /></td><td><code>boolean</code></td><td>If you are creating a metric stream in a monitoring account, specify true to include metrics from source accounts that are linked to this monitoring account, in the metric stream. The default is false.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name of the metric stream."
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": "The date of creation of the metric stream."
+  },
+  {
+    "name": "exclude_filters",
+    "type": "array",
+    "description": "Define which metrics will be not streamed. Metrics matched by multiple instances of MetricStreamFilter are joined with an OR operation by default. If both IncludeFilters and ExcludeFilters are omitted, all metrics in the account will be streamed. IncludeFilters and ExcludeFilters are mutually exclusive. Default to null.",
+    "children": [
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": "Only metrics with Namespace matching this value will be streamed."
+      },
+      {
+        "name": "metric_names",
+        "type": "array",
+        "description": "Only metrics with MetricNames matching these values will be streamed. Must be set together with Namespace."
+      }
+    ]
+  },
+  {
+    "name": "firehose_arn",
+    "type": "string",
+    "description": "The ARN of the Kinesis Firehose where to stream the data."
+  },
+  {
+    "name": "include_filters",
+    "type": "array",
+    "description": "Define which metrics will be streamed. Metrics matched by multiple instances of MetricStreamFilter are joined with an OR operation by default. If both IncludeFilters and ExcludeFilters are omitted, all metrics in the account will be streamed. IncludeFilters and ExcludeFilters are mutually exclusive. Default to null."
+  },
+  {
+    "name": "last_update_date",
+    "type": "string",
+    "description": "The date of the last update of the metric stream."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the metric stream."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of the role that provides access to the Kinesis Firehose."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "Displays the state of the Metric Stream."
+  },
+  {
+    "name": "output_format",
+    "type": "string",
+    "description": "The output format of the data streamed to the Kinesis Firehose."
+  },
+  {
+    "name": "statistics_configurations",
+    "type": "array",
+    "description": "By default, a metric stream always sends the MAX, MIN, SUM, and SAMPLECOUNT statistics for each metric that is streamed. You can use this parameter to have the metric stream also send additional statistics in the stream. This array can have up to 100 members.",
+    "children": [
+      {
+        "name": "additional_statistics",
+        "type": "array",
+        "description": "The additional statistics to stream for the metrics listed in IncludeMetrics."
+      },
+      {
+        "name": "include_metrics",
+        "type": "array",
+        "description": "An array that defines the metrics that are to have additional statistics streamed.",
+        "children": [
+          {
+            "name": "metric_name",
+            "type": "string",
+            "description": "The name of the metric."
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace of the metric."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A set of tags to assign to the delivery stream.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A unique identifier for the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "String which you can use to describe or define the tag."
+      }
+    ]
+  },
+  {
+    "name": "include_linked_accounts_metrics",
+    "type": "boolean",
+    "description": "If you are creating a metric stream in a monitoring account, specify true to include metrics from source accounts that are linked to this monitoring account, in the metric stream. The default is false."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-metricstream.html"><code>AWS::CloudWatch::MetricStream</code></a>.
 
@@ -92,26 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>metric_streams</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_date,
-exclude_filters,
-firehose_arn,
-include_filters,
-last_update_date,
-name,
-role_arn,
-state,
-output_format,
-statistics_configurations,
-tags,
-include_linked_accounts_metrics
-FROM awscc.cloudwatch.metric_streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>metric_stream</code>.
 ```sql
 SELECT

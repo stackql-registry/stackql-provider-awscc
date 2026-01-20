@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>view</code> resource or lists <code>views</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>view</code> resource or lists <code>vi
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the instance.</td></tr>
-<tr><td><CopyableCode code="view_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the view.</td></tr>
-<tr><td><CopyableCode code="view_id" /></td><td><code>string</code></td><td>The view id of the view.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the view.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the view.</td></tr>
-<tr><td><CopyableCode code="template" /></td><td><code>object</code></td><td>The template of the view as JSON.</td></tr>
-<tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>The actions of the view in an array.</td></tr>
-<tr><td><CopyableCode code="view_content_sha256" /></td><td><code>string</code></td><td>The view content hash.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the instance."
+  },
+  {
+    "name": "view_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the view."
+  },
+  {
+    "name": "view_id",
+    "type": "string",
+    "description": "The view id of the view."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the view."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the view."
+  },
+  {
+    "name": "template",
+    "type": "object",
+    "description": "The template of the view as JSON."
+  },
+  {
+    "name": "actions",
+    "type": "array",
+    "description": "The actions of the view in an array."
+  },
+  {
+    "name": "view_content_sha256",
+    "type": "string",
+    "description": "The view content hash."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-view.html"><code>AWS::Connect::View</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>views</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-view_arn,
-view_id,
-name,
-description,
-template,
-actions,
-view_content_sha256,
-tags
-FROM awscc.connect.views
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>view</code>.
 ```sql
 SELECT

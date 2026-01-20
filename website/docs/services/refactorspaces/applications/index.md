@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,26 +33,107 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="api_gateway_proxy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="api_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_link_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="nlb_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="nlb_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="proxy_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stage_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="proxy_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "api_gateway_proxy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "stage_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "endpoint_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_link_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "nlb_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "nlb_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "proxy_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stage_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "proxy_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-refactorspaces-application.html"><code>AWS::RefactorSpaces::Application</code></a>.
 
@@ -88,27 +170,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-api_gateway_proxy,
-arn,
-api_gateway_id,
-vpc_link_id,
-nlb_arn,
-nlb_name,
-application_identifier,
-environment_identifier,
-name,
-proxy_type,
-vpc_id,
-stage_name,
-proxy_url,
-tags
-FROM awscc.refactorspaces.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

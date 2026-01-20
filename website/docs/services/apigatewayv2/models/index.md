@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>model</code> resource or lists <code>models</code> in a region
 
@@ -26,24 +27,49 @@ Creates, updates, deletes or gets a <code>model</code> resource or lists <code>m
 <tbody>
 <tr><td><b>Name</b></td><td><code>models</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::Model</code> resource updates data model for a WebSocket API. For more information, see &#91;Model Selection Expressions&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-model-selection-expressions) in the ASTERIX;API Gateway Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::Model&#96;&#96; resource updates data model for a WebSocket API. For more information, see &#91;Model Selection Expressions&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-model-selection-expressions) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.models" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="model_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the model.</td></tr>
-<tr><td><CopyableCode code="content_type" /></td><td><code>string</code></td><td>The content-type for the model, for example, "application/json".</td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td>The schema for the model. For application/json models, this should be JSON schema draft 4 model.</td></tr>
-<tr><td><CopyableCode code="api_id" /></td><td><code>string</code></td><td>The API identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the model.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "model_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the model."
+  },
+  {
+    "name": "content_type",
+    "type": "string",
+    "description": "The content-type for the model, for example, \"application/json\"."
+  },
+  {
+    "name": "schema",
+    "type": "object",
+    "description": "The schema for the model. For application/json models, this should be JSON schema draft 4 model."
+  },
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "The API identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the model."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-model.html"><code>AWS::ApiGatewayV2::Model</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>models</code> in a region.
-```sql
-SELECT
-region,
-model_id,
-description,
-content_type,
-schema,
-api_id,
-name
-FROM awscc.apigatewayv2.models
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>model</code>.
 ```sql
 SELECT

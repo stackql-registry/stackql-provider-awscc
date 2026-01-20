@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>inference_experiment</code> resource or lists <code>inference_experiments</code> in a region
 
@@ -32,30 +33,233 @@ Creates, updates, deletes or gets an <code>inference_experiment</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the inference experiment.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the inference experiment.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the inference experiment that you want to run.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the inference experiment.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to access model artifacts and container images, and manage Amazon SageMaker Inference endpoints for model deployment.</td></tr>
-<tr><td><CopyableCode code="endpoint_name" /></td><td><code>string</code></td><td>The name of the endpoint used to run the monitoring job.</td></tr>
-<tr><td><CopyableCode code="endpoint_metadata" /></td><td><code>object</code></td><td>The metadata of the endpoint on which the inference experiment ran.</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>object</code></td><td>The duration for which you want the inference experiment to run.</td></tr>
-<tr><td><CopyableCode code="kms_key" /></td><td><code>string</code></td><td>The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint.</td></tr>
-<tr><td><CopyableCode code="data_storage_config" /></td><td><code>object</code></td><td>The Amazon S3 location and configuration for storing inference request and response data.</td></tr>
-<tr><td><CopyableCode code="model_variants" /></td><td><code>array</code></td><td>An array of ModelVariantConfig objects. Each ModelVariantConfig object in the array describes the infrastructure configuration for the corresponding variant.</td></tr>
-<tr><td><CopyableCode code="shadow_mode_config" /></td><td><code>object</code></td><td>The configuration of ShadowMode inference experiment type. Use this field to specify a production variant which takes all the inference requests, and a shadow variant to which Amazon SageMaker replicates a percentage of the inference requests. For the shadow variant also specify the percentage of requests that Amazon SageMaker replicates.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The timestamp at which you created the inference experiment.</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td>The timestamp at which you last modified the inference experiment.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the inference experiment.</td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td>The error message or client-specified reason from the StopInferenceExperiment API, that explains the status of the inference experiment.</td></tr>
-<tr><td><CopyableCode code="desired_state" /></td><td><code>string</code></td><td>The desired state of the experiment after starting or stopping operation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the inference experiment."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the inference experiment."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the inference experiment that you want to run."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the inference experiment."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to access model artifacts and container images, and manage Amazon SageMaker Inference endpoints for model deployment."
+  },
+  {
+    "name": "endpoint_name",
+    "type": "string",
+    "description": "The name of the endpoint used to run the monitoring job."
+  },
+  {
+    "name": "endpoint_metadata",
+    "type": "object",
+    "description": "The metadata of the endpoint on which the inference experiment ran.",
+    "children": [
+      {
+        "name": "endpoint_config_name",
+        "type": "string",
+        "description": "The name of the endpoint configuration."
+      },
+      {
+        "name": "endpoint_status",
+        "type": "string",
+        "description": "The status of the endpoint. For possible values of the status of an endpoint."
+      }
+    ]
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "The duration for which you want the inference experiment to run.",
+    "children": [
+      {
+        "name": "start_time",
+        "type": "string",
+        "description": "The timestamp at which the inference experiment started or will start."
+      },
+      {
+        "name": "end_time",
+        "type": "string",
+        "description": "The timestamp at which the inference experiment ended or will end."
+      }
+    ]
+  },
+  {
+    "name": "kms_key",
+    "type": "string",
+    "description": "The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint."
+  },
+  {
+    "name": "data_storage_config",
+    "type": "object",
+    "description": "The Amazon S3 location and configuration for storing inference request and response data.",
+    "children": [
+      {
+        "name": "destination",
+        "type": "string",
+        "description": "The Amazon S3 bucket where the inference request and response data is stored."
+      },
+      {
+        "name": "kms_key",
+        "type": "string",
+        "description": "The AWS Key Management Service key that Amazon SageMaker uses to encrypt captured data at rest using Amazon S3 server-side encryption."
+      },
+      {
+        "name": "content_type",
+        "type": "object",
+        "description": "Configuration specifying how to treat different headers. If no headers are specified SageMaker will by default base64 encode when capturing the data.",
+        "children": [
+          {
+            "name": "csv_content_types",
+            "type": "array",
+            "description": "The list of all content type headers that SageMaker will treat as CSV and capture accordingly."
+          },
+          {
+            "name": "json_content_types",
+            "type": "array",
+            "description": "The list of all content type headers that SageMaker will treat as JSON and capture accordingly."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "model_variants",
+    "type": "array",
+    "description": "An array of ModelVariantConfig objects. Each ModelVariantConfig object in the array describes the infrastructure configuration for the corresponding variant.",
+    "children": [
+      {
+        "name": "model_name",
+        "type": "string",
+        "description": "The name of the Amazon SageMaker Model entity."
+      },
+      {
+        "name": "variant_name",
+        "type": "string",
+        "description": "The name of the variant."
+      },
+      {
+        "name": "infrastructure_config",
+        "type": "object",
+        "description": "The configuration for the infrastructure that the model will be deployed to.",
+        "children": [
+          {
+            "name": "infrastructure_type",
+            "type": "string",
+            "description": "The type of the inference experiment that you want to run."
+          },
+          {
+            "name": "real_time_inference_config",
+            "type": "object",
+            "description": "The infrastructure configuration for deploying the model to a real-time inference endpoint.",
+            "children": [
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": "The instance type the model is deployed to."
+              },
+              {
+                "name": "instance_count",
+                "type": "integer",
+                "description": "The number of instances of the type specified by InstanceType."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "shadow_mode_config",
+    "type": "object",
+    "description": "The configuration of ShadowMode inference experiment type. Use this field to specify a production variant which takes all the inference requests, and a shadow variant to which Amazon SageMaker replicates a percentage of the inference requests. For the shadow variant also specify the percentage of requests that Amazon SageMaker replicates.",
+    "children": [
+      {
+        "name": "source_model_variant_name",
+        "type": "string",
+        "description": "The name of the production variant, which takes all the inference requests."
+      },
+      {
+        "name": "shadow_model_variants",
+        "type": "array",
+        "description": "List of shadow variant configurations.",
+        "children": [
+          {
+            "name": "shadow_model_variant_name",
+            "type": "string",
+            "description": "The name of the shadow variant."
+          },
+          {
+            "name": "sampling_percentage",
+            "type": "integer",
+            "description": "The percentage of inference requests that Amazon SageMaker replicates from the production variant to the shadow variant."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The timestamp at which you created the inference experiment."
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": "The timestamp at which you last modified the inference experiment."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the inference experiment."
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": "The error message or client-specified reason from the StopInferenceExperiment API, that explains the status of the inference experiment."
+  },
+  {
+    "name": "desired_state",
+    "type": "string",
+    "description": "The desired state of the experiment after starting or stopping operation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-inferenceexperiment.html"><code>AWS::SageMaker::InferenceExperiment</code></a>.
 
@@ -97,31 +301,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>inference_experiments</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-type,
-description,
-role_arn,
-endpoint_name,
-endpoint_metadata,
-schedule,
-kms_key,
-data_storage_config,
-model_variants,
-shadow_mode_config,
-tags,
-creation_time,
-last_modified_time,
-status,
-status_reason,
-desired_state
-FROM awscc.sagemaker.inference_experiments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>inference_experiment</code>.
 ```sql
 SELECT

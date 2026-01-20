@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>health_check</code> resource or lists <code>health_checks</code> in a region
 
@@ -32,15 +33,139 @@ Creates, updates, deletes or gets a <code>health_check</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="health_check_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="health_check_config" /></td><td><code>object</code></td><td>A complex type that contains information about the health check.</td></tr>
-<tr><td><CopyableCode code="health_check_tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "health_check_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "health_check_config",
+    "type": "object",
+    "description": "A complex type that contains information about the health check.",
+    "children": [
+      {
+        "name": "alarm_identifier",
+        "type": "object",
+        "description": "A complex type that identifies the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether the specified health check is healthy.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether this health check is healthy."
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": "For the CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy, the region that the alarm was created in."
+          }
+        ]
+      },
+      {
+        "name": "child_health_checks",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "enable_sn_i",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "failure_threshold",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "fully_qualified_domain_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "health_threshold",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "insufficient_data_health_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "inverted",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "ip_address",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "measure_latency",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "regions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "request_interval",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "resource_path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "search_string",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "routing_control_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "health_check_tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-healthcheck.html"><code>AWS::Route53::HealthCheck</code></a>.
 
@@ -82,16 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>health_checks</code> in a region.
-```sql
-SELECT
-region,
-health_check_id,
-health_check_config,
-health_check_tags
-FROM awscc.route53.health_checks
-;
-```
+
 Gets all properties from an individual <code>health_check</code>.
 ```sql
 SELECT

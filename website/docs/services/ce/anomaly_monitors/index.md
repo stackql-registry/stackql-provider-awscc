@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>anomaly_monitor</code> resource or lists <code>anomaly_monitors</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets an <code>anomaly_monitor</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="monitor_arn" /></td><td><code>string</code></td><td>Subscription ARN</td></tr>
-<tr><td><CopyableCode code="monitor_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="monitor_name" /></td><td><code>string</code></td><td>The name of the monitor.</td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td>The date when the monitor was created.</td></tr>
-<tr><td><CopyableCode code="last_evaluated_date" /></td><td><code>string</code></td><td>The date when the monitor last evaluated for anomalies.</td></tr>
-<tr><td><CopyableCode code="last_updated_date" /></td><td><code>string</code></td><td>The date when the monitor was last updated.</td></tr>
-<tr><td><CopyableCode code="monitor_dimension" /></td><td><code>string</code></td><td>The dimensions to evaluate</td></tr>
-<tr><td><CopyableCode code="monitor_specification" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dimensional_value_count" /></td><td><code>integer</code></td><td>The value for evaluated dimensions.</td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>array</code></td><td>Tags to assign to monitor.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "monitor_arn",
+    "type": "string",
+    "description": "Subscription ARN"
+  },
+  {
+    "name": "monitor_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "monitor_name",
+    "type": "string",
+    "description": "The name of the monitor."
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": "The date when the monitor was created."
+  },
+  {
+    "name": "last_evaluated_date",
+    "type": "string",
+    "description": "The date when the monitor last evaluated for anomalies."
+  },
+  {
+    "name": "last_updated_date",
+    "type": "string",
+    "description": "The date when the monitor was last updated."
+  },
+  {
+    "name": "monitor_dimension",
+    "type": "string",
+    "description": "The dimensions to evaluate"
+  },
+  {
+    "name": "monitor_specification",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dimensional_value_count",
+    "type": "integer",
+    "description": "The value for evaluated dimensions."
+  },
+  {
+    "name": "resource_tags",
+    "type": "array",
+    "description": "Tags to assign to monitor.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name for the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ce-anomalymonitor.html"><code>AWS::CE::AnomalyMonitor</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>anomaly_monitors</code> in a region.
-```sql
-SELECT
-region,
-monitor_arn,
-monitor_type,
-monitor_name,
-creation_date,
-last_evaluated_date,
-last_updated_date,
-monitor_dimension,
-monitor_specification,
-dimensional_value_count,
-resource_tags
-FROM awscc.ce.anomaly_monitors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>anomaly_monitor</code>.
 ```sql
 SELECT

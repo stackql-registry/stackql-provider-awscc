@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>intelligent_prompt_router</code> resource or lists <code>intelligent_prompt_routers</code> in a region
 
@@ -32,23 +33,94 @@ Creates, updates, deletes or gets an <code>intelligent_prompt_router</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Prompt Router.</td></tr>
-<tr><td><CopyableCode code="fallback_model" /></td><td><code>object</code></td><td>Model configuration</td></tr>
-<tr><td><CopyableCode code="models" /></td><td><code>array</code></td><td>List of model configuration</td></tr>
-<tr><td><CopyableCode code="prompt_router_arn" /></td><td><code>string</code></td><td>Arn of the Prompt Router.</td></tr>
-<tr><td><CopyableCode code="prompt_router_name" /></td><td><code>string</code></td><td>Name of the Prompt Router.</td></tr>
-<tr><td><CopyableCode code="routing_criteria" /></td><td><code>object</code></td><td>Represents the criteria used for routing requests.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of a PromptRouter</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Type of a Prompt Router</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Prompt Router."
+  },
+  {
+    "name": "fallback_model",
+    "type": "object",
+    "description": "Model configuration",
+    "children": [
+      {
+        "name": "model_arn",
+        "type": "string",
+        "description": "Arn of underlying model which are added in the Prompt Router."
+      }
+    ]
+  },
+  {
+    "name": "models",
+    "type": "array",
+    "description": "List of model configuration"
+  },
+  {
+    "name": "prompt_router_arn",
+    "type": "string",
+    "description": "Arn of the Prompt Router."
+  },
+  {
+    "name": "prompt_router_name",
+    "type": "string",
+    "description": "Name of the Prompt Router."
+  },
+  {
+    "name": "routing_criteria",
+    "type": "object",
+    "description": "Represents the criteria used for routing requests.",
+    "children": [
+      {
+        "name": "response_quality_difference",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status of a PromptRouter"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Type of a Prompt Router"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-intelligentpromptrouter.html"><code>AWS::Bedrock::IntelligentPromptRouter</code></a>.
 
@@ -90,24 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>intelligent_prompt_routers</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-description,
-fallback_model,
-models,
-prompt_router_arn,
-prompt_router_name,
-routing_criteria,
-status,
-tags,
-type,
-updated_at
-FROM awscc.bedrock.intelligent_prompt_routers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>intelligent_prompt_router</code>.
 ```sql
 SELECT

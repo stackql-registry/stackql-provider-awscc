@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_integration</code> resource or lists <code>data_integrations</code> in a region
 
@@ -32,22 +33,104 @@ Creates, updates, deletes or gets a <code>data_integration</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The data integration description.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique identifer of the data integration.</td></tr>
-<tr><td><CopyableCode code="data_integration_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the data integration.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the data integration.</td></tr>
-<tr><td><CopyableCode code="kms_key" /></td><td><code>string</code></td><td>The KMS key of the data integration.</td></tr>
-<tr><td><CopyableCode code="schedule_config" /></td><td><code>object</code></td><td>The name of the data and how often it should be pulled from the source.</td></tr>
-<tr><td><CopyableCode code="source_uri" /></td><td><code>string</code></td><td>The URI of the data source.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the data integration.</td></tr>
-<tr><td><CopyableCode code="file_configuration" /></td><td><code>object</code></td><td>The configuration for what files should be pulled from the source.</td></tr>
-<tr><td><CopyableCode code="object_configuration" /></td><td><code>object</code></td><td>The configuration for what data should be pulled from the source.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The data integration description."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique identifer of the data integration."
+  },
+  {
+    "name": "data_integration_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the data integration."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the data integration."
+  },
+  {
+    "name": "kms_key",
+    "type": "string",
+    "description": "The KMS key of the data integration."
+  },
+  {
+    "name": "schedule_config",
+    "type": "object",
+    "description": "The name of the data and how often it should be pulled from the source.",
+    "children": [
+      {
+        "name": "first_execution_from",
+        "type": "string",
+        "description": "The start date for objects to import in the first flow run. Epoch or ISO timestamp format is supported."
+      },
+      {
+        "name": "object",
+        "type": "string",
+        "description": "The name of the object to pull from the data source."
+      },
+      {
+        "name": "schedule_expression",
+        "type": "string",
+        "description": "How often the data should be pulled from data source."
+      }
+    ]
+  },
+  {
+    "name": "source_uri",
+    "type": "string",
+    "description": "The URI of the data source."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the data integration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key to identify the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Corresponding tag value for the key."
+      }
+    ]
+  },
+  {
+    "name": "file_configuration",
+    "type": "object",
+    "description": "The configuration for what files should be pulled from the source.",
+    "children": [
+      {
+        "name": "folders",
+        "type": "array",
+        "description": "Identifiers for the source folders to pull all files from recursively."
+      },
+      {
+        "name": "filters",
+        "type": "object",
+        "description": "Restrictions for what files should be pulled from the source."
+      }
+    ]
+  },
+  {
+    "name": "object_configuration",
+    "type": "object",
+    "description": "The configuration for what data should be pulled from the source."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appintegrations-dataintegration.html"><code>AWS::AppIntegrations::DataIntegration</code></a>.
 
@@ -89,23 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_integrations</code> in a region.
-```sql
-SELECT
-region,
-description,
-id,
-data_integration_arn,
-name,
-kms_key,
-schedule_config,
-source_uri,
-tags,
-file_configuration,
-object_configuration
-FROM awscc.appintegrations.data_integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_integration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists <code>subnet_groups</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>subnet_group</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description for the cache subnet group.</td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The EC2 subnet IDs for the cache subnet group.</td></tr>
-<tr><td><CopyableCode code="cache_subnet_group_name" /></td><td><code>string</code></td><td>The name for the cache subnet group. This value is stored as a lowercase string.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description for the cache subnet group."
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The EC2 subnet IDs for the cache subnet group."
+  },
+  {
+    "name": "cache_subnet_group_name",
+    "type": "string",
+    "description": "The name for the cache subnet group. This value is stored as a lowercase string."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-subnetgroup.html"><code>AWS::ElastiCache::SubnetGroup</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subnet_groups</code> in a region.
-```sql
-SELECT
-region,
-description,
-subnet_ids,
-cache_subnet_group_name,
-tags
-FROM awscc.elasticache.subnet_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subnet_group</code>.
 ```sql
 SELECT

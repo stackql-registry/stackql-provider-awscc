@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>model</code> resource or lists <code>models</code> in a region
 
@@ -26,23 +27,44 @@ Creates, updates, deletes or gets a <code>model</code> resource or lists <code>m
 <tbody>
 <tr><td><b>Name</b></td><td><code>models</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Model</code> resource defines the structure of a request or response payload for an API method.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Model&#96;&#96; resource defines the structure of a request or response payload for an API method.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.models" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="content_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "content_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the model. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the model name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schema",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-model.html"><code>AWS::ApiGateway::Model</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>models</code> in a region.
-```sql
-SELECT
-region,
-content_type,
-description,
-name,
-rest_api_id,
-schema
-FROM awscc.apigateway.models
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>model</code>.
 ```sql
 SELECT

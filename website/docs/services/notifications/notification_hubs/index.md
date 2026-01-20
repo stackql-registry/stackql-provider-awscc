@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>notification_hub</code> resource or lists <code>notification_hubs</code> in a region
 
@@ -32,15 +33,40 @@ Creates, updates, deletes or gets a <code>notification_hub</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>Region that NotificationHub is present in.</td></tr>
-<tr><td><CopyableCode code="notification_hub_status_summary" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "region",
+    "type": "string",
+    "description": "Region that NotificationHub is present in."
+  },
+  {
+    "name": "notification_hub_status_summary",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "notification_hub_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "notification_hub_status_reason",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-notificationhub.html"><code>AWS::Notifications::NotificationHub</code></a>.
 
@@ -77,16 +103,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>notification_hubs</code> in a region.
-```sql
-SELECT
-region,
-region,
-notification_hub_status_summary,
-creation_time
-FROM awscc.notifications.notification_hubs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>notification_hub</code>.
 ```sql
 SELECT

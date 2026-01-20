@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>contact_flow_module</code> resource or lists <code>contact_flow_modules</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>contact_flow_module</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance (ARN).</td></tr>
-<tr><td><CopyableCode code="contact_flow_module_arn" /></td><td><code>string</code></td><td>The identifier of the contact flow module (ARN).</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the contact flow module.</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>string</code></td><td>The content of the contact flow module in JSON format.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the contact flow module.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the contact flow module.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the contact flow module.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance (ARN)."
+  },
+  {
+    "name": "contact_flow_module_arn",
+    "type": "string",
+    "description": "The identifier of the contact flow module (ARN)."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the contact flow module."
+  },
+  {
+    "name": "content",
+    "type": "string",
+    "description": "The content of the contact flow module in JSON format."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the contact flow module."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the contact flow module."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the contact flow module."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-contactflowmodule.html"><code>AWS::Connect::ContactFlowModule</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>contact_flow_modules</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-contact_flow_module_arn,
-name,
-content,
-description,
-state,
-status,
-tags
-FROM awscc.connect.contact_flow_modules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>contact_flow_module</code>.
 ```sql
 SELECT

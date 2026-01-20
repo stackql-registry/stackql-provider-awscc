@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>membership</code> resource or lists <code>memberships</code> in a region
 
@@ -32,23 +33,209 @@ Creates, updates, deletes or gets a <code>membership</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms membership.</td></tr>
-<tr><td><CopyableCode code="collaboration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_creator_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="query_log_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_log_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_result_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_job_result_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="payment_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms membership.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "collaboration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_creator_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "membership_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "query_log_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_log_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "default_result_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "output_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "result_format",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key_prefix",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "single_file_output",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "default_job_result_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "output_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key_prefix",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "payment_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "query_compute",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "is_responsible",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "machine_learning",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "model_training",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "model_inference",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "is_responsible",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "job_compute",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "is_responsible",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-membership.html"><code>AWS::CleanRooms::Membership</code></a>.
 
@@ -90,24 +277,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>memberships</code> in a region.
-```sql
-SELECT
-region,
-arn,
-tags,
-collaboration_arn,
-collaboration_creator_account_id,
-collaboration_identifier,
-membership_identifier,
-query_log_status,
-job_log_status,
-default_result_configuration,
-default_job_result_configuration,
-payment_configuration
-FROM awscc.cleanrooms.memberships
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>membership</code>.
 ```sql
 SELECT

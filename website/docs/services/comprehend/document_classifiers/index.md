@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>document_classifier</code> resource or lists <code>document_classifiers</code> in a region
 
@@ -32,25 +33,187 @@ Creates, updates, deletes or gets a <code>document_classifier</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="data_access_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="input_data_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="output_data_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="language_code" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="document_classifier_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="version_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="volume_kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "data_access_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "input_data_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "augmented_manifests",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute_names",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "s3_uri",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "split",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "data_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "label_delimiter",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "document_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "documents",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3_uri",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "document_reader_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "document_read_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "document_read_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "feature_types",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_uri",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "output_data_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_uri",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "language_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_kms_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "document_classifier_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "version_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnets",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-comprehend-documentclassifier.html"><code>AWS::Comprehend::DocumentClassifier</code></a>.
 
@@ -92,26 +255,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>document_classifiers</code> in a region.
-```sql
-SELECT
-region,
-data_access_role_arn,
-input_data_config,
-output_data_config,
-language_code,
-model_kms_key_id,
-model_policy,
-document_classifier_name,
-mode,
-tags,
-version_name,
-volume_kms_key_id,
-vpc_config,
-arn
-FROM awscc.comprehend.document_classifiers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>document_classifier</code>.
 ```sql
 SELECT

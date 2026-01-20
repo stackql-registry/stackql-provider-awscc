@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance_profile</code> resource or lists <code>instance_profiles</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets an <code>instance_profile</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_profile_arn" /></td><td><code>string</code></td><td>The property describes an ARN of the instance profile.</td></tr>
-<tr><td><CopyableCode code="instance_profile_identifier" /></td><td><code>string</code></td><td>The property describes an identifier for the instance profile. It is used for describing/deleting/modifying. Can be name/arn</td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The property describes an availability zone of the instance profile.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The optional description of the instance profile.</td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>The property describes kms key arn for the instance profile.</td></tr>
-<tr><td><CopyableCode code="publicly_accessible" /></td><td><code>boolean</code></td><td>The property describes the publicly accessible of the instance profile</td></tr>
-<tr><td><CopyableCode code="network_type" /></td><td><code>string</code></td><td>The property describes a network type for the instance profile.</td></tr>
-<tr><td><CopyableCode code="instance_profile_name" /></td><td><code>string</code></td><td>The property describes a name for the instance profile.</td></tr>
-<tr><td><CopyableCode code="instance_profile_creation_time" /></td><td><code>string</code></td><td>The property describes a creating time of the instance profile.</td></tr>
-<tr><td><CopyableCode code="subnet_group_identifier" /></td><td><code>string</code></td><td>The property describes a subnet group identifier for the instance profile.</td></tr>
-<tr><td><CopyableCode code="vpc_security_groups" /></td><td><code>array</code></td><td>The property describes vps security groups for the instance profile.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_profile_arn",
+    "type": "string",
+    "description": "The property describes an ARN of the instance profile."
+  },
+  {
+    "name": "instance_profile_identifier",
+    "type": "string",
+    "description": "The property describes an identifier for the instance profile. It is used for describing/deleting/modifying. Can be name/arn"
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The property describes an availability zone of the instance profile."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The optional description of the instance profile."
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": "The property describes kms key arn for the instance profile."
+  },
+  {
+    "name": "publicly_accessible",
+    "type": "boolean",
+    "description": "The property describes the publicly accessible of the instance profile"
+  },
+  {
+    "name": "network_type",
+    "type": "string",
+    "description": "The property describes a network type for the instance profile."
+  },
+  {
+    "name": "instance_profile_name",
+    "type": "string",
+    "description": "The property describes a name for the instance profile."
+  },
+  {
+    "name": "instance_profile_creation_time",
+    "type": "string",
+    "description": "The property describes a creating time of the instance profile."
+  },
+  {
+    "name": "subnet_group_identifier",
+    "type": "string",
+    "description": "The property describes a subnet group identifier for the instance profile."
+  },
+  {
+    "name": "vpc_security_groups",
+    "type": "array",
+    "description": "The property describes vps security groups for the instance profile."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-instanceprofile.html"><code>AWS::DMS::InstanceProfile</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instance_profiles</code> in a region.
-```sql
-SELECT
-region,
-instance_profile_arn,
-instance_profile_identifier,
-availability_zone,
-description,
-kms_key_arn,
-publicly_accessible,
-network_type,
-instance_profile_name,
-instance_profile_creation_time,
-subnet_group_identifier,
-vpc_security_groups,
-tags
-FROM awscc.dms.instance_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance_profile</code>.
 ```sql
 SELECT

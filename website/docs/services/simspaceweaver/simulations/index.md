@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>simulation</code> resource or lists <code>simulations</code> in a region
 
@@ -32,18 +33,50 @@ Creates, updates, deletes or gets a <code>simulation</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the simulation.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role ARN.</td></tr>
-<tr><td><CopyableCode code="schema_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="describe_payload" /></td><td><code>string</code></td><td>Json object with all simulation details</td></tr>
-<tr><td><CopyableCode code="maximum_duration" /></td><td><code>string</code></td><td>The maximum running time of the simulation.</td></tr>
-<tr><td><CopyableCode code="snapshot_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the simulation."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role ARN."
+  },
+  {
+    "name": "schema_s3_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": "The Schema S3 bucket name."
+      },
+      {
+        "name": "object_key",
+        "type": "string",
+        "description": "This is the schema S3 object key, which includes the full path of \"folders\" from the bucket root to the schema."
+      }
+    ]
+  },
+  {
+    "name": "describe_payload",
+    "type": "string",
+    "description": "Json object with all simulation details"
+  },
+  {
+    "name": "maximum_duration",
+    "type": "string",
+    "description": "The maximum running time of the simulation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-simspaceweaver-simulation.html"><code>AWS::SimSpaceWeaver::Simulation</code></a>.
 
@@ -85,19 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>simulations</code> in a region.
-```sql
-SELECT
-region,
-name,
-role_arn,
-schema_s3_location,
-describe_payload,
-maximum_duration,
-snapshot_s3_location
-FROM awscc.simspaceweaver.simulations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>simulation</code>.
 ```sql
 SELECT

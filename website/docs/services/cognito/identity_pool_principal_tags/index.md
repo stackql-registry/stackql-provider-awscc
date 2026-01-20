@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Expands all tag keys and values for <code>identity_pool_principals</code> in a region
 
@@ -32,18 +33,43 @@ Expands all tag keys and values for <code>identity_pool_principals</code> in a r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="identity_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="use_defaults" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal_tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
-<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "identity_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "use_defaults",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "principal_tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "tag_key",
+    "type": "string",
+    "description": "Tag key."
+  },
+  {
+    "name": "tag_value",
+    "type": "string",
+    "description": "Tag value."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolprincipaltag.html"><code>AWS::Cognito::IdentityPoolPrincipalTag</code></a>.
 

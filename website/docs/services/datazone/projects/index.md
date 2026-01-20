@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>project</code> resource or lists <code>projects</code> in a region
 
@@ -32,26 +33,112 @@ Creates, updates, deletes or gets a <code>project</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the project was created.</td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>The Amazon DataZone user who created the project.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Amazon DataZone project.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the project was created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which this project is created.</td></tr>
-<tr><td><CopyableCode code="domain_unit_id" /></td><td><code>string</code></td><td>The ID of the domain unit.</td></tr>
-<tr><td><CopyableCode code="glossary_terms" /></td><td><code>array</code></td><td>The glossary terms that can be used in this Amazon DataZone project.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone project.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp of when the project was last updated.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the Amazon DataZone project.</td></tr>
-<tr><td><CopyableCode code="project_profile_id" /></td><td><code>string</code></td><td>The project profile ID.</td></tr>
-<tr><td><CopyableCode code="project_profile_version" /></td><td><code>string</code></td><td>The project profile version to which the project should be updated. You can only specify the following string for this parameter: latest.</td></tr>
-<tr><td><CopyableCode code="project_status" /></td><td><code>string</code></td><td>The status of the project.</td></tr>
-<tr><td><CopyableCode code="user_parameters" /></td><td><code>array</code></td><td>The user parameters of the project.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the project was created."
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": "The Amazon DataZone user who created the project."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Amazon DataZone project."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the project was created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which this project is created."
+  },
+  {
+    "name": "domain_unit_id",
+    "type": "string",
+    "description": "The ID of the domain unit."
+  },
+  {
+    "name": "glossary_terms",
+    "type": "array",
+    "description": "The glossary terms that can be used in this Amazon DataZone project."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone project."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The timestamp of when the project was last updated."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the Amazon DataZone project."
+  },
+  {
+    "name": "project_profile_id",
+    "type": "string",
+    "description": "The project profile ID."
+  },
+  {
+    "name": "project_profile_version",
+    "type": "string",
+    "description": "The project profile version to which the project should be updated. You can only specify the following string for this parameter: latest."
+  },
+  {
+    "name": "project_status",
+    "type": "string",
+    "description": "The status of the project."
+  },
+  {
+    "name": "user_parameters",
+    "type": "array",
+    "description": "The user parameters of the project.",
+    "children": [
+      {
+        "name": "environment_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "environment_configuration_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "environment_parameters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-project.html"><code>AWS::DataZone::Project</code></a>.
 
@@ -93,27 +180,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>projects</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-domain_unit_id,
-glossary_terms,
-id,
-last_updated_at,
-name,
-project_profile_id,
-project_profile_version,
-project_status,
-user_parameters
-FROM awscc.datazone.projects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT

@@ -1119,6 +1119,7 @@ components:
     report_creation:
       name: report_creation
       x-type: native
+      x-description: Describes the status of the StartReportCreation operation for generating a report of all tagged resources in accounts across your organization
       methods:
         describe_report_creation:
           operation:
@@ -1147,6 +1148,7 @@ components:
     compliance_summary:
       name: compliance_summary
       x-type: native
+      x-description: Returns a table that shows counts of resources that are noncompliant with their tag policies
       methods:
         get_compliance_summary:
           operation:
@@ -1167,6 +1169,7 @@ components:
     tagged_resources:
       name: tagged_resources
       x-type: native
+      x-description: Returns all the tagged or previously tagged resources that are located in the specified AWS Region for the account
       methods:
         get_resources:
           operation:
@@ -1203,6 +1206,7 @@ components:
     tag_keys:
       name: tag_keys
       x-type: native
+      x-description: Returns all tag keys currently in use in the specified AWS Region for the calling account
       methods:
         get_tag_keys:
           operation:
@@ -1223,6 +1227,7 @@ components:
     tag_values:
       name: tag_values
       x-type: native
+      x-description: Returns all tag values for the specified key that are used in the specified AWS Region for the calling account
       methods:
         get_tag_values:
           operation:

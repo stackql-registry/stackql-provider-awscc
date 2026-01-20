@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>directory_config</code> resource or lists <code>directory_configs</code> in a region
 
@@ -32,16 +33,57 @@ Creates, updates, deletes or gets a <code>directory_config</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="organizational_unit_distinguished_names" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_account_credentials" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="directory_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate_based_auth_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "organizational_unit_distinguished_names",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "service_account_credentials",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "account_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "account_password",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "directory_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "certificate_based_auth_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "certificate_authority_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html"><code>AWS::AppStream::DirectoryConfig</code></a>.
 
@@ -83,17 +125,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>directory_configs</code> in a region.
-```sql
-SELECT
-region,
-organizational_unit_distinguished_names,
-service_account_credentials,
-directory_name,
-certificate_based_auth_properties
-FROM awscc.appstream.directory_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>directory_config</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schedule_group</code> resource or lists <code>schedule_groups</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>schedule_group</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the schedule group.</td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td>The time at which the schedule group was created.</td></tr>
-<tr><td><CopyableCode code="last_modification_date" /></td><td><code>string</code></td><td>The time at which the schedule group was last modified.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Specifies the state of the schedule group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The list of tags to associate with the schedule group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the schedule group."
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": "The time at which the schedule group was created."
+  },
+  {
+    "name": "last_modification_date",
+    "type": "string",
+    "description": "The time at which the schedule group was last modified."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "Specifies the state of the schedule group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The list of tags to associate with the schedule group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Key for the tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-scheduler-schedulegroup.html"><code>AWS::Scheduler::ScheduleGroup</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schedule_groups</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_date,
-last_modification_date,
-name,
-state,
-tags
-FROM awscc.scheduler.schedule_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schedule_group</code>.
 ```sql
 SELECT

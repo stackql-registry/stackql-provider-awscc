@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>topic_rule</code> resource or lists <code>topic_rules</code> in a region
 
@@ -32,16 +33,678 @@ Creates, updates, deletes or gets a <code>topic_rule</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="topic_rule_payload" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rule_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "topic_rule_payload",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "rule_disabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "error_action",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "cloudwatch_alarm",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "state_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "alarm_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "state_reason",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "cloudwatch_logs",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "batch_mode",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "cloudwatch_metric",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "metric_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric_namespace",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric_unit",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric_timestamp",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "dynamo_db",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "table_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "payload_field",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "range_key_field",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "hash_key_field",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "range_key_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "range_key_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "hash_key_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "hash_key_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "dynamo_dbv2",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "put_item",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "elasticsearch",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "index",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "endpoint",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "firehose",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "delivery_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "separator",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "batch_mode",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "http",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "confirmation_url",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "headers",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "url",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "auth",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "iot_analytics",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "channel_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "batch_mode",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "iot_events",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "input_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "message_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "batch_mode",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "iot_site_wise",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "put_asset_property_value_entries",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "kafka",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "destination_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "topic",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "partition",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "client_properties",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "headers",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "kinesis",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "partition_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "lambda",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "function_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "location",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "tracker_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "device_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "latitude",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "longitude",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "timestamp",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "open_search",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "index",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "endpoint",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "republish",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "qos",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "topic",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "headers",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "s3",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "bucket_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "canned_acl",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "sns",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "target_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "message_format",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "sqs",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "use_base64",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "queue_url",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "step_functions",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "execution_name_prefix",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "state_machine_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "timestream",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "database_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "table_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "dimensions",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "timestamp",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "aws_iot_sql_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "sql",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-topicrule.html"><code>AWS::IoT::TopicRule</code></a>.
 
@@ -83,17 +746,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>topic_rules</code> in a region.
-```sql
-SELECT
-region,
-arn,
-rule_name,
-topic_rule_payload,
-tags
-FROM awscc.iot.topic_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>topic_rule</code>.
 ```sql
 SELECT

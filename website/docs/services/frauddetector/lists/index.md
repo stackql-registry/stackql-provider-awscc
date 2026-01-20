@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>list</code> resource or lists <code>lists</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>list</code> resource or lists <code>li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The list ARN.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the list.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the list.</td></tr>
-<tr><td><CopyableCode code="variable_type" /></td><td><code>string</code></td><td>The variable type of the list.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the list was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the list was last updated.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this list.</td></tr>
-<tr><td><CopyableCode code="elements" /></td><td><code>array</code></td><td>The elements in this list.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The list ARN."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the list."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the list."
+  },
+  {
+    "name": "variable_type",
+    "type": "string",
+    "description": "The variable type of the list."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "The time when the list was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The time when the list was last updated."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with this list.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "elements",
+    "type": "array",
+    "description": "The elements in this list."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-frauddetector-list.html"><code>AWS::FraudDetector::List</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>lists</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-variable_type,
-created_time,
-last_updated_time,
-tags,
-elements
-FROM awscc.frauddetector.lists
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>list</code>.
 ```sql
 SELECT

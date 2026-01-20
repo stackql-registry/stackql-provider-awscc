@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>campaign</code> resource or lists <code>campaigns</code> in a region
 
@@ -32,18 +33,137 @@ Creates, updates, deletes or gets a <code>campaign</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="connect_instance_arn" /></td><td><code>string</code></td><td>Amazon Connect Instance Arn</td></tr>
-<tr><td><CopyableCode code="dialer_config" /></td><td><code>object</code></td><td>The possible types of dialer config parameters</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Connect Campaign Arn</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Amazon Connect Campaign Name</td></tr>
-<tr><td><CopyableCode code="outbound_call_config" /></td><td><code>object</code></td><td>The configuration used for outbound calls.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "connect_instance_arn",
+    "type": "string",
+    "description": "Amazon Connect Instance Arn"
+  },
+  {
+    "name": "dialer_config",
+    "type": "object",
+    "description": "The possible types of dialer config parameters",
+    "children": [
+      {
+        "name": "progressive_dialer_config",
+        "type": "object",
+        "description": "Progressive Dialer config",
+        "children": [
+          {
+            "name": "bandwidth_allocation",
+            "type": "number",
+            "description": "The bandwidth allocation of a queue resource."
+          },
+          {
+            "name": "dialing_capacity",
+            "type": "number",
+            "description": "Allocates dialing capacity for this campaign between multiple active campaigns."
+          }
+        ]
+      },
+      {
+        "name": "predictive_dialer_config",
+        "type": "object",
+        "description": "Predictive Dialer config",
+        "children": [
+          {
+            "name": "bandwidth_allocation",
+            "type": "number",
+            "description": "The bandwidth allocation of a queue resource."
+          },
+          {
+            "name": "dialing_capacity",
+            "type": "number",
+            "description": "Allocates dialing capacity for this campaign between multiple active campaigns."
+          }
+        ]
+      },
+      {
+        "name": "agentless_dialer_config",
+        "type": "object",
+        "description": "Agentless Dialer config",
+        "children": [
+          {
+            "name": "dialing_capacity",
+            "type": "number",
+            "description": "Allocates dialing capacity for this campaign between multiple active campaigns."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Connect Campaign Arn"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Amazon Connect Campaign Name"
+  },
+  {
+    "name": "outbound_call_config",
+    "type": "object",
+    "description": "The configuration used for outbound calls.",
+    "children": [
+      {
+        "name": "connect_contact_flow_arn",
+        "type": "string",
+        "description": "The identifier of the contact flow for the outbound call."
+      },
+      {
+        "name": "connect_source_phone_number",
+        "type": "string",
+        "description": "The phone number associated with the Amazon Connect instance, in E.164 format. If you do not specify a source phone number, you must specify a queue."
+      },
+      {
+        "name": "connect_queue_arn",
+        "type": "string",
+        "description": "The queue for the call. If you specify a queue, the phone displayed for caller ID is the phone number specified in the queue. If you do not specify a queue, the queue defined in the contact flow is used. If you do not specify a queue, you must specify a source phone number."
+      },
+      {
+        "name": "answer_machine_detection_config",
+        "type": "object",
+        "description": "The configuration used for answering machine detection during outbound calls",
+        "children": [
+          {
+            "name": "enable_answer_machine_detection",
+            "type": "boolean",
+            "description": "Flag to decided whether outbound calls should have answering machine detection enabled or not"
+          },
+          {
+            "name": "await_answer_machine_prompt",
+            "type": "boolean",
+            "description": "Enables detection of prompts (e.g., beep after after a voicemail greeting)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that's 1 to 256 characters in length."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connectcampaigns-campaign.html"><code>AWS::ConnectCampaigns::Campaign</code></a>.
 
@@ -85,19 +205,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>campaigns</code> in a region.
-```sql
-SELECT
-region,
-connect_instance_arn,
-dialer_config,
-arn,
-name,
-outbound_call_config,
-tags
-FROM awscc.connectcampaigns.campaigns
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT

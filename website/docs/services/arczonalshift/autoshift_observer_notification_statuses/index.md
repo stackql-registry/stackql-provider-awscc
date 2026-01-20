@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>autoshift_observer_notification_status</code> resource or lists <code>autoshift_observer_notification_statuses</code> in a region
 
@@ -32,15 +33,40 @@ Creates, updates, deletes or gets an <code>autoshift_observer_notification_statu
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>object</code></td><td>Definition of AWS::ARCZonalShift::AutoshiftObserverNotificationStatus Resource Type</td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>User account id, used as part of the primary identifier for the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>Region, used as part of the primary identifier for the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "object",
+    "description": "Definition of AWS::ARCZonalShift::AutoshiftObserverNotificationStatus Resource Type",
+    "children": [
+      {
+        "name": "account_id",
+        "type": "string",
+        "description": "User account id, used as part of the primary identifier for the resource"
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": "Region, used as part of the primary identifier for the resource"
+      }
+    ]
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "User account id, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "Region, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-arczonalshift-autoshiftobservernotificationstatus.html"><code>AWS::ARCZonalShift::AutoshiftObserverNotificationStatus</code></a>.
 
@@ -77,16 +103,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>autoshift_observer_notification_statuses</code> in a region.
-```sql
-SELECT
-region,
-status,
-account_id,
-region
-FROM awscc.arczonalshift.autoshift_observer_notification_statuses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>autoshift_observer_notification_status</code>.
 ```sql
 SELECT

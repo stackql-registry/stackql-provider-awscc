@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>odb_network</code> resource or lists <code>odb_networks</code> in a region
 
@@ -32,25 +33,90 @@ Creates, updates, deletes or gets an <code>odb_network</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The AWS Availability Zone (AZ) where the ODB network is located.</td></tr>
-<tr><td><CopyableCode code="availability_zone_id" /></td><td><code>string</code></td><td>The AZ ID of the AZ where the ODB network is located.</td></tr>
-<tr><td><CopyableCode code="backup_subnet_cidr" /></td><td><code>string</code></td><td>The CIDR range of the backup subnet in the ODB network.</td></tr>
-<tr><td><CopyableCode code="client_subnet_cidr" /></td><td><code>string</code></td><td>The CIDR range of the client subnet in the ODB network.</td></tr>
-<tr><td><CopyableCode code="default_dns_prefix" /></td><td><code>string</code></td><td>The DNS prefix to the default DNS domain name. The default DNS domain name is oraclevcn.com.</td></tr>
-<tr><td><CopyableCode code="delete_associated_resources" /></td><td><code>boolean</code></td><td>Specifies whether to delete associated OCI networking resources along with the ODB network.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The user-friendly name of the ODB network.</td></tr>
-<tr><td><CopyableCode code="oci_network_anchor_id" /></td><td><code>string</code></td><td>The unique identifier of the OCI network anchor for the ODB network.</td></tr>
-<tr><td><CopyableCode code="oci_resource_anchor_name" /></td><td><code>string</code></td><td>The name of the OCI resource anchor that's associated with the ODB network.</td></tr>
-<tr><td><CopyableCode code="oci_vcn_url" /></td><td><code>string</code></td><td>The URL for the VCN that's associated with the ODB network.</td></tr>
-<tr><td><CopyableCode code="odb_network_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the ODB network.</td></tr>
-<tr><td><CopyableCode code="odb_network_id" /></td><td><code>string</code></td><td>The unique identifier of the ODB network.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags to assign to the Odb Network.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The AWS Availability Zone (AZ) where the ODB network is located."
+  },
+  {
+    "name": "availability_zone_id",
+    "type": "string",
+    "description": "The AZ ID of the AZ where the ODB network is located."
+  },
+  {
+    "name": "backup_subnet_cidr",
+    "type": "string",
+    "description": "The CIDR range of the backup subnet in the ODB network."
+  },
+  {
+    "name": "client_subnet_cidr",
+    "type": "string",
+    "description": "The CIDR range of the client subnet in the ODB network."
+  },
+  {
+    "name": "default_dns_prefix",
+    "type": "string",
+    "description": "The DNS prefix to the default DNS domain name. The default DNS domain name is oraclevcn.com."
+  },
+  {
+    "name": "delete_associated_resources",
+    "type": "boolean",
+    "description": "Specifies whether to delete associated OCI networking resources along with the ODB network."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The user-friendly name of the ODB network."
+  },
+  {
+    "name": "oci_network_anchor_id",
+    "type": "string",
+    "description": "The unique identifier of the OCI network anchor for the ODB network."
+  },
+  {
+    "name": "oci_resource_anchor_name",
+    "type": "string",
+    "description": "The name of the OCI resource anchor that's associated with the ODB network."
+  },
+  {
+    "name": "oci_vcn_url",
+    "type": "string",
+    "description": "The URL for the VCN that's associated with the ODB network."
+  },
+  {
+    "name": "odb_network_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the ODB network."
+  },
+  {
+    "name": "odb_network_id",
+    "type": "string",
+    "description": "The unique identifier of the ODB network."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags to assign to the Odb Network.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that's 1 to 128 Unicode characters in length and can't be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., :, /, =, +, @, -, and \"."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that's 1 to 256 characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-odb-odbnetwork.html"><code>AWS::ODB::OdbNetwork</code></a>.
 
@@ -92,26 +158,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>odb_networks</code> in a region.
-```sql
-SELECT
-region,
-availability_zone,
-availability_zone_id,
-backup_subnet_cidr,
-client_subnet_cidr,
-default_dns_prefix,
-delete_associated_resources,
-display_name,
-oci_network_anchor_id,
-oci_resource_anchor_name,
-oci_vcn_url,
-odb_network_arn,
-odb_network_id,
-tags
-FROM awscc.odb.odb_networks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>odb_network</code>.
 ```sql
 SELECT

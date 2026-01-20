@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ai_prompt_version</code> resource or lists <code>ai_prompt_versions</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets an <code>ai_prompt_version</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="a_iprompt_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="a_iprompt_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="a_iprompt_version_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="version_number" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_time_seconds" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "a_iprompt_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "a_iprompt_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "a_iprompt_version_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "version_number",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "modified_time_seconds",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-aipromptversion.html"><code>AWS::Wisdom::AIPromptVersion</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ai_prompt_versions</code> in a region.
-```sql
-SELECT
-region,
-a_iprompt_arn,
-assistant_arn,
-a_iprompt_id,
-assistant_id,
-a_iprompt_version_id,
-version_number,
-modified_time_seconds
-FROM awscc.wisdom.ai_prompt_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ai_prompt_version</code>.
 ```sql
 SELECT

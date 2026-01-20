@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_subscription</code> resource or lists <code>event_subscriptions</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets an <code>event_subscription</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_categories" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sns_topic_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "event_categories",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "sns_topic_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-neptune-eventsubscription.html"><code>AWS::Neptune::EventSubscription</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_policy</code> resource or lists <code>resource_policies</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>resource_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td>The name of the resource policy. Must be unique within a specific AWS account.</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>string</code></td><td>The resource policy document, which can be up to 5kb in size.</td></tr>
-<tr><td><CopyableCode code="bypass_policy_lockout_check" /></td><td><code>boolean</code></td><td>A flag to indicate whether to bypass the resource policy lockout safety check</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": "The name of the resource policy. Must be unique within a specific AWS account."
+  },
+  {
+    "name": "policy_document",
+    "type": "string",
+    "description": "The resource policy document, which can be up to 5kb in size."
+  },
+  {
+    "name": "bypass_policy_lockout_check",
+    "type": "boolean",
+    "description": "A flag to indicate whether to bypass the resource policy lockout safety check"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-xray-resourcepolicy.html"><code>AWS::XRay::ResourcePolicy</code></a>.
 
@@ -82,16 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_policies</code> in a region.
-```sql
-SELECT
-region,
-policy_name,
-policy_document,
-bypass_policy_lockout_check
-FROM awscc.xray.resource_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>workflow</code> resource or lists <code>workflows</code> in a region
 
@@ -32,18 +33,218 @@ Creates, updates, deletes or gets a <code>workflow</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="on_exception_steps" /></td><td><code>array</code></td><td>Specifies the steps (actions) to take if any errors are encountered during execution of the workflow.</td></tr>
-<tr><td><CopyableCode code="steps" /></td><td><code>array</code></td><td>Specifies the details for the steps that are in the specified workflow.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A textual description for the workflow.</td></tr>
-<tr><td><CopyableCode code="workflow_id" /></td><td><code>string</code></td><td>A unique identifier for the workflow.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the workflow.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "on_exception_steps",
+    "type": "array",
+    "description": "Specifies the steps (actions) to take if any errors are encountered during execution of the workflow.",
+    "children": [
+      {
+        "name": "copy_step_details",
+        "type": "object",
+        "description": "Details for a step that performs a file copy.",
+        "children": [
+          {
+            "name": "destination_file_location",
+            "type": "object",
+            "description": "Specifies the location for the file being copied. Only applicable for the Copy type of workflow steps.",
+            "children": [
+              {
+                "name": "s3_file_location",
+                "type": "object",
+                "description": "Specifies the details for a S3 file."
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the step, used as an identifier."
+          },
+          {
+            "name": "overwrite_existing",
+            "type": "string",
+            "description": "A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE."
+          },
+          {
+            "name": "source_file_location",
+            "type": "string",
+            "description": "Specifies which file to use as input to the workflow step."
+          }
+        ]
+      },
+      {
+        "name": "custom_step_details",
+        "type": "object",
+        "description": "Details for a step that invokes a lambda function.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the step, used as an identifier."
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": "The ARN for the lambda function that is being called."
+          },
+          {
+            "name": "timeout_seconds",
+            "type": "integer",
+            "description": "Timeout, in seconds, for the step."
+          },
+          {
+            "name": "source_file_location",
+            "type": "string",
+            "description": "Specifies which file to use as input to the workflow step."
+          }
+        ]
+      },
+      {
+        "name": "decrypt_step_details",
+        "type": "object",
+        "description": "Details for a step that performs a file decryption.",
+        "children": [
+          {
+            "name": "destination_file_location",
+            "type": "object",
+            "description": "Specifies the location for the file being decrypted. Only applicable for the Decrypt type of workflow steps.",
+            "children": [
+              {
+                "name": "s3_file_location",
+                "type": "object",
+                "description": "Specifies the details for a S3 file."
+              },
+              {
+                "name": "efs_file_location",
+                "type": "object",
+                "description": "Specifies the details for an EFS file."
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the step, used as an identifier."
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Specifies which encryption method to use."
+          },
+          {
+            "name": "overwrite_existing",
+            "type": "string",
+            "description": "A flag that indicates whether or not to overwrite an existing file of the same name. The default is FALSE."
+          },
+          {
+            "name": "source_file_location",
+            "type": "string",
+            "description": "Specifies which file to use as input to the workflow step."
+          }
+        ]
+      },
+      {
+        "name": "delete_step_details",
+        "type": "object",
+        "description": "Details for a step that deletes the file.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the step, used as an identifier."
+          },
+          {
+            "name": "source_file_location",
+            "type": "string",
+            "description": "Specifies which file to use as input to the workflow step."
+          }
+        ]
+      },
+      {
+        "name": "tag_step_details",
+        "type": "object",
+        "description": "Details for a step that creates one or more tags.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the step, used as an identifier."
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "Array that contains from 1 to 10 key/value pairs.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": "The name assigned to the tag that you create."
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "The value that corresponds to the key."
+              }
+            ]
+          },
+          {
+            "name": "source_file_location",
+            "type": "string",
+            "description": "Specifies which file to use as input to the workflow step."
+          }
+        ]
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "steps",
+    "type": "array",
+    "description": "Specifies the details for the steps that are in the specified workflow."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A textual description for the workflow."
+  },
+  {
+    "name": "workflow_id",
+    "type": "string",
+    "description": "A unique identifier for the workflow."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the workflow."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html"><code>AWS::Transfer::Workflow</code></a>.
 
@@ -85,19 +286,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>workflows</code> in a region.
-```sql
-SELECT
-region,
-on_exception_steps,
-steps,
-tags,
-description,
-workflow_id,
-arn
-FROM awscc.transfer.workflows
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>workflow</code>.
 ```sql
 SELECT

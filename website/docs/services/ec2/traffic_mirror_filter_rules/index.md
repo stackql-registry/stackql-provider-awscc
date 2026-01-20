@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>traffic_mirror_filter_rule</code> resource or lists <code>traffic_mirror_filter_rules</code> in a region
 
@@ -32,24 +33,92 @@ Creates, updates, deletes or gets a <code>traffic_mirror_filter_rule</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="destination_port_range" /></td><td><code>object</code></td><td>The destination port range.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Traffic Mirror Filter rule.</td></tr>
-<tr><td><CopyableCode code="source_port_range" /></td><td><code>object</code></td><td>The source port range.</td></tr>
-<tr><td><CopyableCode code="rule_action" /></td><td><code>string</code></td><td>The action to take on the filtered traffic (accept/reject).</td></tr>
-<tr><td><CopyableCode code="source_cidr_block" /></td><td><code>string</code></td><td>The source CIDR block to assign to the Traffic Mirror Filter rule.</td></tr>
-<tr><td><CopyableCode code="rule_number" /></td><td><code>integer</code></td><td>The number of the Traffic Mirror rule.</td></tr>
-<tr><td><CopyableCode code="destination_cidr_block" /></td><td><code>string</code></td><td>The destination CIDR block to assign to the Traffic Mirror rule.</td></tr>
-<tr><td><CopyableCode code="traffic_mirror_filter_rule_id" /></td><td><code>string</code></td><td>The ID of the Traffic Mirror Filter rule.</td></tr>
-<tr><td><CopyableCode code="traffic_mirror_filter_id" /></td><td><code>string</code></td><td>The ID of the filter that this rule is associated with.</td></tr>
-<tr><td><CopyableCode code="traffic_direction" /></td><td><code>string</code></td><td>The direction of traffic (ingress/egress).</td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>integer</code></td><td>The number of protocol, for example 17 (UDP), to assign to the Traffic Mirror rule.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the Traffic Mirror Filter rule.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "destination_port_range",
+    "type": "object",
+    "description": "The destination port range.",
+    "children": [
+      {
+        "name": "from_port",
+        "type": "integer",
+        "description": "The first port in the Traffic Mirror port range."
+      },
+      {
+        "name": "to_port",
+        "type": "integer",
+        "description": "The last port in the Traffic Mirror port range."
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Traffic Mirror Filter rule."
+  },
+  {
+    "name": "rule_action",
+    "type": "string",
+    "description": "The action to take on the filtered traffic (accept/reject)."
+  },
+  {
+    "name": "source_cidr_block",
+    "type": "string",
+    "description": "The source CIDR block to assign to the Traffic Mirror Filter rule."
+  },
+  {
+    "name": "rule_number",
+    "type": "integer",
+    "description": "The number of the Traffic Mirror rule."
+  },
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The destination CIDR block to assign to the Traffic Mirror rule."
+  },
+  {
+    "name": "traffic_mirror_filter_rule_id",
+    "type": "string",
+    "description": "The ID of the Traffic Mirror Filter rule."
+  },
+  {
+    "name": "traffic_mirror_filter_id",
+    "type": "string",
+    "description": "The ID of the filter that this rule is associated with."
+  },
+  {
+    "name": "traffic_direction",
+    "type": "string",
+    "description": "The direction of traffic (ingress/egress)."
+  },
+  {
+    "name": "protocol",
+    "type": "integer",
+    "description": "The number of protocol, for example 17 (UDP), to assign to the Traffic Mirror rule."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the Traffic Mirror Filter rule.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-trafficmirrorfilterrule.html"><code>AWS::EC2::TrafficMirrorFilterRule</code></a>.
 
@@ -91,25 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>traffic_mirror_filter_rules</code> in a region.
-```sql
-SELECT
-region,
-destination_port_range,
-description,
-source_port_range,
-rule_action,
-source_cidr_block,
-rule_number,
-destination_cidr_block,
-traffic_mirror_filter_rule_id,
-traffic_mirror_filter_id,
-traffic_direction,
-protocol,
-tags
-FROM awscc.ec2.traffic_mirror_filter_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>traffic_mirror_filter_rule</code>.
 ```sql
 SELECT

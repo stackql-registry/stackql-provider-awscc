@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>base_path_mapping_v2s</code> in a region or regions, for all properties use <a href="/services/apigateway/base_path_mapping_v2s/"><code>base_path_mapping_v2s</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>base_path_mapping_v2s</code> in a region or regions, for all propert
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="base_path" /></td><td><code>string</code></td><td>The base path name that callers of the API must provide in the URL after the domain name.</td></tr>
-<tr><td><CopyableCode code="base_path_mapping_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "base_path",
+    "type": "string",
+    "description": "The base path name that callers of the API must provide in the URL after the domain name."
+  },
+  {
+    "name": "base_path_mapping_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

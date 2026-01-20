@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>account_audit_configuration</code> resource or lists <code>account_audit_configurations</code> in a region
 
@@ -32,16 +33,119 @@ Creates, updates, deletes or gets an <code>account_audit_configuration</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>Your 12-digit account ID (used as the primary identifier for the CloudFormation resource).</td></tr>
-<tr><td><CopyableCode code="audit_check_configurations" /></td><td><code>object</code></td><td>Specifies which audit checks are enabled and disabled for this account.</td></tr>
-<tr><td><CopyableCode code="audit_notification_target_configurations" /></td><td><code>object</code></td><td>Information about the targets to which audit notifications are sent.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates and other items as required when performing an audit.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "Your 12-digit account ID (used as the primary identifier for the CloudFormation resource)."
+  },
+  {
+    "name": "audit_check_configurations",
+    "type": "object",
+    "description": "Specifies which audit checks are enabled and disabled for this account.",
+    "children": [
+      {
+        "name": "authenticated_cognito_role_overly_permissive_check",
+        "type": "object",
+        "description": "The configuration for a specific audit check.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "True if the check is enabled."
+          }
+        ]
+      },
+      {
+        "name": "device_certificate_expiring_check",
+        "type": "object",
+        "description": "A structure containing the configName and corresponding configValue for configuring DeviceCertExpirationCheck.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "True if the check is enabled."
+          },
+          {
+            "name": "configuration",
+            "type": "object",
+            "description": "A structure containing the configName and corresponding configValue for configuring audit checks.",
+            "children": [
+              {
+                "name": "cert_expiration_threshold_in_days",
+                "type": "string",
+                "description": "The configValue for configuring audit checks."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "device_certificate_age_check",
+        "type": "object",
+        "description": "A structure containing the configName and corresponding configValue for configuring DeviceCertAgeCheck.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "True if the check is enabled."
+          },
+          {
+            "name": "configuration",
+            "type": "object",
+            "description": "A structure containing the configName and corresponding configValue for configuring audit checks.",
+            "children": [
+              {
+                "name": "cert_age_threshold_in_days",
+                "type": "string",
+                "description": "The configValue for configuring audit checks."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "audit_notification_target_configurations",
+    "type": "object",
+    "description": "Information about the targets to which audit notifications are sent.",
+    "children": [
+      {
+        "name": "sns",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "target_arn",
+            "type": "string",
+            "description": "The ARN of the target (SNS topic) to which audit notifications are sent."
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": "The ARN of the role that grants permission to send notifications to the target."
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "True if notifications to the target are enabled."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates and other items as required when performing an audit."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-accountauditconfiguration.html"><code>AWS::IoT::AccountAuditConfiguration</code></a>.
 
@@ -83,17 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>account_audit_configurations</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-audit_check_configurations,
-audit_notification_target_configurations,
-role_arn
-FROM awscc.iot.account_audit_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>account_audit_configuration</code>.
 ```sql
 SELECT

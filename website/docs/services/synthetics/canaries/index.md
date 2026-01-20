@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>canaries</code> in a region
 
@@ -32,34 +33,312 @@ Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the canary.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the canary</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>State of the canary</td></tr>
-<tr><td><CopyableCode code="code" /></td><td><code>object</code></td><td>Provide the canary script source</td></tr>
-<tr><td><CopyableCode code="artifact_s3_location" /></td><td><code>string</code></td><td>Provide the s3 bucket output location for test results</td></tr>
-<tr><td><CopyableCode code="artifact_config" /></td><td><code>object</code></td><td>Provide artifact configuration</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>object</code></td><td>Frequency to run your canaries</td></tr>
-<tr><td><CopyableCode code="execution_role_arn" /></td><td><code>string</code></td><td>Lambda Execution role used to run your canaries</td></tr>
-<tr><td><CopyableCode code="runtime_version" /></td><td><code>string</code></td><td>Runtime version of Synthetics Library</td></tr>
-<tr><td><CopyableCode code="success_retention_period" /></td><td><code>integer</code></td><td>Retention period of successful canary runs represented in number of days</td></tr>
-<tr><td><CopyableCode code="failure_retention_period" /></td><td><code>integer</code></td><td>Retention period of failed canary runs represented in number of days</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td>Provide VPC Configuration if enabled.</td></tr>
-<tr><td><CopyableCode code="run_config" /></td><td><code>object</code></td><td>Provide canary run configuration</td></tr>
-<tr><td><CopyableCode code="start_canary_after_creation" /></td><td><code>boolean</code></td><td>Runs canary if set to True. Default is False</td></tr>
-<tr><td><CopyableCode code="visual_reference" /></td><td><code>object</code></td><td>Visual reference configuration for visual testing</td></tr>
-<tr><td><CopyableCode code="delete_lambda_resources_on_canary_deletion" /></td><td><code>boolean</code></td><td>Deletes associated lambda resources created by Synthetics if set to True. Default is False</td></tr>
-<tr><td><CopyableCode code="resources_to_replicate_tags" /></td><td><code>array</code></td><td>List of resources which canary tags should be replicated to.</td></tr>
-<tr><td><CopyableCode code="provisioned_resource_cleanup" /></td><td><code>string</code></td><td>Setting to control if provisioned resources created by Synthetics are deleted alongside the canary. Default is AUTOMATIC.</td></tr>
-<tr><td><CopyableCode code="dry_run_and_update" /></td><td><code>boolean</code></td><td>Setting to control if UpdateCanary will perform a DryRun and validate it is PASSING before performing the Update. Default is FALSE.</td></tr>
-<tr><td><CopyableCode code="browser_configs" /></td><td><code>array</code></td><td>List of browser configurations for the canary</td></tr>
-<tr><td><CopyableCode code="visual_references" /></td><td><code>array</code></td><td>List of visual references for the canary</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the canary."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the canary"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "State of the canary"
+  },
+  {
+    "name": "code",
+    "type": "object",
+    "description": "Provide the canary script source",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_object_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "script",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "handler",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source_location_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dependencies",
+        "type": "array",
+        "description": "List of Lambda layers to attach to the canary",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of dependency"
+          },
+          {
+            "name": "reference",
+            "type": "string",
+            "description": "ARN of the Lambda layer"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "artifact_s3_location",
+    "type": "string",
+    "description": "Provide the s3 bucket output location for test results"
+  },
+  {
+    "name": "artifact_config",
+    "type": "object",
+    "description": "Provide artifact configuration",
+    "children": [
+      {
+        "name": "s3_encryption",
+        "type": "object",
+        "description": "Encryption configuration for uploading artifacts to S3",
+        "children": [
+          {
+            "name": "encryption_mode",
+            "type": "string",
+            "description": "Encryption mode for encrypting artifacts when uploading to S3. Valid values: SSE&#95;S3 and SSE&#95;KMS."
+          },
+          {
+            "name": "kms_key_arn",
+            "type": "string",
+            "description": "KMS key Arn for encrypting artifacts when uploading to S3. You must specify KMS key Arn for SSE&#95;KMS encryption mode only."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "Frequency to run your canaries",
+    "children": [
+      {
+        "name": "expression",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "duration_in_seconds",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "retry_config",
+        "type": "object",
+        "description": "Provide canary auto retry configuration",
+        "children": [
+          {
+            "name": "max_retries",
+            "type": "integer",
+            "description": "maximum times the canary will be retried upon the scheduled run failure"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "execution_role_arn",
+    "type": "string",
+    "description": "Lambda Execution role used to run your canaries"
+  },
+  {
+    "name": "runtime_version",
+    "type": "string",
+    "description": "Runtime version of Synthetics Library"
+  },
+  {
+    "name": "success_retention_period",
+    "type": "integer",
+    "description": "Retention period of successful canary runs represented in number of days"
+  },
+  {
+    "name": "failure_retention_period",
+    "type": "integer",
+    "description": "Retention period of failed canary runs represented in number of days"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "vpc_config",
+    "type": "object",
+    "description": "Provide VPC Configuration if enabled.",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "ipv6_allowed_for_dual_stack",
+        "type": "boolean",
+        "description": "Allow outbound IPv6 traffic on VPC canaries that are connected to dual-stack subnets if set to true"
+      }
+    ]
+  },
+  {
+    "name": "run_config",
+    "type": "object",
+    "description": "Provide canary run configuration",
+    "children": [
+      {
+        "name": "timeout_in_seconds",
+        "type": "integer",
+        "description": "Provide maximum canary timeout per run in seconds"
+      },
+      {
+        "name": "memory_in_mb",
+        "type": "integer",
+        "description": "Provide maximum memory available for canary in MB"
+      },
+      {
+        "name": "ephemeral_storage",
+        "type": "integer",
+        "description": "Provide ephemeralStorage available for canary in MB"
+      },
+      {
+        "name": "active_tracing",
+        "type": "boolean",
+        "description": "Enable active tracing if set to true"
+      },
+      {
+        "name": "environment_variables",
+        "type": "object",
+        "description": "Environment variable key-value pairs."
+      }
+    ]
+  },
+  {
+    "name": "start_canary_after_creation",
+    "type": "boolean",
+    "description": "Runs canary if set to True. Default is False"
+  },
+  {
+    "name": "visual_reference",
+    "type": "object",
+    "description": "Visual reference configuration for visual testing",
+    "children": [
+      {
+        "name": "base_canary_run_id",
+        "type": "string",
+        "description": "Canary run id to be used as base reference for visual testing"
+      },
+      {
+        "name": "base_screenshots",
+        "type": "array",
+        "description": "List of screenshots used as base reference for visual testing",
+        "children": [
+          {
+            "name": "screenshot_name",
+            "type": "string",
+            "description": "Name of the screenshot to be used as base reference for visual testing"
+          },
+          {
+            "name": "ignore_coordinates",
+            "type": "array",
+            "description": "List of coordinates of rectangles to be ignored during visual testing"
+          }
+        ]
+      },
+      {
+        "name": "browser_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "delete_lambda_resources_on_canary_deletion",
+    "type": "boolean",
+    "description": "Deletes associated lambda resources created by Synthetics if set to True. Default is False"
+  },
+  {
+    "name": "resources_to_replicate_tags",
+    "type": "array",
+    "description": "List of resources which canary tags should be replicated to."
+  },
+  {
+    "name": "provisioned_resource_cleanup",
+    "type": "string",
+    "description": "Setting to control if provisioned resources created by Synthetics are deleted alongside the canary. Default is AUTOMATIC."
+  },
+  {
+    "name": "dry_run_and_update",
+    "type": "boolean",
+    "description": "Setting to control if UpdateCanary will perform a DryRun and validate it is PASSING before performing the Update. Default is FALSE."
+  },
+  {
+    "name": "browser_configs",
+    "type": "array",
+    "description": "List of browser configurations for the canary",
+    "children": [
+      {
+        "name": "browser_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "visual_references",
+    "type": "array",
+    "description": "List of visual references for the canary"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html"><code>AWS::Synthetics::Canary</code></a>.
 
@@ -101,35 +380,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>canaries</code> in a region.
-```sql
-SELECT
-region,
-name,
-id,
-state,
-code,
-artifact_s3_location,
-artifact_config,
-schedule,
-execution_role_arn,
-runtime_version,
-success_retention_period,
-failure_retention_period,
-tags,
-vpc_config,
-run_config,
-start_canary_after_creation,
-visual_reference,
-delete_lambda_resources_on_canary_deletion,
-resources_to_replicate_tags,
-provisioned_resource_cleanup,
-dry_run_and_update,
-browser_configs,
-visual_references
-FROM awscc.synthetics.canaries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>canary</code>.
 ```sql
 SELECT

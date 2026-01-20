@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>lifecycle_hook</code> resource or lists <code>lifecycle_hooks</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>lifecycle_hook</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auto_scaling_group_name" /></td><td><code>string</code></td><td>The name of the Auto Scaling group for the lifecycle hook.</td></tr>
-<tr><td><CopyableCode code="default_result" /></td><td><code>string</code></td><td>The action the Auto Scaling group takes when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are CONTINUE and ABANDON (default).</td></tr>
-<tr><td><CopyableCode code="heartbeat_timeout" /></td><td><code>integer</code></td><td>The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from 30 to 7200 seconds. The default value is 3600 seconds (1 hour). If the lifecycle hook times out, Amazon EC2 Auto Scaling performs the action that you specified in the DefaultResult property.</td></tr>
-<tr><td><CopyableCode code="lifecycle_hook_name" /></td><td><code>string</code></td><td>The name of the lifecycle hook.</td></tr>
-<tr><td><CopyableCode code="lifecycle_transition" /></td><td><code>string</code></td><td>The instance state to which you want to attach the lifecycle hook.</td></tr>
-<tr><td><CopyableCode code="notification_metadata" /></td><td><code>string</code></td><td>Additional information that is included any time Amazon EC2 Auto Scaling sends a message to the notification target.</td></tr>
-<tr><td><CopyableCode code="notification_target_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the notification target that Amazon EC2 Auto Scaling uses to notify you when an instance is in the transition state for the lifecycle hook. You can specify an Amazon SQS queue or an Amazon SNS topic. The notification message includes the following information: lifecycle action token, user account ID, Auto Scaling group name, lifecycle hook name, instance ID, lifecycle transition, and notification metadata.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target, for example, an Amazon SNS topic or an Amazon SQS queue.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": "The name of the Auto Scaling group for the lifecycle hook."
+  },
+  {
+    "name": "default_result",
+    "type": "string",
+    "description": "The action the Auto Scaling group takes when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are CONTINUE and ABANDON (default)."
+  },
+  {
+    "name": "heartbeat_timeout",
+    "type": "integer",
+    "description": "The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from 30 to 7200 seconds. The default value is 3600 seconds (1 hour). If the lifecycle hook times out, Amazon EC2 Auto Scaling performs the action that you specified in the DefaultResult property."
+  },
+  {
+    "name": "lifecycle_hook_name",
+    "type": "string",
+    "description": "The name of the lifecycle hook."
+  },
+  {
+    "name": "lifecycle_transition",
+    "type": "string",
+    "description": "The instance state to which you want to attach the lifecycle hook."
+  },
+  {
+    "name": "notification_metadata",
+    "type": "string",
+    "description": "Additional information that is included any time Amazon EC2 Auto Scaling sends a message to the notification target."
+  },
+  {
+    "name": "notification_target_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the notification target that Amazon EC2 Auto Scaling uses to notify you when an instance is in the transition state for the lifecycle hook. You can specify an Amazon SQS queue or an Amazon SNS topic. The notification message includes the following information: lifecycle action token, user account ID, Auto Scaling group name, lifecycle hook name, instance ID, lifecycle transition, and notification metadata."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target, for example, an Amazon SNS topic or an Amazon SQS queue."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-lifecyclehook.html"><code>AWS::AutoScaling::LifecycleHook</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>lifecycle_hooks</code> in a region.
-```sql
-SELECT
-region,
-auto_scaling_group_name,
-default_result,
-heartbeat_timeout,
-lifecycle_hook_name,
-lifecycle_transition,
-notification_metadata,
-notification_target_arn,
-role_arn
-FROM awscc.autoscaling.lifecycle_hooks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>lifecycle_hook</code>.
 ```sql
 SELECT

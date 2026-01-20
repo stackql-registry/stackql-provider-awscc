@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment_config</code> resource or lists <code>deployment_configs</code> in a region
 
@@ -32,17 +33,120 @@ Creates, updates, deletes or gets a <code>deployment_config</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="compute_platform" /></td><td><code>string</code></td><td>The destination platform type for the deployment (Lambda, Server, or ECS).</td></tr>
-<tr><td><CopyableCode code="deployment_config_name" /></td><td><code>string</code></td><td>A name for the deployment configuration. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the deployment configuration name. For more information, see Name Type.</td></tr>
-<tr><td><CopyableCode code="minimum_healthy_hosts" /></td><td><code>object</code></td><td>The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.</td></tr>
-<tr><td><CopyableCode code="zonal_config" /></td><td><code>object</code></td><td>The zonal deployment config that specifies how the zonal deployment behaves</td></tr>
-<tr><td><CopyableCode code="traffic_routing_config" /></td><td><code>object</code></td><td>The configuration that specifies how the deployment traffic is routed.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "compute_platform",
+    "type": "string",
+    "description": "The destination platform type for the deployment (Lambda, Server, or ECS)."
+  },
+  {
+    "name": "deployment_config_name",
+    "type": "string",
+    "description": "A name for the deployment configuration. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the deployment configuration name. For more information, see Name Type."
+  },
+  {
+    "name": "minimum_healthy_hosts",
+    "type": "object",
+    "description": "The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.",
+    "children": [
+      {
+        "name": "value",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "zonal_config",
+    "type": "object",
+    "description": "The zonal deployment config that specifies how the zonal deployment behaves",
+    "children": [
+      {
+        "name": "first_zone_monitor_duration_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "monitor_duration_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "minimum_healthy_hosts_per_zone",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "value",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "traffic_routing_config",
+    "type": "object",
+    "description": "The configuration that specifies how the deployment traffic is routed.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "time_based_linear",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "linear_interval",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "linear_percentage",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "time_based_canary",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "canary_percentage",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "canary_interval",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentconfig.html"><code>AWS::CodeDeploy::DeploymentConfig</code></a>.
 
@@ -79,18 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployment_configs</code> in a region.
-```sql
-SELECT
-region,
-compute_platform,
-deployment_config_name,
-minimum_healthy_hosts,
-zonal_config,
-traffic_routing_config
-FROM awscc.codedeploy.deployment_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment_config</code>.
 ```sql
 SELECT

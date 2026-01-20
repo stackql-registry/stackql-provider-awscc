@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel_policy</code> resource or lists <code>channel_policies</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>channel_policy</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="channel_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td><p>The IAM policy for the channel. IAM policies are used to control access to your channel.</p></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "channel_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "<p>The IAM policy for the channel. IAM policies are used to control access to your channel.</p>"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediatailor-channelpolicy.html"><code>AWS::MediaTailor::ChannelPolicy</code></a>.
 

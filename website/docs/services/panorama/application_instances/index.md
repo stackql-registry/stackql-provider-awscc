@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application_instance</code> resource or lists <code>application_instances</code> in a region
 
@@ -32,28 +33,109 @@ Creates, updates, deletes or gets an <code>application_instance</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="default_runtime_context_device_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_runtime_context_device" /></td><td><code>string</code></td><td>The device's ID.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the application instance.</td></tr>
-<tr><td><CopyableCode code="application_instance_id_to_replace" /></td><td><code>string</code></td><td>The ID of an application instance to replace with the new instance.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="health_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="manifest_overrides_payload" /></td><td><code>object</code></td><td>Setting overrides for the application manifest.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="runtime_role_arn" /></td><td><code>string</code></td><td>The ARN of a runtime role for the application instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the application instance.</td></tr>
-<tr><td><CopyableCode code="application_instance_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="manifest_payload" /></td><td><code>object</code></td><td>The application's manifest document.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for the application instance.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "default_runtime_context_device_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "default_runtime_context_device",
+    "type": "string",
+    "description": "The device's ID."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the application instance."
+  },
+  {
+    "name": "application_instance_id_to_replace",
+    "type": "string",
+    "description": "The ID of an application instance to replace with the new instance."
+  },
+  {
+    "name": "created_time",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "health_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "manifest_overrides_payload",
+    "type": "object",
+    "description": "Setting overrides for the application manifest.",
+    "children": [
+      {
+        "name": "payload_data",
+        "type": "string",
+        "description": "The overrides document."
+      }
+    ]
+  },
+  {
+    "name": "runtime_role_arn",
+    "type": "string",
+    "description": "The ARN of a runtime role for the application instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the application instance."
+  },
+  {
+    "name": "status_description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "manifest_payload",
+    "type": "object",
+    "description": "The application's manifest document.",
+    "children": [
+      {
+        "name": "payload_data",
+        "type": "string",
+        "description": "The application manifest."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for the application instance.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-panorama-applicationinstance.html"><code>AWS::Panorama::ApplicationInstance</code></a>.
 
@@ -95,29 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>application_instances</code> in a region.
-```sql
-SELECT
-region,
-default_runtime_context_device_name,
-status,
-default_runtime_context_device,
-description,
-application_instance_id_to_replace,
-created_time,
-health_status,
-manifest_overrides_payload,
-last_updated_time,
-runtime_role_arn,
-name,
-application_instance_id,
-status_description,
-manifest_payload,
-arn,
-tags
-FROM awscc.panorama.application_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application_instance</code>.
 ```sql
 SELECT

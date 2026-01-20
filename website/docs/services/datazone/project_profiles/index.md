@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>project_profile</code> resource or lists <code>project_profiles</code> in a region
 
@@ -32,25 +33,173 @@ Creates, updates, deletes or gets a <code>project_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_unit_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_unit_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_configurations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_unit_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_unit_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_configurations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "environment_blueprint_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "deployment_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "ssm_path",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "parameter_overrides",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "is_editable",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "resolved_parameters",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "aws_account",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "aws_account_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "aws_region",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "region_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "deployment_order",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-projectprofile.html"><code>AWS::DataZone::ProjectProfile</code></a>.
 
@@ -92,26 +241,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>project_profiles</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-domain_unit_id,
-domain_unit_identifier,
-environment_configurations,
-id,
-identifier,
-last_updated_at,
-name,
-status
-FROM awscc.datazone.project_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>project_profile</code>.
 ```sql
 SELECT

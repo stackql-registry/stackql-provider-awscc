@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cloud_formation_provisioned_product</code> resource or lists <code>cloud_formation_provisioned_products</code> in a region
 
@@ -32,28 +33,154 @@ Creates, updates, deletes or gets a <code>cloud_formation_provisioned_product</c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="accept_language" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="notification_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="path_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="path_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="product_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="product_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioned_product_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_artifact_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_artifact_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_parameters" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_preferences" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioned_product_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="record_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cloudformation_stack_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="outputs" /></td><td><code>object</code></td><td>List of key-value pair outputs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "accept_language",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "notification_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "path_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "path_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "product_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "product_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provisioned_product_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provisioning_artifact_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provisioning_artifact_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provisioning_parameters",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "provisioning_preferences",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "stack_set_accounts",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "stack_set_failure_tolerance_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "stack_set_failure_tolerance_percentage",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "stack_set_max_concurrency_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "stack_set_max_concurrency_percentage",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "stack_set_operation_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "stack_set_regions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "provisioned_product_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "record_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cloudformation_stack_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "outputs",
+    "type": "object",
+    "description": "List of key-value pair outputs."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-cloudformationprovisionedproduct.html"><code>AWS::ServiceCatalog::CloudFormationProvisionedProduct</code></a>.
 

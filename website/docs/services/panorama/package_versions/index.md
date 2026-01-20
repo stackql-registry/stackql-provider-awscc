@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>package_version</code> resource or lists <code>package_versions</code> in a region
 
@@ -32,24 +33,68 @@ Creates, updates, deletes or gets a <code>package_version</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="owner_account" /></td><td><code>string</code></td><td>An owner account.</td></tr>
-<tr><td><CopyableCode code="package_id" /></td><td><code>string</code></td><td>A package ID.</td></tr>
-<tr><td><CopyableCode code="package_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="package_version" /></td><td><code>string</code></td><td>A package version.</td></tr>
-<tr><td><CopyableCode code="patch_version" /></td><td><code>string</code></td><td>A patch version.</td></tr>
-<tr><td><CopyableCode code="mark_latest" /></td><td><code>boolean</code></td><td>Whether to mark the new version as the latest version.</td></tr>
-<tr><td><CopyableCode code="is_latest_patch" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="package_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="registered_time" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_latest_patch_version" /></td><td><code>string</code></td><td>If the version was marked latest, the new version to maker as latest.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "owner_account",
+    "type": "string",
+    "description": "An owner account."
+  },
+  {
+    "name": "package_id",
+    "type": "string",
+    "description": "A package ID."
+  },
+  {
+    "name": "package_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "package_version",
+    "type": "string",
+    "description": "A package version."
+  },
+  {
+    "name": "patch_version",
+    "type": "string",
+    "description": "A patch version."
+  },
+  {
+    "name": "mark_latest",
+    "type": "boolean",
+    "description": "Whether to mark the new version as the latest version."
+  },
+  {
+    "name": "is_latest_patch",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "package_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "registered_time",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-panorama-packageversion.html"><code>AWS::Panorama::PackageVersion</code></a>.
 

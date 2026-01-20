@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_entry</code> resource or lists <code>access_entries</code> in a region
 
@@ -32,20 +33,89 @@ Creates, updates, deletes or gets an <code>access_entry</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>The cluster that the access entry is created for.</td></tr>
-<tr><td><CopyableCode code="principal_arn" /></td><td><code>string</code></td><td>The principal ARN that the access entry is created for.</td></tr>
-<tr><td><CopyableCode code="username" /></td><td><code>string</code></td><td>The Kubernetes user that the access entry is associated with.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="access_entry_arn" /></td><td><code>string</code></td><td>The ARN of the access entry.</td></tr>
-<tr><td><CopyableCode code="kubernetes_groups" /></td><td><code>array</code></td><td>The Kubernetes groups that the access entry is associated with.</td></tr>
-<tr><td><CopyableCode code="access_policies" /></td><td><code>array</code></td><td>An array of access policies that are associated with the access entry.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The node type to associate with the access entry.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The cluster that the access entry is created for."
+  },
+  {
+    "name": "principal_arn",
+    "type": "string",
+    "description": "The principal ARN that the access entry is created for."
+  },
+  {
+    "name": "username",
+    "type": "string",
+    "description": "The Kubernetes user that the access entry is associated with."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "access_entry_arn",
+    "type": "string",
+    "description": "The ARN of the access entry."
+  },
+  {
+    "name": "kubernetes_groups",
+    "type": "array",
+    "description": "The Kubernetes groups that the access entry is associated with."
+  },
+  {
+    "name": "access_policies",
+    "type": "array",
+    "description": "An array of access policies that are associated with the access entry.",
+    "children": [
+      {
+        "name": "policy_arn",
+        "type": "string",
+        "description": "The ARN of the access policy to add to the access entry."
+      },
+      {
+        "name": "access_scope",
+        "type": "object",
+        "description": "The access scope of the access policy.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The type of the access scope."
+          },
+          {
+            "name": "namespaces",
+            "type": "array",
+            "description": "The namespaces to associate with the access scope. Only specify if Type is set to 'namespace'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The node type to associate with the access entry."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-accessentry.html"><code>AWS::EKS::AccessEntry</code></a>.
 
@@ -87,21 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_entries</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-principal_arn,
-username,
-tags,
-access_entry_arn,
-kubernetes_groups,
-access_policies,
-type
-FROM awscc.eks.access_entries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_entry</code>.
 ```sql
 SELECT

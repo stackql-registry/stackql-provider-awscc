@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>label</code> resource or lists <code>labels</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>label</code> resource or lists <code>l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the label.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this label.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The label description.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The label ARN.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The timestamp when the label was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The timestamp when the label was last updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the label."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with this label.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The label description."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The label ARN."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "The timestamp when the label was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The timestamp when the label was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-frauddetector-label.html"><code>AWS::FraudDetector::Label</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>labels</code> in a region.
-```sql
-SELECT
-region,
-name,
-tags,
-description,
-arn,
-created_time,
-last_updated_time
-FROM awscc.frauddetector.labels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>label</code>.
 ```sql
 SELECT

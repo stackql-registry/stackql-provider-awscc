@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network</code> resource or lists <code>networks</code> in a region
 
@@ -32,20 +33,84 @@ Creates, updates, deletes or gets a <code>network</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the Network.</td></tr>
-<tr><td><CopyableCode code="associated_cluster_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique ID of the Network.</td></tr>
-<tr><td><CopyableCode code="ip_pools" /></td><td><code>array</code></td><td>The list of IP address cidr pools for the network</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The user-specified name of the Network to be created.</td></tr>
-<tr><td><CopyableCode code="routes" /></td><td><code>array</code></td><td>The routes for the network</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The current state of the Network.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of key-value pairs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the Network."
+  },
+  {
+    "name": "associated_cluster_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique ID of the Network."
+  },
+  {
+    "name": "ip_pools",
+    "type": "array",
+    "description": "The list of IP address cidr pools for the network",
+    "children": [
+      {
+        "name": "cidr",
+        "type": "string",
+        "description": "IP address cidr pool"
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The user-specified name of the Network to be created."
+  },
+  {
+    "name": "routes",
+    "type": "array",
+    "description": "The routes for the network",
+    "children": [
+      {
+        "name": "cidr",
+        "type": "string",
+        "description": "Ip address cidr"
+      },
+      {
+        "name": "gateway",
+        "type": "string",
+        "description": "IP address for the route packet paths"
+      }
+    ]
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The current state of the Network."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of key-value pairs.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-network.html"><code>AWS::MediaLive::Network</code></a>.
 
@@ -87,21 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>networks</code> in a region.
-```sql
-SELECT
-region,
-arn,
-associated_cluster_ids,
-id,
-ip_pools,
-name,
-routes,
-state,
-tags
-FROM awscc.medialive.networks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network</code>.
 ```sql
 SELECT

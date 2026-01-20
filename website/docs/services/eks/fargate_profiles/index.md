@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>fargate_profile</code> resource or lists <code>fargate_profiles</code> in a region
 
@@ -32,19 +33,84 @@ Creates, updates, deletes or gets a <code>fargate_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>Name of the Cluster</td></tr>
-<tr><td><CopyableCode code="fargate_profile_name" /></td><td><code>string</code></td><td>Name of FargateProfile</td></tr>
-<tr><td><CopyableCode code="pod_execution_role_arn" /></td><td><code>string</code></td><td>The IAM policy arn for pods</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnets" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="selectors" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "Name of the Cluster"
+  },
+  {
+    "name": "fargate_profile_name",
+    "type": "string",
+    "description": "Name of FargateProfile"
+  },
+  {
+    "name": "pod_execution_role_arn",
+    "type": "string",
+    "description": "The IAM policy arn for pods"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnets",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "selectors",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "labels",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the label."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the label."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-fargateprofile.html"><code>AWS::EKS::FargateProfile</code></a>.
 
@@ -86,20 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>fargate_profiles</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-fargate_profile_name,
-pod_execution_role_arn,
-arn,
-subnets,
-selectors,
-tags
-FROM awscc.eks.fargate_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>fargate_profile</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>identity_pool</code> resource or lists <code>identity_pools</code> in a region
 
@@ -32,26 +33,141 @@ Creates, updates, deletes or gets an <code>identity_pool</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="push_sync" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="cognito_identity_providers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="developer_provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cognito_streams" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="supported_login_providers" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cognito_events" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_pool_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="allow_unauthenticated_identities" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="saml_provider_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="open_id_connect_provider_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="allow_classic_flow" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_pool_tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "push_sync",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "application_arns",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "cognito_identity_providers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "server_side_token_check",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "provider_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "client_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "developer_provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cognito_streams",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "streaming_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "stream_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "supported_login_providers",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cognito_events",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_pool_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "allow_unauthenticated_identities",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "saml_provider_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "open_id_connect_provider_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "allow_classic_flow",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "identity_pool_tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypool.html"><code>AWS::Cognito::IdentityPool</code></a>.
 
@@ -93,27 +209,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>identity_pools</code> in a region.
-```sql
-SELECT
-region,
-push_sync,
-cognito_identity_providers,
-developer_provider_name,
-cognito_streams,
-supported_login_providers,
-name,
-cognito_events,
-id,
-identity_pool_name,
-allow_unauthenticated_identities,
-saml_provider_arns,
-open_id_connect_provider_arns,
-allow_classic_flow,
-identity_pool_tags
-FROM awscc.cognito.identity_pools
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>identity_pool</code>.
 ```sql
 SELECT

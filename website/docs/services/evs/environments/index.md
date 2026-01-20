@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,34 +33,228 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="environment_name" /></td><td><code>string</code></td><td>The name of an EVS environment</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_access_subnet_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vcf_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="terms_accepted" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="license_info" /></td><td><code>object</code></td><td>The license information for an EVS environment</td></tr>
-<tr><td><CopyableCode code="initial_vlans" /></td><td><code>object</code></td><td>The initial Vlan configuration only required upon creation. Modification after creation will have no effect</td></tr>
-<tr><td><CopyableCode code="hosts" /></td><td><code>array</code></td><td>The initial hosts for environment only required upon creation. Modification after creation will have no effect</td></tr>
-<tr><td><CopyableCode code="connectivity_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="vcf_hostnames" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="site_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_details" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="checks" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="credentials" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_access_security_groups" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "environment_name",
+    "type": "string",
+    "description": "The name of an EVS environment"
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_access_subnet_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vcf_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "terms_accepted",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "license_info",
+    "type": "object",
+    "description": "The license information for an EVS environment",
+    "children": [
+      {
+        "name": "solution_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vsan_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "initial_vlans",
+    "type": "object",
+    "description": "The initial Vlan configuration only required upon creation. Modification after creation will have no effect",
+    "children": [
+      {
+        "name": "vmk_management",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "cidr",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hosts",
+    "type": "array",
+    "description": "The initial hosts for environment only required upon creation. Modification after creation will have no effect",
+    "children": [
+      {
+        "name": "host_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "placement_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dedicated_host_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "connectivity_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "private_route_server_peerings",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vcf_hostnames",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "v_center",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "site_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_details",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "checks",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "result",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "impaired_since",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "credentials",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "service_access_security_groups",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_groups",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-evs-environment.html"><code>AWS::EVS::Environment</code></a>.
 
@@ -101,35 +296,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-environment_name,
-kms_key_id,
-vpc_id,
-service_access_subnet_id,
-vcf_version,
-terms_accepted,
-license_info,
-initial_vlans,
-hosts,
-connectivity_info,
-vcf_hostnames,
-site_id,
-environment_id,
-environment_arn,
-environment_state,
-state_details,
-checks,
-credentials,
-service_access_security_groups,
-tags,
-created_at,
-modified_at
-FROM awscc.evs.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

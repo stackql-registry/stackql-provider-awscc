@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,25 +33,234 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_group_name" /></td><td><code>string</code></td><td>The name of the resource group.</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The ARN of the ApplicationInsights application.</td></tr>
-<tr><td><CopyableCode code="cwe_monitor_enabled" /></td><td><code>boolean</code></td><td>Indicates whether Application Insights can listen to CloudWatch events for the application resources.</td></tr>
-<tr><td><CopyableCode code="ops_center_enabled" /></td><td><code>boolean</code></td><td>When set to true, creates opsItems for any problems detected on an application.</td></tr>
-<tr><td><CopyableCode code="ops_item_sns_topic_arn" /></td><td><code>string</code></td><td>The SNS topic provided to Application Insights that is associated to the created opsItem.</td></tr>
-<tr><td><CopyableCode code="sns_notification_arn" /></td><td><code>string</code></td><td>Application Insights sends notifications to this SNS topic whenever there is a problem update in the associated application.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags of Application Insights application.</td></tr>
-<tr><td><CopyableCode code="custom_components" /></td><td><code>array</code></td><td>The custom grouped components.</td></tr>
-<tr><td><CopyableCode code="log_pattern_sets" /></td><td><code>array</code></td><td>The log pattern sets.</td></tr>
-<tr><td><CopyableCode code="auto_configuration_enabled" /></td><td><code>boolean</code></td><td>If set to true, application will be configured with recommended monitoring configuration.</td></tr>
-<tr><td><CopyableCode code="component_monitoring_settings" /></td><td><code>array</code></td><td>The monitoring settings of the components.</td></tr>
-<tr><td><CopyableCode code="grouping_type" /></td><td><code>string</code></td><td>The grouping type of the application</td></tr>
-<tr><td><CopyableCode code="attach_missing_permission" /></td><td><code>boolean</code></td><td>If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_group_name",
+    "type": "string",
+    "description": "The name of the resource group."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": "The ARN of the ApplicationInsights application."
+  },
+  {
+    "name": "cwe_monitor_enabled",
+    "type": "boolean",
+    "description": "Indicates whether Application Insights can listen to CloudWatch events for the application resources."
+  },
+  {
+    "name": "ops_center_enabled",
+    "type": "boolean",
+    "description": "When set to true, creates opsItems for any problems detected on an application."
+  },
+  {
+    "name": "ops_item_sns_topic_arn",
+    "type": "string",
+    "description": "The SNS topic provided to Application Insights that is associated to the created opsItem."
+  },
+  {
+    "name": "sns_notification_arn",
+    "type": "string",
+    "description": "Application Insights sends notifications to this SNS topic whenever there is a problem update in the associated application."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags of Application Insights application.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "custom_components",
+    "type": "array",
+    "description": "The custom grouped components.",
+    "children": [
+      {
+        "name": "component_name",
+        "type": "string",
+        "description": "The name of the component."
+      },
+      {
+        "name": "resource_list",
+        "type": "array",
+        "description": "The list of resource ARNs that belong to the component."
+      }
+    ]
+  },
+  {
+    "name": "log_pattern_sets",
+    "type": "array",
+    "description": "The log pattern sets.",
+    "children": [
+      {
+        "name": "pattern_set_name",
+        "type": "string",
+        "description": "The name of the log pattern set."
+      },
+      {
+        "name": "log_patterns",
+        "type": "array",
+        "description": "The log patterns of a set.",
+        "children": [
+          {
+            "name": "pattern_name",
+            "type": "string",
+            "description": "The name of the log pattern."
+          },
+          {
+            "name": "pattern",
+            "type": "string",
+            "description": "The log pattern."
+          },
+          {
+            "name": "rank",
+            "type": "integer",
+            "description": "Rank of the log pattern."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "auto_configuration_enabled",
+    "type": "boolean",
+    "description": "If set to true, application will be configured with recommended monitoring configuration."
+  },
+  {
+    "name": "component_monitoring_settings",
+    "type": "array",
+    "description": "The monitoring settings of the components.",
+    "children": [
+      {
+        "name": "component_name",
+        "type": "string",
+        "description": "The name of the component."
+      },
+      {
+        "name": "component_arn",
+        "type": "string",
+        "description": "The ARN of the compnonent."
+      },
+      {
+        "name": "tier",
+        "type": "string",
+        "description": "The tier of the application component."
+      },
+      {
+        "name": "component_configuration_mode",
+        "type": "string",
+        "description": "The component monitoring configuration mode."
+      },
+      {
+        "name": "default_overwrite_component_configuration",
+        "type": "object",
+        "description": "The overwritten settings on default component monitoring configuration.",
+        "children": [
+          {
+            "name": "configuration_details",
+            "type": "object",
+            "description": "The configuration settings",
+            "children": [
+              {
+                "name": "alarm_metrics",
+                "type": "array",
+                "description": "A list of metrics to monitor for the component."
+              },
+              {
+                "name": "logs",
+                "type": "array",
+                "description": "A list of logs to monitor for the component."
+              },
+              {
+                "name": "windows_events",
+                "type": "array",
+                "description": "A list of Windows Events to log."
+              },
+              {
+                "name": "processes",
+                "type": "array",
+                "description": "A list of processes to monitor for the component. Only Windows EC2 instances can have a processes section."
+              },
+              {
+                "name": "alarms",
+                "type": "array",
+                "description": "A list of alarms to monitor for the component."
+              },
+              {
+                "name": "j_mx_prometheus_exporter",
+                "type": "object",
+                "description": "The JMX Prometheus Exporter settings."
+              },
+              {
+                "name": "h_an_aprometheus_exporter",
+                "type": "object",
+                "description": "The HANA DB Prometheus Exporter settings."
+              },
+              {
+                "name": "h_acluster_prometheus_exporter",
+                "type": "object",
+                "description": "The HA cluster Prometheus Exporter settings."
+              },
+              {
+                "name": "net_weaver_prometheus_exporter",
+                "type": "object",
+                "description": "The NetWeaver Prometheus Exporter settings."
+              },
+              {
+                "name": "sq_lserver_prometheus_exporter",
+                "type": "object",
+                "description": "The SQL Prometheus Exporter settings."
+              }
+            ]
+          },
+          {
+            "name": "sub_component_type_configurations",
+            "type": "array",
+            "description": "Sub component configurations of the component.",
+            "children": [
+              {
+                "name": "sub_component_type",
+                "type": "string",
+                "description": "The sub component type."
+              },
+              {
+                "name": "sub_component_configuration_details",
+                "type": "object",
+                "description": "The configuration settings of sub components."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "grouping_type",
+    "type": "string",
+    "description": "The grouping type of the application"
+  },
+  {
+    "name": "attach_missing_permission",
+    "type": "boolean",
+    "description": "If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationinsights-application.html"><code>AWS::ApplicationInsights::Application</code></a>.
 
@@ -92,26 +302,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-resource_group_name,
-application_arn,
-cwe_monitor_enabled,
-ops_center_enabled,
-ops_item_sns_topic_arn,
-sns_notification_arn,
-tags,
-custom_components,
-log_pattern_sets,
-auto_configuration_enabled,
-component_monitoring_settings,
-grouping_type,
-attach_missing_permission
-FROM awscc.applicationinsights.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

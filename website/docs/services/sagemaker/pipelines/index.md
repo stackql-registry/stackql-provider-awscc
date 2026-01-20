@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <code>pipelines</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="pipeline_name" /></td><td><code>string</code></td><td>The name of the Pipeline.</td></tr>
-<tr><td><CopyableCode code="pipeline_display_name" /></td><td><code>string</code></td><td>The display name of the Pipeline.</td></tr>
-<tr><td><CopyableCode code="pipeline_description" /></td><td><code>string</code></td><td>The description of the Pipeline.</td></tr>
-<tr><td><CopyableCode code="pipeline_definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="parallelism_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "pipeline_name",
+    "type": "string",
+    "description": "The name of the Pipeline."
+  },
+  {
+    "name": "pipeline_display_name",
+    "type": "string",
+    "description": "The display name of the Pipeline."
+  },
+  {
+    "name": "pipeline_description",
+    "type": "string",
+    "description": "The description of the Pipeline."
+  },
+  {
+    "name": "pipeline_definition",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role Arn"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "parallelism_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "max_parallel_execution_steps",
+        "type": "integer",
+        "description": "Maximum parallel execution steps"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-pipeline.html"><code>AWS::SageMaker::Pipeline</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pipelines</code> in a region.
-```sql
-SELECT
-region,
-pipeline_name,
-pipeline_display_name,
-pipeline_description,
-pipeline_definition,
-role_arn,
-tags,
-parallelism_configuration
-FROM awscc.sagemaker.pipelines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT

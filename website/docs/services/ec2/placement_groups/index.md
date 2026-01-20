@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>placement_group</code> resource or lists <code>placement_groups</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>placement_group</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="strategy" /></td><td><code>string</code></td><td>The placement strategy.</td></tr>
-<tr><td><CopyableCode code="group_name" /></td><td><code>string</code></td><td>The Group Name of Placement Group.</td></tr>
-<tr><td><CopyableCode code="spread_level" /></td><td><code>string</code></td><td>The Spread Level of Placement Group is an enum where it accepts either host or rack when strategy is spread</td></tr>
-<tr><td><CopyableCode code="partition_count" /></td><td><code>integer</code></td><td>The number of partitions. Valid only when ASTERIX;ASTERIX;StrategyASTERIX;ASTERIX; is set to `partition`</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "strategy",
+    "type": "string",
+    "description": "The placement strategy."
+  },
+  {
+    "name": "group_name",
+    "type": "string",
+    "description": "The Group Name of Placement Group."
+  },
+  {
+    "name": "spread_level",
+    "type": "string",
+    "description": "The Spread Level of Placement Group is an enum where it accepts either host or rack when strategy is spread"
+  },
+  {
+    "name": "partition_count",
+    "type": "integer",
+    "description": "The number of partitions. Valid only when &#42;&#42;Strategy&#42;&#42; is set to &#96;partition&#96;"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-placementgroup.html"><code>AWS::EC2::PlacementGroup</code></a>.
 
@@ -79,18 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>placement_groups</code> in a region.
-```sql
-SELECT
-region,
-strategy,
-group_name,
-spread_level,
-partition_count,
-tags
-FROM awscc.ec2.placement_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>placement_group</code>.
 ```sql
 SELECT

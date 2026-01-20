@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>ip_pool_route_table_associations</code> in a region or regions, for all properties use <a href="/services/ec2/ip_pool_route_table_associations/"><code>ip_pool_route_table_associations</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>ip_pool_route_table_associations</code> in a region or regions, for 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>The route table association ID.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "The route table association ID."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

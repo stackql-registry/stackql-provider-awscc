@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>local_gateway_route</code> resource or lists <code>local_gateway_routes</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>local_gateway_route</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="destination_cidr_block" /></td><td><code>string</code></td><td>The CIDR block used for destination matches.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_virtual_interface_group_id" /></td><td><code>string</code></td><td>The ID of the virtual interface group.</td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The ID of the network interface.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the route.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The route type.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The CIDR block used for destination matches."
+  },
+  {
+    "name": "local_gateway_route_table_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table."
+  },
+  {
+    "name": "local_gateway_virtual_interface_group_id",
+    "type": "string",
+    "description": "The ID of the virtual interface group."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of the network interface."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the route."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The route type."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-localgatewayroute.html"><code>AWS::EC2::LocalGatewayRoute</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>local_gateway_routes</code> in a region.
-```sql
-SELECT
-region,
-destination_cidr_block,
-local_gateway_route_table_id,
-local_gateway_virtual_interface_group_id,
-network_interface_id,
-state,
-type
-FROM awscc.ec2.local_gateway_routes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>local_gateway_route</code>.
 ```sql
 SELECT

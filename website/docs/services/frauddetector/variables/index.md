@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>variable</code> resource or lists <code>variables</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>variable</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the variable.</td></tr>
-<tr><td><CopyableCode code="data_source" /></td><td><code>string</code></td><td>The source of the data.</td></tr>
-<tr><td><CopyableCode code="data_type" /></td><td><code>string</code></td><td>The data type.</td></tr>
-<tr><td><CopyableCode code="default_value" /></td><td><code>string</code></td><td>The default value for the variable when no value is received.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this variable.</td></tr>
-<tr><td><CopyableCode code="variable_type" /></td><td><code>string</code></td><td>The variable type. For more information see https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the variable.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the variable was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the variable was last updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the variable."
+  },
+  {
+    "name": "data_source",
+    "type": "string",
+    "description": "The source of the data."
+  },
+  {
+    "name": "data_type",
+    "type": "string",
+    "description": "The data type."
+  },
+  {
+    "name": "default_value",
+    "type": "string",
+    "description": "The default value for the variable when no value is received."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with this variable.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "variable_type",
+    "type": "string",
+    "description": "The variable type. For more information see https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the variable."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "The time when the variable was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The time when the variable was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-frauddetector-variable.html"><code>AWS::FraudDetector::Variable</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>variables</code> in a region.
-```sql
-SELECT
-region,
-name,
-data_source,
-data_type,
-default_value,
-description,
-tags,
-variable_type,
-arn,
-created_time,
-last_updated_time
-FROM awscc.frauddetector.variables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>variable</code>.
 ```sql
 SELECT

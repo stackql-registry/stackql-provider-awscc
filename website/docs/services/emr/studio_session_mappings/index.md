@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>studio_session_mapping</code> resource or lists <code>studio_session_mappings</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>studio_session_mapping</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="identity_name" /></td><td><code>string</code></td><td>The name of the user or group. For more information, see UserName and DisplayName in the AWS SSO Identity Store API Reference. Either IdentityName or IdentityId must be specified.</td></tr>
-<tr><td><CopyableCode code="identity_type" /></td><td><code>string</code></td><td>Specifies whether the identity to map to the Studio is a user or a group.</td></tr>
-<tr><td><CopyableCode code="session_policy_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the session policy that will be applied to the user or group. Session policies refine Studio user permissions without the need to use multiple IAM user roles.</td></tr>
-<tr><td><CopyableCode code="studio_id" /></td><td><code>string</code></td><td>The ID of the Amazon EMR Studio to which the user or group will be mapped.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "identity_name",
+    "type": "string",
+    "description": "The name of the user or group. For more information, see UserName and DisplayName in the AWS SSO Identity Store API Reference. Either IdentityName or IdentityId must be specified."
+  },
+  {
+    "name": "identity_type",
+    "type": "string",
+    "description": "Specifies whether the identity to map to the Studio is a user or a group."
+  },
+  {
+    "name": "session_policy_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the session policy that will be applied to the user or group. Session policies refine Studio user permissions without the need to use multiple IAM user roles."
+  },
+  {
+    "name": "studio_id",
+    "type": "string",
+    "description": "The ID of the Amazon EMR Studio to which the user or group will be mapped."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-studiosessionmapping.html"><code>AWS::EMR::StudioSessionMapping</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>studio_session_mappings</code> in a region.
-```sql
-SELECT
-region,
-identity_name,
-identity_type,
-session_policy_arn,
-studio_id
-FROM awscc.emr.studio_session_mappings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>studio_session_mapping</code>.
 ```sql
 SELECT

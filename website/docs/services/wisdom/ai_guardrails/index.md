@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ai_guardrail</code> resource or lists <code>ai_guardrails</code> in a region
 
@@ -32,26 +33,222 @@ Creates, updates, deletes or gets an <code>ai_guardrail</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="a_iguardrail_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="a_iguardrail_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="blocked_input_messaging" /></td><td><code>string</code></td><td>Messaging for when violations are detected in text</td></tr>
-<tr><td><CopyableCode code="blocked_outputs_messaging" /></td><td><code>string</code></td><td>Messaging for when violations are detected in text</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the guardrail or its version</td></tr>
-<tr><td><CopyableCode code="topic_policy_config" /></td><td><code>object</code></td><td>Topic policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="content_policy_config" /></td><td><code>object</code></td><td>Content policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="word_policy_config" /></td><td><code>object</code></td><td>Word policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="sensitive_information_policy_config" /></td><td><code>object</code></td><td>Sensitive information policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="contextual_grounding_policy_config" /></td><td><code>object</code></td><td>Contextual grounding policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "assistant_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "a_iguardrail_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "a_iguardrail_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "blocked_input_messaging",
+    "type": "string",
+    "description": "Messaging for when violations are detected in text"
+  },
+  {
+    "name": "blocked_outputs_messaging",
+    "type": "string",
+    "description": "Messaging for when violations are detected in text"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the guardrail or its version"
+  },
+  {
+    "name": "topic_policy_config",
+    "type": "object",
+    "description": "Topic policy config for a guardrail.",
+    "children": [
+      {
+        "name": "topics_config",
+        "type": "array",
+        "description": "List of topic configs in topic policy.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Name of topic in topic policy"
+          },
+          {
+            "name": "definition",
+            "type": "string",
+            "description": "Definition of topic in topic policy"
+          },
+          {
+            "name": "examples",
+            "type": "array",
+            "description": "List of text examples"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of topic in a policy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "content_policy_config",
+    "type": "object",
+    "description": "Content policy config for a guardrail.",
+    "children": [
+      {
+        "name": "filters_config",
+        "type": "array",
+        "description": "List of content filter configs in content policy.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of text to text filter in content policy"
+          },
+          {
+            "name": "input_strength",
+            "type": "string",
+            "description": "Strength for filters"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "word_policy_config",
+    "type": "object",
+    "description": "Word policy config for a guardrail.",
+    "children": [
+      {
+        "name": "words_config",
+        "type": "array",
+        "description": "List of custom word configs.",
+        "children": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "The custom word text."
+          }
+        ]
+      },
+      {
+        "name": "managed_word_lists_config",
+        "type": "array",
+        "description": "A config for the list of managed words.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Options for managed words."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sensitive_information_policy_config",
+    "type": "object",
+    "description": "Sensitive information policy config for a guardrail.",
+    "children": [
+      {
+        "name": "pii_entities_config",
+        "type": "array",
+        "description": "List of entities.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The currently supported PII entities"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "Options for sensitive information action."
+          }
+        ]
+      },
+      {
+        "name": "regexes_config",
+        "type": "array",
+        "description": "List of regex.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The regex name."
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "The regex description."
+          },
+          {
+            "name": "pattern",
+            "type": "string",
+            "description": "The regex pattern."
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "Options for sensitive information action."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "contextual_grounding_policy_config",
+    "type": "object",
+    "description": "Contextual grounding policy config for a guardrail.",
+    "children": [
+      {
+        "name": "filters_config",
+        "type": "array",
+        "description": "List of contextual grounding filter configs.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of contextual grounding filter"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "description": "The threshold for this filter."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-aiguardrail.html"><code>AWS::Wisdom::AIGuardrail</code></a>.
 
@@ -93,27 +290,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ai_guardrails</code> in a region.
-```sql
-SELECT
-region,
-assistant_id,
-assistant_arn,
-a_iguardrail_arn,
-a_iguardrail_id,
-name,
-blocked_input_messaging,
-blocked_outputs_messaging,
-description,
-topic_policy_config,
-content_policy_config,
-word_policy_config,
-sensitive_information_policy_config,
-contextual_grounding_policy_config,
-tags
-FROM awscc.wisdom.ai_guardrails
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ai_guardrail</code>.
 ```sql
 SELECT

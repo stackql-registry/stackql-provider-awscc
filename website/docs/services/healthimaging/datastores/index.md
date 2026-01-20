@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>datastore</code> resource or lists <code>datastores</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>datastore</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="datastore_arn" /></td><td><code>string</code></td><td>The Datastore's ARN.</td></tr>
-<tr><td><CopyableCode code="datastore_name" /></td><td><code>string</code></td><td>User friendly name for Datastore.</td></tr>
-<tr><td><CopyableCode code="datastore_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="datastore_status" /></td><td><code>string</code></td><td>A string to denote the Datastore's state.</td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>ARN referencing a KMS key or KMS key alias.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp when the data store was created.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp when the data store was created.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A Map of key value pairs for Tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "datastore_arn",
+    "type": "string",
+    "description": "The Datastore's ARN."
+  },
+  {
+    "name": "datastore_name",
+    "type": "string",
+    "description": "User friendly name for Datastore."
+  },
+  {
+    "name": "datastore_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "datastore_status",
+    "type": "string",
+    "description": "A string to denote the Datastore's state."
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": "ARN referencing a KMS key or KMS key alias."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp when the data store was created."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The timestamp when the data store was created."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A Map of key value pairs for Tags."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-healthimaging-datastore.html"><code>AWS::HealthImaging::Datastore</code></a>.
 
@@ -82,21 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datastores</code> in a region.
-```sql
-SELECT
-region,
-datastore_arn,
-datastore_name,
-datastore_id,
-datastore_status,
-kms_key_arn,
-created_at,
-updated_at,
-tags
-FROM awscc.healthimaging.datastores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>datastore</code>.
 ```sql
 SELECT

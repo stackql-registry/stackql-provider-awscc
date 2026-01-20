@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>rules</code> in a region
 
@@ -32,22 +33,474 @@ Creates, updates, deletes or gets a <code>rule</code> resource or lists <code>ru
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="event_bus_name" /></td><td><code>string</code></td><td>The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.</td></tr>
-<tr><td><CopyableCode code="event_pattern" /></td><td><code>object</code></td><td>The event pattern of the rule. For more information, see Events and Event Patterns in the Amazon EventBridge User Guide.</td></tr>
-<tr><td><CopyableCode code="schedule_expression" /></td><td><code>string</code></td><td>The scheduling expression. For example, "cron(0 20 ASTERIX; ASTERIX; ? ASTERIX;)", "rate(5 minutes)". For more information, see Creating an Amazon EventBridge rule that runs on a schedule.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the rule.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the rule.</td></tr>
-<tr><td><CopyableCode code="targets" /></td><td><code>array</code></td><td>Adds the specified targets to the specified rule, or updates the targets if they are already associated with the rule.<br />Targets are the resources that are invoked when a rule is triggered.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the rule, such as arn:aws:events:us-east-2:123456789012:rule/example.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the role that is used for target invocation.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the event rule.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the rule.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "event_bus_name",
+    "type": "string",
+    "description": "The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used."
+  },
+  {
+    "name": "event_pattern",
+    "type": "object",
+    "description": "The event pattern of the rule. For more information, see Events and Event Patterns in the Amazon EventBridge User Guide."
+  },
+  {
+    "name": "schedule_expression",
+    "type": "string",
+    "description": "The scheduling expression. For example, \"cron(0 20 &#42; &#42; ? &#42;)\", \"rate(5 minutes)\". For more information, see Creating an Amazon EventBridge rule that runs on a schedule."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the rule."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the rule."
+  },
+  {
+    "name": "targets",
+    "type": "array",
+    "description": "Adds the specified targets to the specified rule, or updates the targets if they are already associated with the rule.<br />Targets are the resources that are invoked when a rule is triggered.",
+    "children": [
+      {
+        "name": "input_path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "http_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "path_parameter_values",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "header_parameters",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "query_string_parameters",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "dead_letter_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "run_command_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "run_command_targets",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "values",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "input_transformer",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "input_paths_map",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "input_template",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "kinesis_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "partition_key_path",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "redshift_data_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "statement_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "sqls",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "database",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "secret_manager_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "db_user",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "sql",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "with_event",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "app_sync_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "graph_ql_operation",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "input",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sqs_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "message_group_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ecs_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "platform_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enable_ecs_managed_tags",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "enable_execute_command",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "placement_constraints",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "expression",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "propagate_tags",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "task_count",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "placement_strategies",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "field",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "capacity_provider_strategy",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "capacity_provider",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "base",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "weight",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "launch_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "reference_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "tag_list",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "network_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "aws_vpc_configuration",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "task_definition_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "batch_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "array_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "size",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "job_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "retry_strategy",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "attempts",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "job_definition",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sage_maker_pipeline_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "pipeline_parameter_list",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "retry_policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "maximum_retry_attempts",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "maximum_event_age_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the rule, such as arn:aws:events:us-east-2:123456789012:rule/example."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the role that is used for target invocation."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the event rule.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the rule."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-rule.html"><code>AWS::Events::Rule</code></a>.
 
@@ -89,23 +542,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rules</code> in a region.
-```sql
-SELECT
-region,
-event_bus_name,
-event_pattern,
-schedule_expression,
-description,
-state,
-targets,
-arn,
-role_arn,
-tags,
-name
-FROM awscc.events.rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>rule</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>approved_origin</code> resource or lists <code>approved_origins</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets an <code>approved_origin</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="origin" /></td><td><code>string</code></td><td>Domain name to be added to the allowlist of instance</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "origin",
+    "type": "string",
+    "description": "Domain name to be added to the allowlist of instance"
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-approvedorigin.html"><code>AWS::Connect::ApprovedOrigin</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>approved_origins</code> in a region.
-```sql
-SELECT
-region,
-origin,
-instance_id
-FROM awscc.connect.approved_origins
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>approved_origin</code>.
 ```sql
 SELECT

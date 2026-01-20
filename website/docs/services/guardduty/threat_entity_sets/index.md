@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>threat_entity_set</code> resource or lists <code>threat_entity_sets</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets a <code>threat_entity_set</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="format" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="activate" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="error_details" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="location" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="expected_bucket_owner" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "format",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "activate",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "error_details",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "location",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "expected_bucket_owner",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-threatentityset.html"><code>AWS::GuardDuty::ThreatEntitySet</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>threat_entity_sets</code> in a region.
-```sql
-SELECT
-region,
-id,
-format,
-activate,
-status,
-created_at,
-updated_at,
-error_details,
-detector_id,
-name,
-location,
-expected_bucket_owner,
-tags
-FROM awscc.guardduty.threat_entity_sets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>threat_entity_set</code>.
 ```sql
 SELECT

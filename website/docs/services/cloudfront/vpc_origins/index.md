@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_origin</code> resource or lists <code>vpc_origins</code> in a region
 
@@ -32,19 +33,92 @@ Creates, updates, deletes or gets a <code>vpc_origin</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A complex type that contains zero or more <code>Tag</code> elements.</td></tr>
-<tr><td><CopyableCode code="vpc_origin_endpoint_config" /></td><td><code>object</code></td><td>The VPC origin endpoint configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      }
+    ]
+  },
+  {
+    "name": "vpc_origin_endpoint_config",
+    "type": "object",
+    "description": "The VPC origin endpoint configuration.",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "The ARN of the CloudFront VPC origin endpoint configuration."
+      },
+      {
+        "name": "h_tt_pport",
+        "type": "integer",
+        "description": "The HTTP port for the CloudFront VPC origin endpoint configuration. The default value is &#96;&#96;80&#96;&#96;."
+      },
+      {
+        "name": "h_tt_ps_port",
+        "type": "integer",
+        "description": "The HTTPS port of the CloudFront VPC origin endpoint configuration. The default value is &#96;&#96;443&#96;&#96;."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the CloudFront VPC origin endpoint configuration."
+      },
+      {
+        "name": "origin_protocol_policy",
+        "type": "string",
+        "description": "The origin protocol policy for the CloudFront VPC origin endpoint configuration."
+      },
+      {
+        "name": "origin_ss_lprotocols",
+        "type": "array",
+        "description": "Specifies the minimum SSL/TLS protocol that CloudFront uses when connecting to your origin over HTTPS. Valid values include &#96;&#96;SSLv3&#96;&#96;, &#96;&#96;TLSv1&#96;&#96;, &#96;&#96;TLSv1.1&#96;&#96;, and &#96;&#96;TLSv1.2&#96;&#96;.<br />For more information, see &#91;Minimum Origin SSL Protocol&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistValuesOrigin.html#DownloadDistValuesOriginSSLProtocols) in the &#42;Amazon CloudFront Developer Guide&#42;."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-vpcorigin.html"><code>AWS::CloudFront::VpcOrigin</code></a>.
 
@@ -86,20 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_origins</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_time,
-id,
-last_modified_time,
-status,
-tags,
-vpc_origin_endpoint_config
-FROM awscc.cloudfront.vpc_origins
-;
-```
+
 Gets all properties from an individual <code>vpc_origin</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_subscription</code> resource or lists <code>event_subscriptions</code> in a region
 
@@ -26,32 +27,101 @@ Creates, updates, deletes or gets an <code>event_subscription</code> resource or
 <tbody>
 <tr><td><b>Name</b></td><td><code>event_subscriptions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The `AWS::Redshift::EventSubscription` resource creates an Amazon Redshift Event Subscription.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;AWS::Redshift::EventSubscription&#96; resource creates an Amazon Redshift Event Subscription.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.redshift.event_subscriptions" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the Amazon Redshift event notification subscription.</td></tr>
-<tr><td><CopyableCode code="cust_subscription_id" /></td><td><code>string</code></td><td>The name of the Amazon Redshift event notification subscription.</td></tr>
-<tr><td><CopyableCode code="event_categories_list" /></td><td><code>array</code></td><td>The list of Amazon Redshift event categories specified in the event notification subscription.</td></tr>
-<tr><td><CopyableCode code="source_type" /></td><td><code>string</code></td><td>The type of source that will be generating the events.</td></tr>
-<tr><td><CopyableCode code="event_categories" /></td><td><code>array</code></td><td>Specifies the Amazon Redshift event categories to be published by the event notification subscription.</td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td>A boolean value; set to true to activate the subscription, and set to false to create the subscription but not activate it.</td></tr>
-<tr><td><CopyableCode code="severity" /></td><td><code>string</code></td><td>Specifies the Amazon Redshift event severity to be published by the event notification subscription.</td></tr>
-<tr><td><CopyableCode code="subscription_name" /></td><td><code>string</code></td><td>The name of the Amazon Redshift event notification subscription</td></tr>
-<tr><td><CopyableCode code="source_ids" /></td><td><code>array</code></td><td>A list of one or more identifiers of Amazon Redshift source objects.</td></tr>
-<tr><td><CopyableCode code="customer_aws_id" /></td><td><code>string</code></td><td>The AWS account associated with the Amazon Redshift event notification subscription.</td></tr>
-<tr><td><CopyableCode code="source_ids_list" /></td><td><code>array</code></td><td>A list of the sources that publish events to the Amazon Redshift event notification subscription.</td></tr>
-<tr><td><CopyableCode code="sns_topic_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon SNS topic used to transmit the event notifications.</td></tr>
-<tr><td><CopyableCode code="subscription_creation_time" /></td><td><code>string</code></td><td>The date and time the Amazon Redshift event notification subscription was created.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the Amazon Redshift event notification subscription."
+  },
+  {
+    "name": "cust_subscription_id",
+    "type": "string",
+    "description": "The name of the Amazon Redshift event notification subscription."
+  },
+  {
+    "name": "event_categories_list",
+    "type": "array",
+    "description": "The list of Amazon Redshift event categories specified in the event notification subscription."
+  },
+  {
+    "name": "source_type",
+    "type": "string",
+    "description": "The type of source that will be generating the events."
+  },
+  {
+    "name": "event_categories",
+    "type": "array",
+    "description": "Specifies the Amazon Redshift event categories to be published by the event notification subscription."
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": "A boolean value; set to true to activate the subscription, and set to false to create the subscription but not activate it."
+  },
+  {
+    "name": "severity",
+    "type": "string",
+    "description": "Specifies the Amazon Redshift event severity to be published by the event notification subscription."
+  },
+  {
+    "name": "subscription_name",
+    "type": "string",
+    "description": "The name of the Amazon Redshift event notification subscription"
+  },
+  {
+    "name": "source_ids",
+    "type": "array",
+    "description": "A list of one or more identifiers of Amazon Redshift source objects."
+  },
+  {
+    "name": "customer_aws_id",
+    "type": "string",
+    "description": "The AWS account associated with the Amazon Redshift event notification subscription."
+  },
+  {
+    "name": "source_ids_list",
+    "type": "array",
+    "description": "A list of the sources that publish events to the Amazon Redshift event notification subscription."
+  },
+  {
+    "name": "sns_topic_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon SNS topic used to transmit the event notifications."
+  },
+  {
+    "name": "subscription_creation_time",
+    "type": "string",
+    "description": "The date and time the Amazon Redshift event notification subscription was created."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-eventsubscription.html"><code>AWS::Redshift::EventSubscription</code></a>.
 
@@ -93,27 +163,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_subscriptions</code> in a region.
-```sql
-SELECT
-region,
-status,
-cust_subscription_id,
-event_categories_list,
-source_type,
-event_categories,
-enabled,
-severity,
-subscription_name,
-source_ids,
-customer_aws_id,
-source_ids_list,
-sns_topic_arn,
-subscription_creation_time,
-tags
-FROM awscc.redshift.event_subscriptions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_subscription</code>.
 ```sql
 SELECT

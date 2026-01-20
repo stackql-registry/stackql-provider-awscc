@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>owner</code> resource or lists <code>owners</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets an <code>owner</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="entity_type" /></td><td><code>string</code></td><td>The type of an entity.</td></tr>
-<tr><td><CopyableCode code="owner" /></td><td><code>object</code></td><td>The owner that you want to add to the entity.</td></tr>
-<tr><td><CopyableCode code="entity_identifier" /></td><td><code>string</code></td><td>The ID of the entity to which you want to add an owner.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the domain in which you want to add the entity owner.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "entity_type",
+    "type": "string",
+    "description": "The type of an entity."
+  },
+  {
+    "name": "owner",
+    "type": "object",
+    "description": "The owner that you want to add to the entity."
+  },
+  {
+    "name": "entity_identifier",
+    "type": "string",
+    "description": "The ID of the entity to which you want to add an owner."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the domain in which you want to add the entity owner."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-owner.html"><code>AWS::DataZone::Owner</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>owners</code> in a region.
-```sql
-SELECT
-region,
-entity_type,
-owner,
-entity_identifier,
-domain_identifier
-FROM awscc.datazone.owners
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>owner</code>.
 ```sql
 SELECT

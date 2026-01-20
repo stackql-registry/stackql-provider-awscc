@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>schemata</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of schema. Valid types include OpenApi3 and JSONSchemaDraft4.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the schema.</td></tr>
-<tr><td><CopyableCode code="schema_version" /></td><td><code>string</code></td><td>The version number of the schema.</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>string</code></td><td>The source of the schema definition.</td></tr>
-<tr><td><CopyableCode code="registry_name" /></td><td><code>string</code></td><td>The name of the schema registry.</td></tr>
-<tr><td><CopyableCode code="schema_arn" /></td><td><code>string</code></td><td>The ARN of the schema.</td></tr>
-<tr><td><CopyableCode code="schema_name" /></td><td><code>string</code></td><td>The name of the schema.</td></tr>
-<tr><td><CopyableCode code="last_modified" /></td><td><code>string</code></td><td>The last modified time of the schema.</td></tr>
-<tr><td><CopyableCode code="version_created_date" /></td><td><code>string</code></td><td>The date the schema version was created.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with the resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of schema. Valid types include OpenApi3 and JSONSchemaDraft4."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the schema."
+  },
+  {
+    "name": "schema_version",
+    "type": "string",
+    "description": "The version number of the schema."
+  },
+  {
+    "name": "content",
+    "type": "string",
+    "description": "The source of the schema definition."
+  },
+  {
+    "name": "registry_name",
+    "type": "string",
+    "description": "The name of the schema registry."
+  },
+  {
+    "name": "schema_arn",
+    "type": "string",
+    "description": "The ARN of the schema."
+  },
+  {
+    "name": "schema_name",
+    "type": "string",
+    "description": "The name of the schema."
+  },
+  {
+    "name": "last_modified",
+    "type": "string",
+    "description": "The last modified time of the schema."
+  },
+  {
+    "name": "version_created_date",
+    "type": "string",
+    "description": "The date the schema version was created."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with the resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eventschemas-schema.html"><code>AWS::EventSchemas::Schema</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schemata</code> in a region.
-```sql
-SELECT
-region,
-type,
-description,
-schema_version,
-content,
-registry_name,
-schema_arn,
-schema_name,
-last_modified,
-version_created_date,
-tags
-FROM awscc.eventschemas.schemata
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schema</code>.
 ```sql
 SELECT

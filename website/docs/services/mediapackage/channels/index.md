@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel</code> resource or lists <code>channels</code> in a region
 
@@ -32,19 +33,91 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) assigned to the Channel.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Channel.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A short text description of the Channel.</td></tr>
-<tr><td><CopyableCode code="hls_ingest" /></td><td><code>object</code></td><td>An HTTP Live Streaming (HLS) ingest resource configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="egress_access_logs" /></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
-<tr><td><CopyableCode code="ingress_access_logs" /></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) assigned to the Channel."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Channel."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A short text description of the Channel."
+  },
+  {
+    "name": "hls_ingest",
+    "type": "object",
+    "description": "An HTTP Live Streaming (HLS) ingest resource configuration.",
+    "children": [
+      {
+        "name": "ingest_endpoints",
+        "type": "array",
+        "description": "A list of endpoints to which the source stream should be sent.",
+        "children": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The system generated unique identifier for the IngestEndpoint"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "The system generated username for ingest authentication."
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": "The system generated password for ingest authentication."
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": "The ingest URL to which the source stream should be sent."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "egress_access_logs",
+    "type": "object",
+    "description": "The configuration parameters for egress access logging.",
+    "children": [
+      {
+        "name": "log_group_name",
+        "type": "string",
+        "description": "Sets a custom AWS CloudWatch log group name for egress logs. If a log group name isn't specified, the default name is used: /aws/MediaPackage/VodEgressAccessLogs."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediapackage-channel.html"><code>AWS::MediaPackage::Channel</code></a>.
 
@@ -86,20 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channels</code> in a region.
-```sql
-SELECT
-region,
-arn,
-id,
-description,
-hls_ingest,
-tags,
-egress_access_logs,
-ingress_access_logs
-FROM awscc.mediapackage.channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT

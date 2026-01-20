@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>agents</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="agent_name" /></td><td><code>string</code></td><td>The name configured for the agent. Text reference used to identify the agent in the console.</td></tr>
-<tr><td><CopyableCode code="activation_key" /></td><td><code>string</code></td><td>Activation key of the Agent.</td></tr>
-<tr><td><CopyableCode code="security_group_arns" /></td><td><code>array</code></td><td>The ARNs of the security group used to protect your data transfer task subnets.</td></tr>
-<tr><td><CopyableCode code="subnet_arns" /></td><td><code>array</code></td><td>The ARNs of the subnets in which DataSync will create elastic network interfaces for each data transfer task.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint_id" /></td><td><code>string</code></td><td>The ID of the VPC endpoint that the agent has access to.</td></tr>
-<tr><td><CopyableCode code="endpoint_type" /></td><td><code>string</code></td><td>The service endpoints that the agent will connect to.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="agent_arn" /></td><td><code>string</code></td><td>The DataSync Agent ARN.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "agent_name",
+    "type": "string",
+    "description": "The name configured for the agent. Text reference used to identify the agent in the console."
+  },
+  {
+    "name": "activation_key",
+    "type": "string",
+    "description": "Activation key of the Agent."
+  },
+  {
+    "name": "security_group_arns",
+    "type": "array",
+    "description": "The ARNs of the security group used to protect your data transfer task subnets."
+  },
+  {
+    "name": "subnet_arns",
+    "type": "array",
+    "description": "The ARNs of the subnets in which DataSync will create elastic network interfaces for each data transfer task."
+  },
+  {
+    "name": "vpc_endpoint_id",
+    "type": "string",
+    "description": "The ID of the VPC endpoint that the agent has access to."
+  },
+  {
+    "name": "endpoint_type",
+    "type": "string",
+    "description": "The service endpoints that the agent will connect to."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "agent_arn",
+    "type": "string",
+    "description": "The DataSync Agent ARN."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-agent.html"><code>AWS::DataSync::Agent</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>agents</code> in a region.
-```sql
-SELECT
-region,
-agent_name,
-activation_key,
-security_group_arns,
-subnet_arns,
-vpc_endpoint_id,
-endpoint_type,
-tags,
-agent_arn
-FROM awscc.datasync.agents
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>agent</code>.
 ```sql
 SELECT

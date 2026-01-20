@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>account_policy</code> resource or lists <code>account_policies</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets an <code>account_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>User account id</td></tr>
-<tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td>The name of the account policy</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>string</code></td><td>The body of the policy document you want to use for this topic.<br />You can only add one policy per PolicyType.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30720</td></tr>
-<tr><td><CopyableCode code="policy_type" /></td><td><code>string</code></td><td>Type of the policy.</td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Scope for policy application</td></tr>
-<tr><td><CopyableCode code="selection_criteria" /></td><td><code>string</code></td><td>Log group selection criteria to apply policy only to a subset of log groups. SelectionCriteria string can be up to 25KB and cloudwatchlogs determines the length of selectionCriteria by using its UTF-8 bytes</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "User account id"
+  },
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": "The name of the account policy"
+  },
+  {
+    "name": "policy_document",
+    "type": "string",
+    "description": "The body of the policy document you want to use for this topic.<br />You can only add one policy per PolicyType.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30720"
+  },
+  {
+    "name": "policy_type",
+    "type": "string",
+    "description": "Type of the policy."
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": "Scope for policy application"
+  },
+  {
+    "name": "selection_criteria",
+    "type": "string",
+    "description": "Log group selection criteria to apply policy only to a subset of log groups. SelectionCriteria string can be up to 25KB and cloudwatchlogs determines the length of selectionCriteria by using its UTF-8 bytes"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-accountpolicy.html"><code>AWS::Logs::AccountPolicy</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>account_policies</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-policy_name,
-policy_document,
-policy_type,
-scope,
-selection_criteria
-FROM awscc.logs.account_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>account_policy</code>.
 ```sql
 SELECT

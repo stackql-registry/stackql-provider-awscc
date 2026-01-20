@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>enabled_baselines</code> in a region or regions, for all properties use <a href="/services/controltower/enabled_baselines/"><code>enabled_baselines</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>enabled_baselines</code> in a region or regions, for all properties 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="baseline_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled_baseline_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "baseline_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled_baseline_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

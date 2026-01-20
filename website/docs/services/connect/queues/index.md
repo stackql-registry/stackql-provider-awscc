@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>queues</code> in a region
 
@@ -32,24 +33,109 @@ Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>q
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the queue.</td></tr>
-<tr><td><CopyableCode code="hours_of_operation_arn" /></td><td><code>string</code></td><td>The identifier for the hours of operation.</td></tr>
-<tr><td><CopyableCode code="max_contacts" /></td><td><code>integer</code></td><td>The maximum number of contacts that can be in the queue before it is considered full.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the queue.</td></tr>
-<tr><td><CopyableCode code="outbound_caller_config" /></td><td><code>object</code></td><td>The outbound caller ID name, number, and outbound whisper flow.</td></tr>
-<tr><td><CopyableCode code="outbound_email_config" /></td><td><code>object</code></td><td>The outbound email address ID.</td></tr>
-<tr><td><CopyableCode code="queue_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the queue.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the queue.</td></tr>
-<tr><td><CopyableCode code="quick_connect_arns" /></td><td><code>array</code></td><td>The quick connects available to agents who are working the queue.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of queue.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the queue."
+  },
+  {
+    "name": "hours_of_operation_arn",
+    "type": "string",
+    "description": "The identifier for the hours of operation."
+  },
+  {
+    "name": "max_contacts",
+    "type": "integer",
+    "description": "The maximum number of contacts that can be in the queue before it is considered full."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the queue."
+  },
+  {
+    "name": "outbound_caller_config",
+    "type": "object",
+    "description": "The outbound caller ID name, number, and outbound whisper flow.",
+    "children": [
+      {
+        "name": "outbound_caller_id_name",
+        "type": "string",
+        "description": "The caller ID name."
+      },
+      {
+        "name": "outbound_caller_id_number_arn",
+        "type": "string",
+        "description": "The caller ID number."
+      },
+      {
+        "name": "outbound_flow_arn",
+        "type": "string",
+        "description": "The outbound whisper flow to be used during an outbound call."
+      }
+    ]
+  },
+  {
+    "name": "outbound_email_config",
+    "type": "object",
+    "description": "The outbound email address ID.",
+    "children": [
+      {
+        "name": "outbound_email_address_id",
+        "type": "string",
+        "description": "The email address connect resource ID."
+      }
+    ]
+  },
+  {
+    "name": "queue_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the queue."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the queue."
+  },
+  {
+    "name": "quick_connect_arns",
+    "type": "array",
+    "description": "The quick connects available to agents who are working the queue."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of queue."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-queue.html"><code>AWS::Connect::Queue</code></a>.
 
@@ -91,25 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>queues</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-description,
-hours_of_operation_arn,
-max_contacts,
-name,
-outbound_caller_config,
-outbound_email_config,
-queue_arn,
-status,
-quick_connect_arns,
-tags,
-type
-FROM awscc.connect.queues
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>queue</code>.
 ```sql
 SELECT

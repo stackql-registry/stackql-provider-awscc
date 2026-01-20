@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>verified_access_endpoint</code> resource or lists <code>verified_access_endpoints</code> in a region
 
@@ -32,35 +33,296 @@ Creates, updates, deletes or gets a <code>verified_access_endpoint</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="verified_access_endpoint_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access endpoint.</td></tr>
-<tr><td><CopyableCode code="verified_access_group_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access group.</td></tr>
-<tr><td><CopyableCode code="verified_access_instance_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access instance.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The endpoint status.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The IDs of the security groups for the endpoint.</td></tr>
-<tr><td><CopyableCode code="network_interface_options" /></td><td><code>object</code></td><td>The options for network-interface type endpoint.</td></tr>
-<tr><td><CopyableCode code="load_balancer_options" /></td><td><code>object</code></td><td>The load balancer details if creating the AWS Verified Access endpoint as load-balancer type.</td></tr>
-<tr><td><CopyableCode code="rds_options" /></td><td><code>object</code></td><td>The options for rds type endpoint.</td></tr>
-<tr><td><CopyableCode code="cidr_options" /></td><td><code>object</code></td><td>The options for cidr type endpoint.</td></tr>
-<tr><td><CopyableCode code="endpoint_type" /></td><td><code>string</code></td><td>The type of AWS Verified Access endpoint. Incoming application requests will be sent to an IP address, load balancer or a network interface depending on the endpoint type specified.The type of AWS Verified Access endpoint. Incoming application requests will be sent to an IP address, load balancer or a network interface depending on the endpoint type specified.</td></tr>
-<tr><td><CopyableCode code="endpoint_domain" /></td><td><code>string</code></td><td>A DNS name that is generated for the endpoint.</td></tr>
-<tr><td><CopyableCode code="endpoint_domain_prefix" /></td><td><code>string</code></td><td>A custom identifier that gets prepended to a DNS name that is generated for the endpoint.</td></tr>
-<tr><td><CopyableCode code="device_validation_domain" /></td><td><code>string</code></td><td>Returned if endpoint has a device trust provider attached.</td></tr>
-<tr><td><CopyableCode code="domain_certificate_arn" /></td><td><code>string</code></td><td>The ARN of a public TLS/SSL certificate imported into or created with ACM.</td></tr>
-<tr><td><CopyableCode code="attachment_type" /></td><td><code>string</code></td><td>The type of attachment used to provide connectivity between the AWS Verified Access endpoint and the application.</td></tr>
-<tr><td><CopyableCode code="application_domain" /></td><td><code>string</code></td><td>The DNS name for users to reach your application.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The creation time.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The last updated time.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the AWS Verified Access endpoint.</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>string</code></td><td>The AWS Verified Access policy document.</td></tr>
-<tr><td><CopyableCode code="policy_enabled" /></td><td><code>boolean</code></td><td>The status of the Verified Access policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="sse_specification" /></td><td><code>object</code></td><td>The configuration options for customer provided KMS encryption.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "verified_access_endpoint_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access endpoint."
+  },
+  {
+    "name": "verified_access_group_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access group."
+  },
+  {
+    "name": "verified_access_instance_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access instance."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The endpoint status."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The IDs of the security groups for the endpoint."
+  },
+  {
+    "name": "network_interface_options",
+    "type": "object",
+    "description": "The options for network-interface type endpoint.",
+    "children": [
+      {
+        "name": "network_interface_id",
+        "type": "string",
+        "description": "The ID of the network interface."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The IP port number."
+      },
+      {
+        "name": "port_ranges",
+        "type": "array",
+        "description": "The list of port ranges.",
+        "children": [
+          {
+            "name": "from_port",
+            "type": "integer",
+            "description": "The first port in the range."
+          },
+          {
+            "name": "to_port",
+            "type": "integer",
+            "description": "The last port in the range."
+          }
+        ]
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The IP protocol."
+      }
+    ]
+  },
+  {
+    "name": "load_balancer_options",
+    "type": "object",
+    "description": "The load balancer details if creating the AWS Verified Access endpoint as load-balancer type.",
+    "children": [
+      {
+        "name": "load_balancer_arn",
+        "type": "string",
+        "description": "The ARN of the load balancer."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The IP port number."
+      },
+      {
+        "name": "port_ranges",
+        "type": "array",
+        "description": "The list of port range.",
+        "children": [
+          {
+            "name": "from_port",
+            "type": "integer",
+            "description": "The first port in the range."
+          },
+          {
+            "name": "to_port",
+            "type": "integer",
+            "description": "The last port in the range."
+          }
+        ]
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The IP protocol."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The IDs of the subnets."
+      }
+    ]
+  },
+  {
+    "name": "rds_options",
+    "type": "object",
+    "description": "The options for rds type endpoint.",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The IP protocol."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The IP port number."
+      },
+      {
+        "name": "rds_db_instance_arn",
+        "type": "string",
+        "description": "The ARN of the RDS DB instance."
+      },
+      {
+        "name": "rds_db_cluster_arn",
+        "type": "string",
+        "description": "The ARN of the RDS DB cluster."
+      },
+      {
+        "name": "rds_db_proxy_arn",
+        "type": "string",
+        "description": "The ARN of the RDS DB proxy."
+      },
+      {
+        "name": "rds_endpoint",
+        "type": "string",
+        "description": "The RDS endpoint."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The IDs of the subnets."
+      }
+    ]
+  },
+  {
+    "name": "cidr_options",
+    "type": "object",
+    "description": "The options for cidr type endpoint.",
+    "children": [
+      {
+        "name": "cidr",
+        "type": "string",
+        "description": "The IP address range, in CIDR notation."
+      },
+      {
+        "name": "port_ranges",
+        "type": "array",
+        "description": "The list of port range.",
+        "children": [
+          {
+            "name": "from_port",
+            "type": "integer",
+            "description": "The first port in the range."
+          },
+          {
+            "name": "to_port",
+            "type": "integer",
+            "description": "The last port in the range."
+          }
+        ]
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The IP protocol."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The IDs of the subnets."
+      }
+    ]
+  },
+  {
+    "name": "endpoint_type",
+    "type": "string",
+    "description": "The type of AWS Verified Access endpoint. Incoming application requests will be sent to an IP address, load balancer or a network interface depending on the endpoint type specified.The type of AWS Verified Access endpoint. Incoming application requests will be sent to an IP address, load balancer or a network interface depending on the endpoint type specified."
+  },
+  {
+    "name": "endpoint_domain",
+    "type": "string",
+    "description": "A DNS name that is generated for the endpoint."
+  },
+  {
+    "name": "endpoint_domain_prefix",
+    "type": "string",
+    "description": "A custom identifier that gets prepended to a DNS name that is generated for the endpoint."
+  },
+  {
+    "name": "device_validation_domain",
+    "type": "string",
+    "description": "Returned if endpoint has a device trust provider attached."
+  },
+  {
+    "name": "domain_certificate_arn",
+    "type": "string",
+    "description": "The ARN of a public TLS/SSL certificate imported into or created with ACM."
+  },
+  {
+    "name": "attachment_type",
+    "type": "string",
+    "description": "The type of attachment used to provide connectivity between the AWS Verified Access endpoint and the application."
+  },
+  {
+    "name": "application_domain",
+    "type": "string",
+    "description": "The DNS name for users to reach your application."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The creation time."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The last updated time."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the AWS Verified Access endpoint."
+  },
+  {
+    "name": "policy_document",
+    "type": "string",
+    "description": "The AWS Verified Access policy document."
+  },
+  {
+    "name": "policy_enabled",
+    "type": "boolean",
+    "description": "The status of the Verified Access policy."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "sse_specification",
+    "type": "object",
+    "description": "The configuration options for customer provided KMS encryption.",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "KMS Key Arn used to encrypt the group policy"
+      },
+      {
+        "name": "customer_managed_key_enabled",
+        "type": "boolean",
+        "description": "Whether to encrypt the policy with the provided key or disable encryption"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-verifiedaccessendpoint.html"><code>AWS::EC2::VerifiedAccessEndpoint</code></a>.
 
@@ -102,36 +364,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>verified_access_endpoints</code> in a region.
-```sql
-SELECT
-region,
-verified_access_endpoint_id,
-verified_access_group_id,
-verified_access_instance_id,
-status,
-security_group_ids,
-network_interface_options,
-load_balancer_options,
-rds_options,
-cidr_options,
-endpoint_type,
-endpoint_domain,
-endpoint_domain_prefix,
-device_validation_domain,
-domain_certificate_arn,
-attachment_type,
-application_domain,
-creation_time,
-last_updated_time,
-description,
-policy_document,
-policy_enabled,
-tags,
-sse_specification
-FROM awscc.ec2.verified_access_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>verified_access_endpoint</code>.
 ```sql
 SELECT

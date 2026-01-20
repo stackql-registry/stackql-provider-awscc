@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>limit</code> resource or lists <code>limits</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets a <code>limit</code> resource or lists <code>l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="amount_requirement_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="current_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="limit_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "amount_requirement_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "current_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "limit_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-limit.html"><code>AWS::Deadline::Limit</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>limits</code> in a region.
-```sql
-SELECT
-region,
-amount_requirement_name,
-current_count,
-description,
-display_name,
-farm_id,
-limit_id,
-max_count
-FROM awscc.deadline.limits
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>limit</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>recovery_group</code> resource or lists <code>recovery_groups</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>recovery_group</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="recovery_group_name" /></td><td><code>string</code></td><td>The name of the recovery group to create.</td></tr>
-<tr><td><CopyableCode code="cells" /></td><td><code>array</code></td><td>A list of the cell Amazon Resource Names (ARNs) in the recovery group.</td></tr>
-<tr><td><CopyableCode code="recovery_group_arn" /></td><td><code>string</code></td><td>A collection of tags associated with a resource.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "recovery_group_name",
+    "type": "string",
+    "description": "The name of the recovery group to create."
+  },
+  {
+    "name": "cells",
+    "type": "array",
+    "description": "A list of the cell Amazon Resource Names (ARNs) in the recovery group."
+  },
+  {
+    "name": "recovery_group_arn",
+    "type": "string",
+    "description": "A collection of tags associated with a resource."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoveryreadiness-recoverygroup.html"><code>AWS::Route53RecoveryReadiness::RecoveryGroup</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>recovery_groups</code> in a region.
-```sql
-SELECT
-region,
-recovery_group_name,
-cells,
-recovery_group_arn,
-tags
-FROM awscc.route53recoveryreadiness.recovery_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>recovery_group</code>.
 ```sql
 SELECT

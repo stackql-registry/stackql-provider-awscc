@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>core_network</code> resource or lists <code>core_networks</code> in a region
 
@@ -32,24 +33,148 @@ Creates, updates, deletes or gets a <code>core_network</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="global_network_id" /></td><td><code>string</code></td><td>The ID of the global network that your core network is a part of.</td></tr>
-<tr><td><CopyableCode code="core_network_id" /></td><td><code>string</code></td><td>The Id of core network</td></tr>
-<tr><td><CopyableCode code="core_network_arn" /></td><td><code>string</code></td><td>The ARN (Amazon resource name) of core network</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>object</code></td><td>Live policy document for the core network, you must provide PolicyDocument in Json Format</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of core network</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The creation time of core network</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of core network</td></tr>
-<tr><td><CopyableCode code="segments" /></td><td><code>array</code></td><td>The segments within a core network.</td></tr>
-<tr><td><CopyableCode code="network_function_groups" /></td><td><code>array</code></td><td>The network function groups within a core network.</td></tr>
-<tr><td><CopyableCode code="edges" /></td><td><code>array</code></td><td>The edges within a core network.</td></tr>
-<tr><td><CopyableCode code="owner_account" /></td><td><code>string</code></td><td>Owner of the core network</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the global network.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "global_network_id",
+    "type": "string",
+    "description": "The ID of the global network that your core network is a part of."
+  },
+  {
+    "name": "core_network_id",
+    "type": "string",
+    "description": "The Id of core network"
+  },
+  {
+    "name": "core_network_arn",
+    "type": "string",
+    "description": "The ARN (Amazon resource name) of core network"
+  },
+  {
+    "name": "policy_document",
+    "type": "object",
+    "description": "Live policy document for the core network, you must provide PolicyDocument in Json Format"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of core network"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The creation time of core network"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of core network"
+  },
+  {
+    "name": "segments",
+    "type": "array",
+    "description": "The segments within a core network.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Name of segment"
+      },
+      {
+        "name": "edge_locations",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "shared_segments",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "network_function_groups",
+    "type": "array",
+    "description": "The network function groups within a core network.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Name of network function group"
+      },
+      {
+        "name": "edge_locations",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "segments",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "send_to",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "send_via",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "edges",
+    "type": "array",
+    "description": "The edges within a core network.",
+    "children": [
+      {
+        "name": "edge_location",
+        "type": "string",
+        "description": "The Region where a core network edge is located."
+      },
+      {
+        "name": "asn",
+        "type": "number",
+        "description": "The ASN of a core network edge."
+      },
+      {
+        "name": "inside_cidr_blocks",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "owner_account",
+    "type": "string",
+    "description": "Owner of the core network"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the global network.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html"><code>AWS::NetworkManager::CoreNetwork</code></a>.
 
@@ -91,25 +216,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>core_networks</code> in a region.
-```sql
-SELECT
-region,
-global_network_id,
-core_network_id,
-core_network_arn,
-policy_document,
-description,
-created_at,
-state,
-segments,
-network_function_groups,
-edges,
-owner_account,
-tags
-FROM awscc.networkmanager.core_networks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>core_network</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>live_source</code> resource or lists <code>live_sources</code> in a region
 
@@ -32,17 +33,67 @@ Creates, updates, deletes or gets a <code>live_source</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The ARN of the live source.</p></td></tr>
-<tr><td><CopyableCode code="http_package_configurations" /></td><td><code>array</code></td><td><p>A list of HTTP package configuration parameters for this live source.</p></td></tr>
-<tr><td><CopyableCode code="live_source_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_location_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the live source.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The ARN of the live source.</p>"
+  },
+  {
+    "name": "http_package_configurations",
+    "type": "array",
+    "description": "<p>A list of HTTP package configuration parameters for this live source.</p>",
+    "children": [
+      {
+        "name": "path",
+        "type": "string",
+        "description": "<p>The relative path to the URL for this VOD source. This is combined with &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; to form a valid URL.</p>"
+      },
+      {
+        "name": "source_group",
+        "type": "string",
+        "description": "<p>The name of the source group. This has to match one of the &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95;.</p>"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "live_source_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_location_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to assign to the live source.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediatailor-livesource.html"><code>AWS::MediaTailor::LiveSource</code></a>.
 
@@ -84,18 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>live_sources</code> in a region.
-```sql
-SELECT
-region,
-arn,
-http_package_configurations,
-live_source_name,
-source_location_name,
-tags
-FROM awscc.mediatailor.live_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>live_source</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>secret_target_attachment</code> resource or lists <code>secret_target_attachments</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>secret_target_attachment</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="secret_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "secret_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html"><code>AWS::SecretsManager::SecretTargetAttachment</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>secret_target_attachments</code> in a region.
-```sql
-SELECT
-region,
-id,
-secret_id,
-target_type,
-target_id
-FROM awscc.secretsmanager.secret_target_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>secret_target_attachment</code>.
 ```sql
 SELECT

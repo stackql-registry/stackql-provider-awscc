@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>data_sources</code> in a region or regions, for all properties use <a href="/services/kendra/data_sources/"><code>data_sources</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>data_sources</code> in a region or regions, for all properties use <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique ID of index</td></tr>
-<tr><td><CopyableCode code="index_id" /></td><td><code>string</code></td><td>Unique ID of Index</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique ID of index"
+  },
+  {
+    "name": "index_id",
+    "type": "string",
+    "description": "Unique ID of Index"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

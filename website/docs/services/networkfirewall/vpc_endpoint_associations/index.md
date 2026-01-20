@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_endpoint_association</code> resource or lists <code>vpc_endpoint_associations</code> in a region
 
@@ -32,20 +33,72 @@ Creates, updates, deletes or gets a <code>vpc_endpoint_association</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpc_endpoint_association_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint_association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="firewall_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_id" /></td><td><code>string</code></td><td>An endpoint Id.</td></tr>
-<tr><td><CopyableCode code="subnet_mapping" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vpc_endpoint_association_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "vpc_endpoint_association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_id",
+    "type": "string",
+    "description": "An endpoint Id."
+  },
+  {
+    "name": "subnet_mapping",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "subnet_id",
+        "type": "string",
+        "description": "A SubnetId."
+      },
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": "A IPAddressType"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-vpcendpointassociation.html"><code>AWS::NetworkFirewall::VpcEndpointAssociation</code></a>.
 
@@ -87,21 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_endpoint_associations</code> in a region.
-```sql
-SELECT
-region,
-vpc_endpoint_association_arn,
-vpc_endpoint_association_id,
-description,
-firewall_arn,
-vpc_id,
-endpoint_id,
-subnet_mapping,
-tags
-FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_endpoint_association</code>.
 ```sql
 SELECT

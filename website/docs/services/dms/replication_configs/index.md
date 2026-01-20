@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>replication_config</code> resource or lists <code>replication_configs</code> in a region
 
@@ -32,23 +33,127 @@ Creates, updates, deletes or gets a <code>replication_config</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="replication_config_identifier" /></td><td><code>string</code></td><td>A unique identifier of replication configuration</td></tr>
-<tr><td><CopyableCode code="replication_config_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Replication Config</td></tr>
-<tr><td><CopyableCode code="source_endpoint_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the source endpoint for this AWS DMS Serverless replication configuration</td></tr>
-<tr><td><CopyableCode code="target_endpoint_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the target endpoint for this AWS DMS Serverless replication configuration</td></tr>
-<tr><td><CopyableCode code="replication_type" /></td><td><code>string</code></td><td>The type of AWS DMS Serverless replication to provision using this replication configuration</td></tr>
-<tr><td><CopyableCode code="compute_config" /></td><td><code>object</code></td><td>Configuration parameters for provisioning a AWS DMS Serverless replication</td></tr>
-<tr><td><CopyableCode code="replication_settings" /></td><td><code>object</code></td><td>JSON settings for Servereless replications that are provisioned using this replication configuration</td></tr>
-<tr><td><CopyableCode code="supplemental_settings" /></td><td><code>object</code></td><td>JSON settings for specifying supplemental data</td></tr>
-<tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td>A unique value or name that you get set for a given resource that can be used to construct an Amazon Resource Name (ARN) for that resource</td></tr>
-<tr><td><CopyableCode code="table_mappings" /></td><td><code>object</code></td><td>JSON table mappings for AWS DMS Serverless replications that are provisioned using this replication configuration</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td><p>Contains a map of the key-value pairs for the resource tag or tags assigned to the dataset.</p></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "replication_config_identifier",
+    "type": "string",
+    "description": "A unique identifier of replication configuration"
+  },
+  {
+    "name": "replication_config_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Replication Config"
+  },
+  {
+    "name": "source_endpoint_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the source endpoint for this AWS DMS Serverless replication configuration"
+  },
+  {
+    "name": "target_endpoint_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the target endpoint for this AWS DMS Serverless replication configuration"
+  },
+  {
+    "name": "replication_type",
+    "type": "string",
+    "description": "The type of AWS DMS Serverless replication to provision using this replication configuration"
+  },
+  {
+    "name": "compute_config",
+    "type": "object",
+    "description": "Configuration parameters for provisioning a AWS DMS Serverless replication",
+    "children": [
+      {
+        "name": "availability_zone",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dns_name_servers",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "max_capacity_units",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "min_capacity_units",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "multi_az",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "preferred_maintenance_window",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "replication_subnet_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_security_group_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "replication_settings",
+    "type": "object",
+    "description": "JSON settings for Servereless replications that are provisioned using this replication configuration"
+  },
+  {
+    "name": "supplemental_settings",
+    "type": "object",
+    "description": "JSON settings for specifying supplemental data"
+  },
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": "A unique value or name that you get set for a given resource that can be used to construct an Amazon Resource Name (ARN) for that resource"
+  },
+  {
+    "name": "table_mappings",
+    "type": "object",
+    "description": "JSON table mappings for AWS DMS Serverless replications that are provisioned using this replication configuration"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "<p>Contains a map of the key-value pairs for the resource tag or tags assigned to the dataset.</p>",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationconfig.html"><code>AWS::DMS::ReplicationConfig</code></a>.
 
@@ -90,24 +195,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>replication_configs</code> in a region.
-```sql
-SELECT
-region,
-replication_config_identifier,
-replication_config_arn,
-source_endpoint_arn,
-target_endpoint_arn,
-replication_type,
-compute_config,
-replication_settings,
-supplemental_settings,
-resource_identifier,
-table_mappings,
-tags
-FROM awscc.dms.replication_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>replication_config</code>.
 ```sql
 SELECT

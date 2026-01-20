@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>guardrail</code> resource or lists <code>guardrails</code> in a region
 
@@ -32,32 +33,395 @@ Creates, updates, deletes or gets a <code>guardrail</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="blocked_input_messaging" /></td><td><code>string</code></td><td>Messaging for when violations are detected in text</td></tr>
-<tr><td><CopyableCode code="blocked_outputs_messaging" /></td><td><code>string</code></td><td>Messaging for when violations are detected in text</td></tr>
-<tr><td><CopyableCode code="content_policy_config" /></td><td><code>object</code></td><td>Content policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="contextual_grounding_policy_config" /></td><td><code>object</code></td><td>Contextual grounding policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="cross_region_config" /></td><td><code>object</code></td><td>The system-defined guardrail profile that you’re using with your guardrail</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the guardrail or its version</td></tr>
-<tr><td><CopyableCode code="failure_recommendations" /></td><td><code>array</code></td><td>List of failure recommendations</td></tr>
-<tr><td><CopyableCode code="guardrail_arn" /></td><td><code>string</code></td><td>Arn representation for the guardrail</td></tr>
-<tr><td><CopyableCode code="guardrail_id" /></td><td><code>string</code></td><td>Unique id for the guardrail</td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>The KMS key with which the guardrail was encrypted at rest</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the guardrail</td></tr>
-<tr><td><CopyableCode code="sensitive_information_policy_config" /></td><td><code>object</code></td><td>Sensitive information policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of the guardrail</td></tr>
-<tr><td><CopyableCode code="status_reasons" /></td><td><code>array</code></td><td>List of status reasons</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
-<tr><td><CopyableCode code="topic_policy_config" /></td><td><code>object</code></td><td>Topic policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>Guardrail version</td></tr>
-<tr><td><CopyableCode code="word_policy_config" /></td><td><code>object</code></td><td>Word policy config for a guardrail.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "blocked_input_messaging",
+    "type": "string",
+    "description": "Messaging for when violations are detected in text"
+  },
+  {
+    "name": "blocked_outputs_messaging",
+    "type": "string",
+    "description": "Messaging for when violations are detected in text"
+  },
+  {
+    "name": "content_policy_config",
+    "type": "object",
+    "description": "Content policy config for a guardrail.",
+    "children": [
+      {
+        "name": "filters_config",
+        "type": "array",
+        "description": "List of content filter configs in content policy.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of filter in content policy"
+          },
+          {
+            "name": "input_strength",
+            "type": "string",
+            "description": "Strength for filters"
+          },
+          {
+            "name": "input_modalities",
+            "type": "array",
+            "description": "List of modalities"
+          },
+          {
+            "name": "output_modalities",
+            "type": "array",
+            "description": "List of modalities"
+          },
+          {
+            "name": "input_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "content_filters_tier_config",
+        "type": "object",
+        "description": "Guardrail tier config for content policy",
+        "children": [
+          {
+            "name": "tier_name",
+            "type": "string",
+            "description": "Tier name for tier configuration in content filters policy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "contextual_grounding_policy_config",
+    "type": "object",
+    "description": "Contextual grounding policy config for a guardrail.",
+    "children": [
+      {
+        "name": "filters_config",
+        "type": "array",
+        "description": "List of contextual grounding filter configs.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of contextual grounding filter"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "description": "The threshold for this filter."
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "cross_region_config",
+    "type": "object",
+    "description": "The system-defined guardrail profile that you’re using with your guardrail",
+    "children": [
+      {
+        "name": "guardrail_profile_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the guardrail profile"
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the guardrail or its version"
+  },
+  {
+    "name": "failure_recommendations",
+    "type": "array",
+    "description": "List of failure recommendations"
+  },
+  {
+    "name": "guardrail_arn",
+    "type": "string",
+    "description": "Arn representation for the guardrail"
+  },
+  {
+    "name": "guardrail_id",
+    "type": "string",
+    "description": "Unique id for the guardrail"
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": "The KMS key with which the guardrail was encrypted at rest"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the guardrail"
+  },
+  {
+    "name": "sensitive_information_policy_config",
+    "type": "object",
+    "description": "Sensitive information policy config for a guardrail.",
+    "children": [
+      {
+        "name": "pii_entities_config",
+        "type": "array",
+        "description": "List of entities.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The currently supported PII entities"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "Options for sensitive information action."
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "regexes_config",
+        "type": "array",
+        "description": "List of regex.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The regex name."
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "The regex description."
+          },
+          {
+            "name": "pattern",
+            "type": "string",
+            "description": "The regex pattern."
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "Options for sensitive information action."
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status of the guardrail"
+  },
+  {
+    "name": "status_reasons",
+    "type": "array",
+    "description": "List of status reasons"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "topic_policy_config",
+    "type": "object",
+    "description": "Topic policy config for a guardrail.",
+    "children": [
+      {
+        "name": "topics_config",
+        "type": "array",
+        "description": "List of topic configs in topic policy.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Name of topic in topic policy"
+          },
+          {
+            "name": "definition",
+            "type": "string",
+            "description": "Definition of topic in topic policy"
+          },
+          {
+            "name": "examples",
+            "type": "array",
+            "description": "List of text examples"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Type of topic in a policy"
+          },
+          {
+            "name": "input_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "topics_tier_config",
+        "type": "object",
+        "description": "Guardrail tier config for topic policy",
+        "children": [
+          {
+            "name": "tier_name",
+            "type": "string",
+            "description": "Tier name for tier configuration in topic policy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp"
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "Guardrail version"
+  },
+  {
+    "name": "word_policy_config",
+    "type": "object",
+    "description": "Word policy config for a guardrail.",
+    "children": [
+      {
+        "name": "words_config",
+        "type": "array",
+        "description": "List of custom word configs.",
+        "children": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "The custom word text."
+          },
+          {
+            "name": "input_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "managed_word_lists_config",
+        "type": "array",
+        "description": "A config for the list of managed words.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Options for managed words."
+          },
+          {
+            "name": "input_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "input_enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "output_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-guardrail.html"><code>AWS::Bedrock::Guardrail</code></a>.
 
@@ -99,33 +463,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>guardrails</code> in a region.
-```sql
-SELECT
-region,
-blocked_input_messaging,
-blocked_outputs_messaging,
-content_policy_config,
-contextual_grounding_policy_config,
-created_at,
-cross_region_config,
-description,
-failure_recommendations,
-guardrail_arn,
-guardrail_id,
-kms_key_arn,
-name,
-sensitive_information_policy_config,
-status,
-status_reasons,
-tags,
-topic_policy_config,
-updated_at,
-version,
-word_policy_config
-FROM awscc.bedrock.guardrails
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>guardrail</code>.
 ```sql
 SELECT

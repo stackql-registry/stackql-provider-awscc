@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>prompt</code> resource or lists <code>prompts</code> in a region
 
@@ -32,23 +33,122 @@ Creates, updates, deletes or gets a <code>prompt</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN of a prompt resource possibly with a version</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="default_variant" /></td><td><code>string</code></td><td>Name for a variant.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Name for a prompt resource.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Identifier for a Prompt</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name for a prompt resource.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="variants" /></td><td><code>array</code></td><td>List of prompt variants</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
-<tr><td><CopyableCode code="customer_encryption_key_arn" /></td><td><code>string</code></td><td>A KMS key ARN</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>Draft Version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "ARN of a prompt resource possibly with a version"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "default_variant",
+    "type": "string",
+    "description": "Name for a variant."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Name for a prompt resource."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Identifier for a Prompt"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name for a prompt resource."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "variants",
+    "type": "array",
+    "description": "List of prompt variants",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Name for a variant."
+      },
+      {
+        "name": "template_type",
+        "type": "string",
+        "description": "Prompt template type"
+      },
+      {
+        "name": "template_configuration",
+        "type": "object",
+        "description": "Prompt template configuration"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "ARN or Id of a Bedrock Foundational Model or Inference Profile, or the ARN of a imported model, or a provisioned throughput ARN for custom models."
+      },
+      {
+        "name": "inference_configuration",
+        "type": "object",
+        "description": "Model inference configuration"
+      },
+      {
+        "name": "gen_ai_resource",
+        "type": "object",
+        "description": "Target resource to invoke with Prompt"
+      },
+      {
+        "name": "additional_model_request_fields",
+        "type": "object",
+        "description": "Contains model-specific configurations"
+      },
+      {
+        "name": "metadata",
+        "type": "array",
+        "description": "List of metadata to associate with the prompt variant.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key of a metadata tag for a prompt variant."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value of a metadata tag for a prompt variant."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of tag keys and values"
+  },
+  {
+    "name": "customer_encryption_key_arn",
+    "type": "string",
+    "description": "A KMS key ARN"
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "Draft Version."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-prompt.html"><code>AWS::Bedrock::Prompt</code></a>.
 
@@ -90,24 +190,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>prompts</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-default_variant,
-description,
-id,
-name,
-updated_at,
-variants,
-tags,
-customer_encryption_key_arn,
-version
-FROM awscc.bedrock.prompts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>prompt</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>certificate_authority_activation</code> resource or lists <code>certificate_authority_activations</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>certificate_authority_activation</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="certificate_authority_arn" /></td><td><code>string</code></td><td>Arn of the Certificate Authority.</td></tr>
-<tr><td><CopyableCode code="certificate" /></td><td><code>string</code></td><td>Certificate Authority certificate that will be installed in the Certificate Authority.</td></tr>
-<tr><td><CopyableCode code="certificate_chain" /></td><td><code>string</code></td><td>Certificate chain for the Certificate Authority certificate.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the Certificate Authority.</td></tr>
-<tr><td><CopyableCode code="complete_certificate_chain" /></td><td><code>string</code></td><td>The complete certificate chain, including the Certificate Authority certificate.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "certificate_authority_arn",
+    "type": "string",
+    "description": "Arn of the Certificate Authority."
+  },
+  {
+    "name": "certificate",
+    "type": "string",
+    "description": "Certificate Authority certificate that will be installed in the Certificate Authority."
+  },
+  {
+    "name": "certificate_chain",
+    "type": "string",
+    "description": "Certificate chain for the Certificate Authority certificate."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the Certificate Authority."
+  },
+  {
+    "name": "complete_certificate_chain",
+    "type": "string",
+    "description": "The complete certificate chain, including the Certificate Authority certificate."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-acmpca-certificateauthorityactivation.html"><code>AWS::ACMPCA::CertificateAuthorityActivation</code></a>.
 

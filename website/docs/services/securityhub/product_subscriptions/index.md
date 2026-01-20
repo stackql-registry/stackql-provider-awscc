@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>product_subscription</code> resource or lists <code>product_subscriptions</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>product_subscription</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="product_arn" /></td><td><code>string</code></td><td>The generic ARN of the product being subscribed to</td></tr>
-<tr><td><CopyableCode code="product_subscription_arn" /></td><td><code>string</code></td><td>The ARN of the product subscription for the account</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "product_arn",
+    "type": "string",
+    "description": "The generic ARN of the product being subscribed to"
+  },
+  {
+    "name": "product_subscription_arn",
+    "type": "string",
+    "description": "The ARN of the product subscription for the account"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-productsubscription.html"><code>AWS::SecurityHub::ProductSubscription</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>product_subscriptions</code> in a region.
-```sql
-SELECT
-region,
-product_arn,
-product_subscription_arn
-FROM awscc.securityhub.product_subscriptions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>product_subscription</code>.
 ```sql
 SELECT

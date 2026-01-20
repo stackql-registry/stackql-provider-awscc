@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>email_addresses</code> in a region or regions, for all properties use <a href="/services/connect/email_addresses/"><code>email_addresses</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>email_addresses</code> in a region or regions, for all properties us
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="email_address_arn" /></td><td><code>string</code></td><td>The identifier of the email address.</td></tr>
-<tr><td><CopyableCode code="email_address" /></td><td><code>string</code></td><td>Email address to be created for this instance</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "email_address_arn",
+    "type": "string",
+    "description": "The identifier of the email address."
+  },
+  {
+    "name": "email_address",
+    "type": "string",
+    "description": "Email address to be created for this instance"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

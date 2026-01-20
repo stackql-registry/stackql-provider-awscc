@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>predefined_attribute</code> resource or lists <code>predefined_attributes</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>predefined_attribute</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the predefined attribute.</td></tr>
-<tr><td><CopyableCode code="values" /></td><td><code>object</code></td><td>The values of a predefined attribute.</td></tr>
-<tr><td><CopyableCode code="purposes" /></td><td><code>array</code></td><td>The assigned purposes of the predefined attribute.</td></tr>
-<tr><td><CopyableCode code="attribute_configuration" /></td><td><code>object</code></td><td>Custom metadata associated to a Predefined attribute that controls how the attribute behaves when used by upstream services.</td></tr>
-<tr><td><CopyableCode code="last_modified_region" /></td><td><code>string</code></td><td>Last modified region.</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>number</code></td><td>Last modified time.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the predefined attribute."
+  },
+  {
+    "name": "values",
+    "type": "object",
+    "description": "The values of a predefined attribute.",
+    "children": [
+      {
+        "name": "string_list",
+        "type": "array",
+        "description": "Predefined attribute values of type string list."
+      }
+    ]
+  },
+  {
+    "name": "purposes",
+    "type": "array",
+    "description": "The assigned purposes of the predefined attribute."
+  },
+  {
+    "name": "attribute_configuration",
+    "type": "object",
+    "description": "Custom metadata associated to a Predefined attribute that controls how the attribute behaves when used by upstream services.",
+    "children": [
+      {
+        "name": "enable_value_validation_on_association",
+        "type": "boolean",
+        "description": "Enables customers to enforce strict validation on the specific values that this predefined attribute can hold."
+      },
+      {
+        "name": "is_read_only",
+        "type": "boolean",
+        "description": "Allows the predefined attribute to show up and be managed in the Amazon Connect UI."
+      }
+    ]
+  },
+  {
+    "name": "last_modified_region",
+    "type": "string",
+    "description": "Last modified region."
+  },
+  {
+    "name": "last_modified_time",
+    "type": "number",
+    "description": "Last modified time."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-predefinedattribute.html"><code>AWS::Connect::PredefinedAttribute</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>predefined_attributes</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-name,
-values,
-purposes,
-attribute_configuration,
-last_modified_region,
-last_modified_time
-FROM awscc.connect.predefined_attributes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>predefined_attribute</code>.
 ```sql
 SELECT

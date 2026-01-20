@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>auto_scaling_groups</code> in a region or regions, for all properties use <a href="/services/autoscaling/auto_scaling_groups/"><code>auto_scaling_groups</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>auto_scaling_groups</code> in a region or regions, for all propertie
 <tbody>
 <tr><td><b>Name</b></td><td><code>auto_scaling_groups_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::AutoScaling::AutoScalingGroup</code> resource defines an Amazon EC2 Auto Scaling group, which is a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management. <br />For more information about Amazon EC2 Auto Scaling, see the &#91;Amazon EC2 Auto Scaling User Guide&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html). <br />Amazon EC2 Auto Scaling configures instances launched as part of an Auto Scaling group using either a &#91;launch template&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html) or a launch configuration. We strongly recommend that you do not use launch configurations. For more information, see &#91;Launch configurations&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-configurations.html) in the ASTERIX;Amazon EC2 Auto Scaling User GuideASTERIX;.<br />For help migrating from launch configurations to launch templates, see &#91;Migrate CloudFormation stacks from launch configurations to launch templates&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/migrate-launch-configurations-with-cloudformation.html) in the ASTERIX;Amazon EC2 Auto Scaling User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::AutoScaling::AutoScalingGroup&#96;&#96; resource defines an Amazon EC2 Auto Scaling group, which is a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management. <br />For more information about Amazon EC2 Auto Scaling, see the &#91;Amazon EC2 Auto Scaling User Guide&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html). <br />Amazon EC2 Auto Scaling configures instances launched as part of an Auto Scaling group using either a &#91;launch template&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html) or a launch configuration. We strongly recommend that you do not use launch configurations. For more information, see &#91;Launch configurations&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-configurations.html) in the &#42;Amazon EC2 Auto Scaling User Guide&#42;.<br />For help migrating from launch configurations to launch templates, see &#91;Migrate CloudFormation stacks from launch configurations to launch templates&#93;(https://docs.aws.amazon.com/autoscaling/ec2/userguide/migrate-launch-configurations-with-cloudformation.html) in the &#42;Amazon EC2 Auto Scaling User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.autoscaling.auto_scaling_groups_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auto_scaling_group_name" /></td><td><code>string</code></td><td>The name of the Auto Scaling group. This name must be unique per Region per account.<br />The name can contain any ASCII character 33 to 126 including most punctuation characters, digits, and upper and lowercased letters.<br />You cannot use a colon (:) in the name.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": "The name of the Auto Scaling group. This name must be unique per Region per account.<br />The name can contain any ASCII character 33 to 126 including most punctuation characters, digits, and upper and lowercased letters.<br />You cannot use a colon (:) in the name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

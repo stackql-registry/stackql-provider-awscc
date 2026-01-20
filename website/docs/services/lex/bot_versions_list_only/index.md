@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>bot_versions</code> in a region or regions, for all properties use <a href="/services/lex/bot_versions/"><code>bot_versions</code></a>
 
@@ -32,14 +33,47 @@ Lists <code>bot_versions</code> in a region or regions, for all properties use <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="bot_id" /></td><td><code>string</code></td><td>Unique ID of resource</td></tr>
-<tr><td><CopyableCode code="bot_version" /></td><td><code>object</code></td><td>A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "bot_id",
+    "type": "string",
+    "description": "Unique ID of resource"
+  },
+  {
+    "name": "bot_version",
+    "type": "object",
+    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description of the version. Use the description to help identify the version in lists."
+      },
+      {
+        "name": "bot_version_locale_specification",
+        "type": "array",
+        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
+        "children": [
+          {
+            "name": "locale_id",
+            "type": "string",
+            "description": "The identifier of the language and locale that the bot will be used in."
+          },
+          {
+            "name": "bot_version_locale_details",
+            "type": "object",
+            "description": "The version of a bot used for a bot locale."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

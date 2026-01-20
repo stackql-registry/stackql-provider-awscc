@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>virtualmfa_device</code> resource or lists <code>virtualmfa_devices</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>virtualmfa_device</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="virtual_mfa_device_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="path" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="serial_number" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="users" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "virtual_mfa_device_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "path",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "serial_number",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "users",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-virtualmfadevice.html"><code>AWS::IAM::VirtualMFADevice</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>virtualmfa_devices</code> in a region.
-```sql
-SELECT
-region,
-virtual_mfa_device_name,
-path,
-serial_number,
-users,
-tags
-FROM awscc.iam.virtualmfa_devices
-;
-```
+
 Gets all properties from an individual <code>virtualmfa_device</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>log_anomaly_detector</code> resource or lists <code>log_anomaly_detectors</code> in a region
 
@@ -32,23 +33,68 @@ Creates, updates, deletes or gets a <code>log_anomaly_detector</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>Account ID for owner of detector</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.</td></tr>
-<tr><td><CopyableCode code="detector_name" /></td><td><code>string</code></td><td>Name of detector</td></tr>
-<tr><td><CopyableCode code="log_group_arn_list" /></td><td><code>array</code></td><td>List of Arns for the given log group</td></tr>
-<tr><td><CopyableCode code="evaluation_frequency" /></td><td><code>string</code></td><td>How often log group is evaluated</td></tr>
-<tr><td><CopyableCode code="filter_pattern" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="anomaly_detector_status" /></td><td><code>string</code></td><td>Current status of detector.</td></tr>
-<tr><td><CopyableCode code="anomaly_visibility_time" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time_stamp" /></td><td><code>number</code></td><td>When detector was created.</td></tr>
-<tr><td><CopyableCode code="last_modified_time_stamp" /></td><td><code>number</code></td><td>When detector was lsat modified.</td></tr>
-<tr><td><CopyableCode code="anomaly_detector_arn" /></td><td><code>string</code></td><td>ARN of LogAnomalyDetector</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "Account ID for owner of detector"
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the CMK to use when encrypting log data."
+  },
+  {
+    "name": "detector_name",
+    "type": "string",
+    "description": "Name of detector"
+  },
+  {
+    "name": "log_group_arn_list",
+    "type": "array",
+    "description": "List of Arns for the given log group"
+  },
+  {
+    "name": "evaluation_frequency",
+    "type": "string",
+    "description": "How often log group is evaluated"
+  },
+  {
+    "name": "filter_pattern",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "anomaly_detector_status",
+    "type": "string",
+    "description": "Current status of detector."
+  },
+  {
+    "name": "anomaly_visibility_time",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "creation_time_stamp",
+    "type": "number",
+    "description": "When detector was created."
+  },
+  {
+    "name": "last_modified_time_stamp",
+    "type": "number",
+    "description": "When detector was lsat modified."
+  },
+  {
+    "name": "anomaly_detector_arn",
+    "type": "string",
+    "description": "ARN of LogAnomalyDetector"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loganomalydetector.html"><code>AWS::Logs::LogAnomalyDetector</code></a>.
 
@@ -90,24 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>log_anomaly_detectors</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-kms_key_id,
-detector_name,
-log_group_arn_list,
-evaluation_frequency,
-filter_pattern,
-anomaly_detector_status,
-anomaly_visibility_time,
-creation_time_stamp,
-last_modified_time_stamp,
-anomaly_detector_arn
-FROM awscc.logs.log_anomaly_detectors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>log_anomaly_detector</code>.
 ```sql
 SELECT

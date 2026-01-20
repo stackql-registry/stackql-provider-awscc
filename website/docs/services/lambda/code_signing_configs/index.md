@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>code_signing_config</code> resource or lists <code>code_signing_configs</code> in a region
 
@@ -32,18 +33,69 @@ Creates, updates, deletes or gets a <code>code_signing_config</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the CodeSigningConfig</td></tr>
-<tr><td><CopyableCode code="allowed_publishers" /></td><td><code>object</code></td><td>When the CodeSigningConfig is later on attached to a function, the function code will be expected to be signed by profiles from this list</td></tr>
-<tr><td><CopyableCode code="code_signing_policies" /></td><td><code>object</code></td><td>Policies to control how to act if a signature is invalid</td></tr>
-<tr><td><CopyableCode code="code_signing_config_id" /></td><td><code>string</code></td><td>A unique identifier for CodeSigningConfig resource</td></tr>
-<tr><td><CopyableCode code="code_signing_config_arn" /></td><td><code>string</code></td><td>A unique Arn for CodeSigningConfig resource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to CodeSigningConfig resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the CodeSigningConfig"
+  },
+  {
+    "name": "allowed_publishers",
+    "type": "object",
+    "description": "When the CodeSigningConfig is later on attached to a function, the function code will be expected to be signed by profiles from this list",
+    "children": [
+      {
+        "name": "signing_profile_version_arns",
+        "type": "array",
+        "description": "List of Signing profile version Arns"
+      }
+    ]
+  },
+  {
+    "name": "code_signing_policies",
+    "type": "object",
+    "description": "Policies to control how to act if a signature is invalid",
+    "children": [
+      {
+        "name": "untrusted_artifact_on_deployment",
+        "type": "string",
+        "description": "Indicates how Lambda operations involve updating the code artifact will operate. Default to Warn if not provided"
+      }
+    ]
+  },
+  {
+    "name": "code_signing_config_id",
+    "type": "string",
+    "description": "A unique identifier for CodeSigningConfig resource"
+  },
+  {
+    "name": "code_signing_config_arn",
+    "type": "string",
+    "description": "A unique Arn for CodeSigningConfig resource"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags to apply to CodeSigningConfig resource",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for this tag."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for this tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-codesigningconfig.html"><code>AWS::Lambda::CodeSigningConfig</code></a>.
 
@@ -85,19 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>code_signing_configs</code> in a region.
-```sql
-SELECT
-region,
-description,
-allowed_publishers,
-code_signing_policies,
-code_signing_config_id,
-code_signing_config_arn,
-tags
-FROM awscc.lambda.code_signing_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>code_signing_config</code>.
 ```sql
 SELECT

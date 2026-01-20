@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>origin_access_controls</code> in a region or regions, for all properties use <a href="/services/cloudfront/origin_access_controls/"><code>origin_access_controls</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>origin_access_controls</code> in a region or regions, for all proper
 <tbody>
 <tr><td><b>Name</b></td><td><code>origin_access_controls_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.<br />This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's content only through CloudFront.<br />For more information about using a CloudFront origin access control, see &#91;Restricting access to an origin&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.<br />This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's content only through CloudFront.<br />For more information about using a CloudFront origin access control, see &#91;Restricting access to an origin&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.origin_access_controls_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

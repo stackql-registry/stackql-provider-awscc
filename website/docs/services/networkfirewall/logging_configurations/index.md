@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>logging_configuration</code> resource or lists <code>logging_configurations</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>logging_configuration</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="firewall_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="firewall_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="logging_configuration" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::LoggingConfiguration</td></tr>
-<tr><td><CopyableCode code="enable_monitoring_dashboard" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "firewall_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "firewall_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "logging_configuration",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::LoggingConfiguration",
+    "children": [
+      {
+        "name": "firewall_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "enable_monitoring_dashboard",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "enable_monitoring_dashboard",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-loggingconfiguration.html"><code>AWS::NetworkFirewall::LoggingConfiguration</code></a>.
 

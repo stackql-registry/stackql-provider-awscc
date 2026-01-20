@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_endpoint</code> resource or lists <code>resolver_endpoints</code> in a region
 
@@ -32,25 +33,107 @@ Creates, updates, deletes or gets a <code>resolver_endpoint</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the resolver endpoint, such as arn:aws:route53resolver:us-east-1:123456789012:resolver-endpoint/resolver-endpoint-a1bzhi.</td></tr>
-<tr><td><CopyableCode code="direction" /></td><td><code>string</code></td><td>Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:<br />- INBOUND: allows DNS queries to your VPC from your network <br />- OUTBOUND: allows DNS queries from your VPC to your network <br />- INBOUND_DELEGATION: allows DNS queries to your VPC from your network with authoritative answers from private hosted zones</td></tr>
-<tr><td><CopyableCode code="host_vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC that you want to create the resolver endpoint in.</td></tr>
-<tr><td><CopyableCode code="ip_address_count" /></td><td><code>string</code></td><td>The number of IP addresses that the resolver endpoint can use for DNS queries.</td></tr>
-<tr><td><CopyableCode code="ip_addresses" /></td><td><code>array</code></td><td>The subnets and IP addresses in your VPC that DNS queries originate from (for outbound endpoints) or that you forward DNS queries to (for inbound endpoints). The subnet ID uniquely identifies a VPC.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A friendly name that lets you easily find a configuration in the Resolver dashboard in the Route 53 console.</td></tr>
-<tr><td><CopyableCode code="outpost_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) for the Outpost.</td></tr>
-<tr><td><CopyableCode code="preferred_instance_type" /></td><td><code>string</code></td><td>The Amazon EC2 instance type.</td></tr>
-<tr><td><CopyableCode code="protocols" /></td><td><code>array</code></td><td>Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.</td></tr>
-<tr><td><CopyableCode code="resolver_endpoint_id" /></td><td><code>string</code></td><td>The ID of the resolver endpoint.</td></tr>
-<tr><td><CopyableCode code="resolver_endpoint_type" /></td><td><code>string</code></td><td>The Resolver endpoint IP address type.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The ID of one or more security groups that control access to this VPC. The security group must include one or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're using for DNS queries on your network.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the resolver endpoint, such as arn:aws:route53resolver:us-east-1:123456789012:resolver-endpoint/resolver-endpoint-a1bzhi."
+  },
+  {
+    "name": "direction",
+    "type": "string",
+    "description": "Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:<br />- INBOUND: allows DNS queries to your VPC from your network <br />- OUTBOUND: allows DNS queries from your VPC to your network <br />- INBOUND&#95;DELEGATION: allows DNS queries to your VPC from your network with authoritative answers from private hosted zones"
+  },
+  {
+    "name": "host_vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC that you want to create the resolver endpoint in."
+  },
+  {
+    "name": "ip_address_count",
+    "type": "string",
+    "description": "The number of IP addresses that the resolver endpoint can use for DNS queries."
+  },
+  {
+    "name": "ip_addresses",
+    "type": "array",
+    "description": "The subnets and IP addresses in your VPC that DNS queries originate from (for outbound endpoints) or that you forward DNS queries to (for inbound endpoints). The subnet ID uniquely identifies a VPC.",
+    "children": [
+      {
+        "name": "ip",
+        "type": "string",
+        "description": "The IPv4 address that you want to use for DNS queries."
+      },
+      {
+        "name": "ipv6",
+        "type": "string",
+        "description": "The IPv6 address that you want to use for DNS queries."
+      },
+      {
+        "name": "subnet_id",
+        "type": "string",
+        "description": "The ID of the subnet that contains the IP address."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A friendly name that lets you easily find a configuration in the Resolver dashboard in the Route 53 console."
+  },
+  {
+    "name": "outpost_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) for the Outpost."
+  },
+  {
+    "name": "preferred_instance_type",
+    "type": "string",
+    "description": "The Amazon EC2 instance type."
+  },
+  {
+    "name": "protocols",
+    "type": "array",
+    "description": "Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only."
+  },
+  {
+    "name": "resolver_endpoint_id",
+    "type": "string",
+    "description": "The ID of the resolver endpoint."
+  },
+  {
+    "name": "resolver_endpoint_type",
+    "type": "string",
+    "description": "The Resolver endpoint IP address type."
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The ID of one or more security groups that control access to this VPC. The security group must include one or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're using for DNS queries on your network."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverendpoint.html"><code>AWS::Route53Resolver::ResolverEndpoint</code></a>.
 
@@ -92,26 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_endpoints</code> in a region.
-```sql
-SELECT
-region,
-arn,
-direction,
-host_vpc_id,
-ip_address_count,
-ip_addresses,
-name,
-outpost_arn,
-preferred_instance_type,
-protocols,
-resolver_endpoint_id,
-resolver_endpoint_type,
-security_group_ids,
-tags
-FROM awscc.route53resolver.resolver_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_endpoint</code>.
 ```sql
 SELECT

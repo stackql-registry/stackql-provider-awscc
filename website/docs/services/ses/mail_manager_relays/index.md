@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mail_manager_relay</code> resource or lists <code>mail_manager_relays</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>mail_manager_relay</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="authentication" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="relay_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="relay_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="relay_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_port" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "authentication",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "relay_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "relay_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "relay_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_port",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanagerrelay.html"><code>AWS::SES::MailManagerRelay</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mail_manager_relays</code> in a region.
-```sql
-SELECT
-region,
-authentication,
-relay_arn,
-relay_id,
-relay_name,
-server_name,
-server_port,
-tags
-FROM awscc.ses.mail_manager_relays
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mail_manager_relay</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schedule</code> resource or lists <code>schedules</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>schedule</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="job_names" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="cron_expression" /></td><td><code>string</code></td><td>Schedule cron</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Schedule Name</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "job_names",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "cron_expression",
+    "type": "string",
+    "description": "Schedule cron"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Schedule Name"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-schedule.html"><code>AWS::DataBrew::Schedule</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schedules</code> in a region.
-```sql
-SELECT
-region,
-job_names,
-cron_expression,
-name,
-tags
-FROM awscc.databrew.schedules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schedule</code>.
 ```sql
 SELECT

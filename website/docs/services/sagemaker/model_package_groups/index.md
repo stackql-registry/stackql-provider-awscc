@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>model_package_group</code> resource or lists <code>model_package_groups</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>model_package_group</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="model_package_group_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the model package group.</td></tr>
-<tr><td><CopyableCode code="model_package_group_name" /></td><td><code>string</code></td><td>The name of the model package group.</td></tr>
-<tr><td><CopyableCode code="model_package_group_description" /></td><td><code>string</code></td><td>The description of the model package group.</td></tr>
-<tr><td><CopyableCode code="model_package_group_policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time at which the model package group was created.</td></tr>
-<tr><td><CopyableCode code="model_package_group_status" /></td><td><code>string</code></td><td>The status of a modelpackage group job.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "model_package_group_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the model package group."
+  },
+  {
+    "name": "model_package_group_name",
+    "type": "string",
+    "description": "The name of the model package group."
+  },
+  {
+    "name": "model_package_group_description",
+    "type": "string",
+    "description": "The description of the model package group."
+  },
+  {
+    "name": "model_package_group_policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time at which the model package group was created."
+  },
+  {
+    "name": "model_package_group_status",
+    "type": "string",
+    "description": "The status of a modelpackage group job."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackagegroup.html"><code>AWS::SageMaker::ModelPackageGroup</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>model_package_groups</code> in a region.
-```sql
-SELECT
-region,
-tags,
-model_package_group_arn,
-model_package_group_name,
-model_package_group_description,
-model_package_group_policy,
-creation_time,
-model_package_group_status
-FROM awscc.sagemaker.model_package_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>model_package_group</code>.
 ```sql
 SELECT

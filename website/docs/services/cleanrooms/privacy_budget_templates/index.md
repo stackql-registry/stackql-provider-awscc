@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>privacy_budget_template</code> resource or lists <code>privacy_budget_templates</code> in a region
 
@@ -32,22 +33,87 @@ Creates, updates, deletes or gets a <code>privacy_budget_template</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="privacy_budget_template_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms privacy budget template.</td></tr>
-<tr><td><CopyableCode code="auto_refresh" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="privacy_budget_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="membership_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collaboration_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "privacy_budget_template_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms privacy budget template.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "auto_refresh",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "privacy_budget_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "epsilon",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "users_noise_per_query",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "membership_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "membership_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-privacybudgettemplate.html"><code>AWS::CleanRooms::PrivacyBudgetTemplate</code></a>.
 
@@ -89,23 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>privacy_budget_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-collaboration_arn,
-collaboration_identifier,
-privacy_budget_template_identifier,
-tags,
-auto_refresh,
-privacy_budget_type,
-parameters,
-membership_arn,
-membership_identifier
-FROM awscc.cleanrooms.privacy_budget_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>privacy_budget_template</code>.
 ```sql
 SELECT

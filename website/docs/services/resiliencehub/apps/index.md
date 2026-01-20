@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app</code> resource or lists <code>apps</code> in a region
 
@@ -32,23 +33,156 @@ Creates, updates, deletes or gets an <code>app</code> resource or lists <code>ap
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the app.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>App description.</td></tr>
-<tr><td><CopyableCode code="app_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the App.</td></tr>
-<tr><td><CopyableCode code="resiliency_policy_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_template_body" /></td><td><code>string</code></td><td>A string containing full ResilienceHub app template body.</td></tr>
-<tr><td><CopyableCode code="resource_mappings" /></td><td><code>array</code></td><td>An array of ResourceMapping objects.</td></tr>
-<tr><td><CopyableCode code="app_assessment_schedule" /></td><td><code>string</code></td><td>Assessment execution schedule.</td></tr>
-<tr><td><CopyableCode code="permission_model" /></td><td><code>object</code></td><td>Defines the roles and credentials that AWS Resilience Hub would use while creating the application, importing its resources, and running an assessment.</td></tr>
-<tr><td><CopyableCode code="event_subscriptions" /></td><td><code>array</code></td><td>The list of events you would like to subscribe and get notification for.</td></tr>
-<tr><td><CopyableCode code="drift_status" /></td><td><code>string</code></td><td>Indicates if compliance drifts (deviations) were detected while running an assessment for your application.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the app."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "App description."
+  },
+  {
+    "name": "app_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the App."
+  },
+  {
+    "name": "resiliency_policy_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the Resiliency Policy."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "app_template_body",
+    "type": "string",
+    "description": "A string containing full ResilienceHub app template body."
+  },
+  {
+    "name": "resource_mappings",
+    "type": "array",
+    "description": "An array of ResourceMapping objects.",
+    "children": [
+      {
+        "name": "logical_stack_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "mapping_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "resource_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "terraform_source_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "eks_source_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "physical_resource_id",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "aws_account_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "aws_region",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "identifier",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "app_assessment_schedule",
+    "type": "string",
+    "description": "Assessment execution schedule."
+  },
+  {
+    "name": "permission_model",
+    "type": "object",
+    "description": "Defines the roles and credentials that AWS Resilience Hub would use while creating the application, importing its resources, and running an assessment.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Defines how AWS Resilience Hub scans your resources. It can scan for the resources by using a pre-existing role in your AWS account, or by using the credentials of the current IAM user."
+      },
+      {
+        "name": "invoker_role_name",
+        "type": "string",
+        "description": "Existing AWS IAM role name in the primary AWS account that will be assumed by AWS Resilience Hub Service Principle to obtain a read-only access to your application resources while running an assessment."
+      },
+      {
+        "name": "cross_account_role_arns",
+        "type": "array",
+        "description": "Defines a list of role Amazon Resource Names (ARNs) to be used in other accounts. These ARNs are used for querying purposes while importing resources and assessing your application."
+      }
+    ]
+  },
+  {
+    "name": "event_subscriptions",
+    "type": "array",
+    "description": "The list of events you would like to subscribe and get notification for.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Unique name to identify an event subscription."
+      },
+      {
+        "name": "event_type",
+        "type": "string",
+        "description": "The type of event you would like to subscribe and get notification for."
+      },
+      {
+        "name": "sns_topic_arn",
+        "type": "string",
+        "description": "Amazon Resource Name (ARN) of the Amazon Simple Notification Service topic."
+      }
+    ]
+  },
+  {
+    "name": "drift_status",
+    "type": "string",
+    "description": "Indicates if compliance drifts (deviations) were detected while running an assessment for your application."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resiliencehub-app.html"><code>AWS::ResilienceHub::App</code></a>.
 
@@ -90,24 +224,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>apps</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-app_arn,
-resiliency_policy_arn,
-tags,
-app_template_body,
-resource_mappings,
-app_assessment_schedule,
-permission_model,
-event_subscriptions,
-drift_status
-FROM awscc.resiliencehub.apps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT

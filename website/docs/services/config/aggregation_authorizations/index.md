@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>aggregation_authorization</code> resource or lists <code>aggregation_authorizations</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets an <code>aggregation_authorization</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="authorized_account_id" /></td><td><code>string</code></td><td>The 12-digit account ID of the account authorized to aggregate data.</td></tr>
-<tr><td><CopyableCode code="authorized_aws_region" /></td><td><code>string</code></td><td>The region authorized to collect aggregated data.</td></tr>
-<tr><td><CopyableCode code="aggregation_authorization_arn" /></td><td><code>string</code></td><td>The ARN of the AggregationAuthorization.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the AggregationAuthorization.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "authorized_account_id",
+    "type": "string",
+    "description": "The 12-digit account ID of the account authorized to aggregate data."
+  },
+  {
+    "name": "authorized_aws_region",
+    "type": "string",
+    "description": "The region authorized to collect aggregated data."
+  },
+  {
+    "name": "aggregation_authorization_arn",
+    "type": "string",
+    "description": "The ARN of the AggregationAuthorization."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the AggregationAuthorization.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-aggregationauthorization.html"><code>AWS::Config::AggregationAuthorization</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>aggregation_authorizations</code> in a region.
-```sql
-SELECT
-region,
-authorized_account_id,
-authorized_aws_region,
-aggregation_authorization_arn,
-tags
-FROM awscc.config.aggregation_authorizations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>aggregation_authorization</code>.
 ```sql
 SELECT

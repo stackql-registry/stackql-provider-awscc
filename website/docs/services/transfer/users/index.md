@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>user</code> resource or lists <code>users</code> in a region
 
@@ -32,23 +33,114 @@ Creates, updates, deletes or gets a <code>user</code> resource or lists <code>us
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="home_directory" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="home_directory_mappings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="home_directory_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="posix_profile" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ssh_public_keys" /></td><td><code>array</code></td><td>This represents the SSH User Public Keys for CloudFormation resource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "home_directory",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "home_directory_mappings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "entry",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "target",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "home_directory_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "posix_profile",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "uid",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "gid",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "secondary_gids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ssh_public_keys",
+    "type": "array",
+    "description": "This represents the SSH User Public Keys for CloudFormation resource"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "user_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-user.html"><code>AWS::Transfer::User</code></a>.
 
@@ -90,24 +182,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>users</code> in a region.
-```sql
-SELECT
-region,
-arn,
-home_directory,
-home_directory_mappings,
-home_directory_type,
-policy,
-posix_profile,
-role,
-server_id,
-ssh_public_keys,
-tags,
-user_name
-FROM awscc.transfer.users
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT

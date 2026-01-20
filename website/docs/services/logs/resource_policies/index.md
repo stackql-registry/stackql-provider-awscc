@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_policy</code> resource or lists <code>resource_policies</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>resource_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td>A name for resource policy</td></tr>
-<tr><td><CopyableCode code="policy_document" /></td><td><code>string</code></td><td>The policy document</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": "A name for resource policy"
+  },
+  {
+    "name": "policy_document",
+    "type": "string",
+    "description": "The policy document"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-resourcepolicy.html"><code>AWS::Logs::ResourcePolicy</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_policies</code> in a region.
-```sql
-SELECT
-region,
-policy_name,
-policy_document
-FROM awscc.logs.resource_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,26 +33,322 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="broker_node_group_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="enhanced_monitoring" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kafka_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="number_of_broker_nodes" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="open_monitoring" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="current_version" /></td><td><code>string</code></td><td>The current version of the MSK cluster</td></tr>
-<tr><td><CopyableCode code="client_authentication" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="logging_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="configuration_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "broker_node_group_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "storage_info",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "ebs_storage_info",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "volume_size",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "provisioned_throughput",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "connectivity_info",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "public_access",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "vpc_connectivity",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "client_authentication",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "security_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "broker_az_distribution",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "client_subnets",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "enhanced_monitoring",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kafka_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "number_of_broker_nodes",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "encryption_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "encryption_at_rest",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "data_volume_kms_key_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "encryption_in_transit",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "in_cluster",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "client_broker",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "open_monitoring",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "prometheus",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "jmx_exporter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled_in_broker",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "node_exporter",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled_in_broker",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "current_version",
+    "type": "string",
+    "description": "The current version of the MSK cluster"
+  },
+  {
+    "name": "client_authentication",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "sasl",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "iam",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "logging_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "broker_logs",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "prefix",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "cloud_watch_logs",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_group",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "firehose",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "delivery_stream",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "configuration_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "revision",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "storage_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-msk-cluster.html"><code>AWS::MSK::Cluster</code></a>.
 
@@ -93,27 +390,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-broker_node_group_info,
-enhanced_monitoring,
-kafka_version,
-number_of_broker_nodes,
-encryption_info,
-open_monitoring,
-cluster_name,
-arn,
-current_version,
-client_authentication,
-logging_info,
-tags,
-configuration_info,
-storage_mode
-FROM awscc.msk.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

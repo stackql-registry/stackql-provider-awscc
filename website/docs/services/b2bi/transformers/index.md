@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transformer</code> resource or lists <code>transformers</code> in a region
 
@@ -32,27 +33,208 @@ Creates, updates, deletes or gets a <code>transformer</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="edi_type" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="file_format" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="input_conversion" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="mapping" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="mapping_template" /></td><td><code>string</code></td><td>This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion.</td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="output_conversion" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="sample_document" /></td><td><code>string</code></td><td>This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion.</td></tr>
-<tr><td><CopyableCode code="sample_documents" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="transformer_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="transformer_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "edi_type",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "file_format",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "input_conversion",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "from_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "format_options",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "advanced_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "x12",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "split_options",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "validation_options",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mapping",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "template_language",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "mapping_template",
+    "type": "string",
+    "description": "This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion."
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "output_conversion",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "to_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "format_options",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "advanced_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "x12",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "split_options",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "validation_options",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sample_document",
+    "type": "string",
+    "description": "This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion."
+  },
+  {
+    "name": "sample_documents",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "keys",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "input",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "output",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "transformer_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "transformer_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-b2bi-transformer.html"><code>AWS::B2BI::Transformer</code></a>.
 
@@ -94,28 +276,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transformers</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-edi_type,
-file_format,
-input_conversion,
-mapping,
-mapping_template,
-modified_at,
-name,
-output_conversion,
-sample_document,
-sample_documents,
-status,
-tags,
-transformer_arn,
-transformer_id
-FROM awscc.b2bi.transformers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transformer</code>.
 ```sql
 SELECT

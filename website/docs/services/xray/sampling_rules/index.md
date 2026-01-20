@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>sampling_rule</code> resource or lists <code>sampling_rules</code> in a region
 
@@ -32,18 +33,242 @@ Creates, updates, deletes or gets a <code>sampling_rule</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="sampling_rule" /></td><td><code>object</code></td><td>This schema provides construct and validation rules for AWS-XRay SamplingRule resource parameters.</td></tr>
-<tr><td><CopyableCode code="sampling_rule_record" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="sampling_rule_update" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_arn" /></td><td><code>string</code></td><td>The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.</td></tr>
-<tr><td><CopyableCode code="rule_name" /></td><td><code>string</code></td><td>The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "sampling_rule",
+    "type": "object",
+    "description": "This schema provides construct and validation rules for AWS-XRay SamplingRule resource parameters.",
+    "children": [
+      {
+        "name": "sampling_rule_record",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "created_at",
+            "type": "string",
+            "description": "When the rule was created, in Unix time seconds."
+          },
+          {
+            "name": "modified_at",
+            "type": "string",
+            "description": "When the rule was modified, in Unix time seconds."
+          }
+        ]
+      },
+      {
+        "name": "sampling_rule_update",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attributes",
+            "type": "object",
+            "description": "Matches attributes derived from the request."
+          },
+          {
+            "name": "fixed_rate",
+            "type": "number",
+            "description": "The percentage of matching requests to instrument, after the reservoir is exhausted."
+          },
+          {
+            "name": "host",
+            "type": "string",
+            "description": "Matches the hostname from a request URL."
+          },
+          {
+            "name": "h_tt_pmethod",
+            "type": "string",
+            "description": "Matches the HTTP method from a request URL."
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": "The priority of the sampling rule."
+          },
+          {
+            "name": "reservoir_size",
+            "type": "integer",
+            "description": "A fixed number of matching requests to instrument per second, prior to applying the fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively."
+          },
+          {
+            "name": "resource_arn",
+            "type": "string",
+            "description": "Matches the ARN of the AWS resource on which the service runs."
+          },
+          {
+            "name": "rule_arn",
+            "type": "string",
+            "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+          },
+          {
+            "name": "rule_name",
+            "type": "string",
+            "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+          },
+          {
+            "name": "service_name",
+            "type": "string",
+            "description": "Matches the name that the service uses to identify itself in segments."
+          },
+          {
+            "name": "service_type",
+            "type": "string",
+            "description": "Matches the origin that the service uses to identify its type in segments."
+          },
+          {
+            "name": "url_path",
+            "type": "string",
+            "description": "Matches the path from a request URL."
+          }
+        ]
+      },
+      {
+        "name": "rule_arn",
+        "type": "string",
+        "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+      },
+      {
+        "name": "rule_name",
+        "type": "string",
+        "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to this resource.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sampling_rule_record",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "created_at",
+        "type": "string",
+        "description": "When the rule was created, in Unix time seconds."
+      },
+      {
+        "name": "modified_at",
+        "type": "string",
+        "description": "When the rule was modified, in Unix time seconds."
+      }
+    ]
+  },
+  {
+    "name": "sampling_rule_update",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attributes",
+        "type": "object",
+        "description": "Matches attributes derived from the request."
+      },
+      {
+        "name": "fixed_rate",
+        "type": "number",
+        "description": "The percentage of matching requests to instrument, after the reservoir is exhausted."
+      },
+      {
+        "name": "host",
+        "type": "string",
+        "description": "Matches the hostname from a request URL."
+      },
+      {
+        "name": "h_tt_pmethod",
+        "type": "string",
+        "description": "Matches the HTTP method from a request URL."
+      },
+      {
+        "name": "priority",
+        "type": "integer",
+        "description": "The priority of the sampling rule."
+      },
+      {
+        "name": "reservoir_size",
+        "type": "integer",
+        "description": "A fixed number of matching requests to instrument per second, prior to applying the fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively."
+      },
+      {
+        "name": "resource_arn",
+        "type": "string",
+        "description": "Matches the ARN of the AWS resource on which the service runs."
+      },
+      {
+        "name": "rule_arn",
+        "type": "string",
+        "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+      },
+      {
+        "name": "rule_name",
+        "type": "string",
+        "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+      },
+      {
+        "name": "service_name",
+        "type": "string",
+        "description": "Matches the name that the service uses to identify itself in segments."
+      },
+      {
+        "name": "service_type",
+        "type": "string",
+        "description": "Matches the origin that the service uses to identify its type in segments."
+      },
+      {
+        "name": "url_path",
+        "type": "string",
+        "description": "Matches the path from a request URL."
+      }
+    ]
+  },
+  {
+    "name": "rule_arn",
+    "type": "string",
+    "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+  },
+  {
+    "name": "rule_name",
+    "type": "string",
+    "description": "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-xray-samplingrule.html"><code>AWS::XRay::SamplingRule</code></a>.
 
@@ -85,19 +310,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sampling_rules</code> in a region.
-```sql
-SELECT
-region,
-sampling_rule,
-sampling_rule_record,
-sampling_rule_update,
-rule_arn,
-rule_name,
-tags
-FROM awscc.xray.sampling_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>sampling_rule</code>.
 ```sql
 SELECT

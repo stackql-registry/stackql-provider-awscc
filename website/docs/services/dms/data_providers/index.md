@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_provider</code> resource or lists <code>data_providers</code> in a region
 
@@ -32,21 +33,412 @@ Creates, updates, deletes or gets a <code>data_provider</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="data_provider_name" /></td><td><code>string</code></td><td>The property describes a name to identify the data provider.</td></tr>
-<tr><td><CopyableCode code="data_provider_identifier" /></td><td><code>string</code></td><td>The property describes an identifier for the data provider. It is used for describing/deleting/modifying can be name/arn</td></tr>
-<tr><td><CopyableCode code="data_provider_arn" /></td><td><code>string</code></td><td>The data provider ARN.</td></tr>
-<tr><td><CopyableCode code="data_provider_creation_time" /></td><td><code>string</code></td><td>The data provider creation time.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The optional description of the data provider.</td></tr>
-<tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>The property describes a data engine for the data provider.</td></tr>
-<tr><td><CopyableCode code="exact_settings" /></td><td><code>boolean</code></td><td>The property describes the exact settings which can be modified</td></tr>
-<tr><td><CopyableCode code="settings" /></td><td><code>object</code></td><td>The property identifies the exact type of settings for the data provider.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "data_provider_name",
+    "type": "string",
+    "description": "The property describes a name to identify the data provider."
+  },
+  {
+    "name": "data_provider_identifier",
+    "type": "string",
+    "description": "The property describes an identifier for the data provider. It is used for describing/deleting/modifying can be name/arn"
+  },
+  {
+    "name": "data_provider_arn",
+    "type": "string",
+    "description": "The data provider ARN."
+  },
+  {
+    "name": "data_provider_creation_time",
+    "type": "string",
+    "description": "The data provider creation time."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The optional description of the data provider."
+  },
+  {
+    "name": "engine",
+    "type": "string",
+    "description": "The property describes a data engine for the data provider."
+  },
+  {
+    "name": "exact_settings",
+    "type": "boolean",
+    "description": "The property describes the exact settings which can be modified"
+  },
+  {
+    "name": "settings",
+    "type": "object",
+    "description": "The property identifies the exact type of settings for the data provider.",
+    "children": [
+      {
+        "name": "postgre_sql_settings",
+        "type": "object",
+        "description": "PostgreSqlSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "my_sql_settings",
+        "type": "object",
+        "description": "MySqlSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "oracle_settings",
+        "type": "object",
+        "description": "OracleSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "asm_server",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "secrets_manager_oracle_asm_secret_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "secrets_manager_oracle_asm_access_role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "secrets_manager_security_db_encryption_secret_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "secrets_manager_security_db_encryption_access_role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "microsoft_sql_server_settings",
+        "type": "object",
+        "description": "MicrosoftSqlServerSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "redshift_settings",
+        "type": "object",
+        "description": "RedshiftSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "maria_db_settings",
+        "type": "object",
+        "description": "MariaDbSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "doc_db_settings",
+        "type": "object",
+        "description": "DocDbSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "mongo_db_settings",
+        "type": "object",
+        "description": "MongoDbSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "auth_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "auth_source",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "auth_mechanism",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ibm_db2_luw_settings",
+        "type": "object",
+        "description": "IbmDb2LuwSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ibm_db2z_os_settings",
+        "type": "object",
+        "description": "IbmDb2zOsSettings property identifier.",
+        "children": [
+          {
+            "name": "server_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ssl_mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-dataprovider.html"><code>AWS::DMS::DataProvider</code></a>.
 
@@ -88,22 +480,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_providers</code> in a region.
-```sql
-SELECT
-region,
-data_provider_name,
-data_provider_identifier,
-data_provider_arn,
-data_provider_creation_time,
-description,
-engine,
-exact_settings,
-settings,
-tags
-FROM awscc.dms.data_providers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_provider</code>.
 ```sql
 SELECT

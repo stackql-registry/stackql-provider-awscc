@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bridge_source</code> resource or lists <code>bridge_sources</code> in a region
 
@@ -32,16 +33,86 @@ Creates, updates, deletes or gets a <code>bridge_source</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the source.</td></tr>
-<tr><td><CopyableCode code="bridge_arn" /></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) of the bridge.</td></tr>
-<tr><td><CopyableCode code="flow_source" /></td><td><code>object</code></td><td>The source of the bridge. A flow source originates in MediaConnect as an existing cloud flow.</td></tr>
-<tr><td><CopyableCode code="network_source" /></td><td><code>object</code></td><td>The source of the bridge. A network source originates at your premises.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the source."
+  },
+  {
+    "name": "bridge_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) of the bridge."
+  },
+  {
+    "name": "flow_source",
+    "type": "object",
+    "description": "The source of the bridge. A flow source originates in MediaConnect as an existing cloud flow.",
+    "children": [
+      {
+        "name": "flow_arn",
+        "type": "string",
+        "description": "The ARN of the cloud flow used as a source of this bridge."
+      },
+      {
+        "name": "flow_vpc_interface_attachment",
+        "type": "object",
+        "description": "The name of the VPC interface attachment to use for this source.",
+        "children": [
+          {
+            "name": "vpc_interface_name",
+            "type": "string",
+            "description": "The name of the VPC interface to use for this resource."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "network_source",
+    "type": "object",
+    "description": "The source of the bridge. A network source originates at your premises.",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The network source protocol."
+      },
+      {
+        "name": "multicast_ip",
+        "type": "string",
+        "description": "The network source multicast IP."
+      },
+      {
+        "name": "multicast_source_settings",
+        "type": "object",
+        "description": "The settings related to the multicast source.",
+        "children": [
+          {
+            "name": "multicast_source_ip",
+            "type": "string",
+            "description": "The IP address of the source for source-specific multicast (SSM)."
+          }
+        ]
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The network source port."
+      },
+      {
+        "name": "network_name",
+        "type": "string",
+        "description": "The network source's gateway network name."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-bridgesource.html"><code>AWS::MediaConnect::BridgeSource</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration_manager</code> resource or lists <code>configuration_managers</code> in a region
 
@@ -32,20 +33,112 @@ Creates, updates, deletes or gets a <code>configuration_manager</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration_definitions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="manager_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_summaries" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration_definitions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameters",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "type_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "local_deployment_execution_role_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "local_deployment_administration_role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "manager_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_summaries",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "status_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status_message",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "last_updated_at",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status_details",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmquicksetup-configurationmanager.html"><code>AWS::SSMQuickSetup::ConfigurationManager</code></a>.
 
@@ -87,21 +180,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configuration_managers</code> in a region.
-```sql
-SELECT
-region,
-configuration_definitions,
-created_at,
-description,
-last_modified_at,
-manager_arn,
-name,
-status_summaries,
-tags
-FROM awscc.ssmquicksetup.configuration_managers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration_manager</code>.
 ```sql
 SELECT

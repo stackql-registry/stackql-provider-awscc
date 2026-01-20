@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,20 +33,106 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="iam_identity_center_options" /></td><td><code>object</code></td><td>Options for configuring IAM Identity Center</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) format.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The identifier of the application.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td>The endpoint for the application.</td></tr>
-<tr><td><CopyableCode code="app_configs" /></td><td><code>array</code></td><td>List of application configurations.</td></tr>
-<tr><td><CopyableCode code="data_sources" /></td><td><code>array</code></td><td>List of data sources.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this application.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "iam_identity_center_options",
+    "type": "object",
+    "description": "Options for configuring IAM Identity Center",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Whether IAM Identity Center is enabled."
+      },
+      {
+        "name": "iam_identity_center_instance_arn",
+        "type": "string",
+        "description": "The ARN of the IAM Identity Center instance."
+      },
+      {
+        "name": "iam_role_for_identity_center_application_arn",
+        "type": "string",
+        "description": "The ARN of the IAM role for Identity Center application."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) format."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The identifier of the application."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the application."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The endpoint for the application."
+  },
+  {
+    "name": "app_configs",
+    "type": "array",
+    "description": "List of application configurations.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The configuration key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The configuration value."
+      }
+    ]
+  },
+  {
+    "name": "data_sources",
+    "type": "array",
+    "description": "List of data sources.",
+    "children": [
+      {
+        "name": "data_source_arn",
+        "type": "string",
+        "description": "The ARN of the data source."
+      },
+      {
+        "name": "data_source_description",
+        "type": "string",
+        "description": "Description of the data source."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this application.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The key of the tag."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The value of the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchservice-application.html"><code>AWS::OpenSearchService::Application</code></a>.
 
@@ -87,21 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-iam_identity_center_options,
-arn,
-id,
-name,
-endpoint,
-app_configs,
-data_sources,
-tags
-FROM awscc.opensearchservice.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

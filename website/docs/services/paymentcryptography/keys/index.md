@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>key</code> resource or lists <code>keys</code> in a region
 
@@ -32,21 +33,139 @@ Creates, updates, deletes or gets a <code>key</code> resource or lists <code>key
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="derive_key_usage" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="exportable" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_attributes" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_check_value_algorithm" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_origin" /></td><td><code>string</code></td><td>Defines the source of a key</td></tr>
-<tr><td><CopyableCode code="key_state" /></td><td><code>string</code></td><td>Defines the state of a key</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "derive_key_usage",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "exportable",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "key_attributes",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "key_usage",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_class",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_algorithm",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_modes_of_use",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "encrypt",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "decrypt",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "wrap",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "unwrap",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "generate",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "sign",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "verify",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "derive_key",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "no_restrictions",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "key_check_value_algorithm",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "key_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "key_origin",
+    "type": "string",
+    "description": "Defines the source of a key"
+  },
+  {
+    "name": "key_state",
+    "type": "string",
+    "description": "Defines the state of a key"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-paymentcryptography-key.html"><code>AWS::PaymentCryptography::Key</code></a>.
 
@@ -88,22 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>keys</code> in a region.
-```sql
-SELECT
-region,
-derive_key_usage,
-enabled,
-exportable,
-key_attributes,
-key_check_value_algorithm,
-key_identifier,
-key_origin,
-key_state,
-tags
-FROM awscc.paymentcryptography.keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>key</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment_profile</code> resource or lists <code>environment_profiles</code> in a region
 
@@ -32,27 +33,100 @@ Creates, updates, deletes or gets an <code>environment_profile</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td>The AWS account in which the Amazon DataZone environment is created.</td></tr>
-<tr><td><CopyableCode code="aws_account_region" /></td><td><code>string</code></td><td>The AWS region in which this environment profile is created.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when this environment profile was created.</td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td>The Amazon DataZone user who created this environment profile.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of this Amazon DataZone environment profile.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which this environment profile is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which this environment profile is created.</td></tr>
-<tr><td><CopyableCode code="environment_blueprint_id" /></td><td><code>string</code></td><td>The ID of the blueprint with which this environment profile is created.</td></tr>
-<tr><td><CopyableCode code="environment_blueprint_identifier" /></td><td><code>string</code></td><td>The ID of the blueprint with which this environment profile is created.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of this Amazon DataZone environment profile.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of this Amazon DataZone environment profile.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The identifier of the project in which to create the environment profile.</td></tr>
-<tr><td><CopyableCode code="project_identifier" /></td><td><code>string</code></td><td>The identifier of the project in which to create the environment profile.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp of when this environment profile was updated.</td></tr>
-<tr><td><CopyableCode code="user_parameters" /></td><td><code>array</code></td><td>The user parameters of this Amazon DataZone environment profile.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": "The AWS account in which the Amazon DataZone environment is created."
+  },
+  {
+    "name": "aws_account_region",
+    "type": "string",
+    "description": "The AWS region in which this environment profile is created."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when this environment profile was created."
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": "The Amazon DataZone user who created this environment profile."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of this Amazon DataZone environment profile."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which this environment profile is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which this environment profile is created."
+  },
+  {
+    "name": "environment_blueprint_id",
+    "type": "string",
+    "description": "The ID of the blueprint with which this environment profile is created."
+  },
+  {
+    "name": "environment_blueprint_identifier",
+    "type": "string",
+    "description": "The ID of the blueprint with which this environment profile is created."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of this Amazon DataZone environment profile."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of this Amazon DataZone environment profile."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The identifier of the project in which to create the environment profile."
+  },
+  {
+    "name": "project_identifier",
+    "type": "string",
+    "description": "The identifier of the project in which to create the environment profile."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The timestamp of when this environment profile was updated."
+  },
+  {
+    "name": "user_parameters",
+    "type": "array",
+    "description": "The user parameters of this Amazon DataZone environment profile.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-environmentprofile.html"><code>AWS::DataZone::EnvironmentProfile</code></a>.
 
@@ -94,28 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environment_profiles</code> in a region.
-```sql
-SELECT
-region,
-aws_account_id,
-aws_account_region,
-created_at,
-created_by,
-description,
-domain_id,
-domain_identifier,
-environment_blueprint_id,
-environment_blueprint_identifier,
-id,
-name,
-project_id,
-project_identifier,
-updated_at,
-user_parameters
-FROM awscc.datazone.environment_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment_profile</code>.
 ```sql
 SELECT

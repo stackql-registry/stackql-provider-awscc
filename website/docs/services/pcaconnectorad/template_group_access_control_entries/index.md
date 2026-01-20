@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>template_group_access_control_entry</code> resource or lists <code>template_group_access_control_entries</code> in a region
 
@@ -32,16 +33,40 @@ Creates, updates, deletes or gets a <code>template_group_access_control_entry</c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_rights" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="group_display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="group_security_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_rights",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enroll",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "group_display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "group_security_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcaconnectorad-templategroupaccesscontrolentry.html"><code>AWS::PCAConnectorAD::TemplateGroupAccessControlEntry</code></a>.
 
@@ -83,17 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>template_group_access_control_entries</code> in a region.
-```sql
-SELECT
-region,
-access_rights,
-group_display_name,
-group_security_identifier,
-template_arn
-FROM awscc.pcaconnectorad.template_group_access_control_entries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>template_group_access_control_entry</code>.
 ```sql
 SELECT

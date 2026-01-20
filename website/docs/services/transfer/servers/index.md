@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>server</code> resource or lists <code>servers</code> in a region
 
@@ -32,33 +33,227 @@ Creates, updates, deletes or gets a <code>server</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="as2_service_managed_egress_ip_addresses" /></td><td><code>array</code></td><td>The list of egress IP addresses of this server. These IP addresses are only relevant for servers that use the AS2 protocol. They are used for sending asynchronous MDNs. These IP addresses are assigned automatically when you create an AS2 server. Additionally, if you update an existing server and add the AS2 protocol, static IP addresses are assigned as well.</td></tr>
-<tr><td><CopyableCode code="certificate" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_details" /></td><td><code>object</code></td><td>You can provide a structure that contains the details for the identity provider to use with your web app.</td></tr>
-<tr><td><CopyableCode code="identity_provider_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="logging_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="post_authentication_login_banner" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pre_authentication_login_banner" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="protocol_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="protocols" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="s3_storage_options" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_policy_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="structured_log_destinations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="workflow_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "as2_service_managed_egress_ip_addresses",
+    "type": "array",
+    "description": "The list of egress IP addresses of this server. These IP addresses are only relevant for servers that use the AS2 protocol. They are used for sending asynchronous MDNs. These IP addresses are assigned automatically when you create an AS2 server. Additionally, if you update an existing server and add the AS2 protocol, static IP addresses are assigned as well."
+  },
+  {
+    "name": "certificate",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "address_allocation_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "vpc_endpoint_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "endpoint_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_details",
+    "type": "object",
+    "description": "You can provide a structure that contains the details for the identity provider to use with your web app.",
+    "children": [
+      {
+        "name": "application_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) for the IAM Identity Center used for the web app."
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "description": "The IAM role in IAM Identity Center used for the web app."
+      }
+    ]
+  },
+  {
+    "name": "identity_provider_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "logging_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "post_authentication_login_banner",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pre_authentication_login_banner",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "protocol_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "passive_ip",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tls_session_resumption_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "set_stat_option",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "as2_transports",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "protocols",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "s3_storage_options",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "directory_listing_optimization",
+        "type": "string",
+        "description": "Indicates whether optimization to directory listing on S3 servers is used. Disabled by default for compatibility."
+      }
+    ]
+  },
+  {
+    "name": "security_policy_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "structured_log_destinations",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "workflow_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "on_upload",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "workflow_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "execution_role",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "on_partial_upload",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html"><code>AWS::Transfer::Server</code></a>.
 
@@ -72,14 +267,14 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="delete_resource" /></td>
-    <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
-  </tr>
-  <tr>
     <td><CopyableCode code="create_resource" /></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
+  </tr>
+  <tr>
+    <td><CopyableCode code="delete_resource" /></td>
+    <td><code>DELETE</code></td>
+    <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
@@ -100,34 +295,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>servers</code> in a region.
-```sql
-SELECT
-region,
-arn,
-as2_service_managed_egress_ip_addresses,
-certificate,
-domain,
-endpoint_details,
-endpoint_type,
-identity_provider_details,
-identity_provider_type,
-ip_address_type,
-logging_role,
-post_authentication_login_banner,
-pre_authentication_login_banner,
-protocol_details,
-protocols,
-s3_storage_options,
-security_policy_name,
-server_id,
-state,
-structured_log_destinations,
-tags,
-workflow_details
-FROM awscc.transfer.servers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>server</code>.
 ```sql
 SELECT

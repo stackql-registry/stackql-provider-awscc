@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>domains</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The name of the domain.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the domain. This field is used for GetAtt</td></tr>
-<tr><td><CopyableCode code="owner" /></td><td><code>string</code></td><td>The 12-digit account ID of the AWS account that owns the domain. This field is used for GetAtt</td></tr>
-<tr><td><CopyableCode code="encryption_key" /></td><td><code>string</code></td><td>The ARN of an AWS Key Management Service (AWS KMS) key associated with a domain.</td></tr>
-<tr><td><CopyableCode code="permissions_policy_document" /></td><td><code>object</code></td><td>The access control resource policy on the provided domain.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the domain.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The name of the domain."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the domain. This field is used for GetAtt"
+  },
+  {
+    "name": "owner",
+    "type": "string",
+    "description": "The 12-digit account ID of the AWS account that owns the domain. This field is used for GetAtt"
+  },
+  {
+    "name": "encryption_key",
+    "type": "string",
+    "description": "The ARN of an AWS Key Management Service (AWS KMS) key associated with a domain."
+  },
+  {
+    "name": "permissions_policy_document",
+    "type": "object",
+    "description": "The access control resource policy on the provided domain."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the domain."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codeartifact-domain.html"><code>AWS::CodeArtifact::Domain</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domains</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-name,
-owner,
-encryption_key,
-permissions_policy_document,
-tags,
-arn
-FROM awscc.codeartifact.domains
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT

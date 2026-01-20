@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>hours_of_operation</code> resource or lists <code>hours_of_operations</code> in a region
 
@@ -32,20 +33,145 @@ Creates, updates, deletes or gets a <code>hours_of_operation</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the hours of operation.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the hours of operation.</td></tr>
-<tr><td><CopyableCode code="time_zone" /></td><td><code>string</code></td><td>The time zone of the hours of operation.</td></tr>
-<tr><td><CopyableCode code="config" /></td><td><code>array</code></td><td>Configuration information for the hours of operation: day, start time, and end time.</td></tr>
-<tr><td><CopyableCode code="hours_of_operation_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the hours of operation.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="hours_of_operation_overrides" /></td><td><code>array</code></td><td>One or more hours of operation overrides assigned to an hour of operation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the hours of operation."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the hours of operation."
+  },
+  {
+    "name": "time_zone",
+    "type": "string",
+    "description": "The time zone of the hours of operation."
+  },
+  {
+    "name": "config",
+    "type": "array",
+    "description": "Configuration information for the hours of operation: day, start time, and end time.",
+    "children": [
+      {
+        "name": "day",
+        "type": "string",
+        "description": "The day that the hours of operation applies to."
+      },
+      {
+        "name": "start_time",
+        "type": "object",
+        "description": "The start time that your contact center opens.",
+        "children": [
+          {
+            "name": "hours",
+            "type": "integer",
+            "description": "The hours."
+          },
+          {
+            "name": "minutes",
+            "type": "integer",
+            "description": "The minutes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "hours_of_operation_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the hours of operation."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "hours_of_operation_overrides",
+    "type": "array",
+    "description": "One or more hours of operation overrides assigned to an hour of operation.",
+    "children": [
+      {
+        "name": "override_name",
+        "type": "string",
+        "description": "The name of the hours of operation override."
+      },
+      {
+        "name": "override_description",
+        "type": "string",
+        "description": "The description of the hours of operation override."
+      },
+      {
+        "name": "effective_from",
+        "type": "string",
+        "description": "The date from which the hours of operation override would be effective."
+      },
+      {
+        "name": "effective_till",
+        "type": "string",
+        "description": "The date till which the hours of operation override would be effective."
+      },
+      {
+        "name": "override_config",
+        "type": "array",
+        "description": "Configuration information for the hours of operation override: day, start time, and end time.",
+        "children": [
+          {
+            "name": "day",
+            "type": "string",
+            "description": "The day that the hours of operation override applies to."
+          },
+          {
+            "name": "start_time",
+            "type": "object",
+            "description": "The new start time that your contact center opens for the overriden days.",
+            "children": [
+              {
+                "name": "hours",
+                "type": "integer",
+                "description": "The hours."
+              },
+              {
+                "name": "minutes",
+                "type": "integer",
+                "description": "The minutes."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "hours_of_operation_override_id",
+        "type": "string",
+        "description": "The Resource Identifier for the hours of operation override."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-hoursofoperation.html"><code>AWS::Connect::HoursOfOperation</code></a>.
 
@@ -87,21 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hours_of_operations</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-name,
-description,
-time_zone,
-config,
-hours_of_operation_arn,
-tags,
-hours_of_operation_overrides
-FROM awscc.connect.hours_of_operations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>hours_of_operation</code>.
 ```sql
 SELECT

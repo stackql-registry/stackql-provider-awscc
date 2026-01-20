@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>group</code> resource or lists <code>groups</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>group</code> resource or lists <code>g
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A string containing the description of the group.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>A string containing the name of the group. This value is commonly displayed when the group is referenced.</td></tr>
-<tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>The unique identifier for a group in the identity store.</td></tr>
-<tr><td><CopyableCode code="identity_store_id" /></td><td><code>string</code></td><td>The globally unique identifier for the identity store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A string containing the description of the group."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "A string containing the name of the group. This value is commonly displayed when the group is referenced."
+  },
+  {
+    "name": "group_id",
+    "type": "string",
+    "description": "The unique identifier for a group in the identity store."
+  },
+  {
+    "name": "identity_store_id",
+    "type": "string",
+    "description": "The globally unique identifier for the identity store."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-identitystore-group.html"><code>AWS::IdentityStore::Group</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>groups</code> in a region.
-```sql
-SELECT
-region,
-description,
-display_name,
-group_id,
-identity_store_id
-FROM awscc.identitystore.groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>group</code>.
 ```sql
 SELECT

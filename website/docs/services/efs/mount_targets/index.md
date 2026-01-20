@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mount_target</code> resource or lists <code>mount_targets</code> in a region
 
@@ -26,25 +27,54 @@ Creates, updates, deletes or gets a <code>mount_target</code> resource or lists 
 <tbody>
 <tr><td><b>Name</b></td><td><code>mount_targets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::EFS::MountTarget</code> resource is an Amazon EFS resource that creates a mount target for an EFS file system. You can then mount the file system on Amazon EC2 instances or other resources by using the mount target.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::EFS::MountTarget&#96;&#96; resource is an Amazon EFS resource that creates a mount target for an EFS file system. You can then mount the file system on Amazon EC2 instances or other resources by using the mount target.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.efs.mount_targets" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_address" /></td><td><code>string</code></td><td>If the <code>IpAddressType</code> for the mount target is IPv4 ( <code>IPV4_ONLY</code> or <code>DUAL_STACK</code>), then specify the IPv4 address to use. If you do not specify an <code>IpAddress</code>, then Amazon EFS selects an unused IP address from the subnet specified for <code>SubnetId</code>.</td></tr>
-<tr><td><CopyableCode code="ipv6_address" /></td><td><code>string</code></td><td>If the <code>IPAddressType</code> for the mount target is IPv6 (<code>IPV6_ONLY</code> or <code>DUAL_STACK</code>), then specify the IPv6 address to use. If you do not specify an <code>Ipv6Address</code>, then Amazon EFS selects an unused IP address from the subnet specified for <code>SubnetId</code>.</td></tr>
-<tr><td><CopyableCode code="ip_address_type" /></td><td><code>string</code></td><td>The IP address type for the mount target. The possible values are <code>IPV4_ONLY</code> (only IPv4 addresses), <code>IPV6_ONLY</code> (only IPv6 addresses), and <code>DUAL_STACK</code> (dual-stack, both IPv4 and IPv6 addresses). If you don’t specify an <code>IpAddressType</code>, then <code>IPV4_ONLY</code> is used.<br />The <code>IPAddressType</code> must match the IP type of the subnet. Additionally, the <code>IPAddressType</code> parameter overrides the value set as the default IP address for the subnet in the VPC. For example, if the <code>IPAddressType</code> is <code>IPV4_ONLY</code> and <code>AssignIpv6AddressOnCreation</code> is <code>true</code>, then IPv4 is used for the mount target. For more information, see &#91;Modify the IP addressing attributes of your subnet&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/subnet-public-ip.html).</td></tr>
-<tr><td><CopyableCode code="file_system_id" /></td><td><code>string</code></td><td>The ID of the file system for which to create the mount target.</td></tr>
-<tr><td><CopyableCode code="security_groups" /></td><td><code>array</code></td><td>VPC security group IDs, of the form <code>sg-xxxxxxxx</code>. These must be for the same VPC as the subnet specified. The maximum number of security groups depends on account quota. For more information, see &#91;Amazon VPC Quotas&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html) in the ASTERIX;Amazon VPC User GuideASTERIX; (see the ASTERIX;Security GroupsASTERIX; table). If you don't specify a security group, then Amazon EFS uses the default security group for the subnet's VPC.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet to add the mount target in. For One Zone file systems, use the subnet that is associated with the file system's Availability Zone. The subnet type must be the same type as the <code>IpAddressType</code>.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_address",
+    "type": "string",
+    "description": "If the &#96;&#96;IpAddressType&#96;&#96; for the mount target is IPv4 ( &#96;&#96;IPV4&#95;ONLY&#96;&#96; or &#96;&#96;DUAL&#95;STACK&#96;&#96;), then specify the IPv4 address to use. If you do not specify an &#96;&#96;IpAddress&#96;&#96;, then Amazon EFS selects an unused IP address from the subnet specified for &#96;&#96;SubnetId&#96;&#96;."
+  },
+  {
+    "name": "ipv6_address",
+    "type": "string",
+    "description": "If the &#96;&#96;IPAddressType&#96;&#96; for the mount target is IPv6 (&#96;&#96;IPV6&#95;ONLY&#96;&#96; or &#96;&#96;DUAL&#95;STACK&#96;&#96;), then specify the IPv6 address to use. If you do not specify an &#96;&#96;Ipv6Address&#96;&#96;, then Amazon EFS selects an unused IP address from the subnet specified for &#96;&#96;SubnetId&#96;&#96;."
+  },
+  {
+    "name": "ip_address_type",
+    "type": "string",
+    "description": "The IP address type for the mount target. The possible values are &#96;&#96;IPV4&#95;ONLY&#96;&#96; (only IPv4 addresses), &#96;&#96;IPV6&#95;ONLY&#96;&#96; (only IPv6 addresses), and &#96;&#96;DUAL&#95;STACK&#96;&#96; (dual-stack, both IPv4 and IPv6 addresses). If you don’t specify an &#96;&#96;IpAddressType&#96;&#96;, then &#96;&#96;IPV4&#95;ONLY&#96;&#96; is used.<br />The &#96;&#96;IPAddressType&#96;&#96; must match the IP type of the subnet. Additionally, the &#96;&#96;IPAddressType&#96;&#96; parameter overrides the value set as the default IP address for the subnet in the VPC. For example, if the &#96;&#96;IPAddressType&#96;&#96; is &#96;&#96;IPV4&#95;ONLY&#96;&#96; and &#96;&#96;AssignIpv6AddressOnCreation&#96;&#96; is &#96;&#96;true&#96;&#96;, then IPv4 is used for the mount target. For more information, see &#91;Modify the IP addressing attributes of your subnet&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/subnet-public-ip.html)."
+  },
+  {
+    "name": "file_system_id",
+    "type": "string",
+    "description": "The ID of the file system for which to create the mount target."
+  },
+  {
+    "name": "security_groups",
+    "type": "array",
+    "description": "VPC security group IDs, of the form &#96;&#96;sg-xxxxxxxx&#96;&#96;. These must be for the same VPC as the subnet specified. The maximum number of security groups depends on account quota. For more information, see &#91;Amazon VPC Quotas&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html) in the &#42;Amazon VPC User Guide&#42; (see the &#42;Security Groups&#42; table). If you don't specify a security group, then Amazon EFS uses the default security group for the subnet's VPC."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The ID of the subnet to add the mount target in. For One Zone file systems, use the subnet that is associated with the file system's Availability Zone. The subnet type must be the same type as the &#96;&#96;IpAddressType&#96;&#96;."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html"><code>AWS::EFS::MountTarget</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mount_targets</code> in a region.
-```sql
-SELECT
-region,
-id,
-ip_address,
-ipv6_address,
-ip_address_type,
-file_system_id,
-security_groups,
-subnet_id
-FROM awscc.efs.mount_targets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mount_target</code>.
 ```sql
 SELECT

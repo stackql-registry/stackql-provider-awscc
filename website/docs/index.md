@@ -24,7 +24,7 @@ AWS Cloud Control API provider for StackQL.
 <div class="row">
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>237</b></span><br />
-<span>total resources:&nbsp;<b>2359</b></span><br />
+<span>total resources:&nbsp;<b>2371</b></span><br />
 </div>
 </div>
 
@@ -87,6 +87,7 @@ Resources are available in all AWS regions. Use the `region` parameter to specif
 <a href="/services/chatbot/">chatbot</a><br />
 <a href="/services/cleanrooms/">cleanrooms</a><br />
 <a href="/services/cleanroomsml/">cleanroomsml</a><br />
+<a href="/services/cloud_control/">cloud_control</a><br />
 <a href="/services/cloudformation/">cloudformation</a><br />
 <a href="/services/cloudfront/">cloudfront</a><br />
 <a href="/services/cloudtrail/">cloudtrail</a><br />
@@ -163,7 +164,6 @@ Resources are available in all AWS regions. Use the `region` parameter to specif
 <a href="/services/iotanalytics/">iotanalytics</a><br />
 <a href="/services/iotcoredeviceadvisor/">iotcoredeviceadvisor</a><br />
 <a href="/services/iotevents/">iotevents</a><br />
-<a href="/services/iotfleethub/">iotfleethub</a><br />
 <a href="/services/iotfleetwise/">iotfleetwise</a><br />
 <a href="/services/iotsitewise/">iotsitewise</a><br />
 <a href="/services/iottwinmaker/">iottwinmaker</a><br />
@@ -189,7 +189,6 @@ Resources are available in all AWS regions. Use the `region` parameter to specif
 <a href="/services/location/">location</a><br />
 <a href="/services/logs/">logs</a><br />
 <a href="/services/lookoutequipment/">lookoutequipment</a><br />
-<a href="/services/lookoutmetrics/">lookoutmetrics</a><br />
 <a href="/services/lookoutvision/">lookoutvision</a><br />
 <a href="/services/m2/">m2</a><br />
 <a href="/services/macie/">macie</a><br />
@@ -275,6 +274,7 @@ Resources are available in all AWS regions. Use the `region` parameter to specif
 <a href="/services/supportapp/">supportapp</a><br />
 <a href="/services/synthetics/">synthetics</a><br />
 <a href="/services/systemsmanagersap/">systemsmanagersap</a><br />
+<a href="/services/tagging/">tagging</a><br />
 <a href="/services/timestream/">timestream</a><br />
 <a href="/services/transfer/">transfer</a><br />
 <a href="/services/verifiedpermissions/">verifiedpermissions</a><br />

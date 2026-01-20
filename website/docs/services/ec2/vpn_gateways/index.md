@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpn_gateway</code> resource or lists <code>vpn_gateways</code> in a region
 
@@ -26,22 +27,51 @@ Creates, updates, deletes or gets a <code>vpn_gateway</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>vpn_gateways</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the ASTERIX;User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.<br />For more information, see &#91;&#93;(https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC&#95;VPN.html) in the &#42;User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.vpn_gateways" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="v_pn_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="amazon_side_asn" /></td><td><code>integer</code></td><td>The private Autonomous System Number (ASN) for the Amazon side of a BGP session.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the virtual private gateway.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of VPN connection the virtual private gateway supports.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "v_pn_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "amazon_side_asn",
+    "type": "integer",
+    "description": "The private Autonomous System Number (ASN) for the Amazon side of a BGP session."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the virtual private gateway.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of VPN connection the virtual private gateway supports."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpngateway.html"><code>AWS::EC2::VPNGateway</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpn_gateways</code> in a region.
-```sql
-SELECT
-region,
-v_pn_gateway_id,
-amazon_side_asn,
-tags,
-type
-FROM awscc.ec2.vpn_gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpn_gateway</code>.
 ```sql
 SELECT

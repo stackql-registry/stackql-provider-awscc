@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>domains</code> in a region
 
@@ -32,28 +33,122 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="root_domain_unit_id" /></td><td><code>string</code></td><td>The ID of the root domain in Amazon Datazone.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the Amazon DataZone domain was last updated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="domain_execution_role" /></td><td><code>string</code></td><td>The domain execution role that is created when an Amazon DataZone domain is created. The domain execution role is created in the AWS account that houses the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td>The service role of the domain that is created.</td></tr>
-<tr><td><CopyableCode code="domain_version" /></td><td><code>string</code></td><td>The version of the domain.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The id of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td>The identifier of the AWS Key Management Service (KMS) key that is used to encrypt the Amazon DataZone domain, metadata, and reporting data.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp of when the Amazon DataZone domain was last updated.</td></tr>
-<tr><td><CopyableCode code="managed_account_id" /></td><td><code>string</code></td><td>The identifier of the AWS account that manages the domain.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="portal_url" /></td><td><code>string</code></td><td>The URL of the data portal for this Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="single_sign_on" /></td><td><code>object</code></td><td>The single-sign on configuration of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags specified for the Amazon DataZone domain.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "root_domain_unit_id",
+    "type": "string",
+    "description": "The ID of the root domain in Amazon Datazone."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the Amazon DataZone domain."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the Amazon DataZone domain was last updated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Amazon DataZone domain."
+  },
+  {
+    "name": "domain_execution_role",
+    "type": "string",
+    "description": "The domain execution role that is created when an Amazon DataZone domain is created. The domain execution role is created in the AWS account that houses the Amazon DataZone domain."
+  },
+  {
+    "name": "service_role",
+    "type": "string",
+    "description": "The service role of the domain that is created."
+  },
+  {
+    "name": "domain_version",
+    "type": "string",
+    "description": "The version of the domain."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The id of the Amazon DataZone domain."
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": "The identifier of the AWS Key Management Service (KMS) key that is used to encrypt the Amazon DataZone domain, metadata, and reporting data."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The timestamp of when the Amazon DataZone domain was last updated."
+  },
+  {
+    "name": "managed_account_id",
+    "type": "string",
+    "description": "The identifier of the AWS account that manages the domain."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the Amazon DataZone domain."
+  },
+  {
+    "name": "portal_url",
+    "type": "string",
+    "description": "The URL of the data portal for this Amazon DataZone domain."
+  },
+  {
+    "name": "single_sign_on",
+    "type": "object",
+    "description": "The single-sign on configuration of the Amazon DataZone domain.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of single sign-on in Amazon DataZone."
+      },
+      {
+        "name": "user_assignment",
+        "type": "string",
+        "description": "The single sign-on user assignment in Amazon DataZone."
+      },
+      {
+        "name": "idc_instance_arn",
+        "type": "string",
+        "description": "The ARN of the AWS Identity Center instance."
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the Amazon DataZone domain."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags specified for the Amazon DataZone domain.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-domain.html"><code>AWS::DataZone::Domain</code></a>.
 
@@ -95,29 +190,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domains</code> in a region.
-```sql
-SELECT
-region,
-root_domain_unit_id,
-arn,
-created_at,
-description,
-domain_execution_role,
-service_role,
-domain_version,
-id,
-kms_key_identifier,
-last_updated_at,
-managed_account_id,
-name,
-portal_url,
-single_sign_on,
-status,
-tags
-FROM awscc.datazone.domains
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT

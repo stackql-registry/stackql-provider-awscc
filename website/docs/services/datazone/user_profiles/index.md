@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_profile</code> resource or lists <code>user_profiles</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets an <code>user_profile</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="details" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the user profile is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the user profile would be created.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone user profile.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the user profile.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the user profile.</td></tr>
-<tr><td><CopyableCode code="user_identifier" /></td><td><code>string</code></td><td>The ID of the user.</td></tr>
-<tr><td><CopyableCode code="user_type" /></td><td><code>string</code></td><td>The type of the user.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "details",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the user profile is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the user profile would be created."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone user profile."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the user profile."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the user profile."
+  },
+  {
+    "name": "user_identifier",
+    "type": "string",
+    "description": "The ID of the user."
+  },
+  {
+    "name": "user_type",
+    "type": "string",
+    "description": "The type of the user."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-userprofile.html"><code>AWS::DataZone::UserProfile</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_profiles</code> in a region.
-```sql
-SELECT
-region,
-details,
-domain_id,
-domain_identifier,
-id,
-status,
-type,
-user_identifier,
-user_type
-FROM awscc.datazone.user_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_profile</code>.
 ```sql
 SELECT

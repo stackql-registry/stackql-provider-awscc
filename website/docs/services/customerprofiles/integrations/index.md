@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>integration</code> resource or lists <code>integrations</code> in a region
 
@@ -32,21 +33,255 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The URI of the S3 bucket or any other type of data source.</td></tr>
-<tr><td><CopyableCode code="flow_definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="object_type_name" /></td><td><code>string</code></td><td>The name of the ObjectType defined for the 3rd party data in Profile Service</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this integration got created</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The time of this integration got last updated at</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the integration</td></tr>
-<tr><td><CopyableCode code="object_type_names" /></td><td><code>array</code></td><td>The mapping between 3rd party event types and ObjectType names</td></tr>
-<tr><td><CopyableCode code="event_trigger_names" /></td><td><code>array</code></td><td>A list of unique names for active event triggers associated with the integration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "uri",
+    "type": "string",
+    "description": "The URI of the S3 bucket or any other type of data source."
+  },
+  {
+    "name": "flow_definition",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "flow_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tasks",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "connector_operator",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "marketo",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s3",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "salesforce",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "service_now",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "zendesk",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "source_fields",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "destination_field",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "task_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "task_properties",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "operator_property_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "property",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "trigger_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "trigger_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "trigger_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "scheduled",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "source_flow_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "connector_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "connector_profile_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "incremental_pull_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "datetime_type_field_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "source_connector_properties",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "marketo",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "s3",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "salesforce",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "service_now",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "zendesk",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "object_type_name",
+    "type": "string",
+    "description": "The name of the ObjectType defined for the 3rd party data in Profile Service"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time of this integration got created"
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The time of this integration got last updated at"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the integration",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "object_type_names",
+    "type": "array",
+    "description": "The mapping between 3rd party event types and ObjectType names",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "event_trigger_names",
+    "type": "array",
+    "description": "A list of unique names for active event triggers associated with the integration."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-integration.html"><code>AWS::CustomerProfiles::Integration</code></a>.
 
@@ -88,22 +323,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>integrations</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-uri,
-flow_definition,
-object_type_name,
-created_at,
-last_updated_at,
-tags,
-object_type_names,
-event_trigger_names
-FROM awscc.customerprofiles.integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT

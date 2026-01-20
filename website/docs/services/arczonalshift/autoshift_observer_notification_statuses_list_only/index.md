@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>autoshift_observer_notification_statuses</code> in a region or regions, for all properties use <a href="/services/arczonalshift/autoshift_observer_notification_statuses/"><code>autoshift_observer_notification_statuses</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>autoshift_observer_notification_statuses</code> in a region or regio
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>User account id, used as part of the primary identifier for the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>Region, used as part of the primary identifier for the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "User account id, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "Region, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tracker</code> resource or lists <code>trackers</code> in a region
 
@@ -32,25 +33,85 @@ Creates, updates, deletes or gets a <code>tracker</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_bridge_enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_enable_geospatial_queries" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="position_filtering" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pricing_plan" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pricing_plan_data_source" /></td><td><code>string</code></td><td>This shape is deprecated since 2022-02-01: Deprecated. No longer allowed.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="tracker_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracker_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": "The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_bridge_enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "kms_key_enable_geospatial_queries",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "position_filtering",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pricing_plan",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pricing_plan_data_source",
+    "type": "string",
+    "description": "This shape is deprecated since 2022-02-01: Deprecated. No longer allowed."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "tracker_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tracker_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-location-tracker.html"><code>AWS::Location::Tracker</code></a>.
 
@@ -92,26 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>trackers</code> in a region.
-```sql
-SELECT
-region,
-create_time,
-description,
-event_bridge_enabled,
-kms_key_enable_geospatial_queries,
-kms_key_id,
-position_filtering,
-pricing_plan,
-pricing_plan_data_source,
-tags,
-tracker_arn,
-tracker_name,
-update_time,
-arn
-FROM awscc.location.trackers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tracker</code>.
 ```sql
 SELECT

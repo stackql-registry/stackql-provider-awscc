@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>component</code> resource or lists <code>components</code> in a region
 
@@ -32,29 +33,137 @@ Creates, updates, deletes or gets a <code>component</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="binding_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="children" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="collection_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="component_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="events" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="overrides" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="variants" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "binding_properties",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "children",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "component_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "properties",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "children",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "events",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "source_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "collection_properties",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "component_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "events",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "overrides",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "properties",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "schema_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "variants",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "variant_values",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amplifyuibuilder-component.html"><code>AWS::AmplifyUIBuilder::Component</code></a>.
 
@@ -96,30 +205,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>components</code> in a region.
-```sql
-SELECT
-region,
-app_id,
-binding_properties,
-children,
-collection_properties,
-component_type,
-created_at,
-environment_name,
-events,
-id,
-modified_at,
-name,
-overrides,
-properties,
-schema_version,
-source_id,
-tags,
-variants
-FROM awscc.amplifyuibuilder.components
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>component</code>.
 ```sql
 SELECT

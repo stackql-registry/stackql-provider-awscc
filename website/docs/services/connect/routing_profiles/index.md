@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>routing_profile</code> resource or lists <code>routing_profiles</code> in a region
 
@@ -32,21 +33,123 @@ Creates, updates, deletes or gets a <code>routing_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the routing profile.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the routing profile.</td></tr>
-<tr><td><CopyableCode code="media_concurrencies" /></td><td><code>array</code></td><td>The channels agents can handle in the Contact Control Panel (CCP) for this routing profile.</td></tr>
-<tr><td><CopyableCode code="default_outbound_queue_arn" /></td><td><code>string</code></td><td>The identifier of the default outbound queue for this routing profile.</td></tr>
-<tr><td><CopyableCode code="routing_profile_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the routing profile.</td></tr>
-<tr><td><CopyableCode code="queue_configs" /></td><td><code>array</code></td><td>The queues to associate with this routing profile.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="agent_availability_timer" /></td><td><code>string</code></td><td>Whether agents with this routing profile will have their routing order calculated based on longest idle time or time since their last inbound contact.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the routing profile."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the routing profile."
+  },
+  {
+    "name": "media_concurrencies",
+    "type": "array",
+    "description": "The channels agents can handle in the Contact Control Panel (CCP) for this routing profile.",
+    "children": [
+      {
+        "name": "channel",
+        "type": "string",
+        "description": "The channels that agents can handle in the Contact Control Panel (CCP)."
+      },
+      {
+        "name": "concurrency",
+        "type": "integer",
+        "description": "The number of contacts an agent can have on a channel simultaneously."
+      },
+      {
+        "name": "cross_channel_behavior",
+        "type": "object",
+        "description": "Defines the cross-channel routing behavior that allows an agent working on a contact in one channel to be offered a contact from a different channel.",
+        "children": [
+          {
+            "name": "behavior_type",
+            "type": "string",
+            "description": "Specifies the other channels that can be routed to an agent handling their current channel."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "default_outbound_queue_arn",
+    "type": "string",
+    "description": "The identifier of the default outbound queue for this routing profile."
+  },
+  {
+    "name": "routing_profile_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the routing profile."
+  },
+  {
+    "name": "queue_configs",
+    "type": "array",
+    "description": "The queues to associate with this routing profile.",
+    "children": [
+      {
+        "name": "delay",
+        "type": "integer",
+        "description": "The delay, in seconds, a contact should wait in the queue before they are routed to an available agent."
+      },
+      {
+        "name": "priority",
+        "type": "integer",
+        "description": "The order in which contacts are to be handled for the queue."
+      },
+      {
+        "name": "queue_reference",
+        "type": "object",
+        "description": "Contains the channel and queue identifier for a routing profile.",
+        "children": [
+          {
+            "name": "channel",
+            "type": "string",
+            "description": "The channels that agents can handle in the Contact Control Panel (CCP)."
+          },
+          {
+            "name": "queue_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) for the queue."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "agent_availability_timer",
+    "type": "string",
+    "description": "Whether agents with this routing profile will have their routing order calculated based on longest idle time or time since their last inbound contact."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-routingprofile.html"><code>AWS::Connect::RoutingProfile</code></a>.
 
@@ -88,22 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>routing_profiles</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-name,
-description,
-media_concurrencies,
-default_outbound_queue_arn,
-routing_profile_arn,
-queue_configs,
-tags,
-agent_availability_timer
-FROM awscc.connect.routing_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>routing_profile</code>.
 ```sql
 SELECT

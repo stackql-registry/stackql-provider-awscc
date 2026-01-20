@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>firewall_policies</code> in a region or regions, for all properties use <a href="/services/networkfirewall/firewall_policies/"><code>firewall_policies</code></a>
 
@@ -32,14 +33,57 @@ Lists <code>firewall_policies</code> in a region or regions, for all properties 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="firewall_policy_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="firewall_policy" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::FirewallPolicy</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "firewall_policy_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "firewall_policy",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::FirewallPolicy",
+    "children": [
+      {
+        "name": "firewall_policy_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "firewall_policy_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

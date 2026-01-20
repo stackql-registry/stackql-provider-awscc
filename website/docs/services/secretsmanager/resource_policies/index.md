@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_policy</code> resource or lists <code>resource_policies</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>resource_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The Arn of the secret.</td></tr>
-<tr><td><CopyableCode code="secret_id" /></td><td><code>string</code></td><td>The ARN or name of the secret to attach the resource-based policy.</td></tr>
-<tr><td><CopyableCode code="resource_policy" /></td><td><code>object</code></td><td>A JSON-formatted string for an AWS resource-based policy.</td></tr>
-<tr><td><CopyableCode code="block_public_policy" /></td><td><code>boolean</code></td><td>Specifies whether to block resource-based policies that allow broad access to the secret.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The Arn of the secret."
+  },
+  {
+    "name": "secret_id",
+    "type": "string",
+    "description": "The ARN or name of the secret to attach the resource-based policy."
+  },
+  {
+    "name": "resource_policy",
+    "type": "object",
+    "description": "A JSON-formatted string for an AWS resource-based policy."
+  },
+  {
+    "name": "block_public_policy",
+    "type": "boolean",
+    "description": "Specifies whether to block resource-based policies that allow broad access to the secret."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html"><code>AWS::SecretsManager::ResourcePolicy</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_policies</code> in a region.
-```sql
-SELECT
-region,
-id,
-secret_id,
-resource_policy,
-block_public_policy
-FROM awscc.secretsmanager.resource_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT

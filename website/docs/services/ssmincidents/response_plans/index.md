@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>response_plan</code> resource or lists <code>response_plans</code> in a region
 
@@ -32,21 +33,210 @@ Creates, updates, deletes or gets a <code>response_plan</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the response plan.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the response plan.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name of the response plan.</td></tr>
-<tr><td><CopyableCode code="chat_channel" /></td><td><code>object</code></td><td>The chat channel configuration.</td></tr>
-<tr><td><CopyableCode code="engagements" /></td><td><code>array</code></td><td>The list of engagements to use.</td></tr>
-<tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>The list of actions.</td></tr>
-<tr><td><CopyableCode code="integrations" /></td><td><code>array</code></td><td>The list of integrations.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the response plan.</td></tr>
-<tr><td><CopyableCode code="incident_template" /></td><td><code>object</code></td><td>The incident template configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the response plan."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the response plan."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name of the response plan."
+  },
+  {
+    "name": "chat_channel",
+    "type": "object",
+    "description": "The chat channel configuration.",
+    "children": [
+      {
+        "name": "chatbot_sns",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "engagements",
+    "type": "array",
+    "description": "The list of engagements to use."
+  },
+  {
+    "name": "actions",
+    "type": "array",
+    "description": "The list of actions.",
+    "children": [
+      {
+        "name": "ssm_automation",
+        "type": "object",
+        "description": "The configuration to use when starting the SSM automation document.",
+        "children": [
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": "The role ARN to use when starting the SSM automation document."
+          },
+          {
+            "name": "document_name",
+            "type": "string",
+            "description": "The document name to use when starting the SSM automation document."
+          },
+          {
+            "name": "document_version",
+            "type": "string",
+            "description": "The version of the document to use when starting the SSM automation document."
+          },
+          {
+            "name": "target_account",
+            "type": "string",
+            "description": "The account type to use when starting the SSM automation document."
+          },
+          {
+            "name": "parameters",
+            "type": "array",
+            "description": "The parameters to set when starting the SSM automation document.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "values",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "dynamic_parameters",
+            "type": "array",
+            "description": "The parameters with dynamic values to set when starting the SSM automation document.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "object",
+                "description": "Value of the dynamic parameter to set when starting the SSM automation document."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "integrations",
+    "type": "array",
+    "description": "The list of integrations.",
+    "children": [
+      {
+        "name": "pager_duty_configuration",
+        "type": "object",
+        "description": "The pagerDuty configuration to use when starting the incident.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the pagerDuty configuration."
+          },
+          {
+            "name": "secret_id",
+            "type": "string",
+            "description": "The AWS secrets manager secretId storing the pagerDuty token."
+          },
+          {
+            "name": "pager_duty_incident_configuration",
+            "type": "object",
+            "description": "The pagerDuty incident configuration.",
+            "children": [
+              {
+                "name": "service_id",
+                "type": "string",
+                "description": "The pagerDuty serviceId."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to apply to the response plan.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "incident_template",
+    "type": "object",
+    "description": "The incident template configuration.",
+    "children": [
+      {
+        "name": "dedupe_string",
+        "type": "string",
+        "description": "The deduplication string."
+      },
+      {
+        "name": "impact",
+        "type": "integer",
+        "description": "The impact value."
+      },
+      {
+        "name": "notification_targets",
+        "type": "array",
+        "description": "The list of notification targets.",
+        "children": [
+          {
+            "name": "sns_topic_arn",
+            "type": "string",
+            "description": "The ARN of the Chatbot SNS topic."
+          }
+        ]
+      },
+      {
+        "name": "summary",
+        "type": "string",
+        "description": "The summary string."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "The title string."
+      },
+      {
+        "name": "incident_tags",
+        "type": "array",
+        "description": "Tags that get applied to incidents created by the StartIncident API action."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmincidents-responseplan.html"><code>AWS::SSMIncidents::ResponsePlan</code></a>.
 
@@ -88,22 +278,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>response_plans</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-display_name,
-chat_channel,
-engagements,
-actions,
-integrations,
-tags,
-incident_template
-FROM awscc.ssmincidents.response_plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>response_plan</code>.
 ```sql
 SELECT

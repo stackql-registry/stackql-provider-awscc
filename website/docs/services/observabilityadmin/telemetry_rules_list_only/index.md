@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>telemetry_rules</code> in a region or regions, for all properties use <a href="/services/observabilityadmin/telemetry_rules/"><code>telemetry_rules</code></a>
 
@@ -32,14 +33,52 @@ Lists <code>telemetry_rules</code> in a region or regions, for all properties us
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule" /></td><td><code>object</code></td><td>The AWS::ObservabilityAdmin::TelemetryRule resource defines a CloudWatch Observability Admin Telemetry Rule.</td></tr>
-<tr><td><CopyableCode code="rule_arn" /></td><td><code>string</code></td><td>The arn of the telemetry rule</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule",
+    "type": "object",
+    "description": "The AWS::ObservabilityAdmin::TelemetryRule resource defines a CloudWatch Observability Admin Telemetry Rule.",
+    "children": [
+      {
+        "name": "rule_name",
+        "type": "string",
+        "description": "The name of the telemetry rule"
+      },
+      {
+        "name": "rule_arn",
+        "type": "string",
+        "description": "The arn of the telemetry rule"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to this resource",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "rule_arn",
+    "type": "string",
+    "description": "The arn of the telemetry rule"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

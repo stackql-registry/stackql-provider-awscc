@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>default_view_association</code> resource or lists <code>default_view_associations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>default_view_association</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="view_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_aws_principal" /></td><td><code>string</code></td><td>The AWS principal that the default view is associated with, used as the unique identifier for this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "view_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "associated_aws_principal",
+    "type": "string",
+    "description": "The AWS principal that the default view is associated with, used as the unique identifier for this resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resourceexplorer2-defaultviewassociation.html"><code>AWS::ResourceExplorer2::DefaultViewAssociation</code></a>.
 

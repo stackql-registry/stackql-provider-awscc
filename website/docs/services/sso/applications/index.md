@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,20 +33,89 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this Identity Center (SSO) Application</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description information for the Identity Center (SSO) Application</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The ARN of the instance of IAM Identity Center under which the operation will run</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The Application ARN that is returned upon creation of the Identity Center (SSO) Application</td></tr>
-<tr><td><CopyableCode code="application_provider_arn" /></td><td><code>string</code></td><td>The ARN of the application provider under which the operation will run</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Specifies whether the application is enabled or disabled</td></tr>
-<tr><td><CopyableCode code="portal_options" /></td><td><code>object</code></td><td>A structure that describes the options for the portal associated with an application</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this Identity Center (SSO) Application"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description information for the Identity Center (SSO) Application"
+  },
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The ARN of the instance of IAM Identity Center under which the operation will run"
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": "The Application ARN that is returned upon creation of the Identity Center (SSO) Application"
+  },
+  {
+    "name": "application_provider_arn",
+    "type": "string",
+    "description": "The ARN of the application provider under which the operation will run"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Specifies whether the application is enabled or disabled"
+  },
+  {
+    "name": "portal_options",
+    "type": "object",
+    "description": "A structure that describes the options for the portal associated with an application",
+    "children": [
+      {
+        "name": "visibility",
+        "type": "string",
+        "description": "Indicates whether this application is visible in the access portal"
+      },
+      {
+        "name": "sign_in_options",
+        "type": "object",
+        "description": "A structure that describes the sign-in options for the access portal",
+        "children": [
+          {
+            "name": "origin",
+            "type": "string",
+            "description": "This determines how IAM Identity Center navigates the user to the target application"
+          },
+          {
+            "name": "application_url",
+            "type": "string",
+            "description": "The URL that accepts authentication requests for an application, this is a required parameter if the Origin parameter is APPLICATION"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-application.html"><code>AWS::SSO::Application</code></a>.
 
@@ -87,21 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-instance_arn,
-application_arn,
-application_provider_arn,
-status,
-portal_options,
-tags
-FROM awscc.sso.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

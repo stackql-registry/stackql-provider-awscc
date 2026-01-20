@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>workspaces_pool</code> resource or lists <code>workspaces_pools</code> in a region
 
@@ -32,24 +33,121 @@ Creates, updates, deletes or gets a <code>workspaces_pool</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pool_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capacity" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="pool_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bundle_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="directory_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="timeout_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="running_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pool_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capacity",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "desired_user_sessions",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "pool_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bundle_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "directory_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "settings_group",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "timeout_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "disconnect_timeout_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "idle_disconnect_timeout_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "max_user_duration_in_seconds",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "running_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspacespool.html"><code>AWS::WorkSpaces::WorkspacesPool</code></a>.
 
@@ -91,25 +189,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>workspaces_pools</code> in a region.
-```sql
-SELECT
-region,
-pool_id,
-pool_arn,
-capacity,
-pool_name,
-description,
-created_at,
-bundle_id,
-directory_id,
-application_settings,
-timeout_settings,
-running_mode,
-tags
-FROM awscc.workspaces.workspaces_pools
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>workspaces_pool</code>.
 ```sql
 SELECT

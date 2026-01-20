@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_peering_attachment</code> resource or lists <code>transit_gateway_peering_attachments</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>transit_gateway_peering_attachment</co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>object</code></td><td>The status of the transit gateway peering attachment.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr>
-<tr><td><CopyableCode code="peer_transit_gateway_id" /></td><td><code>string</code></td><td>The ID of the peer transit gateway.</td></tr>
-<tr><td><CopyableCode code="peer_account_id" /></td><td><code>string</code></td><td>The ID of the peer account</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the transit gateway peering attachment. Note that the initiating state has been deprecated.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time the transit gateway peering attachment was created.</td></tr>
-<tr><td><CopyableCode code="peer_region" /></td><td><code>string</code></td><td>Peer Region</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the transit gateway peering attachment.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the transit gateway peering attachment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "object",
+    "description": "The status of the transit gateway peering attachment.",
+    "children": [
+      {
+        "name": "message",
+        "type": "string",
+        "description": "The status message, if applicable."
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "description": "The status code."
+      }
+    ]
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": "The ID of the transit gateway."
+  },
+  {
+    "name": "peer_transit_gateway_id",
+    "type": "string",
+    "description": "The ID of the peer transit gateway."
+  },
+  {
+    "name": "peer_account_id",
+    "type": "string",
+    "description": "The ID of the peer account"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the transit gateway peering attachment. Note that the initiating state has been deprecated."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time the transit gateway peering attachment was created."
+  },
+  {
+    "name": "peer_region",
+    "type": "string",
+    "description": "Peer Region"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the transit gateway peering attachment.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the transit gateway peering attachment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewaypeeringattachment.html"><code>AWS::EC2::TransitGatewayPeeringAttachment</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_peering_attachments</code> in a region.
-```sql
-SELECT
-region,
-status,
-transit_gateway_id,
-peer_transit_gateway_id,
-peer_account_id,
-state,
-creation_time,
-peer_region,
-tags,
-transit_gateway_attachment_id
-FROM awscc.ec2.transit_gateway_peering_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_peering_attachment</code>.
 ```sql
 SELECT

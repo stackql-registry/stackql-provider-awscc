@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>type_activation</code> resource or lists <code>type_activations</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>type_activation</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the extension.</td></tr>
-<tr><td><CopyableCode code="execution_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM execution role to use to register the type. If your resource type calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. CloudFormation then assumes that execution role to provide your resource type with the appropriate credentials.</td></tr>
-<tr><td><CopyableCode code="publisher_id" /></td><td><code>string</code></td><td>The reserved publisher id for this type, or the publisher id assigned by CloudFormation for publishing in this region.</td></tr>
-<tr><td><CopyableCode code="logging_config" /></td><td><code>object</code></td><td>Specifies logging configuration information for a type.</td></tr>
-<tr><td><CopyableCode code="public_type_arn" /></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) assigned to the public extension upon publication</td></tr>
-<tr><td><CopyableCode code="auto_update" /></td><td><code>boolean</code></td><td>Whether to automatically update the extension in this account and region when a new minor version is published by the extension publisher. Major versions released by the publisher must be manually updated.</td></tr>
-<tr><td><CopyableCode code="type_name_alias" /></td><td><code>string</code></td><td>An alias to assign to the public extension in this account and region. If you specify an alias for the extension, you must then use the alias to refer to the extension in your templates.</td></tr>
-<tr><td><CopyableCode code="version_bump" /></td><td><code>string</code></td><td>Manually updates a previously-enabled type to a new major or minor version, if available. You can also use this parameter to update the value of AutoUpdateEnabled</td></tr>
-<tr><td><CopyableCode code="major_version" /></td><td><code>string</code></td><td>The Major Version of the type you want to enable</td></tr>
-<tr><td><CopyableCode code="type_name" /></td><td><code>string</code></td><td>The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company_or_organization::service::type.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The kind of extension</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the extension."
+  },
+  {
+    "name": "execution_role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM execution role to use to register the type. If your resource type calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. CloudFormation then assumes that execution role to provide your resource type with the appropriate credentials."
+  },
+  {
+    "name": "publisher_id",
+    "type": "string",
+    "description": "The reserved publisher id for this type, or the publisher id assigned by CloudFormation for publishing in this region."
+  },
+  {
+    "name": "logging_config",
+    "type": "object",
+    "description": "Specifies logging configuration information for a type.",
+    "children": [
+      {
+        "name": "log_group_name",
+        "type": "string",
+        "description": "The Amazon CloudWatch log group to which CloudFormation sends error logging information when invoking the type's handlers."
+      },
+      {
+        "name": "log_role_arn",
+        "type": "string",
+        "description": "The ARN of the role that CloudFormation should assume when sending log entries to CloudWatch logs."
+      }
+    ]
+  },
+  {
+    "name": "public_type_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) assigned to the public extension upon publication"
+  },
+  {
+    "name": "auto_update",
+    "type": "boolean",
+    "description": "Whether to automatically update the extension in this account and region when a new minor version is published by the extension publisher. Major versions released by the publisher must be manually updated."
+  },
+  {
+    "name": "type_name_alias",
+    "type": "string",
+    "description": "An alias to assign to the public extension in this account and region. If you specify an alias for the extension, you must then use the alias to refer to the extension in your templates."
+  },
+  {
+    "name": "version_bump",
+    "type": "string",
+    "description": "Manually updates a previously-enabled type to a new major or minor version, if available. You can also use this parameter to update the value of AutoUpdateEnabled"
+  },
+  {
+    "name": "major_version",
+    "type": "string",
+    "description": "The Major Version of the type you want to enable"
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The kind of extension"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-typeactivation.html"><code>AWS::CloudFormation::TypeActivation</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>type_activations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-execution_role_arn,
-publisher_id,
-logging_config,
-public_type_arn,
-auto_update,
-type_name_alias,
-version_bump,
-major_version,
-type_name,
-type
-FROM awscc.cloudformation.type_activations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>type_activation</code>.
 ```sql
 SELECT

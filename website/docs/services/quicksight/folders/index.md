@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>folder</code> resource or lists <code>folders</code> in a region
 
@@ -32,23 +33,92 @@ Creates, updates, deletes or gets a <code>folder</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) for the folder.</p></td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td><p>The time that the folder was created.</p></td></tr>
-<tr><td><CopyableCode code="folder_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="folder_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td><p>The time that the folder was last updated.</p></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parent_folder_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sharing_model" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) for the folder.</p>"
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "<p>The time that the folder was created.</p>"
+  },
+  {
+    "name": "folder_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "folder_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "<p>The time that the folder was last updated.</p>"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parent_folder_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "permissions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "<p>The Amazon Resource Name (ARN) of the principal. This can be one of the<br />following:</p><br /><ul><br /><li><br /><p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p><br /></li><br /><li><br /><p>The ARN of an Amazon Web Services account root: This is an IAM ARN rather than a QuickSight<br />ARN. Use this option only to share resources (templates) across Amazon Web Services accounts.<br />(This is less common.) </p><br /></li><br /></ul>"
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "description": "<p>The IAM action to grant or revoke permissions on.</p>"
+      }
+    ]
+  },
+  {
+    "name": "sharing_model",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-folder.html"><code>AWS::QuickSight::Folder</code></a>.
 
@@ -90,24 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>folders</code> in a region.
-```sql
-SELECT
-region,
-arn,
-aws_account_id,
-created_time,
-folder_id,
-folder_type,
-last_updated_time,
-name,
-parent_folder_arn,
-permissions,
-sharing_model,
-tags
-FROM awscc.quicksight.folders
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>folder</code>.
 ```sql
 SELECT

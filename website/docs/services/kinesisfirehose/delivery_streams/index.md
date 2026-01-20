@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>delivery_stream</code> resource or lists <code>delivery_streams</code> in a region
 
@@ -32,31 +33,2656 @@ Creates, updates, deletes or gets a <code>delivery_stream</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="delivery_stream_encryption_configuration_input" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="http_endpoint_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="kinesis_stream_source_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="delivery_stream_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="iceberg_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="redshift_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="amazonopensearchservice_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="msk_source_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="direct_put_source_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="splunk_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="extended_s3_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="amazon_open_search_serverless_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="elasticsearch_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="snowflake_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="database_source_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="s3_destination_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="delivery_stream_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "delivery_stream_encryption_configuration_input",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "key_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "http_endpoint_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "request_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "common_attributes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "attribute_value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "attribute_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "content_encoding",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "secrets_manager_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "endpoint_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "access_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "kinesis_stream_source_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kinesis_stream_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "delivery_stream_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "iceberg_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "catalog_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "catalog_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "warehouse_location",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "destination_table_configuration_list",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "destination_database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "s3_error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_table_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "unique_keys",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "partition_spec",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "identity",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table_creation_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "schema_evolution_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "append_only",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "redshift_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_backup_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "copy_command",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "data_table_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "copy_options",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "data_table_columns",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "secrets_manager_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "cluster_jdb_curl",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "amazonopensearchservice_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "index_rotation_period",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cluster_endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "domain_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "index_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "document_id_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "default_document_id_format",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "subnet_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "security_group_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "msk_source_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "authentication_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "connectivity",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "read_from_timestamp",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "msk_cluster_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "topic_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "direct_put_source_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "throughput_hint_in_mbs",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "splunk_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "h_ec_endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "h_ec_token",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "h_ec_endpoint_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets_manager_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "h_ecacknowledgment_timeout_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "extended_s3_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "error_output_prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "bucket_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "compression_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_format_conversion_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "input_format_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "deserializer",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "schema_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "version_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "table_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "database_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "region",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "catalog_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "output_format_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "serializer",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "encryption_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "kms_encryption_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "aws_kms_key_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "no_encryption_config",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "custom_time_zone",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dynamic_partitioning_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "retry_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "duration_in_seconds",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "file_extension",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "amazon_open_search_serverless_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "index_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "collection_endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "subnet_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "security_group_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "elasticsearch_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "index_rotation_period",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cluster_endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "domain_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "index_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "document_id_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "default_document_id_format",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "subnet_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "security_group_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "snowflake_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "private_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "table",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "snowflake_vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "private_link_vpce_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "data_loading_option",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "schema",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "content_column_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets_manager_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "snowflake_role_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "snowflake_role",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "processing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "processors",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "account_url",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_backup_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "error_output_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "buffering_hints",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "interval_in_seconds",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "size_in_mbs",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "compression_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "kms_encryption_config",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "no_encryption_config",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cloud_watch_logging_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_stream_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "log_group_name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "meta_data_column_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "database",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "retry_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "duration_in_seconds",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "key_passphrase",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "database_source_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "digest",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "public_certificate",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "columns",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "include",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "surrogate_keys",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "databases",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "include",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "endpoint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s_sl_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "snapshot_watermark_table",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "database_source_authentication_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "secrets_manager_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "secret_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "role_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "tables",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "exclude",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "include",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "database_source_vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "vpc_endpoint_service_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "s3_destination_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "error_output_prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "buffering_hints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "interval_in_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "size_in_mbs",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "compression_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "encryption_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "kms_encryption_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "aws_kms_key_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "no_encryption_config",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_logging_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "log_stream_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "delivery_stream_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html"><code>AWS::KinesisFirehose::DeliveryStream</code></a>.
 
@@ -98,32 +2724,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>delivery_streams</code> in a region.
-```sql
-SELECT
-region,
-delivery_stream_encryption_configuration_input,
-http_endpoint_destination_configuration,
-kinesis_stream_source_configuration,
-delivery_stream_type,
-iceberg_destination_configuration,
-redshift_destination_configuration,
-amazonopensearchservice_destination_configuration,
-msk_source_configuration,
-direct_put_source_configuration,
-splunk_destination_configuration,
-extended_s3_destination_configuration,
-amazon_open_search_serverless_destination_configuration,
-elasticsearch_destination_configuration,
-snowflake_destination_configuration,
-database_source_configuration,
-s3_destination_configuration,
-delivery_stream_name,
-arn,
-tags
-FROM awscc.kinesisfirehose.delivery_streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>delivery_stream</code>.
 ```sql
 SELECT

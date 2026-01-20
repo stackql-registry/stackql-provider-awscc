@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>agent_status</code> resource or lists <code>agent_statuses</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets an <code>agent_status</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="agent_status_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the agent status.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the status.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the status.</td></tr>
-<tr><td><CopyableCode code="display_order" /></td><td><code>integer</code></td><td>The display order of the status.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the status.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of agent status.</td></tr>
-<tr><td><CopyableCode code="reset_order_number" /></td><td><code>boolean</code></td><td>A number indicating the reset order of the agent status.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="last_modified_region" /></td><td><code>string</code></td><td>Last modified region.</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>number</code></td><td>Last modified time.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "agent_status_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the agent status."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the status."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the status."
+  },
+  {
+    "name": "display_order",
+    "type": "integer",
+    "description": "The display order of the status."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the status."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of agent status."
+  },
+  {
+    "name": "reset_order_number",
+    "type": "boolean",
+    "description": "A number indicating the reset order of the agent status."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "last_modified_region",
+    "type": "string",
+    "description": "Last modified region."
+  },
+  {
+    "name": "last_modified_time",
+    "type": "number",
+    "description": "Last modified time."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-agentstatus.html"><code>AWS::Connect::AgentStatus</code></a>.
 
@@ -85,24 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>agent_statuses</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-agent_status_arn,
-description,
-name,
-display_order,
-state,
-type,
-reset_order_number,
-tags,
-last_modified_region,
-last_modified_time
-FROM awscc.connect.agent_statuses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>agent_status</code>.
 ```sql
 SELECT

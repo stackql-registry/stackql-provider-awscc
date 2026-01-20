@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app_block</code> resource or lists <code>app_blocks</code> in a region
 
@@ -32,22 +33,99 @@ Creates, updates, deletes or gets an <code>app_block</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="setup_script_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="packaging_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="post_setup_script_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_s3_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "setup_script_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "executable_path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "executable_parameters",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "timeout_in_seconds",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "packaging_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-appblock.html"><code>AWS::AppStream::AppBlock</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment</code> resource or lists <code>deployments</code> in a region
 
@@ -32,23 +33,97 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deployment_strategy_id" /></td><td><code>string</code></td><td>The deployment strategy ID.</td></tr>
-<tr><td><CopyableCode code="configuration_profile_id" /></td><td><code>string</code></td><td>The configuration profile ID.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The environment ID.</td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td>The AWS Key Management Service key identifier (key ID, key alias, or key ARN) provided when the resource was created or updated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the deployment.</td></tr>
-<tr><td><CopyableCode code="configuration_version" /></td><td><code>string</code></td><td>The configuration version to deploy. If deploying an AWS AppConfig hosted configuration version, you can specify either the version number or version label. For all other configurations, you must specify the version number.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the deployment.</td></tr>
-<tr><td><CopyableCode code="deployment_number" /></td><td><code>string</code></td><td>The sequence number of the deployment.</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="dynamic_extension_parameters" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deployment_strategy_id",
+    "type": "string",
+    "description": "The deployment strategy ID."
+  },
+  {
+    "name": "configuration_profile_id",
+    "type": "string",
+    "description": "The configuration profile ID."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The environment ID."
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": "The AWS Key Management Service key identifier (key ID, key alias, or key ARN) provided when the resource was created or updated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the deployment."
+  },
+  {
+    "name": "configuration_version",
+    "type": "string",
+    "description": "The configuration version to deploy. If deploying an AWS AppConfig hosted configuration version, you can specify either the version number or version label. For all other configurations, you must specify the version number."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the deployment."
+  },
+  {
+    "name": "deployment_number",
+    "type": "string",
+    "description": "The sequence number of the deployment."
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "dynamic_extension_parameters",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "parameter_value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "extension_reference",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameter_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-deployment.html"><code>AWS::AppConfig::Deployment</code></a>.
 
@@ -85,24 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployments</code> in a region.
-```sql
-SELECT
-region,
-deployment_strategy_id,
-configuration_profile_id,
-environment_id,
-kms_key_identifier,
-description,
-configuration_version,
-state,
-deployment_number,
-application_id,
-dynamic_extension_parameters,
-tags
-FROM awscc.appconfig.deployments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_config</code> resource or lists <code>security_configs</code> in a region
 
@@ -32,18 +33,102 @@ Creates, updates, deletes or gets a <code>security_config</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Security config description</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The identifier of the security config</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The friendly name of the security config</td></tr>
-<tr><td><CopyableCode code="saml_options" /></td><td><code>object</code></td><td>Describes saml options in form of key value map</td></tr>
-<tr><td><CopyableCode code="iam_identity_center_options" /></td><td><code>object</code></td><td>Describes IAM Identity Center options for an OpenSearch Serverless security configuration in the form of a key-value map</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Config type for security config</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Security config description"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The identifier of the security config"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The friendly name of the security config"
+  },
+  {
+    "name": "saml_options",
+    "type": "object",
+    "description": "Describes saml options in form of key value map",
+    "children": [
+      {
+        "name": "metadata",
+        "type": "string",
+        "description": "The XML saml provider metadata document that you want to use"
+      },
+      {
+        "name": "user_attribute",
+        "type": "string",
+        "description": "Custom attribute for this saml integration"
+      },
+      {
+        "name": "group_attribute",
+        "type": "string",
+        "description": "Group attribute for this saml integration"
+      },
+      {
+        "name": "open_search_serverless_entity_id",
+        "type": "string",
+        "description": "Custom entity id attribute to override default entity id for this saml integration"
+      },
+      {
+        "name": "session_timeout",
+        "type": "integer",
+        "description": "Defines the session timeout in minutes"
+      }
+    ]
+  },
+  {
+    "name": "iam_identity_center_options",
+    "type": "object",
+    "description": "Describes IAM Identity Center options for an OpenSearch Serverless security configuration in the form of a key-value map",
+    "children": [
+      {
+        "name": "instance_arn",
+        "type": "string",
+        "description": "The ARN of the IAM Identity Center instance used to integrate with OpenSearch Serverless"
+      },
+      {
+        "name": "application_arn",
+        "type": "string",
+        "description": "The ARN of the IAM Identity Center application used to integrate with OpenSearch Serverless"
+      },
+      {
+        "name": "application_name",
+        "type": "string",
+        "description": "The name of the IAM Identity Center application used to integrate with OpenSearch Serverless"
+      },
+      {
+        "name": "application_description",
+        "type": "string",
+        "description": "The description of the IAM Identity Center application used to integrate with OpenSearch Serverless"
+      },
+      {
+        "name": "user_attribute",
+        "type": "string",
+        "description": "User attribute for this IAM Identity Center integration"
+      },
+      {
+        "name": "group_attribute",
+        "type": "string",
+        "description": "Group attribute for this IAM Identity Center integration"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Config type for security config"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchserverless-securityconfig.html"><code>AWS::OpenSearchServerless::SecurityConfig</code></a>.
 
@@ -85,19 +170,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_configs</code> in a region.
-```sql
-SELECT
-region,
-description,
-id,
-name,
-saml_options,
-iam_identity_center_options,
-type
-FROM awscc.opensearchserverless.security_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_config</code>.
 ```sql
 SELECT

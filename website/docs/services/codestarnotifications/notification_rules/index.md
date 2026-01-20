@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>notification_rule</code> resource or lists <code>notification_rules</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>notification_rule</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="event_type_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_by" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_address" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_type_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="detail_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="targets" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "event_type_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_by",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_address",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_type_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "detail_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "targets",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "target_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "target_address",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarnotifications-notificationrule.html"><code>AWS::CodeStarNotifications::NotificationRule</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>notification_rules</code> in a region.
-```sql
-SELECT
-region,
-event_type_id,
-created_by,
-target_address,
-event_type_ids,
-status,
-detail_type,
-resource,
-targets,
-tags,
-name,
-arn
-FROM awscc.codestarnotifications.notification_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>notification_rule</code>.
 ```sql
 SELECT

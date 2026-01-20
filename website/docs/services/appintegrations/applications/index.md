@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,24 +33,130 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The id of the application.</td></tr>
-<tr><td><CopyableCode code="namespace" /></td><td><code>string</code></td><td>The namespace of the application.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The application description.</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the application.</td></tr>
-<tr><td><CopyableCode code="application_source_config" /></td><td><code>object</code></td><td>Application source config</td></tr>
-<tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td>The configuration of events or requests that the application has access to.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the application.</td></tr>
-<tr><td><CopyableCode code="is_service" /></td><td><code>boolean</code></td><td>Indicates if the application is a service</td></tr>
-<tr><td><CopyableCode code="initialization_timeout" /></td><td><code>integer</code></td><td>The initialization timeout in milliseconds. Required when IsService is true.</td></tr>
-<tr><td><CopyableCode code="application_config" /></td><td><code>object</code></td><td>The application configuration. Cannot be used when IsService is true.</td></tr>
-<tr><td><CopyableCode code="iframe_config" /></td><td><code>object</code></td><td>The iframe configuration</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the application."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The id of the application."
+  },
+  {
+    "name": "namespace",
+    "type": "string",
+    "description": "The namespace of the application."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The application description."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the application."
+  },
+  {
+    "name": "application_source_config",
+    "type": "object",
+    "description": "Application source config",
+    "children": [
+      {
+        "name": "external_url_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "access_url",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "approved_origins",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "permissions",
+    "type": "array",
+    "description": "The configuration of events or requests that the application has access to."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the application.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key to identify the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Corresponding tag value for the key."
+      }
+    ]
+  },
+  {
+    "name": "is_service",
+    "type": "boolean",
+    "description": "Indicates if the application is a service"
+  },
+  {
+    "name": "initialization_timeout",
+    "type": "integer",
+    "description": "The initialization timeout in milliseconds. Required when IsService is true."
+  },
+  {
+    "name": "application_config",
+    "type": "object",
+    "description": "The application configuration. Cannot be used when IsService is true.",
+    "children": [
+      {
+        "name": "contact_handling",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "scope",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "iframe_config",
+    "type": "object",
+    "description": "The iframe configuration",
+    "children": [
+      {
+        "name": "allow",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "sandbox",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appintegrations-application.html"><code>AWS::AppIntegrations::Application</code></a>.
 
@@ -91,25 +198,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-name,
-id,
-namespace,
-description,
-application_arn,
-application_source_config,
-permissions,
-tags,
-is_service,
-initialization_timeout,
-application_config,
-iframe_config
-FROM awscc.appintegrations.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

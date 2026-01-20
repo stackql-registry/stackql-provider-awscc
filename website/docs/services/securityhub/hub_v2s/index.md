@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>hub_v2</code> resource or lists <code>hub_v2s</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>hub_v2</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="hub_v2_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name of the Security Hub V2 resource.</td></tr>
-<tr><td><CopyableCode code="subscribed_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "hub_v2_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name of the Security Hub V2 resource."
+  },
+  {
+    "name": "subscribed_at",
+    "type": "string",
+    "description": "The date and time, in UTC and ISO 8601 format."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-hubv2.html"><code>AWS::SecurityHub::HubV2</code></a>.
 
@@ -82,16 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hub_v2s</code> in a region.
-```sql
-SELECT
-region,
-hub_v2_arn,
-subscribed_at,
-tags
-FROM awscc.securityhub.hub_v2s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>hub_v2</code>.
 ```sql
 SELECT

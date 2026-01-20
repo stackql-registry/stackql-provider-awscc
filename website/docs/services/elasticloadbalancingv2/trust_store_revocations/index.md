@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>trust_store_revocation</code> resource or lists <code>trust_store_revocations</code> in a region
 
@@ -32,16 +33,77 @@ Creates, updates, deletes or gets a <code>trust_store_revocation</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="revocation_contents" /></td><td><code>array</code></td><td>The attributes required to create a trust store revocation.</td></tr>
-<tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the trust store.</td></tr>
-<tr><td><CopyableCode code="revocation_id" /></td><td><code>integer</code></td><td>The ID associated with the revocation.</td></tr>
-<tr><td><CopyableCode code="trust_store_revocations" /></td><td><code>array</code></td><td>The data associated with a trust store revocation</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "revocation_contents",
+    "type": "array",
+    "description": "The attributes required to create a trust store revocation.",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_object_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "revocation_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "trust_store_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the trust store."
+  },
+  {
+    "name": "revocation_id",
+    "type": "integer",
+    "description": "The ID associated with the revocation."
+  },
+  {
+    "name": "trust_store_revocations",
+    "type": "array",
+    "description": "The data associated with a trust store revocation",
+    "children": [
+      {
+        "name": "revocation_contents",
+        "type": "array",
+        "description": "The attributes required to create a trust store revocation."
+      },
+      {
+        "name": "trust_store_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the trust store."
+      },
+      {
+        "name": "revocation_id",
+        "type": "integer",
+        "description": "The ID associated with the revocation."
+      },
+      {
+        "name": "trust_store_revocations",
+        "type": "array",
+        "description": "The data associated with a trust store revocation"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-truststorerevocation.html"><code>AWS::ElasticLoadBalancingV2::TrustStoreRevocation</code></a>.
 
@@ -78,17 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>trust_store_revocations</code> in a region.
-```sql
-SELECT
-region,
-revocation_contents,
-trust_store_arn,
-revocation_id,
-trust_store_revocations
-FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>trust_store_revocation</code>.
 ```sql
 SELECT

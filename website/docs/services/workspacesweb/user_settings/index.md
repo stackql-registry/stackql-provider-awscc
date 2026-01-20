@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_setting</code> resource or lists <code>user_settings</code> in a region
 
@@ -32,27 +33,126 @@ Creates, updates, deletes or gets an <code>user_setting</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="cookie_synchronization_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="copy_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_key" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="disconnect_timeout_in_minutes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="download_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="idle_disconnect_timeout_in_minutes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="paste_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="print_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="toolbar_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="upload_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deep_link_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "cookie_synchronization_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allowlist",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "domain",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "path",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "blocklist",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "copy_allowed",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_managed_key",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "disconnect_timeout_in_minutes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "idle_disconnect_timeout_in_minutes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "toolbar_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "toolbar_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "visual_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "hidden_toolbar_items",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "max_display_resolution",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-usersetting.html"><code>AWS::WorkSpacesWeb::UserSettings</code></a>.
 
@@ -94,28 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_settings</code> in a region.
-```sql
-SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-cookie_synchronization_configuration,
-copy_allowed,
-customer_managed_key,
-disconnect_timeout_in_minutes,
-download_allowed,
-idle_disconnect_timeout_in_minutes,
-paste_allowed,
-print_allowed,
-tags,
-toolbar_configuration,
-upload_allowed,
-user_settings_arn,
-deep_link_allowed
-FROM awscc.workspacesweb.user_settings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_setting</code>.
 ```sql
 SELECT

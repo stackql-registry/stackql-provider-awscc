@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>routing_control</code> resource or lists <code>routing_controls</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>routing_control</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="routing_control_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the routing control.</td></tr>
-<tr><td><CopyableCode code="control_panel_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the control panel.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the routing control. You can use any non-white space character in the name.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.</td></tr>
-<tr><td><CopyableCode code="cluster_arn" /></td><td><code>string</code></td><td>Arn associated with Control Panel</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "routing_control_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the routing control."
+  },
+  {
+    "name": "control_panel_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the control panel."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the routing control. You can use any non-white space character in the name."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING&#95;DELETION."
+  },
+  {
+    "name": "cluster_arn",
+    "type": "string",
+    "description": "Arn associated with Control Panel"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoverycontrol-routingcontrol.html"><code>AWS::Route53RecoveryControl::RoutingControl</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>routing_controls</code> in a region.
-```sql
-SELECT
-region,
-routing_control_arn,
-control_panel_arn,
-name,
-status,
-cluster_arn
-FROM awscc.route53recoverycontrol.routing_controls
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>routing_control</code>.
 ```sql
 SELECT

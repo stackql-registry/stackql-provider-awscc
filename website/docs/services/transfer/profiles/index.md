@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>profile</code> resource or lists <code>profiles</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>profile</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="as2_id" /></td><td><code>string</code></td><td>AS2 identifier agreed with a trading partner.</td></tr>
-<tr><td><CopyableCode code="profile_type" /></td><td><code>string</code></td><td>Enum specifying whether the profile is local or associated with a trading partner.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="certificate_ids" /></td><td><code>array</code></td><td>List of the certificate IDs associated with this profile to be used for encryption and signing of AS2 messages.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the profile.</td></tr>
-<tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td>A unique identifier for the profile</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "as2_id",
+    "type": "string",
+    "description": "AS2 identifier agreed with a trading partner."
+  },
+  {
+    "name": "profile_type",
+    "type": "string",
+    "description": "Enum specifying whether the profile is local or associated with a trading partner."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "certificate_ids",
+    "type": "array",
+    "description": "List of the certificate IDs associated with this profile to be used for encryption and signing of AS2 messages."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the profile."
+  },
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": "A unique identifier for the profile"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html"><code>AWS::Transfer::Profile</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>profiles</code> in a region.
-```sql
-SELECT
-region,
-as2_id,
-profile_type,
-tags,
-certificate_ids,
-arn,
-profile_id
-FROM awscc.transfer.profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT

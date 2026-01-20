@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel_group</code> resource or lists <code>channel_groups</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>channel_group</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) associated with the resource.</p></td></tr>
-<tr><td><CopyableCode code="channel_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td><p>The date and time the channel group was created.</p></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>Enter any descriptive text that helps you to identify the channel group.</p></td></tr>
-<tr><td><CopyableCode code="egress_domain" /></td><td><code>string</code></td><td><p>The output domain where the source stream should be sent. Integrate the domain with a downstream CDN (such as Amazon CloudFront) or playback device.</p></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td><p>The date and time the channel group was modified.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) associated with the resource.</p>"
+  },
+  {
+    "name": "channel_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "<p>The date and time the channel group was created.</p>"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "<p>Enter any descriptive text that helps you to identify the channel group.</p>"
+  },
+  {
+    "name": "egress_domain",
+    "type": "string",
+    "description": "<p>The output domain where the source stream should be sent. Integrate the domain with a downstream CDN (such as Amazon CloudFront) or playback device.</p>"
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": "<p>The date and time the channel group was modified.</p>"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediapackagev2-channelgroup.html"><code>AWS::MediaPackageV2::ChannelGroup</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channel_groups</code> in a region.
-```sql
-SELECT
-region,
-arn,
-channel_group_name,
-created_at,
-description,
-egress_domain,
-modified_at,
-tags
-FROM awscc.mediapackagev2.channel_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel_group</code>.
 ```sql
 SELECT

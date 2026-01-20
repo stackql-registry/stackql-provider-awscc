@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>portfolio_share</code> resource or lists <code>portfolio_shares</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>portfolio_share</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="accept_language" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portfolio_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="share_tag_options" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "accept_language",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portfolio_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "share_tag_options",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioshare.html"><code>AWS::ServiceCatalog::PortfolioShare</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>certificate</code> resource or lists <code>certificates</code> in a region
 
@@ -32,27 +33,100 @@ Creates, updates, deletes or gets a <code>certificate</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="usage" /></td><td><code>string</code></td><td>Specifies the usage type for the certificate.</td></tr>
-<tr><td><CopyableCode code="certificate" /></td><td><code>string</code></td><td>Specifies the certificate body to be imported.</td></tr>
-<tr><td><CopyableCode code="certificate_chain" /></td><td><code>string</code></td><td>Specifies the certificate chain to be imported.</td></tr>
-<tr><td><CopyableCode code="private_key" /></td><td><code>string</code></td><td>Specifies the private key for the certificate.</td></tr>
-<tr><td><CopyableCode code="active_date" /></td><td><code>string</code></td><td>Specifies the active date for the certificate.</td></tr>
-<tr><td><CopyableCode code="inactive_date" /></td><td><code>string</code></td><td>Specifies the inactive date for the certificate.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A textual description for the certificate.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for certificates. Tags are metadata attached to certificates for any purpose.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the agreement.</td></tr>
-<tr><td><CopyableCode code="certificate_id" /></td><td><code>string</code></td><td>A unique identifier for the certificate.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>A status description for the certificate.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Describing the type of certificate. With or without a private key.</td></tr>
-<tr><td><CopyableCode code="serial" /></td><td><code>string</code></td><td>Specifies Certificate's serial.</td></tr>
-<tr><td><CopyableCode code="not_before_date" /></td><td><code>string</code></td><td>Specifies the not before date for the certificate.</td></tr>
-<tr><td><CopyableCode code="not_after_date" /></td><td><code>string</code></td><td>Specifies the not after date for the certificate.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "usage",
+    "type": "string",
+    "description": "Specifies the usage type for the certificate."
+  },
+  {
+    "name": "certificate",
+    "type": "string",
+    "description": "Specifies the certificate body to be imported."
+  },
+  {
+    "name": "certificate_chain",
+    "type": "string",
+    "description": "Specifies the certificate chain to be imported."
+  },
+  {
+    "name": "private_key",
+    "type": "string",
+    "description": "Specifies the private key for the certificate."
+  },
+  {
+    "name": "active_date",
+    "type": "string",
+    "description": "Specifies the active date for the certificate."
+  },
+  {
+    "name": "inactive_date",
+    "type": "string",
+    "description": "Specifies the inactive date for the certificate."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A textual description for the certificate."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Key-value pairs that can be used to group and search for certificates. Tags are metadata attached to certificates for any purpose.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the agreement."
+  },
+  {
+    "name": "certificate_id",
+    "type": "string",
+    "description": "A unique identifier for the certificate."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "A status description for the certificate."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Describing the type of certificate. With or without a private key."
+  },
+  {
+    "name": "serial",
+    "type": "string",
+    "description": "Specifies Certificate's serial."
+  },
+  {
+    "name": "not_before_date",
+    "type": "string",
+    "description": "Specifies the not before date for the certificate."
+  },
+  {
+    "name": "not_after_date",
+    "type": "string",
+    "description": "Specifies the not after date for the certificate."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html"><code>AWS::Transfer::Certificate</code></a>.
 
@@ -94,28 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>certificates</code> in a region.
-```sql
-SELECT
-region,
-usage,
-certificate,
-certificate_chain,
-private_key,
-active_date,
-inactive_date,
-description,
-tags,
-arn,
-certificate_id,
-status,
-type,
-serial,
-not_before_date,
-not_after_date
-FROM awscc.transfer.certificates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>certificate</code>.
 ```sql
 SELECT

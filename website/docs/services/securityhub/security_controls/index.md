@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_control</code> resource or lists <code>security_controls</code> in a region
 
@@ -32,16 +33,28 @@ Creates, updates, deletes or gets a <code>security_control</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="security_control_id" /></td><td><code>string</code></td><td>The unique identifier of a security control across standards. Values for this field typically consist of an AWS service name and a number, such as APIGateway.3.</td></tr>
-<tr><td><CopyableCode code="security_control_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for a security control across standards, such as `arn:aws:securityhub:eu-central-1:123456789012:security-control/S3.1`. This parameter doesn't mention a specific standard.</td></tr>
-<tr><td><CopyableCode code="last_update_reason" /></td><td><code>string</code></td><td>The most recent reason for updating the customizable properties of a security control. This differs from the UpdateReason field of the BatchUpdateStandardsControlAssociations API, which tracks the reason for updating the enablement status of a control. This field accepts alphanumeric characters in addition to white spaces, dashes, and underscores.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>An object that identifies the name of a control parameter, its current value, and whether it has been customized.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "security_control_id",
+    "type": "string",
+    "description": "The unique identifier of a security control across standards. Values for this field typically consist of an AWS service name and a number, such as APIGateway.3."
+  },
+  {
+    "name": "last_update_reason",
+    "type": "string",
+    "description": "The most recent reason for updating the customizable properties of a security control. This differs from the UpdateReason field of the BatchUpdateStandardsControlAssociations API, which tracks the reason for updating the enablement status of a control. This field accepts alphanumeric characters in addition to white spaces, dashes, and underscores."
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "An object that identifies the name of a control parameter, its current value, and whether it has been customized."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-securitycontrol.html"><code>AWS::SecurityHub::SecurityControl</code></a>.
 
@@ -83,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_controls</code> in a region.
-```sql
-SELECT
-region,
-security_control_id,
-security_control_arn,
-last_update_reason,
-parameters
-FROM awscc.securityhub.security_controls
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_control</code>.
 ```sql
 SELECT

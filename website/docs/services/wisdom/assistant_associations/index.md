@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>assistant_association</code> resource or lists <code>assistant_associations</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets an <code>assistant_association</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="assistant_association_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="association" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="association_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "assistant_association_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "association",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "knowledge_base_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "association_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-assistantassociation.html"><code>AWS::Wisdom::AssistantAssociation</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>assistant_associations</code> in a region.
-```sql
-SELECT
-region,
-assistant_association_arn,
-assistant_arn,
-assistant_association_id,
-assistant_id,
-association,
-association_type,
-tags
-FROM awscc.wisdom.assistant_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>assistant_association</code>.
 ```sql
 SELECT

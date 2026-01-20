@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>component</code> resource or lists <code>components</code> in a region
 
@@ -32,25 +33,78 @@ Creates, updates, deletes or gets a <code>component</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the component.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the component.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version of the component.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the component.</td></tr>
-<tr><td><CopyableCode code="change_description" /></td><td><code>string</code></td><td>The change description of the component.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the component denotes whether the component is used to build the image or only to test it.</td></tr>
-<tr><td><CopyableCode code="platform" /></td><td><code>string</code></td><td>The platform of the component.</td></tr>
-<tr><td><CopyableCode code="data" /></td><td><code>string</code></td><td>The data of the component.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The KMS key identifier used to encrypt the component.</td></tr>
-<tr><td><CopyableCode code="encrypted" /></td><td><code>boolean</code></td><td>The encryption status of the component.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags associated with the component.</td></tr>
-<tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The uri of the component.</td></tr>
-<tr><td><CopyableCode code="supported_os_versions" /></td><td><code>array</code></td><td>The operating system (OS) version supported by the component.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the component."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the component."
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version of the component."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the component."
+  },
+  {
+    "name": "change_description",
+    "type": "string",
+    "description": "The change description of the component."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the component denotes whether the component is used to build the image or only to test it."
+  },
+  {
+    "name": "platform",
+    "type": "string",
+    "description": "The platform of the component."
+  },
+  {
+    "name": "data",
+    "type": "string",
+    "description": "The data of the component."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The KMS key identifier used to encrypt the component."
+  },
+  {
+    "name": "encrypted",
+    "type": "boolean",
+    "description": "The encryption status of the component."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags associated with the component."
+  },
+  {
+    "name": "uri",
+    "type": "string",
+    "description": "The uri of the component."
+  },
+  {
+    "name": "supported_os_versions",
+    "type": "array",
+    "description": "The operating system (OS) version supported by the component."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-component.html"><code>AWS::ImageBuilder::Component</code></a>.
 
@@ -92,26 +146,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>components</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-version,
-description,
-change_description,
-type,
-platform,
-data,
-kms_key_id,
-encrypted,
-tags,
-uri,
-supported_os_versions
-FROM awscc.imagebuilder.components
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>component</code>.
 ```sql
 SELECT

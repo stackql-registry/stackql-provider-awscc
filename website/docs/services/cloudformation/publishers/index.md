@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>publisher</code> resource or lists <code>publishers</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>publisher</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="accept_terms_and_conditions" /></td><td><code>boolean</code></td><td>Whether you accept the terms and conditions for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to publish public extensions to the CloudFormation registry. The terms and conditions can be found at https://cloudformation-registry-documents.s3.amazonaws.com/Terms_and_Conditions_for_AWS_CloudFormation_Registry_Publishers.pdf</td></tr>
-<tr><td><CopyableCode code="publisher_id" /></td><td><code>string</code></td><td>The reserved publisher id for this type, or the publisher id assigned by CloudFormation for publishing in this region.</td></tr>
-<tr><td><CopyableCode code="connection_arn" /></td><td><code>string</code></td><td>If you are using a Bitbucket or GitHub account for identity verification, the Amazon Resource Name (ARN) for your connection to that account.</td></tr>
-<tr><td><CopyableCode code="publisher_status" /></td><td><code>string</code></td><td>Whether the publisher is verified.</td></tr>
-<tr><td><CopyableCode code="publisher_profile" /></td><td><code>string</code></td><td>The URL to the publisher's profile with the identity provider.</td></tr>
-<tr><td><CopyableCode code="identity_provider" /></td><td><code>string</code></td><td>The type of account used as the identity provider when registering this publisher with CloudFormation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "accept_terms_and_conditions",
+    "type": "boolean",
+    "description": "Whether you accept the terms and conditions for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to publish public extensions to the CloudFormation registry. The terms and conditions can be found at https://cloudformation-registry-documents.s3.amazonaws.com/Terms&#95;and&#95;Conditions&#95;for&#95;AWS&#95;CloudFormation&#95;Registry&#95;Publishers.pdf"
+  },
+  {
+    "name": "publisher_id",
+    "type": "string",
+    "description": "The reserved publisher id for this type, or the publisher id assigned by CloudFormation for publishing in this region."
+  },
+  {
+    "name": "connection_arn",
+    "type": "string",
+    "description": "If you are using a Bitbucket or GitHub account for identity verification, the Amazon Resource Name (ARN) for your connection to that account."
+  },
+  {
+    "name": "publisher_status",
+    "type": "string",
+    "description": "Whether the publisher is verified."
+  },
+  {
+    "name": "publisher_profile",
+    "type": "string",
+    "description": "The URL to the publisher's profile with the identity provider."
+  },
+  {
+    "name": "identity_provider",
+    "type": "string",
+    "description": "The type of account used as the identity provider when registering this publisher with CloudFormation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-publisher.html"><code>AWS::CloudFormation::Publisher</code></a>.
 
@@ -75,19 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>publishers</code> in a region.
-```sql
-SELECT
-region,
-accept_terms_and_conditions,
-publisher_id,
-connection_arn,
-publisher_status,
-publisher_profile,
-identity_provider
-FROM awscc.cloudformation.publishers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>publisher</code>.
 ```sql
 SELECT

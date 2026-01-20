@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_block_public_access_exclusion</code> resource or lists <code>vpc_block_public_access_exclusions</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>vpc_block_public_access_exclusion</cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="exclusion_id" /></td><td><code>string</code></td><td>The ID of the exclusion</td></tr>
-<tr><td><CopyableCode code="internet_gateway_exclusion_mode" /></td><td><code>string</code></td><td>The desired Block Public Access Exclusion Mode for a specific VPC/Subnet.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the vpc. Required only if you don't specify SubnetId.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet. Required only if you don't specify VpcId</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "exclusion_id",
+    "type": "string",
+    "description": "The ID of the exclusion"
+  },
+  {
+    "name": "internet_gateway_exclusion_mode",
+    "type": "string",
+    "description": "The desired Block Public Access Exclusion Mode for a specific VPC/Subnet."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the vpc. Required only if you don't specify SubnetId."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The ID of the subnet. Required only if you don't specify VpcId"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcblockpublicaccessexclusion.html"><code>AWS::EC2::VPCBlockPublicAccessExclusion</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_block_public_access_exclusions</code> in a region.
-```sql
-SELECT
-region,
-exclusion_id,
-internet_gateway_exclusion_mode,
-vpc_id,
-subnet_id,
-tags
-FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_block_public_access_exclusion</code>.
 ```sql
 SELECT

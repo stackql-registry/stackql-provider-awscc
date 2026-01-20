@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>permission_set</code> resource or lists <code>permission_sets</code> in a region
 
@@ -32,23 +33,92 @@ Creates, updates, deletes or gets a <code>permission_set</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this permission set.</td></tr>
-<tr><td><CopyableCode code="permission_set_arn" /></td><td><code>string</code></td><td>The permission set that the policy will be attached to</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The permission set description.</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The sso instance arn that the permission set is owned.</td></tr>
-<tr><td><CopyableCode code="session_duration" /></td><td><code>string</code></td><td>The length of time that a user can be signed in to an AWS account.</td></tr>
-<tr><td><CopyableCode code="relay_state_type" /></td><td><code>string</code></td><td>The relay state URL that redirect links to any service in the AWS Management Console.</td></tr>
-<tr><td><CopyableCode code="managed_policies" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="inline_policy" /></td><td><code>object</code></td><td>The inline policy to put in permission set.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_policy_references" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="permissions_boundary" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this permission set."
+  },
+  {
+    "name": "permission_set_arn",
+    "type": "string",
+    "description": "The permission set that the policy will be attached to"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The permission set description."
+  },
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The sso instance arn that the permission set is owned."
+  },
+  {
+    "name": "session_duration",
+    "type": "string",
+    "description": "The length of time that a user can be signed in to an AWS account."
+  },
+  {
+    "name": "relay_state_type",
+    "type": "string",
+    "description": "The relay state URL that redirect links to any service in the AWS Management Console."
+  },
+  {
+    "name": "managed_policies",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "inline_policy",
+    "type": "object",
+    "description": "The inline policy to put in permission set."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "customer_managed_policy_references",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "permissions_boundary",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-permissionset.html"><code>AWS::SSO::PermissionSet</code></a>.
 
@@ -90,24 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>permission_sets</code> in a region.
-```sql
-SELECT
-region,
-name,
-permission_set_arn,
-description,
-instance_arn,
-session_duration,
-relay_state_type,
-managed_policies,
-inline_policy,
-tags,
-customer_managed_policy_references,
-permissions_boundary
-FROM awscc.sso.permission_sets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>permission_set</code>.
 ```sql
 SELECT

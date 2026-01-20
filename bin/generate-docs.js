@@ -642,6 +642,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 ${resourceDescription}
 
@@ -656,7 +657,7 @@ ${schema.description ? `<tr><td><b>Description</b></td><td>${cleanDescription(sc
 </table>
 
 ## Fields
-${isSelectable || hasList || hasGet ? `<table>\n<tbody>\n<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>${generateFieldsTable(serviceName, resourceName, resourceType, schemaName, schema, componentsSchemas, sqlExampleListCols)}\n</tbody>\n</table>` : '<code>SELECT</code> operation not supported for this resource.'}
+${isSelectable || hasList || hasGet ? `<SchemaTable fields={${JSON.stringify(generateSchemaJsonForResource(serviceName, resourceName, resourceType, schema, componentsSchemas, sqlExampleListCols), null, 2)}} />` : '<code>SELECT</code> operation not supported for this resource.'}
 ${schemaName && resourceType === 'cloud_control' ? `\n${moreInfoCaption}\n` : ''}
 ## Methods
 ${generateMethodsTable(serviceName, resourceName, sqlVerbsList)}
@@ -684,35 +685,79 @@ function getTypeFromRef(ref, components) {
 }
 
 function cleanDescription(description) {
-    const htmlPattern = /<p[\s\S]*?>[\s\S]*?<\/p>|<code[\s\S]*?>[\s\S]*?<\/code>|<pre[\s\S]*?>[\s\S]*?<\/pre>|<br\s*\/?>/i;
-    if(htmlPattern.test(description)){
-        return description
-        .replace(/[\r\n]+/g, '<br />')
-        .replace(/\t/g, ' ')
-        .replace(/\s\s+/g, ' ')
+    if (!description) return '';
+    
+    // MDX special chars to escape
+    const escapeForMdx = (str) => str
         .replace(/{/g, '&#123;')
         .replace(/}/g, '&#125;')
         .replace(/\[/g, '&#91;')
         .replace(/\]/g, '&#93;')
-        .replace(/\*/g, 'ASTERIX;')
-        .replace(/``(.*?)``/g, '$1')
-        .replace(/<br \/>\s+/g, '<br />') 
-        .trim();
+        .replace(/\*/g, '&#42;')
+        .replace(/~/g, '&#126;')
+        .replace(/_/g, '&#95;')
+        .replace(/`/g, '&#96;')
+        .replace(/\|/g, '&#124;');
+
+    // Fix potentially malformed code tags from source
+    const fixCodeTags = (str) => {
+        // Remove any unclosed <code> tags by ensuring pairs
+        let result = str;
+        const openCount = (result.match(/<code>/gi) || []).length;
+        const closeCount = (result.match(/<\/code>/gi) || []).length;
+        
+        if (openCount > closeCount) {
+            // Add missing closing tags at end
+            for (let i = 0; i < openCount - closeCount; i++) {
+                result += '</code>';
+            }
+        } else if (closeCount > openCount) {
+            // Remove orphan closing tags
+            let diff = closeCount - openCount;
+            result = result.replace(/<\/code>/gi, (match) => {
+                if (diff > 0) {
+                    diff--;
+                    return '';
+                }
+                return match;
+            });
+        }
+        return result;
     };
-    return (description || '')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
+
+    const htmlPattern = /<p[\s\S]*?>[\s\S]*?<\/p>|<code[\s\S]*?>[\s\S]*?<\/code>|<pre[\s\S]*?>[\s\S]*?<\/pre>|<br\s*\/?>/i;
+    
+    let result = description;
+    
+    // Protect content inside <code> tags from MDX escaping
+    const codeBlocks = [];
+    result = result.replace(/<code>(.*?)<\/code>/gi, (match, content) => {
+        codeBlocks.push(content);
+        return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+    });
+    
+    // Apply MDX escaping to non-code content
+    result = escapeForMdx(result);
+    
+    // Restore code blocks (unescaped)
+    result = result.replace(/__CODE_BLOCK_(\d+)__/g, (match, index) => {
+        return `<code>${codeBlocks[parseInt(index)]}</code>`;
+    });
+    
+    if(!htmlPattern.test(description)){
+        result = result
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+    
+    result = result
         .replace(/[\r\n]+/g, '<br />')
         .replace(/\t/g, ' ')
         .replace(/\s\s+/g, ' ')
-        .replace(/{/g, '&#123;')
-        .replace(/}/g, '&#125;')
-        .replace(/\[/g, '&#91;')
-        .replace(/\]/g, '&#93;')
-        .replace(/\*/g, 'ASTERIX;')
-        .replace(/``(.*?)``/g, '<code>$1</code>')
-        .replace(/<br \/>\s+/g, '<br />') 
+        .replace(/<br \/>\s+/g, '<br />')
         .trim();
+    
+    return fixCodeTags(result);
 }
 
 function toSnakeCase(str) {
@@ -768,13 +813,180 @@ function fixCamelCaseIssues(propertyName) {
     return updatedPropertyName;
 }
 
-function generateTableRow(propName, type, descriptionCleaned, isCustom = false) {
+function generateTableRow(propName, type, descriptionCleaned, isCustom = false, nestedHtml = '') {
     if(isCustom){
-        return `<tr><td><CopyableCode code="${propName}" /></td><td><code>${type}</code></td><td>${descriptionCleaned}</td></tr>\n`;
+        return `<tr><td><CopyableCode code="${propName}" /></td><td><code>${type}</code></td><td>${descriptionCleaned}${nestedHtml}</td></tr>\n`;
     } else {
-        return `<tr><td><CopyableCode code="${toSnakeCase(fixCamelCaseIssues(propName))}" /></td><td><code>${type}</code></td><td>${descriptionCleaned}</td></tr>\n`;
+        return `<tr><td><CopyableCode code="${toSnakeCase(fixCamelCaseIssues(propName))}" /></td><td><code>${type}</code></td><td>${descriptionCleaned}${nestedHtml}</td></tr>\n`;
     }
 }
+
+function generateSchemaJson(schema, componentsSchemas, depth = 0, maxDepth = 4, visitedRefs = new Set()) {
+    if (depth >= maxDepth || !schema?.properties) return [];
+    
+    return Object.entries(schema.properties).map(([propName, prop]) => {
+        let propType = prop.type || '';
+        let propDesc = '';
+        let children = [];
+
+        // Resolve $ref
+        let resolvedSchema = prop;
+        if (prop.$ref) {
+            const refName = prop.$ref.split('/').pop();
+            if (visitedRefs.has(refName)) return null; // Prevent cycles
+            visitedRefs.add(refName);
+            resolvedSchema = componentsSchemas[refName] || {};
+            propType = propType || resolvedSchema.type || 'object';
+            propDesc = resolvedSchema.description || '';
+        }
+
+        // Handle allOf
+        if (prop.allOf) {
+            resolvedSchema = {};
+            prop.allOf.forEach(item => {
+                if (item.$ref) {
+                    const refName = item.$ref.split('/').pop();
+                    if (!visitedRefs.has(refName)) {
+                        visitedRefs.add(refName);
+                        Object.assign(resolvedSchema, componentsSchemas[refName] || {});
+                    }
+                } else {
+                    Object.assign(resolvedSchema, item);
+                }
+            });
+            propType = propType || resolvedSchema.type || 'object';
+            propDesc = propDesc || resolvedSchema.description || '';
+        }
+
+        if (prop.description) propDesc = prop.description;
+        propDesc = cleanDescription(propDesc);
+
+        // Handle arrays - get children from items
+        if ((propType === 'array' || resolvedSchema.type === 'array') && (resolvedSchema.items || prop.items)) {
+            let itemsSchema = resolvedSchema.items || prop.items;
+            if (itemsSchema.$ref) {
+                const refName = itemsSchema.$ref.split('/').pop();
+                if (!visitedRefs.has(refName)) {
+                    visitedRefs.add(refName);
+                    itemsSchema = componentsSchemas[refName] || {};
+                }
+            }
+            if (itemsSchema.properties) {
+                children = generateSchemaJson(itemsSchema, componentsSchemas, depth + 1, maxDepth, new Set(visitedRefs));
+            }
+        }
+
+        // Handle objects - get children from properties
+        if ((propType === 'object' || resolvedSchema.type === 'object') && resolvedSchema.properties) {
+            children = generateSchemaJson(resolvedSchema, componentsSchemas, depth + 1, maxDepth, new Set(visitedRefs));
+        }
+
+        const fieldName = toSnakeCase(fixCamelCaseIssues(propName));
+        
+        return {
+            name: fieldName,
+            type: propType || 'object',
+            description: propDesc,
+            ...(children.length > 0 && { children })
+        };
+    }).filter(Boolean);
+}
+
+function generateSchemaJsonForResource(serviceName, resourceName, resourceType, schema, componentsSchemas, sqlExampleListCols) {
+    const isTags = resourceName.endsWith('_tags');
+    const isListOnly = resourceName.endsWith('_list_only');
+    
+    let fields = generateSchemaJson(schema, componentsSchemas, 0, 4);
+    
+    // Filter for list_only resources
+    if (isListOnly) {
+        fields = fields.filter(f => sqlExampleListCols.includes(f.name));
+    }
+    
+    // Filter out Tags for _tags resources
+    if (isTags) {
+        fields = fields.filter(f => f.name !== 'tags');
+        fields.push({ name: 'tag_key', type: 'string', description: 'Tag key.' });
+        fields.push({ name: 'tag_value', type: 'string', description: 'Tag value.' });
+    }
+    
+    // Add region
+    fields.push({ name: 'region', type: 'string', description: 'AWS region.' });
+    
+    console.log(`Generated schema JSON for ${serviceName}.${resourceName}`);
+    return fields;
+}
+
+// function generateNestedPropertiesHtml(propSchema, componentsSchemas, depth = 0, maxDepth = 3) {
+//     if (depth >= maxDepth || !propSchema) return '';
+
+//     let schema = propSchema;
+    
+//     // Resolve $ref if present
+//     if (propSchema.$ref) {
+//         const schemaName = propSchema.$ref.split('/').pop();
+//         schema = componentsSchemas[schemaName];
+//         if (!schema) return '';
+//     }
+
+//     // Handle allOf
+//     if (propSchema.allOf) {
+//         schema = {};
+//         propSchema.allOf.forEach(item => {
+//             if (item.$ref) {
+//                 const refSchema = componentsSchemas[item.$ref.split('/').pop()];
+//                 Object.assign(schema, refSchema);
+//             } else {
+//                 Object.assign(schema, item);
+//             }
+//         });
+//     }
+
+//     // For arrays, get items schema
+//     if (schema.type === 'array' && schema.items) {
+//         let itemsSchema = schema.items;
+//         if (schema.items.$ref) {
+//             const schemaName = schema.items.$ref.split('/').pop();
+//             itemsSchema = componentsSchemas[schemaName];
+//         }
+//         if (itemsSchema && (itemsSchema.type === 'object' || itemsSchema.properties)) {
+//             return generateNestedPropertiesHtml(itemsSchema, componentsSchemas, depth, maxDepth);
+//         }
+//         return '';
+//     }
+
+//     // For objects with properties
+//     if (schema.properties && Object.keys(schema.properties).length > 0) {
+//         let rows = '';
+//         for (const [nestedPropName, nestedProp] of Object.entries(schema.properties)) {
+//             let nestedType = nestedProp.type || '';
+//             let nestedDesc = '';
+
+//             if (nestedProp.$ref) {
+//                 const refSchema = componentsSchemas[nestedProp.$ref.split('/').pop()];
+//                 if (refSchema) {
+//                     nestedType = nestedType || refSchema.type || 'object';
+//                     nestedDesc = refSchema.description || '';
+//                 }
+//             }
+//             if (nestedProp.description) {
+//                 nestedDesc = nestedProp.description;
+//             }
+
+//             nestedDesc = cleanDescription(nestedDesc);
+            
+//             // Recurse for nested objects/arrays
+//             const nestedHtml = generateNestedPropertiesHtml(nestedProp, componentsSchemas, depth + 1, maxDepth);
+
+//             rows += `<tr><td><code>${toSnakeCase(fixCamelCaseIssues(nestedPropName))}</code></td><td><code>${nestedType}</code></td><td>${nestedDesc}${nestedHtml}</td></tr>`;
+//         }
+
+//         // Return minified HTML - no newlines
+//         return `<details><summary>Show properties</summary><table><thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+//     }
+
+//     return '';
+// }
 
 function getColumns(properties, isList, isCustom = false, is_tags = false){
     let columns = 'region,';
@@ -810,71 +1022,77 @@ function getColumns(properties, isList, isCustom = false, is_tags = false){
     return columns;
 }
 
-function generateFieldsTable(serviceName, resourceName, resourceType, schemaName, schema, componentsSchemas, sqlExampleListCols) {
+// function generateFieldsTable(serviceName, resourceName, resourceType, schemaName, schema, componentsSchemas, sqlExampleListCols) {
     
-    let isTags = false;
-    if(resourceName.endsWith('_tags')){
-        isTags = true;
-    }
+//     let isTags = false;
+//     if(resourceName.endsWith('_tags')){
+//         isTags = true;
+//     }
 
-    let isListOnly = false;
-    if(resourceName.endsWith('_list_only')){
-        isListOnly = true;
-    }
+//     let isListOnly = false;
+//     if(resourceName.endsWith('_list_only')){
+//         isListOnly = true;
+//     }
 
-    let fieldsTable = '';
-    console.log(`Generating fields table for ${serviceName}.${resourceName}`);
-    for (let propName in schema.properties) {
+//     let fieldsTable = '';
+//     console.log(`Generating fields table for ${serviceName}.${resourceName}`);
+//     for (let propName in schema.properties) {
 
-        if(isListOnly){
-            if(!sqlExampleListCols.includes(toSnakeCase(fixCamelCaseIssues(propName)))){
-                continue;
-            }
-        }
+//         if(isListOnly){
+//             if(!sqlExampleListCols.includes(toSnakeCase(fixCamelCaseIssues(propName)))){
+//                 continue;
+//             }
+//         }
 
-        if(isTags && propName === 'Tags'){
-            continue;
-        }
+//         if(isTags && propName === 'Tags'){
+//             continue;
+//         }
 
-        let propDesc = '';
-        let propType = '';
-        const prop = schema.properties[propName];
+//         let propDesc = '';
+//         let propType = '';
+//         const prop = schema.properties[propName];
 
-        if('description' in prop){
-            propDesc = cleanDescription(prop.description);
-        }
-        if('type' in prop){
-            propType = prop.type;
-        }
-        if (prop.hasOwnProperty('$ref')) {
-            !propType ? propType = getTypeFromRef(prop['$ref'], componentsSchemas) : null;
-            !propDesc ? propDesc = cleanDescription(getDescFromRef(prop['$ref'], componentsSchemas)) : null;
-        } else if (prop.hasOwnProperty('allOf')) {
-            // for custom resources
-            let allOfArray = prop.allOf;
-            let combinedObject = {};
-            allOfArray.forEach(item => {
-              Object.assign(combinedObject, item);
-            });
-            !propType ? propType = combinedObject.type : null;
-            !propDesc ? propDesc = combinedObject.description : null;
-            if(combinedObject.hasOwnProperty('$ref')){
-                !propType ? propType = getTypeFromRef(combinedObject['$ref'], componentsSchemas) : null;
-                !propDesc ? propDesc = cleanDescription(getDescFromRef(combinedObject['$ref'], componentsSchemas)) : null;
-            }
-        }
-        fieldsTable += generateTableRow(propName, propType, propDesc);
-    }
+//         if('description' in prop){
+//             propDesc = cleanDescription(prop.description);
+//         }
+//         if('type' in prop){
+//             propType = prop.type;
+//         }
+//         if (prop.hasOwnProperty('$ref')) {
+//             !propType ? propType = getTypeFromRef(prop['$ref'], componentsSchemas) : null;
+//             !propDesc ? propDesc = cleanDescription(getDescFromRef(prop['$ref'], componentsSchemas)) : null;
+//         } else if (prop.hasOwnProperty('allOf')) {
+//             let allOfArray = prop.allOf;
+//             let combinedObject = {};
+//             allOfArray.forEach(item => {
+//               Object.assign(combinedObject, item);
+//             });
+//             !propType ? propType = combinedObject.type : null;
+//             !propDesc ? propDesc = combinedObject.description : null;
+//             if(combinedObject.hasOwnProperty('$ref')){
+//                 !propType ? propType = getTypeFromRef(combinedObject['$ref'], componentsSchemas) : null;
+//                 !propDesc ? propDesc = cleanDescription(getDescFromRef(combinedObject['$ref'], componentsSchemas)) : null;
+//             }
+//         }
+
+//         // Generate expandable nested properties for objects and arrays
+//         let nestedHtml = '';
+//         if (propType === 'object' || propType === 'array') {
+//             nestedHtml = generateNestedPropertiesHtml(prop, componentsSchemas, 0, 3);
+//         }
+
+//         fieldsTable += generateTableRow(propName, propType, propDesc, false, nestedHtml);
+//     }
     
-    if(isTags){
-        fieldsTable += generateTableRow('tag_key', 'string', 'Tag key.');
-        fieldsTable += generateTableRow('tag_value', 'string', 'Tag value.');
-    }
+//     if(isTags){
+//         fieldsTable += generateTableRow('tag_key', 'string', 'Tag key.');
+//         fieldsTable += generateTableRow('tag_value', 'string', 'Tag value.');
+//     }
 
-    fieldsTable += generateTableRow('region', 'string', 'AWS region.');
+//     fieldsTable += generateTableRow('region', 'string', 'AWS region.');
 
-    return fieldsTable;
-}
+//     return fieldsTable;
+// }
 
 function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere){
     let returnString = '';
@@ -885,18 +1103,13 @@ function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect,
     }
 
     if(hasList){
-        // let listDesc = `Gets all <code>${pluralize.plural(resourceName)}</code> in a region.`;
-        let listDesc = `Gets all <code>${resourceName}</code> in a region.`;
+        let listDesc = `Lists all <code>${resourceName.replace('_list_only','')}</code> in a region.`;
 
         if(resourceName.endsWith('_list_only')){
-            // listDesc = `Lists all <code>${pluralize.plural(resourceName)}</code> in a region.`;
-            listDesc = `Lists all <code>${resourceName.replace('_list_only','')}</code> in a region.`;
             returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleListCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
         } else if(resourceName.endsWith('_tags')){
             listDesc = `Expands tags for all <code>${pluralize.plural(resourceName.replace('_tags',''))}</code> in a region.`;
             returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleGetTagsCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
-        } else {
-            returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleGetCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
         }
     } 
 

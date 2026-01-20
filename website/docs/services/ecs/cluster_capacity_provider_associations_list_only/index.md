@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>cluster_capacity_provider_associations</code> in a region or regions, for all properties use <a href="/services/ecs/cluster_capacity_provider_associations/"><code>cluster_capacity_provider_associations</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>cluster_capacity_provider_associations</code> in a region or regions
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster" /></td><td><code>string</code></td><td>The name of the cluster</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster",
+    "type": "string",
+    "description": "The name of the cluster"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

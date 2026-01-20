@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>identity_source</code> resource or lists <code>identity_sources</code> in a region
 
@@ -32,17 +33,60 @@ Creates, updates, deletes or gets an <code>identity_source</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_source_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_store_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal_entity_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "client_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "user_pool_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "discovery_url",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "open_id_issuer",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "identity_source_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "principal_entity_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-verifiedpermissions-identitysource.html"><code>AWS::VerifiedPermissions::IdentitySource</code></a>.
 
@@ -84,18 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>identity_sources</code> in a region.
-```sql
-SELECT
-region,
-configuration,
-details,
-identity_source_id,
-policy_store_id,
-principal_entity_type
-FROM awscc.verifiedpermissions.identity_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>identity_source</code>.
 ```sql
 SELECT

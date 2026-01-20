@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>provisioning_template</code> resource or lists <code>provisioning_templates</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>provisioning_template</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="template_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="provisioning_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_body" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pre_provisioning_hook" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "template_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "provisioning_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template_body",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pre_provisioning_hook",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "target_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payload_version",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-provisioningtemplate.html"><code>AWS::IoT::ProvisioningTemplate</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>provisioning_templates</code> in a region.
-```sql
-SELECT
-region,
-template_arn,
-template_name,
-description,
-enabled,
-provisioning_role_arn,
-template_body,
-template_type,
-pre_provisioning_hook,
-tags
-FROM awscc.iot.provisioning_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>provisioning_template</code>.
 ```sql
 SELECT

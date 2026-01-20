@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>endpoint_group</code> resource or lists <code>endpoint_groups</code> in a region
 
@@ -32,23 +33,97 @@ Creates, updates, deletes or gets an <code>endpoint_group</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="listener_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the listener</td></tr>
-<tr><td><CopyableCode code="endpoint_group_region" /></td><td><code>string</code></td><td>The name of the AWS Region where the endpoint group is located</td></tr>
-<tr><td><CopyableCode code="endpoint_configurations" /></td><td><code>array</code></td><td>The list of endpoint objects.</td></tr>
-<tr><td><CopyableCode code="traffic_dial_percentage" /></td><td><code>number</code></td><td>The percentage of traffic to sent to an AWS Region</td></tr>
-<tr><td><CopyableCode code="health_check_port" /></td><td><code>integer</code></td><td>The port that AWS Global Accelerator uses to check the health of endpoints in this endpoint group.</td></tr>
-<tr><td><CopyableCode code="health_check_protocol" /></td><td><code>string</code></td><td>The protocol that AWS Global Accelerator uses to check the health of endpoints in this endpoint group.</td></tr>
-<tr><td><CopyableCode code="health_check_path" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="health_check_interval_seconds" /></td><td><code>integer</code></td><td>The time in seconds between each health check for an endpoint. Must be a value of 10 or 30</td></tr>
-<tr><td><CopyableCode code="threshold_count" /></td><td><code>integer</code></td><td>The number of consecutive health checks required to set the state of the endpoint to unhealthy.</td></tr>
-<tr><td><CopyableCode code="endpoint_group_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the endpoint group</td></tr>
-<tr><td><CopyableCode code="port_overrides" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "listener_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the listener"
+  },
+  {
+    "name": "endpoint_group_region",
+    "type": "string",
+    "description": "The name of the AWS Region where the endpoint group is located"
+  },
+  {
+    "name": "endpoint_configurations",
+    "type": "array",
+    "description": "The list of endpoint objects.",
+    "children": [
+      {
+        "name": "endpoint_id",
+        "type": "string",
+        "description": "Id of the endpoint. For Network/Application Load Balancer this value is the ARN. For EIP, this value is the allocation ID. For EC2 instances, this is the EC2 instance ID"
+      },
+      {
+        "name": "attachment_arn",
+        "type": "string",
+        "description": "Attachment ARN that provides access control to the cross account endpoint. Not required for resources hosted in the same account as the endpoint group."
+      },
+      {
+        "name": "weight",
+        "type": "integer",
+        "description": "The weight for the endpoint."
+      },
+      {
+        "name": "client_ip_preservation_enabled",
+        "type": "boolean",
+        "description": "true if client ip should be preserved"
+      }
+    ]
+  },
+  {
+    "name": "traffic_dial_percentage",
+    "type": "number",
+    "description": "The percentage of traffic to sent to an AWS Region"
+  },
+  {
+    "name": "health_check_port",
+    "type": "integer",
+    "description": "The port that AWS Global Accelerator uses to check the health of endpoints in this endpoint group."
+  },
+  {
+    "name": "health_check_protocol",
+    "type": "string",
+    "description": "The protocol that AWS Global Accelerator uses to check the health of endpoints in this endpoint group."
+  },
+  {
+    "name": "health_check_path",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "health_check_interval_seconds",
+    "type": "integer",
+    "description": "The time in seconds between each health check for an endpoint. Must be a value of 10 or 30"
+  },
+  {
+    "name": "threshold_count",
+    "type": "integer",
+    "description": "The number of consecutive health checks required to set the state of the endpoint to unhealthy."
+  },
+  {
+    "name": "endpoint_group_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the endpoint group"
+  },
+  {
+    "name": "port_overrides",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "listener_port",
+        "type": "integer",
+        "description": "A network port number"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-globalaccelerator-endpointgroup.html"><code>AWS::GlobalAccelerator::EndpointGroup</code></a>.
 
@@ -90,24 +165,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>endpoint_groups</code> in a region.
-```sql
-SELECT
-region,
-listener_arn,
-endpoint_group_region,
-endpoint_configurations,
-traffic_dial_percentage,
-health_check_port,
-health_check_protocol,
-health_check_path,
-health_check_interval_seconds,
-threshold_count,
-endpoint_group_arn,
-port_overrides
-FROM awscc.globalaccelerator.endpoint_groups
-;
-```
+
 Gets all properties from an individual <code>endpoint_group</code>.
 ```sql
 SELECT

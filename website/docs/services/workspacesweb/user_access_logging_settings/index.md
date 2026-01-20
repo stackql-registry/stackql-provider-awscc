@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_access_logging_setting</code> resource or lists <code>user_access_logging_settings</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets an <code>user_access_logging_setting</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="kinesis_stream_arn" /></td><td><code>string</code></td><td>Kinesis stream ARN to which log events are published.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_access_logging_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "kinesis_stream_arn",
+    "type": "string",
+    "description": "Kinesis stream ARN to which log events are published."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_access_logging_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-useraccessloggingsetting.html"><code>AWS::WorkSpacesWeb::UserAccessLoggingSettings</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_access_logging_settings</code> in a region.
-```sql
-SELECT
-region,
-associated_portal_arns,
-kinesis_stream_arn,
-tags,
-user_access_logging_settings_arn
-FROM awscc.workspacesweb.user_access_logging_settings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_access_logging_setting</code>.
 ```sql
 SELECT

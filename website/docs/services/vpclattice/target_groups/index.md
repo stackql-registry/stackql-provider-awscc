@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>target_group</code> resource or lists <code>target_groups</code> in a region
 
@@ -32,22 +33,183 @@ Creates, updates, deletes or gets a <code>target_group</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="targets" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "protocol_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "lambda_event_structure_version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_identifier",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "health_check",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "protocol_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "path",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "health_check_interval_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "health_check_timeout_seconds",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "healthy_threshold_count",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "unhealthy_threshold_count",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "matcher",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "http_code",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "targets",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-targetgroup.html"><code>AWS::VpcLattice::TargetGroup</code></a>.
 
@@ -89,23 +251,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>target_groups</code> in a region.
-```sql
-SELECT
-region,
-arn,
-config,
-created_at,
-id,
-last_updated_at,
-name,
-status,
-type,
-targets,
-tags
-FROM awscc.vpclattice.target_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>target_group</code>.
 ```sql
 SELECT

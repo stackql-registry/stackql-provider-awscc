@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster_capacity_provider_association</code> resource or lists <code>cluster_capacity_provider_associations</code> in a region
 
@@ -32,15 +33,45 @@ Creates, updates, deletes or gets a <code>cluster_capacity_provider_association<
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="default_capacity_provider_strategy" /></td><td><code>array</code></td><td>List of capacity providers to associate with the cluster</td></tr>
-<tr><td><CopyableCode code="capacity_providers" /></td><td><code>array</code></td><td>List of capacity providers to associate with the cluster</td></tr>
-<tr><td><CopyableCode code="cluster" /></td><td><code>string</code></td><td>The name of the cluster</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "default_capacity_provider_strategy",
+    "type": "array",
+    "description": "List of capacity providers to associate with the cluster",
+    "children": [
+      {
+        "name": "capacity_provider",
+        "type": "string",
+        "description": "If using ec2 auto-scaling, the name of the associated capacity provider. Otherwise FARGATE, FARGATE&#95;SPOT."
+      },
+      {
+        "name": "base",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "weight",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "capacity_providers",
+    "type": "array",
+    "description": "List of capacity providers to associate with the cluster"
+  },
+  {
+    "name": "cluster",
+    "type": "string",
+    "description": "The name of the cluster"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-clustercapacityproviderassociation.html"><code>AWS::ECS::ClusterCapacityProviderAssociations</code></a>.
 
@@ -82,16 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cluster_capacity_provider_associations</code> in a region.
-```sql
-SELECT
-region,
-default_capacity_provider_strategy,
-capacity_providers,
-cluster
-FROM awscc.ecs.cluster_capacity_provider_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster_capacity_provider_association</code>.
 ```sql
 SELECT

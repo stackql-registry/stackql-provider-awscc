@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>policies</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the Policy</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of policy to create. You can specify one of the following values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY, CHATBOT_POLICY, RESOURCE_CONTROL_POLICY,DECLARATIVE_POLICY_EC2, SECURITYHUB_POLICY</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>object</code></td><td>The Policy text content. For AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Human readable description of the policy</td></tr>
-<tr><td><CopyableCode code="target_ids" /></td><td><code>array</code></td><td>List of unique identifiers (IDs) of the root, OU, or account that you want to attach the policy to</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags that you want to attach to the newly created policy. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to null.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the Policy</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN of the Policy</td></tr>
-<tr><td><CopyableCode code="aws_managed" /></td><td><code>boolean</code></td><td>A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the Policy"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of policy to create. You can specify one of the following values: AISERVICES&#95;OPT&#95;OUT&#95;POLICY, BACKUP&#95;POLICY, SERVICE&#95;CONTROL&#95;POLICY, TAG&#95;POLICY, CHATBOT&#95;POLICY, RESOURCE&#95;CONTROL&#95;POLICY,DECLARATIVE&#95;POLICY&#95;EC2, SECURITYHUB&#95;POLICY"
+  },
+  {
+    "name": "content",
+    "type": "object",
+    "description": "The Policy text content. For AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Human readable description of the policy"
+  },
+  {
+    "name": "target_ids",
+    "type": "array",
+    "description": "List of unique identifiers (IDs) of the root, OU, or account that you want to attach the policy to"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags that you want to attach to the newly created policy. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to null.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key identifier, or name, of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The string value that's associated with the key of the tag. You can set the value of a tag to an empty string, but you can't set the value of a tag to null."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the Policy"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "ARN of the Policy"
+  },
+  {
+    "name": "aws_managed",
+    "type": "boolean",
+    "description": "A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-organizations-policy.html"><code>AWS::Organizations::Policy</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policies</code> in a region.
-```sql
-SELECT
-region,
-name,
-type,
-content,
-description,
-target_ids,
-tags,
-id,
-arn,
-aws_managed
-FROM awscc.organizations.policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_collection</code> resource or lists <code>resource_collections</code> in a region
 
@@ -32,14 +33,54 @@ Creates, updates, deletes or gets a <code>resource_collection</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_collection_filter" /></td><td><code>object</code></td><td>Information about a filter used to specify which AWS resources are analyzed for anomalous behavior by DevOps Guru.</td></tr>
-<tr><td><CopyableCode code="resource_collection_type" /></td><td><code>string</code></td><td>The type of ResourceCollection</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_collection_filter",
+    "type": "object",
+    "description": "Information about a filter used to specify which AWS resources are analyzed for anomalous behavior by DevOps Guru.",
+    "children": [
+      {
+        "name": "cloud_formation",
+        "type": "object",
+        "description": "CloudFormation resource for DevOps Guru to monitor",
+        "children": [
+          {
+            "name": "stack_names",
+            "type": "array",
+            "description": "An array of CloudFormation stack names."
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "Tagged resources for DevOps Guru to monitor",
+        "children": [
+          {
+            "name": "app_boundary_key",
+            "type": "string",
+            "description": "A Tag key for DevOps Guru app boundary."
+          },
+          {
+            "name": "tag_values",
+            "type": "array",
+            "description": "Tag values of DevOps Guru app boundary."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "resource_collection_type",
+    "type": "string",
+    "description": "The type of ResourceCollection"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-devopsguru-resourcecollection.html"><code>AWS::DevOpsGuru::ResourceCollection</code></a>.
 
@@ -81,15 +122,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_collections</code> in a region.
-```sql
-SELECT
-region,
-resource_collection_filter,
-resource_collection_type
-FROM awscc.devopsguru.resource_collections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_collection</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>profile_association</code> resource or lists <code>profile_associations</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>profile_association</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The resource that you associated the profile with.</td></tr>
-<tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td>The ID of the profile that you associated with the resource that is specified by ResourceId.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Primary Identifier for Profile Association</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of an association between a Profile and a VPC.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the profile association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "The resource that you associated the profile with."
+  },
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": "The ID of the profile that you associated with the resource that is specified by ResourceId."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Primary Identifier for Profile Association"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of an association between a Profile and a VPC."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the profile association."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53profiles-profileassociation.html"><code>AWS::Route53Profiles::ProfileAssociation</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>profile_associations</code> in a region.
-```sql
-SELECT
-region,
-resource_id,
-profile_id,
-id,
-name,
-tags,
-arn
-FROM awscc.route53profiles.profile_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>profile_association</code>.
 ```sql
 SELECT

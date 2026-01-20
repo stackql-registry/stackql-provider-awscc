@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel</code> resource or lists <code>channels</code> in a region
 
@@ -32,25 +33,107 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Channel ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Channel</td></tr>
-<tr><td><CopyableCode code="authorized" /></td><td><code>boolean</code></td><td>Whether the channel is authorized.</td></tr>
-<tr><td><CopyableCode code="insecure_ingest" /></td><td><code>boolean</code></td><td>Whether the channel allows insecure ingest.</td></tr>
-<tr><td><CopyableCode code="latency_mode" /></td><td><code>string</code></td><td>Channel latency mode.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Channel type, which determines the allowable resolution and bitrate. If you exceed the allowable resolution or bitrate, the stream probably will disconnect immediately.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="playback_url" /></td><td><code>string</code></td><td>Channel Playback URL.</td></tr>
-<tr><td><CopyableCode code="ingest_endpoint" /></td><td><code>string</code></td><td>Channel ingest endpoint, part of the definition of an ingest server, used when you set up streaming software.</td></tr>
-<tr><td><CopyableCode code="recording_configuration_arn" /></td><td><code>string</code></td><td>Recording Configuration ARN. A value other than an empty string indicates that recording is enabled. Default: "" (recording is disabled).</td></tr>
-<tr><td><CopyableCode code="preset" /></td><td><code>string</code></td><td>Optional transcode preset for the channel. This is selectable only for ADVANCED_HD and ADVANCED_SD channel types. For those channel types, the default preset is HIGHER_BANDWIDTH_DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string ("").</td></tr>
-<tr><td><CopyableCode code="multitrack_input_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="container_format" /></td><td><code>string</code></td><td>Indicates which content-packaging format is used (MPEG-TS or fMP4). If multitrackInputConfiguration is specified and enabled is true, then containerFormat is required and must be set to FRAGMENTED_MP4. Otherwise, containerFormat may be set to TS or FRAGMENTED_MP4. Default: TS.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Channel ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Channel"
+  },
+  {
+    "name": "authorized",
+    "type": "boolean",
+    "description": "Whether the channel is authorized."
+  },
+  {
+    "name": "insecure_ingest",
+    "type": "boolean",
+    "description": "Whether the channel allows insecure ingest."
+  },
+  {
+    "name": "latency_mode",
+    "type": "string",
+    "description": "Channel latency mode."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Channel type, which determines the allowable resolution and bitrate. If you exceed the allowable resolution or bitrate, the stream probably will disconnect immediately."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "playback_url",
+    "type": "string",
+    "description": "Channel Playback URL."
+  },
+  {
+    "name": "ingest_endpoint",
+    "type": "string",
+    "description": "Channel ingest endpoint, part of the definition of an ingest server, used when you set up streaming software."
+  },
+  {
+    "name": "recording_configuration_arn",
+    "type": "string",
+    "description": "Recording Configuration ARN. A value other than an empty string indicates that recording is enabled. Default: \"\" (recording is disabled)."
+  },
+  {
+    "name": "preset",
+    "type": "string",
+    "description": "Optional transcode preset for the channel. This is selectable only for ADVANCED&#95;HD and ADVANCED&#95;SD channel types. For those channel types, the default preset is HIGHER&#95;BANDWIDTH&#95;DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string (\"\")."
+  },
+  {
+    "name": "multitrack_input_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Indicates whether multitrack input is enabled. Can be set to true only if channel type is STANDARD. Setting enabled to true with any other channel type will cause an exception. If true, then policy, maximumResolution, and containerFormat are required, and containerFormat must be set to FRAGMENTED&#95;MP4. Default: false."
+      },
+      {
+        "name": "maximum_resolution",
+        "type": "string",
+        "description": "Maximum resolution for multitrack input. Required if enabled is true."
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "description": "Indicates whether multitrack input is allowed or required. Required if enabled is true."
+      }
+    ]
+  },
+  {
+    "name": "container_format",
+    "type": "string",
+    "description": "Indicates which content-packaging format is used (MPEG-TS or fMP4). If multitrackInputConfiguration is specified and enabled is true, then containerFormat is required and must be set to FRAGMENTED&#95;MP4. Otherwise, containerFormat may be set to TS or FRAGMENTED&#95;MP4. Default: TS."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-channel.html"><code>AWS::IVS::Channel</code></a>.
 
@@ -92,26 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channels</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-authorized,
-insecure_ingest,
-latency_mode,
-type,
-tags,
-playback_url,
-ingest_endpoint,
-recording_configuration_arn,
-preset,
-multitrack_input_configuration,
-container_format
-FROM awscc.ivs.channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT

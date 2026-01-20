@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_smb</code> resource or lists <code>location_smbs</code> in a region
 
@@ -32,27 +33,107 @@ Creates, updates, deletes or gets a <code>location_smb</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="agent_arns" /></td><td><code>array</code></td><td>The Amazon Resource Names (ARNs) of agents to use for a Simple Message Block (SMB) location.</td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td>The name of the Windows domain that the SMB server belongs to.</td></tr>
-<tr><td><CopyableCode code="mount_options" /></td><td><code>object</code></td><td>The mount options used by DataSync to access the SMB server.</td></tr>
-<tr><td><CopyableCode code="password" /></td><td><code>string</code></td><td>The password of the user who can mount the share and has the permissions to access files and folders in the SMB share.</td></tr>
-<tr><td><CopyableCode code="server_hostname" /></td><td><code>string</code></td><td>The name of the SMB server. This value is the IP address or Domain Name Service (DNS) name of the SMB server.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in the SMB file system that is used to read data from the SMB source location or write data to the SMB destination</td></tr>
-<tr><td><CopyableCode code="user" /></td><td><code>string</code></td><td>The user who can mount the share, has the permissions to access files and folders in the SMB share.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the SMB location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the SMB location that was described.</td></tr>
-<tr><td><CopyableCode code="authentication_type" /></td><td><code>string</code></td><td>The authentication mode used to determine identity of user.</td></tr>
-<tr><td><CopyableCode code="dns_ip_addresses" /></td><td><code>array</code></td><td>Specifies the IPv4 addresses for the DNS servers that your SMB file server belongs to. This parameter applies only if AuthenticationType is set to KERBEROS. If you have multiple domains in your environment, configuring this parameter makes sure that DataSync connects to the right SMB file server.</td></tr>
-<tr><td><CopyableCode code="kerberos_principal" /></td><td><code>string</code></td><td>Specifies a service principal name (SPN), which is an identity in your Kerberos realm that has permission to access the files, folders, and file metadata in your SMB file server. SPNs are case sensitive and must include a prepended cifs/. For example, an SPN might look like cifs/kerberosuser@EXAMPLE.COM. Your task execution will fail if the SPN that you provide for this parameter doesn't match exactly what's in your keytab or krb5.conf files.</td></tr>
-<tr><td><CopyableCode code="kerberos_keytab" /></td><td><code>string</code></td><td>The Base64 string representation of the Keytab file. Specifies your Kerberos key table (keytab) file, which includes mappings between your service principal name (SPN) and encryption keys. To avoid task execution errors, make sure that the SPN in the keytab file matches exactly what you specify for KerberosPrincipal and in your krb5.conf file.</td></tr>
-<tr><td><CopyableCode code="kerberos_krb5_conf" /></td><td><code>string</code></td><td>The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket. Specifies a Kerberos configuration file (krb5.conf) that defines your Kerberos realm configuration. To avoid task execution errors, make sure that the service principal name (SPN) in the krb5.conf file matches exactly what you specify for KerberosPrincipal and in your keytab file.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "agent_arns",
+    "type": "array",
+    "description": "The Amazon Resource Names (ARNs) of agents to use for a Simple Message Block (SMB) location."
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": "The name of the Windows domain that the SMB server belongs to."
+  },
+  {
+    "name": "mount_options",
+    "type": "object",
+    "description": "The mount options used by DataSync to access the SMB server.",
+    "children": [
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The specific SMB version that you want DataSync to use to mount your SMB share."
+      }
+    ]
+  },
+  {
+    "name": "password",
+    "type": "string",
+    "description": "The password of the user who can mount the share and has the permissions to access files and folders in the SMB share."
+  },
+  {
+    "name": "server_hostname",
+    "type": "string",
+    "description": "The name of the SMB server. This value is the IP address or Domain Name Service (DNS) name of the SMB server."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in the SMB file system that is used to read data from the SMB source location or write data to the SMB destination"
+  },
+  {
+    "name": "user",
+    "type": "string",
+    "description": "The user who can mount the share, has the permissions to access files and folders in the SMB share."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the SMB location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the SMB location that was described."
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": "The authentication mode used to determine identity of user."
+  },
+  {
+    "name": "dns_ip_addresses",
+    "type": "array",
+    "description": "Specifies the IPv4 addresses for the DNS servers that your SMB file server belongs to. This parameter applies only if AuthenticationType is set to KERBEROS. If you have multiple domains in your environment, configuring this parameter makes sure that DataSync connects to the right SMB file server."
+  },
+  {
+    "name": "kerberos_principal",
+    "type": "string",
+    "description": "Specifies a service principal name (SPN), which is an identity in your Kerberos realm that has permission to access the files, folders, and file metadata in your SMB file server. SPNs are case sensitive and must include a prepended cifs/. For example, an SPN might look like cifs/kerberosuser@EXAMPLE.COM. Your task execution will fail if the SPN that you provide for this parameter doesn't match exactly what's in your keytab or krb5.conf files."
+  },
+  {
+    "name": "kerberos_keytab",
+    "type": "string",
+    "description": "The Base64 string representation of the Keytab file. Specifies your Kerberos key table (keytab) file, which includes mappings between your service principal name (SPN) and encryption keys. To avoid task execution errors, make sure that the SPN in the keytab file matches exactly what you specify for KerberosPrincipal and in your krb5.conf file."
+  },
+  {
+    "name": "kerberos_krb5_conf",
+    "type": "string",
+    "description": "The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket. Specifies a Kerberos configuration file (krb5.conf) that defines your Kerberos realm configuration. To avoid task execution errors, make sure that the service principal name (SPN) in the krb5.conf file matches exactly what you specify for KerberosPrincipal and in your keytab file."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationsmb.html"><code>AWS::DataSync::LocationSMB</code></a>.
 
@@ -94,28 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_smbs</code> in a region.
-```sql
-SELECT
-region,
-agent_arns,
-domain,
-mount_options,
-password,
-server_hostname,
-subdirectory,
-user,
-tags,
-location_arn,
-location_uri,
-authentication_type,
-dns_ip_addresses,
-kerberos_principal,
-kerberos_keytab,
-kerberos_krb5_conf
-FROM awscc.datasync.location_smbs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_smb</code>.
 ```sql
 SELECT

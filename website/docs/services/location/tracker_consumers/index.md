@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tracker_consumer</code> resource or lists <code>tracker_consumers</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>tracker_consumer</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="consumer_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracker_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "consumer_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tracker_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-location-trackerconsumer.html"><code>AWS::Location::TrackerConsumer</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tracker_consumers</code> in a region.
-```sql
-SELECT
-region,
-consumer_arn,
-tracker_name
-FROM awscc.location.tracker_consumers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tracker_consumer</code>.
 ```sql
 SELECT

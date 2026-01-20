@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>migration_project</code> resource or lists <code>migration_projects</code> in a region
 
@@ -32,25 +33,129 @@ Creates, updates, deletes or gets a <code>migration_project</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="migration_project_name" /></td><td><code>string</code></td><td>The property describes a name to identify the migration project.</td></tr>
-<tr><td><CopyableCode code="migration_project_identifier" /></td><td><code>string</code></td><td>The property describes an identifier for the migration project. It is used for describing/deleting/modifying can be name/arn</td></tr>
-<tr><td><CopyableCode code="migration_project_arn" /></td><td><code>string</code></td><td>The property describes an ARN of the migration project.</td></tr>
-<tr><td><CopyableCode code="migration_project_creation_time" /></td><td><code>string</code></td><td>The property describes a creating time of the migration project.</td></tr>
-<tr><td><CopyableCode code="instance_profile_identifier" /></td><td><code>string</code></td><td>The property describes an instance profile identifier for the migration project. For create</td></tr>
-<tr><td><CopyableCode code="instance_profile_name" /></td><td><code>string</code></td><td>The property describes an instance profile name for the migration project. For read</td></tr>
-<tr><td><CopyableCode code="instance_profile_arn" /></td><td><code>string</code></td><td>The property describes an instance profile arn for the migration project. For read</td></tr>
-<tr><td><CopyableCode code="transformation_rules" /></td><td><code>string</code></td><td>The property describes transformation rules for the migration project.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The optional description of the migration project.</td></tr>
-<tr><td><CopyableCode code="schema_conversion_application_attributes" /></td><td><code>object</code></td><td>The property describes schema conversion application attributes for the migration project.</td></tr>
-<tr><td><CopyableCode code="source_data_provider_descriptors" /></td><td><code>array</code></td><td>The property describes source data provider descriptors for the migration project.</td></tr>
-<tr><td><CopyableCode code="target_data_provider_descriptors" /></td><td><code>array</code></td><td>The property describes target data provider descriptors for the migration project.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "migration_project_name",
+    "type": "string",
+    "description": "The property describes a name to identify the migration project."
+  },
+  {
+    "name": "migration_project_identifier",
+    "type": "string",
+    "description": "The property describes an identifier for the migration project. It is used for describing/deleting/modifying can be name/arn"
+  },
+  {
+    "name": "migration_project_arn",
+    "type": "string",
+    "description": "The property describes an ARN of the migration project."
+  },
+  {
+    "name": "migration_project_creation_time",
+    "type": "string",
+    "description": "The property describes a creating time of the migration project."
+  },
+  {
+    "name": "instance_profile_identifier",
+    "type": "string",
+    "description": "The property describes an instance profile identifier for the migration project. For create"
+  },
+  {
+    "name": "instance_profile_name",
+    "type": "string",
+    "description": "The property describes an instance profile name for the migration project. For read"
+  },
+  {
+    "name": "instance_profile_arn",
+    "type": "string",
+    "description": "The property describes an instance profile arn for the migration project. For read"
+  },
+  {
+    "name": "transformation_rules",
+    "type": "string",
+    "description": "The property describes transformation rules for the migration project."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The optional description of the migration project."
+  },
+  {
+    "name": "schema_conversion_application_attributes",
+    "type": "object",
+    "description": "The property describes schema conversion application attributes for the migration project.",
+    "children": [
+      {
+        "name": "s3_bucket_path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_bucket_role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "source_data_provider_descriptors",
+    "type": "array",
+    "description": "The property describes source data provider descriptors for the migration project.",
+    "children": [
+      {
+        "name": "data_provider_identifier",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_provider_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_provider_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets_manager_secret_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secrets_manager_access_role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "target_data_provider_descriptors",
+    "type": "array",
+    "description": "The property describes target data provider descriptors for the migration project."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-migrationproject.html"><code>AWS::DMS::MigrationProject</code></a>.
 
@@ -92,26 +197,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>migration_projects</code> in a region.
-```sql
-SELECT
-region,
-migration_project_name,
-migration_project_identifier,
-migration_project_arn,
-migration_project_creation_time,
-instance_profile_identifier,
-instance_profile_name,
-instance_profile_arn,
-transformation_rules,
-description,
-schema_conversion_application_attributes,
-source_data_provider_descriptors,
-target_data_provider_descriptors,
-tags
-FROM awscc.dms.migration_projects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>migration_project</code>.
 ```sql
 SELECT

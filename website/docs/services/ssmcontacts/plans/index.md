@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>plan</code> resource or lists <code>plans</code> in a region
 
@@ -32,16 +33,81 @@ Creates, updates, deletes or gets a <code>plan</code> resource or lists <code>pl
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="contact_id" /></td><td><code>string</code></td><td>Contact ID for the AWS SSM Incident Manager Contact to associate the plan.</td></tr>
-<tr><td><CopyableCode code="stages" /></td><td><code>array</code></td><td>The stages that an escalation plan or engagement plan engages contacts and contact methods in.</td></tr>
-<tr><td><CopyableCode code="rotation_ids" /></td><td><code>array</code></td><td>Rotation Ids to associate with Oncall Contact for engagement.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the contact.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "contact_id",
+    "type": "string",
+    "description": "Contact ID for the AWS SSM Incident Manager Contact to associate the plan."
+  },
+  {
+    "name": "stages",
+    "type": "array",
+    "description": "The stages that an escalation plan or engagement plan engages contacts and contact methods in.",
+    "children": [
+      {
+        "name": "duration_in_minutes",
+        "type": "integer",
+        "description": "The time to wait until beginning the next stage."
+      },
+      {
+        "name": "targets",
+        "type": "array",
+        "description": "The contacts or contact methods that the escalation plan or engagement plan is engaging.",
+        "children": [
+          {
+            "name": "contact_target_info",
+            "type": "object",
+            "description": "The contact that SSM Incident Manager is engaging during an incident.",
+            "children": [
+              {
+                "name": "contact_id",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the contact."
+              },
+              {
+                "name": "is_essential",
+                "type": "boolean",
+                "description": "A Boolean value determining if the contact's acknowledgement stops the progress of stages in the plan."
+              }
+            ]
+          },
+          {
+            "name": "channel_target_info",
+            "type": "object",
+            "description": "Information about the contact channel that SSM Incident Manager uses to engage the contact.",
+            "children": [
+              {
+                "name": "channel_id",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the contact channel."
+              },
+              {
+                "name": "retry_interval_in_minutes",
+                "type": "integer",
+                "description": "The number of minutes to wait to retry sending engagement in the case the engagement initially fails."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "rotation_ids",
+    "type": "array",
+    "description": "Rotation Ids to associate with Oncall Contact for engagement."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the contact."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmcontacts-plan.html"><code>AWS::SSMContacts::Plan</code></a>.
 

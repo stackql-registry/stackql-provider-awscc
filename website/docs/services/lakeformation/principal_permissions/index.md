@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>principal_permission</code> resource or lists <code>principal_permissions</code> in a region
 
@@ -26,25 +27,109 @@ Creates, updates, deletes or gets a <code>principal_permission</code> resource o
 <tbody>
 <tr><td><b>Name</b></td><td><code>principal_permissions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::LakeFormation::PrincipalPermissions</code> resource represents the permissions that a principal has on a GLUDC resource (such as GLUlong databases or GLUlong tables). When you create a <code>PrincipalPermissions</code> resource, the permissions are granted via the LFlong<code>GrantPermissions</code> API operation. When you delete a <code>PrincipalPermissions</code> resource, the permissions on principal-resource pair are revoked via the LFlong<code>RevokePermissions</code> API operation.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::LakeFormation::PrincipalPermissions&#96;&#96; resource represents the permissions that a principal has on a GLUDC resource (such as GLUlong databases or GLUlong tables). When you create a &#96;&#96;PrincipalPermissions&#96;&#96; resource, the permissions are granted via the LFlong&#96;&#96;GrantPermissions&#96;&#96; API operation. When you delete a &#96;&#96;PrincipalPermissions&#96;&#96; resource, the permissions on principal-resource pair are revoked via the LFlong&#96;&#96;RevokePermissions&#96;&#96; API operation.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.lakeformation.principal_permissions" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="catalog" /></td><td><code>string</code></td><td>The identifier for the GLUDC. By default, the account ID. The GLUDC is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment.</td></tr>
-<tr><td><CopyableCode code="principal" /></td><td><code>object</code></td><td>The principal to be granted a permission.</td></tr>
-<tr><td><CopyableCode code="resource" /></td><td><code>object</code></td><td>The resource to be granted or revoked permissions.</td></tr>
-<tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td>The permissions granted or revoked.</td></tr>
-<tr><td><CopyableCode code="permissions_with_grant_option" /></td><td><code>array</code></td><td>Indicates the ability to grant permissions (as a subset of permissions granted).</td></tr>
-<tr><td><CopyableCode code="principal_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "catalog",
+    "type": "string",
+    "description": "The identifier for the GLUDC. By default, the account ID. The GLUDC is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment."
+  },
+  {
+    "name": "principal",
+    "type": "object",
+    "description": "The principal to be granted a permission.",
+    "children": [
+      {
+        "name": "data_lake_principal_identifier",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "resource",
+    "type": "object",
+    "description": "The resource to be granted or revoked permissions.",
+    "children": [
+      {
+        "name": "catalog",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "database",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "table_wildcard",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table_with_columns",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "column_names",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "permissions",
+    "type": "array",
+    "description": "The permissions granted or revoked."
+  },
+  {
+    "name": "principal_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lakeformation-principalpermission.html"><code>AWS::LakeFormation::PrincipalPermissions</code></a>.
 

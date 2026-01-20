@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service</code> resource or lists <code>services</code> in a region
 
@@ -32,25 +33,313 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="service_name" /></td><td><code>string</code></td><td>The AppRunner Service Name.</td></tr>
-<tr><td><CopyableCode code="service_id" /></td><td><code>string</code></td><td>The AppRunner Service Id</td></tr>
-<tr><td><CopyableCode code="service_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AppRunner Service.</td></tr>
-<tr><td><CopyableCode code="service_url" /></td><td><code>string</code></td><td>The Service Url of the AppRunner Service.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>AppRunner Service status.</td></tr>
-<tr><td><CopyableCode code="source_configuration" /></td><td><code>object</code></td><td>Source Code configuration</td></tr>
-<tr><td><CopyableCode code="instance_configuration" /></td><td><code>object</code></td><td>Instance Configuration</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_configuration" /></td><td><code>object</code></td><td>Encryption configuration (KMS key)</td></tr>
-<tr><td><CopyableCode code="health_check_configuration" /></td><td><code>object</code></td><td>Health check configuration</td></tr>
-<tr><td><CopyableCode code="observability_configuration" /></td><td><code>object</code></td><td>Service observability configuration</td></tr>
-<tr><td><CopyableCode code="auto_scaling_configuration_arn" /></td><td><code>string</code></td><td>Autoscaling configuration ARN</td></tr>
-<tr><td><CopyableCode code="network_configuration" /></td><td><code>object</code></td><td>Network configuration</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "service_name",
+    "type": "string",
+    "description": "The AppRunner Service Name."
+  },
+  {
+    "name": "service_id",
+    "type": "string",
+    "description": "The AppRunner Service Id"
+  },
+  {
+    "name": "service_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the AppRunner Service."
+  },
+  {
+    "name": "service_url",
+    "type": "string",
+    "description": "The Service Url of the AppRunner Service."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "AppRunner Service status."
+  },
+  {
+    "name": "source_configuration",
+    "type": "object",
+    "description": "Source Code configuration",
+    "children": [
+      {
+        "name": "code_repository",
+        "type": "object",
+        "description": "Source Code Repository",
+        "children": [
+          {
+            "name": "repository_url",
+            "type": "string",
+            "description": "Repository Url"
+          },
+          {
+            "name": "source_code_version",
+            "type": "object",
+            "description": "Source Code Version",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Source Code Version Type"
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "Source Code Version Value"
+              }
+            ]
+          },
+          {
+            "name": "code_configuration",
+            "type": "object",
+            "description": "Code Configuration",
+            "children": [
+              {
+                "name": "configuration_source",
+                "type": "string",
+                "description": "Configuration Source"
+              },
+              {
+                "name": "code_configuration_values",
+                "type": "object",
+                "description": "Code Configuration Values"
+              }
+            ]
+          },
+          {
+            "name": "source_directory",
+            "type": "string",
+            "description": "Source Directory"
+          }
+        ]
+      },
+      {
+        "name": "image_repository",
+        "type": "object",
+        "description": "Image Repository",
+        "children": [
+          {
+            "name": "image_identifier",
+            "type": "string",
+            "description": "Image Identifier"
+          },
+          {
+            "name": "image_configuration",
+            "type": "object",
+            "description": "Image Configuration",
+            "children": [
+              {
+                "name": "start_command",
+                "type": "string",
+                "description": "Start Command"
+              },
+              {
+                "name": "port",
+                "type": "string",
+                "description": "Port"
+              },
+              {
+                "name": "runtime_environment_variables",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "runtime_environment_secrets",
+                "type": "array",
+                "description": "The secrets and parameters that get referenced by your service as environment variables"
+              }
+            ]
+          },
+          {
+            "name": "image_repository_type",
+            "type": "string",
+            "description": "Image Repository Type"
+          }
+        ]
+      },
+      {
+        "name": "auto_deployments_enabled",
+        "type": "boolean",
+        "description": "Auto Deployment enabled"
+      },
+      {
+        "name": "authentication_configuration",
+        "type": "object",
+        "description": "Authentication Configuration",
+        "children": [
+          {
+            "name": "connection_arn",
+            "type": "string",
+            "description": "Connection Arn"
+          },
+          {
+            "name": "access_role_arn",
+            "type": "string",
+            "description": "Access Role Arn"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "instance_configuration",
+    "type": "object",
+    "description": "Instance Configuration",
+    "children": [
+      {
+        "name": "cpu",
+        "type": "string",
+        "description": "CPU"
+      },
+      {
+        "name": "memory",
+        "type": "string",
+        "description": "Memory"
+      },
+      {
+        "name": "instance_role_arn",
+        "type": "string",
+        "description": "Instance Role Arn"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "encryption_configuration",
+    "type": "object",
+    "description": "Encryption configuration (KMS key)",
+    "children": [
+      {
+        "name": "kms_key",
+        "type": "string",
+        "description": "The KMS Key"
+      }
+    ]
+  },
+  {
+    "name": "health_check_configuration",
+    "type": "object",
+    "description": "Health check configuration",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "Health Check Protocol"
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "description": "Health check Path"
+      },
+      {
+        "name": "interval",
+        "type": "integer",
+        "description": "Health check Interval"
+      },
+      {
+        "name": "timeout",
+        "type": "integer",
+        "description": "Health check Timeout"
+      },
+      {
+        "name": "healthy_threshold",
+        "type": "integer",
+        "description": "Health check Healthy Threshold"
+      },
+      {
+        "name": "unhealthy_threshold",
+        "type": "integer",
+        "description": "Health check Unhealthy Threshold"
+      }
+    ]
+  },
+  {
+    "name": "observability_configuration",
+    "type": "object",
+    "description": "Service observability configuration",
+    "children": [
+      {
+        "name": "observability_enabled",
+        "type": "boolean",
+        "description": "Observability enabled"
+      },
+      {
+        "name": "observability_configuration_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the App Runner ObservabilityConfiguration."
+      }
+    ]
+  },
+  {
+    "name": "auto_scaling_configuration_arn",
+    "type": "string",
+    "description": "Autoscaling configuration ARN"
+  },
+  {
+    "name": "network_configuration",
+    "type": "object",
+    "description": "Network configuration",
+    "children": [
+      {
+        "name": "egress_configuration",
+        "type": "object",
+        "description": "Network egress configuration",
+        "children": [
+          {
+            "name": "egress_type",
+            "type": "string",
+            "description": "Network egress type."
+          },
+          {
+            "name": "vpc_connector_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the App Runner VpcConnector."
+          }
+        ]
+      },
+      {
+        "name": "ingress_configuration",
+        "type": "object",
+        "description": "Network ingress configuration",
+        "children": [
+          {
+            "name": "is_publicly_accessible",
+            "type": "boolean",
+            "description": "It's set to true if the Apprunner service is publicly accessible. It's set to false otherwise."
+          }
+        ]
+      },
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": "App Runner service endpoint IP address type"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-service.html"><code>AWS::AppRunner::Service</code></a>.
 
@@ -92,26 +381,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>services</code> in a region.
-```sql
-SELECT
-region,
-service_name,
-service_id,
-service_arn,
-service_url,
-status,
-source_configuration,
-instance_configuration,
-tags,
-encryption_configuration,
-health_check_configuration,
-observability_configuration,
-auto_scaling_configuration_arn,
-network_configuration
-FROM awscc.apprunner.services
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT

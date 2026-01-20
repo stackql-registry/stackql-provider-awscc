@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>identity_provider_config</code> resource or lists <code>identity_provider_configs</code> in a region
 
@@ -32,18 +33,104 @@ Creates, updates, deletes or gets an <code>identity_provider_config</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>The name of the identity provider configuration.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the identity provider configuration.</td></tr>
-<tr><td><CopyableCode code="identity_provider_config_name" /></td><td><code>string</code></td><td>The name of the OIDC provider configuration.</td></tr>
-<tr><td><CopyableCode code="oidc" /></td><td><code>object</code></td><td>An object representing an OpenID Connect (OIDC) configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="identity_provider_config_arn" /></td><td><code>string</code></td><td>The ARN of the configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The name of the identity provider configuration."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the identity provider configuration."
+  },
+  {
+    "name": "identity_provider_config_name",
+    "type": "string",
+    "description": "The name of the OIDC provider configuration."
+  },
+  {
+    "name": "oidc",
+    "type": "object",
+    "description": "An object representing an OpenID Connect (OIDC) configuration.",
+    "children": [
+      {
+        "name": "client_id",
+        "type": "string",
+        "description": "This is also known as audience. The ID for the client application that makes authentication requests to the OpenID identity provider."
+      },
+      {
+        "name": "groups_claim",
+        "type": "string",
+        "description": "The JWT claim that the provider uses to return your groups."
+      },
+      {
+        "name": "groups_prefix",
+        "type": "string",
+        "description": "The prefix that is prepended to group claims to prevent clashes with existing names (such as system: groups)."
+      },
+      {
+        "name": "issuer_url",
+        "type": "string",
+        "description": "The URL of the OpenID identity provider that allows the API server to discover public signing keys for verifying tokens."
+      },
+      {
+        "name": "required_claims",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key of the requiredClaims."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the requiredClaims."
+          }
+        ]
+      },
+      {
+        "name": "username_claim",
+        "type": "string",
+        "description": "The JSON Web Token (JWT) claim to use as the username. The default is sub, which is expected to be a unique identifier of the end user. You can choose other claims, such as email or name, depending on the OpenID identity provider. Claims other than email are prefixed with the issuer URL to prevent naming clashes with other plug-ins."
+      },
+      {
+        "name": "username_prefix",
+        "type": "string",
+        "description": "The prefix that is prepended to username claims to prevent clashes with existing names. If you do not provide this field, and username is a value other than email, the prefix defaults to issuerurl#. You can use the value - to disable all prefixing."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "identity_provider_config_arn",
+    "type": "string",
+    "description": "The ARN of the configuration."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-identityproviderconfig.html"><code>AWS::EKS::IdentityProviderConfig</code></a>.
 
@@ -85,19 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>identity_provider_configs</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-type,
-identity_provider_config_name,
-oidc,
-tags,
-identity_provider_config_arn
-FROM awscc.eks.identity_provider_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>identity_provider_config</code>.
 ```sql
 SELECT

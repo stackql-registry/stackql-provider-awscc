@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>capacity_reservation</code> resource or lists <code>capacity_reservations</code> in a region
 
@@ -32,21 +33,84 @@ Creates, updates, deletes or gets a <code>capacity_reservation</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified capacity reservation</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The reservation name.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the reservation.</td></tr>
-<tr><td><CopyableCode code="target_dpus" /></td><td><code>integer</code></td><td>The number of DPUs to request to be allocated to the reservation.</td></tr>
-<tr><td><CopyableCode code="allocated_dpus" /></td><td><code>integer</code></td><td>The number of DPUs Athena has provisioned and allocated for the reservation</td></tr>
-<tr><td><CopyableCode code="capacity_assignment_configuration" /></td><td><code>object</code></td><td>Assignment configuration to assign workgroups to a reservation</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The date and time the reservation was created.</td></tr>
-<tr><td><CopyableCode code="last_successful_allocation_time" /></td><td><code>string</code></td><td>The timestamp when the last successful allocated was made</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified capacity reservation"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The reservation name."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the reservation."
+  },
+  {
+    "name": "target_dpus",
+    "type": "integer",
+    "description": "The number of DPUs to request to be allocated to the reservation."
+  },
+  {
+    "name": "allocated_dpus",
+    "type": "integer",
+    "description": "The number of DPUs Athena has provisioned and allocated for the reservation"
+  },
+  {
+    "name": "capacity_assignment_configuration",
+    "type": "object",
+    "description": "Assignment configuration to assign workgroups to a reservation",
+    "children": [
+      {
+        "name": "capacity_assignments",
+        "type": "array",
+        "description": "List of capacity assignments",
+        "children": [
+          {
+            "name": "workgroup_names",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The date and time the reservation was created."
+  },
+  {
+    "name": "last_successful_allocation_time",
+    "type": "string",
+    "description": "The timestamp when the last successful allocated was made"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-capacityreservation.html"><code>AWS::Athena::CapacityReservation</code></a>.
 
@@ -88,22 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>capacity_reservations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-status,
-target_dpus,
-allocated_dpus,
-capacity_assignment_configuration,
-creation_time,
-last_successful_allocation_time,
-tags
-FROM awscc.athena.capacity_reservations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>capacity_reservation</code>.
 ```sql
 SELECT

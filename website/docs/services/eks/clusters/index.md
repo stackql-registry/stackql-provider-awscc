@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,37 +33,353 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="encryption_config" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="kubernetes_network_config" /></td><td><code>object</code></td><td>The Kubernetes network configuration for the cluster.</td></tr>
-<tr><td><CopyableCode code="logging" /></td><td><code>object</code></td><td>Enable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs based on log types. By default, cluster control plane logs aren't exported to CloudWatch Logs.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The unique name to give to your cluster.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique ID given to your cluster.</td></tr>
-<tr><td><CopyableCode code="resources_vpc_config" /></td><td><code>object</code></td><td>An object representing the VPC configuration to use for an Amazon EKS cluster.</td></tr>
-<tr><td><CopyableCode code="outpost_config" /></td><td><code>object</code></td><td>An object representing the Outpost configuration to use for AWS EKS outpost cluster.</td></tr>
-<tr><td><CopyableCode code="access_config" /></td><td><code>object</code></td><td>An object representing the Access Config to use for the cluster.</td></tr>
-<tr><td><CopyableCode code="upgrade_policy" /></td><td><code>object</code></td><td>An object representing the Upgrade Policy to use for the cluster.</td></tr>
-<tr><td><CopyableCode code="remote_network_config" /></td><td><code>object</code></td><td>Configuration fields for specifying on-premises node and pod CIDRs that are external to the VPC passed during cluster creation.</td></tr>
-<tr><td><CopyableCode code="compute_config" /></td><td><code>object</code></td><td>Todo: add description</td></tr>
-<tr><td><CopyableCode code="storage_config" /></td><td><code>object</code></td><td>Todo: add description</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used.</td></tr>
-<tr><td><CopyableCode code="force" /></td><td><code>boolean</code></td><td>Force cluster version update</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the cluster, such as arn:aws:eks:us-west-2:666666666666:cluster/prod.</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td>The endpoint for your Kubernetes API server, such as https://5E1D0CEXAMPLEA591B746AFC5AB30262.yl4.us-west-2.eks.amazonaws.com.</td></tr>
-<tr><td><CopyableCode code="certificate_authority_data" /></td><td><code>string</code></td><td>The certificate-authority-data for your cluster.</td></tr>
-<tr><td><CopyableCode code="cluster_security_group_id" /></td><td><code>string</code></td><td>The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control plane to data plane communication.</td></tr>
-<tr><td><CopyableCode code="encryption_config_key_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) or alias of the customer master key (CMK).</td></tr>
-<tr><td><CopyableCode code="open_id_connect_issuer_url" /></td><td><code>string</code></td><td>The issuer URL for the cluster's OIDC identity provider, such as https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E. If you need to remove https:// from this output value, you can include the following code in your template.</td></tr>
-<tr><td><CopyableCode code="bootstrap_self_managed_addons" /></td><td><code>boolean</code></td><td>Set this value to false to avoid creating the default networking add-ons when the cluster is created.</td></tr>
-<tr><td><CopyableCode code="deletion_protection" /></td><td><code>boolean</code></td><td>Set this value to true to enable deletion protection for the cluster.</td></tr>
-<tr><td><CopyableCode code="zonal_shift_config" /></td><td><code>object</code></td><td>The current zonal shift configuration to use for the cluster.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "encryption_config",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "provider",
+        "type": "object",
+        "description": "The encryption provider for the cluster.",
+        "children": [
+          {
+            "name": "key_arn",
+            "type": "string",
+            "description": "Amazon Resource Name (ARN) or alias of the KMS key. The KMS key must be symmetric, created in the same region as the cluster, and if the KMS key was created in a different account, the user must have access to the KMS key."
+          }
+        ]
+      },
+      {
+        "name": "resources",
+        "type": "array",
+        "description": "Specifies the resources to be encrypted. The only supported value is \"secrets\"."
+      }
+    ]
+  },
+  {
+    "name": "kubernetes_network_config",
+    "type": "object",
+    "description": "The Kubernetes network configuration for the cluster.",
+    "children": [
+      {
+        "name": "service_ipv4_cidr",
+        "type": "string",
+        "description": "The CIDR block to assign Kubernetes service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the 10.100.0.0/16 or 172.20.0.0/16 CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC."
+      },
+      {
+        "name": "service_ipv6_cidr",
+        "type": "string",
+        "description": "The CIDR block to assign Kubernetes service IP addresses from."
+      },
+      {
+        "name": "ip_family",
+        "type": "string",
+        "description": "Ipv4 or Ipv6. You can only specify ipv6 for 1.21 and later clusters that use version 1.10.1 or later of the Amazon VPC CNI add-on"
+      },
+      {
+        "name": "elastic_load_balancing",
+        "type": "object",
+        "description": "Todo: add description",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Todo: add description"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "logging",
+    "type": "object",
+    "description": "Enable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs based on log types. By default, cluster control plane logs aren't exported to CloudWatch Logs.",
+    "children": [
+      {
+        "name": "cluster_logging",
+        "type": "object",
+        "description": "The cluster control plane logging configuration for your cluster.",
+        "children": [
+          {
+            "name": "enabled_types",
+            "type": "array",
+            "description": "Enable control plane logs for your cluster, all log types will be disabled if the array is empty",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": "name of the log type"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The unique name to give to your cluster."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique ID given to your cluster."
+  },
+  {
+    "name": "resources_vpc_config",
+    "type": "object",
+    "description": "An object representing the VPC configuration to use for an Amazon EKS cluster.",
+    "children": [
+      {
+        "name": "endpoint_private_access",
+        "type": "boolean",
+        "description": "Set this value to true to enable private access for your cluster's Kubernetes API server endpoint. If you enable private access, Kubernetes API requests from within your cluster's VPC use the private VPC endpoint. The default value for this parameter is false, which disables private access for your Kubernetes API server. If you disable private access and you have nodes or AWS Fargate pods in the cluster, then ensure that publicAccessCidrs includes the necessary CIDR blocks for communication with the nodes or Fargate pods."
+      },
+      {
+        "name": "endpoint_public_access",
+        "type": "boolean",
+        "description": "Set this value to false to disable public access to your cluster's Kubernetes API server endpoint. If you disable public access, your cluster's Kubernetes API server can only receive requests from within the cluster VPC. The default value for this parameter is true, which enables public access for your Kubernetes API server."
+      },
+      {
+        "name": "public_access_cidrs",
+        "type": "array",
+        "description": "The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint. Communication to the endpoint from addresses outside of the CIDR blocks that you specify is denied. The default value is 0.0.0.0/0. If you've disabled private endpoint access and you have nodes or AWS Fargate pods in the cluster, then ensure that you specify the necessary CIDR blocks."
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "Specify one or more security groups for the cross-account elastic network interfaces that Amazon EKS creates to use to allow communication between your worker nodes and the Kubernetes control plane. If you don't specify a security group, the default security group for your VPC is used."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "Specify subnets for your Amazon EKS nodes. Amazon EKS creates cross-account elastic network interfaces in these subnets to allow communication between your nodes and the Kubernetes control plane."
+      }
+    ]
+  },
+  {
+    "name": "outpost_config",
+    "type": "object",
+    "description": "An object representing the Outpost configuration to use for AWS EKS outpost cluster.",
+    "children": [
+      {
+        "name": "outpost_arns",
+        "type": "array",
+        "description": "Specify one or more Arn(s) of Outpost(s) on which you would like to create your cluster."
+      },
+      {
+        "name": "control_plane_instance_type",
+        "type": "string",
+        "description": "Specify the Instance type of the machines that should be used to create your cluster."
+      },
+      {
+        "name": "control_plane_placement",
+        "type": "object",
+        "description": "Specify the placement group of the control plane machines for your cluster.",
+        "children": [
+          {
+            "name": "group_name",
+            "type": "string",
+            "description": "Specify the placement group name of the control place machines for your cluster."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "access_config",
+    "type": "object",
+    "description": "An object representing the Access Config to use for the cluster.",
+    "children": [
+      {
+        "name": "bootstrap_cluster_creator_admin_permissions",
+        "type": "boolean",
+        "description": "Set this value to false to avoid creating a default cluster admin Access Entry using the IAM principal used to create the cluster."
+      },
+      {
+        "name": "authentication_mode",
+        "type": "string",
+        "description": "Specify the authentication mode that should be used to create your cluster."
+      }
+    ]
+  },
+  {
+    "name": "upgrade_policy",
+    "type": "object",
+    "description": "An object representing the Upgrade Policy to use for the cluster.",
+    "children": [
+      {
+        "name": "support_type",
+        "type": "string",
+        "description": "Specify the support type for your cluster."
+      }
+    ]
+  },
+  {
+    "name": "remote_network_config",
+    "type": "object",
+    "description": "Configuration fields for specifying on-premises node and pod CIDRs that are external to the VPC passed during cluster creation.",
+    "children": [
+      {
+        "name": "remote_node_networks",
+        "type": "array",
+        "description": "Network configuration of nodes run on-premises with EKS Hybrid Nodes.",
+        "children": [
+          {
+            "name": "cidrs",
+            "type": "array",
+            "description": "Specifies the list of remote node CIDRs."
+          }
+        ]
+      },
+      {
+        "name": "remote_pod_networks",
+        "type": "array",
+        "description": "Network configuration of pods run on-premises with EKS Hybrid Nodes.",
+        "children": [
+          {
+            "name": "cidrs",
+            "type": "array",
+            "description": "Specifies the list of remote pod CIDRs."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "compute_config",
+    "type": "object",
+    "description": "Todo: add description",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Todo: add description"
+      },
+      {
+        "name": "node_role_arn",
+        "type": "string",
+        "description": "Todo: add description"
+      },
+      {
+        "name": "node_pools",
+        "type": "array",
+        "description": "Todo: add description"
+      }
+    ]
+  },
+  {
+    "name": "storage_config",
+    "type": "object",
+    "description": "Todo: add description",
+    "children": [
+      {
+        "name": "block_storage",
+        "type": "object",
+        "description": "Todo: add description",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Todo: add description"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf."
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used."
+  },
+  {
+    "name": "force",
+    "type": "boolean",
+    "description": "Force cluster version update"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the cluster, such as arn:aws:eks:us-west-2:666666666666:cluster/prod."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The endpoint for your Kubernetes API server, such as https://5E1D0CEXAMPLEA591B746AFC5AB30262.yl4.us-west-2.eks.amazonaws.com."
+  },
+  {
+    "name": "certificate_authority_data",
+    "type": "string",
+    "description": "The certificate-authority-data for your cluster."
+  },
+  {
+    "name": "cluster_security_group_id",
+    "type": "string",
+    "description": "The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control plane to data plane communication."
+  },
+  {
+    "name": "encryption_config_key_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) or alias of the customer master key (CMK)."
+  },
+  {
+    "name": "open_id_connect_issuer_url",
+    "type": "string",
+    "description": "The issuer URL for the cluster's OIDC identity provider, such as https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E. If you need to remove https:// from this output value, you can include the following code in your template."
+  },
+  {
+    "name": "bootstrap_self_managed_addons",
+    "type": "boolean",
+    "description": "Set this value to false to avoid creating the default networking add-ons when the cluster is created."
+  },
+  {
+    "name": "deletion_protection",
+    "type": "boolean",
+    "description": "Set this value to true to enable deletion protection for the cluster."
+  },
+  {
+    "name": "zonal_shift_config",
+    "type": "object",
+    "description": "The current zonal shift configuration to use for the cluster.",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Set this value to true to enable zonal shift for the cluster."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-cluster.html"><code>AWS::EKS::Cluster</code></a>.
 
@@ -104,38 +421,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-encryption_config,
-kubernetes_network_config,
-logging,
-name,
-id,
-resources_vpc_config,
-outpost_config,
-access_config,
-upgrade_policy,
-remote_network_config,
-compute_config,
-storage_config,
-role_arn,
-version,
-force,
-tags,
-arn,
-endpoint,
-certificate_authority_data,
-cluster_security_group_id,
-encryption_config_key_arn,
-open_id_connect_issuer_url,
-bootstrap_self_managed_addons,
-deletion_protection,
-zonal_shift_config
-FROM awscc.eks.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

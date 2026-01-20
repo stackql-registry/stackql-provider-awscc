@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_connection</code> resource or lists <code>vpc_connections</code> in a region
 
@@ -32,27 +33,127 @@ Creates, updates, deletes or gets a <code>vpc_connection</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) of the VPC connection.</p></td></tr>
-<tr><td><CopyableCode code="availability_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td><p>The time that the VPC connection was created.</p></td></tr>
-<tr><td><CopyableCode code="dns_resolvers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td><p>The time that the VPC connection was last updated.</p></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_interfaces" /></td><td><code>array</code></td><td><p>A list of network interfaces.</p></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_connection_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td><p>The Amazon EC2 VPC ID associated with the VPC connection.</p></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) of the VPC connection.</p>"
+  },
+  {
+    "name": "availability_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "<p>The time that the VPC connection was created.</p>"
+  },
+  {
+    "name": "dns_resolvers",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "<p>The time that the VPC connection was last updated.</p>"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_interfaces",
+    "type": "array",
+    "description": "<p>A list of network interfaces.</p>",
+    "children": [
+      {
+        "name": "subnet_id",
+        "type": "string",
+        "description": "<p>The subnet ID associated with the network interface.</p>"
+      },
+      {
+        "name": "availability_zone",
+        "type": "string",
+        "description": "<p>The availability zone that the network interface resides in.</p>"
+      },
+      {
+        "name": "error_message",
+        "type": "string",
+        "description": "<p>An error message.</p>"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "network_interface_id",
+        "type": "string",
+        "description": "<p>The network interface ID.</p>"
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "<p>Tag key.</p>"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "<p>Tag value.</p>"
+      }
+    ]
+  },
+  {
+    "name": "vpc_connection_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "<p>The Amazon EC2 VPC ID associated with the VPC connection.</p>"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-vpcconnection.html"><code>AWS::QuickSight::VPCConnection</code></a>.
 
@@ -94,28 +195,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_connections</code> in a region.
-```sql
-SELECT
-region,
-arn,
-availability_status,
-aws_account_id,
-created_time,
-dns_resolvers,
-last_updated_time,
-name,
-network_interfaces,
-role_arn,
-security_group_ids,
-status,
-subnet_ids,
-tags,
-vpc_connection_id,
-vpc_id
-FROM awscc.quicksight.vpc_connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_connection</code>.
 ```sql
 SELECT

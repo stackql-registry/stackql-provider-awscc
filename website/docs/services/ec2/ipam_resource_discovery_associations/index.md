@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ipam_resource_discovery_association</code> resource or lists <code>ipam_resource_discovery_associations</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets an <code>ipam_resource_discovery_association</
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ipam_arn" /></td><td><code>string</code></td><td>Arn of the IPAM.</td></tr>
-<tr><td><CopyableCode code="ipam_region" /></td><td><code>string</code></td><td>The home region of the IPAM.</td></tr>
-<tr><td><CopyableCode code="ipam_resource_discovery_association_id" /></td><td><code>string</code></td><td>Id of the IPAM Resource Discovery Association.</td></tr>
-<tr><td><CopyableCode code="ipam_resource_discovery_id" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IPAM Resource Discovery Association.</td></tr>
-<tr><td><CopyableCode code="ipam_id" /></td><td><code>string</code></td><td>The Id of the IPAM this Resource Discovery is associated to.</td></tr>
-<tr><td><CopyableCode code="ipam_resource_discovery_association_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the resource discovery association is a part of.</td></tr>
-<tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td>If the Resource Discovery Association exists due as part of CreateIpam.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The AWS Account ID for the account where the shared IPAM exists.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The operational state of the Resource Discovery Association. Related to Create/Delete activities.</td></tr>
-<tr><td><CopyableCode code="resource_discovery_status" /></td><td><code>string</code></td><td>The status of the resource discovery.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ipam_arn",
+    "type": "string",
+    "description": "Arn of the IPAM."
+  },
+  {
+    "name": "ipam_region",
+    "type": "string",
+    "description": "The home region of the IPAM."
+  },
+  {
+    "name": "ipam_resource_discovery_association_id",
+    "type": "string",
+    "description": "Id of the IPAM Resource Discovery Association."
+  },
+  {
+    "name": "ipam_resource_discovery_id",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IPAM Resource Discovery Association."
+  },
+  {
+    "name": "ipam_id",
+    "type": "string",
+    "description": "The Id of the IPAM this Resource Discovery is associated to."
+  },
+  {
+    "name": "ipam_resource_discovery_association_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the resource discovery association is a part of."
+  },
+  {
+    "name": "is_default",
+    "type": "boolean",
+    "description": "If the Resource Discovery Association exists due as part of CreateIpam."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "The AWS Account ID for the account where the shared IPAM exists."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The operational state of the Resource Discovery Association. Related to Create/Delete activities."
+  },
+  {
+    "name": "resource_discovery_status",
+    "type": "string",
+    "description": "The status of the resource discovery."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipamresourcediscoveryassociation.html"><code>AWS::EC2::IPAMResourceDiscoveryAssociation</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ipam_resource_discovery_associations</code> in a region.
-```sql
-SELECT
-region,
-ipam_arn,
-ipam_region,
-ipam_resource_discovery_association_id,
-ipam_resource_discovery_id,
-ipam_id,
-ipam_resource_discovery_association_arn,
-is_default,
-owner_id,
-state,
-resource_discovery_status,
-tags
-FROM awscc.ec2.ipam_resource_discovery_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ipam_resource_discovery_association</code>.
 ```sql
 SELECT

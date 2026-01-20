@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or lists <code>anycast_ip_lists</code> in a region
 
@@ -26,24 +27,114 @@ Creates, updates, deletes or gets an <code>anycast_ip_list</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>anycast_ip_lists</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.anycast_ip_lists" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="anycast_ip_list" /></td><td><code>object</code></td><td>An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="e_tag" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_count" /></td><td><code>integer</code></td><td>The number of IP addresses in the Anycast static IP list.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the Anycast static IP list.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A complex type that contains zero or more <code>Tag</code> elements.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "anycast_ip_list",
+    "type": "object",
+    "description": "An Anycast static IP list. For more information, see &#91;Request Anycast static IPs to use for allowlisting&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html) in the &#42;Amazon CloudFront Developer Guide&#42;.",
+    "children": [
+      {
+        "name": "e_tag",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ip_count",
+        "type": "integer",
+        "description": "The number of IP addresses in the Anycast static IP list."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the Anycast static IP list."
+      },
+      {
+        "name": "tags",
+        "type": "object",
+        "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+        "children": [
+          {
+            "name": "items",
+            "type": "array",
+            "description": "A complex type that contains &#96;&#96;Tag&#96;&#96; elements.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "e_tag",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_count",
+    "type": "integer",
+    "description": "The number of IP addresses in the Anycast static IP list."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the Anycast static IP list."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "children": [
+      {
+        "name": "items",
+        "type": "array",
+        "description": "A complex type that contains &#96;&#96;Tag&#96;&#96; elements.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-anycastiplist.html"><code>AWS::CloudFront::AnycastIpList</code></a>.
 
@@ -80,19 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>anycast_ip_lists</code> in a region.
-```sql
-SELECT
-region,
-anycast_ip_list,
-e_tag,
-id,
-ip_count,
-name,
-tags
-FROM awscc.cloudfront.anycast_ip_lists
-;
-```
+
 Gets all properties from an individual <code>anycast_ip_list</code>.
 ```sql
 SELECT

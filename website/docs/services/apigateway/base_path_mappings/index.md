@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>base_path_mapping</code> resource or lists <code>base_path_mappings</code> in a region
 
@@ -26,22 +27,39 @@ Creates, updates, deletes or gets a <code>base_path_mapping</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>base_path_mappings</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::BasePathMapping</code> resource creates a base path that clients who call your API must use in the invocation URL.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::BasePathMapping&#96;&#96; resource creates a base path that clients who call your API must use in the invocation URL.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.base_path_mappings" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="base_path" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stage" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "base_path",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stage",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-basepathmapping.html"><code>AWS::ApiGateway::BasePathMapping</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>base_path_mappings</code> in a region.
-```sql
-SELECT
-region,
-base_path,
-domain_name,
-rest_api_id,
-stage
-FROM awscc.apigateway.base_path_mappings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>base_path_mapping</code>.
 ```sql
 SELECT

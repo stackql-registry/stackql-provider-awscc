@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>snapshot</code> resource or lists <code>snapshots</code> in a region
 
@@ -32,18 +33,82 @@ Creates, updates, deletes or gets a <code>snapshot</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="snapshot_name" /></td><td><code>string</code></td><td>The name of the snapshot.</td></tr>
-<tr><td><CopyableCode code="namespace_name" /></td><td><code>string</code></td><td>The namespace the snapshot is associated with.</td></tr>
-<tr><td><CopyableCode code="owner_account" /></td><td><code>string</code></td><td>The owner account of the snapshot.</td></tr>
-<tr><td><CopyableCode code="retention_period" /></td><td><code>integer</code></td><td>The retention period of the snapshot.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="snapshot" /></td><td><code>object</code></td><td>Definition for snapshot resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "snapshot_name",
+    "type": "string",
+    "description": "The name of the snapshot."
+  },
+  {
+    "name": "namespace_name",
+    "type": "string",
+    "description": "The namespace the snapshot is associated with."
+  },
+  {
+    "name": "owner_account",
+    "type": "string",
+    "description": "The owner account of the snapshot."
+  },
+  {
+    "name": "retention_period",
+    "type": "integer",
+    "description": "The retention period of the snapshot."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "snapshot",
+    "type": "object",
+    "description": "Definition for snapshot resource",
+    "children": [
+      {
+        "name": "snapshot_name",
+        "type": "string",
+        "description": "The name of the snapshot."
+      },
+      {
+        "name": "namespace_name",
+        "type": "string",
+        "description": "The namespace the snapshot is associated with."
+      },
+      {
+        "name": "owner_account",
+        "type": "string",
+        "description": "The owner account of the snapshot."
+      },
+      {
+        "name": "retention_period",
+        "type": "integer",
+        "description": "The retention period of the snapshot."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to this resource."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshiftserverless-snapshot.html"><code>AWS::RedshiftServerless::Snapshot</code></a>.
 
@@ -85,19 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>snapshots</code> in a region.
-```sql
-SELECT
-region,
-snapshot_name,
-namespace_name,
-owner_account,
-retention_period,
-tags,
-snapshot
-FROM awscc.redshiftserverless.snapshots
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>snapshot</code>.
 ```sql
 SELECT

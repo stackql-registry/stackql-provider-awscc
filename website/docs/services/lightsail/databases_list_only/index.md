@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>databases</code> in a region or regions, for all properties use <a href="/services/lightsail/databases/"><code>databases</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>databases</code> in a region or regions, for all properties use <a h
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="relational_database_name" /></td><td><code>string</code></td><td>The name to use for your new Lightsail database resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "relational_database_name",
+    "type": "string",
+    "description": "The name to use for your new Lightsail database resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

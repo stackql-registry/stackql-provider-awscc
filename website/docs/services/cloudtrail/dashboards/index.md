@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <code>dashboards</code> in a region
 
@@ -32,22 +33,116 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="widgets" /></td><td><code>array</code></td><td>List of widgets on the dashboard</td></tr>
-<tr><td><CopyableCode code="created_timestamp" /></td><td><code>string</code></td><td>The timestamp of the dashboard creation.</td></tr>
-<tr><td><CopyableCode code="dashboard_arn" /></td><td><code>string</code></td><td>The ARN of the dashboard.</td></tr>
-<tr><td><CopyableCode code="refresh_schedule" /></td><td><code>object</code></td><td>Configures the automatic refresh schedule for the dashboard. Includes the frequency unit (DAYS or HOURS) and value, as well as the status (ENABLED or DISABLED) of the refresh schedule.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the dashboard.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the dashboard. Values are CREATING, CREATED, UPDATING, UPDATED and DELETING.</td></tr>
-<tr><td><CopyableCode code="termination_protection_enabled" /></td><td><code>boolean</code></td><td>Indicates whether the dashboard is protected from termination.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the dashboard. Values are CUSTOM and MANAGED.</td></tr>
-<tr><td><CopyableCode code="updated_timestamp" /></td><td><code>string</code></td><td>The timestamp showing when the dashboard was updated, if applicable. UpdatedTimestamp is always either the same or newer than the time shown in CreatedTimestamp.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "widgets",
+    "type": "array",
+    "description": "List of widgets on the dashboard",
+    "children": [
+      {
+        "name": "query_statement",
+        "type": "string",
+        "description": "The SQL query statement on one or more event data stores."
+      },
+      {
+        "name": "query_parameters",
+        "type": "array",
+        "description": "The placeholder keys in the QueryStatement. For example: $StartTime$, $EndTime$, $Period$."
+      },
+      {
+        "name": "view_properties",
+        "type": "object",
+        "description": "The view properties of the widget."
+      }
+    ]
+  },
+  {
+    "name": "created_timestamp",
+    "type": "string",
+    "description": "The timestamp of the dashboard creation."
+  },
+  {
+    "name": "dashboard_arn",
+    "type": "string",
+    "description": "The ARN of the dashboard."
+  },
+  {
+    "name": "refresh_schedule",
+    "type": "object",
+    "description": "Configures the automatic refresh schedule for the dashboard. Includes the frequency unit (DAYS or HOURS) and value, as well as the status (ENABLED or DISABLED) of the refresh schedule.",
+    "children": [
+      {
+        "name": "frequency",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "The frequency unit. Supported values are HOURS and DAYS."
+          },
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "The frequency value."
+          }
+        ]
+      },
+      {
+        "name": "time_of_day",
+        "type": "string",
+        "description": "StartTime of the automatic schedule refresh."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "The status of the schedule. Supported values are ENABLED and DISABLED."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the dashboard."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the dashboard. Values are CREATING, CREATED, UPDATING, UPDATED and DELETING."
+  },
+  {
+    "name": "termination_protection_enabled",
+    "type": "boolean",
+    "description": "Indicates whether the dashboard is protected from termination."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the dashboard. Values are CUSTOM and MANAGED."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-dashboard.html"><code>AWS::CloudTrail::Dashboard</code></a>.
 
@@ -89,23 +184,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dashboards</code> in a region.
-```sql
-SELECT
-region,
-widgets,
-created_timestamp,
-dashboard_arn,
-refresh_schedule,
-name,
-status,
-termination_protection_enabled,
-type,
-updated_timestamp,
-tags
-FROM awscc.cloudtrail.dashboards
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT

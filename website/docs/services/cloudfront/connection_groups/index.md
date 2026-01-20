@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connection_group</code> resource or lists <code>connection_groups</code> in a region
 
@@ -32,25 +33,90 @@ Creates, updates, deletes or gets a <code>connection_group</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the connection group.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A complex type that contains zero or more <code>Tag</code> elements.</td></tr>
-<tr><td><CopyableCode code="ipv6_enabled" /></td><td><code>boolean</code></td><td>IPv6 is enabled for the connection group.</td></tr>
-<tr><td><CopyableCode code="routing_endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="anycast_ip_list_id" /></td><td><code>string</code></td><td>The ID of the Anycast static IP list.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td>Whether the connection group is enabled.</td></tr>
-<tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="e_tag" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the connection group."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      }
+    ]
+  },
+  {
+    "name": "ipv6_enabled",
+    "type": "boolean",
+    "description": "IPv6 is enabled for the connection group."
+  },
+  {
+    "name": "routing_endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "anycast_ip_list_id",
+    "type": "string",
+    "description": "The ID of the Anycast static IP list."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": "Whether the connection group is enabled."
+  },
+  {
+    "name": "is_default",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "e_tag",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-connectiongroup.html"><code>AWS::CloudFront::ConnectionGroup</code></a>.
 
@@ -92,26 +158,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connection_groups</code> in a region.
-```sql
-SELECT
-region,
-id,
-name,
-arn,
-created_time,
-last_modified_time,
-tags,
-ipv6_enabled,
-routing_endpoint,
-anycast_ip_list_id,
-status,
-enabled,
-is_default,
-e_tag
-FROM awscc.cloudfront.connection_groups
-;
-```
+
 Gets all properties from an individual <code>connection_group</code>.
 ```sql
 SELECT

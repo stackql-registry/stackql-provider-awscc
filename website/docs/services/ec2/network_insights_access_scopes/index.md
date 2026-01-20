@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_insights_access_scope</code> resource or lists <code>network_insights_access_scopes</code> in a region
 
@@ -32,19 +33,152 @@ Creates, updates, deletes or gets a <code>network_insights_access_scope</code> r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="network_insights_access_scope_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_access_scope_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="match_paths" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="exclude_paths" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "network_insights_access_scope_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_insights_access_scope_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "match_paths",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "source",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "packet_header_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "source_addresses",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destination_addresses",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "source_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destination_ports",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "source_prefix_lists",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "destination_prefix_lists",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "protocols",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "resource_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resources",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "resource_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "through_resources",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_statement",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resources",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "resource_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "exclude_paths",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinsightsaccessscope.html"><code>AWS::EC2::NetworkInsightsAccessScope</code></a>.
 
@@ -86,20 +220,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_insights_access_scopes</code> in a region.
-```sql
-SELECT
-region,
-network_insights_access_scope_id,
-network_insights_access_scope_arn,
-created_date,
-updated_date,
-tags,
-match_paths,
-exclude_paths
-FROM awscc.ec2.network_insights_access_scopes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_insights_access_scope</code>.
 ```sql
 SELECT

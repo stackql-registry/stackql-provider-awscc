@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>component_type</code> resource or lists <code>component_types</code> in a region
 
@@ -32,28 +33,100 @@ Creates, updates, deletes or gets a <code>component_type</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the workspace that contains the component type.</td></tr>
-<tr><td><CopyableCode code="component_type_id" /></td><td><code>string</code></td><td>The ID of the component type.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the component type.</td></tr>
-<tr><td><CopyableCode code="extends_from" /></td><td><code>array</code></td><td>Specifies the parent component type to extend.</td></tr>
-<tr><td><CopyableCode code="functions" /></td><td><code>object</code></td><td>a Map of functions in the component type. Each function's key must be unique to this map.</td></tr>
-<tr><td><CopyableCode code="is_singleton" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether an entity can have more than one component of this type.</td></tr>
-<tr><td><CopyableCode code="property_definitions" /></td><td><code>object</code></td><td>An map of the property definitions in the component type. Each property definition's key must be unique to this map.</td></tr>
-<tr><td><CopyableCode code="property_groups" /></td><td><code>object</code></td><td>An map of the property groups in the component type. Each property group's key must be unique to this map.</td></tr>
-<tr><td><CopyableCode code="composite_component_types" /></td><td><code>object</code></td><td>An map of the composite component types in the component type. Each composite component type's key must be unique to this map.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the component type.</td></tr>
-<tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the component type was created.</td></tr>
-<tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The last date and time when the component type was updated.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>object</code></td><td>The current status of the component type.</td></tr>
-<tr><td><CopyableCode code="is_abstract" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type is abstract.</td></tr>
-<tr><td><CopyableCode code="is_schema_initialized" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type has a schema initializer and that the schema initializer has run.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of key-value pairs to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "workspace_id",
+    "type": "string",
+    "description": "The ID of the workspace that contains the component type."
+  },
+  {
+    "name": "component_type_id",
+    "type": "string",
+    "description": "The ID of the component type."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the component type."
+  },
+  {
+    "name": "extends_from",
+    "type": "array",
+    "description": "Specifies the parent component type to extend."
+  },
+  {
+    "name": "functions",
+    "type": "object",
+    "description": "a Map of functions in the component type. Each function's key must be unique to this map."
+  },
+  {
+    "name": "is_singleton",
+    "type": "boolean",
+    "description": "A Boolean value that specifies whether an entity can have more than one component of this type."
+  },
+  {
+    "name": "property_definitions",
+    "type": "object",
+    "description": "An map of the property definitions in the component type. Each property definition's key must be unique to this map."
+  },
+  {
+    "name": "property_groups",
+    "type": "object",
+    "description": "An map of the property groups in the component type. Each property group's key must be unique to this map."
+  },
+  {
+    "name": "composite_component_types",
+    "type": "object",
+    "description": "An map of the composite component types in the component type. Each composite component type's key must be unique to this map."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the component type."
+  },
+  {
+    "name": "creation_date_time",
+    "type": "string",
+    "description": "The date and time when the component type was created."
+  },
+  {
+    "name": "status",
+    "type": "object",
+    "description": "The current status of the component type.",
+    "children": [
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "error",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "is_abstract",
+    "type": "boolean",
+    "description": "A Boolean value that specifies whether the component type is abstract."
+  },
+  {
+    "name": "is_schema_initialized",
+    "type": "boolean",
+    "description": "A Boolean value that specifies whether the component type has a schema initializer and that the schema initializer has run."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of key-value pairs to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iottwinmaker-componenttype.html"><code>AWS::IoTTwinMaker::ComponentType</code></a>.
 
@@ -95,29 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>component_types</code> in a region.
-```sql
-SELECT
-region,
-workspace_id,
-component_type_id,
-description,
-extends_from,
-functions,
-is_singleton,
-property_definitions,
-property_groups,
-composite_component_types,
-arn,
-creation_date_time,
-update_date_time,
-status,
-is_abstract,
-is_schema_initialized,
-tags
-FROM awscc.iottwinmaker.component_types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>component_type</code>.
 ```sql
 SELECT

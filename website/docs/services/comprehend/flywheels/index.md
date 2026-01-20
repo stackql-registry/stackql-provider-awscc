@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>flywheel</code> resource or lists <code>flywheels</code> in a region
 
@@ -32,21 +33,137 @@ Creates, updates, deletes or gets a <code>flywheel</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="active_model_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_access_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_lake_s3_uri" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_security_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="flywheel_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="task_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "active_model_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_access_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_lake_s3_uri",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_security_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "model_kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "security_group_ids",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "subnets",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "flywheel_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "task_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "language_code",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "document_classification_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "mode",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "labels",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "entity_recognition_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entity_types",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-comprehend-flywheel.html"><code>AWS::Comprehend::Flywheel</code></a>.
 
@@ -88,22 +205,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>flywheels</code> in a region.
-```sql
-SELECT
-region,
-active_model_arn,
-data_access_role_arn,
-data_lake_s3_uri,
-data_security_config,
-flywheel_name,
-model_type,
-tags,
-task_config,
-arn
-FROM awscc.comprehend.flywheels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>flywheel</code>.
 ```sql
 SELECT

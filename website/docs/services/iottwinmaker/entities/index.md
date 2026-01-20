@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>entity</code> resource or lists <code>entities</code> in a region
 
@@ -32,25 +33,85 @@ Creates, updates, deletes or gets an <code>entity</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="entity_id" /></td><td><code>string</code></td><td>The ID of the entity.</td></tr>
-<tr><td><CopyableCode code="entity_name" /></td><td><code>string</code></td><td>The name of the entity.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>object</code></td><td>The current status of the entity.</td></tr>
-<tr><td><CopyableCode code="has_child_entities" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the entity has child entities or not.</td></tr>
-<tr><td><CopyableCode code="parent_entity_id" /></td><td><code>string</code></td><td>The ID of the parent entity.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the entity.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the entity.</td></tr>
-<tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the entity was created.</td></tr>
-<tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The last date and time when the entity was updated.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the workspace.</td></tr>
-<tr><td><CopyableCode code="components" /></td><td><code>object</code></td><td>A map that sets information about a component type.</td></tr>
-<tr><td><CopyableCode code="composite_components" /></td><td><code>object</code></td><td>A map that sets information about a composite component.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "entity_id",
+    "type": "string",
+    "description": "The ID of the entity."
+  },
+  {
+    "name": "entity_name",
+    "type": "string",
+    "description": "The name of the entity."
+  },
+  {
+    "name": "status",
+    "type": "object",
+    "description": "The current status of the entity.",
+    "children": [
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "error",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "has_child_entities",
+    "type": "boolean",
+    "description": "A Boolean value that specifies whether the entity has child entities or not."
+  },
+  {
+    "name": "parent_entity_id",
+    "type": "string",
+    "description": "The ID of the parent entity."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the entity."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the entity."
+  },
+  {
+    "name": "creation_date_time",
+    "type": "string",
+    "description": "The date and time when the entity was created."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "workspace_id",
+    "type": "string",
+    "description": "The ID of the workspace."
+  },
+  {
+    "name": "components",
+    "type": "object",
+    "description": "A map that sets information about a component type."
+  },
+  {
+    "name": "composite_components",
+    "type": "object",
+    "description": "A map that sets information about a composite component."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iottwinmaker-entity.html"><code>AWS::IoTTwinMaker::Entity</code></a>.
 
@@ -92,26 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>entities</code> in a region.
-```sql
-SELECT
-region,
-entity_id,
-entity_name,
-status,
-has_child_entities,
-parent_entity_id,
-arn,
-description,
-creation_date_time,
-update_date_time,
-tags,
-workspace_id,
-components,
-composite_components
-FROM awscc.iottwinmaker.entities
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>entity</code>.
 ```sql
 SELECT

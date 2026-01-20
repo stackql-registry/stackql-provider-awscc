@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>scheduled_action</code> resource or lists <code>scheduled_actions</code> in a region
 
@@ -26,28 +27,64 @@ Creates, updates, deletes or gets a <code>scheduled_action</code> resource or li
 <tbody>
 <tr><td><b>Name</b></td><td><code>scheduled_actions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The `AWS::Redshift::ScheduledAction` resource creates an Amazon Redshift Scheduled Action.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;AWS::Redshift::ScheduledAction&#96; resource creates an Amazon Redshift Scheduled Action.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.redshift.scheduled_actions" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scheduled_action_description" /></td><td><code>string</code></td><td>The description of the scheduled action.</td></tr>
-<tr><td><CopyableCode code="scheduled_action_name" /></td><td><code>string</code></td><td>The name of the scheduled action. The name must be unique within an account.</td></tr>
-<tr><td><CopyableCode code="end_time" /></td><td><code>string</code></td><td>The end time in UTC of the scheduled action. After this time, the scheduled action does not trigger.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the scheduled action.</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>string</code></td><td>The schedule in `at( )` or `cron( )` format.</td></tr>
-<tr><td><CopyableCode code="iam_role" /></td><td><code>string</code></td><td>The IAM role to assume to run the target action.</td></tr>
-<tr><td><CopyableCode code="start_time" /></td><td><code>string</code></td><td>The start time in UTC of the scheduled action. Before this time, the scheduled action does not trigger.</td></tr>
-<tr><td><CopyableCode code="enable" /></td><td><code>boolean</code></td><td>If true, the schedule is enabled. If false, the scheduled action does not trigger.</td></tr>
-<tr><td><CopyableCode code="target_action" /></td><td><code>object</code></td><td>A JSON format string of the Amazon Redshift API operation with input parameters.</td></tr>
-<tr><td><CopyableCode code="next_invocations" /></td><td><code>array</code></td><td>List of times when the scheduled action will run.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scheduled_action_description",
+    "type": "string",
+    "description": "The description of the scheduled action."
+  },
+  {
+    "name": "scheduled_action_name",
+    "type": "string",
+    "description": "The name of the scheduled action. The name must be unique within an account."
+  },
+  {
+    "name": "end_time",
+    "type": "string",
+    "description": "The end time in UTC of the scheduled action. After this time, the scheduled action does not trigger."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the scheduled action."
+  },
+  {
+    "name": "schedule",
+    "type": "string",
+    "description": "The schedule in &#96;at( )&#96; or &#96;cron( )&#96; format."
+  },
+  {
+    "name": "iam_role",
+    "type": "string",
+    "description": "The IAM role to assume to run the target action."
+  },
+  {
+    "name": "enable",
+    "type": "boolean",
+    "description": "If true, the schedule is enabled. If false, the scheduled action does not trigger."
+  },
+  {
+    "name": "target_action",
+    "type": "object",
+    "description": "A JSON format string of the Amazon Redshift API operation with input parameters."
+  },
+  {
+    "name": "next_invocations",
+    "type": "array",
+    "description": "List of times when the scheduled action will run."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-scheduledaction.html"><code>AWS::Redshift::ScheduledAction</code></a>.
 
@@ -89,23 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>scheduled_actions</code> in a region.
-```sql
-SELECT
-region,
-scheduled_action_description,
-scheduled_action_name,
-end_time,
-state,
-schedule,
-iam_role,
-start_time,
-enable,
-target_action,
-next_invocations
-FROM awscc.redshift.scheduled_actions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>scheduled_action</code>.
 ```sql
 SELECT

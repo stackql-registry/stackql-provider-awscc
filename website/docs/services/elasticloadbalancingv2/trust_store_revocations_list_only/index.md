@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>trust_store_revocations</code> in a region or regions, for all properties use <a href="/services/elasticloadbalancingv2/trust_store_revocations/"><code>trust_store_revocations</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>trust_store_revocations</code> in a region or regions, for all prope
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the trust store.</td></tr>
-<tr><td><CopyableCode code="revocation_id" /></td><td><code>integer</code></td><td>The ID associated with the revocation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "trust_store_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the trust store."
+  },
+  {
+    "name": "revocation_id",
+    "type": "integer",
+    "description": "The ID associated with the revocation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

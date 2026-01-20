@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>warm_pool</code> resource or lists <code>warm_pools</code> in a region
 
@@ -32,17 +33,45 @@ Creates, updates, deletes or gets a <code>warm_pool</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auto_scaling_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_group_prepared_capacity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="min_size" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="pool_state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_reuse_policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_group_prepared_capacity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "min_size",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "pool_state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_reuse_policy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "reuse_on_scale_in",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-warmpool.html"><code>AWS::AutoScaling::WarmPool</code></a>.
 
@@ -84,18 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>warm_pools</code> in a region.
-```sql
-SELECT
-region,
-auto_scaling_group_name,
-max_group_prepared_capacity,
-min_size,
-pool_state,
-instance_reuse_policy
-FROM awscc.autoscaling.warm_pools
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>warm_pool</code>.
 ```sql
 SELECT

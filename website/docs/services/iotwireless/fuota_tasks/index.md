@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>fuota_task</code> resource or lists <code>fuota_tasks</code> in a region
 
@@ -32,25 +33,112 @@ Creates, updates, deletes or gets a <code>fuota_task</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of FUOTA task</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>FUOTA task description</td></tr>
-<tr><td><CopyableCode code="lo_ra_wan" /></td><td><code>object</code></td><td>FUOTA task LoRaWAN</td></tr>
-<tr><td><CopyableCode code="firmware_update_image" /></td><td><code>string</code></td><td>FUOTA task firmware update image binary S3 link</td></tr>
-<tr><td><CopyableCode code="firmware_update_role" /></td><td><code>string</code></td><td>FUOTA task firmware IAM role for reading S3</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>FUOTA task arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>FUOTA task id. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the FUOTA task.</td></tr>
-<tr><td><CopyableCode code="fuota_task_status" /></td><td><code>string</code></td><td>FUOTA task status. Returned after successful read.</td></tr>
-<tr><td><CopyableCode code="associate_wireless_device" /></td><td><code>string</code></td><td>Wireless device to associate. Only for update request.</td></tr>
-<tr><td><CopyableCode code="disassociate_wireless_device" /></td><td><code>string</code></td><td>Wireless device to disassociate. Only for update request.</td></tr>
-<tr><td><CopyableCode code="associate_multicast_group" /></td><td><code>string</code></td><td>Multicast group to associate. Only for update request.</td></tr>
-<tr><td><CopyableCode code="disassociate_multicast_group" /></td><td><code>string</code></td><td>Multicast group to disassociate. Only for update request.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of FUOTA task"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "FUOTA task description"
+  },
+  {
+    "name": "lo_ra_wan",
+    "type": "object",
+    "description": "FUOTA task LoRaWAN",
+    "children": [
+      {
+        "name": "rf_region",
+        "type": "string",
+        "description": "Multicast group LoRaWAN RF region"
+      },
+      {
+        "name": "dl_class",
+        "type": "string",
+        "description": "Multicast group LoRaWAN DL Class"
+      },
+      {
+        "name": "number_of_devices_requested",
+        "type": "integer",
+        "description": "Multicast group number of devices requested. Returned after successful read."
+      },
+      {
+        "name": "number_of_devices_in_group",
+        "type": "integer",
+        "description": "Multicast group number of devices in group. Returned after successful read."
+      }
+    ]
+  },
+  {
+    "name": "firmware_update_image",
+    "type": "string",
+    "description": "FUOTA task firmware update image binary S3 link"
+  },
+  {
+    "name": "firmware_update_role",
+    "type": "string",
+    "description": "FUOTA task firmware IAM role for reading S3"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "FUOTA task arn. Returned after successful create."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "FUOTA task id. Returned after successful create."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the FUOTA task.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "fuota_task_status",
+    "type": "string",
+    "description": "FUOTA task status. Returned after successful read."
+  },
+  {
+    "name": "associate_wireless_device",
+    "type": "string",
+    "description": "Wireless device to associate. Only for update request."
+  },
+  {
+    "name": "disassociate_wireless_device",
+    "type": "string",
+    "description": "Wireless device to disassociate. Only for update request."
+  },
+  {
+    "name": "associate_multicast_group",
+    "type": "string",
+    "description": "Multicast group to associate. Only for update request."
+  },
+  {
+    "name": "disassociate_multicast_group",
+    "type": "string",
+    "description": "Multicast group to disassociate. Only for update request."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-fuotatask.html"><code>AWS::IoTWireless::FuotaTask</code></a>.
 
@@ -92,26 +180,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>fuota_tasks</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-lo_ra_wan,
-firmware_update_image,
-firmware_update_role,
-arn,
-id,
-tags,
-fuota_task_status,
-associate_wireless_device,
-disassociate_wireless_device,
-associate_multicast_group,
-disassociate_multicast_group
-FROM awscc.iotwireless.fuota_tasks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>fuota_task</code>.
 ```sql
 SELECT

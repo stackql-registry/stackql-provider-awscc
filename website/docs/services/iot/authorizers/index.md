@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>authorizer</code> resource or lists <code>authorizers</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets an <code>authorizer</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="authorizer_function_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="signing_disabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="token_key_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="token_signing_public_keys" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_caching_for_http" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "authorizer_function_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorizer_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "signing_disabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "token_key_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "token_signing_public_keys",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "enable_caching_for_http",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-authorizer.html"><code>AWS::IoT::Authorizer</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>authorizers</code> in a region.
-```sql
-SELECT
-region,
-authorizer_function_arn,
-arn,
-authorizer_name,
-signing_disabled,
-status,
-token_key_name,
-token_signing_public_keys,
-enable_caching_for_http,
-tags
-FROM awscc.iot.authorizers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>authorizer</code>.
 ```sql
 SELECT

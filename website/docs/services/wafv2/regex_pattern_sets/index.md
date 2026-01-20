@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>regex_pattern_set</code> resource or lists <code>regex_pattern_sets</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>regex_pattern_set</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN of the WAF entity.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the entity.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the RegexPatternSet.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the RegexPatternSet</td></tr>
-<tr><td><CopyableCode code="regular_expression_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Use CLOUDFRONT for CloudFront RegexPatternSet, use REGIONAL for Application Load Balancer and API Gateway.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "ARN of the WAF entity."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the entity."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the RegexPatternSet."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the RegexPatternSet"
+  },
+  {
+    "name": "regular_expression_list",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": "Use CLOUDFRONT for CloudFront RegexPatternSet, use REGIONAL for Application Load Balancer and API Gateway."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-regexpatternset.html"><code>AWS::WAFv2::RegexPatternSet</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>regex_pattern_sets</code> in a region.
-```sql
-SELECT
-region,
-arn,
-description,
-name,
-id,
-regular_expression_list,
-scope,
-tags
-FROM awscc.wafv2.regex_pattern_sets
-;
-```
+
 Gets all properties from an individual <code>regex_pattern_set</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance</code> resource or lists <code>instances</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this Identity Center (SSO) Instance</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The SSO Instance ARN that is returned upon creation of the Identity Center (SSO) Instance</td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>The AWS accountId of the owner of the Identity Center (SSO) Instance</td></tr>
-<tr><td><CopyableCode code="identity_store_id" /></td><td><code>string</code></td><td>The ID of the identity store associated with the created Identity Center (SSO) Instance</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the Identity Center (SSO) Instance, create_in_progress/delete_in_progress/active</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this Identity Center (SSO) Instance"
+  },
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The SSO Instance ARN that is returned upon creation of the Identity Center (SSO) Instance"
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": "The AWS accountId of the owner of the Identity Center (SSO) Instance"
+  },
+  {
+    "name": "identity_store_id",
+    "type": "string",
+    "description": "The ID of the identity store associated with the created Identity Center (SSO) Instance"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the Identity Center (SSO) Instance, create&#95;in&#95;progress/delete&#95;in&#95;progress/active"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-instance.html"><code>AWS::SSO::Instance</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instances</code> in a region.
-```sql
-SELECT
-region,
-name,
-instance_arn,
-owner_account_id,
-identity_store_id,
-status,
-tags
-FROM awscc.sso.instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance</code>.
 ```sql
 SELECT

@@ -1037,15 +1037,6 @@ providerServices:
     title: iotevents
     version: v00.00.00000
     description: iotevents
-  iotfleethub:
-    id: iotfleethub:v00.00.00000
-    name: iotfleethub
-    preferred: true
-    service:
-      $ref: awscc/v00.00.00000/services/iotfleethub.yaml
-    title: iotfleethub
-    version: v00.00.00000
-    description: iotfleethub
   iotfleetwise:
     id: iotfleetwise:v00.00.00000
     name: iotfleetwise
@@ -1253,15 +1244,6 @@ providerServices:
     title: lookoutequipment
     version: v00.00.00000
     description: lookoutequipment
-  lookoutmetrics:
-    id: lookoutmetrics:v00.00.00000
-    name: lookoutmetrics
-    preferred: true
-    service:
-      $ref: awscc/v00.00.00000/services/lookoutmetrics.yaml
-    title: lookoutmetrics
-    version: v00.00.00000
-    description: lookoutmetrics
   lookoutvision:
     id: lookoutvision:v00.00.00000
     name: lookoutvision

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_group</code> resource or lists <code>security_groups</code> in a region
 
@@ -32,20 +33,159 @@ Creates, updates, deletes or gets a <code>security_group</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="group_description" /></td><td><code>string</code></td><td>A description for the security group.</td></tr>
-<tr><td><CopyableCode code="group_name" /></td><td><code>string</code></td><td>The name of the security group.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC for the security group.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The group name or group ID depending on whether the SG is created in default or specific VPC</td></tr>
-<tr><td><CopyableCode code="security_group_ingress" /></td><td><code>array</code></td><td>The inbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.</td></tr>
-<tr><td><CopyableCode code="security_group_egress" /></td><td><code>array</code></td><td>&#91;VPC only&#93; The outbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the security group.</td></tr>
-<tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>The group ID of the specified security group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "group_description",
+    "type": "string",
+    "description": "A description for the security group."
+  },
+  {
+    "name": "group_name",
+    "type": "string",
+    "description": "The name of the security group."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC for the security group."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The group name or group ID depending on whether the SG is created in default or specific VPC"
+  },
+  {
+    "name": "security_group_ingress",
+    "type": "array",
+    "description": "The inbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.",
+    "children": [
+      {
+        "name": "cidr_ip",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cidr_ipv6",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "from_port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "source_security_group_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "to_port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "source_security_group_owner_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ip_protocol",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source_security_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source_prefix_list_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "security_group_egress",
+    "type": "array",
+    "description": "&#91;VPC only&#93; The outbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.",
+    "children": [
+      {
+        "name": "cidr_ip",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cidr_ipv6",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "from_port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "to_port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ip_protocol",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "destination_security_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "destination_prefix_list_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the security group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "group_id",
+    "type": "string",
+    "description": "The group ID of the specified security group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroup.html"><code>AWS::EC2::SecurityGroup</code></a>.
 
@@ -87,21 +227,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_groups</code> in a region.
-```sql
-SELECT
-region,
-group_description,
-group_name,
-vpc_id,
-id,
-security_group_ingress,
-security_group_egress,
-tags,
-group_id
-FROM awscc.ec2.security_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_group</code>.
 ```sql
 SELECT

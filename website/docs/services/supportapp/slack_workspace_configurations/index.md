@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>slack_workspace_configuration</code> resource or lists <code>slack_workspace_configurations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>slack_workspace_configuration</code> r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="team_id" /></td><td><code>string</code></td><td>The team ID in Slack, which uniquely identifies a workspace.</td></tr>
-<tr><td><CopyableCode code="version_id" /></td><td><code>string</code></td><td>An identifier used to update an existing Slack workspace configuration in AWS CloudFormation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "team_id",
+    "type": "string",
+    "description": "The team ID in Slack, which uniquely identifies a workspace."
+  },
+  {
+    "name": "version_id",
+    "type": "string",
+    "description": "An identifier used to update an existing Slack workspace configuration in AWS CloudFormation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-supportapp-slackworkspaceconfiguration.html"><code>AWS::SupportApp::SlackWorkspaceConfiguration</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>slack_workspace_configurations</code> in a region.
-```sql
-SELECT
-region,
-team_id,
-version_id
-FROM awscc.supportapp.slack_workspace_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>slack_workspace_configuration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>lifecycle_policy</code> resource or lists <code>lifecycle_policies</code> in a region
 
@@ -32,21 +33,189 @@ Creates, updates, deletes or gets a <code>lifecycle_policy</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="execution_role" /></td><td><code>string</code></td><td>The execution role of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The resource type of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="policy_details" /></td><td><code>array</code></td><td>The policy details of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="resource_selection" /></td><td><code>object</code></td><td>The resource selection of the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags associated with the lifecycle policy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the lifecycle policy."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the lifecycle policy."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the lifecycle policy."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the lifecycle policy."
+  },
+  {
+    "name": "execution_role",
+    "type": "string",
+    "description": "The execution role of the lifecycle policy."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The resource type of the lifecycle policy."
+  },
+  {
+    "name": "policy_details",
+    "type": "array",
+    "description": "The policy details of the lifecycle policy.",
+    "children": [
+      {
+        "name": "action",
+        "type": "object",
+        "description": "The action of the policy detail.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The action type of the policy detail."
+          },
+          {
+            "name": "include_resources",
+            "type": "object",
+            "description": "The included resources of the policy detail.",
+            "children": [
+              {
+                "name": "amis",
+                "type": "boolean",
+                "description": "Use to configure lifecycle actions on AMIs."
+              },
+              {
+                "name": "containers",
+                "type": "boolean",
+                "description": "Use to configure lifecycle actions on containers."
+              },
+              {
+                "name": "snapshots",
+                "type": "boolean",
+                "description": "Use to configure lifecycle actions on snapshots."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "filter",
+        "type": "object",
+        "description": "The filters to apply of the policy detail.",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The filter type."
+          },
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "The filter value."
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "The value's time unit."
+          },
+          {
+            "name": "retain_at_least",
+            "type": "integer",
+            "description": "The minimum number of Image Builder resources to retain."
+          }
+        ]
+      },
+      {
+        "name": "exclusion_rules",
+        "type": "object",
+        "description": "The exclusion rules to apply of the policy detail.",
+        "children": [
+          {
+            "name": "tag_map",
+            "type": "object",
+            "description": "The Image Builder tags to filter on."
+          },
+          {
+            "name": "amis",
+            "type": "object",
+            "description": "The AMI exclusion rules for the policy detail.",
+            "children": [
+              {
+                "name": "is_public",
+                "type": "boolean",
+                "description": "Use to apply lifecycle policy actions on whether the AMI is public."
+              },
+              {
+                "name": "regions",
+                "type": "array",
+                "description": "Use to apply lifecycle policy actions on AMIs distributed to a set of regions."
+              },
+              {
+                "name": "shared_accounts",
+                "type": "array",
+                "description": "Use to apply lifecycle policy actions on AMIs shared with a set of regions."
+              },
+              {
+                "name": "last_launched",
+                "type": "object",
+                "description": "Use to apply lifecycle policy actions on AMIs launched before a certain time."
+              },
+              {
+                "name": "tag_map",
+                "type": "object",
+                "description": "The AMIs to select by tag."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "resource_selection",
+    "type": "object",
+    "description": "The resource selection of the lifecycle policy.",
+    "children": [
+      {
+        "name": "recipes",
+        "type": "array",
+        "description": "The recipes to select.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The recipe name."
+          },
+          {
+            "name": "semantic_version",
+            "type": "string",
+            "description": "The recipe version."
+          }
+        ]
+      },
+      {
+        "name": "tag_map",
+        "type": "object",
+        "description": "The Image Builder resources to select by tag."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags associated with the lifecycle policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-lifecyclepolicy.html"><code>AWS::ImageBuilder::LifecyclePolicy</code></a>.
 
@@ -88,22 +257,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>lifecycle_policies</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-status,
-execution_role,
-resource_type,
-policy_details,
-resource_selection,
-tags
-FROM awscc.imagebuilder.lifecycle_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>lifecycle_policy</code>.
 ```sql
 SELECT

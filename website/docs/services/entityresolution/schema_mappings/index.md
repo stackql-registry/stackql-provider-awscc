@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schema_mapping</code> resource or lists <code>schema_mappings</code> in a region
 
@@ -32,20 +33,87 @@ Creates, updates, deletes or gets a <code>schema_mapping</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="schema_name" /></td><td><code>string</code></td><td>The name of the SchemaMapping</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the SchemaMapping</td></tr>
-<tr><td><CopyableCode code="mapped_input_fields" /></td><td><code>array</code></td><td>The SchemaMapping attributes input</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema_arn" /></td><td><code>string</code></td><td>The SchemaMapping arn associated with the Schema</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got created</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got last updated at</td></tr>
-<tr><td><CopyableCode code="has_workflows" /></td><td><code>boolean</code></td><td>The boolean value that indicates whether or not a SchemaMapping has MatchingWorkflows that are associated with</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "schema_name",
+    "type": "string",
+    "description": "The name of the SchemaMapping"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the SchemaMapping"
+  },
+  {
+    "name": "mapped_input_fields",
+    "type": "array",
+    "description": "The SchemaMapping attributes input",
+    "children": [
+      {
+        "name": "field_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sub_type",
+        "type": "string",
+        "description": "The subtype of the Attribute. Would be required only when type is PROVIDER&#95;ID"
+      },
+      {
+        "name": "hashed",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "schema_arn",
+    "type": "string",
+    "description": "The SchemaMapping arn associated with the Schema"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time of this SchemaMapping got created"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The time of this SchemaMapping got last updated at"
+  },
+  {
+    "name": "has_workflows",
+    "type": "boolean",
+    "description": "The boolean value that indicates whether or not a SchemaMapping has MatchingWorkflows that are associated with"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-entityresolution-schemamapping.html"><code>AWS::EntityResolution::SchemaMapping</code></a>.
 
@@ -87,21 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schema_mappings</code> in a region.
-```sql
-SELECT
-region,
-schema_name,
-description,
-mapped_input_fields,
-tags,
-schema_arn,
-created_at,
-updated_at,
-has_workflows
-FROM awscc.entityresolution.schema_mappings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schema_mapping</code>.
 ```sql
 SELECT

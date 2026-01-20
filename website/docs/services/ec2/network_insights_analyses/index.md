@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_insights_analysis</code> resource or lists <code>network_insights_analyses</code> in a region
 
@@ -32,28 +33,978 @@ Creates, updates, deletes or gets a <code>network_insights_analysis</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="return_path_components" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_analysis_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="filter_out_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_path_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_path_found" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="suggested_accounts" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="filter_in_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_analysis_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="start_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="alternate_path_hints" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="explanations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="forward_path_components" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="additional_accounts" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "return_path_components",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "additional_details",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "service_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "additional_detail_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "load_balancers",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "inbound_header",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "destination_port_ranges",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "from_port",
+                "type": "integer",
+                "description": "The first port in the range."
+              },
+              {
+                "name": "to_port",
+                "type": "integer",
+                "description": "The last port in the range."
+              }
+            ]
+          },
+          {
+            "name": "source_port_ranges",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "destination_addresses",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "source_addresses",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "vpc",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "security_group_rule",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "port_range",
+            "type": "object",
+            "description": "The IP port range.",
+            "children": [
+              {
+                "name": "from_port",
+                "type": "integer",
+                "description": "The first port in the range."
+              },
+              {
+                "name": "to_port",
+                "type": "integer",
+                "description": "The last port in the range."
+              }
+            ]
+          },
+          {
+            "name": "cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "security_group_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "direction",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "explanations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "packet_field",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "protocols",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "classic_load_balancer_listener",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "instance_port",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "address",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "port",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "addresses",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "explanation_code",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "transit_gateway_route_table_route",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "prefix_list_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "resource_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "resource_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "route_origin",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "destination_cidr",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "attachment_id",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "component_region",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cidrs",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "security_groups",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "component_account",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "direction",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "load_balancer_target",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "availability_zone",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "load_balancer_target_groups",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "missing_component",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "route_table_route",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "origin",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "destination_prefix_list_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "destination_cidr",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "network_interface_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "transit_gateway_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "vpc_peering_connection_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "instance_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "state",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "egress_only_internet_gateway_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "nat_gateway_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "gateway_id",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "availability_zones",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "port_ranges",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "from_port",
+                "type": "integer",
+                "description": "The first port in the range."
+              },
+              {
+                "name": "to_port",
+                "type": "integer",
+                "description": "The last port in the range."
+              }
+            ]
+          },
+          {
+            "name": "load_balancer_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "acl_rule",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "cidr",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "rule_action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "egress",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "rule_number",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "service_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sequence_number",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "acl_rule",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "port_range",
+            "type": "object",
+            "description": "The IP port range.",
+            "children": [
+              {
+                "name": "from_port",
+                "type": "integer",
+                "description": "The first port in the range."
+              },
+              {
+                "name": "to_port",
+                "type": "integer",
+                "description": "The last port in the range."
+              }
+            ]
+          },
+          {
+            "name": "cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "rule_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "egress",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "rule_number",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "transit_gateway_route_table_route",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "route_origin",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attachment_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "route_table_route",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "origin",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "network_interface_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "transit_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "vpc_peering_connection_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "instance_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "egress_only_internet_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "nat_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "gateway_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "network_insights_analysis_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "filter_out_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "network_insights_path_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_path_found",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "suggested_accounts",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "filter_in_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "network_insights_analysis_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "start_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "alternate_path_hints",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "component_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "component_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "explanations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "vpn_gateway",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "packet_field",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "protocols",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "classic_load_balancer_listener",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "instance_port",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "addresses",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "explanation_code",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transit_gateway_route_table_route",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "route_origin",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "attachment_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "component_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cidrs",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "security_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "component_account",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "load_balancer_target",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "availability_zone",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "load_balancer_target_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "missing_component",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "route_table_route",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "origin",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "network_interface_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "transit_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "vpc_peering_connection_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "instance_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "egress_only_internet_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "nat_gateway_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "gateway_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "availability_zones",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "port_ranges",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "from_port",
+            "type": "integer",
+            "description": "The first port in the range."
+          },
+          {
+            "name": "to_port",
+            "type": "integer",
+            "description": "The last port in the range."
+          }
+        ]
+      },
+      {
+        "name": "security_group_rule",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix_list_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "security_group_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "direction",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "acl_rule",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "cidr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "rule_action",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "egress",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "rule_number",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "forward_path_components",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "additional_accounts",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinsightsanalysis.html"><code>AWS::EC2::NetworkInsightsAnalysis</code></a>.
 
@@ -95,29 +1046,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_insights_analyses</code> in a region.
-```sql
-SELECT
-region,
-status,
-return_path_components,
-network_insights_analysis_id,
-filter_out_arns,
-network_insights_path_id,
-network_path_found,
-suggested_accounts,
-filter_in_arns,
-network_insights_analysis_arn,
-status_message,
-start_date,
-alternate_path_hints,
-explanations,
-forward_path_components,
-additional_accounts,
-tags
-FROM awscc.ec2.network_insights_analyses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_insights_analysis</code>.
 ```sql
 SELECT

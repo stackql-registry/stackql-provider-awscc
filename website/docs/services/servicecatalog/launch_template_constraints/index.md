@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>launch_template_constraint</code> resource or lists <code>launch_template_constraints</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>launch_template_constraint</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="accept_language" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="portfolio_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="product_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rules" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "accept_language",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "portfolio_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "product_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rules",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html"><code>AWS::ServiceCatalog::LaunchTemplateConstraint</code></a>.
 

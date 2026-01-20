@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>account</code> resource or lists <code>accounts</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets an <code>account</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_name" /></td><td><code>string</code></td><td>The friendly name of the member account.</td></tr>
-<tr><td><CopyableCode code="email" /></td><td><code>string</code></td><td>The email address of the owner to assign to the new member account.</td></tr>
-<tr><td><CopyableCode code="role_name" /></td><td><code>string</code></td><td>The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. Default name is OrganizationAccountAccessRole if not specified.</td></tr>
-<tr><td><CopyableCode code="parent_ids" /></td><td><code>array</code></td><td>List of parent nodes for the member account. Currently only one parent at a time is supported. Default is root.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify both a tag key and a value.</td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>If the account was created successfully, the unique identifier (ID) of the new account.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the account.</td></tr>
-<tr><td><CopyableCode code="joined_method" /></td><td><code>string</code></td><td>The method by which the account joined the organization.</td></tr>
-<tr><td><CopyableCode code="joined_timestamp" /></td><td><code>string</code></td><td>The date the account became a part of the organization.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the account in the organization.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_name",
+    "type": "string",
+    "description": "The friendly name of the member account."
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": "The email address of the owner to assign to the new member account."
+  },
+  {
+    "name": "role_name",
+    "type": "string",
+    "description": "The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. Default name is OrganizationAccountAccessRole if not specified."
+  },
+  {
+    "name": "parent_ids",
+    "type": "array",
+    "description": "List of parent nodes for the member account. Currently only one parent at a time is supported. Default is root."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify both a tag key and a value.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key identifier, or name, of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The string value that's associated with the key of the tag. You can set the value of a tag to an empty string, but you can't set the value of a tag to null."
+      }
+    ]
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "If the account was created successfully, the unique identifier (ID) of the new account."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the account."
+  },
+  {
+    "name": "joined_method",
+    "type": "string",
+    "description": "The method by which the account joined the organization."
+  },
+  {
+    "name": "joined_timestamp",
+    "type": "string",
+    "description": "The date the account became a part of the organization."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the account in the organization."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-organizations-account.html"><code>AWS::Organizations::Account</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>accounts</code> in a region.
-```sql
-SELECT
-region,
-account_name,
-email,
-role_name,
-parent_ids,
-tags,
-account_id,
-arn,
-joined_method,
-joined_timestamp,
-status
-FROM awscc.organizations.accounts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>account</code>.
 ```sql
 SELECT

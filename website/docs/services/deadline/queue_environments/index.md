@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>queue_environment</code> resource or lists <code>queue_environments</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets a <code>queue_environment</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="priority" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="queue_environment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="queue_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "queue_environment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "queue_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-queueenvironment.html"><code>AWS::Deadline::QueueEnvironment</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>queue_environments</code> in a region.
-```sql
-SELECT
-region,
-farm_id,
-name,
-priority,
-queue_environment_id,
-queue_id,
-template,
-template_type
-FROM awscc.deadline.queue_environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>queue_environment</code>.
 ```sql
 SELECT

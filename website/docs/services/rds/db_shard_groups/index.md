@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>db_shard_group</code> resource or lists <code>db_shard_groups</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>db_shard_group</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_shard_group_resource_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="db_shard_group_identifier" /></td><td><code>string</code></td><td>The name of the DB shard group.</td></tr>
-<tr><td><CopyableCode code="db_cluster_identifier" /></td><td><code>string</code></td><td>The name of the primary DB cluster for the DB shard group.</td></tr>
-<tr><td><CopyableCode code="compute_redundancy" /></td><td><code>integer</code></td><td>Specifies whether to create standby standby DB data access shard for the DB shard group. Valid values are the following:<br />+ 0 - Creates a DB shard group without a standby DB data access shard. This is the default value.<br />+ 1 - Creates a DB shard group with a standby DB data access shard in a different Availability Zone (AZ).<br />+ 2 - Creates a DB shard group with two standby DB data access shard in two different AZs.</td></tr>
-<tr><td><CopyableCode code="max_ac_u" /></td><td><code>number</code></td><td>The maximum capacity of the DB shard group in Aurora capacity units (ACUs).</td></tr>
-<tr><td><CopyableCode code="min_ac_u" /></td><td><code>number</code></td><td>The minimum capacity of the DB shard group in Aurora capacity units (ACUs).</td></tr>
-<tr><td><CopyableCode code="publicly_accessible" /></td><td><code>boolean</code></td><td>Specifies whether the DB shard group is publicly accessible.<br />When the DB shard group is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP address from within the DB shard group's virtual private cloud (VPC). It resolves to the public IP address from outside of the DB shard group's VPC. Access to the DB shard group is ultimately controlled by the security group it uses. That public access is not permitted if the security group assigned to the DB shard group doesn't permit it.<br />When the DB shard group isn't publicly accessible, it is an internal DB shard group with a DNS name that resolves to a private IP address.<br />Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.<br />If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the following applies:<br />+ If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB shard group is private.<br />+ If the default VPC in the target Region has an internet gateway attached to it, the DB shard group is public.<br /><br />If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the following applies:<br />+ If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB shard group is private.<br />+ If the subnets are part of a VPC that has an internet gateway attached to it, the DB shard group is public.</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An optional set of key-value pairs to associate arbitrary data of your choosing with the DB shard group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "db_shard_group_resource_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "db_shard_group_identifier",
+    "type": "string",
+    "description": "The name of the DB shard group."
+  },
+  {
+    "name": "db_cluster_identifier",
+    "type": "string",
+    "description": "The name of the primary DB cluster for the DB shard group."
+  },
+  {
+    "name": "compute_redundancy",
+    "type": "integer",
+    "description": "Specifies whether to create standby standby DB data access shard for the DB shard group. Valid values are the following:<br />+ 0 - Creates a DB shard group without a standby DB data access shard. This is the default value.<br />+ 1 - Creates a DB shard group with a standby DB data access shard in a different Availability Zone (AZ).<br />+ 2 - Creates a DB shard group with two standby DB data access shard in two different AZs."
+  },
+  {
+    "name": "max_ac_u",
+    "type": "number",
+    "description": "The maximum capacity of the DB shard group in Aurora capacity units (ACUs)."
+  },
+  {
+    "name": "min_ac_u",
+    "type": "number",
+    "description": "The minimum capacity of the DB shard group in Aurora capacity units (ACUs)."
+  },
+  {
+    "name": "publicly_accessible",
+    "type": "boolean",
+    "description": "Specifies whether the DB shard group is publicly accessible.<br />When the DB shard group is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP address from within the DB shard group's virtual private cloud (VPC). It resolves to the public IP address from outside of the DB shard group's VPC. Access to the DB shard group is ultimately controlled by the security group it uses. That public access is not permitted if the security group assigned to the DB shard group doesn't permit it.<br />When the DB shard group isn't publicly accessible, it is an internal DB shard group with a DNS name that resolves to a private IP address.<br />Default: The default behavior varies depending on whether &#96;&#96;DBSubnetGroupName&#96;&#96; is specified.<br />If &#96;&#96;DBSubnetGroupName&#96;&#96; isn't specified, and &#96;&#96;PubliclyAccessible&#96;&#96; isn't specified, the following applies:<br />+ If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB shard group is private.<br />+ If the default VPC in the target Region has an internet gateway attached to it, the DB shard group is public.<br /><br />If &#96;&#96;DBSubnetGroupName&#96;&#96; is specified, and &#96;&#96;PubliclyAccessible&#96;&#96; isn't specified, the following applies:<br />+ If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB shard group is private.<br />+ If the subnets are part of a VPC that has an internet gateway attached to it, the DB shard group is public."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An optional set of key-value pairs to associate arbitrary data of your choosing with the DB shard group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key is the required name of the tag. The string value can be from 1 to 128 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A value is the optional value of the tag. The string value can be from 1 to 256 Unicode characters in length and can't be prefixed with &#96;&#96;aws:&#96;&#96; or &#96;&#96;rds:&#96;&#96;. The string can only contain only the set of Unicode letters, digits, white-space, '&#95;', '.', ':', '/', '=', '+', '-', '@' (Java regex: \"^(&#91;\\\\p&#123;L&#125;\\\\p&#123;Z&#125;\\\\p&#123;N&#125;&#95;.:/=+\\\\-@&#93;&#42;)$\")."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbshardgroup.html"><code>AWS::RDS::DBShardGroup</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>db_shard_groups</code> in a region.
-```sql
-SELECT
-region,
-db_shard_group_resource_id,
-db_shard_group_identifier,
-db_cluster_identifier,
-compute_redundancy,
-max_ac_u,
-min_ac_u,
-publicly_accessible,
-endpoint,
-tags
-FROM awscc.rds.db_shard_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>db_shard_group</code>.
 ```sql
 SELECT

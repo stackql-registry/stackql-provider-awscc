@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>encryption_configuration</code> resource or lists <code>encryption_configurations</code> in a region
 
@@ -32,18 +33,60 @@ Creates, updates, deletes or gets an <code>encryption_configuration</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_access_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="configuration_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "encryption_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kms_access_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "configuration_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "configuration_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "error_code",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "error_message",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "last_modified_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-encryptionconfiguration.html"><code>AWS::IoT::EncryptionConfiguration</code></a>.
 
@@ -85,19 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>encryption_configurations</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-encryption_type,
-kms_access_role_arn,
-kms_key_arn,
-configuration_details,
-last_modified_date
-FROM awscc.iot.encryption_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>encryption_configuration</code>.
 ```sql
 SELECT

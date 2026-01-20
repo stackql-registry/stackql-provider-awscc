@@ -31,9 +31,11 @@ output openapi3 specs (`components/schemas`) are written to `opneapi/src/aws/v00
 ```bash
 PROVIDER_REGISTRY_ROOT_DIR="$(pwd)/openapi"
 npm run start-server -- --provider awscc --registry $PROVIDER_REGISTRY_ROOT_DIR
-npm run test-meta-routes awscc
+npm run test-meta-routes -- awscc --ignore-no-methods
 npm run stop-server
 ```
+
+npm run test-meta-routes -- awscc --ignore-no-methods
 
 ### 6. Testing locally with `stackql`
 1. ensure the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables are set
@@ -49,14 +51,9 @@ REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}/openapi'", "localDocRoot
 4. run `stackql` commands, for example 
 
 ```sql
-select * from aws.s3.buckets WHERE region = 'us-east-1';
-select bucket_name, region, bucket_encryption_server_side_encryption_configuration from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
+select * from awscc.s3.buckets_list_only WHERE region = 'us-east-1';
+select bucket_name, region, bucket_encryption from awscc.s3.buckets WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
 ```
-
- -d '{
-    "TypeName": "AWS::Logs::LogGroup",
-    "ResourceModel": "{\"LogGroupName\":\"MyLogGroup\"}"
-  }'
 
 ### 6. Generate web docs:
 

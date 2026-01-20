@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_trigger</code> resource or lists <code>event_triggers</code> in a region
 
@@ -32,22 +33,150 @@ Creates, updates, deletes or gets an <code>event_trigger</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="event_trigger_name" /></td><td><code>string</code></td><td>The unique name of the event trigger.</td></tr>
-<tr><td><CopyableCode code="object_type_name" /></td><td><code>string</code></td><td>The unique name of the object type.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event trigger.</td></tr>
-<tr><td><CopyableCode code="event_trigger_conditions" /></td><td><code>array</code></td><td>A list of conditions that determine when an event should trigger the destination.</td></tr>
-<tr><td><CopyableCode code="event_trigger_limits" /></td><td><code>object</code></td><td>Defines limits controlling whether an event triggers the destination, based on ingestion latency and the number of invocations per profile over specific time periods.</td></tr>
-<tr><td><CopyableCode code="segment_filter" /></td><td><code>string</code></td><td>The destination is triggered only for profiles that meet the criteria of a segment definition.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the event trigger was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp of when the event trigger was most recently updated.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "event_trigger_name",
+    "type": "string",
+    "description": "The unique name of the event trigger."
+  },
+  {
+    "name": "object_type_name",
+    "type": "string",
+    "description": "The unique name of the object type."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the event trigger."
+  },
+  {
+    "name": "event_trigger_conditions",
+    "type": "array",
+    "description": "A list of conditions that determine when an event should trigger the destination.",
+    "children": [
+      {
+        "name": "event_trigger_dimensions",
+        "type": "array",
+        "description": "A list of dimensions to be evaluated for the event.",
+        "children": [
+          {
+            "name": "object_attributes",
+            "type": "array",
+            "description": "A list of object attributes to be evaluated.",
+            "children": [
+              {
+                "name": "source",
+                "type": "string",
+                "description": "An attribute contained within a source object."
+              },
+              {
+                "name": "field_name",
+                "type": "string",
+                "description": "A field defined within an object type."
+              },
+              {
+                "name": "comparison_operator",
+                "type": "string",
+                "description": "The operator used to compare an attribute against a list of values."
+              },
+              {
+                "name": "values",
+                "type": "array",
+                "description": "A list of attribute values used for comparison."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "logical_operator",
+        "type": "string",
+        "description": "The operator used to combine multiple dimensions."
+      }
+    ]
+  },
+  {
+    "name": "event_trigger_limits",
+    "type": "object",
+    "description": "Defines limits controlling whether an event triggers the destination, based on ingestion latency and the number of invocations per profile over specific time periods.",
+    "children": [
+      {
+        "name": "event_expiration",
+        "type": "integer",
+        "description": "Specifies that an event will only trigger the destination if it is processed within a certain latency period."
+      },
+      {
+        "name": "periods",
+        "type": "array",
+        "description": "A list of time periods during which the limits apply.",
+        "children": [
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "The unit of time."
+          },
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "The amount of time of the specified unit."
+          },
+          {
+            "name": "max_invocations_per_profile",
+            "type": "integer",
+            "description": "The maximum allowed number of destination invocations per profile."
+          },
+          {
+            "name": "unlimited",
+            "type": "boolean",
+            "description": "If set to true, there is no limit on the number of destination invocations per profile. The default is false."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "segment_filter",
+    "type": "string",
+    "description": "The destination is triggered only for profiles that meet the criteria of a segment definition."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the event trigger was created."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The timestamp of when the event trigger was most recently updated."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-eventtrigger.html"><code>AWS::CustomerProfiles::EventTrigger</code></a>.
 
@@ -89,23 +218,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_triggers</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-event_trigger_name,
-object_type_name,
-description,
-event_trigger_conditions,
-event_trigger_limits,
-segment_filter,
-created_at,
-last_updated_at,
-tags
-FROM awscc.customerprofiles.event_triggers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_trigger</code>.
 ```sql
 SELECT

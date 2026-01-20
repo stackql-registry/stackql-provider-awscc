@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>job</code> resource or lists <code>jobs</code> in a region
 
@@ -32,32 +33,499 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="dataset_name" /></td><td><code>string</code></td><td>Dataset name</td></tr>
-<tr><td><CopyableCode code="encryption_key_arn" /></td><td><code>string</code></td><td>Encryption Key Arn</td></tr>
-<tr><td><CopyableCode code="encryption_mode" /></td><td><code>string</code></td><td>Encryption mode</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Job name</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Job type</td></tr>
-<tr><td><CopyableCode code="log_subscription" /></td><td><code>string</code></td><td>Log subscription</td></tr>
-<tr><td><CopyableCode code="max_capacity" /></td><td><code>integer</code></td><td>Max capacity</td></tr>
-<tr><td><CopyableCode code="max_retries" /></td><td><code>integer</code></td><td>Max retries</td></tr>
-<tr><td><CopyableCode code="outputs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_catalog_outputs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="database_outputs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="output_location" /></td><td><code>object</code></td><td>Output location</td></tr>
-<tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>Project name</td></tr>
-<tr><td><CopyableCode code="recipe" /></td><td><code>object</code></td><td>Resource schema for AWS::DataBrew::Recipe.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role arn</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="timeout" /></td><td><code>integer</code></td><td>Timeout</td></tr>
-<tr><td><CopyableCode code="job_sample" /></td><td><code>object</code></td><td>Job Sample</td></tr>
-<tr><td><CopyableCode code="profile_configuration" /></td><td><code>object</code></td><td>Profile Job configuration</td></tr>
-<tr><td><CopyableCode code="validation_configurations" /></td><td><code>array</code></td><td>Data quality rules configuration</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "dataset_name",
+    "type": "string",
+    "description": "Dataset name"
+  },
+  {
+    "name": "encryption_key_arn",
+    "type": "string",
+    "description": "Encryption Key Arn"
+  },
+  {
+    "name": "encryption_mode",
+    "type": "string",
+    "description": "Encryption mode"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Job name"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Job type"
+  },
+  {
+    "name": "log_subscription",
+    "type": "string",
+    "description": "Log subscription"
+  },
+  {
+    "name": "max_capacity",
+    "type": "integer",
+    "description": "Max capacity"
+  },
+  {
+    "name": "max_retries",
+    "type": "integer",
+    "description": "Max retries"
+  },
+  {
+    "name": "outputs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "compression_format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "format_options",
+        "type": "object",
+        "description": "Format options for job Output",
+        "children": [
+          {
+            "name": "csv",
+            "type": "object",
+            "description": "Output Csv options",
+            "children": [
+              {
+                "name": "delimiter",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "partition_columns",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "location",
+        "type": "object",
+        "description": "Input location",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "max_output_files",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_catalog_outputs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "catalog_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "database_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "table_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "location",
+            "type": "object",
+            "description": "Input location",
+            "children": [
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "database_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "temp_directory",
+            "type": "object",
+            "description": "Input location",
+            "children": [
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "database_outputs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "glue_connection_name",
+        "type": "string",
+        "description": "Glue connection name"
+      },
+      {
+        "name": "database_output_mode",
+        "type": "string",
+        "description": "Database table name"
+      },
+      {
+        "name": "database_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "temp_directory",
+            "type": "object",
+            "description": "Input location",
+            "children": [
+              {
+                "name": "bucket",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "output_location",
+    "type": "object",
+    "description": "Output location",
+    "children": [
+      {
+        "name": "bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_owner",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "project_name",
+    "type": "string",
+    "description": "Project name"
+  },
+  {
+    "name": "recipe",
+    "type": "object",
+    "description": "Resource schema for AWS::DataBrew::Recipe.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "Description of the recipe"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Recipe name"
+      },
+      {
+        "name": "steps",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "action",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "operation",
+                "type": "string",
+                "description": "Step action operation"
+              },
+              {
+                "name": "parameters",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "condition_expressions",
+            "type": "array",
+            "description": "Condition expressions applied to the step action",
+            "children": [
+              {
+                "name": "condition",
+                "type": "string",
+                "description": "Input condition to be applied to the target column"
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "Value of the condition"
+              },
+              {
+                "name": "target_column",
+                "type": "string",
+                "description": "Name of the target column"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role arn"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "timeout",
+    "type": "integer",
+    "description": "Timeout"
+  },
+  {
+    "name": "job_sample",
+    "type": "object",
+    "description": "Job Sample",
+    "children": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "Sample configuration mode for profile jobs."
+      },
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "Sample configuration size for profile jobs."
+      }
+    ]
+  },
+  {
+    "name": "profile_configuration",
+    "type": "object",
+    "description": "Profile Job configuration",
+    "children": [
+      {
+        "name": "dataset_statistics_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "included_statistics",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "overrides",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "parameters",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "profile_columns",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "regex",
+            "type": "string",
+            "description": "A regular expression for selecting a column from a dataset"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of a column from a dataset"
+          }
+        ]
+      },
+      {
+        "name": "column_statistics_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "selectors",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "entity_detector_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "entity_types",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "allowed_statistics",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "statistics",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "validation_configurations",
+    "type": "array",
+    "description": "Data quality rules configuration",
+    "children": [
+      {
+        "name": "ruleset_arn",
+        "type": "string",
+        "description": "Arn of the Ruleset"
+      },
+      {
+        "name": "validation_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html"><code>AWS::DataBrew::Job</code></a>.
 
@@ -99,33 +567,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>jobs</code> in a region.
-```sql
-SELECT
-region,
-dataset_name,
-encryption_key_arn,
-encryption_mode,
-name,
-type,
-log_subscription,
-max_capacity,
-max_retries,
-outputs,
-data_catalog_outputs,
-database_outputs,
-output_location,
-project_name,
-recipe,
-role_arn,
-tags,
-timeout,
-job_sample,
-profile_configuration,
-validation_configurations
-FROM awscc.databrew.jobs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>job</code>.
 ```sql
 SELECT

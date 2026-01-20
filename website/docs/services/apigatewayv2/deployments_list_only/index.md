@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>deployments</code> in a region or regions, for all properties use <a href="/services/apigatewayv2/deployments/"><code>deployments</code></a>
 
@@ -26,20 +27,29 @@ Lists <code>deployments</code> in a region or regions, for all properties use <a
 <tbody>
 <tr><td><b>Name</b></td><td><code>deployments_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::Deployment</code> resource creates a deployment for an API.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::Deployment&#96;&#96; resource creates a deployment for an API.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.deployments_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="api_id" /></td><td><code>string</code></td><td>The API identifier.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "The API identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

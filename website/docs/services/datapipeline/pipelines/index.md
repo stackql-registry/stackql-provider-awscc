@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <code>pipelines</code> in a region
 
@@ -32,20 +33,135 @@ Creates, updates, deletes or gets a <code>pipeline</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="activate" /></td><td><code>boolean</code></td><td>Indicates whether to validate and start the pipeline or stop an active pipeline. By default, the value is set to true.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the pipeline.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the pipeline.</td></tr>
-<tr><td><CopyableCode code="parameter_objects" /></td><td><code>array</code></td><td>The parameter objects used with the pipeline.</td></tr>
-<tr><td><CopyableCode code="parameter_values" /></td><td><code>array</code></td><td>The parameter values used with the pipeline.</td></tr>
-<tr><td><CopyableCode code="pipeline_objects" /></td><td><code>array</code></td><td>The objects that define the pipeline. These objects overwrite the existing pipeline definition. Not all objects, fields, and values can be updated. For information about restrictions, see Editing Your Pipeline in the AWS Data Pipeline Developer Guide.</td></tr>
-<tr><td><CopyableCode code="pipeline_tags" /></td><td><code>array</code></td><td>A list of arbitrary tags (key-value pairs) to associate with the pipeline, which you can use to control permissions. For more information, see Controlling Access to Pipelines and Resources in the AWS Data Pipeline Developer Guide.</td></tr>
-<tr><td><CopyableCode code="pipeline_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "activate",
+    "type": "boolean",
+    "description": "Indicates whether to validate and start the pipeline or stop an active pipeline. By default, the value is set to true."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the pipeline."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the pipeline."
+  },
+  {
+    "name": "parameter_objects",
+    "type": "array",
+    "description": "The parameter objects used with the pipeline.",
+    "children": [
+      {
+        "name": "attributes",
+        "type": "array",
+        "description": "The attributes of the parameter object.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The field identifier."
+          },
+          {
+            "name": "string_value",
+            "type": "string",
+            "description": "The field value, expressed as a String."
+          }
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID of the parameter object."
+      }
+    ]
+  },
+  {
+    "name": "parameter_values",
+    "type": "array",
+    "description": "The parameter values used with the pipeline.",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID of the parameter value."
+      },
+      {
+        "name": "string_value",
+        "type": "string",
+        "description": "The field value, expressed as a String."
+      }
+    ]
+  },
+  {
+    "name": "pipeline_objects",
+    "type": "array",
+    "description": "The objects that define the pipeline. These objects overwrite the existing pipeline definition. Not all objects, fields, and values can be updated. For information about restrictions, see Editing Your Pipeline in the AWS Data Pipeline Developer Guide.",
+    "children": [
+      {
+        "name": "fields",
+        "type": "array",
+        "description": "Key-value pairs that define the properties of the object.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "Specifies the name of a field for a particular object. To view valid values for a particular field, see Pipeline Object Reference in the AWS Data Pipeline Developer Guide."
+          },
+          {
+            "name": "ref_value",
+            "type": "string",
+            "description": "A field value that you specify as an identifier of another object in the same pipeline definition."
+          },
+          {
+            "name": "string_value",
+            "type": "string",
+            "description": "A field value that you specify as a string. To view valid values for a particular field, see Pipeline Object Reference in the AWS Data Pipeline Developer Guide."
+          }
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID of the object."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the object."
+      }
+    ]
+  },
+  {
+    "name": "pipeline_tags",
+    "type": "array",
+    "description": "A list of arbitrary tags (key-value pairs) to associate with the pipeline, which you can use to control permissions. For more information, see Controlling Access to Pipelines and Resources in the AWS Data Pipeline Developer Guide.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of a tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value to associate with the key name."
+      }
+    ]
+  },
+  {
+    "name": "pipeline_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datapipeline-pipeline.html"><code>AWS::DataPipeline::Pipeline</code></a>.
 
@@ -87,21 +203,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pipelines</code> in a region.
-```sql
-SELECT
-region,
-activate,
-description,
-name,
-parameter_objects,
-parameter_values,
-pipeline_objects,
-pipeline_tags,
-pipeline_id
-FROM awscc.datapipeline.pipelines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pipeline</code>.
 ```sql
 SELECT

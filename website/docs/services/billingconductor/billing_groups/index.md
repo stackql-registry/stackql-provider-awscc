@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>billing_group</code> resource or lists <code>billing_groups</code> in a region
 
@@ -32,24 +33,104 @@ Creates, updates, deletes or gets a <code>billing_group</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Billing Group ARN</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="primary_account_id" /></td><td><code>string</code></td><td>This account will act as a virtual payer account of the billing group</td></tr>
-<tr><td><CopyableCode code="computation_preference" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_grouping" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="size" /></td><td><code>integer</code></td><td>Number of accounts in the billing group</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>integer</code></td><td>Creation timestamp in UNIX epoch time format</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>integer</code></td><td>Latest modified timestamp in UNIX epoch time format</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Billing Group ARN"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "primary_account_id",
+    "type": "string",
+    "description": "This account will act as a virtual payer account of the billing group"
+  },
+  {
+    "name": "computation_preference",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "pricing_plan_arn",
+        "type": "string",
+        "description": "ARN of the attached pricing plan"
+      }
+    ]
+  },
+  {
+    "name": "account_grouping",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "linked_account_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "auto_associate",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "size",
+    "type": "integer",
+    "description": "Number of accounts in the billing group"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "integer",
+    "description": "Creation timestamp in UNIX epoch time format"
+  },
+  {
+    "name": "last_modified_time",
+    "type": "integer",
+    "description": "Latest modified timestamp in UNIX epoch time format"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-billingconductor-billinggroup.html"><code>AWS::BillingConductor::BillingGroup</code></a>.
 
@@ -91,25 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>billing_groups</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-primary_account_id,
-computation_preference,
-account_grouping,
-size,
-status,
-status_reason,
-creation_time,
-last_modified_time,
-tags
-FROM awscc.billingconductor.billing_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>billing_group</code>.
 ```sql
 SELECT

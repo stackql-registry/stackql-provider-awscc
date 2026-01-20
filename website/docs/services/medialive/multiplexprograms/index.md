@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>multiplexprogram</code> resource or lists <code>multiplexprograms</code> in a region
 
@@ -32,19 +33,161 @@ Creates, updates, deletes or gets a <code>multiplexprogram</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="channel_id" /></td><td><code>string</code></td><td>The MediaLive channel associated with the program.</td></tr>
-<tr><td><CopyableCode code="multiplex_id" /></td><td><code>string</code></td><td>The ID of the multiplex that the program belongs to.</td></tr>
-<tr><td><CopyableCode code="multiplex_program_settings" /></td><td><code>object</code></td><td>The settings for this multiplex program.</td></tr>
-<tr><td><CopyableCode code="preferred_channel_pipeline" /></td><td><code>string</code></td><td>The settings for this multiplex program.</td></tr>
-<tr><td><CopyableCode code="packet_identifiers_map" /></td><td><code>object</code></td><td>The packet identifier map for this multiplex program.</td></tr>
-<tr><td><CopyableCode code="pipeline_details" /></td><td><code>array</code></td><td>Contains information about the current sources for the specified program in the specified multiplex. Keep in mind that each multiplex pipeline connects to both pipelines in a given source channel (the channel identified by the program). But only one of those channel pipelines is ever active at one time.</td></tr>
-<tr><td><CopyableCode code="program_name" /></td><td><code>string</code></td><td>The name of the multiplex program.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "channel_id",
+    "type": "string",
+    "description": "The MediaLive channel associated with the program."
+  },
+  {
+    "name": "multiplex_id",
+    "type": "string",
+    "description": "The ID of the multiplex that the program belongs to."
+  },
+  {
+    "name": "multiplex_program_settings",
+    "type": "object",
+    "description": "The settings for this multiplex program.",
+    "children": [
+      {
+        "name": "preferred_channel_pipeline",
+        "type": "string",
+        "description": "Indicates which pipeline is preferred by the multiplex for program ingest.<br />If set to \\\"PIPELINE&#95;0\\\" or \\\"PIPELINE&#95;1\\\" and an unhealthy ingest causes the multiplex to switch to the non-preferred pipeline,<br />it will switch back once that ingest is healthy again. If set to \\\"CURRENTLY&#95;ACTIVE\\\",<br />it will not switch back to the other pipeline based on it recovering to a healthy state,<br />it will only switch if the active pipeline becomes unhealthy.<br />"
+      },
+      {
+        "name": "program_number",
+        "type": "integer",
+        "description": "Unique program number."
+      },
+      {
+        "name": "service_descriptor",
+        "type": "object",
+        "description": "Transport stream service descriptor configuration for the Multiplex program.",
+        "children": [
+          {
+            "name": "provider_name",
+            "type": "string",
+            "description": "Name of the provider."
+          },
+          {
+            "name": "service_name",
+            "type": "string",
+            "description": "Name of the service."
+          }
+        ]
+      },
+      {
+        "name": "video_settings",
+        "type": "object",
+        "description": "Program video settings configuration."
+      }
+    ]
+  },
+  {
+    "name": "preferred_channel_pipeline",
+    "type": "string",
+    "description": "The settings for this multiplex program."
+  },
+  {
+    "name": "packet_identifiers_map",
+    "type": "object",
+    "description": "The packet identifier map for this multiplex program.",
+    "children": [
+      {
+        "name": "audio_pids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "dvb_sub_pids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "dvb_teletext_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "etv_platform_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "etv_signal_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "klv_data_pids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "pcr_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "pmt_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "private_metadata_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "scte27_pids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "scte35_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "timed_metadata_pid",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "video_pid",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "pipeline_details",
+    "type": "array",
+    "description": "Contains information about the current sources for the specified program in the specified multiplex. Keep in mind that each multiplex pipeline connects to both pipelines in a given source channel (the channel identified by the program). But only one of those channel pipelines is ever active at one time.",
+    "children": [
+      {
+        "name": "active_channel_pipeline",
+        "type": "string",
+        "description": "Identifies the channel pipeline that is currently active for the pipeline (identified by PipelineId) in the multiplex."
+      },
+      {
+        "name": "pipeline_id",
+        "type": "string",
+        "description": "Identifies a specific pipeline in the multiplex."
+      }
+    ]
+  },
+  {
+    "name": "program_name",
+    "type": "string",
+    "description": "The name of the multiplex program."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-multiplexprogram.html"><code>AWS::MediaLive::Multiplexprogram</code></a>.
 
@@ -86,20 +229,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>multiplexprograms</code> in a region.
-```sql
-SELECT
-region,
-channel_id,
-multiplex_id,
-multiplex_program_settings,
-preferred_channel_pipeline,
-packet_identifiers_map,
-pipeline_details,
-program_name
-FROM awscc.medialive.multiplexprograms
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>multiplexprogram</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_type</code> resource or lists <code>event_types</code> in a region
 
@@ -32,21 +33,196 @@ Creates, updates, deletes or gets an <code>event_type</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the event type</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this event type.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event type.</td></tr>
-<tr><td><CopyableCode code="event_variables" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="labels" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="entity_types" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the event type.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the event type was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the event type was last updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the event type"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with this event type.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the event type."
+  },
+  {
+    "name": "event_variables",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_source",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "default_value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "variable_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "The description."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "Tags associated with this event type."
+      },
+      {
+        "name": "created_time",
+        "type": "string",
+        "description": "The time when the event type was created."
+      },
+      {
+        "name": "last_updated_time",
+        "type": "string",
+        "description": "The time when the event type was last updated."
+      }
+    ]
+  },
+  {
+    "name": "labels",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the label."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "Tags associated with this label."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "The label description."
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "The label ARN."
+      },
+      {
+        "name": "created_time",
+        "type": "string",
+        "description": "The timestamp when the label was created."
+      },
+      {
+        "name": "last_updated_time",
+        "type": "string",
+        "description": "The timestamp when the label was last updated."
+      }
+    ]
+  },
+  {
+    "name": "entity_types",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "The description."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "Tags associated with this event type."
+      },
+      {
+        "name": "created_time",
+        "type": "string",
+        "description": "The time when the event type was created."
+      },
+      {
+        "name": "last_updated_time",
+        "type": "string",
+        "description": "The time when the event type was last updated."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the event type."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "The time when the event type was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "The time when the event type was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-frauddetector-eventtype.html"><code>AWS::FraudDetector::EventType</code></a>.
 
@@ -88,22 +264,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_types</code> in a region.
-```sql
-SELECT
-region,
-name,
-tags,
-description,
-event_variables,
-labels,
-entity_types,
-arn,
-created_time,
-last_updated_time
-FROM awscc.frauddetector.event_types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_type</code>.
 ```sql
 SELECT

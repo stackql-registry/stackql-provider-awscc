@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>approval_team</code> resource or lists <code>approval_teams</code> in a region
 
@@ -32,27 +33,143 @@ Creates, updates, deletes or gets an <code>approval_team</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="approval_strategy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="approvers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="policies" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="version_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="update_session_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_update_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="number_of_approvers" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_code" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "approval_strategy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "mof_n",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "min_approvals_required",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "approvers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "primary_identity_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "primary_identity_source_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "approver_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "response_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "primary_identity_status",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "policies",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "policy_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "version_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "update_session_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "number_of_approvers",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mpa-approvalteam.html"><code>AWS::MPA::ApprovalTeam</code></a>.
 
@@ -94,28 +211,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>approval_teams</code> in a region.
-```sql
-SELECT
-region,
-approval_strategy,
-approvers,
-tags,
-policies,
-name,
-description,
-arn,
-version_id,
-update_session_arn,
-creation_time,
-last_update_time,
-number_of_approvers,
-status,
-status_code,
-status_message
-FROM awscc.mpa.approval_teams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>approval_team</code>.
 ```sql
 SELECT

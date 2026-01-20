@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>archive</code> resource or lists <code>archives</code> in a region
 
@@ -32,19 +33,48 @@ Creates, updates, deletes or gets an <code>archive</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="archive_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_pattern" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="retention_days" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "archive_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_pattern",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "retention_days",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-archive.html"><code>AWS::Events::Archive</code></a>.
 
@@ -86,20 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>archives</code> in a region.
-```sql
-SELECT
-region,
-archive_name,
-source_arn,
-description,
-event_pattern,
-arn,
-retention_days,
-kms_key_identifier
-FROM awscc.events.archives
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>archive</code>.
 ```sql
 SELECT

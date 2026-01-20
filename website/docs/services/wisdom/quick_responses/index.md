@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>quick_response</code> resource or lists <code>quick_responses</code> in a region
 
@@ -32,27 +33,119 @@ Creates, updates, deletes or gets a <code>quick_response</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="content_type" /></td><td><code>string</code></td><td>The media type of the quick response content.<br />- Use application/x.quickresponse;format=plain for quick response written in plain text.<br />- Use application/x.quickresponse;format=markdown for quick response written in richtext.</td></tr>
-<tr><td><CopyableCode code="knowledge_base_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the knowledge base.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the quick response.</td></tr>
-<tr><td><CopyableCode code="quick_response_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the quick response.</td></tr>
-<tr><td><CopyableCode code="quick_response_id" /></td><td><code>string</code></td><td>The identifier of the quick response.</td></tr>
-<tr><td><CopyableCode code="channels" /></td><td><code>array</code></td><td>The Amazon Connect contact channels this quick response applies to.</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>object</code></td><td>The container of quick response content.</td></tr>
-<tr><td><CopyableCode code="contents" /></td><td><code>object</code></td><td>The content of the quick response stored in different media types.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the quick response.</td></tr>
-<tr><td><CopyableCode code="grouping_configuration" /></td><td><code>object</code></td><td>The configuration information of the user groups that the quick response is accessible to.</td></tr>
-<tr><td><CopyableCode code="is_active" /></td><td><code>boolean</code></td><td>Whether the quick response is active.</td></tr>
-<tr><td><CopyableCode code="language" /></td><td><code>string</code></td><td>The language code value for the language in which the quick response is written. The supported language codes include de_DE, en_US, es_ES, fr_FR, id_ID, it_IT, ja_JP, ko_KR, pt_BR, zh_CN, zh_TW</td></tr>
-<tr><td><CopyableCode code="shortcut_key" /></td><td><code>string</code></td><td>The shortcut key of the quick response. The value should be unique across the knowledge base.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the quick response data.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "content_type",
+    "type": "string",
+    "description": "The media type of the quick response content.<br />- Use application/x.quickresponse;format=plain for quick response written in plain text.<br />- Use application/x.quickresponse;format=markdown for quick response written in richtext."
+  },
+  {
+    "name": "knowledge_base_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the knowledge base."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the quick response."
+  },
+  {
+    "name": "quick_response_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the quick response."
+  },
+  {
+    "name": "quick_response_id",
+    "type": "string",
+    "description": "The identifier of the quick response."
+  },
+  {
+    "name": "channels",
+    "type": "array",
+    "description": "The Amazon Connect contact channels this quick response applies to."
+  },
+  {
+    "name": "content",
+    "type": "object",
+    "description": "The container of quick response content.",
+    "children": [
+      {
+        "name": "content",
+        "type": "string",
+        "description": "The content of the quick response."
+      }
+    ]
+  },
+  {
+    "name": "contents",
+    "type": "object",
+    "description": "The content of the quick response stored in different media types."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the quick response."
+  },
+  {
+    "name": "grouping_configuration",
+    "type": "object",
+    "description": "The configuration information of the user groups that the quick response is accessible to.",
+    "children": [
+      {
+        "name": "criteria",
+        "type": "string",
+        "description": "The criteria used for grouping Amazon Q in Connect users."
+      },
+      {
+        "name": "values",
+        "type": "array",
+        "description": "The list of values that define different groups of Amazon Q in Connect users."
+      }
+    ]
+  },
+  {
+    "name": "is_active",
+    "type": "boolean",
+    "description": "Whether the quick response is active."
+  },
+  {
+    "name": "language",
+    "type": "string",
+    "description": "The language code value for the language in which the quick response is written. The supported language codes include de&#95;DE, en&#95;US, es&#95;ES, fr&#95;FR, id&#95;ID, it&#95;IT, ja&#95;JP, ko&#95;KR, pt&#95;BR, zh&#95;CN, zh&#95;TW"
+  },
+  {
+    "name": "shortcut_key",
+    "type": "string",
+    "description": "The shortcut key of the quick response. The value should be unique across the knowledge base."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the quick response data."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-quickresponse.html"><code>AWS::Wisdom::QuickResponse</code></a>.
 
@@ -94,28 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>quick_responses</code> in a region.
-```sql
-SELECT
-region,
-content_type,
-knowledge_base_arn,
-name,
-quick_response_arn,
-quick_response_id,
-channels,
-content,
-contents,
-description,
-grouping_configuration,
-is_active,
-language,
-shortcut_key,
-status,
-tags
-FROM awscc.wisdom.quick_responses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>quick_response</code>.
 ```sql
 SELECT

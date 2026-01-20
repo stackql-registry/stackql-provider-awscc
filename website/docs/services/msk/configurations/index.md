@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration</code> resource or lists <code>configurations</code> in a region
 
@@ -32,18 +33,60 @@ Creates, updates, deletes or gets a <code>configuration</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_properties" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kafka_versions_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="latest_revision" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_properties",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kafka_versions_list",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "latest_revision",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "creation_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "revision",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-msk-configuration.html"><code>AWS::MSK::Configuration</code></a>.
 
@@ -85,19 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configurations</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-server_properties,
-kafka_versions_list,
-arn,
-latest_revision
-FROM awscc.msk.configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration</code>.
 ```sql
 SELECT

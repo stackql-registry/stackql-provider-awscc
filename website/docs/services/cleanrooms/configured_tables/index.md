@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configured_table</code> resource or lists <code>configured_tables</code> in a region
 
@@ -32,22 +33,94 @@ Creates, updates, deletes or gets a <code>configured_table</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms collaboration.</td></tr>
-<tr><td><CopyableCode code="allowed_columns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="analysis_method" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="selected_analysis_methods" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="configured_table_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="analysis_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="table_reference" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this cleanrooms collaboration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "allowed_columns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "analysis_method",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "selected_analysis_methods",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "configured_table_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "analysis_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "v1",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "table_reference",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-configuredtable.html"><code>AWS::CleanRooms::ConfiguredTable</code></a>.
 
@@ -89,23 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configured_tables</code> in a region.
-```sql
-SELECT
-region,
-arn,
-tags,
-allowed_columns,
-analysis_method,
-selected_analysis_methods,
-configured_table_identifier,
-description,
-name,
-analysis_rules,
-table_reference
-FROM awscc.cleanrooms.configured_tables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configured_table</code>.
 ```sql
 SELECT

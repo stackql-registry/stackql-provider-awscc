@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>thing_type</code> resource or lists <code>thing_types</code> in a region
 
@@ -32,18 +33,96 @@ Creates, updates, deletes or gets a <code>thing_type</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="thing_type_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deprecate_thing_type" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="thing_type_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "thing_type_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "deprecate_thing_type",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "thing_type_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "searchable_attributes",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "thing_type_description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "mqtt5_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "propagating_attributes",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "user_property_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "thing_attribute",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "connection_attribute",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-thingtype.html"><code>AWS::IoT::ThingType</code></a>.
 
@@ -85,19 +164,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>thing_types</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-thing_type_name,
-deprecate_thing_type,
-thing_type_properties,
-tags
-FROM awscc.iot.thing_types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>thing_type</code>.
 ```sql
 SELECT

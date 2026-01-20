@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>traffic_distribution_group</code> resource or lists <code>traffic_distribution_groups</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>traffic_distribution_group</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance that has been replicated.</td></tr>
-<tr><td><CopyableCode code="traffic_distribution_group_arn" /></td><td><code>string</code></td><td>The identifier of the traffic distribution group.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the traffic distribution group.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the traffic distribution group.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the traffic distribution group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td>If this is the default traffic distribution group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance that has been replicated."
+  },
+  {
+    "name": "traffic_distribution_group_arn",
+    "type": "string",
+    "description": "The identifier of the traffic distribution group."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the traffic distribution group."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the traffic distribution group."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the traffic distribution group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "is_default",
+    "type": "boolean",
+    "description": "If this is the default traffic distribution group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-trafficdistributiongroup.html"><code>AWS::Connect::TrafficDistributionGroup</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>traffic_distribution_groups</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-traffic_distribution_group_arn,
-description,
-name,
-status,
-tags,
-is_default
-FROM awscc.connect.traffic_distribution_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>traffic_distribution_group</code>.
 ```sql
 SELECT

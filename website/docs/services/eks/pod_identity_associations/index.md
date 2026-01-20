@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pod_identity_association</code> resource or lists <code>pod_identity_associations</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>pod_identity_association</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>The cluster that the pod identity association is created for.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The IAM role ARN that the pod identity association is created for.</td></tr>
-<tr><td><CopyableCode code="namespace" /></td><td><code>string</code></td><td>The Kubernetes namespace that the pod identity association is created for.</td></tr>
-<tr><td><CopyableCode code="service_account" /></td><td><code>string</code></td><td>The Kubernetes service account that the pod identity association is created for.</td></tr>
-<tr><td><CopyableCode code="association_arn" /></td><td><code>string</code></td><td>The ARN of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>The ID of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="target_role_arn" /></td><td><code>string</code></td><td>The Target Role Arn of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="external_id" /></td><td><code>string</code></td><td>The External Id of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="disable_session_tags" /></td><td><code>boolean</code></td><td>The Disable Session Tags of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The cluster that the pod identity association is created for."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The IAM role ARN that the pod identity association is created for."
+  },
+  {
+    "name": "namespace",
+    "type": "string",
+    "description": "The Kubernetes namespace that the pod identity association is created for."
+  },
+  {
+    "name": "service_account",
+    "type": "string",
+    "description": "The Kubernetes service account that the pod identity association is created for."
+  },
+  {
+    "name": "association_arn",
+    "type": "string",
+    "description": "The ARN of the pod identity association."
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "The ID of the pod identity association."
+  },
+  {
+    "name": "target_role_arn",
+    "type": "string",
+    "description": "The Target Role Arn of the pod identity association."
+  },
+  {
+    "name": "external_id",
+    "type": "string",
+    "description": "The External Id of the pod identity association."
+  },
+  {
+    "name": "disable_session_tags",
+    "type": "boolean",
+    "description": "The Disable Session Tags of the pod identity association."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-podidentityassociation.html"><code>AWS::EKS::PodIdentityAssociation</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pod_identity_associations</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-role_arn,
-namespace,
-service_account,
-association_arn,
-association_id,
-target_role_arn,
-external_id,
-disable_session_tags,
-tags
-FROM awscc.eks.pod_identity_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pod_identity_association</code>.
 ```sql
 SELECT

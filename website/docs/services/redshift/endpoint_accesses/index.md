@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>endpoint_access</code> resource or lists <code>endpoint_accesses</code> in a region
 
@@ -32,23 +33,119 @@ Creates, updates, deletes or gets an <code>endpoint_access</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="endpoint_status" /></td><td><code>string</code></td><td>The status of the endpoint.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint" /></td><td><code>object</code></td><td>The connection endpoint for connecting to an Amazon Redshift cluster through the proxy.</td></tr>
-<tr><td><CopyableCode code="address" /></td><td><code>string</code></td><td>The DNS address of the endpoint.</td></tr>
-<tr><td><CopyableCode code="endpoint_name" /></td><td><code>string</code></td><td>The name of the endpoint.</td></tr>
-<tr><td><CopyableCode code="vpc_security_group_ids" /></td><td><code>array</code></td><td>A list of vpc security group ids to apply to the created endpoint access.</td></tr>
-<tr><td><CopyableCode code="resource_owner" /></td><td><code>string</code></td><td>The AWS account ID of the owner of the cluster.</td></tr>
-<tr><td><CopyableCode code="subnet_group_name" /></td><td><code>string</code></td><td>The subnet group name where Amazon Redshift chooses to deploy the endpoint.</td></tr>
-<tr><td><CopyableCode code="port" /></td><td><code>integer</code></td><td>The port number on which the cluster accepts incoming connections.</td></tr>
-<tr><td><CopyableCode code="endpoint_create_time" /></td><td><code>string</code></td><td>The time (UTC) that the endpoint was created.</td></tr>
-<tr><td><CopyableCode code="cluster_identifier" /></td><td><code>string</code></td><td>A unique identifier for the cluster. You use this identifier to refer to the cluster for any subsequent cluster operations such as deleting or modifying. All alphabetical characters must be lower case, no hypens at the end, no two consecutive hyphens. Cluster name should be unique for all clusters within an AWS account</td></tr>
-<tr><td><CopyableCode code="vpc_security_groups" /></td><td><code>array</code></td><td>A list of Virtual Private Cloud (VPC) security groups to be associated with the endpoint.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "endpoint_status",
+    "type": "string",
+    "description": "The status of the endpoint."
+  },
+  {
+    "name": "vpc_endpoint",
+    "type": "object",
+    "description": "The connection endpoint for connecting to an Amazon Redshift cluster through the proxy.",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "The VPC identifier that the endpoint is associated."
+      },
+      {
+        "name": "network_interfaces",
+        "type": "array",
+        "description": "One or more network interfaces of the endpoint. Also known as an interface endpoint.",
+        "children": [
+          {
+            "name": "private_ip_address",
+            "type": "string",
+            "description": "The IPv4 address of the network interface within the subnet."
+          },
+          {
+            "name": "availability_zone",
+            "type": "string",
+            "description": "The Availability Zone."
+          },
+          {
+            "name": "subnet_id",
+            "type": "string",
+            "description": "The subnet identifier."
+          },
+          {
+            "name": "network_interface_id",
+            "type": "string",
+            "description": "The network interface identifier."
+          }
+        ]
+      },
+      {
+        "name": "vpc_endpoint_id",
+        "type": "string",
+        "description": "The connection endpoint ID for connecting an Amazon Redshift cluster through the proxy."
+      }
+    ]
+  },
+  {
+    "name": "address",
+    "type": "string",
+    "description": "The DNS address of the endpoint."
+  },
+  {
+    "name": "endpoint_name",
+    "type": "string",
+    "description": "The name of the endpoint."
+  },
+  {
+    "name": "vpc_security_group_ids",
+    "type": "array",
+    "description": "A list of vpc security group ids to apply to the created endpoint access."
+  },
+  {
+    "name": "resource_owner",
+    "type": "string",
+    "description": "The AWS account ID of the owner of the cluster."
+  },
+  {
+    "name": "subnet_group_name",
+    "type": "string",
+    "description": "The subnet group name where Amazon Redshift chooses to deploy the endpoint."
+  },
+  {
+    "name": "port",
+    "type": "integer",
+    "description": "The port number on which the cluster accepts incoming connections."
+  },
+  {
+    "name": "endpoint_create_time",
+    "type": "string",
+    "description": "The time (UTC) that the endpoint was created."
+  },
+  {
+    "name": "cluster_identifier",
+    "type": "string",
+    "description": "A unique identifier for the cluster. You use this identifier to refer to the cluster for any subsequent cluster operations such as deleting or modifying. All alphabetical characters must be lower case, no hypens at the end, no two consecutive hyphens. Cluster name should be unique for all clusters within an AWS account"
+  },
+  {
+    "name": "vpc_security_groups",
+    "type": "array",
+    "description": "A list of Virtual Private Cloud (VPC) security groups to be associated with the endpoint.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "The status of the VPC security group."
+      },
+      {
+        "name": "vpc_security_group_id",
+        "type": "string",
+        "description": "The identifier of the VPC security group."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-endpointaccess.html"><code>AWS::Redshift::EndpointAccess</code></a>.
 
@@ -90,24 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>endpoint_accesses</code> in a region.
-```sql
-SELECT
-region,
-endpoint_status,
-vpc_endpoint,
-address,
-endpoint_name,
-vpc_security_group_ids,
-resource_owner,
-subnet_group_name,
-port,
-endpoint_create_time,
-cluster_identifier,
-vpc_security_groups
-FROM awscc.redshift.endpoint_accesses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>endpoint_access</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_azure_blob</code> resource or lists <code>location_azure_blobs</code> in a region
 
@@ -32,25 +33,128 @@ Creates, updates, deletes or gets a <code>location_azure_blob</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="agent_arns" /></td><td><code>array</code></td><td>Specifies the Amazon Resource Name (ARN) of the DataSync agent that can connect with your Azure Blob Storage container. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</td></tr>
-<tr><td><CopyableCode code="azure_blob_authentication_type" /></td><td><code>string</code></td><td>The specific authentication type that you want DataSync to use to access your Azure Blob Container.</td></tr>
-<tr><td><CopyableCode code="azure_blob_sas_configuration" /></td><td><code>object</code></td><td>Specifies the shared access signature (SAS) that DataSync uses to access your Azure Blob Storage container.</td></tr>
-<tr><td><CopyableCode code="azure_blob_container_url" /></td><td><code>string</code></td><td>The URL of the Azure Blob container that was described.</td></tr>
-<tr><td><CopyableCode code="azure_blob_type" /></td><td><code>string</code></td><td>Specifies a blob type for the objects you're transferring into your Azure Blob Storage container.</td></tr>
-<tr><td><CopyableCode code="azure_access_tier" /></td><td><code>string</code></td><td>Specifies an access tier for the objects you're transferring into your Azure Blob Storage container.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in the Azure Blob Container that is used to read data from the Azure Blob Source Location.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Azure Blob Location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the Azure Blob Location that was described.</td></tr>
-<tr><td><CopyableCode code="cmk_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and a customer-managed AWS KMS key.</td></tr>
-<tr><td><CopyableCode code="custom_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a customer-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and an IAM role that DataSync can assume and access the customer-managed secret.</td></tr>
-<tr><td><CopyableCode code="managed_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location. DataSync uses the default AWS-managed KMS key to encrypt this secret in AWS Secrets Manager.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "agent_arns",
+    "type": "array",
+    "description": "Specifies the Amazon Resource Name (ARN) of the DataSync agent that can connect with your Azure Blob Storage container. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter."
+  },
+  {
+    "name": "azure_blob_authentication_type",
+    "type": "string",
+    "description": "The specific authentication type that you want DataSync to use to access your Azure Blob Container."
+  },
+  {
+    "name": "azure_blob_sas_configuration",
+    "type": "object",
+    "description": "Specifies the shared access signature (SAS) that DataSync uses to access your Azure Blob Storage container.",
+    "children": [
+      {
+        "name": "azure_blob_sas_token",
+        "type": "string",
+        "description": "Specifies the shared access signature (SAS) token, which indicates the permissions DataSync needs to access your Azure Blob Storage container."
+      }
+    ]
+  },
+  {
+    "name": "azure_blob_container_url",
+    "type": "string",
+    "description": "The URL of the Azure Blob container that was described."
+  },
+  {
+    "name": "azure_blob_type",
+    "type": "string",
+    "description": "Specifies a blob type for the objects you're transferring into your Azure Blob Storage container."
+  },
+  {
+    "name": "azure_access_tier",
+    "type": "string",
+    "description": "Specifies an access tier for the objects you're transferring into your Azure Blob Storage container."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in the Azure Blob Container that is used to read data from the Azure Blob Source Location."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Azure Blob Location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the Azure Blob Location that was described."
+  },
+  {
+    "name": "cmk_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and a customer-managed AWS KMS key.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for an AWS Secrets Manager secret, managed by DataSync."
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "Specifies the ARN for the customer-managed AWS KMS key used to encrypt the secret specified for SecretArn. DataSync provides this key to AWS Secrets Manager."
+      }
+    ]
+  },
+  {
+    "name": "custom_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a customer-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and an IAM role that DataSync can assume and access the customer-managed secret.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for a customer created AWS Secrets Manager secret."
+      },
+      {
+        "name": "secret_access_role_arn",
+        "type": "string",
+        "description": "Specifies the ARN for the AWS Identity and Access Management role that DataSync uses to access the secret specified for SecretArn."
+      }
+    ]
+  },
+  {
+    "name": "managed_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location. DataSync uses the default AWS-managed KMS key to encrypt this secret in AWS Secrets Manager.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for an AWS Secrets Manager secret."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationazureblob.html"><code>AWS::DataSync::LocationAzureBlob</code></a>.
 
@@ -92,26 +196,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_azure_blobs</code> in a region.
-```sql
-SELECT
-region,
-agent_arns,
-azure_blob_authentication_type,
-azure_blob_sas_configuration,
-azure_blob_container_url,
-azure_blob_type,
-azure_access_tier,
-subdirectory,
-tags,
-location_arn,
-location_uri,
-cmk_secret_config,
-custom_secret_config,
-managed_secret_config
-FROM awscc.datasync.location_azure_blobs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_azure_blob</code>.
 ```sql
 SELECT

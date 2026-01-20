@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>input</code> resource or lists <code>inputs</code> in a region
 
@@ -26,22 +27,65 @@ Creates, updates, deletes or gets an <code>input</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>inputs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The AWS::IoTEvents::Input resource creates an input. To monitor your devices and processes, they must have a way to get telemetry data into ITE. This is done by sending messages as ASTERIX;inputsASTERIX; to ITE. For more information, see &#91;How to Use&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the ASTERIX;Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The AWS::IoTEvents::Input resource creates an input. To monitor your devices and processes, they must have a way to get telemetry data into ITE. This is done by sending messages as &#42;inputs&#42; to ITE. For more information, see &#91;How to Use&#93;(https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the &#42;Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.iotevents.inputs" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="input_definition" /></td><td><code>object</code></td><td>The definition of the input.</td></tr>
-<tr><td><CopyableCode code="input_description" /></td><td><code>string</code></td><td>A brief description of the input.</td></tr>
-<tr><td><CopyableCode code="input_name" /></td><td><code>string</code></td><td>The name of the input.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "input_definition",
+    "type": "object",
+    "description": "The definition of the input.",
+    "children": [
+      {
+        "name": "attributes",
+        "type": "array",
+        "description": "The attributes from the JSON payload that are made available by the input. Inputs are derived from messages sent to the ITE system using &#96;&#96;BatchPutMessage&#96;&#96;. Each such message contains a JSON payload, and those attributes (and their paired values) specified here are available for use in the &#96;&#96;condition&#96;&#96; expressions used by detectors that monitor this input.",
+        "children": [
+          {
+            "name": "json_path",
+            "type": "string",
+            "description": "An expression that specifies an attribute-value pair in a JSON structure. Use this to specify an attribute from the JSON payload that is made available by the input. Inputs are derived from messages sent to ITE (&#96;&#96;BatchPutMessage&#96;&#96;). Each such message contains a JSON payload. The attribute (and its paired value) specified here are available for use in the &#96;&#96;condition&#96;&#96; expressions used by detectors. <br />Syntax: &#96;&#96;&lt;field-name&gt;.&lt;field-name&gt;...&#96;&#96;"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "input_description",
+    "type": "string",
+    "description": "A brief description of the input."
+  },
+  {
+    "name": "input_name",
+    "type": "string",
+    "description": "The name of the input."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag's key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag's value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotevents-input.html"><code>AWS::IoTEvents::Input</code></a>.
 
@@ -83,17 +127,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>inputs</code> in a region.
-```sql
-SELECT
-region,
-input_definition,
-input_description,
-input_name,
-tags
-FROM awscc.iotevents.inputs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>input</code>.
 ```sql
 SELECT

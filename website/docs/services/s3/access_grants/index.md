@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_grant</code> resource or lists <code>access_grants</code> in a region
 
@@ -32,22 +33,94 @@ Creates, updates, deletes or gets an <code>access_grant</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_grant_id" /></td><td><code>string</code></td><td>The ID assigned to this access grant.</td></tr>
-<tr><td><CopyableCode code="access_grants_location_id" /></td><td><code>string</code></td><td>The custom S3 location to be accessed by the grantee</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="permission" /></td><td><code>string</code></td><td>The level of access to be afforded to the grantee</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The ARN of the application grantees will use to access the location</td></tr>
-<tr><td><CopyableCode code="s3_prefix_type" /></td><td><code>string</code></td><td>The type of S3SubPrefix.</td></tr>
-<tr><td><CopyableCode code="grant_scope" /></td><td><code>string</code></td><td>The S3 path of the data to which you are granting access. It is a combination of the S3 path of the registered location and the subprefix.</td></tr>
-<tr><td><CopyableCode code="access_grant_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified access grant.</td></tr>
-<tr><td><CopyableCode code="grantee" /></td><td><code>object</code></td><td>The principal who will be granted permission to access S3.</td></tr>
-<tr><td><CopyableCode code="access_grants_location_configuration" /></td><td><code>object</code></td><td>The configuration options of the grant location, which is the S3 path to the data to which you are granting access.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_grant_id",
+    "type": "string",
+    "description": "The ID assigned to this access grant."
+  },
+  {
+    "name": "access_grants_location_id",
+    "type": "string",
+    "description": "The custom S3 location to be accessed by the grantee"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "permission",
+    "type": "string",
+    "description": "The level of access to be afforded to the grantee"
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": "The ARN of the application grantees will use to access the location"
+  },
+  {
+    "name": "s3_prefix_type",
+    "type": "string",
+    "description": "The type of S3SubPrefix."
+  },
+  {
+    "name": "grant_scope",
+    "type": "string",
+    "description": "The S3 path of the data to which you are granting access. It is a combination of the S3 path of the registered location and the subprefix."
+  },
+  {
+    "name": "access_grant_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified access grant."
+  },
+  {
+    "name": "grantee",
+    "type": "object",
+    "description": "The principal who will be granted permission to access S3.",
+    "children": [
+      {
+        "name": "grantee_type",
+        "type": "string",
+        "description": "Configures the transfer acceleration state for an Amazon S3 bucket."
+      },
+      {
+        "name": "grantee_identifier",
+        "type": "string",
+        "description": "The unique identifier of the Grantee"
+      }
+    ]
+  },
+  {
+    "name": "access_grants_location_configuration",
+    "type": "object",
+    "description": "The configuration options of the grant location, which is the S3 path to the data to which you are granting access.",
+    "children": [
+      {
+        "name": "s3_sub_prefix",
+        "type": "string",
+        "description": "The S3 sub prefix of a registered location in your S3 Access Grants instance"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-accessgrant.html"><code>AWS::S3::AccessGrant</code></a>.
 
@@ -89,23 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_grants</code> in a region.
-```sql
-SELECT
-region,
-access_grant_id,
-access_grants_location_id,
-tags,
-permission,
-application_arn,
-s3_prefix_type,
-grant_scope,
-access_grant_arn,
-grantee,
-access_grants_location_configuration
-FROM awscc.s3.access_grants
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_grant</code>.
 ```sql
 SELECT

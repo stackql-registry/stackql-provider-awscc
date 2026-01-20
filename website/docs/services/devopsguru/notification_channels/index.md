@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>notification_channel</code> resource or lists <code>notification_channels</code> in a region
 
@@ -32,14 +33,54 @@ Creates, updates, deletes or gets a <code>notification_channel</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="config" /></td><td><code>object</code></td><td>Information about notification channels you have configured with DevOps Guru.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of a notification channel.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "config",
+    "type": "object",
+    "description": "Information about notification channels you have configured with DevOps Guru.",
+    "children": [
+      {
+        "name": "sns",
+        "type": "object",
+        "description": "Information about a notification channel configured in DevOps Guru to send notifications when insights are created.",
+        "children": [
+          {
+            "name": "topic_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "filters",
+        "type": "object",
+        "description": "Information about filters of a notification channel configured in DevOpsGuru to filter for insights.",
+        "children": [
+          {
+            "name": "severities",
+            "type": "array",
+            "description": "DevOps Guru insight severities to filter for"
+          },
+          {
+            "name": "message_types",
+            "type": "array",
+            "description": "DevOps Guru message types to filter for"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of a notification channel."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-devopsguru-notificationchannel.html"><code>AWS::DevOpsGuru::NotificationChannel</code></a>.
 
@@ -76,15 +117,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>notification_channels</code> in a region.
-```sql
-SELECT
-region,
-config,
-id
-FROM awscc.devopsguru.notification_channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>notification_channel</code>.
 ```sql
 SELECT

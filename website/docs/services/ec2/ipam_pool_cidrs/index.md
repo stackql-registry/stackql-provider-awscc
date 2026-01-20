@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ipam_pool_cidr</code> resource or lists <code>ipam_pool_cidrs</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets an <code>ipam_pool_cidr</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ipam_pool_cidr_id" /></td><td><code>string</code></td><td>Id of the IPAM Pool Cidr.</td></tr>
-<tr><td><CopyableCode code="ipam_pool_id" /></td><td><code>string</code></td><td>Id of the IPAM Pool.</td></tr>
-<tr><td><CopyableCode code="cidr" /></td><td><code>string</code></td><td>Represents a single IPv4 or IPv6 CIDR</td></tr>
-<tr><td><CopyableCode code="netmask_length" /></td><td><code>integer</code></td><td>The desired netmask length of the provision. If set, IPAM will choose a block of free space with this size and return the CIDR representing it.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Provisioned state of the cidr.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ipam_pool_cidr_id",
+    "type": "string",
+    "description": "Id of the IPAM Pool Cidr."
+  },
+  {
+    "name": "ipam_pool_id",
+    "type": "string",
+    "description": "Id of the IPAM Pool."
+  },
+  {
+    "name": "cidr",
+    "type": "string",
+    "description": "Represents a single IPv4 or IPv6 CIDR"
+  },
+  {
+    "name": "netmask_length",
+    "type": "integer",
+    "description": "The desired netmask length of the provision. If set, IPAM will choose a block of free space with this size and return the CIDR representing it."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "Provisioned state of the cidr."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipampoolcidr.html"><code>AWS::EC2::IPAMPoolCidr</code></a>.
 
@@ -79,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ipam_pool_cidrs</code> in a region.
-```sql
-SELECT
-region,
-ipam_pool_cidr_id,
-ipam_pool_id,
-cidr,
-netmask_length,
-state
-FROM awscc.ec2.ipam_pool_cidrs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ipam_pool_cidr</code>.
 ```sql
 SELECT

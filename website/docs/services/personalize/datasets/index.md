@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code>datasets</code> in a region
 
@@ -32,18 +33,77 @@ Creates, updates, deletes or gets a <code>dataset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the dataset</td></tr>
-<tr><td><CopyableCode code="dataset_arn" /></td><td><code>string</code></td><td>The ARN of the dataset</td></tr>
-<tr><td><CopyableCode code="dataset_type" /></td><td><code>string</code></td><td>The type of dataset</td></tr>
-<tr><td><CopyableCode code="dataset_group_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the dataset group to add the dataset to</td></tr>
-<tr><td><CopyableCode code="schema_arn" /></td><td><code>string</code></td><td>The ARN of the schema to associate with the dataset. The schema defines the dataset fields.</td></tr>
-<tr><td><CopyableCode code="dataset_import_job" /></td><td><code>object</code></td><td>Initial DatasetImportJob for the created dataset</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name for the dataset"
+  },
+  {
+    "name": "dataset_arn",
+    "type": "string",
+    "description": "The ARN of the dataset"
+  },
+  {
+    "name": "dataset_type",
+    "type": "string",
+    "description": "The type of dataset"
+  },
+  {
+    "name": "dataset_group_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the dataset group to add the dataset to"
+  },
+  {
+    "name": "schema_arn",
+    "type": "string",
+    "description": "The ARN of the schema to associate with the dataset. The schema defines the dataset fields."
+  },
+  {
+    "name": "dataset_import_job",
+    "type": "object",
+    "description": "Initial DatasetImportJob for the created dataset",
+    "children": [
+      {
+        "name": "job_name",
+        "type": "string",
+        "description": "The name for the dataset import job."
+      },
+      {
+        "name": "dataset_import_job_arn",
+        "type": "string",
+        "description": "The ARN of the dataset import job"
+      },
+      {
+        "name": "dataset_arn",
+        "type": "string",
+        "description": "The ARN of the dataset that receives the imported data"
+      },
+      {
+        "name": "data_source",
+        "type": "object",
+        "description": "The Amazon S3 bucket that contains the training data to import.",
+        "children": [
+          {
+            "name": "data_location",
+            "type": "string",
+            "description": "The path to the Amazon S3 bucket where the data that you want to upload to your dataset is stored."
+          }
+        ]
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The ARN of the IAM role that has permissions to read from the Amazon S3 data source."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-personalize-dataset.html"><code>AWS::Personalize::Dataset</code></a>.
 
@@ -85,19 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>datasets</code> in a region.
-```sql
-SELECT
-region,
-name,
-dataset_arn,
-dataset_type,
-dataset_group_arn,
-schema_arn,
-dataset_import_job
-FROM awscc.personalize.datasets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dataset</code>.
 ```sql
 SELECT

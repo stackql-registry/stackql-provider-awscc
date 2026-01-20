@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>feature</code> resource or lists <code>features</code> in a region
 
@@ -32,21 +33,109 @@ Creates, updates, deletes or gets a <code>feature</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="project" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="evaluation_strategy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="variations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_variation" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="entity_overrides" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "project",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "evaluation_strategy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "variations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "variation_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "boolean_value",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "string_value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "long_value",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "double_value",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "default_variation",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "entity_overrides",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "entity_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "variation",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-evidently-feature.html"><code>AWS::Evidently::Feature</code></a>.
 

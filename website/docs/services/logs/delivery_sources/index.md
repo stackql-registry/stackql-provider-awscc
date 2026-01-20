@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>delivery_source</code> resource or lists <code>delivery_sources</code> in a region
 
@@ -32,19 +33,55 @@ Creates, updates, deletes or gets a <code>delivery_source</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The unique name of the Log source.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) that uniquely identifies this delivery source.</td></tr>
-<tr><td><CopyableCode code="resource_arns" /></td><td><code>array</code></td><td>This array contains the ARN of the AWS resource that sends logs and is represented by this delivery source. Currently, only one ARN can be in the array.</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The ARN of the resource that will be sending the logs.</td></tr>
-<tr><td><CopyableCode code="service" /></td><td><code>string</code></td><td>The AWS service that is sending logs.</td></tr>
-<tr><td><CopyableCode code="log_type" /></td><td><code>string</code></td><td>The type of logs being delivered. Only mandatory when the resourceArn could match more than one. In such a case, the error message will contain all the possible options.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags that have been assigned to this delivery source.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The unique name of the Log source."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) that uniquely identifies this delivery source."
+  },
+  {
+    "name": "resource_arns",
+    "type": "array",
+    "description": "This array contains the ARN of the AWS resource that sends logs and is represented by this delivery source. Currently, only one ARN can be in the array."
+  },
+  {
+    "name": "service",
+    "type": "string",
+    "description": "The AWS service that is sending logs."
+  },
+  {
+    "name": "log_type",
+    "type": "string",
+    "description": "The type of logs being delivered. Only mandatory when the resourceArn could match more than one. In such a case, the error message will contain all the possible options."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags that have been assigned to this delivery source.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of this key-value pair."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-deliverysource.html"><code>AWS::Logs::DeliverySource</code></a>.
 
@@ -86,20 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>delivery_sources</code> in a region.
-```sql
-SELECT
-region,
-name,
-arn,
-resource_arns,
-resource_arn,
-service,
-log_type,
-tags
-FROM awscc.logs.delivery_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>delivery_source</code>.
 ```sql
 SELECT

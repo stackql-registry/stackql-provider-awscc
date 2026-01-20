@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>profile_resource_association</code> resource or lists <code>profile_resource_associations</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>profile_resource_association</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td>The ID of the profile that you associated the resource to that is specified by ResourceArn.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Primary Identifier for Profile Resource Association</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of an association between the Profile and resource.</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The arn of the resource that you associated to the Profile.</td></tr>
-<tr><td><CopyableCode code="resource_properties" /></td><td><code>string</code></td><td>A JSON-formatted string with key-value pairs specifying the properties of the associated resource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of the resource associated to the Profile.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": "The ID of the profile that you associated the resource to that is specified by ResourceArn."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Primary Identifier for Profile Resource Association"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of an association between the Profile and resource."
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The arn of the resource that you associated to the Profile."
+  },
+  {
+    "name": "resource_properties",
+    "type": "string",
+    "description": "A JSON-formatted string with key-value pairs specifying the properties of the associated resource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The type of the resource associated to the Profile."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53profiles-profileresourceassociation.html"><code>AWS::Route53Profiles::ProfileResourceAssociation</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>profile_resource_associations</code> in a region.
-```sql
-SELECT
-region,
-profile_id,
-id,
-name,
-resource_arn,
-resource_properties,
-resource_type
-FROM awscc.route53profiles.profile_resource_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>profile_resource_association</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel</code> resource or lists <code>channels</code> in a region
 
@@ -32,24 +33,116 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) associated with the resource.</p></td></tr>
-<tr><td><CopyableCode code="channel_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="channel_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td><p>The date and time the channel was created.</p></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>Enter any descriptive text that helps you to identify the channel.</p></td></tr>
-<tr><td><CopyableCode code="ingest_endpoints" /></td><td><code>array</code></td><td><p>The list of ingest endpoints.</p></td></tr>
-<tr><td><CopyableCode code="input_switch_configuration" /></td><td><code>object</code></td><td><p>The configuration for input switching based on the media quality confidence score (MQCS) as provided from AWS Elemental MediaLive.</p></td></tr>
-<tr><td><CopyableCode code="input_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td><p>The date and time the channel was modified.</p></td></tr>
-<tr><td><CopyableCode code="output_header_configuration" /></td><td><code>object</code></td><td><p>The settings for what common media server data (CMSD) headers AWS Elemental MediaPackage includes in responses to the CDN.</p></td></tr>
-<tr><td><CopyableCode code="ingest_endpoint_urls" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) associated with the resource.</p>"
+  },
+  {
+    "name": "channel_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "channel_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "<p>The date and time the channel was created.</p>"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "<p>Enter any descriptive text that helps you to identify the channel.</p>"
+  },
+  {
+    "name": "ingest_endpoints",
+    "type": "array",
+    "description": "<p>The list of ingest endpoints.</p>",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "<p>The system-generated unique identifier for the IngestEndpoint.</p>"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "<p>The ingest domain URL where the source stream should be sent.</p>"
+      }
+    ]
+  },
+  {
+    "name": "input_switch_configuration",
+    "type": "object",
+    "description": "<p>The configuration for input switching based on the media quality confidence score (MQCS) as provided from AWS Elemental MediaLive.</p>",
+    "children": [
+      {
+        "name": "m_qc_sinput_switching",
+        "type": "boolean",
+        "description": "<p>When true, AWS Elemental MediaPackage performs input switching based on the MQCS. Default is true. This setting is valid only when &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+      },
+      {
+        "name": "preferred_input",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "input_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": "<p>The date and time the channel was modified.</p>"
+  },
+  {
+    "name": "output_header_configuration",
+    "type": "object",
+    "description": "<p>The settings for what common media server data (CMSD) headers AWS Elemental MediaPackage includes in responses to the CDN.</p>",
+    "children": [
+      {
+        "name": "publish_mq_cs",
+        "type": "boolean",
+        "description": "<p>When true, AWS Elemental MediaPackage includes the MQCS in responses to the CDN. This setting is valid only when &#95;&#95;CODE&#95;BLOCK&#95;0&#95;&#95; is &#95;&#95;CODE&#95;BLOCK&#95;1&#95;&#95;.</p>"
+      }
+    ]
+  },
+  {
+    "name": "ingest_endpoint_urls",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediapackagev2-channel.html"><code>AWS::MediaPackageV2::Channel</code></a>.
 
@@ -91,25 +184,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channels</code> in a region.
-```sql
-SELECT
-region,
-arn,
-channel_group_name,
-channel_name,
-created_at,
-description,
-ingest_endpoints,
-input_switch_configuration,
-input_type,
-modified_at,
-output_header_configuration,
-ingest_endpoint_urls,
-tags
-FROM awscc.mediapackagev2.channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT

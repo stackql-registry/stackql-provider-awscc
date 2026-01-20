@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>trail</code> resource or lists <code>trails</code> in a region
 
@@ -32,30 +33,205 @@ Creates, updates, deletes or gets a <code>trail</code> resource or lists <code>t
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="include_global_service_events" /></td><td><code>boolean</code></td><td>Specifies whether the trail is publishing events from global services such as IAM to the log files.</td></tr>
-<tr><td><CopyableCode code="event_selectors" /></td><td><code>array</code></td><td>Use event selectors to further specify the management and data event settings for your trail. By default, trails created without specific event selectors will be configured to log all read and write management events, and no data events. When an event occurs in your account, CloudTrail evaluates the event selector for all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail doesn't log the event. You can configure up to five event selectors for a trail.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier.</td></tr>
-<tr><td><CopyableCode code="cloud_watch_logs_role_arn" /></td><td><code>string</code></td><td>Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.</td></tr>
-<tr><td><CopyableCode code="s3_key_prefix" /></td><td><code>string</code></td><td>Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file delivery. For more information, see Finding Your CloudTrail Log Files. The maximum length is 200 characters.</td></tr>
-<tr><td><CopyableCode code="advanced_event_selectors" /></td><td><code>array</code></td><td>The advanced event selectors that were used to select events for the data store.</td></tr>
-<tr><td><CopyableCode code="trail_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="is_organization_trail" /></td><td><code>boolean</code></td><td>Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account that is the master account for an organization in AWS Organizations.</td></tr>
-<tr><td><CopyableCode code="insight_selectors" /></td><td><code>array</code></td><td>Lets you enable Insights event logging by specifying the Insights selectors that you want to enable on an existing trail.</td></tr>
-<tr><td><CopyableCode code="cloud_watch_logs_log_group_arn" /></td><td><code>string</code></td><td>Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.</td></tr>
-<tr><td><CopyableCode code="sns_topic_name" /></td><td><code>string</code></td><td>Specifies the name of the Amazon SNS topic defined for notification of log file delivery. The maximum length is 256 characters.</td></tr>
-<tr><td><CopyableCode code="is_multi_region_trail" /></td><td><code>boolean</code></td><td>Specifies whether the trail applies only to the current region or to all regions. The default is false. If the trail exists only in the current region and this value is set to true, shadow trails (replications of the trail) will be created in the other regions. If the trail exists in all regions and this value is set to false, the trail will remain in the region where it was created, and its shadow trails in other regions will be deleted. As a best practice, consider using trails that log events in all regions.</td></tr>
-<tr><td><CopyableCode code="s3_bucket_name" /></td><td><code>string</code></td><td>Specifies the name of the Amazon S3 bucket designated for publishing log files. See Amazon S3 Bucket Naming Requirements.</td></tr>
-<tr><td><CopyableCode code="sns_topic_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_log_file_validation" /></td><td><code>boolean</code></td><td>Specifies whether log file validation is enabled. The default is false.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="is_logging" /></td><td><code>boolean</code></td><td>Whether the CloudTrail is currently logging AWS API calls.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "include_global_service_events",
+    "type": "boolean",
+    "description": "Specifies whether the trail is publishing events from global services such as IAM to the log files."
+  },
+  {
+    "name": "event_selectors",
+    "type": "array",
+    "description": "Use event selectors to further specify the management and data event settings for your trail. By default, trails created without specific event selectors will be configured to log all read and write management events, and no data events. When an event occurs in your account, CloudTrail evaluates the event selector for all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail doesn't log the event. You can configure up to five event selectors for a trail.",
+    "children": [
+      {
+        "name": "include_management_events",
+        "type": "boolean",
+        "description": "Specify if you want your event selector to include management events for your trail."
+      },
+      {
+        "name": "read_write_type",
+        "type": "string",
+        "description": "Specify if you want your trail to log read-only events, write-only events, or all. For example, the EC2 GetConsoleOutput is a read-only API operation and RunInstances is a write-only API operation."
+      },
+      {
+        "name": "exclude_management_event_sources",
+        "type": "array",
+        "description": "An optional list of service event sources from which you do not want management events to be logged on your trail. In this release, the list can be empty (disables the filter), or it can filter out AWS Key Management Service events by containing \"kms.amazonaws.com\". By default, ExcludeManagementEventSources is empty, and AWS KMS events are included in events that are logged to your trail."
+      },
+      {
+        "name": "data_resources",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "The resource type in which you want to log data events. You can specify AWS::S3::Object or AWS::Lambda::Function resources."
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": "An array of Amazon Resource Name (ARN) strings or partial ARN strings for the specified objects."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier."
+  },
+  {
+    "name": "cloud_watch_logs_role_arn",
+    "type": "string",
+    "description": "Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group."
+  },
+  {
+    "name": "s3_key_prefix",
+    "type": "string",
+    "description": "Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file delivery. For more information, see Finding Your CloudTrail Log Files. The maximum length is 200 characters."
+  },
+  {
+    "name": "advanced_event_selectors",
+    "type": "array",
+    "description": "The advanced event selectors that were used to select events for the data store.",
+    "children": [
+      {
+        "name": "field_selectors",
+        "type": "array",
+        "description": "Contains all selector statements in an advanced event selector.",
+        "children": [
+          {
+            "name": "field",
+            "type": "string",
+            "description": "A field in an event record on which to filter events to be logged. Supported fields include readOnly, eventCategory, eventSource (for management events), eventName, resources.type, and resources.ARN."
+          },
+          {
+            "name": "equals",
+            "type": "array",
+            "description": "An operator that includes events that match the exact value of the event record field specified as the value of Field. This is the only valid operator that you can use with the readOnly, eventCategory, and resources.type fields."
+          },
+          {
+            "name": "not_starts_with",
+            "type": "array",
+            "description": "An operator that excludes events that match the first few characters of the event record field specified as the value of Field."
+          },
+          {
+            "name": "not_ends_with",
+            "type": "array",
+            "description": "An operator that excludes events that match the last few characters of the event record field specified as the value of Field."
+          },
+          {
+            "name": "starts_with",
+            "type": "array",
+            "description": "An operator that includes events that match the first few characters of the event record field specified as the value of Field."
+          },
+          {
+            "name": "ends_with",
+            "type": "array",
+            "description": "An operator that includes events that match the last few characters of the event record field specified as the value of Field."
+          },
+          {
+            "name": "not_equals",
+            "type": "array",
+            "description": "An operator that excludes events that match the exact value of the event record field specified as the value of Field."
+          }
+        ]
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "An optional, descriptive name for an advanced event selector, such as \"Log data events for only two S3 buckets\"."
+      }
+    ]
+  },
+  {
+    "name": "trail_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "is_organization_trail",
+    "type": "boolean",
+    "description": "Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account that is the master account for an organization in AWS Organizations."
+  },
+  {
+    "name": "insight_selectors",
+    "type": "array",
+    "description": "Lets you enable Insights event logging by specifying the Insights selectors that you want to enable on an existing trail.",
+    "children": [
+      {
+        "name": "insight_type",
+        "type": "string",
+        "description": "The type of insight to log on a trail."
+      }
+    ]
+  },
+  {
+    "name": "cloud_watch_logs_log_group_arn",
+    "type": "string",
+    "description": "Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn."
+  },
+  {
+    "name": "sns_topic_name",
+    "type": "string",
+    "description": "Specifies the name of the Amazon SNS topic defined for notification of log file delivery. The maximum length is 256 characters."
+  },
+  {
+    "name": "is_multi_region_trail",
+    "type": "boolean",
+    "description": "Specifies whether the trail applies only to the current region or to all regions. The default is false. If the trail exists only in the current region and this value is set to true, shadow trails (replications of the trail) will be created in the other regions. If the trail exists in all regions and this value is set to false, the trail will remain in the region where it was created, and its shadow trails in other regions will be deleted. As a best practice, consider using trails that log events in all regions."
+  },
+  {
+    "name": "s3_bucket_name",
+    "type": "string",
+    "description": "Specifies the name of the Amazon S3 bucket designated for publishing log files. See Amazon S3 Bucket Naming Requirements."
+  },
+  {
+    "name": "sns_topic_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable_log_file_validation",
+    "type": "boolean",
+    "description": "Specifies whether log file validation is enabled. The default is false."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "is_logging",
+    "type": "boolean",
+    "description": "Whether the CloudTrail is currently logging AWS API calls."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-trail.html"><code>AWS::CloudTrail::Trail</code></a>.
 
@@ -97,31 +273,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>trails</code> in a region.
-```sql
-SELECT
-region,
-include_global_service_events,
-event_selectors,
-kms_key_id,
-cloud_watch_logs_role_arn,
-s3_key_prefix,
-advanced_event_selectors,
-trail_name,
-is_organization_trail,
-insight_selectors,
-cloud_watch_logs_log_group_arn,
-sns_topic_name,
-is_multi_region_trail,
-s3_bucket_name,
-sns_topic_arn,
-enable_log_file_validation,
-arn,
-tags,
-is_logging
-FROM awscc.cloudtrail.trails
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>trail</code>.
 ```sql
 SELECT

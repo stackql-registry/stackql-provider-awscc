@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>wireless_device_import_task</code> resource or lists <code>wireless_device_import_tasks</code> in a region
 
@@ -32,24 +33,107 @@ Creates, updates, deletes or gets a <code>wireless_device_import_task</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id for Wireless Device Import Task, Returned upon successful start.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn for Wireless Device Import Task, Returned upon successful start.</td></tr>
-<tr><td><CopyableCode code="destination_name" /></td><td><code>string</code></td><td>Destination Name for import task</td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td>CreationDate for import task</td></tr>
-<tr><td><CopyableCode code="sidewalk" /></td><td><code>object</code></td><td>sidewalk contain file for created device and role</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status for import task</td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td>StatusReason for import task</td></tr>
-<tr><td><CopyableCode code="initialized_imported_devices_count" /></td><td><code>integer</code></td><td>Initialized Imported Devices Count</td></tr>
-<tr><td><CopyableCode code="pending_imported_devices_count" /></td><td><code>integer</code></td><td>Pending Imported Devices Count</td></tr>
-<tr><td><CopyableCode code="onboarded_imported_devices_count" /></td><td><code>integer</code></td><td>Onboarded Imported Devices Count</td></tr>
-<tr><td><CopyableCode code="failed_imported_devices_count" /></td><td><code>integer</code></td><td>Failed Imported Devices Count</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id for Wireless Device Import Task, Returned upon successful start."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn for Wireless Device Import Task, Returned upon successful start."
+  },
+  {
+    "name": "destination_name",
+    "type": "string",
+    "description": "Destination Name for import task"
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": "CreationDate for import task"
+  },
+  {
+    "name": "sidewalk",
+    "type": "object",
+    "description": "sidewalk contain file for created device and role",
+    "children": [
+      {
+        "name": "sidewalk_manufacturing_sn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "device_creation_file",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "device_creation_file_list",
+        "type": "array",
+        "description": "sidewalk create device's file path"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "description": "sidewalk role"
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status for import task"
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": "StatusReason for import task"
+  },
+  {
+    "name": "initialized_imported_devices_count",
+    "type": "integer",
+    "description": "Initialized Imported Devices Count"
+  },
+  {
+    "name": "pending_imported_devices_count",
+    "type": "integer",
+    "description": "Pending Imported Devices Count"
+  },
+  {
+    "name": "onboarded_imported_devices_count",
+    "type": "integer",
+    "description": "Onboarded Imported Devices Count"
+  },
+  {
+    "name": "failed_imported_devices_count",
+    "type": "integer",
+    "description": "Failed Imported Devices Count"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-wirelessdeviceimporttask.html"><code>AWS::IoTWireless::WirelessDeviceImportTask</code></a>.
 
@@ -91,25 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>wireless_device_import_tasks</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-destination_name,
-creation_date,
-sidewalk,
-status,
-status_reason,
-initialized_imported_devices_count,
-pending_imported_devices_count,
-onboarded_imported_devices_count,
-failed_imported_devices_count,
-tags
-FROM awscc.iotwireless.wireless_device_import_tasks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>wireless_device_import_task</code>.
 ```sql
 SELECT

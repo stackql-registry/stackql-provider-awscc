@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app</code> resource or lists <code>apps</code> in a region
 
@@ -32,34 +33,286 @@ Creates, updates, deletes or gets an <code>app</code> resource or lists <code>ap
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_token" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_branch_creation_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="basic_auth_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="build_spec" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cache_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_headers" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_rules" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_domain" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_branch_auto_deletion" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_variables" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="iam_service_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="oauth_token" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="platform" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="repository" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_token",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "app_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "app_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auto_branch_creation_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "auto_branch_creation_patterns",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "basic_auth_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enable_basic_auth",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "build_spec",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "enable_auto_branch_creation",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enable_auto_build",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enable_performance_mode",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enable_pull_request_preview",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "environment_variables",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "framework",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pull_request_environment_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "stage",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "basic_auth_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enable_basic_auth",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "build_spec",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cache_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "compute_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "custom_headers",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "custom_rules",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "condition",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "target",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "default_domain",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable_branch_auto_deletion",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "environment_variables",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "iam_service_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "oauth_token",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "platform",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "repository",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "job_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "build_compute_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amplify-app.html"><code>AWS::Amplify::App</code></a>.
 
@@ -101,35 +354,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>apps</code> in a region.
-```sql
-SELECT
-region,
-access_token,
-app_id,
-app_name,
-arn,
-auto_branch_creation_config,
-basic_auth_config,
-build_spec,
-cache_config,
-compute_role_arn,
-custom_headers,
-custom_rules,
-default_domain,
-description,
-enable_branch_auto_deletion,
-environment_variables,
-iam_service_role,
-name,
-oauth_token,
-platform,
-repository,
-tags,
-job_config
-FROM awscc.amplify.apps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT

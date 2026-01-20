@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>table_bucket</code> resource or lists <code>table_buckets</code> in a region
 
@@ -32,16 +33,62 @@ Creates, updates, deletes or gets a <code>table_bucket</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="table_bucket_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified table bucket.</td></tr>
-<tr><td><CopyableCode code="table_bucket_name" /></td><td><code>string</code></td><td>A name for the table bucket.</td></tr>
-<tr><td><CopyableCode code="unreferenced_file_removal" /></td><td><code>object</code></td><td>Settings governing the Unreferenced File Removal maintenance action. Unreferenced file removal identifies and deletes all objects that are not referenced by any table snapshots.</td></tr>
-<tr><td><CopyableCode code="encryption_configuration" /></td><td><code>object</code></td><td>Specifies encryption settings for the table bucket</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "table_bucket_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified table bucket."
+  },
+  {
+    "name": "table_bucket_name",
+    "type": "string",
+    "description": "A name for the table bucket."
+  },
+  {
+    "name": "unreferenced_file_removal",
+    "type": "object",
+    "description": "Settings governing the Unreferenced File Removal maintenance action. Unreferenced file removal identifies and deletes all objects that are not referenced by any table snapshots.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Indicates whether the Unreferenced File Removal maintenance action is enabled."
+      },
+      {
+        "name": "unreferenced_days",
+        "type": "integer",
+        "description": "For any object not referenced by your table and older than the UnreferencedDays property, S3 creates a delete marker and marks the object version as noncurrent."
+      },
+      {
+        "name": "noncurrent_days",
+        "type": "integer",
+        "description": "S3 permanently deletes noncurrent objects after the number of days specified by the NoncurrentDays property."
+      }
+    ]
+  },
+  {
+    "name": "encryption_configuration",
+    "type": "object",
+    "description": "Specifies encryption settings for the table bucket",
+    "children": [
+      {
+        "name": "sse_algorithm",
+        "type": "string",
+        "description": "Server-side encryption algorithm"
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "ARN of the KMS key to use for encryption"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3tables-tablebucket.html"><code>AWS::S3Tables::TableBucket</code></a>.
 
@@ -83,17 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>table_buckets</code> in a region.
-```sql
-SELECT
-region,
-table_bucket_arn,
-table_bucket_name,
-unreferenced_file_removal,
-encryption_configuration
-FROM awscc.s3tables.table_buckets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>table_bucket</code>.
 ```sql
 SELECT

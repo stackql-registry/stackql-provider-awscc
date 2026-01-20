@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cis_scan_configuration</code> resource or lists <code>cis_scan_configurations</code> in a region
 
@@ -32,18 +33,144 @@ Creates, updates, deletes or gets a <code>cis_scan_configuration</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scan_name" /></td><td><code>string</code></td><td>Name of the scan</td></tr>
-<tr><td><CopyableCode code="security_level" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>undefined</code></td><td>Choose a Schedule cadence</td></tr>
-<tr><td><CopyableCode code="targets" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>CIS Scan configuration unique identifier</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scan_name",
+    "type": "string",
+    "description": "Name of the scan"
+  },
+  {
+    "name": "security_level",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "Choose a Schedule cadence",
+    "children": [
+      {
+        "name": "one_time",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "daily",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "start_time",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "time_of_day",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "time_zone",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "weekly",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "start_time",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "time_of_day",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "time_zone",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "days",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "monthly",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "start_time",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "time_of_day",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "time_zone",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "day",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "targets",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "account_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "target_resource_tags",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "CIS Scan configuration unique identifier"
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspectorv2-cisscanconfiguration.html"><code>AWS::InspectorV2::CisScanConfiguration</code></a>.
 
@@ -85,19 +212,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cis_scan_configurations</code> in a region.
-```sql
-SELECT
-region,
-scan_name,
-security_level,
-schedule,
-targets,
-arn,
-tags
-FROM awscc.inspectorv2.cis_scan_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cis_scan_configuration</code>.
 ```sql
 SELECT

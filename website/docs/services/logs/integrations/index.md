@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>integration</code> resource or lists <code>integrations</code> in a region
 
@@ -32,16 +33,57 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="integration_name" /></td><td><code>string</code></td><td>User provided identifier for integration, unique to the user account.</td></tr>
-<tr><td><CopyableCode code="integration_type" /></td><td><code>string</code></td><td>The type of the Integration.</td></tr>
-<tr><td><CopyableCode code="resource_config" /></td><td><code>object</code></td><td>OpenSearchResourceConfig for the given Integration</td></tr>
-<tr><td><CopyableCode code="integration_status" /></td><td><code>string</code></td><td>Status of creation for the Integration and its resources</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "integration_name",
+    "type": "string",
+    "description": "User provided identifier for integration, unique to the user account."
+  },
+  {
+    "name": "integration_type",
+    "type": "string",
+    "description": "The type of the Integration."
+  },
+  {
+    "name": "resource_config",
+    "type": "object",
+    "description": "OpenSearchResourceConfig for the given Integration",
+    "children": [
+      {
+        "name": "open_search_resource_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "kms_key_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "dashboard_viewer_principals",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "retention_days",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "integration_status",
+    "type": "string",
+    "description": "Status of creation for the Integration and its resources"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-integration.html"><code>AWS::Logs::Integration</code></a>.
 
@@ -78,17 +120,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>integrations</code> in a region.
-```sql
-SELECT
-region,
-integration_name,
-integration_type,
-resource_config,
-integration_status
-FROM awscc.logs.integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>integration</code>.
 ```sql
 SELECT

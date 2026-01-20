@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application_version</code> resource or lists <code>application_versions</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets an <code>application_version</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_name" /></td><td><code>string</code></td><td>The name of the Elastic Beanstalk application that is associated with this application version.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of this application version.</td></tr>
-<tr><td><CopyableCode code="source_bundle" /></td><td><code>object</code></td><td>The Amazon S3 bucket and key that identify the location of the source bundle for this version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_name",
+    "type": "string",
+    "description": "The name of the Elastic Beanstalk application that is associated with this application version."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of this application version."
+  },
+  {
+    "name": "source_bundle",
+    "type": "object",
+    "description": "The Amazon S3 bucket and key that identify the location of the source bundle for this version.",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": "The Amazon S3 bucket where the data is located."
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": "The Amazon S3 key where the data is located."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-applicationversion.html"><code>AWS::ElasticBeanstalk::ApplicationVersion</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>application_versions</code> in a region.
-```sql
-SELECT
-region,
-id,
-application_name,
-description,
-source_bundle
-FROM awscc.elasticbeanstalk.application_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application_version</code>.
 ```sql
 SELECT

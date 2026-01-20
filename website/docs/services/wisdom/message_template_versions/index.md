@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>message_template_version</code> resource or lists <code>message_template_versions</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>message_template_version</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="message_template_arn" /></td><td><code>string</code></td><td>The unqualified Amazon Resource Name (ARN) of the message template.</td></tr>
-<tr><td><CopyableCode code="message_template_version_arn" /></td><td><code>string</code></td><td>The unqualified Amazon Resource Name (ARN) of the message template version.</td></tr>
-<tr><td><CopyableCode code="message_template_content_sha256" /></td><td><code>string</code></td><td>The content SHA256 of the message template.</td></tr>
-<tr><td><CopyableCode code="message_template_version_number" /></td><td><code>number</code></td><td>Current version number of the message template.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "message_template_arn",
+    "type": "string",
+    "description": "The unqualified Amazon Resource Name (ARN) of the message template."
+  },
+  {
+    "name": "message_template_version_arn",
+    "type": "string",
+    "description": "The unqualified Amazon Resource Name (ARN) of the message template version."
+  },
+  {
+    "name": "message_template_content_sha256",
+    "type": "string",
+    "description": "The content SHA256 of the message template."
+  },
+  {
+    "name": "message_template_version_number",
+    "type": "number",
+    "description": "Current version number of the message template."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-messagetemplateversion.html"><code>AWS::Wisdom::MessageTemplateVersion</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>message_template_versions</code> in a region.
-```sql
-SELECT
-region,
-message_template_arn,
-message_template_version_arn,
-message_template_content_sha256,
-message_template_version_number
-FROM awscc.wisdom.message_template_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>message_template_version</code>.
 ```sql
 SELECT

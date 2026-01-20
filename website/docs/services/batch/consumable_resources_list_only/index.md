@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>consumable_resources</code> in a region or regions, for all properties use <a href="/services/batch/consumable_resources/"><code>consumable_resources</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>consumable_resources</code> in a region or regions, for all properti
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="consumable_resource_arn" /></td><td><code>string</code></td><td>ARN of the Scheduling Policy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "consumable_resource_arn",
+    "type": "string",
+    "description": "ARN of the Scheduling Policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

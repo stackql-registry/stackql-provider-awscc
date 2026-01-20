@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>device</code> resource or lists <code>devices</code> in a region
 
@@ -32,15 +33,64 @@ Creates, updates, deletes or gets a <code>device</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="device_fleet_name" /></td><td><code>string</code></td><td>The name of the edge device fleet</td></tr>
-<tr><td><CopyableCode code="device" /></td><td><code>object</code></td><td>The Edge Device you want to register against a device fleet</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Associate tags with the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "device_fleet_name",
+    "type": "string",
+    "description": "The name of the edge device fleet"
+  },
+  {
+    "name": "device",
+    "type": "object",
+    "description": "The Edge Device you want to register against a device fleet",
+    "children": [
+      {
+        "name": "device_fleet_name",
+        "type": "string",
+        "description": "The name of the edge device fleet"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "Associate tags with the resource",
+        "children": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Associate tags with the resource",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-device.html"><code>AWS::SageMaker::Device</code></a>.
 

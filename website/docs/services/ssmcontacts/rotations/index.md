@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>rotation</code> resource or lists <code>rotations</code> in a region
 
@@ -32,19 +33,128 @@ Creates, updates, deletes or gets a <code>rotation</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the Rotation</td></tr>
-<tr><td><CopyableCode code="contact_ids" /></td><td><code>array</code></td><td>Members of the rotation</td></tr>
-<tr><td><CopyableCode code="start_time" /></td><td><code>string</code></td><td>Start time of the first shift of Oncall Schedule</td></tr>
-<tr><td><CopyableCode code="time_zone_id" /></td><td><code>string</code></td><td>TimeZone Identifier for the Oncall Schedule</td></tr>
-<tr><td><CopyableCode code="recurrence" /></td><td><code>object</code></td><td>Information about when an on-call rotation is in effect and how long the rotation period lasts.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the rotation.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the Rotation"
+  },
+  {
+    "name": "contact_ids",
+    "type": "array",
+    "description": "Members of the rotation"
+  },
+  {
+    "name": "start_time",
+    "type": "string",
+    "description": "Start time of the first shift of Oncall Schedule"
+  },
+  {
+    "name": "time_zone_id",
+    "type": "string",
+    "description": "TimeZone Identifier for the Oncall Schedule"
+  },
+  {
+    "name": "recurrence",
+    "type": "object",
+    "description": "Information about when an on-call rotation is in effect and how long the rotation period lasts.",
+    "children": [
+      {
+        "name": "monthly_settings",
+        "type": "array",
+        "description": "Information about on-call rotations that recur monthly.",
+        "children": [
+          {
+            "name": "day_of_month",
+            "type": "integer",
+            "description": "The day of the month when monthly recurring on-call rotations begin."
+          },
+          {
+            "name": "hand_off_time",
+            "type": "string",
+            "description": "Details about when an on-call rotation shift begins or ends. Time of the day in format HH:MM"
+          }
+        ]
+      },
+      {
+        "name": "weekly_settings",
+        "type": "array",
+        "description": "Information about on-call rotations that recur weekly.",
+        "children": [
+          {
+            "name": "day_of_week",
+            "type": "string",
+            "description": "The day of the week when weekly recurring on-call shift rotations begin."
+          },
+          {
+            "name": "hand_off_time",
+            "type": "string",
+            "description": "Details about when an on-call rotation shift begins or ends. Time of the day in format HH:MM"
+          }
+        ]
+      },
+      {
+        "name": "daily_settings",
+        "type": "array",
+        "description": "Information about on-call rotations that recur daily."
+      },
+      {
+        "name": "number_of_on_calls",
+        "type": "integer",
+        "description": "Number of Oncalls per shift."
+      },
+      {
+        "name": "recurrence_multiplier",
+        "type": "integer",
+        "description": "The number of days, weeks, or months a single rotation lasts."
+      },
+      {
+        "name": "shift_coverages",
+        "type": "array",
+        "description": "Information about the days of the week included in on-call rotation coverage.",
+        "children": [
+          {
+            "name": "day_of_week",
+            "type": "string",
+            "description": "The day of the week when weekly recurring on-call shift rotations begin."
+          },
+          {
+            "name": "coverage_times",
+            "type": "array",
+            "description": "Information about when an on-call shift begins and ends."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the rotation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmcontacts-rotation.html"><code>AWS::SSMContacts::Rotation</code></a>.
 
@@ -86,20 +196,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rotations</code> in a region.
-```sql
-SELECT
-region,
-name,
-contact_ids,
-start_time,
-time_zone_id,
-recurrence,
-tags,
-arn
-FROM awscc.ssmcontacts.rotations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>rotation</code>.
 ```sql
 SELECT

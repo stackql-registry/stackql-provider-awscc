@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or lists <code>domain_name_v2s</code> in a region
 
@@ -32,21 +33,87 @@ Creates, updates, deletes or gets a <code>domain_name_v2</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_configuration" /></td><td><code>object</code></td><td>The <code>EndpointConfiguration</code> property type specifies the endpoint types of a REST API.<br /><code>EndpointConfiguration</code> is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.</td></tr>
-<tr><td><CopyableCode code="security_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name_arn" /></td><td><code>string</code></td><td>The amazon resource name (ARN) of the domain name resource.</td></tr>
-<tr><td><CopyableCode code="routing_mode" /></td><td><code>string</code></td><td>The valid routing modes are &#91;BASE_PATH_MAPPING_ONLY&#93;, &#91;ROUTING_RULE_THEN_BASE_PATH_MAPPING&#93; and &#91;ROUTING_RULE_ONLY&#93;. All other inputs are invalid.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_configuration",
+    "type": "object",
+    "description": "The &#96;&#96;EndpointConfiguration&#96;&#96; property type specifies the endpoint types of a REST API.<br />&#96;&#96;EndpointConfiguration&#96;&#96; is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.",
+    "children": [
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "types",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "vpc_endpoint_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "security_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "domain_name_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name_arn",
+    "type": "string",
+    "description": "The amazon resource name (ARN) of the domain name resource."
+  },
+  {
+    "name": "routing_mode",
+    "type": "string",
+    "description": "The valid routing modes are &#91;BASE&#95;PATH&#95;MAPPING&#95;ONLY&#93;, &#91;ROUTING&#95;RULE&#95;THEN&#95;BASE&#95;PATH&#95;MAPPING&#93; and &#91;ROUTING&#95;RULE&#95;ONLY&#93;. All other inputs are invalid."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-domainnamev2.html"><code>AWS::ApiGateway::DomainNameV2</code></a>.
 
@@ -88,22 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_name_v2s</code> in a region.
-```sql
-SELECT
-region,
-certificate_arn,
-domain_name,
-endpoint_configuration,
-security_policy,
-policy,
-domain_name_id,
-domain_name_arn,
-routing_mode,
-tags
-FROM awscc.apigateway.domain_name_v2s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_name_v2</code>.
 ```sql
 SELECT

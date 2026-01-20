@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mitigation_action</code> resource or lists <code>mitigation_actions</code> in a region
 
@@ -32,18 +33,139 @@ Creates, updates, deletes or gets a <code>mitigation_action</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action_name" /></td><td><code>string</code></td><td>A unique identifier for the mitigation action.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="action_params" /></td><td><code>object</code></td><td>The set of parameters for this mitigation action. You can specify only one type of parameter (in other words, you can apply only one action for each defined mitigation action).</td></tr>
-<tr><td><CopyableCode code="mitigation_action_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="mitigation_action_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action_name",
+    "type": "string",
+    "description": "A unique identifier for the mitigation action."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "action_params",
+    "type": "object",
+    "description": "The set of parameters for this mitigation action. You can specify only one type of parameter (in other words, you can apply only one action for each defined mitigation action).",
+    "children": [
+      {
+        "name": "add_things_to_thing_group_params",
+        "type": "object",
+        "description": "Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine.",
+        "children": [
+          {
+            "name": "override_dynamic_groups",
+            "type": "boolean",
+            "description": "Specifies if this mitigation action can move the things that triggered the mitigation action out of one or more dynamic thing groups."
+          },
+          {
+            "name": "thing_group_names",
+            "type": "array",
+            "description": "The list of groups to which you want to add the things that triggered the mitigation action."
+          }
+        ]
+      },
+      {
+        "name": "enable_io_tlogging_params",
+        "type": "object",
+        "description": "Parameters to define a mitigation action that enables AWS IoT logging at a specified level of detail.",
+        "children": [
+          {
+            "name": "log_level",
+            "type": "string",
+            "description": "Specifies which types of information are logged."
+          },
+          {
+            "name": "role_arn_for_logging",
+            "type": "string",
+            "description": "The ARN of the IAM role used for logging."
+          }
+        ]
+      },
+      {
+        "name": "publish_finding_to_sns_params",
+        "type": "object",
+        "description": "Parameters, to define a mitigation action that publishes findings to Amazon SNS. You can implement your own custom actions in response to the Amazon SNS messages.",
+        "children": [
+          {
+            "name": "topic_arn",
+            "type": "string",
+            "description": "The ARN of the topic to which you want to publish the findings."
+          }
+        ]
+      },
+      {
+        "name": "replace_default_policy_version_params",
+        "type": "object",
+        "description": "Parameters to define a mitigation action that adds a blank policy to restrict permissions.",
+        "children": [
+          {
+            "name": "template_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "update_ca_certificate_params",
+        "type": "object",
+        "description": "Parameters to define a mitigation action that changes the state of the CA certificate to inactive.",
+        "children": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "update_device_certificate_params",
+        "type": "object",
+        "description": "Parameters to define a mitigation action that changes the state of the device certificate to inactive.",
+        "children": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mitigation_action_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "mitigation_action_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-mitigationaction.html"><code>AWS::IoT::MitigationAction</code></a>.
 
@@ -85,19 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mitigation_actions</code> in a region.
-```sql
-SELECT
-region,
-action_name,
-role_arn,
-tags,
-action_params,
-mitigation_action_arn,
-mitigation_action_id
-FROM awscc.iot.mitigation_actions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mitigation_action</code>.
 ```sql
 SELECT

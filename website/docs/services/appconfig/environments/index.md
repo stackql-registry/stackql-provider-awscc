@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The environment ID.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the environment.</td></tr>
-<tr><td><CopyableCode code="monitors" /></td><td><code>array</code></td><td>Amazon CloudWatch alarms to monitor during the deployment process.</td></tr>
-<tr><td><CopyableCode code="deletion_protection_check" /></td><td><code>string</code></td><td>On resource deletion this controls whether the Deletion Protection check should be applied, bypassed, or (the default) whether the behavior should be controlled by the account-level Deletion Protection setting. See https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata to assign to the environment. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the environment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The environment ID."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the environment."
+  },
+  {
+    "name": "monitors",
+    "type": "array",
+    "description": "Amazon CloudWatch alarms to monitor during the deployment process.",
+    "children": [
+      {
+        "name": "alarm_arn",
+        "type": "string",
+        "description": "Amazon Resource Name (ARN) of the Amazon CloudWatch alarm."
+      },
+      {
+        "name": "alarm_role_arn",
+        "type": "string",
+        "description": "ARN of an AWS Identity and Access Management (IAM) role for AWS AppConfig to monitor AlarmArn."
+      }
+    ]
+  },
+  {
+    "name": "deletion_protection_check",
+    "type": "string",
+    "description": "On resource deletion this controls whether the Deletion Protection check should be applied, bypassed, or (the default) whether the behavior should be controlled by the account-level Deletion Protection setting. See https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html"
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata to assign to the environment. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the environment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-environment.html"><code>AWS::AppConfig::Environment</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-environment_id,
-description,
-monitors,
-deletion_protection_check,
-application_id,
-tags,
-name
-FROM awscc.appconfig.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

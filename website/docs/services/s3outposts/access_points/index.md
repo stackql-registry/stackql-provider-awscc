@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_point</code> resource or lists <code>access_points</code> in a region
 
@@ -32,17 +33,45 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AccessPoint.</td></tr>
-<tr><td><CopyableCode code="bucket" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the AccessPoint.</td></tr>
-<tr><td><CopyableCode code="vpc_configuration" /></td><td><code>object</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>The access point policy associated with this access point.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified AccessPoint."
+  },
+  {
+    "name": "bucket",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the AccessPoint."
+  },
+  {
+    "name": "vpc_configuration",
+    "type": "object",
+    "description": "Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "Virtual Private Cloud (VPC) Id from which AccessPoint will allow requests."
+      }
+    ]
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "The access point policy associated with this access point."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3outposts-accesspoint.html"><code>AWS::S3Outposts::AccessPoint</code></a>.
 
@@ -84,18 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_points</code> in a region.
-```sql
-SELECT
-region,
-arn,
-bucket,
-name,
-vpc_configuration,
-policy
-FROM awscc.s3outposts.access_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT

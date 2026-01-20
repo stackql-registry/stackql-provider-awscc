@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>key_value_store</code> resource or lists <code>key_value_stores</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>key_value_store</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the key value store.</td></tr>
-<tr><td><CopyableCode code="comment" /></td><td><code>string</code></td><td>A comment for the key value store.</td></tr>
-<tr><td><CopyableCode code="import_source" /></td><td><code>object</code></td><td>The import source for the key value store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the key value store."
+  },
+  {
+    "name": "comment",
+    "type": "string",
+    "description": "A comment for the key value store."
+  },
+  {
+    "name": "import_source",
+    "type": "object",
+    "description": "The import source for the key value store.",
+    "children": [
+      {
+        "name": "source_type",
+        "type": "string",
+        "description": "The source type of the import source for the key value store."
+      },
+      {
+        "name": "source_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the import source for the key value store."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-keyvaluestore.html"><code>AWS::CloudFront::KeyValueStore</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>key_value_stores</code> in a region.
-```sql
-SELECT
-region,
-arn,
-id,
-status,
-name,
-comment,
-import_source
-FROM awscc.cloudfront.key_value_stores
-;
-```
+
 Gets all properties from an individual <code>key_value_store</code>.
 ```sql
 SELECT

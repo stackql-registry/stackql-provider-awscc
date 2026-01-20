@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>scaling_policy</code> resource or lists <code>scaling_policies</code> in a region
 
@@ -32,25 +33,331 @@ Creates, updates, deletes or gets a <code>scaling_policy</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="metric_aggregation_type" /></td><td><code>string</code></td><td>The aggregation type for the CloudWatch metrics. The valid values are Minimum, Maximum, and Average. If the aggregation type is null, the value is treated as Average. Valid only if the policy type is StepScaling.</td></tr>
-<tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_type" /></td><td><code>string</code></td><td>One of the following policy types: TargetTrackingScaling, StepScaling, SimpleScaling (default), PredictiveScaling</td></tr>
-<tr><td><CopyableCode code="predictive_scaling_configuration" /></td><td><code>object</code></td><td>A predictive scaling policy. Includes support for predefined metrics only.</td></tr>
-<tr><td><CopyableCode code="scaling_adjustment" /></td><td><code>integer</code></td><td>The amount by which to scale, based on the specified adjustment type. A positive value adds to the current capacity while a negative number removes from the current capacity. For exact capacity, you must specify a positive value. Required if the policy type is SimpleScaling. (Not used with any other policy type.)</td></tr>
-<tr><td><CopyableCode code="cooldown" /></td><td><code>string</code></td><td>The duration of the policy's cooldown period, in seconds. When a cooldown period is specified here, it overrides the default cooldown period defined for the Auto Scaling group.</td></tr>
-<tr><td><CopyableCode code="step_adjustments" /></td><td><code>array</code></td><td>A set of adjustments that enable you to scale based on the size of the alarm breach. Required if the policy type is StepScaling. (Not used with any other policy type.)</td></tr>
-<tr><td><CopyableCode code="auto_scaling_group_name" /></td><td><code>string</code></td><td>The name of the Auto Scaling group.</td></tr>
-<tr><td><CopyableCode code="min_adjustment_magnitude" /></td><td><code>integer</code></td><td>The minimum value to scale by when the adjustment type is PercentChangeInCapacity. For example, suppose that you create a step scaling policy to scale out an Auto Scaling group by 25 percent and you specify a MinAdjustmentMagnitude of 2. If the group has 4 instances and the scaling policy is performed, 25 percent of 4 is 1. However, because you specified a MinAdjustmentMagnitude of 2, Amazon EC2 Auto Scaling scales out the group by 2 instances.</td></tr>
-<tr><td><CopyableCode code="target_tracking_configuration" /></td><td><code>object</code></td><td>A target tracking scaling policy. Includes support for predefined or customized metrics.</td></tr>
-<tr><td><CopyableCode code="estimated_instance_warmup" /></td><td><code>integer</code></td><td>The estimated time, in seconds, until a newly launched instance can contribute to the CloudWatch metrics. If not provided, the default is to use the value from the default cooldown period for the Auto Scaling group. Valid only if the policy type is TargetTrackingScaling or StepScaling.</td></tr>
-<tr><td><CopyableCode code="adjustment_type" /></td><td><code>string</code></td><td>Specifies how the scaling adjustment is interpreted. The valid values are ChangeInCapacity, ExactCapacity, and PercentChangeInCapacity.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the AutoScaling scaling policy</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "metric_aggregation_type",
+    "type": "string",
+    "description": "The aggregation type for the CloudWatch metrics. The valid values are Minimum, Maximum, and Average. If the aggregation type is null, the value is treated as Average. Valid only if the policy type is StepScaling."
+  },
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_type",
+    "type": "string",
+    "description": "One of the following policy types: TargetTrackingScaling, StepScaling, SimpleScaling (default), PredictiveScaling"
+  },
+  {
+    "name": "predictive_scaling_configuration",
+    "type": "object",
+    "description": "A predictive scaling policy. Includes support for predefined metrics only.",
+    "children": [
+      {
+        "name": "metric_specifications",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "customized_capacity_metric_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "metric_data_queries",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "customized_load_metric_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "metric_data_queries",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "customized_scaling_metric_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "metric_data_queries",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "predefined_load_metric_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_label",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "predefined_metric_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "target_value",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "predefined_scaling_metric_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_label",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "predefined_metric_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "predefined_metric_pair_specification",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_label",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "predefined_metric_type",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "max_capacity_breach_behavior",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "max_capacity_buffer",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "scheduling_buffer_time",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "scaling_adjustment",
+    "type": "integer",
+    "description": "The amount by which to scale, based on the specified adjustment type. A positive value adds to the current capacity while a negative number removes from the current capacity. For exact capacity, you must specify a positive value. Required if the policy type is SimpleScaling. (Not used with any other policy type.)"
+  },
+  {
+    "name": "cooldown",
+    "type": "string",
+    "description": "The duration of the policy's cooldown period, in seconds. When a cooldown period is specified here, it overrides the default cooldown period defined for the Auto Scaling group."
+  },
+  {
+    "name": "step_adjustments",
+    "type": "array",
+    "description": "A set of adjustments that enable you to scale based on the size of the alarm breach. Required if the policy type is StepScaling. (Not used with any other policy type.)",
+    "children": [
+      {
+        "name": "metric_interval_upper_bound",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "metric_interval_lower_bound",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "scaling_adjustment",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": "The name of the Auto Scaling group."
+  },
+  {
+    "name": "min_adjustment_magnitude",
+    "type": "integer",
+    "description": "The minimum value to scale by when the adjustment type is PercentChangeInCapacity. For example, suppose that you create a step scaling policy to scale out an Auto Scaling group by 25 percent and you specify a MinAdjustmentMagnitude of 2. If the group has 4 instances and the scaling policy is performed, 25 percent of 4 is 1. However, because you specified a MinAdjustmentMagnitude of 2, Amazon EC2 Auto Scaling scales out the group by 2 instances."
+  },
+  {
+    "name": "target_tracking_configuration",
+    "type": "object",
+    "description": "A target tracking scaling policy. Includes support for predefined or customized metrics.",
+    "children": [
+      {
+        "name": "customized_metric_specification",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "metric_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "dimensions",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "metrics",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "label",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "metric_stat",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "return_data",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "expression",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "period",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "statistic",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "period",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "target_value",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "disable_scale_in",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "predefined_metric_specification",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_label",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "predefined_metric_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "estimated_instance_warmup",
+    "type": "integer",
+    "description": "The estimated time, in seconds, until a newly launched instance can contribute to the CloudWatch metrics. If not provided, the default is to use the value from the default cooldown period for the Auto Scaling group. Valid only if the policy type is TargetTrackingScaling or StepScaling."
+  },
+  {
+    "name": "adjustment_type",
+    "type": "string",
+    "description": "Specifies how the scaling adjustment is interpreted. The valid values are ChangeInCapacity, ExactCapacity, and PercentChangeInCapacity."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the AutoScaling scaling policy"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-scalingpolicy.html"><code>AWS::AutoScaling::ScalingPolicy</code></a>.
 
@@ -92,26 +399,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>scaling_policies</code> in a region.
-```sql
-SELECT
-region,
-metric_aggregation_type,
-policy_name,
-policy_type,
-predictive_scaling_configuration,
-scaling_adjustment,
-cooldown,
-step_adjustments,
-auto_scaling_group_name,
-min_adjustment_magnitude,
-target_tracking_configuration,
-estimated_instance_warmup,
-adjustment_type,
-arn
-FROM awscc.autoscaling.scaling_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>scaling_policy</code>.
 ```sql
 SELECT

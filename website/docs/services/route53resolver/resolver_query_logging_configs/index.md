@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_query_logging_config</code> resource or lists <code>resolver_query_logging_configs</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>resolver_query_logging_config</code> r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>ResourceId</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>AccountId</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>ResolverQueryLogConfigStatus, possible values are CREATING, CREATED, DELETED AND FAILED.</td></tr>
-<tr><td><CopyableCode code="share_status" /></td><td><code>string</code></td><td>ShareStatus, possible values are NOT_SHARED, SHARED_WITH_ME, SHARED_BY_ME.</td></tr>
-<tr><td><CopyableCode code="association_count" /></td><td><code>integer</code></td><td>Count</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>ResolverQueryLogConfigName</td></tr>
-<tr><td><CopyableCode code="creator_request_id" /></td><td><code>string</code></td><td>The id of the creator request.</td></tr>
-<tr><td><CopyableCode code="destination_arn" /></td><td><code>string</code></td><td>destination arn</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "ResourceId"
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "AccountId"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "ResolverQueryLogConfigStatus, possible values are CREATING, CREATED, DELETED AND FAILED."
+  },
+  {
+    "name": "share_status",
+    "type": "string",
+    "description": "ShareStatus, possible values are NOT&#95;SHARED, SHARED&#95;WITH&#95;ME, SHARED&#95;BY&#95;ME."
+  },
+  {
+    "name": "association_count",
+    "type": "integer",
+    "description": "Count"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "ResolverQueryLogConfigName"
+  },
+  {
+    "name": "creator_request_id",
+    "type": "string",
+    "description": "The id of the creator request."
+  },
+  {
+    "name": "destination_arn",
+    "type": "string",
+    "description": "destination arn"
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverqueryloggingconfig.html"><code>AWS::Route53Resolver::ResolverQueryLoggingConfig</code></a>.
 
@@ -85,24 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_query_logging_configs</code> in a region.
-```sql
-SELECT
-region,
-id,
-owner_id,
-status,
-share_status,
-association_count,
-arn,
-name,
-creator_request_id,
-destination_arn,
-creation_time,
-tags
-FROM awscc.route53resolver.resolver_query_logging_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_query_logging_config</code>.
 ```sql
 SELECT

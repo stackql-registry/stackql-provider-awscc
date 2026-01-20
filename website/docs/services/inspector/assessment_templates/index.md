@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>assessment_template</code> resource or lists <code>assessment_templates</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets an <code>assessment_template</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assessment_target_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="duration_in_seconds" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="assessment_template_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rules_package_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_attributes_for_findings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assessment_target_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "duration_in_seconds",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "assessment_template_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rules_package_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "user_attributes_for_findings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html"><code>AWS::Inspector::AssessmentTemplate</code></a>.
 
@@ -80,19 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>assessment_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-assessment_target_arn,
-duration_in_seconds,
-assessment_template_name,
-rules_package_arns,
-user_attributes_for_findings
-FROM awscc.inspector.assessment_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>assessment_template</code>.
 ```sql
 SELECT

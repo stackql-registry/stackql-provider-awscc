@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>origin_access_control</code> resource or lists <code>origin_access_controls</code> in a region
 
@@ -26,20 +27,56 @@ Creates, updates, deletes or gets an <code>origin_access_control</code> resource
 <tbody>
 <tr><td><b>Name</b></td><td><code>origin_access_controls</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.<br />This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's content only through CloudFront.<br />For more information about using a CloudFront origin access control, see &#91;Restricting access to an origin&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.<br />This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's content only through CloudFront.<br />For more information about using a CloudFront origin access control, see &#91;Restricting access to an origin&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html) in the &#42;Amazon CloudFront Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.origin_access_controls" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="origin_access_control_config" /></td><td><code>object</code></td><td>The origin access control.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "origin_access_control_config",
+    "type": "object",
+    "description": "The origin access control.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description of the origin access control."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "A name to identify the origin access control. You can specify up to 64 characters."
+      },
+      {
+        "name": "origin_access_control_origin_type",
+        "type": "string",
+        "description": "The type of origin that this origin access control is for."
+      },
+      {
+        "name": "signing_behavior",
+        "type": "string",
+        "description": "Specifies which requests CloudFront signs (adds authentication information to). Specify &#96;&#96;always&#96;&#96; for the most common use case. For more information, see &#91;origin access control advanced settings&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#oac-advanced-settings) in the &#42;Amazon CloudFront Developer Guide&#42;.<br />This field can have one of the following values:<br />+ &#96;&#96;always&#96;&#96; – CloudFront signs all origin requests, overwriting the &#96;&#96;Authorization&#96;&#96; header from the viewer request if one exists.<br />+ &#96;&#96;never&#96;&#96; – CloudFront doesn't sign any origin requests. This value turns off origin access control for all origins in all distributions that use this origin access control.<br />+ &#96;&#96;no-override&#96;&#96; – If the viewer request doesn't contain the &#96;&#96;Authorization&#96;&#96; header, then CloudFront signs the origin request. If the viewer request contains the &#96;&#96;Authorization&#96;&#96; header, then CloudFront doesn't sign the origin request and instead passes along the &#96;&#96;Authorization&#96;&#96; header from the viewer request. &#42;WARNING: To pass along the Authorization header from the viewer request, you must add the Authorization header to a cache policy for all cache behaviors that use origins associated with this origin access control.&#42;"
+      },
+      {
+        "name": "signing_protocol",
+        "type": "string",
+        "description": "The signing protocol of the origin access control, which determines how CloudFront signs (authenticates) requests. The only valid value is &#96;&#96;sigv4&#96;&#96;."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-originaccesscontrol.html"><code>AWS::CloudFront::OriginAccessControl</code></a>.
 
@@ -81,15 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>origin_access_controls</code> in a region.
-```sql
-SELECT
-region,
-id,
-origin_access_control_config
-FROM awscc.cloudfront.origin_access_controls
-;
-```
+
 Gets all properties from an individual <code>origin_access_control</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration_set_event_destination</code> resource or lists <code>configuration_set_event_destinations</code> in a region
 
@@ -32,15 +33,115 @@ Creates, updates, deletes or gets a <code>configuration_set_event_destination</c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="configuration_set_name" /></td><td><code>string</code></td><td>The name of the configuration set that contains the event destination.</td></tr>
-<tr><td><CopyableCode code="event_destination" /></td><td><code>object</code></td><td>The event destination object.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "configuration_set_name",
+    "type": "string",
+    "description": "The name of the configuration set that contains the event destination."
+  },
+  {
+    "name": "event_destination",
+    "type": "object",
+    "description": "The event destination object.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the event destination set."
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Sets whether Amazon SES publishes events to this destination when you send an email with the associated configuration set. Set to true to enable publishing to this destination; set to false to prevent publishing to this destination. The default value is false."
+      },
+      {
+        "name": "matching_event_types",
+        "type": "array",
+        "description": "The type of email sending events, send, reject, bounce, complaint, delivery, open, click, renderingFailure, deliveryDelay, and subscription."
+      },
+      {
+        "name": "cloud_watch_destination",
+        "type": "object",
+        "description": "An object that contains the names, default values, and sources of the dimensions associated with an Amazon CloudWatch event destination.",
+        "children": [
+          {
+            "name": "dimension_configurations",
+            "type": "array",
+            "description": "A list of dimensions upon which to categorize your emails when you publish email sending events to Amazon CloudWatch.",
+            "children": [
+              {
+                "name": "dimension_value_source",
+                "type": "string",
+                "description": "The place where Amazon SES finds the value of a dimension to publish to Amazon CloudWatch. To use the message tags that you specify using an X-SES-MESSAGE-TAGS header or a parameter to the SendEmail/SendRawEmail API, specify messageTag. To use your own email headers, specify emailHeader. To put a custom tag on any link included in your email, specify linkTag."
+              },
+              {
+                "name": "default_dimension_value",
+                "type": "string",
+                "description": "The default value of the dimension that is published to Amazon CloudWatch if you do not provide the value of the dimension when you send an email."
+              },
+              {
+                "name": "dimension_name",
+                "type": "string",
+                "description": "The name of an Amazon CloudWatch dimension associated with an email sending metric."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "kinesis_firehose_destination",
+        "type": "object",
+        "description": "An object that contains the delivery stream ARN and the IAM role ARN associated with an Amazon Kinesis Firehose event destination.",
+        "children": [
+          {
+            "name": "iam_role_arn",
+            "type": "string",
+            "description": "The ARN of the IAM role under which Amazon SES publishes email sending events to the Amazon Kinesis Firehose stream."
+          },
+          {
+            "name": "delivery_stream_arn",
+            "type": "string",
+            "description": "The ARN of the Amazon Kinesis Firehose stream that email sending events should be published to."
+          }
+        ]
+      },
+      {
+        "name": "sns_destination",
+        "type": "object",
+        "description": "An object that contains SNS topic ARN associated event destination.",
+        "children": [
+          {
+            "name": "topic_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "event_bridge_destination",
+        "type": "object",
+        "description": "An object that contains Event bus ARN associated with the event bridge destination.",
+        "children": [
+          {
+            "name": "event_bus_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-configurationseteventdestination.html"><code>AWS::SES::ConfigurationSetEventDestination</code></a>.
 
@@ -82,16 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configuration_set_event_destinations</code> in a region.
-```sql
-SELECT
-region,
-id,
-configuration_set_name,
-event_destination
-FROM awscc.ses.configuration_set_event_destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration_set_event_destination</code>.
 ```sql
 SELECT

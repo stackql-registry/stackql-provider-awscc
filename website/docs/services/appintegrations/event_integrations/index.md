@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_integration</code> resource or lists <code>event_integrations</code> in a region
 
@@ -32,18 +33,62 @@ Creates, updates, deletes or gets an <code>event_integration</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The event integration description.</td></tr>
-<tr><td><CopyableCode code="event_integration_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the event integration.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the event integration.</td></tr>
-<tr><td><CopyableCode code="event_bridge_bus" /></td><td><code>string</code></td><td>The Amazon Eventbridge bus for the event integration.</td></tr>
-<tr><td><CopyableCode code="event_filter" /></td><td><code>object</code></td><td>The EventFilter (source) associated with the event integration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the event integration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The event integration description."
+  },
+  {
+    "name": "event_integration_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the event integration."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the event integration."
+  },
+  {
+    "name": "event_bridge_bus",
+    "type": "string",
+    "description": "The Amazon Eventbridge bus for the event integration."
+  },
+  {
+    "name": "event_filter",
+    "type": "object",
+    "description": "The EventFilter (source) associated with the event integration.",
+    "children": [
+      {
+        "name": "source",
+        "type": "string",
+        "description": "The source of the events."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the event integration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key to identify the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Corresponding tag value for the key."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appintegrations-eventintegration.html"><code>AWS::AppIntegrations::EventIntegration</code></a>.
 
@@ -85,19 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_integrations</code> in a region.
-```sql
-SELECT
-region,
-description,
-event_integration_arn,
-name,
-event_bridge_bus,
-event_filter,
-tags
-FROM awscc.appintegrations.event_integrations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_integration</code>.
 ```sql
 SELECT

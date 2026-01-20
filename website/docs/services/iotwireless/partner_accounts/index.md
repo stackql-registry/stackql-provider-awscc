@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>partner_account</code> resource or lists <code>partner_accounts</code> in a region
 
@@ -32,21 +33,101 @@ Creates, updates, deletes or gets a <code>partner_account</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="sidewalk" /></td><td><code>object</code></td><td>The Sidewalk account credentials.</td></tr>
-<tr><td><CopyableCode code="partner_account_id" /></td><td><code>string</code></td><td>The partner account ID to disassociate from the AWS account</td></tr>
-<tr><td><CopyableCode code="partner_type" /></td><td><code>string</code></td><td>The partner type</td></tr>
-<tr><td><CopyableCode code="sidewalk_response" /></td><td><code>object</code></td><td>The Sidewalk account credentials.</td></tr>
-<tr><td><CopyableCode code="account_linked" /></td><td><code>boolean</code></td><td>Whether the partner account is linked to the AWS account.</td></tr>
-<tr><td><CopyableCode code="sidewalk_update" /></td><td><code>object</code></td><td>The Sidewalk account credentials.</td></tr>
-<tr><td><CopyableCode code="fingerprint" /></td><td><code>string</code></td><td>The fingerprint of the Sidewalk application server private key.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>PartnerAccount arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "sidewalk",
+    "type": "object",
+    "description": "The Sidewalk account credentials.",
+    "children": [
+      {
+        "name": "app_server_private_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "partner_account_id",
+    "type": "string",
+    "description": "The partner account ID to disassociate from the AWS account"
+  },
+  {
+    "name": "partner_type",
+    "type": "string",
+    "description": "The partner type"
+  },
+  {
+    "name": "sidewalk_response",
+    "type": "object",
+    "description": "The Sidewalk account credentials.",
+    "children": [
+      {
+        "name": "amazon_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "fingerprint",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "account_linked",
+    "type": "boolean",
+    "description": "Whether the partner account is linked to the AWS account."
+  },
+  {
+    "name": "sidewalk_update",
+    "type": "object",
+    "description": "The Sidewalk account credentials.",
+    "children": [
+      {
+        "name": "app_server_private_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "type": "string",
+    "description": "The fingerprint of the Sidewalk application server private key."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "PartnerAccount arn. Returned after successful create."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the destination.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-partneraccount.html"><code>AWS::IoTWireless::PartnerAccount</code></a>.
 
@@ -88,22 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>partner_accounts</code> in a region.
-```sql
-SELECT
-region,
-sidewalk,
-partner_account_id,
-partner_type,
-sidewalk_response,
-account_linked,
-sidewalk_update,
-fingerprint,
-arn,
-tags
-FROM awscc.iotwireless.partner_accounts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>partner_account</code>.
 ```sql
 SELECT

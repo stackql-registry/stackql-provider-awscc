@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>option_groups</code> in a region or regions, for all properties use <a href="/services/rds/option_groups/"><code>option_groups</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>option_groups</code> in a region or regions, for all properties use 
 <tbody>
 <tr><td><b>Name</b></td><td><code>option_groups_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::RDS::OptionGroup</code> resource creates or updates an option group, to enable and configure features that are specific to a particular DB engine.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::OptionGroup&#96;&#96; resource creates or updates an option group, to enable and configure features that are specific to a particular DB engine.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.option_groups_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="option_group_name" /></td><td><code>string</code></td><td>The name of the option group to be created.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />Example: <code>myoptiongroup</code><br />If you don't specify a value for <code>OptionGroupName</code> property, a name is automatically created for the option group.<br />This value is stored as a lowercase string.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "option_group_name",
+    "type": "string",
+    "description": "The name of the option group to be created.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />Example: &#96;&#96;myoptiongroup&#96;&#96;<br />If you don't specify a value for &#96;&#96;OptionGroupName&#96;&#96; property, a name is automatically created for the option group.<br />This value is stored as a lowercase string."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

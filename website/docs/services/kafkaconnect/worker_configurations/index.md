@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>worker_configuration</code> resource or lists <code>worker_configurations</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>worker_configuration</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the worker configuration.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A summary description of the worker configuration.</td></tr>
-<tr><td><CopyableCode code="worker_configuration_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the custom configuration.</td></tr>
-<tr><td><CopyableCode code="properties_file_content" /></td><td><code>string</code></td><td>Base64 encoded contents of connect-distributed.properties file.</td></tr>
-<tr><td><CopyableCode code="revision" /></td><td><code>integer</code></td><td>The description of a revision of the worker configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the worker configuration."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A summary description of the worker configuration."
+  },
+  {
+    "name": "worker_configuration_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the custom configuration."
+  },
+  {
+    "name": "properties_file_content",
+    "type": "string",
+    "description": "Base64 encoded contents of connect-distributed.properties file."
+  },
+  {
+    "name": "revision",
+    "type": "integer",
+    "description": "The description of a revision of the worker configuration."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kafkaconnect-workerconfiguration.html"><code>AWS::KafkaConnect::WorkerConfiguration</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>worker_configurations</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-worker_configuration_arn,
-properties_file_content,
-revision,
-tags
-FROM awscc.kafkaconnect.worker_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>worker_configuration</code>.
 ```sql
 SELECT

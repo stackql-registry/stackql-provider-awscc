@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_connect</code> resource or lists <code>transit_gateway_connects</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>transit_gateway_connect</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the Connect attachment.</td></tr>
-<tr><td><CopyableCode code="transport_transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the attachment from which the Connect attachment was created.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the attachment.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The creation time.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the attachment.</td></tr>
-<tr><td><CopyableCode code="options" /></td><td><code>object</code></td><td>The Connect attachment options.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the Connect attachment."
+  },
+  {
+    "name": "transport_transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the attachment from which the Connect attachment was created."
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": "The ID of the transit gateway."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the attachment."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The creation time."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the attachment.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "options",
+    "type": "object",
+    "description": "The Connect attachment options.",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The tunnel protocol."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewayconnect.html"><code>AWS::EC2::TransitGatewayConnect</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_connects</code> in a region.
-```sql
-SELECT
-region,
-transit_gateway_attachment_id,
-transport_transit_gateway_attachment_id,
-transit_gateway_id,
-state,
-creation_time,
-tags,
-options
-FROM awscc.ec2.transit_gateway_connects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_connect</code>.
 ```sql
 SELECT

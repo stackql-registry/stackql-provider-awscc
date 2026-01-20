@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>listener_rules</code> in a region or regions, for all properties use <a href="/services/elasticloadbalancingv2/listener_rules/"><code>listener_rules</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>listener_rules</code> in a region or regions, for all properties use
 <tbody>
 <tr><td><b>Name</b></td><td><code>listener_rules_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a listener rule. The listener must be associated with an Application Load Balancer. Each rule consists of a priority, one or more actions, and one or more conditions.<br />For more information, see &#91;Quotas for your Application Load Balancers&#93;(https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html) in the ASTERIX;User Guide for Application Load BalancersASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a listener rule. The listener must be associated with an Application Load Balancer. Each rule consists of a priority, one or more actions, and one or more conditions.<br />For more information, see &#91;Quotas for your Application Load Balancers&#93;(https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html) in the &#42;User Guide for Application Load Balancers&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.elasticloadbalancingv2.listener_rules_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

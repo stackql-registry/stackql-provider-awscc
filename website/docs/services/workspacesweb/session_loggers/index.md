@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>session_logger</code> resource or lists <code>session_loggers</code> in a region
 
@@ -32,21 +33,104 @@ Creates, updates, deletes or gets a <code>session_logger</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_key" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="event_filter" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="log_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="session_logger_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_managed_key",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "event_filter",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "log_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bucket_owner",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "log_file_format",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "folder_structure",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "session_logger_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-sessionlogger.html"><code>AWS::WorkSpacesWeb::SessionLogger</code></a>.
 
@@ -88,22 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>session_loggers</code> in a region.
-```sql
-SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-display_name,
-event_filter,
-log_configuration,
-session_logger_arn,
-tags
-FROM awscc.workspacesweb.session_loggers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>session_logger</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subnet_network_acl_association</code> resource or lists <code>subnet_network_acl_associations</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>subnet_network_acl_association</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet</td></tr>
-<tr><td><CopyableCode code="network_acl_id" /></td><td><code>string</code></td><td>The ID of the network ACL</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The ID of the subnet"
+  },
+  {
+    "name": "network_acl_id",
+    "type": "string",
+    "description": "The ID of the network ACL"
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetnetworkaclassociation.html"><code>AWS::EC2::SubnetNetworkAclAssociation</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subnet_network_acl_associations</code> in a region.
-```sql
-SELECT
-region,
-subnet_id,
-network_acl_id,
-association_id
-FROM awscc.ec2.subnet_network_acl_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subnet_network_acl_association</code>.
 ```sql
 SELECT

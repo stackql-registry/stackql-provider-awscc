@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>report_definition</code> resource or lists <code>report_definitions</code> in a region
 
@@ -32,24 +33,73 @@ Creates, updates, deletes or gets a <code>report_definition</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="report_name" /></td><td><code>string</code></td><td>The name of the report that you want to create. The name must be unique, is case sensitive, and can't include spaces.</td></tr>
-<tr><td><CopyableCode code="time_unit" /></td><td><code>string</code></td><td>The granularity of the line items in the report.</td></tr>
-<tr><td><CopyableCode code="format" /></td><td><code>string</code></td><td>The format that AWS saves the report in.</td></tr>
-<tr><td><CopyableCode code="compression" /></td><td><code>string</code></td><td>The compression format that AWS uses for the report.</td></tr>
-<tr><td><CopyableCode code="additional_schema_elements" /></td><td><code>array</code></td><td>A list of strings that indicate additional content that Amazon Web Services includes in the report, such as individual resource IDs.</td></tr>
-<tr><td><CopyableCode code="s3_bucket" /></td><td><code>string</code></td><td>The S3 bucket where AWS delivers the report.</td></tr>
-<tr><td><CopyableCode code="s3_prefix" /></td><td><code>string</code></td><td>The prefix that AWS adds to the report name when AWS delivers the report. Your prefix can't include spaces.</td></tr>
-<tr><td><CopyableCode code="s3_region" /></td><td><code>string</code></td><td>The region of the S3 bucket that AWS delivers the report into.</td></tr>
-<tr><td><CopyableCode code="additional_artifacts" /></td><td><code>array</code></td><td>A list of manifests that you want Amazon Web Services to create for this report.</td></tr>
-<tr><td><CopyableCode code="refresh_closed_reports" /></td><td><code>boolean</code></td><td>Whether you want Amazon Web Services to update your reports after they have been finalized if Amazon Web Services detects charges related to previous months. These charges can include refunds, credits, or support fees.</td></tr>
-<tr><td><CopyableCode code="report_versioning" /></td><td><code>string</code></td><td>Whether you want Amazon Web Services to overwrite the previous version of each report or to deliver the report in addition to the previous versions.</td></tr>
-<tr><td><CopyableCode code="billing_view_arn" /></td><td><code>string</code></td><td>The Amazon resource name of the billing view. You can get this value by using the billing view service public APIs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "report_name",
+    "type": "string",
+    "description": "The name of the report that you want to create. The name must be unique, is case sensitive, and can't include spaces."
+  },
+  {
+    "name": "time_unit",
+    "type": "string",
+    "description": "The granularity of the line items in the report."
+  },
+  {
+    "name": "format",
+    "type": "string",
+    "description": "The format that AWS saves the report in."
+  },
+  {
+    "name": "compression",
+    "type": "string",
+    "description": "The compression format that AWS uses for the report."
+  },
+  {
+    "name": "additional_schema_elements",
+    "type": "array",
+    "description": "A list of strings that indicate additional content that Amazon Web Services includes in the report, such as individual resource IDs."
+  },
+  {
+    "name": "s3_bucket",
+    "type": "string",
+    "description": "The S3 bucket where AWS delivers the report."
+  },
+  {
+    "name": "s3_prefix",
+    "type": "string",
+    "description": "The prefix that AWS adds to the report name when AWS delivers the report. Your prefix can't include spaces."
+  },
+  {
+    "name": "s3_region",
+    "type": "string",
+    "description": "The region of the S3 bucket that AWS delivers the report into."
+  },
+  {
+    "name": "additional_artifacts",
+    "type": "array",
+    "description": "A list of manifests that you want Amazon Web Services to create for this report."
+  },
+  {
+    "name": "refresh_closed_reports",
+    "type": "boolean",
+    "description": "Whether you want Amazon Web Services to update your reports after they have been finalized if Amazon Web Services detects charges related to previous months. These charges can include refunds, credits, or support fees."
+  },
+  {
+    "name": "report_versioning",
+    "type": "string",
+    "description": "Whether you want Amazon Web Services to overwrite the previous version of each report or to deliver the report in addition to the previous versions."
+  },
+  {
+    "name": "billing_view_arn",
+    "type": "string",
+    "description": "The Amazon resource name of the billing view. You can get this value by using the billing view service public APIs."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cur-reportdefinition.html"><code>AWS::CUR::ReportDefinition</code></a>.
 
@@ -91,25 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>report_definitions</code> in a region.
-```sql
-SELECT
-region,
-report_name,
-time_unit,
-format,
-compression,
-additional_schema_elements,
-s3_bucket,
-s3_prefix,
-s3_region,
-additional_artifacts,
-refresh_closed_reports,
-report_versioning,
-billing_view_arn
-FROM awscc.cur.report_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>report_definition</code>.
 ```sql
 SELECT

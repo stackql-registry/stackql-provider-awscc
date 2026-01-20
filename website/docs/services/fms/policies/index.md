@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>policies</code> in a region
 
@@ -32,29 +33,184 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="exclude_map" /></td><td><code>object</code></td><td>An FMS includeMap or excludeMap.</td></tr>
-<tr><td><CopyableCode code="exclude_resource_tags" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="include_map" /></td><td><code>object</code></td><td>An FMS includeMap or excludeMap.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="remediation_enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_tag_logical_operator" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>An AWS resource type</td></tr>
-<tr><td><CopyableCode code="resource_type_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_set_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_service_policy_data" /></td><td><code>object</code></td><td>Firewall security service policy data.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="delete_all_policy_resources" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="resources_clean_up" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "exclude_map",
+    "type": "object",
+    "description": "An FMS includeMap or excludeMap.",
+    "children": [
+      {
+        "name": "a_cc_ou_nt",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "o_rg_un_it",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "exclude_resource_tags",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "remediation_enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "resource_tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "resource_tag_logical_operator",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "An AWS resource type"
+  },
+  {
+    "name": "resource_type_list",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "resource_set_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "security_service_policy_data",
+    "type": "object",
+    "description": "Firewall security service policy data.",
+    "children": [
+      {
+        "name": "managed_service_data",
+        "type": "string",
+        "description": "Firewall managed service data."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Firewall policy type."
+      },
+      {
+        "name": "policy_option",
+        "type": "object",
+        "description": "Firewall policy option.",
+        "children": [
+          {
+            "name": "network_firewall_policy",
+            "type": "object",
+            "description": "Network firewall policy.",
+            "children": [
+              {
+                "name": "firewall_deployment_model",
+                "type": "string",
+                "description": "Firewall deployment mode."
+              }
+            ]
+          },
+          {
+            "name": "third_party_firewall_policy",
+            "type": "object",
+            "description": "Third party firewall policy.",
+            "children": [
+              {
+                "name": "firewall_deployment_model",
+                "type": "string",
+                "description": "Firewall deployment mode."
+              }
+            ]
+          },
+          {
+            "name": "network_acl_common_policy",
+            "type": "object",
+            "description": "Network ACL common policy.",
+            "children": [
+              {
+                "name": "network_acl_entry_set",
+                "type": "object",
+                "description": "Network ACL entry set."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "delete_all_policy_resources",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "resources_clean_up",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html"><code>AWS::FMS::Policy</code></a>.
 
@@ -96,30 +252,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policies</code> in a region.
-```sql
-SELECT
-region,
-exclude_map,
-exclude_resource_tags,
-include_map,
-id,
-policy_name,
-policy_description,
-remediation_enabled,
-resource_tags,
-resource_tag_logical_operator,
-resource_type,
-resource_type_list,
-resource_set_ids,
-security_service_policy_data,
-arn,
-delete_all_policy_resources,
-resources_clean_up,
-tags
-FROM awscc.fms.policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy</code>.
 ```sql
 SELECT

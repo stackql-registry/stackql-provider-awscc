@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>serverless_cluster</code> resource or lists <code>serverless_clusters</code> in a region
 
@@ -32,17 +33,71 @@ Creates, updates, deletes or gets a <code>serverless_cluster</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_configs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_authentication" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_configs",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "security_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "client_authentication",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "sasl",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "iam",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "enabled",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-msk-serverlesscluster.html"><code>AWS::MSK::ServerlessCluster</code></a>.
 
@@ -79,18 +134,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>serverless_clusters</code> in a region.
-```sql
-SELECT
-region,
-arn,
-cluster_name,
-vpc_configs,
-client_authentication,
-tags
-FROM awscc.msk.serverless_clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>serverless_cluster</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,32 +33,172 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="attachments_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_subscription_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_ids_for_oid_c" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="iam_identity_provider_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_center_application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_center_instance_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="personalization_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="q_apps_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="quick_sight_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "attachments_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attachments_control_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "auto_subscription_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "auto_subscribe",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "default_subscription_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "client_ids_for_oid_c",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "encryption_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "iam_identity_provider_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_center_application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_center_instance_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "personalization_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "personalization_control_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "q_apps_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "q_apps_control_mode",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "quick_sight_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "client_namespace",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-application.html"><code>AWS::QBusiness::Application</code></a>.
 
@@ -99,33 +240,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-application_arn,
-application_id,
-attachments_configuration,
-auto_subscription_configuration,
-client_ids_for_oid_c,
-created_at,
-description,
-display_name,
-encryption_configuration,
-iam_identity_provider_arn,
-identity_center_application_arn,
-identity_center_instance_arn,
-identity_type,
-personalization_configuration,
-q_apps_configuration,
-quick_sight_configuration,
-role_arn,
-status,
-tags,
-updated_at
-FROM awscc.qbusiness.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

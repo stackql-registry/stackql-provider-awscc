@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>parameter_group</code> resource or lists <code>parameter_groups</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>parameter_group</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="parameter_group_name" /></td><td><code>string</code></td><td>The name of the parameter group.</td></tr>
-<tr><td><CopyableCode code="family" /></td><td><code>string</code></td><td>The name of the parameter group family that this parameter group is compatible with.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the parameter group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this parameter group.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>An map of parameter names and values for the parameter update. You must supply at least one parameter name and value; subsequent arguments are optional.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the parameter group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "parameter_group_name",
+    "type": "string",
+    "description": "The name of the parameter group."
+  },
+  {
+    "name": "family",
+    "type": "string",
+    "description": "The name of the parameter group family that this parameter group is compatible with."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the parameter group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this parameter group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "An map of parameter names and values for the parameter update. You must supply at least one parameter name and value; subsequent arguments are optional."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the parameter group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-memorydb-parametergroup.html"><code>AWS::MemoryDB::ParameterGroup</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>parameter_groups</code> in a region.
-```sql
-SELECT
-region,
-parameter_group_name,
-family,
-description,
-tags,
-parameters,
-arn
-FROM awscc.memorydb.parameter_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>parameter_group</code>.
 ```sql
 SELECT

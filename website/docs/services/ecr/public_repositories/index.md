@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>public_repository</code> resource or lists <code>public_repositories</code> in a region
 
@@ -26,23 +27,83 @@ Creates, updates, deletes or gets a <code>public_repository</code> resource or l
 <tbody>
 <tr><td><b>Name</b></td><td><code>public_repositories</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ECR::PublicRepository</code> resource specifies an Amazon Elastic Container Registry Public (Amazon ECR Public) repository, where users can push and pull Docker images, Open Container Initiative (OCI) images, and OCI compatible artifacts. For more information, see &#91;Amazon ECR public repositories&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) in the ASTERIX;Amazon ECR Public User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::PublicRepository&#96;&#96; resource specifies an Amazon Elastic Container Registry Public (Amazon ECR Public) repository, where users can push and pull Docker images, Open Container Initiative (OCI) images, and OCI compatible artifacts. For more information, see &#91;Amazon ECR public repositories&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) in the &#42;Amazon ECR Public User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.public_repositories" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="repository_name" /></td><td><code>string</code></td><td>The name to use for the public repository. The repository name may be specified on its own (such as <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such as <code>project-a/nginx-web-app</code>). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</td></tr>
-<tr><td><CopyableCode code="repository_policy_text" /></td><td><code>object</code></td><td>The JSON repository policy text to apply to the public repository. For more information, see &#91;Amazon ECR Public repository policies&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-policies.html) in the ASTERIX;Amazon ECR Public User GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="repository_catalog_data" /></td><td><code>object</code></td><td>The details about the repository that are publicly visible in the Amazon ECR Public Gallery. For more information, see &#91;Amazon ECR Public repository catalog data&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-catalog-data.html) in the ASTERIX;Amazon ECR Public User GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "repository_name",
+    "type": "string",
+    "description": "The name to use for the public repository. The repository name may be specified on its own (such as &#96;&#96;nginx-web-app&#96;&#96;) or it can be prepended with a namespace to group the repository into a category (such as &#96;&#96;project-a/nginx-web-app&#96;&#96;). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "repository_policy_text",
+    "type": "object",
+    "description": "The JSON repository policy text to apply to the public repository. For more information, see &#91;Amazon ECR Public repository policies&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-policies.html) in the &#42;Amazon ECR Public User Guide&#42;."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "repository_catalog_data",
+    "type": "object",
+    "description": "The details about the repository that are publicly visible in the Amazon ECR Public Gallery. For more information, see &#91;Amazon ECR Public repository catalog data&#93;(https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-catalog-data.html) in the &#42;Amazon ECR Public User Guide&#42;.",
+    "children": [
+      {
+        "name": "repository_description",
+        "type": "string",
+        "description": "The description of the public repository."
+      },
+      {
+        "name": "architectures",
+        "type": "array",
+        "description": "Select the system architectures that the images in your repository are compatible with."
+      },
+      {
+        "name": "operating_systems",
+        "type": "array",
+        "description": "Select the operating systems that the images in your repository are compatible with."
+      },
+      {
+        "name": "about_text",
+        "type": "string",
+        "description": "Provide a detailed description of the repository. Identify what is included in the repository, any licensing details, or other relevant information."
+      },
+      {
+        "name": "usage_text",
+        "type": "string",
+        "description": "Provide detailed information about how to use the images in the repository. This provides context, support information, and additional usage details for users of the repository."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "One part of a key-value pair that make up a tag. A &#96;&#96;key&#96;&#96; is a general label that acts like a category for more specific tag values."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A &#96;&#96;value&#96;&#96; acts as a descriptor within a tag category (key)."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-publicrepository.html"><code>AWS::ECR::PublicRepository</code></a>.
 
@@ -84,18 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>public_repositories</code> in a region.
-```sql
-SELECT
-region,
-repository_name,
-repository_policy_text,
-arn,
-repository_catalog_data,
-tags
-FROM awscc.ecr.public_repositories
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>public_repository</code>.
 ```sql
 SELECT

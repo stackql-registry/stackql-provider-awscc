@@ -386,25 +386,19 @@ components:
       type: object
   schemas:
     Target:
-      additionalProperties: false
       type: object
+      additionalProperties: false
       properties:
         Values:
-          minItems: 0
-          maxItems: 50
           type: array
+          uniqueItems: false
           items:
-            anyOf:
-              - relationshipRef:
-                  typeName: AWS::EC2::Instance
-                  propertyPath: /properties/Id
             type: string
         Key:
-          pattern: ^[\p{L}\p{Z}\p{N}_.:/=+\-@]{1,128}$|resource-groups:Name
           type: string
       required:
-        - Key
         - Values
+        - Key
     S3KeyPrefix:
       type: string
       maxLength: 1024
@@ -773,6 +767,213 @@ components:
           - ssm:GetDocument
         list:
           - ssm:ListDocuments
+    Targets:
+      type: object
+      additionalProperties: false
+      properties:
+        Values:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Key:
+          type: string
+      required:
+        - Values
+        - Key
+    MaintenanceWindowTarget:
+      type: object
+      properties:
+        OwnerInformation:
+          type: string
+        Description:
+          type: string
+        WindowId:
+          type: string
+        ResourceType:
+          type: string
+        Targets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Targets'
+        Id:
+          type: string
+        Name:
+          type: string
+      required:
+        - WindowId
+        - ResourceType
+        - Targets
+      x-stackql-resource-name: maintenance_window_target
+      description: Resource Type definition for AWS::SSM::MaintenanceWindowTarget
+      x-type-name: AWS::SSM::MaintenanceWindowTarget
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - WindowId
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - WindowId
+        - ResourceType
+        - Targets
+    TaskInvocationParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        MaintenanceWindowStepFunctionsParameters:
+          $ref: '#/components/schemas/MaintenanceWindowStepFunctionsParameters'
+        MaintenanceWindowRunCommandParameters:
+          $ref: '#/components/schemas/MaintenanceWindowRunCommandParameters'
+        MaintenanceWindowLambdaParameters:
+          $ref: '#/components/schemas/MaintenanceWindowLambdaParameters'
+        MaintenanceWindowAutomationParameters:
+          $ref: '#/components/schemas/MaintenanceWindowAutomationParameters'
+    CloudWatchOutputConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        CloudWatchOutputEnabled:
+          type: boolean
+        CloudWatchLogGroupName:
+          type: string
+    MaintenanceWindowRunCommandParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        TimeoutSeconds:
+          type: integer
+        Comment:
+          type: string
+        OutputS3KeyPrefix:
+          type: string
+        Parameters:
+          type: object
+        CloudWatchOutputConfig:
+          $ref: '#/components/schemas/CloudWatchOutputConfig'
+        DocumentHashType:
+          type: string
+        ServiceRoleArn:
+          type: string
+        NotificationConfig:
+          $ref: '#/components/schemas/NotificationConfig'
+        DocumentVersion:
+          type: string
+        OutputS3BucketName:
+          type: string
+        DocumentHash:
+          type: string
+    MaintenanceWindowAutomationParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        Parameters:
+          type: object
+        DocumentVersion:
+          type: string
+    NotificationConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        NotificationEvents:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        NotificationArn:
+          type: string
+        NotificationType:
+          type: string
+      required:
+        - NotificationArn
+    MaintenanceWindowStepFunctionsParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        Input:
+          type: string
+        Name:
+          type: string
+    LoggingInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        Region:
+          type: string
+        S3Prefix:
+          type: string
+        S3Bucket:
+          type: string
+      required:
+        - S3Bucket
+        - Region
+    MaintenanceWindowLambdaParameters:
+      type: object
+      additionalProperties: false
+      properties:
+        Qualifier:
+          type: string
+        Payload:
+          type: string
+        ClientContext:
+          type: string
+    MaintenanceWindowTask:
+      type: object
+      properties:
+        MaxErrors:
+          type: string
+        Description:
+          type: string
+        ServiceRoleArn:
+          type: string
+        Priority:
+          type: integer
+        MaxConcurrency:
+          type: string
+        Targets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Target'
+        Name:
+          type: string
+        TaskArn:
+          type: string
+        TaskInvocationParameters:
+          $ref: '#/components/schemas/TaskInvocationParameters'
+        WindowId:
+          type: string
+        TaskParameters:
+          type: object
+        TaskType:
+          type: string
+        CutoffBehavior:
+          type: string
+        Id:
+          type: string
+        LoggingInfo:
+          $ref: '#/components/schemas/LoggingInfo'
+      required:
+        - WindowId
+        - Priority
+        - TaskType
+        - TaskArn
+      x-stackql-resource-name: maintenance_window_task
+      description: Resource Type definition for AWS::SSM::MaintenanceWindowTask
+      x-type-name: AWS::SSM::MaintenanceWindowTask
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - WindowId
+        - TaskType
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - WindowId
+        - Priority
+        - TaskType
+        - TaskArn
     Parameter:
       type: object
       properties:
@@ -2109,6 +2310,32 @@ components:
                 json_extract_path_text(Properties, 'Name') as name
                 FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Document'
                 AND region = 'us-east-1'
+    maintenance_window_targets:
+      name: maintenance_window_targets
+      id: awscc.ssm.maintenance_window_targets
+      x-cfn-schema-name: MaintenanceWindowTarget
+      x-cfn-type-name: AWS::SSM::MaintenanceWindowTarget
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+    maintenance_window_tasks:
+      name: maintenance_window_tasks
+      id: awscc.ssm.maintenance_window_tasks
+      x-cfn-schema-name: MaintenanceWindowTask
+      x-cfn-type-name: AWS::SSM::MaintenanceWindowTask
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
     parameters:
       name: parameters
       id: awscc.ssm.parameters

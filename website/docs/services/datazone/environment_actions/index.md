@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment_action</code> resource or lists <code>environment_actions</code> in a region
 
@@ -32,21 +33,65 @@ Creates, updates, deletes or gets an <code>environment_action</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the Amazon DataZone environment action.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the environment is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the environment would be created.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone environment in which the action is taking place</td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone environment in which the action is taking place</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone environment action.</td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone environment action.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the environment action.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>The parameters of the environment action.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the Amazon DataZone environment action."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the environment is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the environment would be created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone environment in which the action is taking place"
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone environment in which the action is taking place"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone environment action."
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone environment action."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the environment action."
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "The parameters of the environment action.",
+    "children": [
+      {
+        "name": "uri",
+        "type": "string",
+        "description": "The URI of the console link specified as part of the environment action."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-environmentaction.html"><code>AWS::DataZone::EnvironmentActions</code></a>.
 
@@ -88,22 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environment_actions</code> in a region.
-```sql
-SELECT
-region,
-description,
-domain_id,
-domain_identifier,
-environment_id,
-environment_identifier,
-id,
-identifier,
-name,
-parameters
-FROM awscc.datazone.environment_actions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment_action</code>.
 ```sql
 SELECT

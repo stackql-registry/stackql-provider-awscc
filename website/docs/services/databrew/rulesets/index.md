@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>ruleset</code> resource or lists <code>rulesets</code> in a region
 
@@ -32,17 +33,123 @@ Creates, updates, deletes or gets a <code>ruleset</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the Ruleset</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Ruleset</td></tr>
-<tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td>Arn of the target resource (dataset) to apply the ruleset to</td></tr>
-<tr><td><CopyableCode code="rules" /></td><td><code>array</code></td><td>List of the data quality rules in the ruleset</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the Ruleset"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Ruleset"
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": "Arn of the target resource (dataset) to apply the ruleset to"
+  },
+  {
+    "name": "rules",
+    "type": "array",
+    "description": "List of the data quality rules in the ruleset",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Name of the rule"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "description": "Boolean value to disable/enable a rule"
+      },
+      {
+        "name": "check_expression",
+        "type": "string",
+        "description": "Expression with rule conditions"
+      },
+      {
+        "name": "substitution_map",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "value_reference",
+            "type": "string",
+            "description": "Variable name"
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Value or column name"
+          }
+        ]
+      },
+      {
+        "name": "threshold",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Threshold value for a rule"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "Threshold type for a rule"
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "Threshold unit for a rule"
+          }
+        ]
+      },
+      {
+        "name": "column_selectors",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "regex",
+            "type": "string",
+            "description": "A regular expression for selecting a column from a dataset"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of a column from a dataset"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-ruleset.html"><code>AWS::DataBrew::Ruleset</code></a>.
 
@@ -84,18 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rulesets</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-target_arn,
-rules,
-tags
-FROM awscc.databrew.rulesets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ruleset</code>.
 ```sql
 SELECT

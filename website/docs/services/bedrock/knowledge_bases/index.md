@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>knowledge_base</code> resource or lists <code>knowledge_bases</code> in a region
 
@@ -32,24 +33,443 @@ Creates, updates, deletes or gets a <code>knowledge_base</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Resource.</td></tr>
-<tr><td><CopyableCode code="knowledge_base_configuration" /></td><td><code>object</code></td><td>Contains details about the embeddings model used for the knowledge base.</td></tr>
-<tr><td><CopyableCode code="knowledge_base_id" /></td><td><code>string</code></td><td>The unique identifier of the knowledge base.</td></tr>
-<tr><td><CopyableCode code="knowledge_base_arn" /></td><td><code>string</code></td><td>The ARN of the knowledge base.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the knowledge base.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of a knowledge base.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of the IAM role with permissions to invoke API operations on the knowledge base. The ARN must begin with AmazonBedrockExecutionRoleForKnowledgeBase_</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time at which the knowledge base was created.</td></tr>
-<tr><td><CopyableCode code="failure_reasons" /></td><td><code>array</code></td><td>A list of reasons that the API operation on the knowledge base failed.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The time at which the knowledge base was last updated.</td></tr>
-<tr><td><CopyableCode code="storage_configuration" /></td><td><code>object</code></td><td>The vector store service in which the knowledge base is stored.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Resource."
+  },
+  {
+    "name": "knowledge_base_configuration",
+    "type": "object",
+    "description": "Contains details about the embeddings model used for the knowledge base.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of a knowledge base."
+      },
+      {
+        "name": "vector_knowledge_base_configuration",
+        "type": "object",
+        "description": "Contains details about the model used to create vector embeddings for the knowledge base.",
+        "children": [
+          {
+            "name": "embedding_model_arn",
+            "type": "string",
+            "description": "The ARN of the model used to create vector embeddings for the knowledge base."
+          },
+          {
+            "name": "embedding_model_configuration",
+            "type": "object",
+            "description": "The embeddings model configuration details for the vector model used in Knowledge Base.",
+            "children": [
+              {
+                "name": "bedrock_embedding_model_configuration",
+                "type": "object",
+                "description": "The vector configuration details for the Bedrock embeddings model."
+              }
+            ]
+          },
+          {
+            "name": "supplemental_data_storage_configuration",
+            "type": "object",
+            "description": "Configurations for supplemental data storage.",
+            "children": [
+              {
+                "name": "supplemental_data_storage_locations",
+                "type": "array",
+                "description": "List of supplemental data storage locations."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "kendra_knowledge_base_configuration",
+        "type": "object",
+        "description": "Configurations for a Kendra knowledge base",
+        "children": [
+          {
+            "name": "kendra_index_arn",
+            "type": "string",
+            "description": "Arn of a Kendra index"
+          }
+        ]
+      },
+      {
+        "name": "sql_knowledge_base_configuration",
+        "type": "object",
+        "description": "Configurations for a SQL knowledge base",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": "SQL query engine type"
+          },
+          {
+            "name": "redshift_configuration",
+            "type": "object",
+            "description": "Configurations for a Redshift knowledge base",
+            "children": [
+              {
+                "name": "storage_configurations",
+                "type": "array",
+                "description": "List of configurations for available Redshift query engine storage types"
+              },
+              {
+                "name": "query_engine_configuration",
+                "type": "object",
+                "description": "Configurations for Redshift query engine"
+              },
+              {
+                "name": "query_generation_configuration",
+                "type": "object",
+                "description": "Configurations for generating Redshift engine queries"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "knowledge_base_id",
+    "type": "string",
+    "description": "The unique identifier of the knowledge base."
+  },
+  {
+    "name": "knowledge_base_arn",
+    "type": "string",
+    "description": "The ARN of the knowledge base."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the knowledge base."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of a knowledge base."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of the IAM role with permissions to invoke API operations on the knowledge base. The ARN must begin with AmazonBedrockExecutionRoleForKnowledgeBase&#95;"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time at which the knowledge base was created."
+  },
+  {
+    "name": "failure_reasons",
+    "type": "array",
+    "description": "A list of reasons that the API operation on the knowledge base failed."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The time at which the knowledge base was last updated."
+  },
+  {
+    "name": "storage_configuration",
+    "type": "object",
+    "description": "The vector store service in which the knowledge base is stored.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The storage type of a knowledge base."
+      },
+      {
+        "name": "opensearch_serverless_configuration",
+        "type": "object",
+        "description": "Contains the storage configuration of the knowledge base in Amazon OpenSearch Service.",
+        "children": [
+          {
+            "name": "collection_arn",
+            "type": "string",
+            "description": "The ARN of the OpenSearch Service vector store."
+          },
+          {
+            "name": "vector_index_name",
+            "type": "string",
+            "description": "The name of the vector store."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "A mapping of Bedrock Knowledge Base fields to OpenSearch Serverless field names",
+            "children": [
+              {
+                "name": "vector_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the vector embeddings for your data sources."
+              },
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "pinecone_configuration",
+        "type": "object",
+        "description": "Contains the storage configuration of the knowledge base in Pinecone.",
+        "children": [
+          {
+            "name": "connection_string",
+            "type": "string",
+            "description": "The endpoint URL for your index management page."
+          },
+          {
+            "name": "credentials_secret_arn",
+            "type": "string",
+            "description": "The ARN of the secret that you created in AWS Secrets Manager that is linked to your Pinecone API key."
+          },
+          {
+            "name": "namespace",
+            "type": "string",
+            "description": "The namespace to be used to write new data to your database."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "Contains the names of the fields to which to map information about the vector store.",
+            "children": [
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rds_configuration",
+        "type": "object",
+        "description": "Contains details about the storage configuration of the knowledge base in Amazon RDS. For more information, see Create a vector index in Amazon RDS.",
+        "children": [
+          {
+            "name": "resource_arn",
+            "type": "string",
+            "description": "The ARN of the vector store."
+          },
+          {
+            "name": "credentials_secret_arn",
+            "type": "string",
+            "description": "The ARN of the secret that you created in AWS Secrets Manager that is linked to your Amazon RDS database."
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": "The name of your Amazon RDS database."
+          },
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": "The name of the table in the database."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "Contains the names of the fields to which to map information about the vector store.",
+            "children": [
+              {
+                "name": "primary_key_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the ID for each entry."
+              },
+              {
+                "name": "vector_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the vector embeddings for your data sources."
+              },
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              },
+              {
+                "name": "custom_metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores custom metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "mongo_db_atlas_configuration",
+        "type": "object",
+        "description": "Contains the storage configuration of the knowledge base in MongoDb Atlas Cloud.",
+        "children": [
+          {
+            "name": "endpoint",
+            "type": "string",
+            "description": "MongoDB Atlas endpoint."
+          },
+          {
+            "name": "credentials_secret_arn",
+            "type": "string",
+            "description": "The ARN of the secret that you created in AWS Secrets Manager that is linked to your Amazon Mongo database."
+          },
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": "Name of the database within MongoDB Atlas."
+          },
+          {
+            "name": "collection_name",
+            "type": "string",
+            "description": "Name of the collection within MongoDB Atlas."
+          },
+          {
+            "name": "vector_index_name",
+            "type": "string",
+            "description": "Name of a MongoDB Atlas index."
+          },
+          {
+            "name": "text_index_name",
+            "type": "string",
+            "description": "Name of a MongoDB Atlas text index."
+          },
+          {
+            "name": "endpoint_service_name",
+            "type": "string",
+            "description": "MongoDB Atlas endpoint service name."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "Contains the names of the fields to which to map information about the vector store.",
+            "children": [
+              {
+                "name": "vector_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the vector embeddings for your data sources."
+              },
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "neptune_analytics_configuration",
+        "type": "object",
+        "description": "Contains the configurations to use Neptune Analytics as Vector Store.",
+        "children": [
+          {
+            "name": "graph_arn",
+            "type": "string",
+            "description": "ARN for Neptune Analytics graph database."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "A mapping of Bedrock Knowledge Base fields to Neptune Analytics fields.",
+            "children": [
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "opensearch_managed_cluster_configuration",
+        "type": "object",
+        "description": "Contains the storage configuration of the knowledge base in Amazon OpenSearch Service.",
+        "children": [
+          {
+            "name": "domain_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the OpenSearch domain."
+          },
+          {
+            "name": "domain_endpoint",
+            "type": "string",
+            "description": "The endpoint URL the OpenSearch domain."
+          },
+          {
+            "name": "vector_index_name",
+            "type": "string",
+            "description": "The name of the vector store."
+          },
+          {
+            "name": "field_mapping",
+            "type": "object",
+            "description": "A mapping of Bedrock Knowledge Base fields to OpenSearch Managed Cluster field names",
+            "children": [
+              {
+                "name": "vector_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the vector embeddings for your data sources."
+              },
+              {
+                "name": "text_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores the raw text from your data. The text is split according to the chunking strategy you choose."
+              },
+              {
+                "name": "metadata_field",
+                "type": "string",
+                "description": "The name of the field in which Amazon Bedrock stores metadata about the vector store."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of tag keys and values"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-knowledgebase.html"><code>AWS::Bedrock::KnowledgeBase</code></a>.
 
@@ -91,25 +511,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>knowledge_bases</code> in a region.
-```sql
-SELECT
-region,
-description,
-knowledge_base_configuration,
-knowledge_base_id,
-knowledge_base_arn,
-name,
-status,
-role_arn,
-created_at,
-failure_reasons,
-updated_at,
-storage_configuration,
-tags
-FROM awscc.bedrock.knowledge_bases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>knowledge_base</code>.
 ```sql
 SELECT

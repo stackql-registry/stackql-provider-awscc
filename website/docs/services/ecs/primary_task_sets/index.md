@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>primary_task_set</code> resource or lists <code>primary_task_sets</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>primary_task_set</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="task_set_id" /></td><td><code>string</code></td><td>The ID or full Amazon Resource Name (ARN) of the task set.</td></tr>
-<tr><td><CopyableCode code="cluster" /></td><td><code>string</code></td><td>The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in.</td></tr>
-<tr><td><CopyableCode code="service" /></td><td><code>string</code></td><td>The short name or full Amazon Resource Name (ARN) of the service to create the task set in.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "task_set_id",
+    "type": "string",
+    "description": "The ID or full Amazon Resource Name (ARN) of the task set."
+  },
+  {
+    "name": "cluster",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in."
+  },
+  {
+    "name": "service",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the service to create the task set in."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-primarytaskset.html"><code>AWS::ECS::PrimaryTaskSet</code></a>.
 

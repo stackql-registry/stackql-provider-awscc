@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>channel_placement_groups</code> in a region or regions, for all properties use <a href="/services/medialive/channel_placement_groups/"><code>channel_placement_groups</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>channel_placement_groups</code> in a region or regions, for all prop
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_id" /></td><td><code>string</code></td><td>The ID of the cluster the node is on.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique internal identifier.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_id",
+    "type": "string",
+    "description": "The ID of the cluster the node is on."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique internal identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

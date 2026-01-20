@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource or lists <code>id_mapping_workflows</code> in a region
 
@@ -32,23 +33,191 @@ Creates, updates, deletes or gets an <code>id_mapping_workflow</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the IdMappingWorkflow</td></tr>
-<tr><td><CopyableCode code="input_source_config" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_mapping_techniques" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="workflow_name" /></td><td><code>string</code></td><td>The name of the IdMappingWorkflow</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got created</td></tr>
-<tr><td><CopyableCode code="output_source_config" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_mapping_incremental_run_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="workflow_arn" /></td><td><code>string</code></td><td>The default IdMappingWorkflow arn</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got last updated at</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the IdMappingWorkflow"
+  },
+  {
+    "name": "input_source_config",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "input_source_arn",
+        "type": "string",
+        "description": "An Glue table ARN for the input source table, MatchingWorkflow arn or IdNamespace ARN"
+      },
+      {
+        "name": "schema_arn",
+        "type": "string",
+        "description": "The SchemaMapping arn associated with the Schema"
+      }
+    ]
+  },
+  {
+    "name": "id_mapping_techniques",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "rule_based_properties",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute_matching_model",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "rule_definition_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "rules",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "rule_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "matching_keys",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "record_matching_model",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "provider_properties",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "provider_service_arn",
+            "type": "string",
+            "description": "Arn of the Provider service being used."
+          },
+          {
+            "name": "provider_configuration",
+            "type": "object",
+            "description": "Additional Provider configuration that would be required for the provider service. The Configuration must be in JSON string format"
+          },
+          {
+            "name": "intermediate_source_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "intermediate_s3_path",
+                "type": "string",
+                "description": "The s3 path that would be used to stage the intermediate data being generated during workflow execution."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "id_mapping_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "workflow_name",
+    "type": "string",
+    "description": "The name of the IdMappingWorkflow"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time of this SchemaMapping got created"
+  },
+  {
+    "name": "output_source_config",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "output_s3_path",
+        "type": "string",
+        "description": "The S3 path to which Entity Resolution will write the output table"
+      }
+    ]
+  },
+  {
+    "name": "id_mapping_incremental_run_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "incremental_run_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "workflow_arn",
+    "type": "string",
+    "description": "The default IdMappingWorkflow arn"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The time of this SchemaMapping got last updated at"
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-entityresolution-idmappingworkflow.html"><code>AWS::EntityResolution::IdMappingWorkflow</code></a>.
 
@@ -90,24 +259,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>id_mapping_workflows</code> in a region.
-```sql
-SELECT
-region,
-description,
-input_source_config,
-id_mapping_techniques,
-workflow_name,
-created_at,
-output_source_config,
-id_mapping_incremental_run_config,
-workflow_arn,
-updated_at,
-role_arn,
-tags
-FROM awscc.entityresolution.id_mapping_workflows
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>id_mapping_workflow</code>.
 ```sql
 SELECT

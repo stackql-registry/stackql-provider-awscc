@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>project</code> resource or lists <code>projects</code> in a region
 
@@ -32,22 +33,162 @@ Creates, updates, deletes or gets a <code>project</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Project.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>Project Id.</td></tr>
-<tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>The name of the project.</td></tr>
-<tr><td><CopyableCode code="project_description" /></td><td><code>string</code></td><td>The description of the project.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time at which the project was created.</td></tr>
-<tr><td><CopyableCode code="service_catalog_provisioning_details" /></td><td><code>object</code></td><td>Input ServiceCatalog Provisioning Details</td></tr>
-<tr><td><CopyableCode code="service_catalog_provisioned_product_details" /></td><td><code>object</code></td><td>Provisioned ServiceCatalog Details</td></tr>
-<tr><td><CopyableCode code="template_provider_details" /></td><td><code>array</code></td><td>An array of template providers associated with the project.</td></tr>
-<tr><td><CopyableCode code="project_status" /></td><td><code>string</code></td><td>The status of a project.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "project_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Project."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "Project Id."
+  },
+  {
+    "name": "project_name",
+    "type": "string",
+    "description": "The name of the project."
+  },
+  {
+    "name": "project_description",
+    "type": "string",
+    "description": "The description of the project."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time at which the project was created."
+  },
+  {
+    "name": "service_catalog_provisioning_details",
+    "type": "object",
+    "description": "Input ServiceCatalog Provisioning Details",
+    "children": [
+      {
+        "name": "product_id",
+        "type": "string",
+        "description": "Service Catalog product identifier."
+      },
+      {
+        "name": "provisioning_artifact_id",
+        "type": "string",
+        "description": "The identifier of the provisioning artifact (also known as a version)."
+      },
+      {
+        "name": "path_id",
+        "type": "string",
+        "description": "The path identifier of the product."
+      },
+      {
+        "name": "provisioning_parameters",
+        "type": "array",
+        "description": "Parameters specified by the administrator that are required for provisioning the product.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The parameter key."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The parameter value."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "service_catalog_provisioned_product_details",
+    "type": "object",
+    "description": "Provisioned ServiceCatalog Details",
+    "children": [
+      {
+        "name": "provisioned_product_id",
+        "type": "string",
+        "description": "The identifier of the provisioning artifact (also known as a version)."
+      },
+      {
+        "name": "provisioned_product_status_message",
+        "type": "string",
+        "description": "Provisioned Product Status Message"
+      }
+    ]
+  },
+  {
+    "name": "template_provider_details",
+    "type": "array",
+    "description": "An array of template providers associated with the project.",
+    "children": [
+      {
+        "name": "cfn_template_provider_detail",
+        "type": "object",
+        "description": "CloudFormation template provider details for a SageMaker project.",
+        "children": [
+          {
+            "name": "parameters",
+            "type": "array",
+            "description": "A list of parameters used in the CloudFormation template.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": "The key of the parameter."
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "The value of the parameter."
+              }
+            ]
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the IAM role used by the template provider."
+          },
+          {
+            "name": "template_name",
+            "type": "string",
+            "description": "The name of the template used for the project."
+          },
+          {
+            "name": "template_url",
+            "type": "string",
+            "description": "The URL of the CloudFormation template."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "project_status",
+    "type": "string",
+    "description": "The status of a project."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-project.html"><code>AWS::SageMaker::Project</code></a>.
 
@@ -89,23 +230,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>projects</code> in a region.
-```sql
-SELECT
-region,
-tags,
-project_arn,
-project_id,
-project_name,
-project_description,
-creation_time,
-service_catalog_provisioning_details,
-service_catalog_provisioned_product_details,
-template_provider_details,
-project_status
-FROM awscc.sagemaker.projects
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>project</code>.
 ```sql
 SELECT

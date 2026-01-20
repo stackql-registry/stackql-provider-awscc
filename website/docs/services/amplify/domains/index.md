@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>domains</code> in a region
 
@@ -32,25 +33,119 @@ Creates, updates, deletes or gets a <code>domain</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_sub_domain_creation_patterns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_sub_domain_iam_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate_record" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="update_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_auto_sub_domain" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sub_domain_settings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auto_sub_domain_creation_patterns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "auto_sub_domain_iam_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "certificate_record",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "certificate",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "certificate_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "certificate_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "certificate_verification_dns_record",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "certificate_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "certificate_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_certificate_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "update_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enable_auto_sub_domain",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sub_domain_settings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "prefix",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "branch_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amplify-domain.html"><code>AWS::Amplify::Domain</code></a>.
 
@@ -92,26 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domains</code> in a region.
-```sql
-SELECT
-region,
-app_id,
-arn,
-auto_sub_domain_creation_patterns,
-auto_sub_domain_iam_role,
-certificate_record,
-certificate,
-certificate_settings,
-domain_name,
-domain_status,
-update_status,
-enable_auto_sub_domain,
-status_reason,
-sub_domain_settings
-FROM awscc.amplify.domains
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>site</code> resource or lists <code>sites</code> in a region
 
@@ -32,20 +33,82 @@ Creates, updates, deletes or gets a <code>site</code> resource or lists <code>si
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="site_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the site.</td></tr>
-<tr><td><CopyableCode code="site_id" /></td><td><code>string</code></td><td>The ID of the site.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the site.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the site.</td></tr>
-<tr><td><CopyableCode code="global_network_id" /></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
-<tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>The location of the site.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the site.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "site_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the site."
+  },
+  {
+    "name": "site_id",
+    "type": "string",
+    "description": "The ID of the site."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the site."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the site.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "global_network_id",
+    "type": "string",
+    "description": "The ID of the global network."
+  },
+  {
+    "name": "location",
+    "type": "object",
+    "description": "The location of the site.",
+    "children": [
+      {
+        "name": "address",
+        "type": "string",
+        "description": "The physical address."
+      },
+      {
+        "name": "latitude",
+        "type": "string",
+        "description": "The latitude."
+      },
+      {
+        "name": "longitude",
+        "type": "string",
+        "description": "The longitude."
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time that the device was created."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the site."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-site.html"><code>AWS::NetworkManager::Site</code></a>.
 
@@ -87,21 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sites</code> in a region.
-```sql
-SELECT
-region,
-site_arn,
-site_id,
-description,
-tags,
-global_network_id,
-location,
-created_at,
-state
-FROM awscc.networkmanager.sites
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>site</code>.
 ```sql
 SELECT

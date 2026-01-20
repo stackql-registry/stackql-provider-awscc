@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>image_builder</code> resource or lists <code>image_builders</code> in a region
 
@@ -32,26 +33,131 @@ Creates, updates, deletes or gets an <code>image_builder</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="enable_default_internet_access" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_join_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="appstream_agent_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="image_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="streaming_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="image_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="access_endpoints" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "enable_default_internet_access",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "domain_join_info",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "organizational_unit_distinguished_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "directory_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "appstream_agent_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "image_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "iam_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "streaming_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "image_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "access_endpoints",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "endpoint_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpce_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-imagebuilder.html"><code>AWS::AppStream::ImageBuilder</code></a>.
 
@@ -88,27 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>image_builders</code> in a region.
-```sql
-SELECT
-region,
-description,
-vpc_config,
-enable_default_internet_access,
-domain_join_info,
-appstream_agent_version,
-name,
-image_name,
-display_name,
-iam_role_arn,
-instance_type,
-tags,
-streaming_url,
-image_arn,
-access_endpoints
-FROM awscc.appstream.image_builders
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>image_builder</code>.
 ```sql
 SELECT

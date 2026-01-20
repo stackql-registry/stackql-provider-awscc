@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>evaluation_form</code> resource or lists <code>evaluation_forms</code> in a region
 
@@ -32,21 +33,130 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scoring_strategy" /></td><td><code>object</code></td><td>A scoring strategy of the evaluation form.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the evaluation form.<br />ASTERIX;Allowed valuesASTERIX;: <code>DRAFT</code> | <code>ACTIVE</code></td></tr>
-<tr><td><CopyableCode code="auto_evaluation_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the evaluation form.<br />ASTERIX;Length ConstraintsASTERIX;: Minimum length of 0. Maximum length of 1024.</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="title" /></td><td><code>string</code></td><td>A title of the evaluation form.</td></tr>
-<tr><td><CopyableCode code="items" /></td><td><code>array</code></td><td>Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.<br />ASTERIX;Minimum sizeASTERIX;: 1<br />ASTERIX;Maximum sizeASTERIX;: 100</td></tr>
-<tr><td><CopyableCode code="evaluation_form_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags used to organize, track, or control access for this resource. For example, &#123; "tags": &#123;"key1":"value1", "key2":"value2"&#125; &#125;.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scoring_strategy",
+    "type": "object",
+    "description": "A scoring strategy of the evaluation form.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "The scoring status of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;ENABLED&#96;&#96; &#124; &#96;&#96;DISABLED&#96;&#96;"
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "The scoring mode of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;QUESTION&#95;ONLY&#96;&#96; &#124; &#96;&#96;SECTION&#95;ONLY&#96;&#96;"
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the evaluation form.<br />&#42;Allowed values&#42;: &#96;&#96;DRAFT&#96;&#96; &#124; &#96;&#96;ACTIVE&#96;&#96;"
+  },
+  {
+    "name": "auto_evaluation_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the evaluation form.<br />&#42;Length Constraints&#42;: Minimum length of 0. Maximum length of 1024."
+  },
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "title",
+    "type": "string",
+    "description": "A title of the evaluation form."
+  },
+  {
+    "name": "items",
+    "type": "array",
+    "description": "Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.<br />&#42;Minimum size&#42;: 1<br />&#42;Maximum size&#42;: 100",
+    "children": [
+      {
+        "name": "section",
+        "type": "object",
+        "description": "A subsection or inner section of an item.",
+        "children": [
+          {
+            "name": "title",
+            "type": "string",
+            "description": "The title of the section.<br />&#42;Length Constraints&#42;: Minimum length of 1. Maximum length of 128."
+          },
+          {
+            "name": "instructions",
+            "type": "string",
+            "description": "The instructions of the section."
+          },
+          {
+            "name": "items",
+            "type": "array",
+            "description": "The items of the section.<br />&#42;Minimum&#42;: 1",
+            "children": [
+              {
+                "name": "question",
+                "type": "object",
+                "description": "The information of the question."
+              }
+            ]
+          },
+          {
+            "name": "ref_id",
+            "type": "string",
+            "description": "The identifier of the section. An identifier must be unique within the evaluation form.<br />&#42;Length Constraints&#42;: Minimum length of 1. Maximum length of 40."
+          },
+          {
+            "name": "weight",
+            "type": "number",
+            "description": "The scoring weight of the section.<br />&#42;Minimum&#42;: 0 <br />&#42;Maximum&#42;: 100"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "evaluation_form_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags used to organize, track, or control access for this resource. For example, &#123; \"tags\": &#123;\"key1\":\"value1\", \"key2\":\"value2\"&#125; &#125;.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-evaluationform.html"><code>AWS::Connect::EvaluationForm</code></a>.
 
@@ -88,22 +198,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>evaluation_forms</code> in a region.
-```sql
-SELECT
-region,
-scoring_strategy,
-status,
-auto_evaluation_configuration,
-description,
-instance_arn,
-title,
-items,
-evaluation_form_arn,
-tags
-FROM awscc.connect.evaluation_forms
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>evaluation_form</code>.
 ```sql
 SELECT

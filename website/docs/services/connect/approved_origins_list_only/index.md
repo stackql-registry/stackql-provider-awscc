@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>approved_origins</code> in a region or regions, for all properties use <a href="/services/connect/approved_origins/"><code>approved_origins</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>approved_origins</code> in a region or regions, for all properties u
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="origin" /></td><td><code>string</code></td><td>Domain name to be added to the allowlist of instance</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "origin",
+    "type": "string",
+    "description": "Domain name to be added to the allowlist of instance"
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

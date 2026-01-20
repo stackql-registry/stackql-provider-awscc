@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>directory_bucket</code> resource or lists <code>directory_buckets</code> in a region
 
@@ -32,20 +33,147 @@ Creates, updates, deletes or gets a <code>directory_bucket</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td>Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket_base_name--zone_id--x-s3'. The zone_id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name.</td></tr>
-<tr><td><CopyableCode code="location_name" /></td><td><code>string</code></td><td>Specifies the Zone ID of the Availability Zone or Local Zone where the directory bucket will be created. An example Availability Zone ID value is 'use1-az5'.</td></tr>
-<tr><td><CopyableCode code="availability_zone_name" /></td><td><code>string</code></td><td>Returns the code for the Availability Zone or Local Zone where the directory bucket was created. An example for the code of an Availability Zone is 'us-east-1f'.</td></tr>
-<tr><td><CopyableCode code="data_redundancy" /></td><td><code>string</code></td><td>Specifies the number of Availability Zone or Local Zone that's used for redundancy for the bucket.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Returns the Amazon Resource Name (ARN) of the specified bucket.</td></tr>
-<tr><td><CopyableCode code="bucket_encryption" /></td><td><code>object</code></td><td>Specifies default encryption for a bucket using server-side encryption with Amazon S3 managed keys (SSE-S3) or AWS KMS keys (SSE-KMS).</td></tr>
-<tr><td><CopyableCode code="lifecycle_configuration" /></td><td><code>object</code></td><td>Lifecycle rules that define how Amazon S3 Express manages objects during their lifetime.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone or Local Zone. The bucket name must also follow the format 'bucket&#95;base&#95;name--zone&#95;id--x-s3'. The zone&#95;id can be the ID of an Availability Zone or a Local Zone. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name."
+  },
+  {
+    "name": "location_name",
+    "type": "string",
+    "description": "Specifies the Zone ID of the Availability Zone or Local Zone where the directory bucket will be created. An example Availability Zone ID value is 'use1-az5'."
+  },
+  {
+    "name": "availability_zone_name",
+    "type": "string",
+    "description": "Returns the code for the Availability Zone or Local Zone where the directory bucket was created. An example for the code of an Availability Zone is 'us-east-1f'."
+  },
+  {
+    "name": "data_redundancy",
+    "type": "string",
+    "description": "Specifies the number of Availability Zone or Local Zone that's used for redundancy for the bucket."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Returns the Amazon Resource Name (ARN) of the specified bucket."
+  },
+  {
+    "name": "bucket_encryption",
+    "type": "object",
+    "description": "Specifies default encryption for a bucket using server-side encryption with Amazon S3 managed keys (SSE-S3) or AWS KMS keys (SSE-KMS).",
+    "children": [
+      {
+        "name": "server_side_encryption_configuration",
+        "type": "array",
+        "description": "Specifies the default server-side-encryption configuration.",
+        "children": [
+          {
+            "name": "bucket_key_enabled",
+            "type": "boolean",
+            "description": "Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Amazon S3 Express One Zone uses an S3 Bucket Key with SSE-KMS and S3 Bucket Key cannot be disabled. It's only allowed to set the BucketKeyEnabled element to true."
+          },
+          {
+            "name": "server_side_encryption_by_default",
+            "type": "object",
+            "description": "Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.",
+            "children": [
+              {
+                "name": "kms_master_key_id",
+                "type": "string",
+                "description": "AWS Key Management Service (KMS) customer managed key ID to use for the default encryption. This parameter is allowed only if SSEAlgorithm is set to aws:kms. You can specify this parameter with the key ID or the Amazon Resource Name (ARN) of the KMS key"
+              },
+              {
+                "name": "sse_algorithm",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "lifecycle_configuration",
+    "type": "object",
+    "description": "Lifecycle rules that define how Amazon S3 Express manages objects during their lifetime.",
+    "children": [
+      {
+        "name": "rules",
+        "type": "array",
+        "description": "A lifecycle rule for individual objects in an Amazon S3 Express bucket.",
+        "children": [
+          {
+            "name": "abort_incomplete_multipart_upload",
+            "type": "object",
+            "description": "Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload.",
+            "children": [
+              {
+                "name": "days_after_initiation",
+                "type": "integer",
+                "description": "Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload."
+              }
+            ]
+          },
+          {
+            "name": "expiration_in_days",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "object_size_greater_than",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "object_size_less_than",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3express-directorybucket.html"><code>AWS::S3Express::DirectoryBucket</code></a>.
 
@@ -87,21 +215,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>directory_buckets</code> in a region.
-```sql
-SELECT
-region,
-bucket_name,
-location_name,
-availability_zone_name,
-data_redundancy,
-arn,
-bucket_encryption,
-lifecycle_configuration,
-tags
-FROM awscc.s3express.directory_buckets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>directory_bucket</code>.
 ```sql
 SELECT

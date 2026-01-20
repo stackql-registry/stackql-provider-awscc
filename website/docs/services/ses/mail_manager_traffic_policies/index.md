@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mail_manager_traffic_policy</code> resource or lists <code>mail_manager_traffic_policies</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>mail_manager_traffic_policy</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="default_action" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_message_size_bytes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_statements" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="traffic_policy_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="traffic_policy_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="traffic_policy_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "default_action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_message_size_bytes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "policy_statements",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "conditions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "traffic_policy_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "traffic_policy_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "traffic_policy_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanagertrafficpolicy.html"><code>AWS::SES::MailManagerTrafficPolicy</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mail_manager_traffic_policies</code> in a region.
-```sql
-SELECT
-region,
-default_action,
-max_message_size_bytes,
-policy_statements,
-tags,
-traffic_policy_arn,
-traffic_policy_id,
-traffic_policy_name
-FROM awscc.ses.mail_manager_traffic_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mail_manager_traffic_policy</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>customer_gateway</code> resource or lists <code>customer_gateways</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>customer_gateway</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of VPN connection that this customer gateway supports (<code>ipsec.1</code>).</td></tr>
-<tr><td><CopyableCode code="customer_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_address" /></td><td><code>string</code></td><td>The IP address for the customer gateway device's outside interface. The address must be static. If <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to <code>Ipv6</code>, you can use an IPv6 address.</td></tr>
-<tr><td><CopyableCode code="bgp_asn_extended" /></td><td><code>number</code></td><td>For customer gateway devices that support BGP, specify the device's ASN. You must specify either <code>BgpAsn</code> or <code>BgpAsnExtended</code> when creating the customer gateway. If the ASN is larger than <code>2,147,483,647</code>, you must use <code>BgpAsnExtended</code>.<br />Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code></td></tr>
-<tr><td><CopyableCode code="bgp_asn" /></td><td><code>integer</code></td><td>For customer gateway devices that support BGP, specify the device's ASN. You must specify either <code>BgpAsn</code> or <code>BgpAsnExtended</code> when creating the customer gateway. If the ASN is larger than <code>2,147,483,647</code>, you must use <code>BgpAsnExtended</code>.<br />Default: 65000<br />Valid values: <code>1</code> to <code>2,147,483,647</code></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags for the customer gateway.</td></tr>
-<tr><td><CopyableCode code="certificate_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the customer gateway certificate.</td></tr>
-<tr><td><CopyableCode code="device_name" /></td><td><code>string</code></td><td>The name of customer gateway device.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of VPN connection that this customer gateway supports (&#96;&#96;ipsec.1&#96;&#96;)."
+  },
+  {
+    "name": "customer_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ip_address",
+    "type": "string",
+    "description": "The IP address for the customer gateway device's outside interface. The address must be static. If &#96;&#96;OutsideIpAddressType&#96;&#96; in your VPN connection options is set to &#96;&#96;PrivateIpv4&#96;&#96;, you can use an RFC6598 or RFC1918 private IPv4 address. If &#96;&#96;OutsideIpAddressType&#96;&#96; is set to &#96;&#96;Ipv6&#96;&#96;, you can use an IPv6 address."
+  },
+  {
+    "name": "bgp_asn_extended",
+    "type": "number",
+    "description": "For customer gateway devices that support BGP, specify the device's ASN. You must specify either &#96;&#96;BgpAsn&#96;&#96; or &#96;&#96;BgpAsnExtended&#96;&#96; when creating the customer gateway. If the ASN is larger than &#96;&#96;2,147,483,647&#96;&#96;, you must use &#96;&#96;BgpAsnExtended&#96;&#96;.<br />Valid values: &#96;&#96;2,147,483,648&#96;&#96; to &#96;&#96;4,294,967,295&#96;&#96;"
+  },
+  {
+    "name": "bgp_asn",
+    "type": "integer",
+    "description": "For customer gateway devices that support BGP, specify the device's ASN. You must specify either &#96;&#96;BgpAsn&#96;&#96; or &#96;&#96;BgpAsnExtended&#96;&#96; when creating the customer gateway. If the ASN is larger than &#96;&#96;2,147,483,647&#96;&#96;, you must use &#96;&#96;BgpAsnExtended&#96;&#96;.<br />Default: 65000<br />Valid values: &#96;&#96;1&#96;&#96; to &#96;&#96;2,147,483,647&#96;&#96;"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags for the customer gateway.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "certificate_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the customer gateway certificate."
+  },
+  {
+    "name": "device_name",
+    "type": "string",
+    "description": "The name of customer gateway device."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-customergateway.html"><code>AWS::EC2::CustomerGateway</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>customer_gateways</code> in a region.
-```sql
-SELECT
-region,
-type,
-customer_gateway_id,
-ip_address,
-bgp_asn_extended,
-bgp_asn,
-tags,
-certificate_arn,
-device_name
-FROM awscc.ec2.customer_gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>customer_gateway</code>.
 ```sql
 SELECT

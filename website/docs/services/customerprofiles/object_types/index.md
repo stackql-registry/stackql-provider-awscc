@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>object_type</code> resource or lists <code>object_types</code> in a region
 
@@ -32,27 +33,153 @@ Creates, updates, deletes or gets an <code>object_type</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="object_type_name" /></td><td><code>string</code></td><td>The name of the profile object type.</td></tr>
-<tr><td><CopyableCode code="allow_profile_creation" /></td><td><code>boolean</code></td><td>Indicates whether a profile should be created when data is received.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the profile object type.</td></tr>
-<tr><td><CopyableCode code="encryption_key" /></td><td><code>string</code></td><td>The default encryption key</td></tr>
-<tr><td><CopyableCode code="expiration_days" /></td><td><code>integer</code></td><td>The default number of days until the data within the domain expires.</td></tr>
-<tr><td><CopyableCode code="fields" /></td><td><code>array</code></td><td>A list of the name and ObjectType field.</td></tr>
-<tr><td><CopyableCode code="keys" /></td><td><code>array</code></td><td>A list of unique keys that can be used to map data to the profile.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this integration got created.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The time of this integration got last updated at.</td></tr>
-<tr><td><CopyableCode code="source_last_updated_timestamp_format" /></td><td><code>string</code></td><td>The format of your sourceLastUpdatedTimestamp that was previously set up.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the integration.</td></tr>
-<tr><td><CopyableCode code="template_id" /></td><td><code>string</code></td><td>A unique identifier for the object template.</td></tr>
-<tr><td><CopyableCode code="max_profile_object_count" /></td><td><code>integer</code></td><td>The maximum number of profile objects for this object type</td></tr>
-<tr><td><CopyableCode code="max_available_profile_object_count" /></td><td><code>integer</code></td><td>The maximum available number of profile objects</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "object_type_name",
+    "type": "string",
+    "description": "The name of the profile object type."
+  },
+  {
+    "name": "allow_profile_creation",
+    "type": "boolean",
+    "description": "Indicates whether a profile should be created when data is received."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the profile object type."
+  },
+  {
+    "name": "encryption_key",
+    "type": "string",
+    "description": "The default encryption key"
+  },
+  {
+    "name": "expiration_days",
+    "type": "integer",
+    "description": "The default number of days until the data within the domain expires."
+  },
+  {
+    "name": "fields",
+    "type": "array",
+    "description": "A list of the name and ObjectType field.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "object_type_field",
+        "type": "object",
+        "description": "Represents a field in a ProfileObjectType.",
+        "children": [
+          {
+            "name": "source",
+            "type": "string",
+            "description": "A field of a ProfileObject. For example: &#95;source.FirstName, where \"&#95;source\" is a ProfileObjectType of a Zendesk user and \"FirstName\" is a field in that ObjectType."
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": "The location of the data in the standard ProfileObject model. For example: &#95;profile.Address.PostalCode."
+          },
+          {
+            "name": "content_type",
+            "type": "string",
+            "description": "The content type of the field. Used for determining equality when searching."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "keys",
+    "type": "array",
+    "description": "A list of unique keys that can be used to map data to the profile.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "object_type_key_list",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "field_names",
+            "type": "array",
+            "description": "The reference for the key name of the fields map."
+          },
+          {
+            "name": "standard_identifiers",
+            "type": "array",
+            "description": "The types of keys that a ProfileObject can have. Each ProfileObject can have only 1 UNIQUE key but multiple PROFILE keys. PROFILE means that this key can be used to tie an object to a PROFILE. UNIQUE means that it can be used to uniquely identify an object. If a key a is marked as SECONDARY, it will be used to search for profiles after all other PROFILE keys have been searched. A LOOKUP&#95;ONLY key is only used to match a profile but is not persisted to be used for searching of the profile. A NEW&#95;ONLY key is only used if the profile does not already exist before the object is ingested, otherwise it is only used for matching objects to profiles."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The time of this integration got created."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The time of this integration got last updated at."
+  },
+  {
+    "name": "source_last_updated_timestamp_format",
+    "type": "string",
+    "description": "The format of your sourceLastUpdatedTimestamp that was previously set up."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags (keys and values) associated with the integration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "template_id",
+    "type": "string",
+    "description": "A unique identifier for the object template."
+  },
+  {
+    "name": "max_profile_object_count",
+    "type": "integer",
+    "description": "The maximum number of profile objects for this object type"
+  },
+  {
+    "name": "max_available_profile_object_count",
+    "type": "integer",
+    "description": "The maximum available number of profile objects"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-objecttype.html"><code>AWS::CustomerProfiles::ObjectType</code></a>.
 
@@ -94,28 +221,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>object_types</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-object_type_name,
-allow_profile_creation,
-description,
-encryption_key,
-expiration_days,
-fields,
-keys,
-created_at,
-last_updated_at,
-source_last_updated_timestamp_format,
-tags,
-template_id,
-max_profile_object_count,
-max_available_profile_object_count
-FROM awscc.customerprofiles.object_types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>object_type</code>.
 ```sql
 SELECT

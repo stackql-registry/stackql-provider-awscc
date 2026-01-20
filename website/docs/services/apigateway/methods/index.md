@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>method</code> resource or lists <code>methods</code> in a region
 
@@ -26,31 +27,200 @@ Creates, updates, deletes or gets a <code>method</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>methods</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Method</code> resource creates API Gateway methods that define the parameters and body that clients must send in their requests.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Method&#96;&#96; resource creates API Gateway methods that define the parameters and body that clients must send in their requests.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.methods" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="integration" /></td><td><code>object</code></td><td><code>Integration</code> is a property of the &#91;AWS::ApiGateway::Method&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html) resource that specifies information about the target backend that a method calls.</td></tr>
-<tr><td><CopyableCode code="operation_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="request_models" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorization_scopes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="request_validator_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="request_parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="method_responses" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorizer_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="api_key_required" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="authorization_type" /></td><td><code>string</code></td><td>The method's authorization type. This parameter is required. For valid values, see &#91;Method&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API_Method.html) in the ASTERIX;API Gateway API ReferenceASTERIX;.<br />If you specify the <code>AuthorizerId</code> property, specify <code>CUSTOM</code> or <code>COGNITO_USER_POOLS</code> for this property.</td></tr>
-<tr><td><CopyableCode code="http_method" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "integration",
+    "type": "object",
+    "description": "&#96;&#96;Integration&#96;&#96; is a property of the &#91;AWS::ApiGateway::Method&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html) resource that specifies information about the target backend that a method calls.",
+    "children": [
+      {
+        "name": "cache_namespace",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "connection_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "integration_responses",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "response_templates",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "selection_pattern",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "content_handling",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "response_parameters",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "status_code",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "integration_http_method",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "uri",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "passthrough_behavior",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "request_parameters",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "connection_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cache_key_parameters",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "content_handling",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "request_templates",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "timeout_in_millis",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "credentials",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "operation_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "request_models",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "authorization_scopes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "request_validator_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "request_parameters",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "method_responses",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "response_parameters",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "status_code",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "response_models",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "authorizer_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_key_required",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "authorization_type",
+    "type": "string",
+    "description": "The method's authorization type. This parameter is required. For valid values, see &#91;Method&#93;(https://docs.aws.amazon.com/apigateway/latest/api/API&#95;Method.html) in the &#42;API Gateway API Reference&#42;.<br />If you specify the &#96;&#96;AuthorizerId&#96;&#96; property, specify &#96;&#96;CUSTOM&#96;&#96; or &#96;&#96;COGNITO&#95;USER&#95;POOLS&#96;&#96; for this property."
+  },
+  {
+    "name": "http_method",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html"><code>AWS::ApiGateway::Method</code></a>.
 

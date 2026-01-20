@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>contact</code> resource or lists <code>contacts</code> in a region
 
@@ -32,18 +33,103 @@ Creates, updates, deletes or gets a <code>contact</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>Alias of the contact. String value with 20 to 256 characters. Only alphabetical, numeric characters, dash, or underscore allowed.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>Name of the contact. String value with 3 to 256 characters. Only alphabetical, space, numeric characters, dash, or underscore allowed.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Contact type, which specify type of contact. Currently supported values: “PERSONAL”, “SHARED”, “OTHER“.</td></tr>
-<tr><td><CopyableCode code="plan" /></td><td><code>array</code></td><td>The stages that an escalation plan or engagement plan engages contacts and contact methods in.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the contact.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "Alias of the contact. String value with 20 to 256 characters. Only alphabetical, numeric characters, dash, or underscore allowed."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "Name of the contact. String value with 3 to 256 characters. Only alphabetical, space, numeric characters, dash, or underscore allowed."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Contact type, which specify type of contact. Currently supported values: “PERSONAL”, “SHARED”, “OTHER“."
+  },
+  {
+    "name": "plan",
+    "type": "array",
+    "description": "The stages that an escalation plan or engagement plan engages contacts and contact methods in.",
+    "children": [
+      {
+        "name": "duration_in_minutes",
+        "type": "integer",
+        "description": "The time to wait until beginning the next stage."
+      },
+      {
+        "name": "targets",
+        "type": "array",
+        "description": "The contacts or contact methods that the escalation plan or engagement plan is engaging.",
+        "children": [
+          {
+            "name": "contact_target_info",
+            "type": "object",
+            "description": "The contact that SSM Incident Manager is engaging during an incident.",
+            "children": [
+              {
+                "name": "contact_id",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the contact."
+              },
+              {
+                "name": "is_essential",
+                "type": "boolean",
+                "description": "A Boolean value determining if the contact's acknowledgement stops the progress of stages in the plan."
+              }
+            ]
+          },
+          {
+            "name": "channel_target_info",
+            "type": "object",
+            "description": "Information about the contact channel that SSM Incident Manager uses to engage the contact.",
+            "children": [
+              {
+                "name": "channel_id",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the contact channel."
+              },
+              {
+                "name": "retry_interval_in_minutes",
+                "type": "integer",
+                "description": "The number of minutes to wait to retry sending engagement in the case the engagement initially fails."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the contact."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmcontacts-contact.html"><code>AWS::SSMContacts::Contact</code></a>.
 
@@ -85,19 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>contacts</code> in a region.
-```sql
-SELECT
-region,
-alias,
-display_name,
-type,
-plan,
-tags,
-arn
-FROM awscc.ssmcontacts.contacts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>contact</code>.
 ```sql
 SELECT

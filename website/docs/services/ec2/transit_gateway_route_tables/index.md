@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_route_table</code> resource or lists <code>transit_gateway_route_tables</code> in a region
 
@@ -32,15 +33,40 @@ Creates, updates, deletes or gets a <code>transit_gateway_route_table</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="transit_gateway_route_table_id" /></td><td><code>string</code></td><td>Transit Gateway Route Table primary identifier</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags are composed of a Key/Value pair. You can use tags to categorize and track each parameter group. The tag value null is permitted.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_route_table_id",
+    "type": "string",
+    "description": "Transit Gateway Route Table primary identifier"
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": "The ID of the transit gateway."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags are composed of a Key/Value pair. You can use tags to categorize and track each parameter group. The tag value null is permitted.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewayroutetable.html"><code>AWS::EC2::TransitGatewayRouteTable</code></a>.
 
@@ -82,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_route_tables</code> in a region.
-```sql
-SELECT
-region,
-transit_gateway_route_table_id,
-transit_gateway_id,
-tags
-FROM awscc.ec2.transit_gateway_route_tables
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_route_table</code>.
 ```sql
 SELECT

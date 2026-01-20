@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>integration_association</code> resource or lists <code>integration_associations</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets an <code>integration_association</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="integration_association_id" /></td><td><code>string</code></td><td>Identifier of the association with Connect Instance</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="integration_arn" /></td><td><code>string</code></td><td>ARN of Integration being associated with the instance</td></tr>
-<tr><td><CopyableCode code="integration_type" /></td><td><code>string</code></td><td>Specifies the integration type to be associated with the instance</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "integration_association_id",
+    "type": "string",
+    "description": "Identifier of the association with Connect Instance"
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "integration_arn",
+    "type": "string",
+    "description": "ARN of Integration being associated with the instance"
+  },
+  {
+    "name": "integration_type",
+    "type": "string",
+    "description": "Specifies the integration type to be associated with the instance"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-integrationassociation.html"><code>AWS::Connect::IntegrationAssociation</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>integration_associations</code> in a region.
-```sql
-SELECT
-region,
-integration_association_id,
-instance_id,
-integration_arn,
-integration_type
-FROM awscc.connect.integration_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>integration_association</code>.
 ```sql
 SELECT

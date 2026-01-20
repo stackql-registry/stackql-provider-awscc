@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>schemata</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>schema</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name for the schema.</td></tr>
-<tr><td><CopyableCode code="schema_arn" /></td><td><code>string</code></td><td>Arn for the schema.</td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>string</code></td><td>A schema in Avro JSON format.</td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td>The domain of a Domain dataset group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name for the schema."
+  },
+  {
+    "name": "schema_arn",
+    "type": "string",
+    "description": "Arn for the schema."
+  },
+  {
+    "name": "schema",
+    "type": "string",
+    "description": "A schema in Avro JSON format."
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": "The domain of a Domain dataset group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-personalize-schema.html"><code>AWS::Personalize::Schema</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schemata</code> in a region.
-```sql
-SELECT
-region,
-name,
-schema_arn,
-schema,
-domain
-FROM awscc.personalize.schemata
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schema</code>.
 ```sql
 SELECT

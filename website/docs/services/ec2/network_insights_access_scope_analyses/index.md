@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_insights_access_scope_analysis</code> resource or lists <code>network_insights_access_scope_analyses</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>network_insights_access_scope_analysis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="network_insights_access_scope_analysis_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_access_scope_analysis_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_insights_access_scope_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="start_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="end_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="findings_found" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="analyzed_eni_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "network_insights_access_scope_analysis_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_insights_access_scope_analysis_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_insights_access_scope_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "start_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "end_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "findings_found",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "analyzed_eni_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinsightsaccessscopeanalysis.html"><code>AWS::EC2::NetworkInsightsAccessScopeAnalysis</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_insights_access_scope_analyses</code> in a region.
-```sql
-SELECT
-region,
-network_insights_access_scope_analysis_id,
-network_insights_access_scope_analysis_arn,
-network_insights_access_scope_id,
-status,
-status_message,
-start_date,
-end_date,
-findings_found,
-analyzed_eni_count,
-tags
-FROM awscc.ec2.network_insights_access_scope_analyses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_insights_access_scope_analysis</code>.
 ```sql
 SELECT

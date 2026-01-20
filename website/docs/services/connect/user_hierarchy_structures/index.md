@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_hierarchy_structure</code> resource or lists <code>user_hierarchy_structures</code> in a region
 
@@ -32,15 +33,140 @@ Creates, updates, deletes or gets an <code>user_hierarchy_structure</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="user_hierarchy_structure_arn" /></td><td><code>string</code></td><td>The identifier of the User Hierarchy Structure.</td></tr>
-<tr><td><CopyableCode code="user_hierarchy_structure" /></td><td><code>object</code></td><td>Information about the hierarchy structure.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "user_hierarchy_structure_arn",
+    "type": "string",
+    "description": "The identifier of the User Hierarchy Structure."
+  },
+  {
+    "name": "user_hierarchy_structure",
+    "type": "object",
+    "description": "Information about the hierarchy structure.",
+    "children": [
+      {
+        "name": "level_one",
+        "type": "object",
+        "description": "Information about level one.",
+        "children": [
+          {
+            "name": "hierarchy_level_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the hierarchy level."
+          },
+          {
+            "name": "hierarchy_level_id",
+            "type": "string",
+            "description": "The identifier of the hierarchy level."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the hierarchy level."
+          }
+        ]
+      },
+      {
+        "name": "level_two",
+        "type": "object",
+        "description": "Information about level two.",
+        "children": [
+          {
+            "name": "hierarchy_level_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the hierarchy level."
+          },
+          {
+            "name": "hierarchy_level_id",
+            "type": "string",
+            "description": "The identifier of the hierarchy level."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the hierarchy level."
+          }
+        ]
+      },
+      {
+        "name": "level_three",
+        "type": "object",
+        "description": "Information about level three.",
+        "children": [
+          {
+            "name": "hierarchy_level_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the hierarchy level."
+          },
+          {
+            "name": "hierarchy_level_id",
+            "type": "string",
+            "description": "The identifier of the hierarchy level."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the hierarchy level."
+          }
+        ]
+      },
+      {
+        "name": "level_four",
+        "type": "object",
+        "description": "Information about level four.",
+        "children": [
+          {
+            "name": "hierarchy_level_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the hierarchy level."
+          },
+          {
+            "name": "hierarchy_level_id",
+            "type": "string",
+            "description": "The identifier of the hierarchy level."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the hierarchy level."
+          }
+        ]
+      },
+      {
+        "name": "level_five",
+        "type": "object",
+        "description": "Information about level five.",
+        "children": [
+          {
+            "name": "hierarchy_level_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the hierarchy level."
+          },
+          {
+            "name": "hierarchy_level_id",
+            "type": "string",
+            "description": "The identifier of the hierarchy level."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the hierarchy level."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-userhierarchystructure.html"><code>AWS::Connect::UserHierarchyStructure</code></a>.
 

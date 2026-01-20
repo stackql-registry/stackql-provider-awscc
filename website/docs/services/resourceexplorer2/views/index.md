@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>view</code> resource or lists <code>views</code> in a region
 
@@ -32,18 +33,57 @@ Creates, updates, deletes or gets a <code>view</code> resource or lists <code>vi
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="filters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="included_properties" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="view_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="view_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "filters",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "filter_string",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "included_properties",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "view_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "view_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resourceexplorer2-view.html"><code>AWS::ResourceExplorer2::View</code></a>.
 
@@ -85,19 +125,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>views</code> in a region.
-```sql
-SELECT
-region,
-filters,
-included_properties,
-scope,
-tags,
-view_arn,
-view_name
-FROM awscc.resourceexplorer2.views
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>view</code>.
 ```sql
 SELECT

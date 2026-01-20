@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>account_alias</code> resource or lists <code>account_aliases</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets an <code>account_alias</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_alias" /></td><td><code>string</code></td><td>An account alias associated with a customer's account.</td></tr>
-<tr><td><CopyableCode code="account_alias_resource_id" /></td><td><code>string</code></td><td>Unique identifier representing an alias tied to an account</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_alias",
+    "type": "string",
+    "description": "An account alias associated with a customer's account."
+  },
+  {
+    "name": "account_alias_resource_id",
+    "type": "string",
+    "description": "Unique identifier representing an alias tied to an account"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-supportapp-accountalias.html"><code>AWS::SupportApp::AccountAlias</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>account_aliases</code> in a region.
-```sql
-SELECT
-region,
-account_alias,
-account_alias_resource_id
-FROM awscc.supportapp.account_aliases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>account_alias</code>.
 ```sql
 SELECT

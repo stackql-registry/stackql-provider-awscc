@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>portal</code> resource or lists <code>portals</code> in a region
 
@@ -32,26 +33,107 @@ Creates, updates, deletes or gets a <code>portal</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="portal_auth_mode" /></td><td><code>string</code></td><td>The service to use to authenticate users to the portal. Choose from SSO or IAM. You can't change this value after you create a portal.</td></tr>
-<tr><td><CopyableCode code="portal_arn" /></td><td><code>string</code></td><td>The ARN of the portal, which has the following format.</td></tr>
-<tr><td><CopyableCode code="portal_client_id" /></td><td><code>string</code></td><td>The AWS SSO application generated client ID (used with AWS SSO APIs).</td></tr>
-<tr><td><CopyableCode code="portal_contact_email" /></td><td><code>string</code></td><td>The AWS administrator's contact email address.</td></tr>
-<tr><td><CopyableCode code="portal_description" /></td><td><code>string</code></td><td>A description for the portal.</td></tr>
-<tr><td><CopyableCode code="portal_id" /></td><td><code>string</code></td><td>The ID of the portal.</td></tr>
-<tr><td><CopyableCode code="portal_name" /></td><td><code>string</code></td><td>A friendly name for the portal.</td></tr>
-<tr><td><CopyableCode code="portal_start_url" /></td><td><code>string</code></td><td>The public root URL for the AWS IoT AWS IoT SiteWise Monitor application portal.</td></tr>
-<tr><td><CopyableCode code="portal_type" /></td><td><code>string</code></td><td>The type of portal</td></tr>
-<tr><td><CopyableCode code="portal_type_configuration" /></td><td><code>object</code></td><td>Map to associate detail of configuration related with a PortalType.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf.</td></tr>
-<tr><td><CopyableCode code="notification_sender_email" /></td><td><code>string</code></td><td>The email address that sends alarm notifications.</td></tr>
-<tr><td><CopyableCode code="alarms" /></td><td><code>object</code></td><td>Contains the configuration information of an alarm created in an AWS IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the portal.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "portal_auth_mode",
+    "type": "string",
+    "description": "The service to use to authenticate users to the portal. Choose from SSO or IAM. You can't change this value after you create a portal."
+  },
+  {
+    "name": "portal_arn",
+    "type": "string",
+    "description": "The ARN of the portal, which has the following format."
+  },
+  {
+    "name": "portal_client_id",
+    "type": "string",
+    "description": "The AWS SSO application generated client ID (used with AWS SSO APIs)."
+  },
+  {
+    "name": "portal_contact_email",
+    "type": "string",
+    "description": "The AWS administrator's contact email address."
+  },
+  {
+    "name": "portal_description",
+    "type": "string",
+    "description": "A description for the portal."
+  },
+  {
+    "name": "portal_id",
+    "type": "string",
+    "description": "The ID of the portal."
+  },
+  {
+    "name": "portal_name",
+    "type": "string",
+    "description": "A friendly name for the portal."
+  },
+  {
+    "name": "portal_start_url",
+    "type": "string",
+    "description": "The public root URL for the AWS IoT AWS IoT SiteWise Monitor application portal."
+  },
+  {
+    "name": "portal_type",
+    "type": "string",
+    "description": "The type of portal"
+  },
+  {
+    "name": "portal_type_configuration",
+    "type": "object",
+    "description": "Map to associate detail of configuration related with a PortalType."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf."
+  },
+  {
+    "name": "notification_sender_email",
+    "type": "string",
+    "description": "The email address that sends alarm notifications."
+  },
+  {
+    "name": "alarms",
+    "type": "object",
+    "description": "Contains the configuration information of an alarm created in an AWS IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range.",
+    "children": [
+      {
+        "name": "alarm_role_arn",
+        "type": "string",
+        "description": "The ARN of the IAM role that allows the alarm to perform actions and access AWS resources and services, such as AWS IoT Events."
+      },
+      {
+        "name": "notification_lambda_arn",
+        "type": "string",
+        "description": "The ARN of the AWS Lambda function that manages alarm notifications. For more information, see Managing alarm notifications in the AWS IoT Events Developer Guide."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the portal.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-portal.html"><code>AWS::IoTSiteWise::Portal</code></a>.
 
@@ -93,27 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>portals</code> in a region.
-```sql
-SELECT
-region,
-portal_auth_mode,
-portal_arn,
-portal_client_id,
-portal_contact_email,
-portal_description,
-portal_id,
-portal_name,
-portal_start_url,
-portal_type,
-portal_type_configuration,
-role_arn,
-notification_sender_email,
-alarms,
-tags
-FROM awscc.iotsitewise.portals
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>portal</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>processing_jobs</code> in a region or regions, for all properties use <a href="/services/sagemaker/processing_jobs/"><code>processing_jobs</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>processing_jobs</code> in a region or regions, for all properties us
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="processing_job_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the processing job.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "processing_job_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the processing job."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

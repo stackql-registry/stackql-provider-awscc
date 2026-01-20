@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>verified_access_instance</code> resource or lists <code>verified_access_instances</code> in a region
 
@@ -32,23 +33,335 @@ Creates, updates, deletes or gets a <code>verified_access_instance</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="verified_access_instance_id" /></td><td><code>string</code></td><td>The ID of the AWS Verified Access instance.</td></tr>
-<tr><td><CopyableCode code="verified_access_trust_providers" /></td><td><code>array</code></td><td>AWS Verified Access trust providers.</td></tr>
-<tr><td><CopyableCode code="verified_access_trust_provider_ids" /></td><td><code>array</code></td><td>The IDs of the AWS Verified Access trust providers.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Time this Verified Access Instance was created.</td></tr>
-<tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>Time this Verified Access Instance was last updated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the AWS Verified Access instance.</td></tr>
-<tr><td><CopyableCode code="logging_configurations" /></td><td><code>object</code></td><td>The configuration options for AWS Verified Access instances.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="fips_enabled" /></td><td><code>boolean</code></td><td>Indicates whether FIPS is enabled</td></tr>
-<tr><td><CopyableCode code="cidr_endpoints_custom_sub_domain" /></td><td><code>string</code></td><td>Introduce CidrEndpointsCustomSubDomain property to represent the domain (say, ava.my-company.com)</td></tr>
-<tr><td><CopyableCode code="cidr_endpoints_custom_sub_domain_name_servers" /></td><td><code>array</code></td><td>Property to represent the name servers assoicated with the domain that AVA manages (say, &#91;'ns1.amazonaws.com', 'ns2.amazonaws.com', 'ns3.amazonaws.com', 'ns4.amazonaws.com'&#93;).</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "verified_access_instance_id",
+    "type": "string",
+    "description": "The ID of the AWS Verified Access instance."
+  },
+  {
+    "name": "verified_access_trust_providers",
+    "type": "array",
+    "description": "AWS Verified Access trust providers.",
+    "children": [
+      {
+        "name": "trust_provider_type",
+        "type": "string",
+        "description": "Type of trust provider. Possible values: user&#124;device"
+      },
+      {
+        "name": "device_trust_provider_type",
+        "type": "string",
+        "description": "The type of device-based trust provider. Possible values: jamf&#124;crowdstrike"
+      },
+      {
+        "name": "user_trust_provider_type",
+        "type": "string",
+        "description": "The type of device-based trust provider. Possible values: oidc&#124;iam-identity-center"
+      },
+      {
+        "name": "oidc_options",
+        "type": "object",
+        "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider.",
+        "children": [
+          {
+            "name": "issuer",
+            "type": "string",
+            "description": "The OIDC issuer."
+          },
+          {
+            "name": "authorization_endpoint",
+            "type": "string",
+            "description": "The OIDC authorization endpoint."
+          },
+          {
+            "name": "token_endpoint",
+            "type": "string",
+            "description": "The OIDC token endpoint."
+          },
+          {
+            "name": "user_info_endpoint",
+            "type": "string",
+            "description": "The OIDC user info endpoint."
+          },
+          {
+            "name": "client_id",
+            "type": "string",
+            "description": "The client identifier."
+          },
+          {
+            "name": "client_secret",
+            "type": "string",
+            "description": "The client secret."
+          },
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
+          }
+        ]
+      },
+      {
+        "name": "device_options",
+        "type": "object",
+        "description": "The options for device identity based trust providers.",
+        "children": [
+          {
+            "name": "tenant_id",
+            "type": "string",
+            "description": "The ID of the tenant application with the device-identity provider."
+          },
+          {
+            "name": "public_signing_key_url",
+            "type": "string",
+            "description": "URL Verified Access will use to verify authenticity of the device tokens."
+          }
+        ]
+      },
+      {
+        "name": "policy_reference_name",
+        "type": "string",
+        "description": "The identifier to be used when working with policy rules."
+      },
+      {
+        "name": "creation_time",
+        "type": "string",
+        "description": "The creation time."
+      },
+      {
+        "name": "last_updated_time",
+        "type": "string",
+        "description": "The last updated time."
+      },
+      {
+        "name": "verified_access_trust_provider_id",
+        "type": "string",
+        "description": "The ID of the Amazon Web Services Verified Access trust provider."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description for the Amazon Web Services Verified Access trust provider."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to this resource.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The tag key."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The tag value."
+          }
+        ]
+      },
+      {
+        "name": "sse_specification",
+        "type": "object",
+        "description": "The configuration options for customer provided KMS encryption.",
+        "children": [
+          {
+            "name": "kms_key_arn",
+            "type": "string",
+            "description": "KMS Key Arn used to encrypt the group policy"
+          },
+          {
+            "name": "customer_managed_key_enabled",
+            "type": "boolean",
+            "description": "Whether to encrypt the policy with the provided key or disable encryption"
+          }
+        ]
+      },
+      {
+        "name": "native_application_oidc_options",
+        "type": "object",
+        "description": "The OpenID Connect details for an oidc -type, user-identity based trust provider for L4.",
+        "children": [
+          {
+            "name": "issuer",
+            "type": "string",
+            "description": "The OIDC issuer."
+          },
+          {
+            "name": "authorization_endpoint",
+            "type": "string",
+            "description": "The OIDC authorization endpoint."
+          },
+          {
+            "name": "token_endpoint",
+            "type": "string",
+            "description": "The OIDC token endpoint."
+          },
+          {
+            "name": "user_info_endpoint",
+            "type": "string",
+            "description": "The OIDC user info endpoint."
+          },
+          {
+            "name": "client_id",
+            "type": "string",
+            "description": "The client identifier."
+          },
+          {
+            "name": "client_secret",
+            "type": "string",
+            "description": "The client secret."
+          },
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "OpenID Connect (OIDC) scopes are used by an application during authentication to authorize access to details of a user. Each scope returns a specific set of user attributes."
+          },
+          {
+            "name": "public_signing_key_endpoint",
+            "type": "string",
+            "description": "The public signing key for endpoint"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "verified_access_trust_provider_ids",
+    "type": "array",
+    "description": "The IDs of the AWS Verified Access trust providers."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Time this Verified Access Instance was created."
+  },
+  {
+    "name": "last_updated_time",
+    "type": "string",
+    "description": "Time this Verified Access Instance was last updated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the AWS Verified Access instance."
+  },
+  {
+    "name": "logging_configurations",
+    "type": "object",
+    "description": "The configuration options for AWS Verified Access instances.",
+    "children": [
+      {
+        "name": "log_version",
+        "type": "string",
+        "description": "Select log version for Verified Access logs."
+      },
+      {
+        "name": "include_trust_context",
+        "type": "boolean",
+        "description": "Include claims from trust providers in Verified Access logs."
+      },
+      {
+        "name": "cloud_watch_logs",
+        "type": "object",
+        "description": "Sends Verified Access logs to CloudWatch Logs.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Indicates whether logging is enabled."
+          },
+          {
+            "name": "log_group",
+            "type": "string",
+            "description": "The ID of the CloudWatch Logs log group."
+          }
+        ]
+      },
+      {
+        "name": "kinesis_data_firehose",
+        "type": "object",
+        "description": "Sends Verified Access logs to Kinesis.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Indicates whether logging is enabled."
+          },
+          {
+            "name": "delivery_stream",
+            "type": "string",
+            "description": "The ID of the delivery stream."
+          }
+        ]
+      },
+      {
+        "name": "s3",
+        "type": "object",
+        "description": "Sends Verified Access logs to Amazon S3.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Indicates whether logging is enabled."
+          },
+          {
+            "name": "bucket_name",
+            "type": "string",
+            "description": "The bucket name."
+          },
+          {
+            "name": "bucket_owner",
+            "type": "string",
+            "description": "The ID of the AWS account that owns the Amazon S3 bucket."
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": "The bucket prefix."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "fips_enabled",
+    "type": "boolean",
+    "description": "Indicates whether FIPS is enabled"
+  },
+  {
+    "name": "cidr_endpoints_custom_sub_domain",
+    "type": "string",
+    "description": "Introduce CidrEndpointsCustomSubDomain property to represent the domain (say, ava.my-company.com)"
+  },
+  {
+    "name": "cidr_endpoints_custom_sub_domain_name_servers",
+    "type": "array",
+    "description": "Property to represent the name servers assoicated with the domain that AVA manages (say, &#91;'ns1.amazonaws.com', 'ns2.amazonaws.com', 'ns3.amazonaws.com', 'ns4.amazonaws.com'&#93;)."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-verifiedaccessinstance.html"><code>AWS::EC2::VerifiedAccessInstance</code></a>.
 
@@ -90,24 +403,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>verified_access_instances</code> in a region.
-```sql
-SELECT
-region,
-verified_access_instance_id,
-verified_access_trust_providers,
-verified_access_trust_provider_ids,
-creation_time,
-last_updated_time,
-description,
-logging_configurations,
-tags,
-fips_enabled,
-cidr_endpoints_custom_sub_domain,
-cidr_endpoints_custom_sub_domain_name_servers
-FROM awscc.ec2.verified_access_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>verified_access_instance</code>.
 ```sql
 SELECT

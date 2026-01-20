@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>fleets</code> in a region
 
@@ -32,27 +33,153 @@ Creates, updates, deletes or gets a <code>fleet</code> resource or lists <code>f
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="capabilities" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fleet_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="host_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_worker_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="min_worker_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="worker_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "capabilities",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "amounts",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "min",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "attributes",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "fleet_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "host_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "script_body",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "script_timeout_seconds",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "max_worker_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "min_worker_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "worker_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-fleet.html"><code>AWS::Deadline::Fleet</code></a>.
 
@@ -94,28 +221,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>fleets</code> in a region.
-```sql
-SELECT
-region,
-capabilities,
-configuration,
-description,
-display_name,
-farm_id,
-fleet_id,
-host_configuration,
-max_worker_count,
-min_worker_count,
-role_arn,
-status,
-status_message,
-worker_count,
-arn,
-tags
-FROM awscc.deadline.fleets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>fleet</code>.
 ```sql
 SELECT

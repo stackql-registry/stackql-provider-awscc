@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>auth_policy</code> resource or lists <code>auth_policies</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets an <code>auth_policy</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-authpolicy.html"><code>AWS::VpcLattice::AuthPolicy</code></a>.
 

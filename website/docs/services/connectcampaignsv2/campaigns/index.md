@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>campaign</code> resource or lists <code>campaigns</code> in a region
 
@@ -32,22 +33,330 @@ Creates, updates, deletes or gets a <code>campaign</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Connect Campaign Arn</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Campaign name</td></tr>
-<tr><td><CopyableCode code="connect_instance_id" /></td><td><code>string</code></td><td>Amazon Connect Instance Id</td></tr>
-<tr><td><CopyableCode code="channel_subtype_config" /></td><td><code>object</code></td><td>The possible types of channel subtype config parameters</td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>object</code></td><td>The possible source of the campaign</td></tr>
-<tr><td><CopyableCode code="connect_campaign_flow_arn" /></td><td><code>string</code></td><td>Arn</td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>object</code></td><td>Campaign schedule</td></tr>
-<tr><td><CopyableCode code="communication_time_config" /></td><td><code>object</code></td><td>Campaign communication time config</td></tr>
-<tr><td><CopyableCode code="communication_limits_override" /></td><td><code>object</code></td><td>Communication limits config</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Connect Campaign Arn"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Campaign name"
+  },
+  {
+    "name": "connect_instance_id",
+    "type": "string",
+    "description": "Amazon Connect Instance Id"
+  },
+  {
+    "name": "channel_subtype_config",
+    "type": "object",
+    "description": "The possible types of channel subtype config parameters",
+    "children": [
+      {
+        "name": "telephony",
+        "type": "object",
+        "description": "Telephony Channel Subtype config",
+        "children": [
+          {
+            "name": "capacity",
+            "type": "number",
+            "description": "Allocates outbound capacity for the specific channel of this campaign between multiple active campaigns"
+          },
+          {
+            "name": "connect_queue_id",
+            "type": "string",
+            "description": "The queue for the call"
+          },
+          {
+            "name": "outbound_mode",
+            "type": "object",
+            "description": "Telephony Outbound Mode",
+            "children": [
+              {
+                "name": "progressive_config",
+                "type": "object",
+                "description": "Progressive config"
+              },
+              {
+                "name": "predictive_config",
+                "type": "object",
+                "description": "Predictive config"
+              },
+              {
+                "name": "agentless_config",
+                "type": "object",
+                "description": "Agentless config"
+              }
+            ]
+          },
+          {
+            "name": "default_outbound_config",
+            "type": "object",
+            "description": "Default Telephone Outbound config",
+            "children": [
+              {
+                "name": "connect_contact_flow_id",
+                "type": "string",
+                "description": "The identifier of the contact flow for the outbound call"
+              },
+              {
+                "name": "connect_source_phone_number",
+                "type": "string",
+                "description": "The phone number associated with the Amazon Connect instance, in E.164 format. If you do not specify a source phone number, you must specify a queue."
+              },
+              {
+                "name": "answer_machine_detection_config",
+                "type": "object",
+                "description": "The configuration used for answering machine detection during outbound calls"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sms",
+        "type": "object",
+        "description": "SMS Channel Subtype config",
+        "children": [
+          {
+            "name": "capacity",
+            "type": "number",
+            "description": "Allocates outbound capacity for the specific channel of this campaign between multiple active campaigns"
+          },
+          {
+            "name": "outbound_mode",
+            "type": "object",
+            "description": "SMS Outbound Mode",
+            "children": [
+              {
+                "name": "agentless_config",
+                "type": "object",
+                "description": "Agentless config"
+              }
+            ]
+          },
+          {
+            "name": "default_outbound_config",
+            "type": "object",
+            "description": "Default SMS outbound config",
+            "children": [
+              {
+                "name": "connect_source_phone_number_arn",
+                "type": "string",
+                "description": "Arn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "email",
+        "type": "object",
+        "description": "Email Channel Subtype config",
+        "children": [
+          {
+            "name": "capacity",
+            "type": "number",
+            "description": "Allocates outbound capacity for the specific channel of this campaign between multiple active campaigns"
+          },
+          {
+            "name": "outbound_mode",
+            "type": "object",
+            "description": "Email Outbound Mode",
+            "children": [
+              {
+                "name": "agentless_config",
+                "type": "object",
+                "description": "Agentless config"
+              }
+            ]
+          },
+          {
+            "name": "default_outbound_config",
+            "type": "object",
+            "description": "Default SMS outbound config",
+            "children": [
+              {
+                "name": "connect_source_email_address",
+                "type": "string",
+                "description": "Email address used for Email messages"
+              },
+              {
+                "name": "source_email_address_display_name",
+                "type": "string",
+                "description": "The name of the source email address display name"
+              },
+              {
+                "name": "wisdom_template_arn",
+                "type": "string",
+                "description": "Arn"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "source",
+    "type": "object",
+    "description": "The possible source of the campaign",
+    "children": [
+      {
+        "name": "customer_profiles_segment_arn",
+        "type": "string",
+        "description": "Arn"
+      },
+      {
+        "name": "event_trigger",
+        "type": "object",
+        "description": "The event trigger of the campaign"
+      }
+    ]
+  },
+  {
+    "name": "connect_campaign_flow_arn",
+    "type": "string",
+    "description": "Arn"
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "Campaign schedule",
+    "children": [
+      {
+        "name": "start_time",
+        "type": "string",
+        "description": "Timestamp with no UTC offset or timezone"
+      },
+      {
+        "name": "refresh_frequency",
+        "type": "string",
+        "description": "Time duration in ISO 8601 format"
+      }
+    ]
+  },
+  {
+    "name": "communication_time_config",
+    "type": "object",
+    "description": "Campaign communication time config",
+    "children": [
+      {
+        "name": "local_time_zone_config",
+        "type": "object",
+        "description": "Local time zone config",
+        "children": [
+          {
+            "name": "default_time_zone",
+            "type": "string",
+            "description": "Time Zone Id in the IANA format"
+          },
+          {
+            "name": "local_time_zone_detection",
+            "type": "array",
+            "description": "Local TimeZone Detection method list"
+          }
+        ]
+      },
+      {
+        "name": "telephony",
+        "type": "object",
+        "description": "Time window config",
+        "children": [
+          {
+            "name": "open_hours",
+            "type": "object",
+            "description": "Open Hours config",
+            "children": [
+              {
+                "name": "daily_hours",
+                "type": "array",
+                "description": "Daily Hours map"
+              }
+            ]
+          },
+          {
+            "name": "restricted_periods",
+            "type": "object",
+            "description": "Restricted period config",
+            "children": [
+              {
+                "name": "restricted_period_list",
+                "type": "array",
+                "description": "List of restricted period"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "communication_limits_override",
+    "type": "object",
+    "description": "Communication limits config",
+    "children": [
+      {
+        "name": "all_channels_subtypes",
+        "type": "object",
+        "description": "Communication limits",
+        "children": [
+          {
+            "name": "communication_limit_list",
+            "type": "array",
+            "description": "List of communication limit",
+            "children": [
+              {
+                "name": "max_count_per_recipient",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "frequency",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "unit",
+                "type": "string",
+                "description": "The communication limit time unit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "instance_limits_handling",
+        "type": "string",
+        "description": "Enumeration of Instance Limits handling in a Campaign"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connectcampaignsv2-campaign.html"><code>AWS::ConnectCampaignsV2::Campaign</code></a>.
 
@@ -89,23 +398,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>campaigns</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-connect_instance_id,
-channel_subtype_config,
-source,
-connect_campaign_flow_arn,
-schedule,
-communication_time_config,
-communication_limits_override,
-tags
-FROM awscc.connectcampaignsv2.campaigns
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT

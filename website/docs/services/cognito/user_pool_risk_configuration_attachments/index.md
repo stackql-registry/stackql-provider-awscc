@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool_risk_configuration_attachment</code> resource or lists <code>user_pool_risk_configuration_attachments</code> in a region
 
@@ -32,17 +33,139 @@ Creates, updates, deletes or gets an <code>user_pool_risk_configuration_attachme
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="risk_exception_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="compromised_credentials_risk_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_takeover_risk_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "risk_exception_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "blocked_ip_range_list",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "skipped_ip_range_list",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "compromised_credentials_risk_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "actions",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "event_action",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "event_filter",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "account_takeover_risk_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "actions",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "high_action",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "event_action",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "notify",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "notify_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "block_email",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "html_body",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "subject",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "text_body",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "reply_to",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "source_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolriskconfigurationattachment.html"><code>AWS::Cognito::UserPoolRiskConfigurationAttachment</code></a>.
 

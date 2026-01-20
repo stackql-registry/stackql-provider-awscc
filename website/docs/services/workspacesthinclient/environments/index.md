@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,32 +33,152 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique identifier of the environment.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the environment.</td></tr>
-<tr><td><CopyableCode code="desktop_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the desktop to stream from Amazon WorkSpaces, WorkSpaces Web, or AppStream 2.0.</td></tr>
-<tr><td><CopyableCode code="desktop_endpoint" /></td><td><code>string</code></td><td>The URL for the identity provider login (only for environments that use AppStream 2.0).</td></tr>
-<tr><td><CopyableCode code="desktop_type" /></td><td><code>string</code></td><td>The type of VDI.</td></tr>
-<tr><td><CopyableCode code="activation_code" /></td><td><code>string</code></td><td>Activation code for devices associated with environment.</td></tr>
-<tr><td><CopyableCode code="registered_devices_count" /></td><td><code>integer</code></td><td>Number of devices registered to the environment.</td></tr>
-<tr><td><CopyableCode code="software_set_update_schedule" /></td><td><code>string</code></td><td>An option to define if software updates should be applied within a maintenance window.</td></tr>
-<tr><td><CopyableCode code="maintenance_window" /></td><td><code>object</code></td><td>A specification for a time window to apply software updates.</td></tr>
-<tr><td><CopyableCode code="software_set_update_mode" /></td><td><code>string</code></td><td>An option to define which software updates to apply.</td></tr>
-<tr><td><CopyableCode code="desired_software_set_id" /></td><td><code>string</code></td><td>The ID of the software set to apply.</td></tr>
-<tr><td><CopyableCode code="pending_software_set_id" /></td><td><code>string</code></td><td>The ID of the software set that is pending to be installed.</td></tr>
-<tr><td><CopyableCode code="pending_software_set_version" /></td><td><code>string</code></td><td>The version of the software set that is pending to be installed.</td></tr>
-<tr><td><CopyableCode code="software_set_compliance_status" /></td><td><code>string</code></td><td>Describes if the software currently installed on all devices in the environment is a supported version.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp in unix epoch format when environment was created.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp in unix epoch format when environment was last updated.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The environment ARN.</td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AWS Key Management Service key used to encrypt the environment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="device_creation_tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to the newly created devices for this environment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique identifier of the environment."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the environment."
+  },
+  {
+    "name": "desktop_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the desktop to stream from Amazon WorkSpaces, WorkSpaces Web, or AppStream 2.0."
+  },
+  {
+    "name": "desktop_endpoint",
+    "type": "string",
+    "description": "The URL for the identity provider login (only for environments that use AppStream 2.0)."
+  },
+  {
+    "name": "desktop_type",
+    "type": "string",
+    "description": "The type of VDI."
+  },
+  {
+    "name": "activation_code",
+    "type": "string",
+    "description": "Activation code for devices associated with environment."
+  },
+  {
+    "name": "registered_devices_count",
+    "type": "integer",
+    "description": "Number of devices registered to the environment."
+  },
+  {
+    "name": "software_set_update_schedule",
+    "type": "string",
+    "description": "An option to define if software updates should be applied within a maintenance window."
+  },
+  {
+    "name": "maintenance_window",
+    "type": "object",
+    "description": "A specification for a time window to apply software updates.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of maintenance window."
+      },
+      {
+        "name": "start_time_hour",
+        "type": "integer",
+        "description": "The hour start time of maintenance window."
+      },
+      {
+        "name": "start_time_minute",
+        "type": "integer",
+        "description": "The minute start time of maintenance window."
+      },
+      {
+        "name": "days_of_the_week",
+        "type": "array",
+        "description": "The date of maintenance window."
+      },
+      {
+        "name": "apply_time_of",
+        "type": "string",
+        "description": "The desired time zone maintenance window."
+      }
+    ]
+  },
+  {
+    "name": "software_set_update_mode",
+    "type": "string",
+    "description": "An option to define which software updates to apply."
+  },
+  {
+    "name": "desired_software_set_id",
+    "type": "string",
+    "description": "The ID of the software set to apply."
+  },
+  {
+    "name": "pending_software_set_id",
+    "type": "string",
+    "description": "The ID of the software set that is pending to be installed."
+  },
+  {
+    "name": "pending_software_set_version",
+    "type": "string",
+    "description": "The version of the software set that is pending to be installed."
+  },
+  {
+    "name": "software_set_compliance_status",
+    "type": "string",
+    "description": "Describes if the software currently installed on all devices in the environment is a supported version."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp in unix epoch format when environment was created."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The timestamp in unix epoch format when environment was last updated."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The environment ARN."
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the AWS Key Management Service key used to encrypt the environment."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "device_creation_tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to the newly created devices for this environment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesthinclient-environment.html"><code>AWS::WorkSpacesThinClient::Environment</code></a>.
 
@@ -99,33 +220,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-id,
-name,
-desktop_arn,
-desktop_endpoint,
-desktop_type,
-activation_code,
-registered_devices_count,
-software_set_update_schedule,
-maintenance_window,
-software_set_update_mode,
-desired_software_set_id,
-pending_software_set_id,
-pending_software_set_version,
-software_set_compliance_status,
-created_at,
-updated_at,
-arn,
-kms_key_arn,
-tags,
-device_creation_tags
-FROM awscc.workspacesthinclient.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>repository_creation_templates</code> in a region or regions, for all properties use <a href="/services/ecr/repository_creation_templates/"><code>repository_creation_templates</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>repository_creation_templates</code> in a region or regions, for all
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="prefix" /></td><td><code>string</code></td><td>The repository namespace prefix associated with the repository creation template.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "prefix",
+    "type": "string",
+    "description": "The repository namespace prefix associated with the repository creation template."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

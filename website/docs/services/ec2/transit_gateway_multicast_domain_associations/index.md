@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain_association</code> resource or lists <code>transit_gateway_multicast_domain_associations</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain_assoc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="transit_gateway_multicast_domain_id" /></td><td><code>string</code></td><td>The ID of the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the transit gateway attachment.</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The ID of the resource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of resource, for example a VPC attachment.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the subnet association.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The IDs of the subnets to associate with the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_multicast_domain_id",
+    "type": "string",
+    "description": "The ID of the transit gateway multicast domain."
+  },
+  {
+    "name": "transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the transit gateway attachment."
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "The ID of the resource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The type of resource, for example a VPC attachment."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the subnet association."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The IDs of the subnets to associate with the transit gateway multicast domain."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewaymulticastdomainassociation.html"><code>AWS::EC2::TransitGatewayMulticastDomainAssociation</code></a>.
 
@@ -80,19 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_multicast_domain_associations</code> in a region.
-```sql
-SELECT
-region,
-transit_gateway_multicast_domain_id,
-transit_gateway_attachment_id,
-resource_id,
-resource_type,
-state,
-subnet_id
-FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_multicast_domain_association</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>conformance_pack</code> resource or lists <code>conformance_packs</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets a <code>conformance_pack</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="conformance_pack_name" /></td><td><code>string</code></td><td>Name of the conformance pack which will be assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="delivery_s3_bucket" /></td><td><code>string</code></td><td>AWS Config stores intermediate files while processing conformance pack template.</td></tr>
-<tr><td><CopyableCode code="delivery_s3_key_prefix" /></td><td><code>string</code></td><td>The prefix for delivery S3 bucket.</td></tr>
-<tr><td><CopyableCode code="template_body" /></td><td><code>string</code></td><td>A string containing full conformance pack template body. You can only specify one of the template body or template S3Uri fields.</td></tr>
-<tr><td><CopyableCode code="template_s3_uri" /></td><td><code>string</code></td><td>Location of file containing the template body which points to the conformance pack template that is located in an Amazon S3 bucket. You can only specify one of the template body or template S3Uri fields.</td></tr>
-<tr><td><CopyableCode code="template_ssm_document_details" /></td><td><code>object</code></td><td>The TemplateSSMDocumentDetails object contains the name of the SSM document and the version of the SSM document.</td></tr>
-<tr><td><CopyableCode code="conformance_pack_input_parameters" /></td><td><code>array</code></td><td>A list of ConformancePackInputParameter objects.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "conformance_pack_name",
+    "type": "string",
+    "description": "Name of the conformance pack which will be assigned as the unique identifier."
+  },
+  {
+    "name": "delivery_s3_bucket",
+    "type": "string",
+    "description": "AWS Config stores intermediate files while processing conformance pack template."
+  },
+  {
+    "name": "delivery_s3_key_prefix",
+    "type": "string",
+    "description": "The prefix for delivery S3 bucket."
+  },
+  {
+    "name": "template_body",
+    "type": "string",
+    "description": "A string containing full conformance pack template body. You can only specify one of the template body or template S3Uri fields."
+  },
+  {
+    "name": "template_s3_uri",
+    "type": "string",
+    "description": "Location of file containing the template body which points to the conformance pack template that is located in an Amazon S3 bucket. You can only specify one of the template body or template S3Uri fields."
+  },
+  {
+    "name": "template_ssm_document_details",
+    "type": "object",
+    "description": "The TemplateSSMDocumentDetails object contains the name of the SSM document and the version of the SSM document.",
+    "children": [
+      {
+        "name": "document_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "document_version",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "conformance_pack_input_parameters",
+    "type": "array",
+    "description": "A list of ConformancePackInputParameter objects.",
+    "children": [
+      {
+        "name": "parameter_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameter_value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-conformancepack.html"><code>AWS::Config::ConformancePack</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>conformance_packs</code> in a region.
-```sql
-SELECT
-region,
-conformance_pack_name,
-delivery_s3_bucket,
-delivery_s3_key_prefix,
-template_body,
-template_s3_uri,
-template_ssm_document_details,
-conformance_pack_input_parameters
-FROM awscc.config.conformance_packs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>conformance_pack</code>.
 ```sql
 SELECT

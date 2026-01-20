@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance</code> resource or lists <code>instances</code> in a region
 
@@ -32,22 +33,137 @@ Creates, updates, deletes or gets an <code>instance</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>An instanceId is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>An instanceArn is automatically generated on creation based on instanceId.</td></tr>
-<tr><td><CopyableCode code="identity_management_type" /></td><td><code>string</code></td><td>Specifies the type of directory integration for new instance.</td></tr>
-<tr><td><CopyableCode code="instance_alias" /></td><td><code>string</code></td><td>Alias of the new directory created as part of new instance creation.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>Timestamp of instance creation logged as part of instance creation.</td></tr>
-<tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td>Service linked role created as part of instance creation.</td></tr>
-<tr><td><CopyableCode code="instance_status" /></td><td><code>string</code></td><td>Specifies the creation status of new instance.</td></tr>
-<tr><td><CopyableCode code="directory_id" /></td><td><code>string</code></td><td>Existing directoryId user wants to map to the new Connect instance.</td></tr>
-<tr><td><CopyableCode code="attributes" /></td><td><code>object</code></td><td>The attributes for the instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "An instanceId is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "An instanceArn is automatically generated on creation based on instanceId."
+  },
+  {
+    "name": "identity_management_type",
+    "type": "string",
+    "description": "Specifies the type of directory integration for new instance."
+  },
+  {
+    "name": "instance_alias",
+    "type": "string",
+    "description": "Alias of the new directory created as part of new instance creation."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": "Timestamp of instance creation logged as part of instance creation."
+  },
+  {
+    "name": "service_role",
+    "type": "string",
+    "description": "Service linked role created as part of instance creation."
+  },
+  {
+    "name": "instance_status",
+    "type": "string",
+    "description": "Specifies the creation status of new instance."
+  },
+  {
+    "name": "directory_id",
+    "type": "string",
+    "description": "Existing directoryId user wants to map to the new Connect instance."
+  },
+  {
+    "name": "attributes",
+    "type": "object",
+    "description": "The attributes for the instance.",
+    "children": [
+      {
+        "name": "inbound_calls",
+        "type": "boolean",
+        "description": "Mandatory element which enables inbound calls on new instance."
+      },
+      {
+        "name": "outbound_calls",
+        "type": "boolean",
+        "description": "Mandatory element which enables outbound calls on new instance."
+      },
+      {
+        "name": "contactflow_logs",
+        "type": "boolean",
+        "description": "Boolean flag which enables CONTACTFLOW&#95;LOGS on an instance."
+      },
+      {
+        "name": "contact_lens",
+        "type": "boolean",
+        "description": "Boolean flag which enables CONTACT&#95;LENS on an instance."
+      },
+      {
+        "name": "auto_resolve_best_voices",
+        "type": "boolean",
+        "description": "Boolean flag which enables AUTO&#95;RESOLVE&#95;BEST&#95;VOICES on an instance."
+      },
+      {
+        "name": "use_custom_tt_svoices",
+        "type": "boolean",
+        "description": "Boolean flag which enables USE&#95;CUSTOM&#95;TTS&#95;VOICES on an instance."
+      },
+      {
+        "name": "early_media",
+        "type": "boolean",
+        "description": "Boolean flag which enables EARLY&#95;MEDIA on an instance."
+      },
+      {
+        "name": "multi_party_conference",
+        "type": "boolean",
+        "description": "Boolean flag which enables MULTI&#95;PARTY&#95;CONFERENCE on an instance."
+      },
+      {
+        "name": "high_volume_out_bound",
+        "type": "boolean",
+        "description": "Boolean flag which enables HIGH&#95;VOLUME&#95;OUTBOUND on an instance."
+      },
+      {
+        "name": "enhanced_contact_monitoring",
+        "type": "boolean",
+        "description": "Boolean flag which enables ENHANCED&#95;CONTACT&#95;MONITORING on an instance."
+      },
+      {
+        "name": "enhanced_chat_monitoring",
+        "type": "boolean",
+        "description": "Boolean flag which enables ENHANCED&#95;CHAT&#95;MONITORING on an instance."
+      },
+      {
+        "name": "multi_party_chat_conference",
+        "type": "boolean",
+        "description": "Boolean flag which enables MULTI&#95;PARTY&#95;CHAT&#95;CONFERENCE on an instance."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-instance.html"><code>AWS::Connect::Instance</code></a>.
 
@@ -89,23 +205,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instances</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-identity_management_type,
-instance_alias,
-created_time,
-service_role,
-instance_status,
-directory_id,
-attributes,
-tags
-FROM awscc.connect.instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance</code>.
 ```sql
 SELECT

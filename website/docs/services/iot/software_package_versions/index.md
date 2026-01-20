@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>software_package_version</code> resource or lists <code>software_package_versions</code> in a region
 
@@ -32,24 +33,133 @@ Creates, updates, deletes or gets a <code>software_package_version</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="attributes" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="artifact" /></td><td><code>object</code></td><td>The artifact location of the package version</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="error_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="package_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="package_version_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="recipe" /></td><td><code>string</code></td><td>The inline json job document associated with a software package version</td></tr>
-<tr><td><CopyableCode code="sbom" /></td><td><code>object</code></td><td>The sbom zip archive location of the package version</td></tr>
-<tr><td><CopyableCode code="sbom_validation_status" /></td><td><code>string</code></td><td>The validation status of the Sbom file</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="version_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "attributes",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "artifact",
+    "type": "object",
+    "description": "The artifact location of the package version",
+    "children": [
+      {
+        "name": "s3_location",
+        "type": "object",
+        "description": "The Amazon S3 location",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": "The S3 bucket"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The S3 key"
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": "The S3 version"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "error_reason",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "package_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "package_version_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "recipe",
+    "type": "string",
+    "description": "The inline json job document associated with a software package version"
+  },
+  {
+    "name": "sbom",
+    "type": "object",
+    "description": "The sbom zip archive location of the package version",
+    "children": [
+      {
+        "name": "s3_location",
+        "type": "object",
+        "description": "The Amazon S3 location",
+        "children": [
+          {
+            "name": "bucket",
+            "type": "string",
+            "description": "The S3 bucket"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The S3 key"
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": "The S3 version"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sbom_validation_status",
+    "type": "string",
+    "description": "The validation status of the Sbom file"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "version_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-softwarepackageversion.html"><code>AWS::IoT::SoftwarePackageVersion</code></a>.
 
@@ -91,25 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>software_package_versions</code> in a region.
-```sql
-SELECT
-region,
-attributes,
-artifact,
-description,
-error_reason,
-package_name,
-package_version_arn,
-recipe,
-sbom,
-sbom_validation_status,
-status,
-tags,
-version_name
-FROM awscc.iot.software_package_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>software_package_version</code>.
 ```sql
 SELECT

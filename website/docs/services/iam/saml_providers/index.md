@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>saml_provider</code> resource or lists <code>saml_providers</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>saml_provider</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="saml_metadata_document" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the SAML provider</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="assertion_encryption_mode" /></td><td><code>string</code></td><td>The encryption setting for the SAML provider</td></tr>
-<tr><td><CopyableCode code="add_private_key" /></td><td><code>string</code></td><td>The private key from your external identity provider</td></tr>
-<tr><td><CopyableCode code="remove_private_key" /></td><td><code>string</code></td><td>The Key ID of the private key to remove</td></tr>
-<tr><td><CopyableCode code="private_key_list" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="saml_provider_uu_id" /></td><td><code>string</code></td><td>The unique identifier assigned to the SAML provider</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "saml_metadata_document",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the SAML provider"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "assertion_encryption_mode",
+    "type": "string",
+    "description": "The encryption setting for the SAML provider"
+  },
+  {
+    "name": "add_private_key",
+    "type": "string",
+    "description": "The private key from your external identity provider"
+  },
+  {
+    "name": "remove_private_key",
+    "type": "string",
+    "description": "The Key ID of the private key to remove"
+  },
+  {
+    "name": "private_key_list",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key_id",
+        "type": "string",
+        "description": "The unique identifier for the SAML private key."
+      },
+      {
+        "name": "timestamp",
+        "type": "string",
+        "description": "The date and time, in &lt;a href=\\\"http://www.iso.org/iso/iso8601\\\"&gt;ISO 8601 date-time &lt;/a&gt; format, when the private key was uploaded."
+      }
+    ]
+  },
+  {
+    "name": "saml_provider_uu_id",
+    "type": "string",
+    "description": "The unique identifier assigned to the SAML provider"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-samlprovider.html"><code>AWS::IAM::SAMLProvider</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>saml_providers</code> in a region.
-```sql
-SELECT
-region,
-name,
-saml_metadata_document,
-arn,
-tags,
-assertion_encryption_mode,
-add_private_key,
-remove_private_key,
-private_key_list,
-saml_provider_uu_id
-FROM awscc.iam.saml_providers
-;
-```
+
 Gets all properties from an individual <code>saml_provider</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_line_item</code> resource or lists <code>custom_line_items</code> in a region
 
@@ -32,25 +33,160 @@ Creates, updates, deletes or gets a <code>custom_line_item</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_line_item_charge_details" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="billing_group_arn" /></td><td><code>string</code></td><td>Billing Group ARN</td></tr>
-<tr><td><CopyableCode code="billing_period_range" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>integer</code></td><td>Creation timestamp in UNIX epoch time format</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>integer</code></td><td>Latest modified timestamp in UNIX epoch time format</td></tr>
-<tr><td><CopyableCode code="association_size" /></td><td><code>integer</code></td><td>Number of source values associated to this custom line item</td></tr>
-<tr><td><CopyableCode code="product_code" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="currency_code" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The account which this custom line item will be charged to</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "custom_line_item_charge_details",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "flat",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "charge_value",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "percentage",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "child_associated_resources",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "percentage_value",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "line_item_filters",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "attribute",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "match_option",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "billing_group_arn",
+    "type": "string",
+    "description": "Billing Group ARN"
+  },
+  {
+    "name": "billing_period_range",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "inclusive_start_billing_period",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "exclusive_end_billing_period",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "ARN"
+  },
+  {
+    "name": "creation_time",
+    "type": "integer",
+    "description": "Creation timestamp in UNIX epoch time format"
+  },
+  {
+    "name": "last_modified_time",
+    "type": "integer",
+    "description": "Latest modified timestamp in UNIX epoch time format"
+  },
+  {
+    "name": "association_size",
+    "type": "integer",
+    "description": "Number of source values associated to this custom line item"
+  },
+  {
+    "name": "product_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "currency_code",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The account which this custom line item will be charged to"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-billingconductor-customlineitem.html"><code>AWS::BillingConductor::CustomLineItem</code></a>.
 
@@ -92,26 +228,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_line_items</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-custom_line_item_charge_details,
-billing_group_arn,
-billing_period_range,
-arn,
-creation_time,
-last_modified_time,
-association_size,
-product_code,
-currency_code,
-account_id,
-tags
-FROM awscc.billingconductor.custom_line_items
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_line_item</code>.
 ```sql
 SELECT

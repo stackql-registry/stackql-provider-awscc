@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,23 +33,194 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The unique Amazon Resource Name (ARN) of the cluster.</td></tr>
-<tr><td><CopyableCode code="endpoints" /></td><td><code>array</code></td><td>The list of endpoints available for interaction with the scheduler.</td></tr>
-<tr><td><CopyableCode code="error_info" /></td><td><code>array</code></td><td>The list of errors that occurred during cluster provisioning.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The generated unique ID of the cluster.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name that identifies the cluster.</td></tr>
-<tr><td><CopyableCode code="networking" /></td><td><code>object</code></td><td>The networking configuration for the cluster's control plane.</td></tr>
-<tr><td><CopyableCode code="scheduler" /></td><td><code>object</code></td><td>The cluster management and job scheduling software associated with the cluster.</td></tr>
-<tr><td><CopyableCode code="size" /></td><td><code>string</code></td><td>The size of the cluster.</td></tr>
-<tr><td><CopyableCode code="slurm_configuration" /></td><td><code>object</code></td><td>Additional options related to the Slurm scheduler.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The provisioning status of the cluster. The provisioning status doesn't indicate the overall health of the cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code></code></td><td>1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The unique Amazon Resource Name (ARN) of the cluster."
+  },
+  {
+    "name": "endpoints",
+    "type": "array",
+    "description": "The list of endpoints available for interaction with the scheduler.",
+    "children": [
+      {
+        "name": "port",
+        "type": "string",
+        "description": "The endpoint's connection port number."
+      },
+      {
+        "name": "private_ip_address",
+        "type": "string",
+        "description": "The endpoint's private IP address."
+      },
+      {
+        "name": "ipv6_address",
+        "type": "string",
+        "description": "The endpoint's IPv6 address."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Indicates the type of endpoint running at the specific IP address."
+      },
+      {
+        "name": "public_ip_address",
+        "type": "string",
+        "description": "The endpoint's public IP address."
+      }
+    ]
+  },
+  {
+    "name": "error_info",
+    "type": "array",
+    "description": "The list of errors that occurred during cluster provisioning.",
+    "children": [
+      {
+        "name": "code",
+        "type": "string",
+        "description": "The short-form error code."
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "The detailed error information."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The generated unique ID of the cluster."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name that identifies the cluster."
+  },
+  {
+    "name": "networking",
+    "type": "object",
+    "description": "The networking configuration for the cluster's control plane.",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "The list of security group IDs associated with the Elastic Network Interface (ENI) created in subnets."
+      },
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The list of subnet IDs where AWS PCS creates an Elastic Network Interface (ENI) to enable communication between managed controllers and AWS PCS resources. The subnet must have an available IP address, cannot reside in AWS Outposts, AWS Wavelength, or an AWS Local Zone. AWS PCS currently supports only 1 subnet in this list."
+      },
+      {
+        "name": "network_type",
+        "type": "string",
+        "description": "The IP of the cluster (IPV4 or IPV6)"
+      }
+    ]
+  },
+  {
+    "name": "scheduler",
+    "type": "object",
+    "description": "The cluster management and job scheduling software associated with the cluster.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The software AWS PCS uses to manage cluster scaling and job scheduling."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the specified scheduling software that AWS PCS uses to manage cluster scaling and job scheduling."
+      }
+    ]
+  },
+  {
+    "name": "size",
+    "type": "string",
+    "description": "The size of the cluster."
+  },
+  {
+    "name": "slurm_configuration",
+    "type": "object",
+    "description": "Additional options related to the Slurm scheduler.",
+    "children": [
+      {
+        "name": "accounting",
+        "type": "object",
+        "description": "The accounting configuration includes configurable settings for Slurm accounting.",
+        "children": [
+          {
+            "name": "default_purge_time_in_days",
+            "type": "integer",
+            "description": "The default value for all purge settings for &#96;slurmdbd.conf&#96;. For more information, see the &#91;slurmdbd.conf documentation at SchedMD&#93;(https://slurm.schedmd.com/slurmdbd.conf.html). The default value is &#96;-1&#96;. A value of &#96;-1&#96; means there is no purge time and records persist as long as the cluster exists."
+          },
+          {
+            "name": "mode",
+            "type": "string",
+            "description": "The default value is &#96;STANDARD&#96;. A value of &#96;STANDARD&#96; means that Slurm accounting is enabled."
+          }
+        ]
+      },
+      {
+        "name": "auth_key",
+        "type": "object",
+        "description": "The shared Slurm key for authentication, also known as the cluster secret.",
+        "children": [
+          {
+            "name": "secret_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the the shared Slurm key."
+          },
+          {
+            "name": "secret_version",
+            "type": "string",
+            "description": "The version of the shared Slurm key."
+          }
+        ]
+      },
+      {
+        "name": "scale_down_idle_time_in_seconds",
+        "type": "integer",
+        "description": "The time before an idle node is scaled down."
+      },
+      {
+        "name": "slurm_custom_settings",
+        "type": "array",
+        "description": "Additional Slurm-specific configuration that directly maps to Slurm settings.",
+        "children": [
+          {
+            "name": "parameter_value",
+            "type": "string",
+            "description": "The value for the configured Slurm setting."
+          },
+          {
+            "name": "parameter_name",
+            "type": "string",
+            "description": "AWS PCS supports configuration of the following Slurm parameters for compute node groups: Weight and RealMemory."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The provisioning status of the cluster. The provisioning status doesn't indicate the overall health of the cluster."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcs-cluster.html"><code>AWS::PCS::Cluster</code></a>.
 
@@ -90,24 +262,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-arn,
-endpoints,
-error_info,
-id,
-name,
-networking,
-scheduler,
-size,
-slurm_configuration,
-status,
-tags
-FROM awscc.pcs.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

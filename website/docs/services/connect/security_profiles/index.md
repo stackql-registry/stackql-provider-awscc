@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_profile</code> resource or lists <code>security_profiles</code> in a region
 
@@ -32,25 +33,102 @@ Creates, updates, deletes or gets a <code>security_profile</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="allowed_access_control_tags" /></td><td><code>array</code></td><td>The list of tags that a security profile uses to restrict access to resources in Amazon Connect.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the security profile.</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td>Permissions assigned to the security profile.</td></tr>
-<tr><td><CopyableCode code="security_profile_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the security profile.</td></tr>
-<tr><td><CopyableCode code="security_profile_name" /></td><td><code>string</code></td><td>The name of the security profile.</td></tr>
-<tr><td><CopyableCode code="tag_restricted_resources" /></td><td><code>array</code></td><td>The list of resources that a security profile applies tag restrictions to in Amazon Connect.</td></tr>
-<tr><td><CopyableCode code="hierarchy_restricted_resources" /></td><td><code>array</code></td><td>The list of resources that a security profile applies hierarchy restrictions to in Amazon Connect.</td></tr>
-<tr><td><CopyableCode code="allowed_access_control_hierarchy_group_id" /></td><td><code>string</code></td><td>The identifier of the hierarchy group that a security profile uses to restrict access to resources in Amazon Connect.</td></tr>
-<tr><td><CopyableCode code="applications" /></td><td><code>array</code></td><td>A list of third-party applications that the security profile will give access to.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags used to organize, track, or control access for this resource.</td></tr>
-<tr><td><CopyableCode code="last_modified_region" /></td><td><code>string</code></td><td>The AWS Region where this resource was last modified.</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>number</code></td><td>The timestamp when this resource was last modified.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "allowed_access_control_tags",
+    "type": "array",
+    "description": "The list of tags that a security profile uses to restrict access to resources in Amazon Connect.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the security profile."
+  },
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "permissions",
+    "type": "array",
+    "description": "Permissions assigned to the security profile."
+  },
+  {
+    "name": "security_profile_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the security profile."
+  },
+  {
+    "name": "security_profile_name",
+    "type": "string",
+    "description": "The name of the security profile."
+  },
+  {
+    "name": "tag_restricted_resources",
+    "type": "array",
+    "description": "The list of resources that a security profile applies tag restrictions to in Amazon Connect."
+  },
+  {
+    "name": "hierarchy_restricted_resources",
+    "type": "array",
+    "description": "The list of resources that a security profile applies hierarchy restrictions to in Amazon Connect."
+  },
+  {
+    "name": "allowed_access_control_hierarchy_group_id",
+    "type": "string",
+    "description": "The identifier of the hierarchy group that a security profile uses to restrict access to resources in Amazon Connect."
+  },
+  {
+    "name": "applications",
+    "type": "array",
+    "description": "A list of third-party applications that the security profile will give access to.",
+    "children": [
+      {
+        "name": "application_permissions",
+        "type": "array",
+        "description": "The permissions that the agent is granted on the application"
+      },
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": "Namespace of the application that you want to give access to."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags used to organize, track, or control access for this resource."
+  },
+  {
+    "name": "last_modified_region",
+    "type": "string",
+    "description": "The AWS Region where this resource was last modified."
+  },
+  {
+    "name": "last_modified_time",
+    "type": "number",
+    "description": "The timestamp when this resource was last modified."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-securityprofile.html"><code>AWS::Connect::SecurityProfile</code></a>.
 
@@ -92,26 +170,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_profiles</code> in a region.
-```sql
-SELECT
-region,
-allowed_access_control_tags,
-description,
-instance_arn,
-permissions,
-security_profile_arn,
-security_profile_name,
-tag_restricted_resources,
-hierarchy_restricted_resources,
-allowed_access_control_hierarchy_group_id,
-applications,
-tags,
-last_modified_region,
-last_modified_time
-FROM awscc.connect.security_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_profile</code>.
 ```sql
 SELECT

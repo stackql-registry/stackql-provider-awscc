@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>subscription_targets</code> in a region or regions, for all properties use <a href="/services/datazone/subscription_targets/"><code>subscription_targets</code></a>
 
@@ -32,15 +33,28 @@ Lists <code>subscription_targets</code> in a region or regions, for all properti
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone domain in which subscription target is created.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The ID of the environment in which subscription target is created.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the subscription target.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone domain in which subscription target is created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The ID of the environment in which subscription target is created."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the subscription target."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

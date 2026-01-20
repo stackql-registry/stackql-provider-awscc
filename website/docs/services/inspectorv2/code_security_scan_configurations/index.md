@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>code_security_scan_configuration</code> resource or lists <code>code_security_scan_configurations</code> in a region
 
@@ -32,18 +33,79 @@ Creates, updates, deletes or gets a <code>code_security_scan_configuration</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Code Security Scan Configuration name</td></tr>
-<tr><td><CopyableCode code="level" /></td><td><code>string</code></td><td>Configuration Level</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>object</code></td><td>Code Security Scan Configuration</td></tr>
-<tr><td><CopyableCode code="scope_settings" /></td><td><code>object</code></td><td>Scope Settings</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Code Security Scan Configuration ARN</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Code Security Scan Configuration name"
+  },
+  {
+    "name": "level",
+    "type": "string",
+    "description": "Configuration Level"
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": "Code Security Scan Configuration",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Code Security Scan Configuration name"
+      },
+      {
+        "name": "scope_settings",
+        "type": "object",
+        "description": "Scope Settings",
+        "children": [
+          {
+            "name": "project_selection_scope",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "Code Security Scan Configuration ARN"
+      },
+      {
+        "name": "tags",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "scope_settings",
+    "type": "object",
+    "description": "Scope Settings",
+    "children": [
+      {
+        "name": "project_selection_scope",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Code Security Scan Configuration ARN"
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspectorv2-codesecurityscanconfiguration.html"><code>AWS::InspectorV2::CodeSecurityScanConfiguration</code></a>.
 
@@ -85,19 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>code_security_scan_configurations</code> in a region.
-```sql
-SELECT
-region,
-name,
-level,
-configuration,
-scope_settings,
-arn,
-tags
-FROM awscc.inspectorv2.code_security_scan_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>code_security_scan_configuration</code>.
 ```sql
 SELECT

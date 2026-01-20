@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>config</code> resource or lists <code>configs</code> in a region
 
@@ -32,18 +33,253 @@ Creates, updates, deletes or gets a <code>config</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="config_data" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "config_data",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "antenna_downlink_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "spectrum_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "center_frequency",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bandwidth",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "polarization",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "tracking_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "autotrack",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "dataflow_endpoint_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "dataflow_endpoint_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "dataflow_endpoint_region",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "antenna_downlink_demod_decode_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "spectrum_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "center_frequency",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "bandwidth",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "polarization",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "demodulation_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unvalidated_js_on",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "decode_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unvalidated_js_on",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "antenna_uplink_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "spectrum_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "center_frequency",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "polarization",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "target_eirp",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "value",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "units",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "transmit_disabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "uplink_echo_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "antenna_uplink_config_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "s3_recording_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "bucket_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "prefix",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-groundstation-config.html"><code>AWS::GroundStation::Config</code></a>.
 
@@ -85,19 +321,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configs</code> in a region.
-```sql
-SELECT
-region,
-name,
-tags,
-type,
-config_data,
-arn,
-id
-FROM awscc.groundstation.configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>config</code>.
 ```sql
 SELECT

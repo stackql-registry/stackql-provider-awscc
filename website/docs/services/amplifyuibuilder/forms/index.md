@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>form</code> resource or lists <code>forms</code> in a region
 
@@ -32,25 +33,126 @@ Creates, updates, deletes or gets a <code>form</code> resource or lists <code>fo
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cta" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_type" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fields" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="form_action_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="label_decorator" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sectional_elements" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="style" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cta",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "position",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "clear",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "excluded",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "children",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "position",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "data_type",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "data_source_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "data_type_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "fields",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "form_action_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "label_decorator",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schema_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sectional_elements",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "style",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "horizontal_gap",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amplifyuibuilder-form.html"><code>AWS::AmplifyUIBuilder::Form</code></a>.
 
@@ -92,26 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>forms</code> in a region.
-```sql
-SELECT
-region,
-app_id,
-cta,
-data_type,
-environment_name,
-fields,
-form_action_type,
-id,
-label_decorator,
-name,
-schema_version,
-sectional_elements,
-style,
-tags
-FROM awscc.amplifyuibuilder.forms
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>form</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>organizational_unit_association</code> resource or lists <code>organizational_unit_associations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets an <code>organizational_unit_association</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="notification_configuration_arn" /></td><td><code>string</code></td><td>ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1</td></tr>
-<tr><td><CopyableCode code="organizational_unit_id" /></td><td><code>string</code></td><td>The ID of the organizational unit.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "notification_configuration_arn",
+    "type": "string",
+    "description": "ARN identifier of the NotificationConfiguration.<br />Example: arn:aws:notifications::123456789012:configuration/a01jes88qxwkbj05xv9c967pgm1"
+  },
+  {
+    "name": "organizational_unit_id",
+    "type": "string",
+    "description": "The ID of the organizational unit."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-organizationalunitassociation.html"><code>AWS::Notifications::OrganizationalUnitAssociation</code></a>.
 
@@ -76,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>organizational_unit_associations</code> in a region.
-```sql
-SELECT
-region,
-notification_configuration_arn,
-organizational_unit_id
-FROM awscc.notifications.organizational_unit_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>organizational_unit_association</code>.
 ```sql
 SELECT

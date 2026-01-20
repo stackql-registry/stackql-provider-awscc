@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_gateway_attachment</code> resource or lists <code>vpc_gateway_attachments</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>vpc_gateway_attachment</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="attachment_type" /></td><td><code>string</code></td><td>Used to identify if this resource is an Internet Gateway or Vpn Gateway Attachment</td></tr>
-<tr><td><CopyableCode code="internet_gateway_id" /></td><td><code>string</code></td><td>The ID of the internet gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC.</td></tr>
-<tr><td><CopyableCode code="vpn_gateway_id" /></td><td><code>string</code></td><td>The ID of the virtual private gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "attachment_type",
+    "type": "string",
+    "description": "Used to identify if this resource is an Internet Gateway or Vpn Gateway Attachment"
+  },
+  {
+    "name": "internet_gateway_id",
+    "type": "string",
+    "description": "The ID of the internet gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC."
+  },
+  {
+    "name": "vpn_gateway_id",
+    "type": "string",
+    "description": "The ID of the virtual private gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcgatewayattachment.html"><code>AWS::EC2::VPCGatewayAttachment</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_gateway_attachments</code> in a region.
-```sql
-SELECT
-region,
-attachment_type,
-internet_gateway_id,
-vpc_id,
-vpn_gateway_id
-FROM awscc.ec2.vpc_gateway_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_gateway_attachment</code>.
 ```sql
 SELECT

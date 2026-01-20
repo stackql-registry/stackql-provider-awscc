@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration</code> resource or lists <code>configurations</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>configuration</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon MQ configuration.</td></tr>
-<tr><td><CopyableCode code="authentication_strategy" /></td><td><code>string</code></td><td>The authentication strategy associated with the configuration. The default is SIMPLE.</td></tr>
-<tr><td><CopyableCode code="engine_type" /></td><td><code>string</code></td><td>The type of broker engine. Note: Currently, Amazon MQ only supports ACTIVEMQ for creating and editing broker configurations.</td></tr>
-<tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The version of the broker engine.</td></tr>
-<tr><td><CopyableCode code="data" /></td><td><code>string</code></td><td>The base64-encoded XML configuration.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the configuration.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Amazon MQ configuration.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the configuration.</td></tr>
-<tr><td><CopyableCode code="revision" /></td><td><code>string</code></td><td>The revision number of the configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Create tags when creating the configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon MQ configuration."
+  },
+  {
+    "name": "authentication_strategy",
+    "type": "string",
+    "description": "The authentication strategy associated with the configuration. The default is SIMPLE."
+  },
+  {
+    "name": "engine_type",
+    "type": "string",
+    "description": "The type of broker engine. Note: Currently, Amazon MQ only supports ACTIVEMQ for creating and editing broker configurations."
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": "The version of the broker engine."
+  },
+  {
+    "name": "data",
+    "type": "string",
+    "description": "The base64-encoded XML configuration."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the configuration."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon MQ configuration."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the configuration."
+  },
+  {
+    "name": "revision",
+    "type": "string",
+    "description": "The revision number of the configuration."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Create tags when creating the configuration.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-configuration.html"><code>AWS::AmazonMQ::Configuration</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-authentication_strategy,
-engine_type,
-engine_version,
-data,
-description,
-id,
-name,
-revision,
-tags
-FROM awscc.amazonmq.configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration</code>.
 ```sql
 SELECT

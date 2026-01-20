@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>usage_profile</code> resource or lists <code>usage_profiles</code> in a region
 
@@ -32,17 +33,62 @@ Creates, updates, deletes or gets an <code>usage_profile</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the UsageProfile.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the UsageProfile.</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>undefined</code></td><td>UsageProfile configuration for supported service ex: (Jobs, Sessions).</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to be applied to this UsageProfiles.</td></tr>
-<tr><td><CopyableCode code="created_on" /></td><td><code>string</code></td><td>Creation time.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the UsageProfile."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the UsageProfile."
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": "UsageProfile configuration for supported service ex: (Jobs, Sessions).",
+    "children": [
+      {
+        "name": "job_configuration",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "session_configuration",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to be applied to this UsageProfiles.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A key to identify the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Corresponding tag value for the key."
+      }
+    ]
+  },
+  {
+    "name": "created_on",
+    "type": "string",
+    "description": "Creation time."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-usageprofile.html"><code>AWS::Glue::UsageProfile</code></a>.
 
@@ -84,18 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>usage_profiles</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-configuration,
-tags,
-created_on
-FROM awscc.glue.usage_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>usage_profile</code>.
 ```sql
 SELECT

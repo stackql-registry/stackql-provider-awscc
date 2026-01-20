@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_grants_location</code> resource or lists <code>access_grants_locations</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets an <code>access_grants_location</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_grants_location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified Access Grants location.</td></tr>
-<tr><td><CopyableCode code="access_grants_location_id" /></td><td><code>string</code></td><td>The unique identifier for the specified Access Grants location.</td></tr>
-<tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the access grant location's associated IAM role.</td></tr>
-<tr><td><CopyableCode code="location_scope" /></td><td><code>string</code></td><td>Descriptor for where the location actually points</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_grants_location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified Access Grants location."
+  },
+  {
+    "name": "access_grants_location_id",
+    "type": "string",
+    "description": "The unique identifier for the specified Access Grants location."
+  },
+  {
+    "name": "iam_role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the access grant location's associated IAM role."
+  },
+  {
+    "name": "location_scope",
+    "type": "string",
+    "description": "Descriptor for where the location actually points"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-accessgrantslocation.html"><code>AWS::S3::AccessGrantsLocation</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_grants_locations</code> in a region.
-```sql
-SELECT
-region,
-access_grants_location_arn,
-access_grants_location_id,
-iam_role_arn,
-location_scope,
-tags
-FROM awscc.s3.access_grants_locations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_grants_location</code>.
 ```sql
 SELECT

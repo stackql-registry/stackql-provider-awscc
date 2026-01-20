@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mail_manager_addon_instance</code> resource or lists <code>mail_manager_addon_instances</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>mail_manager_addon_instance</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="addon_instance_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="addon_instance_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="addon_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="addon_subscription_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "addon_instance_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "addon_instance_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "addon_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "addon_subscription_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanageraddoninstance.html"><code>AWS::SES::MailManagerAddonInstance</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mail_manager_addon_instances</code> in a region.
-```sql
-SELECT
-region,
-addon_instance_arn,
-addon_instance_id,
-addon_name,
-addon_subscription_id,
-tags
-FROM awscc.ses.mail_manager_addon_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mail_manager_addon_instance</code>.
 ```sql
 SELECT

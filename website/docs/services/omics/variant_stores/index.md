@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>variant_store</code> resource or lists <code>variant_stores</code> in a region
 
@@ -32,24 +33,92 @@ Creates, updates, deletes or gets a <code>variant_store</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="reference" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="sse_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="store_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="store_size_bytes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of resource tags</td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "reference",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "reference_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "sse_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "store_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "store_size_bytes",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of resource tags"
+  },
+  {
+    "name": "update_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-omics-variantstore.html"><code>AWS::Omics::VariantStore</code></a>.
 
@@ -91,25 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>variant_stores</code> in a region.
-```sql
-SELECT
-region,
-creation_time,
-description,
-id,
-name,
-reference,
-sse_config,
-status,
-status_message,
-store_arn,
-store_size_bytes,
-tags,
-update_time
-FROM awscc.omics.variant_stores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>variant_store</code>.
 ```sql
 SELECT

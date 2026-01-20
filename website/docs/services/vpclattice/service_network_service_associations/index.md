@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service_network_service_association</code> resource or lists <code>service_network_service_associations</code> in a region
 
@@ -32,26 +33,107 @@ Creates, updates, deletes or gets a <code>service_network_service_association</c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dns_entry" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_network_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_network_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_network_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_network_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dns_entry",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "domain_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "hosted_zone_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_network_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_network_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_network_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_network_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-servicenetworkserviceassociation.html"><code>AWS::VpcLattice::ServiceNetworkServiceAssociation</code></a>.
 
@@ -93,27 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>service_network_service_associations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-created_at,
-dns_entry,
-id,
-service_network_arn,
-service_network_id,
-service_network_identifier,
-service_network_name,
-service_arn,
-service_id,
-service_identifier,
-service_name,
-status,
-tags
-FROM awscc.vpclattice.service_network_service_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service_network_service_association</code>.
 ```sql
 SELECT

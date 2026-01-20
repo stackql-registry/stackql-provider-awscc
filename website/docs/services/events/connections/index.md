@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connection</code> resource or lists <code>connections</code> in a region
 
@@ -32,21 +33,232 @@ Creates, updates, deletes or gets a <code>connection</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the connection.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The arn of the connection resource.</td></tr>
-<tr><td><CopyableCode code="arn_for_policy" /></td><td><code>string</code></td><td>The arn of the connection resource to be used in IAM policies.</td></tr>
-<tr><td><CopyableCode code="secret_arn" /></td><td><code>string</code></td><td>The arn of the secrets manager secret created in the customer account.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the connection.</td></tr>
-<tr><td><CopyableCode code="authorization_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auth_parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="invocation_connectivity_parameters" /></td><td><code>object</code></td><td>The private resource the HTTP request will be sent to.</td></tr>
-<tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the connection."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The arn of the connection resource."
+  },
+  {
+    "name": "arn_for_policy",
+    "type": "string",
+    "description": "The arn of the connection resource to be used in IAM policies."
+  },
+  {
+    "name": "secret_arn",
+    "type": "string",
+    "description": "The arn of the secrets manager secret created in the customer account."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the connection."
+  },
+  {
+    "name": "authorization_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auth_parameters",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "api_key_auth_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "api_key_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "api_key_value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "basic_auth_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "username",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "oauth_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "client_parameters",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "client_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "client_secret",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "authorization_endpoint",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "http_method",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "oauth_http_parameters",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "header_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "query_string_parameters",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "body_parameters",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "invocation_http_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "header_parameters",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "is_value_secret",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "query_string_parameters",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "body_parameters",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "connectivity_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_parameters",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_configuration_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "resource_association_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "invocation_connectivity_parameters",
+    "type": "object",
+    "description": "The private resource the HTTP request will be sent to.",
+    "children": [
+      {
+        "name": "resource_parameters",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_configuration_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "resource_association_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kms_key_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-events-connection.html"><code>AWS::Events::Connection</code></a>.
 
@@ -88,22 +300,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connections</code> in a region.
-```sql
-SELECT
-region,
-name,
-arn,
-arn_for_policy,
-secret_arn,
-description,
-authorization_type,
-auth_parameters,
-invocation_connectivity_parameters,
-kms_key_identifier
-FROM awscc.events.connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT

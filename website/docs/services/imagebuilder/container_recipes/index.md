@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>container_recipe</code> resource or lists <code>container_recipes</code> in a region
 
@@ -32,28 +33,205 @@ Creates, updates, deletes or gets a <code>container_recipe</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the container recipe.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the container recipe.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the container recipe.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The semantic version of the container recipe (&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;).</td></tr>
-<tr><td><CopyableCode code="components" /></td><td><code>array</code></td><td>Components for build and test that are included in the container recipe.</td></tr>
-<tr><td><CopyableCode code="instance_configuration" /></td><td><code>object</code></td><td>A group of options that can be used to configure an instance for building and testing container images.</td></tr>
-<tr><td><CopyableCode code="dockerfile_template_data" /></td><td><code>string</code></td><td>Dockerfiles are text documents that are used to build Docker containers, and ensure that they contain all of the elements required by the application running inside. The template data consists of contextual variables where Image Builder places build information or scripts, based on your container image recipe.</td></tr>
-<tr><td><CopyableCode code="dockerfile_template_uri" /></td><td><code>string</code></td><td>The S3 URI for the Dockerfile that will be used to build your container image.</td></tr>
-<tr><td><CopyableCode code="platform_override" /></td><td><code>string</code></td><td>Specifies the operating system platform when you use a custom source image.</td></tr>
-<tr><td><CopyableCode code="container_type" /></td><td><code>string</code></td><td>Specifies the type of container, such as Docker.</td></tr>
-<tr><td><CopyableCode code="image_os_version_override" /></td><td><code>string</code></td><td>Specifies the operating system version for the source image.</td></tr>
-<tr><td><CopyableCode code="target_repository" /></td><td><code>object</code></td><td>The destination repository for the container image.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>Identifies which KMS key is used to encrypt the container image.</td></tr>
-<tr><td><CopyableCode code="parent_image" /></td><td><code>string</code></td><td>The source image for the container recipe.</td></tr>
-<tr><td><CopyableCode code="working_directory" /></td><td><code>string</code></td><td>The working directory to be used during build and test workflows.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Tags that are attached to the container recipe.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the container recipe."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the container recipe."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the container recipe."
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The semantic version of the container recipe (&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;)."
+  },
+  {
+    "name": "components",
+    "type": "array",
+    "description": "Components for build and test that are included in the container recipe.",
+    "children": [
+      {
+        "name": "component_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the component."
+      },
+      {
+        "name": "parameters",
+        "type": "array",
+        "description": "A group of parameter settings that are used to configure the component for a specific recipe.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the component parameter to set."
+          },
+          {
+            "name": "value",
+            "type": "array",
+            "description": "Sets the value for the named component parameter."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "instance_configuration",
+    "type": "object",
+    "description": "A group of options that can be used to configure an instance for building and testing container images.",
+    "children": [
+      {
+        "name": "image",
+        "type": "string",
+        "description": "The AMI ID to use as the base image for a container build and test instance. If not specified, Image Builder will use the appropriate ECS-optimized AMI as a base image."
+      },
+      {
+        "name": "block_device_mappings",
+        "type": "array",
+        "description": "Defines the block devices to attach for building an instance from this Image Builder AMI.",
+        "children": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "description": "The device to which these mappings apply."
+          },
+          {
+            "name": "virtual_name",
+            "type": "string",
+            "description": "Use to manage instance ephemeral devices."
+          },
+          {
+            "name": "no_device",
+            "type": "string",
+            "description": "Use to remove a mapping from the parent image."
+          },
+          {
+            "name": "ebs",
+            "type": "object",
+            "description": "Use to manage Amazon EBS-specific configuration for this mapping.",
+            "children": [
+              {
+                "name": "encrypted",
+                "type": "boolean",
+                "description": "Use to configure device encryption."
+              },
+              {
+                "name": "delete_on_termination",
+                "type": "boolean",
+                "description": "Use to configure delete on termination of the associated device."
+              },
+              {
+                "name": "iops",
+                "type": "integer",
+                "description": "Use to configure device IOPS."
+              },
+              {
+                "name": "kms_key_id",
+                "type": "string",
+                "description": "Use to configure the KMS key to use when encrypting the device."
+              },
+              {
+                "name": "snapshot_id",
+                "type": "string",
+                "description": "The snapshot that defines the device contents."
+              },
+              {
+                "name": "throughput",
+                "type": "integer",
+                "description": "For GP3 volumes only - The throughput in MiB/s that the volume supports."
+              },
+              {
+                "name": "volume_size",
+                "type": "integer",
+                "description": "Use to override the device's volume size."
+              },
+              {
+                "name": "volume_type",
+                "type": "string",
+                "description": "Use to override the device's volume type."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "dockerfile_template_data",
+    "type": "string",
+    "description": "Dockerfiles are text documents that are used to build Docker containers, and ensure that they contain all of the elements required by the application running inside. The template data consists of contextual variables where Image Builder places build information or scripts, based on your container image recipe."
+  },
+  {
+    "name": "dockerfile_template_uri",
+    "type": "string",
+    "description": "The S3 URI for the Dockerfile that will be used to build your container image."
+  },
+  {
+    "name": "platform_override",
+    "type": "string",
+    "description": "Specifies the operating system platform when you use a custom source image."
+  },
+  {
+    "name": "container_type",
+    "type": "string",
+    "description": "Specifies the type of container, such as Docker."
+  },
+  {
+    "name": "image_os_version_override",
+    "type": "string",
+    "description": "Specifies the operating system version for the source image."
+  },
+  {
+    "name": "target_repository",
+    "type": "object",
+    "description": "The destination repository for the container image.",
+    "children": [
+      {
+        "name": "service",
+        "type": "string",
+        "description": "The service of target container repository."
+      },
+      {
+        "name": "repository_name",
+        "type": "string",
+        "description": "The repository name of target container repository."
+      }
+    ]
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "Identifies which KMS key is used to encrypt the container image."
+  },
+  {
+    "name": "parent_image",
+    "type": "string",
+    "description": "The source image for the container recipe."
+  },
+  {
+    "name": "working_directory",
+    "type": "string",
+    "description": "The working directory to be used during build and test workflows."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Tags that are attached to the container recipe."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-containerrecipe.html"><code>AWS::ImageBuilder::ContainerRecipe</code></a>.
 
@@ -95,29 +273,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>container_recipes</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-version,
-components,
-instance_configuration,
-dockerfile_template_data,
-dockerfile_template_uri,
-platform_override,
-container_type,
-image_os_version_override,
-target_repository,
-kms_key_id,
-parent_image,
-working_directory,
-tags
-FROM awscc.imagebuilder.container_recipes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>container_recipe</code>.
 ```sql
 SELECT

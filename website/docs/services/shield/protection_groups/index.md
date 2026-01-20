@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>protection_group</code> resource or lists <code>protection_groups</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>protection_group</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="protection_group_id" /></td><td><code>string</code></td><td>The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it.</td></tr>
-<tr><td><CopyableCode code="protection_group_arn" /></td><td><code>string</code></td><td>The ARN (Amazon Resource Name) of the protection group.</td></tr>
-<tr><td><CopyableCode code="aggregation" /></td><td><code>string</code></td><td>Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.<br />ASTERIX; Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.<br />ASTERIX; Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.<br />ASTERIX; Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include Amazon CloudFront and origin resources for CloudFront distributions.</td></tr>
-<tr><td><CopyableCode code="pattern" /></td><td><code>string</code></td><td>The criteria to use to choose the protected resources for inclusion in the group. You can include all resources that have protections, provide a list of resource Amazon Resource Names (ARNs), or include all resources of a specified resource type.</td></tr>
-<tr><td><CopyableCode code="members" /></td><td><code>array</code></td><td>The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set `Pattern` to `ARBITRARY` and you must not set it for any other `Pattern` setting.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The resource type to include in the protection group. All protected resources of this type are included in the protection group. Newly protected resources of this type are automatically added to the group. You must set this when you set `Pattern` to `BY_RESOURCE_TYPE` and you must not set it for any other `Pattern` setting.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tag key-value pairs for the Protection object.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "protection_group_id",
+    "type": "string",
+    "description": "The name of the protection group. You use this to identify the protection group in lists and to manage the protection group, for example to update, delete, or describe it."
+  },
+  {
+    "name": "protection_group_arn",
+    "type": "string",
+    "description": "The ARN (Amazon Resource Name) of the protection group."
+  },
+  {
+    "name": "aggregation",
+    "type": "string",
+    "description": "Defines how AWS Shield combines resource data for the group in order to detect, mitigate, and report events.<br />&#42; Sum - Use the total traffic across the group. This is a good choice for most cases. Examples include Elastic IP addresses for EC2 instances that scale manually or automatically.<br />&#42; Mean - Use the average of the traffic across the group. This is a good choice for resources that share traffic uniformly. Examples include accelerators and load balancers.<br />&#42; Max - Use the highest traffic from each resource. This is useful for resources that don't share traffic and for resources that share that traffic in a non-uniform way. Examples include Amazon CloudFront and origin resources for CloudFront distributions."
+  },
+  {
+    "name": "pattern",
+    "type": "string",
+    "description": "The criteria to use to choose the protected resources for inclusion in the group. You can include all resources that have protections, provide a list of resource Amazon Resource Names (ARNs), or include all resources of a specified resource type."
+  },
+  {
+    "name": "members",
+    "type": "array",
+    "description": "The Amazon Resource Names (ARNs) of the resources to include in the protection group. You must set this when you set &#96;Pattern&#96; to &#96;ARBITRARY&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The resource type to include in the protection group. All protected resources of this type are included in the protection group. Newly protected resources of this type are automatically added to the group. You must set this when you set &#96;Pattern&#96; to &#96;BY&#95;RESOURCE&#95;TYPE&#96; and you must not set it for any other &#96;Pattern&#96; setting."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tag key-value pairs for the Protection object.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag key to describe a category of information, such as \"customer.\" Tag keys are case-sensitive."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Part of the key:value pair that defines a tag. You can use a tag value to describe a specific value within a category, such as \"companyA\" or \"companyB.\" Tag values are case-sensitive."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-shield-protectiongroup.html"><code>AWS::Shield::ProtectionGroup</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>protection_groups</code> in a region.
-```sql
-SELECT
-region,
-protection_group_id,
-protection_group_arn,
-aggregation,
-pattern,
-members,
-resource_type,
-tags
-FROM awscc.shield.protection_groups
-;
-```
+
 Gets all properties from an individual <code>protection_group</code>.
 ```sql
 SELECT

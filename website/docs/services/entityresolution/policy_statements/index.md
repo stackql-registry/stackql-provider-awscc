@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy_statement</code> resource or lists <code>policy_statements</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>policy_statement</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn of the resource to which the policy statement is being attached.</td></tr>
-<tr><td><CopyableCode code="statement_id" /></td><td><code>string</code></td><td>The Statement Id of the policy statement that is being attached.</td></tr>
-<tr><td><CopyableCode code="effect" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="action" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="condition" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn of the resource to which the policy statement is being attached."
+  },
+  {
+    "name": "statement_id",
+    "type": "string",
+    "description": "The Statement Id of the policy statement that is being attached."
+  },
+  {
+    "name": "effect",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "action",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "principal",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "condition",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-entityresolution-policystatement.html"><code>AWS::EntityResolution::PolicyStatement</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policy_statements</code> in a region.
-```sql
-SELECT
-region,
-arn,
-statement_id,
-effect,
-action,
-principal,
-condition
-FROM awscc.entityresolution.policy_statements
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy_statement</code>.
 ```sql
 SELECT

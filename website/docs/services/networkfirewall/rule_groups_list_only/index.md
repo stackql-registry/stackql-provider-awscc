@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>rule_groups</code> in a region or regions, for all properties use <a href="/services/networkfirewall/rule_groups/"><code>rule_groups</code></a>
 
@@ -32,14 +33,79 @@ Lists <code>rule_groups</code> in a region or regions, for all properties use <a
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule_group_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="rule_group" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::RuleGroup</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule_group_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "rule_group",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::RuleGroup",
+    "children": [
+      {
+        "name": "rule_group_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "rule_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "capacity",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "summary_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_options",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

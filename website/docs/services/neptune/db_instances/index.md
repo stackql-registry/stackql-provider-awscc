@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <code>db_instances</code> in a region
 
@@ -32,25 +33,90 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="allow_major_version_upgrade" /></td><td><code>boolean</code></td><td>Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. This parameter must be set to true when specifying a value for the EngineVersion parameter that is a different major version than the DB instance's current version.</td></tr>
-<tr><td><CopyableCode code="auto_minor_version_upgrade" /></td><td><code>boolean</code></td><td>Indicates that minor version patches are applied automatically.<br />When updating this property, some interruptions may occur.</td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>Specifies the name of the Availability Zone the DB instance is located in.</td></tr>
-<tr><td><CopyableCode code="db_cluster_identifier" /></td><td><code>string</code></td><td>If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of.</td></tr>
-<tr><td><CopyableCode code="db_instance_class" /></td><td><code>string</code></td><td>Contains the name of the compute and memory capacity class of the DB instance.<br />If you update this property, some interruptions may occur.</td></tr>
-<tr><td><CopyableCode code="db_instance_identifier" /></td><td><code>string</code></td><td>Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.</td></tr>
-<tr><td><CopyableCode code="db_parameter_group_name" /></td><td><code>string</code></td><td>The name of an existing DB parameter group or a reference to an AWS::Neptune::DBParameterGroup resource created in the template. If any of the data members of the referenced parameter group are changed during an update, the DB instance might need to be restarted, which causes some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.</td></tr>
-<tr><td><CopyableCode code="db_snapshot_identifier" /></td><td><code>string</code></td><td>This parameter is not supported.<br />`AWS::Neptune::DBInstance` does not support restoring from snapshots.<br />`AWS::Neptune::DBCluster` does support restoring from snapshots.<br /></td></tr>
-<tr><td><CopyableCode code="db_subnet_group_name" /></td><td><code>string</code></td><td>A DB subnet group to associate with the DB instance. If you update this value, the new subnet group must be a subnet group in a new virtual private cloud (VPC).</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td>The connection endpoint for the database. For example: `mystack-mydb-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com`.</td></tr>
-<tr><td><CopyableCode code="preferred_maintenance_window" /></td><td><code>string</code></td><td>Specifies the weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</td></tr>
-<tr><td><CopyableCode code="port" /></td><td><code>string</code></td><td>The port number on which the database accepts connections. For example: `8182`.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this DB instance.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "allow_major_version_upgrade",
+    "type": "boolean",
+    "description": "Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. This parameter must be set to true when specifying a value for the EngineVersion parameter that is a different major version than the DB instance's current version."
+  },
+  {
+    "name": "auto_minor_version_upgrade",
+    "type": "boolean",
+    "description": "Indicates that minor version patches are applied automatically.<br />When updating this property, some interruptions may occur."
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "Specifies the name of the Availability Zone the DB instance is located in."
+  },
+  {
+    "name": "db_cluster_identifier",
+    "type": "string",
+    "description": "If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of."
+  },
+  {
+    "name": "db_instance_class",
+    "type": "string",
+    "description": "Contains the name of the compute and memory capacity class of the DB instance.<br />If you update this property, some interruptions may occur."
+  },
+  {
+    "name": "db_instance_identifier",
+    "type": "string",
+    "description": "Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance."
+  },
+  {
+    "name": "db_parameter_group_name",
+    "type": "string",
+    "description": "The name of an existing DB parameter group or a reference to an AWS::Neptune::DBParameterGroup resource created in the template. If any of the data members of the referenced parameter group are changed during an update, the DB instance might need to be restarted, which causes some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot."
+  },
+  {
+    "name": "db_snapshot_identifier",
+    "type": "string",
+    "description": "This parameter is not supported.<br />&#96;AWS::Neptune::DBInstance&#96; does not support restoring from snapshots.<br />&#96;AWS::Neptune::DBCluster&#96; does support restoring from snapshots.<br />"
+  },
+  {
+    "name": "db_subnet_group_name",
+    "type": "string",
+    "description": "A DB subnet group to associate with the DB instance. If you update this value, the new subnet group must be a subnet group in a new virtual private cloud (VPC)."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The connection endpoint for the database. For example: &#96;mystack-mydb-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com&#96;."
+  },
+  {
+    "name": "preferred_maintenance_window",
+    "type": "string",
+    "description": "Specifies the weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC)."
+  },
+  {
+    "name": "port",
+    "type": "string",
+    "description": "The port number on which the database accepts connections. For example: &#96;8182&#96;."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this DB instance.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-neptune-dbinstance.html"><code>AWS::Neptune::DBInstance</code></a>.
 
@@ -92,26 +158,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>db_instances</code> in a region.
-```sql
-SELECT
-region,
-allow_major_version_upgrade,
-auto_minor_version_upgrade,
-availability_zone,
-db_cluster_identifier,
-db_instance_class,
-db_instance_identifier,
-db_parameter_group_name,
-db_snapshot_identifier,
-db_subnet_group_name,
-endpoint,
-preferred_maintenance_window,
-port,
-tags
-FROM awscc.neptune.db_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>db_instance</code>.
 ```sql
 SELECT

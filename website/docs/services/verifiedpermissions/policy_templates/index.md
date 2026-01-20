@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy_template</code> resource or lists <code>policy_templates</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>policy_template</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_store_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy_template_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="statement" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_template_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "statement",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-verifiedpermissions-policytemplate.html"><code>AWS::VerifiedPermissions::PolicyTemplate</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policy_templates</code> in a region.
-```sql
-SELECT
-region,
-description,
-policy_store_id,
-policy_template_id,
-statement
-FROM awscc.verifiedpermissions.policy_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy_template</code>.
 ```sql
 SELECT

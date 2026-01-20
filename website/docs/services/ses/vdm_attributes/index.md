@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vdm_attribute</code> resource or lists <code>vdm_attributes</code> in a region
 
@@ -32,15 +33,42 @@ Creates, updates, deletes or gets a <code>vdm_attribute</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vdm_attributes_resource_id" /></td><td><code>string</code></td><td>Unique identifier for this resource</td></tr>
-<tr><td><CopyableCode code="dashboard_attributes" /></td><td><code>object</code></td><td>Preferences regarding the Dashboard feature.</td></tr>
-<tr><td><CopyableCode code="guardian_attributes" /></td><td><code>object</code></td><td>Preferences regarding the Guardian feature.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vdm_attributes_resource_id",
+    "type": "string",
+    "description": "Unique identifier for this resource"
+  },
+  {
+    "name": "dashboard_attributes",
+    "type": "object",
+    "description": "Preferences regarding the Dashboard feature.",
+    "children": [
+      {
+        "name": "engagement_metrics",
+        "type": "string",
+        "description": "Whether emails sent from this account have engagement tracking enabled."
+      }
+    ]
+  },
+  {
+    "name": "guardian_attributes",
+    "type": "object",
+    "description": "Preferences regarding the Guardian feature.",
+    "children": [
+      {
+        "name": "optimized_shared_delivery",
+        "type": "string",
+        "description": "Whether emails sent from this account have optimized delivery algorithm enabled."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-vdmattribute.html"><code>AWS::SES::VdmAttributes</code></a>.
 

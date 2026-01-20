@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>environment_actions</code> in a region or regions, for all properties use <a href="/services/datazone/environment_actions/"><code>environment_actions</code></a>
 
@@ -32,15 +33,28 @@ Lists <code>environment_actions</code> in a region or regions, for all propertie
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone domain in which the environment is created.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The identifier of the Amazon DataZone environment in which the action is taking place</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the Amazon DataZone environment action.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the environment is created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone environment in which the action is taking place"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone environment action."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

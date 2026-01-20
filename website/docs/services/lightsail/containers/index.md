@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>container</code> resource or lists <code>containers</code> in a region
 
@@ -32,23 +33,243 @@ Creates, updates, deletes or gets a <code>container</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="service_name" /></td><td><code>string</code></td><td>The name for the container service.</td></tr>
-<tr><td><CopyableCode code="power" /></td><td><code>string</code></td><td>The power specification for the container service.</td></tr>
-<tr><td><CopyableCode code="container_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="scale" /></td><td><code>integer</code></td><td>The scale specification for the container service.</td></tr>
-<tr><td><CopyableCode code="public_domain_names" /></td><td><code>array</code></td><td>The public domain names to use with the container service, such as example.com and www.example.com.</td></tr>
-<tr><td><CopyableCode code="container_service_deployment" /></td><td><code>object</code></td><td>Describes a container deployment configuration of an Amazon Lightsail container service.</td></tr>
-<tr><td><CopyableCode code="is_disabled" /></td><td><code>boolean</code></td><td>A Boolean value to indicate whether the container service is disabled.</td></tr>
-<tr><td><CopyableCode code="private_registry_access" /></td><td><code>object</code></td><td>A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.</td></tr>
-<tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>The publicly accessible URL of the container service.</td></tr>
-<tr><td><CopyableCode code="principal_arn" /></td><td><code>string</code></td><td>The principal ARN of the container service.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "service_name",
+    "type": "string",
+    "description": "The name for the container service."
+  },
+  {
+    "name": "power",
+    "type": "string",
+    "description": "The power specification for the container service."
+  },
+  {
+    "name": "container_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "scale",
+    "type": "integer",
+    "description": "The scale specification for the container service."
+  },
+  {
+    "name": "public_domain_names",
+    "type": "array",
+    "description": "The public domain names to use with the container service, such as example.com and www.example.com.",
+    "children": [
+      {
+        "name": "certificate_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "domain_names",
+        "type": "array",
+        "description": "An object that describes the configuration for the containers of the deployment."
+      }
+    ]
+  },
+  {
+    "name": "container_service_deployment",
+    "type": "object",
+    "description": "Describes a container deployment configuration of an Amazon Lightsail container service.",
+    "children": [
+      {
+        "name": "containers",
+        "type": "array",
+        "description": "An object that describes the configuration for the containers of the deployment.",
+        "children": [
+          {
+            "name": "service_name",
+            "type": "string",
+            "description": "The name for the container service."
+          },
+          {
+            "name": "power",
+            "type": "string",
+            "description": "The power specification for the container service."
+          },
+          {
+            "name": "container_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "scale",
+            "type": "integer",
+            "description": "The scale specification for the container service."
+          },
+          {
+            "name": "public_domain_names",
+            "type": "array",
+            "description": "The public domain names to use with the container service, such as example.com and www.example.com."
+          },
+          {
+            "name": "is_disabled",
+            "type": "boolean",
+            "description": "A Boolean value to indicate whether the container service is disabled."
+          },
+          {
+            "name": "private_registry_access",
+            "type": "object",
+            "description": "A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.",
+            "children": [
+              {
+                "name": "ecr_image_puller_role",
+                "type": "object",
+                "description": "An object to describe a request to activate or deactivate the role that you can use to grant an Amazon Lightsail container service access to Amazon Elastic Container Registry (Amazon ECR) private repositories."
+              }
+            ]
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "description": "The publicly accessible URL of the container service."
+          },
+          {
+            "name": "principal_arn",
+            "type": "string",
+            "description": "The principal ARN of the container service."
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "An array of key-value pairs to apply to this resource.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "public_endpoint",
+        "type": "object",
+        "description": "An object that describes the endpoint of the deployment.",
+        "children": [
+          {
+            "name": "container_name",
+            "type": "string",
+            "description": "The name of the container for the endpoint."
+          },
+          {
+            "name": "container_port",
+            "type": "integer",
+            "description": "The port of the container to which traffic is forwarded to."
+          },
+          {
+            "name": "health_check_config",
+            "type": "object",
+            "description": "An object that describes the health check configuration of the container.",
+            "children": [
+              {
+                "name": "healthy_threshold",
+                "type": "integer",
+                "description": "The number of consecutive health checks successes required before moving the container to the Healthy state. The default value is 2."
+              },
+              {
+                "name": "interval_seconds",
+                "type": "integer",
+                "description": "The approximate interval, in seconds, between health checks of an individual container. You can specify between 5 and 300 seconds. The default value is 5."
+              },
+              {
+                "name": "path",
+                "type": "string",
+                "description": "The path on the container on which to perform the health check. The default value is /."
+              },
+              {
+                "name": "success_codes",
+                "type": "string",
+                "description": "The HTTP codes to use when checking for a successful response from a container. You can specify values between 200 and 499. You can specify multiple values (for example, 200,202) or a range of values (for example, 200-299)."
+              },
+              {
+                "name": "timeout_seconds",
+                "type": "integer",
+                "description": "The amount of time, in seconds, during which no response means a failed health check. You can specify between 2 and 60 seconds. The default value is 2."
+              },
+              {
+                "name": "unhealthy_threshold",
+                "type": "integer",
+                "description": "The number of consecutive health check failures required before moving the container to the Unhealthy state. The default value is 2."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "is_disabled",
+    "type": "boolean",
+    "description": "A Boolean value to indicate whether the container service is disabled."
+  },
+  {
+    "name": "private_registry_access",
+    "type": "object",
+    "description": "A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.",
+    "children": [
+      {
+        "name": "ecr_image_puller_role",
+        "type": "object",
+        "description": "An object to describe a request to activate or deactivate the role that you can use to grant an Amazon Lightsail container service access to Amazon Elastic Container Registry (Amazon ECR) private repositories.",
+        "children": [
+          {
+            "name": "is_active",
+            "type": "boolean",
+            "description": "A Boolean value that indicates whether to activate the role."
+          },
+          {
+            "name": "principal_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the role, if it is activated."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "url",
+    "type": "string",
+    "description": "The publicly accessible URL of the container service."
+  },
+  {
+    "name": "principal_arn",
+    "type": "string",
+    "description": "The principal ARN of the container service."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-container.html"><code>AWS::Lightsail::Container</code></a>.
 
@@ -90,24 +311,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>containers</code> in a region.
-```sql
-SELECT
-region,
-service_name,
-power,
-container_arn,
-scale,
-public_domain_names,
-container_service_deployment,
-is_disabled,
-private_registry_access,
-url,
-principal_arn,
-tags
-FROM awscc.lightsail.containers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>container</code>.
 ```sql
 SELECT

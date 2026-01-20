@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <code>domain_names</code> in a region
 
@@ -26,32 +27,130 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>domain_names</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::DomainName</code> resource specifies a custom domain name for your API in API Gateway.<br />You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see &#91;Set up Custom Domain Name for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) in the ASTERIX;API Gateway Developer GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::DomainName&#96;&#96; resource specifies a custom domain name for your API in API Gateway.<br />You can use a custom domain name to provide a URL that's more intuitive and easier to recall. For more information about using custom domain names, see &#91;Set up Custom Domain Name for an API in API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html) in the &#42;API Gateway Developer Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.domain_names" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="distribution_domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="distribution_hosted_zone_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_configuration" /></td><td><code>object</code></td><td>The <code>EndpointConfiguration</code> property type specifies the endpoint types of a REST API.<br /><code>EndpointConfiguration</code> is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.</td></tr>
-<tr><td><CopyableCode code="mutual_tls_authentication" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="regional_domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="regional_hosted_zone_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="regional_certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ownership_verification_certificate_arn" /></td><td><code>string</code></td><td>The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the RegionalCertificateArn.</td></tr>
-<tr><td><CopyableCode code="security_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="routing_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "distribution_domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "distribution_hosted_zone_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_configuration",
+    "type": "object",
+    "description": "The &#96;&#96;EndpointConfiguration&#96;&#96; property type specifies the endpoint types of a REST API.<br />&#96;&#96;EndpointConfiguration&#96;&#96; is a property of the &#91;AWS::ApiGateway::RestApi&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource.",
+    "children": [
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "types",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "vpc_endpoint_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "mutual_tls_authentication",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "truststore_uri",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "truststore_version",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "regional_domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "regional_hosted_zone_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "regional_certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ownership_verification_certificate_arn",
+    "type": "string",
+    "description": "The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the RegionalCertificateArn."
+  },
+  {
+    "name": "security_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "routing_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-domainname.html"><code>AWS::ApiGateway::DomainName</code></a>.
 
@@ -93,27 +192,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_names</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-domain_name_arn,
-distribution_domain_name,
-distribution_hosted_zone_id,
-endpoint_configuration,
-mutual_tls_authentication,
-regional_domain_name,
-regional_hosted_zone_id,
-certificate_arn,
-regional_certificate_arn,
-ownership_verification_certificate_arn,
-security_policy,
-routing_mode,
-tags
-FROM awscc.apigateway.domain_names
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_name</code>.
 ```sql
 SELECT

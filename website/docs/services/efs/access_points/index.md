@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_point</code> resource or lists <code>access_points</code> in a region
 
@@ -26,25 +27,112 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
 <tbody>
 <tr><td><b>Name</b></td><td><code>access_points</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::EFS::AccessPoint</code> resource creates an EFS access point. An access point is an application-specific view into an EFS file system that applies an operating system user and group, and a file system path, to any file system request made through the access point. The operating system user and group override any identity information provided by the NFS client. The file system path is exposed as the access point's root directory. Applications using the access point can only access data in its own directory and below. To learn more, see &#91;Mounting a file system using EFS access points&#93;(https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html).<br />This operation requires permissions for the <code>elasticfilesystem:CreateAccessPoint</code> action.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::EFS::AccessPoint&#96;&#96; resource creates an EFS access point. An access point is an application-specific view into an EFS file system that applies an operating system user and group, and a file system path, to any file system request made through the access point. The operating system user and group override any identity information provided by the NFS client. The file system path is exposed as the access point's root directory. Applications using the access point can only access data in its own directory and below. To learn more, see &#91;Mounting a file system using EFS access points&#93;(https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html).<br />This operation requires permissions for the &#96;&#96;elasticfilesystem:CreateAccessPoint&#96;&#96; action.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.efs.access_points" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_point_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>The opaque string specified in the request to ensure idempotent creation.</td></tr>
-<tr><td><CopyableCode code="access_point_tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).</td></tr>
-<tr><td><CopyableCode code="file_system_id" /></td><td><code>string</code></td><td>The ID of the EFS file system that the access point applies to. Accepts only the ID format for input when specifying a file system, for example <code>fs-0123456789abcedf2</code>.</td></tr>
-<tr><td><CopyableCode code="posix_user" /></td><td><code>object</code></td><td>The full POSIX identity, including the user ID, group ID, and secondary group IDs on the access point that is used for all file operations by NFS clients using the access point.</td></tr>
-<tr><td><CopyableCode code="root_directory" /></td><td><code>object</code></td><td>The directory on the EFS file system that the access point exposes as the root directory to NFS clients using the access point.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_point_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "client_token",
+    "type": "string",
+    "description": "The opaque string specified in the request to ensure idempotent creation."
+  },
+  {
+    "name": "access_point_tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key (String). The key can't start with &#96;&#96;aws:&#96;&#96;."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of the tag key."
+      }
+    ]
+  },
+  {
+    "name": "file_system_id",
+    "type": "string",
+    "description": "The ID of the EFS file system that the access point applies to. Accepts only the ID format for input when specifying a file system, for example &#96;&#96;fs-0123456789abcedf2&#96;&#96;."
+  },
+  {
+    "name": "posix_user",
+    "type": "object",
+    "description": "The full POSIX identity, including the user ID, group ID, and secondary group IDs on the access point that is used for all file operations by NFS clients using the access point.",
+    "children": [
+      {
+        "name": "uid",
+        "type": "string",
+        "description": "The POSIX user ID used for all file system operations using this access point."
+      },
+      {
+        "name": "gid",
+        "type": "string",
+        "description": "The POSIX group ID used for all file system operations using this access point."
+      },
+      {
+        "name": "secondary_gids",
+        "type": "array",
+        "description": "Secondary POSIX group IDs used for all file system operations using this access point."
+      }
+    ]
+  },
+  {
+    "name": "root_directory",
+    "type": "object",
+    "description": "The directory on the EFS file system that the access point exposes as the root directory to NFS clients using the access point.",
+    "children": [
+      {
+        "name": "path",
+        "type": "string",
+        "description": "Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system. A path can have up to four subdirectories. If the specified path does not exist, you are required to provide the &#96;&#96;CreationInfo&#96;&#96;."
+      },
+      {
+        "name": "creation_info",
+        "type": "object",
+        "description": "(Optional) Specifies the POSIX IDs and permissions to apply to the access point's &#96;&#96;RootDirectory&#96;&#96;. If the &#96;&#96;RootDirectory&#96;&#96; &gt; &#96;&#96;Path&#96;&#96; specified does not exist, EFS creates the root directory using the &#96;&#96;CreationInfo&#96;&#96; settings when a client connects to an access point. When specifying the &#96;&#96;CreationInfo&#96;&#96;, you must provide values for all properties. <br />If you do not provide &#96;&#96;CreationInfo&#96;&#96; and the specified &#96;&#96;RootDirectory&#96;&#96; &gt; &#96;&#96;Path&#96;&#96; does not exist, attempts to mount the file system using the access point will fail.",
+        "children": [
+          {
+            "name": "owner_uid",
+            "type": "string",
+            "description": "Specifies the POSIX user ID to apply to the &#96;&#96;RootDirectory&#96;&#96;. Accepts values from 0 to 2^32 (4294967295)."
+          },
+          {
+            "name": "owner_gid",
+            "type": "string",
+            "description": "Specifies the POSIX group ID to apply to the &#96;&#96;RootDirectory&#96;&#96;. Accepts values from 0 to 2^32 (4294967295)."
+          },
+          {
+            "name": "permissions",
+            "type": "string",
+            "description": "Specifies the POSIX permissions to apply to the &#96;&#96;RootDirectory&#96;&#96;, in the format of an octal number representing the file's mode bits."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-accesspoint.html"><code>AWS::EFS::AccessPoint</code></a>.
 
@@ -86,20 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_points</code> in a region.
-```sql
-SELECT
-region,
-access_point_id,
-arn,
-client_token,
-access_point_tags,
-file_system_id,
-posix_user,
-root_directory
-FROM awscc.efs.access_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>budgets_action</code> resource or lists <code>budgets_actions</code> in a region
 
@@ -32,22 +33,167 @@ Creates, updates, deletes or gets a <code>budgets_action</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="budget_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="notification_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="action_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="action_threshold" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="execution_role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="approval_model" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subscribers" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "budget_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "notification_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "action_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "action_threshold",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "execution_role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "approval_model",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subscribers",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "definition",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "iam_action_definition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "policy_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "roles",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "groups",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "users",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "scp_action_definition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "policy_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_ids",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ssm_action_definition",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "subtype",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "instance_ids",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "resource_tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-budgets-budgetsaction.html"><code>AWS::Budgets::BudgetsAction</code></a>.
 
@@ -89,23 +235,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>budgets_actions</code> in a region.
-```sql
-SELECT
-region,
-action_id,
-budget_name,
-notification_type,
-action_type,
-action_threshold,
-execution_role_arn,
-approval_model,
-subscribers,
-definition,
-resource_tags
-FROM awscc.budgets.budgets_actions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>budgets_action</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>master</code> resource or lists <code>masters</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>master</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="master_id" /></td><td><code>string</code></td><td>ID of the account used as the master account.</td></tr>
-<tr><td><CopyableCode code="invitation_id" /></td><td><code>string</code></td><td>Value used to validate the master account to the member account.</td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td>Unique ID of the detector of the GuardDuty member account.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "master_id",
+    "type": "string",
+    "description": "ID of the account used as the master account."
+  },
+  {
+    "name": "invitation_id",
+    "type": "string",
+    "description": "Value used to validate the master account to the member account."
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": "Unique ID of the detector of the GuardDuty member account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html"><code>AWS::GuardDuty::Master</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>masters</code> in a region.
-```sql
-SELECT
-region,
-master_id,
-invitation_id,
-detector_id
-FROM awscc.guardduty.masters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>master</code>.
 ```sql
 SELECT

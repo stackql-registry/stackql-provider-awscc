@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>compute_node_group</code> resource or lists <code>compute_node_groups</code> in a region
 
@@ -32,28 +33,162 @@ Creates, updates, deletes or gets a <code>compute_node_group</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The provisioning status of the compute node group. The provisioning status doesn't indicate the overall health of the compute node group.</td></tr>
-<tr><td><CopyableCode code="cluster_id" /></td><td><code>string</code></td><td>The ID of the cluster of the compute node group.</td></tr>
-<tr><td><CopyableCode code="error_info" /></td><td><code>array</code></td><td>The list of errors that occurred during compute node group provisioning.</td></tr>
-<tr><td><CopyableCode code="spot_options" /></td><td><code>object</code></td><td>Additional configuration when you specify SPOT as the purchase option.</td></tr>
-<tr><td><CopyableCode code="slurm_configuration" /></td><td><code>object</code></td><td>Additional options related to the Slurm scheduler.</td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The list of subnet IDs where instances are provisioned by the compute node group. The subnets must be in the same VPC as the cluster.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name that identifies the compute node group.</td></tr>
-<tr><td><CopyableCode code="scaling_configuration" /></td><td><code>object</code></td><td>Specifies the boundaries of the compute node group auto scaling.</td></tr>
-<tr><td><CopyableCode code="instance_configs" /></td><td><code>array</code></td><td>A list of EC2 instance configurations that AWS PCS can provision in the compute node group.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The generated unique ID of the compute node group.</td></tr>
-<tr><td><CopyableCode code="purchase_option" /></td><td><code>string</code></td><td>Specifies how EC2 instances are purchased on your behalf. AWS PCS supports On-Demand and Spot instances. For more information, see Instance purchasing options in the Amazon Elastic Compute Cloud User Guide. If you don't provide this option, it defaults to On-Demand.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The unique Amazon Resource Name (ARN) of the compute node group.</td></tr>
-<tr><td><CopyableCode code="custom_launch_template" /></td><td><code>object</code></td><td>An Amazon EC2 launch template AWS PCS uses to launch compute nodes.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code></code></td><td>1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string.</td></tr>
-<tr><td><CopyableCode code="ami_id" /></td><td><code>string</code></td><td>The ID of the Amazon Machine Image (AMI) that AWS PCS uses to launch instances. If not provided, AWS PCS uses the AMI ID specified in the custom launch template.</td></tr>
-<tr><td><CopyableCode code="iam_instance_profile_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM instance profile used to pass an IAM role when launching EC2 instances. The role contained in your instance profile must have pcs:RegisterComputeNodeGroupInstance permissions attached to provision instances correctly.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The provisioning status of the compute node group. The provisioning status doesn't indicate the overall health of the compute node group."
+  },
+  {
+    "name": "cluster_id",
+    "type": "string",
+    "description": "The ID of the cluster of the compute node group."
+  },
+  {
+    "name": "error_info",
+    "type": "array",
+    "description": "The list of errors that occurred during compute node group provisioning.",
+    "children": [
+      {
+        "name": "code",
+        "type": "string",
+        "description": "The short-form error code."
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "The detailed error information."
+      }
+    ]
+  },
+  {
+    "name": "spot_options",
+    "type": "object",
+    "description": "Additional configuration when you specify SPOT as the purchase option.",
+    "children": [
+      {
+        "name": "allocation_strategy",
+        "type": "string",
+        "description": "The Amazon EC2 allocation strategy AWS PCS uses to provision EC2 instances. AWS PCS supports lowest price, capacity optimized, and price capacity optimized. If you don't provide this option, it defaults to price capacity optimized."
+      }
+    ]
+  },
+  {
+    "name": "slurm_configuration",
+    "type": "object",
+    "description": "Additional options related to the Slurm scheduler.",
+    "children": [
+      {
+        "name": "slurm_custom_settings",
+        "type": "array",
+        "description": "Additional Slurm-specific configuration that directly maps to Slurm settings.",
+        "children": [
+          {
+            "name": "parameter_value",
+            "type": "string",
+            "description": "The value for the configured Slurm setting."
+          },
+          {
+            "name": "parameter_name",
+            "type": "string",
+            "description": "AWS PCS supports configuration of the following Slurm parameters for compute node groups: Weight and RealMemory."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The list of subnet IDs where instances are provisioned by the compute node group. The subnets must be in the same VPC as the cluster."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name that identifies the compute node group."
+  },
+  {
+    "name": "scaling_configuration",
+    "type": "object",
+    "description": "Specifies the boundaries of the compute node group auto scaling.",
+    "children": [
+      {
+        "name": "max_instance_count",
+        "type": "integer",
+        "description": "The upper bound of the number of instances allowed in the compute fleet."
+      },
+      {
+        "name": "min_instance_count",
+        "type": "integer",
+        "description": "The lower bound of the number of instances allowed in the compute fleet."
+      }
+    ]
+  },
+  {
+    "name": "instance_configs",
+    "type": "array",
+    "description": "A list of EC2 instance configurations that AWS PCS can provision in the compute node group.",
+    "children": [
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": "The EC2 instance type that AWS PCS can provision in the compute node group."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The generated unique ID of the compute node group."
+  },
+  {
+    "name": "purchase_option",
+    "type": "string",
+    "description": "Specifies how EC2 instances are purchased on your behalf. AWS PCS supports On-Demand and Spot instances. For more information, see Instance purchasing options in the Amazon Elastic Compute Cloud User Guide. If you don't provide this option, it defaults to On-Demand."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The unique Amazon Resource Name (ARN) of the compute node group."
+  },
+  {
+    "name": "custom_launch_template",
+    "type": "object",
+    "description": "An Amazon EC2 launch template AWS PCS uses to launch compute nodes.",
+    "children": [
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the EC2 launch template to use to provision instances."
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "description": "The ID of the EC2 launch template to use to provision instances."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "1 or more tags added to the resource. Each tag consists of a tag key and tag value. The tag value is optional and can be an empty string."
+  },
+  {
+    "name": "ami_id",
+    "type": "string",
+    "description": "The ID of the Amazon Machine Image (AMI) that AWS PCS uses to launch instances. If not provided, AWS PCS uses the AMI ID specified in the custom launch template."
+  },
+  {
+    "name": "iam_instance_profile_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM instance profile used to pass an IAM role when launching EC2 instances. The role contained in your instance profile must have pcs:RegisterComputeNodeGroupInstance permissions attached to provision instances correctly."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcs-computenodegroup.html"><code>AWS::PCS::ComputeNodeGroup</code></a>.
 
@@ -95,29 +230,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>compute_node_groups</code> in a region.
-```sql
-SELECT
-region,
-status,
-cluster_id,
-error_info,
-spot_options,
-slurm_configuration,
-subnet_ids,
-name,
-scaling_configuration,
-instance_configs,
-id,
-purchase_option,
-arn,
-custom_launch_template,
-tags,
-ami_id,
-iam_instance_profile_arn
-FROM awscc.pcs.compute_node_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>compute_node_group</code>.
 ```sql
 SELECT

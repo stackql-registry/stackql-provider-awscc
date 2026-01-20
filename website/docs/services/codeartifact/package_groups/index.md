@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>package_group</code> resource or lists <code>package_groups</code> in a region
 
@@ -32,20 +33,91 @@ Creates, updates, deletes or gets a <code>package_group</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The name of the domain that contains the package group.</td></tr>
-<tr><td><CopyableCode code="domain_owner" /></td><td><code>string</code></td><td>The 12-digit account ID of the AWS account that owns the domain.</td></tr>
-<tr><td><CopyableCode code="pattern" /></td><td><code>string</code></td><td>The package group pattern that is used to gather packages.</td></tr>
-<tr><td><CopyableCode code="contact_info" /></td><td><code>string</code></td><td>The contact info of the package group.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The text description of the package group.</td></tr>
-<tr><td><CopyableCode code="origin_configuration" /></td><td><code>object</code></td><td>The package origin configuration of the package group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to the package group.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the package group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The name of the domain that contains the package group."
+  },
+  {
+    "name": "domain_owner",
+    "type": "string",
+    "description": "The 12-digit account ID of the AWS account that owns the domain."
+  },
+  {
+    "name": "pattern",
+    "type": "string",
+    "description": "The package group pattern that is used to gather packages."
+  },
+  {
+    "name": "contact_info",
+    "type": "string",
+    "description": "The contact info of the package group."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The text description of the package group."
+  },
+  {
+    "name": "origin_configuration",
+    "type": "object",
+    "description": "The package origin configuration of the package group.",
+    "children": [
+      {
+        "name": "restrictions",
+        "type": "object",
+        "description": "The origin configuration that is applied to the package group.",
+        "children": [
+          {
+            "name": "publish",
+            "type": "object",
+            "description": "The publish restriction determines if new package versions can be published.",
+            "children": [
+              {
+                "name": "restriction_mode",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "repositories",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to the package group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the package group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codeartifact-packagegroup.html"><code>AWS::CodeArtifact::PackageGroup</code></a>.
 
@@ -87,21 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>package_groups</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-domain_owner,
-pattern,
-contact_info,
-description,
-origin_configuration,
-tags,
-arn
-FROM awscc.codeartifact.package_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>package_group</code>.
 ```sql
 SELECT

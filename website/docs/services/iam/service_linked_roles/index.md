@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service_linked_role</code> resource or lists <code>service_linked_roles</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>service_linked_role</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="role_name" /></td><td><code>string</code></td><td>The name of the role.</td></tr>
-<tr><td><CopyableCode code="custom_suffix" /></td><td><code>string</code></td><td>A string that you provide, which is combined with the service-provided prefix to form the complete role name.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the role.</td></tr>
-<tr><td><CopyableCode code="aws_service_name" /></td><td><code>string</code></td><td>The service principal for the AWS service to which this role is attached.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "role_name",
+    "type": "string",
+    "description": "The name of the role."
+  },
+  {
+    "name": "custom_suffix",
+    "type": "string",
+    "description": "A string that you provide, which is combined with the service-provided prefix to form the complete role name."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the role."
+  },
+  {
+    "name": "aws_service_name",
+    "type": "string",
+    "description": "The service principal for the AWS service to which this role is attached."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-servicelinkedrole.html"><code>AWS::IAM::ServiceLinkedRole</code></a>.
 

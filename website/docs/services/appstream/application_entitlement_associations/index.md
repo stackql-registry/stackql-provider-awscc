@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application_entitlement_association</code> resource or lists <code>application_entitlement_associations</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets an <code>application_entitlement_association</
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="stack_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="entitlement_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "stack_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "entitlement_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-applicationentitlementassociation.html"><code>AWS::AppStream::ApplicationEntitlementAssociation</code></a>.
 

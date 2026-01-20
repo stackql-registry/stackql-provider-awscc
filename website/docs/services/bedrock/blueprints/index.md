@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>blueprint</code> resource or lists <code>blueprints</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>blueprint</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="blueprint_arn" /></td><td><code>string</code></td><td>ARN of a Blueprint</td></tr>
-<tr><td><CopyableCode code="blueprint_name" /></td><td><code>string</code></td><td>Name of the Blueprint</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Creation timestamp</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td>Last modified timestamp</td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td>Schema of the blueprint</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Modality Type</td></tr>
-<tr><td><CopyableCode code="blueprint_stage" /></td><td><code>string</code></td><td>Stage of the Blueprint</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>KMS key identifier</td></tr>
-<tr><td><CopyableCode code="kms_encryption_context" /></td><td><code>object</code></td><td>KMS encryption context</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "blueprint_arn",
+    "type": "string",
+    "description": "ARN of a Blueprint"
+  },
+  {
+    "name": "blueprint_name",
+    "type": "string",
+    "description": "Name of the Blueprint"
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Creation timestamp"
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": "Last modified timestamp"
+  },
+  {
+    "name": "schema",
+    "type": "object",
+    "description": "Schema of the blueprint"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Modality Type"
+  },
+  {
+    "name": "blueprint_stage",
+    "type": "string",
+    "description": "Stage of the Blueprint"
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "KMS key identifier"
+  },
+  {
+    "name": "kms_encryption_context",
+    "type": "object",
+    "description": "KMS encryption context"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "List of Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-blueprint.html"><code>AWS::Bedrock::Blueprint</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>blueprints</code> in a region.
-```sql
-SELECT
-region,
-blueprint_arn,
-blueprint_name,
-creation_time,
-last_modified_time,
-schema,
-type,
-blueprint_stage,
-kms_key_id,
-kms_encryption_context,
-tags
-FROM awscc.bedrock.blueprints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>blueprint</code>.
 ```sql
 SELECT

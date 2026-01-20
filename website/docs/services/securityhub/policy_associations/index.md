@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>policy_association</code> resource or lists <code>policy_associations</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>policy_association</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration_policy_id" /></td><td><code>string</code></td><td>The universally unique identifier (UUID) of the configuration policy or a value of SELF_MANAGED_SECURITY_HUB for a self-managed configuration</td></tr>
-<tr><td><CopyableCode code="association_status" /></td><td><code>string</code></td><td>The current status of the association between the specified target and the configuration</td></tr>
-<tr><td><CopyableCode code="association_type" /></td><td><code>string</code></td><td>Indicates whether the association between the specified target and the configuration was directly applied by the Security Hub delegated administrator or inherited from a parent</td></tr>
-<tr><td><CopyableCode code="association_status_message" /></td><td><code>string</code></td><td>An explanation for a FAILED value for AssociationStatus</td></tr>
-<tr><td><CopyableCode code="target_id" /></td><td><code>string</code></td><td>The identifier of the target account, organizational unit, or the root</td></tr>
-<tr><td><CopyableCode code="target_type" /></td><td><code>string</code></td><td>Indicates whether the target is an AWS account, organizational unit, or the organization root</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format, that the configuration policy association was last updated</td></tr>
-<tr><td><CopyableCode code="association_identifier" /></td><td><code>string</code></td><td>A unique identifier to indicates if the target has an association</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration_policy_id",
+    "type": "string",
+    "description": "The universally unique identifier (UUID) of the configuration policy or a value of SELF&#95;MANAGED&#95;SECURITY&#95;HUB for a self-managed configuration"
+  },
+  {
+    "name": "association_status",
+    "type": "string",
+    "description": "The current status of the association between the specified target and the configuration"
+  },
+  {
+    "name": "association_type",
+    "type": "string",
+    "description": "Indicates whether the association between the specified target and the configuration was directly applied by the Security Hub delegated administrator or inherited from a parent"
+  },
+  {
+    "name": "association_status_message",
+    "type": "string",
+    "description": "An explanation for a FAILED value for AssociationStatus"
+  },
+  {
+    "name": "target_id",
+    "type": "string",
+    "description": "The identifier of the target account, organizational unit, or the root"
+  },
+  {
+    "name": "target_type",
+    "type": "string",
+    "description": "Indicates whether the target is an AWS account, organizational unit, or the organization root"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The date and time, in UTC and ISO 8601 format, that the configuration policy association was last updated"
+  },
+  {
+    "name": "association_identifier",
+    "type": "string",
+    "description": "A unique identifier to indicates if the target has an association"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-policyassociation.html"><code>AWS::SecurityHub::PolicyAssociation</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>policy_associations</code> in a region.
-```sql
-SELECT
-region,
-configuration_policy_id,
-association_status,
-association_type,
-association_status_message,
-target_id,
-target_type,
-updated_at,
-association_identifier
-FROM awscc.securityhub.policy_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>policy_association</code>.
 ```sql
 SELECT

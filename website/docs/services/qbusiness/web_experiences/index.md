@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>web_experience</code> resource or lists <code>web_experiences</code> in a region
 
@@ -32,29 +33,139 @@ Creates, updates, deletes or gets a <code>web_experience</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sample_prompts_control_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="subtitle" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="title" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_experience_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_experience_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="welcome_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="origins" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="customization_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="browser_extension_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "default_endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sample_prompts_control_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "subtitle",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "title",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "web_experience_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "web_experience_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "welcome_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "origins",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "customization_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "custom_cs_surl",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "logo_url",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "font_url",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "favicon_url",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "browser_extension_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled_browser_extensions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-webexperience.html"><code>AWS::QBusiness::WebExperience</code></a>.
 
@@ -96,30 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>web_experiences</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-created_at,
-default_endpoint,
-identity_provider_configuration,
-role_arn,
-sample_prompts_control_mode,
-status,
-subtitle,
-tags,
-title,
-updated_at,
-web_experience_arn,
-web_experience_id,
-welcome_message,
-origins,
-customization_configuration,
-browser_extension_configuration
-FROM awscc.qbusiness.web_experiences
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>web_experience</code>.
 ```sql
 SELECT

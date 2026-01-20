@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>topic_inline_policy</code> resource or lists <code>topic_inline_policies</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>topic_inline_policy</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_document" /></td><td><code>object</code></td><td>A policy document that contains permissions to add to the specified SNS topics.</td></tr>
-<tr><td><CopyableCode code="topic_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the topic to which you want to add the policy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_document",
+    "type": "object",
+    "description": "A policy document that contains permissions to add to the specified SNS topics."
+  },
+  {
+    "name": "topic_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the topic to which you want to add the policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topicinlinepolicy.html"><code>AWS::SNS::TopicInlinePolicy</code></a>.
 

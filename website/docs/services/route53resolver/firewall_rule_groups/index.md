@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>firewall_rule_group</code> resource or lists <code>firewall_rule_groups</code> in a region
 
@@ -32,25 +33,152 @@ Creates, updates, deletes or gets a <code>firewall_rule_group</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>ResourceId</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>FirewallRuleGroupName</td></tr>
-<tr><td><CopyableCode code="rule_count" /></td><td><code>integer</code></td><td>Count</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>ResolverFirewallRuleGroupAssociation, possible values are COMPLETE, DELETING, UPDATING, and INACTIVE_OWNER_ACCOUNT_CLOSED.</td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>FirewallRuleGroupStatus</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>AccountId</td></tr>
-<tr><td><CopyableCode code="share_status" /></td><td><code>string</code></td><td>ShareStatus, possible values are NOT_SHARED, SHARED_WITH_ME, SHARED_BY_ME.</td></tr>
-<tr><td><CopyableCode code="creator_request_id" /></td><td><code>string</code></td><td>The id of the creator request.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="modification_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><CopyableCode code="firewall_rules" /></td><td><code>array</code></td><td>FirewallRules</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "ResourceId"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "FirewallRuleGroupName"
+  },
+  {
+    "name": "rule_count",
+    "type": "integer",
+    "description": "Count"
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "ResolverFirewallRuleGroupAssociation, possible values are COMPLETE, DELETING, UPDATING, and INACTIVE&#95;OWNER&#95;ACCOUNT&#95;CLOSED."
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": "FirewallRuleGroupStatus"
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "AccountId"
+  },
+  {
+    "name": "share_status",
+    "type": "string",
+    "description": "ShareStatus, possible values are NOT&#95;SHARED, SHARED&#95;WITH&#95;ME, SHARED&#95;BY&#95;ME."
+  },
+  {
+    "name": "creator_request_id",
+    "type": "string",
+    "description": "The id of the creator request."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "modification_time",
+    "type": "string",
+    "description": "Rfc3339TimeString"
+  },
+  {
+    "name": "firewall_rules",
+    "type": "array",
+    "description": "FirewallRules",
+    "children": [
+      {
+        "name": "firewall_domain_list_id",
+        "type": "string",
+        "description": "ResourceId"
+      },
+      {
+        "name": "firewall_threat_protection_id",
+        "type": "string",
+        "description": "ResourceId"
+      },
+      {
+        "name": "priority",
+        "type": "integer",
+        "description": "Rule Priority"
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "description": "Rule Action"
+      },
+      {
+        "name": "block_response",
+        "type": "string",
+        "description": "BlockResponse"
+      },
+      {
+        "name": "block_override_domain",
+        "type": "string",
+        "description": "BlockOverrideDomain"
+      },
+      {
+        "name": "block_override_dns_type",
+        "type": "string",
+        "description": "BlockOverrideDnsType"
+      },
+      {
+        "name": "block_override_ttl",
+        "type": "integer",
+        "description": "BlockOverrideTtl"
+      },
+      {
+        "name": "qtype",
+        "type": "string",
+        "description": "Qtype"
+      },
+      {
+        "name": "confidence_threshold",
+        "type": "string",
+        "description": "FirewallDomainRedirectionAction"
+      },
+      {
+        "name": "dns_threat_protection",
+        "type": "string",
+        "description": "FirewallDomainRedirectionAction"
+      },
+      {
+        "name": "firewall_domain_redirection_action",
+        "type": "string",
+        "description": "FirewallDomainRedirectionAction"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-firewallrulegroup.html"><code>AWS::Route53Resolver::FirewallRuleGroup</code></a>.
 
@@ -92,26 +220,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>firewall_rule_groups</code> in a region.
-```sql
-SELECT
-region,
-id,
-arn,
-name,
-rule_count,
-status,
-status_message,
-owner_id,
-share_status,
-creator_request_id,
-creation_time,
-modification_time,
-firewall_rules,
-tags
-FROM awscc.route53resolver.firewall_rule_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>firewall_rule_group</code>.
 ```sql
 SELECT

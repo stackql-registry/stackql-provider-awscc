@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>eips</code> in a region or regions, for all properties use <a href="/services/ec2/eips/"><code>eips</code></a>
 
@@ -26,20 +27,29 @@ Lists <code>eips</code> in a region or regions, for all properties use <a href="
 <tbody>
 <tr><td><b>Name</b></td><td><code>eips_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies an Elastic IP (EIP) address and can, optionally, associate it with an Amazon EC2 instance.<br />You can allocate an Elastic IP address from an address pool owned by AWS or from an address pool created from a public IPv4 address range that you have brought to AWS for use with your AWS resources using bring your own IP addresses (BYOIP). For more information, see &#91;Bring Your Own IP Addresses (BYOIP)&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html) in the ASTERIX;Amazon EC2 User GuideASTERIX;.<br />For more information, see &#91;Elastic IP Addresses&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) in the ASTERIX;Amazon EC2 User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies an Elastic IP (EIP) address and can, optionally, associate it with an Amazon EC2 instance.<br />You can allocate an Elastic IP address from an address pool owned by AWS or from an address pool created from a public IPv4 address range that you have brought to AWS for use with your AWS resources using bring your own IP addresses (BYOIP). For more information, see &#91;Bring Your Own IP Addresses (BYOIP)&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html) in the &#42;Amazon EC2 User Guide&#42;.<br />For more information, see &#91;Elastic IP Addresses&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) in the &#42;Amazon EC2 User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.eips_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="public_ip" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="allocation_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "public_ip",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "allocation_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

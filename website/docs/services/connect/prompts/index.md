@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>prompt</code> resource or lists <code>prompts</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>prompt</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the prompt.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the prompt.</td></tr>
-<tr><td><CopyableCode code="s3_uri" /></td><td><code>string</code></td><td>S3 URI of the customer's audio file for creating prompts resource..</td></tr>
-<tr><td><CopyableCode code="prompt_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the prompt.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the prompt."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the prompt."
+  },
+  {
+    "name": "s3_uri",
+    "type": "string",
+    "description": "S3 URI of the customer's audio file for creating prompts resource.."
+  },
+  {
+    "name": "prompt_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the prompt."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-prompt.html"><code>AWS::Connect::Prompt</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>prompts</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-name,
-description,
-s3_uri,
-prompt_arn,
-tags
-FROM awscc.connect.prompts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>prompt</code>.
 ```sql
 SELECT

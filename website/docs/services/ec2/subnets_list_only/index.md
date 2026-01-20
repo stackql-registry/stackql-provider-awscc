@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>subnets</code> in a region or regions, for all properties use <a href="/services/ec2/subnets/"><code>subnets</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>subnets</code> in a region or regions, for all properties use <a hre
 <tbody>
 <tr><td><b>Name</b></td><td><code>subnets_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a subnet for the specified VPC.<br />For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see &#91;Subnets for your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) in the ASTERIX;Amazon VPC User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a subnet for the specified VPC.<br />For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see &#91;Subnets for your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.subnets_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

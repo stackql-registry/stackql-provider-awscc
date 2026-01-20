@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app</code> resource or lists <code>apps</code> in a region
 
@@ -32,21 +33,92 @@ Creates, updates, deletes or gets an <code>app</code> resource or lists <code>ap
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the app.</td></tr>
-<tr><td><CopyableCode code="app_name" /></td><td><code>string</code></td><td>The name of the app.</td></tr>
-<tr><td><CopyableCode code="app_type" /></td><td><code>string</code></td><td>The type of app.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The domain ID.</td></tr>
-<tr><td><CopyableCode code="resource_spec" /></td><td><code>object</code></td><td>The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the app.</td></tr>
-<tr><td><CopyableCode code="user_profile_name" /></td><td><code>string</code></td><td>The user profile name.</td></tr>
-<tr><td><CopyableCode code="built_in_lifecycle_config_arn" /></td><td><code>string</code></td><td>The lifecycle configuration that runs before the default lifecycle configuration.</td></tr>
-<tr><td><CopyableCode code="recovery_mode" /></td><td><code>boolean</code></td><td>Indicates whether the application is launched in recovery mode.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the app."
+  },
+  {
+    "name": "app_name",
+    "type": "string",
+    "description": "The name of the app."
+  },
+  {
+    "name": "app_type",
+    "type": "string",
+    "description": "The type of app."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The domain ID."
+  },
+  {
+    "name": "resource_spec",
+    "type": "object",
+    "description": "The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.",
+    "children": [
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": "The instance type that the image version runs on."
+      },
+      {
+        "name": "sage_maker_image_arn",
+        "type": "string",
+        "description": "The ARN of the SageMaker image that the image version belongs to."
+      },
+      {
+        "name": "sage_maker_image_version_arn",
+        "type": "string",
+        "description": "The ARN of the image version created on the instance."
+      },
+      {
+        "name": "lifecycle_config_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags to apply to the app.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_profile_name",
+    "type": "string",
+    "description": "The user profile name."
+  },
+  {
+    "name": "built_in_lifecycle_config_arn",
+    "type": "string",
+    "description": "The lifecycle configuration that runs before the default lifecycle configuration."
+  },
+  {
+    "name": "recovery_mode",
+    "type": "boolean",
+    "description": "Indicates whether the application is launched in recovery mode."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-app.html"><code>AWS::SageMaker::App</code></a>.
 
@@ -88,22 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>apps</code> in a region.
-```sql
-SELECT
-region,
-app_arn,
-app_name,
-app_type,
-domain_id,
-resource_spec,
-tags,
-user_profile_name,
-built_in_lifecycle_config_arn,
-recovery_mode
-FROM awscc.sagemaker.apps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>app</code>.
 ```sql
 SELECT

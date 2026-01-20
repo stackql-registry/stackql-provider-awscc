@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>query_definition</code> resource or lists <code>query_definitions</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>query_definition</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the saved query definition</td></tr>
-<tr><td><CopyableCode code="query_string" /></td><td><code>string</code></td><td>The query string to use for this definition</td></tr>
-<tr><td><CopyableCode code="log_group_names" /></td><td><code>array</code></td><td>Optionally define specific log groups as part of your query definition</td></tr>
-<tr><td><CopyableCode code="query_definition_id" /></td><td><code>string</code></td><td>Unique identifier of a query definition</td></tr>
-<tr><td><CopyableCode code="query_language" /></td><td><code>string</code></td><td>Query language of the query string. Possible values are CWLI, SQL, PPL, with CWLI being the default.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the saved query definition"
+  },
+  {
+    "name": "query_string",
+    "type": "string",
+    "description": "The query string to use for this definition"
+  },
+  {
+    "name": "log_group_names",
+    "type": "array",
+    "description": "Optionally define specific log groups as part of your query definition"
+  },
+  {
+    "name": "query_definition_id",
+    "type": "string",
+    "description": "Unique identifier of a query definition"
+  },
+  {
+    "name": "query_language",
+    "type": "string",
+    "description": "Query language of the query string. Possible values are CWLI, SQL, PPL, with CWLI being the default."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-querydefinition.html"><code>AWS::Logs::QueryDefinition</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>query_definitions</code> in a region.
-```sql
-SELECT
-region,
-name,
-query_string,
-log_group_names,
-query_definition_id,
-query_language
-FROM awscc.logs.query_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>query_definition</code>.
 ```sql
 SELECT

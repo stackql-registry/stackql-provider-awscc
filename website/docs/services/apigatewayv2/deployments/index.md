@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment</code> resource or lists <code>deployments</code> in a region
 
@@ -26,22 +27,39 @@ Creates, updates, deletes or gets a <code>deployment</code> resource or lists <c
 <tbody>
 <tr><td><b>Name</b></td><td><code>deployments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGatewayV2::Deployment</code> resource creates a deployment for an API.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGatewayV2::Deployment&#96;&#96; resource creates a deployment for an API.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigatewayv2.deployments" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description for the deployment resource.</td></tr>
-<tr><td><CopyableCode code="stage_name" /></td><td><code>string</code></td><td>The name of an existing stage to associate with the deployment.</td></tr>
-<tr><td><CopyableCode code="api_id" /></td><td><code>string</code></td><td>The API identifier.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description for the deployment resource."
+  },
+  {
+    "name": "stage_name",
+    "type": "string",
+    "description": "The name of an existing stage to associate with the deployment."
+  },
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "The API identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-deployment.html"><code>AWS::ApiGatewayV2::Deployment</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployments</code> in a region.
-```sql
-SELECT
-region,
-deployment_id,
-description,
-stage_name,
-api_id
-FROM awscc.apigatewayv2.deployments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment</code>.
 ```sql
 SELECT

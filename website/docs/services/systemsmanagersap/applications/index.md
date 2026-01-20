@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,22 +33,109 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the SSM-SAP application</td></tr>
-<tr><td><CopyableCode code="credentials" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="instances" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sap_instance_number" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sid" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags of a SystemsManagerSAP application.</td></tr>
-<tr><td><CopyableCode code="database_arn" /></td><td><code>string</code></td><td>The ARN of the SAP HANA database</td></tr>
-<tr><td><CopyableCode code="components_info" /></td><td><code>array</code></td><td>This is an optional parameter for component details to which the SAP ABAP application is attached, such as Web Dispatcher.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the SSM-SAP application"
+  },
+  {
+    "name": "credentials",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "database_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "credential_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "secret_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "instances",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "sap_instance_number",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sid",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags of a SystemsManagerSAP application.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "database_arn",
+    "type": "string",
+    "description": "The ARN of the SAP HANA database"
+  },
+  {
+    "name": "components_info",
+    "type": "array",
+    "description": "This is an optional parameter for component details to which the SAP ABAP application is attached, such as Web Dispatcher.",
+    "children": [
+      {
+        "name": "component_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ec2_instance_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sid",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-systemsmanagersap-application.html"><code>AWS::SystemsManagerSAP::Application</code></a>.
 
@@ -89,23 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-application_type,
-arn,
-credentials,
-instances,
-sap_instance_number,
-sid,
-tags,
-database_arn,
-components_info
-FROM awscc.systemsmanagersap.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

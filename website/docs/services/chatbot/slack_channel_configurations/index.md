@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>slack_channel_configuration</code> resource or lists <code>slack_channel_configurations</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="slack_workspace_id" /></td><td><code>string</code></td><td>The id of the Slack workspace</td></tr>
-<tr><td><CopyableCode code="slack_channel_id" /></td><td><code>string</code></td><td>The id of the Slack channel</td></tr>
-<tr><td><CopyableCode code="configuration_name" /></td><td><code>string</code></td><td>The name of the configuration</td></tr>
-<tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td>The ARN of the IAM role that defines the permissions for AWS Chatbot</td></tr>
-<tr><td><CopyableCode code="sns_topic_arns" /></td><td><code>array</code></td><td>ARNs of SNS topics which delivers notifications to AWS Chatbot, for example CloudWatch alarm notifications.</td></tr>
-<tr><td><CopyableCode code="logging_level" /></td><td><code>string</code></td><td>Specifies the logging level for this configuration:ERROR,INFO or NONE. This property affects the log entries pushed to Amazon CloudWatch logs</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the configuration</td></tr>
-<tr><td><CopyableCode code="guardrail_policies" /></td><td><code>array</code></td><td>The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed 'AdministratorAccess' policy is applied as a default if this is not set.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to add to the configuration</td></tr>
-<tr><td><CopyableCode code="user_role_required" /></td><td><code>boolean</code></td><td>Enables use of a user role requirement in your chat configuration</td></tr>
-<tr><td><CopyableCode code="customization_resource_arns" /></td><td><code>array</code></td><td>ARNs of Custom Actions to associate with notifications in the provided chat channel.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "slack_workspace_id",
+    "type": "string",
+    "description": "The id of the Slack workspace"
+  },
+  {
+    "name": "slack_channel_id",
+    "type": "string",
+    "description": "The id of the Slack channel"
+  },
+  {
+    "name": "configuration_name",
+    "type": "string",
+    "description": "The name of the configuration"
+  },
+  {
+    "name": "iam_role_arn",
+    "type": "string",
+    "description": "The ARN of the IAM role that defines the permissions for AWS Chatbot"
+  },
+  {
+    "name": "sns_topic_arns",
+    "type": "array",
+    "description": "ARNs of SNS topics which delivers notifications to AWS Chatbot, for example CloudWatch alarm notifications."
+  },
+  {
+    "name": "logging_level",
+    "type": "string",
+    "description": "Specifies the logging level for this configuration:ERROR,INFO or NONE. This property affects the log entries pushed to Amazon CloudWatch logs"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the configuration"
+  },
+  {
+    "name": "guardrail_policies",
+    "type": "array",
+    "description": "The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed 'AdministratorAccess' policy is applied as a default if this is not set."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to add to the configuration",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_role_required",
+    "type": "boolean",
+    "description": "Enables use of a user role requirement in your chat configuration"
+  },
+  {
+    "name": "customization_resource_arns",
+    "type": "array",
+    "description": "ARNs of Custom Actions to associate with notifications in the provided chat channel."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-chatbot-slackchannelconfiguration.html"><code>AWS::Chatbot::SlackChannelConfiguration</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>slack_channel_configurations</code> in a region.
-```sql
-SELECT
-region,
-slack_workspace_id,
-slack_channel_id,
-configuration_name,
-iam_role_arn,
-sns_topic_arns,
-logging_level,
-arn,
-guardrail_policies,
-tags,
-user_role_required,
-customization_resource_arns
-FROM awscc.chatbot.slack_channel_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
 SELECT

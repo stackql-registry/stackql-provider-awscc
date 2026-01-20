@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>scraper</code> resource or lists <code>scrapers</code> in a region
 
@@ -32,21 +33,127 @@ Creates, updates, deletes or gets a <code>scraper</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scraper_id" /></td><td><code>string</code></td><td>Required to identify a specific scraper.</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>Scraper alias.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Scraper ARN.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>IAM role ARN for the scraper.</td></tr>
-<tr><td><CopyableCode code="scrape_configuration" /></td><td><code>object</code></td><td>Scraper configuration</td></tr>
-<tr><td><CopyableCode code="role_configuration" /></td><td><code>object</code></td><td>Role configuration</td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>object</code></td><td>Scraper metrics source</td></tr>
-<tr><td><CopyableCode code="destination" /></td><td><code>object</code></td><td>Scraper metrics destination</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scraper_id",
+    "type": "string",
+    "description": "Required to identify a specific scraper."
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "Scraper alias."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Scraper ARN."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "IAM role ARN for the scraper."
+  },
+  {
+    "name": "scrape_configuration",
+    "type": "object",
+    "description": "Scraper configuration",
+    "children": [
+      {
+        "name": "configuration_blob",
+        "type": "string",
+        "description": "Prometheus compatible scrape configuration in base64 encoded blob format"
+      }
+    ]
+  },
+  {
+    "name": "role_configuration",
+    "type": "object",
+    "description": "Role configuration",
+    "children": [
+      {
+        "name": "source_role_arn",
+        "type": "string",
+        "description": "IAM Role in source account"
+      },
+      {
+        "name": "target_role_arn",
+        "type": "string",
+        "description": "IAM Role in the target account"
+      }
+    ]
+  },
+  {
+    "name": "source",
+    "type": "object",
+    "description": "Scraper metrics source",
+    "children": [
+      {
+        "name": "eks_configuration",
+        "type": "object",
+        "description": "Configuration for EKS metrics source",
+        "children": [
+          {
+            "name": "cluster_arn",
+            "type": "string",
+            "description": "ARN of an EKS cluster"
+          },
+          {
+            "name": "security_group_ids",
+            "type": "array",
+            "description": "List of security group IDs"
+          },
+          {
+            "name": "subnet_ids",
+            "type": "array",
+            "description": "List of subnet IDs"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "destination",
+    "type": "object",
+    "description": "Scraper metrics destination",
+    "children": [
+      {
+        "name": "amp_configuration",
+        "type": "object",
+        "description": "Configuration for Amazon Managed Prometheus metrics destination",
+        "children": [
+          {
+            "name": "workspace_arn",
+            "type": "string",
+            "description": "ARN of an Amazon Managed Prometheus workspace"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-aps-scraper.html"><code>AWS::APS::Scraper</code></a>.
 
@@ -88,22 +195,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>scrapers</code> in a region.
-```sql
-SELECT
-region,
-scraper_id,
-alias,
-arn,
-role_arn,
-scrape_configuration,
-role_configuration,
-source,
-destination,
-tags
-FROM awscc.aps.scrapers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>scraper</code>.
 ```sql
 SELECT

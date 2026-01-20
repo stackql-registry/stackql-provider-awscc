@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stream_consumer</code> resource or lists <code>stream_consumers</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>stream_consumer</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="consumer_creation_timestamp" /></td><td><code>string</code></td><td>Timestamp when the consumer was created.</td></tr>
-<tr><td><CopyableCode code="consumer_name" /></td><td><code>string</code></td><td>The name of the Kinesis Stream Consumer. For a given Kinesis data stream, each consumer must have a unique name. However, consumer names don't have to be unique across data streams.</td></tr>
-<tr><td><CopyableCode code="consumer_arn" /></td><td><code>string</code></td><td>The ARN returned by Kinesis Data Streams when you registered the consumer. If you don't know the ARN of the consumer that you want to deregister, you can use the ListStreamConsumers operation to get a list of the descriptions of all the consumers that are currently registered with a given data stream. The description of a consumer contains its ARN.</td></tr>
-<tr><td><CopyableCode code="consumer_status" /></td><td><code>string</code></td><td>A consumer can't read data while in the CREATING or DELETING states. Valid Values: CREATING | DELETING | ACTIVE</td></tr>
-<tr><td><CopyableCode code="stream_arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the Kinesis data stream that you want to register the consumer with.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key–value pairs) to associate with the Kinesis consumer.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "consumer_creation_timestamp",
+    "type": "string",
+    "description": "Timestamp when the consumer was created."
+  },
+  {
+    "name": "consumer_name",
+    "type": "string",
+    "description": "The name of the Kinesis Stream Consumer. For a given Kinesis data stream, each consumer must have a unique name. However, consumer names don't have to be unique across data streams."
+  },
+  {
+    "name": "consumer_arn",
+    "type": "string",
+    "description": "The ARN returned by Kinesis Data Streams when you registered the consumer. If you don't know the ARN of the consumer that you want to deregister, you can use the ListStreamConsumers operation to get a list of the descriptions of all the consumers that are currently registered with a given data stream. The description of a consumer contains its ARN."
+  },
+  {
+    "name": "consumer_status",
+    "type": "string",
+    "description": "A consumer can't read data while in the CREATING or DELETING states. Valid Values: CREATING &#124; DELETING &#124; ACTIVE"
+  },
+  {
+    "name": "stream_arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) of the Kinesis data stream that you want to register the consumer with."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key–value pairs) to associate with the Kinesis consumer.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesis-streamconsumer.html"><code>AWS::Kinesis::StreamConsumer</code></a>.
 
@@ -80,19 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stream_consumers</code> in a region.
-```sql
-SELECT
-region,
-consumer_creation_timestamp,
-consumer_name,
-consumer_arn,
-consumer_status,
-stream_arn,
-tags
-FROM awscc.kinesis.stream_consumers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stream_consumer</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>preference</code> resource or lists <code>preferences</code> in a region
 
@@ -32,14 +33,54 @@ Creates, updates, deletes or gets a <code>preference</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The AWS Account Id that the preference is associated with, used as the unique identifier for this resource.</td></tr>
-<tr><td><CopyableCode code="connection_recording_preferences" /></td><td><code>object</code></td><td>The set of preferences used for recording RDP connections in the requesting AWS account and AWS Region. This includes details such as which S3 bucket recordings are stored in.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The AWS Account Id that the preference is associated with, used as the unique identifier for this resource."
+  },
+  {
+    "name": "connection_recording_preferences",
+    "type": "object",
+    "description": "The set of preferences used for recording RDP connections in the requesting AWS account and AWS Region. This includes details such as which S3 bucket recordings are stored in.",
+    "children": [
+      {
+        "name": "recording_destinations",
+        "type": "object",
+        "description": "Determines where recordings of RDP connections are stored.",
+        "children": [
+          {
+            "name": "s3_buckets",
+            "type": "array",
+            "description": "The S3 bucket where RDP connection recordings are stored.",
+            "children": [
+              {
+                "name": "bucket_owner",
+                "type": "string",
+                "description": "The AWS account number that owns the S3 bucket."
+              },
+              {
+                "name": "bucket_name",
+                "type": "string",
+                "description": "The name of the S3 bucket where RDP connection recordings are stored."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "The ARN of a AWS KMS key that is used to encrypt data while it is being processed by the service. This key must exist in the same AWS Region as the node you start an RDP connection to."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssmguiconnect-preference.html"><code>AWS::SSMGuiConnect::Preferences</code></a>.
 
@@ -81,15 +122,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>preferences</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-connection_recording_preferences
-FROM awscc.ssmguiconnect.preferences
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>preference</code>.
 ```sql
 SELECT

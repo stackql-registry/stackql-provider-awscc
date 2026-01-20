@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>notification_channel</code> resource or lists <code>notification_channels</code> in a region
 
@@ -32,14 +33,18 @@ Creates, updates, deletes or gets a <code>notification_channel</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="sns_role_name" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="sns_topic_arn" /></td><td><code>string</code></td><td>A resource ARN.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "sns_role_name",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-notificationchannel.html"><code>AWS::FMS::NotificationChannel</code></a>.
 
@@ -81,15 +86,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>notification_channels</code> in a region.
-```sql
-SELECT
-region,
-sns_role_name,
-sns_topic_arn
-FROM awscc.fms.notification_channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>notification_channel</code>.
 ```sql
 SELECT

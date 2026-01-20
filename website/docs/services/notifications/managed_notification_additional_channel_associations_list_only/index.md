@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>managed_notification_additional_channel_associations</code> in a region or regions, for all properties use <a href="/services/notifications/managed_notification_additional_channel_associations/"><code>managed_notification_additional_channel_associations</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>managed_notification_additional_channel_associations</code> in a reg
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops</td></tr>
-<tr><td><CopyableCode code="managed_notification_configuration_arn" /></td><td><code>string</code></td><td>ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "channel_arn",
+    "type": "string",
+    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+  },
+  {
+    "name": "managed_notification_configuration_arn",
+    "type": "string",
+    "description": "ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

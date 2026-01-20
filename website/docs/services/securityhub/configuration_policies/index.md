@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>configuration_policy</code> resource or lists <code>configuration_policies</code> in a region
 
@@ -32,21 +33,99 @@ Creates, updates, deletes or gets a <code>configuration_policy</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the configuration policy.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the configuration policy.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the configuration policy.</td></tr>
-<tr><td><CopyableCode code="configuration_policy" /></td><td><code>object</code></td><td>An object that defines how Security Hub is configured.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The universally unique identifier (UUID) of the configuration policy.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format.</td></tr>
-<tr><td><CopyableCode code="service_enabled" /></td><td><code>boolean</code></td><td>Indicates whether the service that the configuration policy applies to is enabled in the policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the configuration policy."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the configuration policy."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the configuration policy."
+  },
+  {
+    "name": "configuration_policy",
+    "type": "object",
+    "description": "An object that defines how Security Hub is configured.",
+    "children": [
+      {
+        "name": "security_hub",
+        "type": "object",
+        "description": "An object that defines how AWS Security Hub is configured.",
+        "children": [
+          {
+            "name": "enabled_standard_identifiers",
+            "type": "array",
+            "description": "A list that defines which security standards are enabled in the configuration policy."
+          },
+          {
+            "name": "service_enabled",
+            "type": "boolean",
+            "description": "Indicates whether Security Hub is enabled in the policy."
+          },
+          {
+            "name": "security_controls_configuration",
+            "type": "object",
+            "description": "An object that defines which security controls are enabled in an AWS Security Hub configuration policy.",
+            "children": [
+              {
+                "name": "disabled_security_control_identifiers",
+                "type": "array",
+                "description": "A list of security controls that are disabled in the configuration policy"
+              },
+              {
+                "name": "enabled_security_control_identifiers",
+                "type": "array",
+                "description": "A list of security controls that are enabled in the configuration policy."
+              },
+              {
+                "name": "security_control_custom_parameters",
+                "type": "array",
+                "description": "A list of security controls and control parameter values that are included in a configuration policy."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The universally unique identifier (UUID) of the configuration policy."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time, in UTC and ISO 8601 format."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The date and time, in UTC and ISO 8601 format."
+  },
+  {
+    "name": "service_enabled",
+    "type": "boolean",
+    "description": "Indicates whether the service that the configuration policy applies to is enabled in the policy."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-configurationpolicy.html"><code>AWS::SecurityHub::ConfigurationPolicy</code></a>.
 
@@ -88,22 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>configuration_policies</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-configuration_policy,
-id,
-created_at,
-updated_at,
-service_enabled,
-tags
-FROM awscc.securityhub.configuration_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>configuration_policy</code>.
 ```sql
 SELECT

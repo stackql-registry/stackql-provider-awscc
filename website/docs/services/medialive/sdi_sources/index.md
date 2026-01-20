@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>sdi_source</code> resource or lists <code>sdi_sources</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>sdi_source</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The unique arn of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique identifier of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="mode" /></td><td><code>string</code></td><td>The current state of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The current state of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The interface mode of the SdiSource.</td></tr>
-<tr><td><CopyableCode code="inputs" /></td><td><code>array</code></td><td>The list of inputs currently using this SDI source.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of key-value pairs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The unique arn of the SdiSource."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique identifier of the SdiSource."
+  },
+  {
+    "name": "mode",
+    "type": "string",
+    "description": "The current state of the SdiSource."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the SdiSource."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The current state of the SdiSource."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The interface mode of the SdiSource."
+  },
+  {
+    "name": "inputs",
+    "type": "array",
+    "description": "The list of inputs currently using this SDI source."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of key-value pairs.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-sdisource.html"><code>AWS::MediaLive::SdiSource</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sdi_sources</code> in a region.
-```sql
-SELECT
-region,
-arn,
-id,
-mode,
-name,
-state,
-type,
-inputs,
-tags
-FROM awscc.medialive.sdi_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>sdi_source</code>.
 ```sql
 SELECT

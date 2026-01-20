@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_object_storage</code> resource or lists <code>location_object_storages</code> in a region
 
@@ -32,27 +33,131 @@ Creates, updates, deletes or gets a <code>location_object_storage</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_key" /></td><td><code>string</code></td><td>Optional. The access key is used if credentials are required to access the self-managed object storage server.</td></tr>
-<tr><td><CopyableCode code="agent_arns" /></td><td><code>array</code></td><td>Specifies the Amazon Resource Names (ARNs) of the DataSync agents that can connect with your object storage system. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter.</td></tr>
-<tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td>The name of the bucket on the self-managed object storage server.</td></tr>
-<tr><td><CopyableCode code="secret_key" /></td><td><code>string</code></td><td>Optional. The secret key is used if credentials are required to access the self-managed object storage server.</td></tr>
-<tr><td><CopyableCode code="server_certificate" /></td><td><code>string</code></td><td>X.509 PEM content containing a certificate authority or chain to trust.</td></tr>
-<tr><td><CopyableCode code="server_hostname" /></td><td><code>string</code></td><td>The name of the self-managed object storage server. This value is the IP address or Domain Name Service (DNS) name of the object storage server.</td></tr>
-<tr><td><CopyableCode code="server_port" /></td><td><code>integer</code></td><td>The port that your self-managed server accepts inbound network traffic on.</td></tr>
-<tr><td><CopyableCode code="server_protocol" /></td><td><code>string</code></td><td>The protocol that the object storage server uses to communicate.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in the self-managed object storage server that is used to read data from.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the location that is created.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the object storage location that was described.</td></tr>
-<tr><td><CopyableCode code="cmk_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and a customer-managed AWS KMS key.</td></tr>
-<tr><td><CopyableCode code="custom_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a customer-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and an IAM role that DataSync can assume and access the customer-managed secret.</td></tr>
-<tr><td><CopyableCode code="managed_secret_config" /></td><td><code>object</code></td><td>Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location. DataSync uses the default AWS-managed KMS key to encrypt this secret in AWS Secrets Manager.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_key",
+    "type": "string",
+    "description": "Optional. The access key is used if credentials are required to access the self-managed object storage server."
+  },
+  {
+    "name": "agent_arns",
+    "type": "array",
+    "description": "Specifies the Amazon Resource Names (ARNs) of the DataSync agents that can connect with your object storage system. If you are setting up an agentless cross-cloud transfer, you do not need to specify a value for this parameter."
+  },
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "The name of the bucket on the self-managed object storage server."
+  },
+  {
+    "name": "secret_key",
+    "type": "string",
+    "description": "Optional. The secret key is used if credentials are required to access the self-managed object storage server."
+  },
+  {
+    "name": "server_certificate",
+    "type": "string",
+    "description": "X.509 PEM content containing a certificate authority or chain to trust."
+  },
+  {
+    "name": "server_hostname",
+    "type": "string",
+    "description": "The name of the self-managed object storage server. This value is the IP address or Domain Name Service (DNS) name of the object storage server."
+  },
+  {
+    "name": "server_port",
+    "type": "integer",
+    "description": "The port that your self-managed server accepts inbound network traffic on."
+  },
+  {
+    "name": "server_protocol",
+    "type": "string",
+    "description": "The protocol that the object storage server uses to communicate."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in the self-managed object storage server that is used to read data from."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the location that is created."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the object storage location that was described."
+  },
+  {
+    "name": "cmk_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and a customer-managed AWS KMS key.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for an AWS Secrets Manager secret, managed by DataSync."
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "Specifies the ARN for the customer-managed AWS KMS key used to encrypt the secret specified for SecretArn. DataSync provides this key to AWS Secrets Manager."
+      }
+    ]
+  },
+  {
+    "name": "custom_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a customer-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location, and an IAM role that DataSync can assume and access the customer-managed secret.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for a customer created AWS Secrets Manager secret."
+      },
+      {
+        "name": "secret_access_role_arn",
+        "type": "string",
+        "description": "Specifies the ARN for the AWS Identity and Access Management role that DataSync uses to access the secret specified for SecretArn."
+      }
+    ]
+  },
+  {
+    "name": "managed_secret_config",
+    "type": "object",
+    "description": "Specifies configuration information for a DataSync-managed secret, such as an authentication token or set of credentials that DataSync uses to access a specific transfer location. DataSync uses the default AWS-managed KMS key to encrypt this secret in AWS Secrets Manager.",
+    "children": [
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "Specifies the ARN for an AWS Secrets Manager secret."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationobjectstorage.html"><code>AWS::DataSync::LocationObjectStorage</code></a>.
 
@@ -94,28 +199,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_object_storages</code> in a region.
-```sql
-SELECT
-region,
-access_key,
-agent_arns,
-bucket_name,
-secret_key,
-server_certificate,
-server_hostname,
-server_port,
-server_protocol,
-subdirectory,
-tags,
-location_arn,
-location_uri,
-cmk_secret_config,
-custom_secret_config,
-managed_secret_config
-FROM awscc.datasync.location_object_storages
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_object_storage</code>.
 ```sql
 SELECT

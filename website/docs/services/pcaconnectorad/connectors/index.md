@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connector</code> resource or lists <code>connectors</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="certificate_authority_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="connector_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="directory_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_information" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "certificate_authority_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "connector_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "directory_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "vpc_information",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "ip_address_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcaconnectorad-connector.html"><code>AWS::PCAConnectorAD::Connector</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connectors</code> in a region.
-```sql
-SELECT
-region,
-certificate_authority_arn,
-connector_arn,
-directory_id,
-tags,
-vpc_information
-FROM awscc.pcaconnectorad.connectors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connector</code>.
 ```sql
 SELECT

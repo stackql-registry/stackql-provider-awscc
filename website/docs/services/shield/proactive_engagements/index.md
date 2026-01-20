@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>proactive_engagement</code> resource or lists <code>proactive_engagements</code> in a region
 
@@ -32,15 +33,45 @@ Creates, updates, deletes or gets a <code>proactive_engagement</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="proactive_engagement_status" /></td><td><code>string</code></td><td>If `ENABLED`, the Shield Response Team (SRT) will use email and phone to notify contacts about escalations to the SRT and to initiate proactive customer support.<br />If `DISABLED`, the SRT will not proactively notify contacts about escalations or to initiate proactive customer support.</td></tr>
-<tr><td><CopyableCode code="emergency_contact_list" /></td><td><code>array</code></td><td>A list of email addresses and phone numbers that the Shield Response Team (SRT) can use to contact you for escalations to the SRT and to initiate proactive customer support.<br />To enable proactive engagement, the contact list must include at least one phone number.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "proactive_engagement_status",
+    "type": "string",
+    "description": "If &#96;ENABLED&#96;, the Shield Response Team (SRT) will use email and phone to notify contacts about escalations to the SRT and to initiate proactive customer support.<br />If &#96;DISABLED&#96;, the SRT will not proactively notify contacts about escalations or to initiate proactive customer support."
+  },
+  {
+    "name": "emergency_contact_list",
+    "type": "array",
+    "description": "A list of email addresses and phone numbers that the Shield Response Team (SRT) can use to contact you for escalations to the SRT and to initiate proactive customer support.<br />To enable proactive engagement, the contact list must include at least one phone number.",
+    "children": [
+      {
+        "name": "contact_notes",
+        "type": "string",
+        "description": "Additional notes regarding the contact."
+      },
+      {
+        "name": "email_address",
+        "type": "string",
+        "description": "The email address for the contact."
+      },
+      {
+        "name": "phone_number",
+        "type": "string",
+        "description": "The phone number for the contact"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-shield-proactiveengagement.html"><code>AWS::Shield::ProactiveEngagement</code></a>.
 
@@ -82,16 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>proactive_engagements</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-proactive_engagement_status,
-emergency_contact_list
-FROM awscc.shield.proactive_engagements
-;
-```
+
 Gets all properties from an individual <code>proactive_engagement</code>.
 ```sql
 SELECT

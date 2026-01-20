@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>agent_alias</code> resource or lists <code>agent_aliases</code> in a region
 
@@ -32,23 +33,99 @@ Creates, updates, deletes or gets an <code>agent_alias</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="agent_alias_arn" /></td><td><code>string</code></td><td>Arn representation of the Agent Alias.</td></tr>
-<tr><td><CopyableCode code="agent_alias_history_events" /></td><td><code>array</code></td><td>The list of history events for an alias for an Agent.</td></tr>
-<tr><td><CopyableCode code="agent_alias_id" /></td><td><code>string</code></td><td>Id for an Agent Alias generated at the server side.</td></tr>
-<tr><td><CopyableCode code="agent_alias_name" /></td><td><code>string</code></td><td>Name for a resource.</td></tr>
-<tr><td><CopyableCode code="agent_alias_status" /></td><td><code>string</code></td><td>The statuses an Agent Alias can be in.</td></tr>
-<tr><td><CopyableCode code="agent_id" /></td><td><code>string</code></td><td>Identifier for a resource.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of the Resource.</td></tr>
-<tr><td><CopyableCode code="routing_configuration" /></td><td><code>array</code></td><td>Routing configuration for an Agent alias.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "agent_alias_arn",
+    "type": "string",
+    "description": "Arn representation of the Agent Alias."
+  },
+  {
+    "name": "agent_alias_history_events",
+    "type": "array",
+    "description": "The list of history events for an alias for an Agent.",
+    "children": [
+      {
+        "name": "routing_configuration",
+        "type": "array",
+        "description": "Routing configuration for an Agent alias.",
+        "children": [
+          {
+            "name": "agent_version",
+            "type": "string",
+            "description": "Agent Version."
+          }
+        ]
+      },
+      {
+        "name": "end_date",
+        "type": "string",
+        "description": "Time Stamp."
+      },
+      {
+        "name": "start_date",
+        "type": "string",
+        "description": "Time Stamp."
+      }
+    ]
+  },
+  {
+    "name": "agent_alias_id",
+    "type": "string",
+    "description": "Id for an Agent Alias generated at the server side."
+  },
+  {
+    "name": "agent_alias_name",
+    "type": "string",
+    "description": "Name for a resource."
+  },
+  {
+    "name": "agent_alias_status",
+    "type": "string",
+    "description": "The statuses an Agent Alias can be in."
+  },
+  {
+    "name": "agent_id",
+    "type": "string",
+    "description": "Identifier for a resource."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of the Resource."
+  },
+  {
+    "name": "routing_configuration",
+    "type": "array",
+    "description": "Routing configuration for an Agent alias.",
+    "children": [
+      {
+        "name": "agent_version",
+        "type": "string",
+        "description": "Agent Version."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A map of tag keys and values"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time Stamp."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-agentalias.html"><code>AWS::Bedrock::AgentAlias</code></a>.
 
@@ -90,24 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>agent_aliases</code> in a region.
-```sql
-SELECT
-region,
-agent_alias_arn,
-agent_alias_history_events,
-agent_alias_id,
-agent_alias_name,
-agent_alias_status,
-agent_id,
-created_at,
-description,
-routing_configuration,
-tags,
-updated_at
-FROM awscc.bedrock.agent_aliases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>agent_alias</code>.
 ```sql
 SELECT

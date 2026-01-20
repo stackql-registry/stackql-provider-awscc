@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>campaign</code> resource or lists <code>campaigns</code> in a region
 
@@ -32,35 +33,254 @@ Creates, updates, deletes or gets a <code>campaign</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="action" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compression" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="priority" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="signals_to_collect" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="signals_to_fetch" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_destination_configs" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="start_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="expiry_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modification_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="spooling_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="signal_catalog_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="post_trigger_collection_duration" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_extra_dimensions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="diagnostics_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="collection_scheme" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_partitions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compression",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "signals_to_collect",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "max_sample_count",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "minimum_sampling_interval_ms",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "data_partition_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "signals_to_fetch",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "fully_qualified_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "signal_fetch_config",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "condition_language_version",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "data_destination_configs",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "start_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "expiry_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modification_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "spooling_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "signal_catalog_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "post_trigger_collection_duration",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "data_extra_dimensions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "diagnostics_mode",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "collection_scheme",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "data_partitions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "storage_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "maximum_size",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unit",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "minimum_time_to_live",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "unit",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "storage_location",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "upload_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "condition_language_version",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-campaign.html"><code>AWS::IoTFleetWise::Campaign</code></a>.
 
@@ -102,36 +322,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>campaigns</code> in a region.
-```sql
-SELECT
-region,
-status,
-action,
-creation_time,
-compression,
-description,
-priority,
-signals_to_collect,
-signals_to_fetch,
-data_destination_configs,
-start_time,
-name,
-expiry_time,
-last_modification_time,
-spooling_mode,
-signal_catalog_arn,
-post_trigger_collection_duration,
-data_extra_dimensions,
-diagnostics_mode,
-target_arn,
-arn,
-collection_scheme,
-data_partitions,
-tags
-FROM awscc.iotfleetwise.campaigns
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>campaign</code>.
 ```sql
 SELECT

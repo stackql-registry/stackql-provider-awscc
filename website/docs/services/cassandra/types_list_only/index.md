@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>types</code> in a region or regions, for all properties use <a href="/services/cassandra/types/"><code>types</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>types</code> in a region or regions, for all properties use <a href=
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="keyspace_name" /></td><td><code>string</code></td><td>Name of the Keyspace which contains the User-Defined Type.</td></tr>
-<tr><td><CopyableCode code="type_name" /></td><td><code>string</code></td><td>Name of the User-Defined Type.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "keyspace_name",
+    "type": "string",
+    "description": "Name of the Keyspace which contains the User-Defined Type."
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": "Name of the User-Defined Type."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>key_group</code> resource or lists <code>key_groups</code> in a region
 
@@ -32,15 +33,45 @@ Creates, updates, deletes or gets a <code>key_group</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_group_config" /></td><td><code>object</code></td><td>The key group configuration.</td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "key_group_config",
+    "type": "object",
+    "description": "The key group configuration.",
+    "children": [
+      {
+        "name": "comment",
+        "type": "string",
+        "description": "A comment to describe the key group. The comment cannot be longer than 128 characters."
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "description": "A list of the identifiers of the public keys in the key group."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "A name to identify the key group."
+      }
+    ]
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-keygroup.html"><code>AWS::CloudFront::KeyGroup</code></a>.
 
@@ -82,16 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>key_groups</code> in a region.
-```sql
-SELECT
-region,
-id,
-key_group_config,
-last_modified_time
-FROM awscc.cloudfront.key_groups
-;
-```
+
 Gets all properties from an individual <code>key_group</code>.
 ```sql
 SELECT

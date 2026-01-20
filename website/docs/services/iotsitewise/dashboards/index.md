@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <code>dashboards</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The ID of the project in which to create the dashboard.</td></tr>
-<tr><td><CopyableCode code="dashboard_id" /></td><td><code>string</code></td><td>The ID of the dashboard.</td></tr>
-<tr><td><CopyableCode code="dashboard_name" /></td><td><code>string</code></td><td>A friendly name for the dashboard.</td></tr>
-<tr><td><CopyableCode code="dashboard_description" /></td><td><code>string</code></td><td>A description for the dashboard.</td></tr>
-<tr><td><CopyableCode code="dashboard_definition" /></td><td><code>string</code></td><td>The dashboard definition specified in a JSON literal.</td></tr>
-<tr><td><CopyableCode code="dashboard_arn" /></td><td><code>string</code></td><td>The ARN of the dashboard.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the dashboard.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The ID of the project in which to create the dashboard."
+  },
+  {
+    "name": "dashboard_id",
+    "type": "string",
+    "description": "The ID of the dashboard."
+  },
+  {
+    "name": "dashboard_name",
+    "type": "string",
+    "description": "A friendly name for the dashboard."
+  },
+  {
+    "name": "dashboard_description",
+    "type": "string",
+    "description": "A description for the dashboard."
+  },
+  {
+    "name": "dashboard_definition",
+    "type": "string",
+    "description": "The dashboard definition specified in a JSON literal."
+  },
+  {
+    "name": "dashboard_arn",
+    "type": "string",
+    "description": "The ARN of the dashboard."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the dashboard.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-dashboard.html"><code>AWS::IoTSiteWise::Dashboard</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dashboards</code> in a region.
-```sql
-SELECT
-region,
-project_id,
-dashboard_id,
-dashboard_name,
-dashboard_description,
-dashboard_definition,
-dashboard_arn,
-tags
-FROM awscc.iotsitewise.dashboards
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
 SELECT

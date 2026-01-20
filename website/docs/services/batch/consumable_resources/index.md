@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>consumable_resource</code> resource or lists <code>consumable_resources</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>consumable_resource</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="consumable_resource_name" /></td><td><code>string</code></td><td>Name of ConsumableResource.</td></tr>
-<tr><td><CopyableCode code="consumable_resource_arn" /></td><td><code>string</code></td><td>ARN of the Scheduling Policy.</td></tr>
-<tr><td><CopyableCode code="total_quantity" /></td><td><code>integer</code></td><td>Total Quantity of ConsumableResource.</td></tr>
-<tr><td><CopyableCode code="in_use_quantity" /></td><td><code>integer</code></td><td>In-use Quantity of ConsumableResource.</td></tr>
-<tr><td><CopyableCode code="available_quantity" /></td><td><code>integer</code></td><td>Available Quantity of ConsumableResource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>Type of Consumable Resource.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "consumable_resource_name",
+    "type": "string",
+    "description": "Name of ConsumableResource."
+  },
+  {
+    "name": "consumable_resource_arn",
+    "type": "string",
+    "description": "ARN of the Scheduling Policy."
+  },
+  {
+    "name": "total_quantity",
+    "type": "integer",
+    "description": "Total Quantity of ConsumableResource."
+  },
+  {
+    "name": "in_use_quantity",
+    "type": "integer",
+    "description": "In-use Quantity of ConsumableResource."
+  },
+  {
+    "name": "available_quantity",
+    "type": "integer",
+    "description": "Available Quantity of ConsumableResource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "Type of Consumable Resource."
+  },
+  {
+    "name": "created_at",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-consumableresource.html"><code>AWS::Batch::ConsumableResource</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>consumable_resources</code> in a region.
-```sql
-SELECT
-region,
-consumable_resource_name,
-consumable_resource_arn,
-total_quantity,
-in_use_quantity,
-available_quantity,
-resource_type,
-created_at,
-tags
-FROM awscc.batch.consumable_resources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>consumable_resource</code>.
 ```sql
 SELECT

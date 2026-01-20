@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_stream</code> resource or lists <code>event_streams</code> in a region
 
@@ -32,20 +33,72 @@ Creates, updates, deletes or gets an <code>event_stream</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The unique name of the domain.</td></tr>
-<tr><td><CopyableCode code="event_stream_name" /></td><td><code>string</code></td><td>The name of the event stream.</td></tr>
-<tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The StreamARN of the destination to deliver profile events to. For example, arn:aws:kinesis:region:account-id:stream/stream-name</td></tr>
-<tr><td><CopyableCode code="event_stream_arn" /></td><td><code>string</code></td><td>A unique identifier for the event stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags used to organize, track, or control access for this resource.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the export was created.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The operational state of destination stream for export.</td></tr>
-<tr><td><CopyableCode code="destination_details" /></td><td><code>object</code></td><td>Details regarding the Kinesis stream.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "event_stream_name",
+    "type": "string",
+    "description": "The name of the event stream."
+  },
+  {
+    "name": "uri",
+    "type": "string",
+    "description": "The StreamARN of the destination to deliver profile events to. For example, arn:aws:kinesis:region:account-id:stream/stream-name"
+  },
+  {
+    "name": "event_stream_arn",
+    "type": "string",
+    "description": "A unique identifier for the event stream."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags used to organize, track, or control access for this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of when the export was created."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The operational state of destination stream for export."
+  },
+  {
+    "name": "destination_details",
+    "type": "object",
+    "description": "Details regarding the Kinesis stream.",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "The status of enabling the Kinesis stream as a destination for export."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-eventstream.html"><code>AWS::CustomerProfiles::EventStream</code></a>.
 
@@ -87,21 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_streams</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-event_stream_name,
-uri,
-event_stream_arn,
-tags,
-created_at,
-state,
-destination_details
-FROM awscc.customerprofiles.event_streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_stream</code>.
 ```sql
 SELECT

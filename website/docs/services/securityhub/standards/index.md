@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>standard</code> resource or lists <code>standards</code> in a region
 
@@ -26,21 +27,46 @@ Creates, updates, deletes or gets a <code>standard</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>standards</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::SecurityHub::Standard</code> resource specifies the enablement of a security standard. The standard is identified by the <code>StandardsArn</code> property. To view a list of ASH standards and their Amazon Resource Names (ARNs), use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html) API operation.<br />You must create a separate <code>AWS::SecurityHub::Standard</code> resource for each standard that you want to enable.<br />For more information about ASH standards, see &#91;standards reference&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/standards-reference.html) in the ASTERIX;User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SecurityHub::Standard&#96;&#96; resource specifies the enablement of a security standard. The standard is identified by the &#96;&#96;StandardsArn&#96;&#96; property. To view a list of ASH standards and their Amazon Resource Names (ARNs), use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API&#95;DescribeStandards.html) API operation.<br />You must create a separate &#96;&#96;AWS::SecurityHub::Standard&#96;&#96; resource for each standard that you want to enable.<br />For more information about ASH standards, see &#91;standards reference&#93;(https://docs.aws.amazon.com/securityhub/latest/userguide/standards-reference.html) in the &#42;User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.securityhub.standards" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="standards_subscription_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="standards_arn" /></td><td><code>string</code></td><td>The ARN of the standard that you want to enable. To view a list of available ASH standards and their ARNs, use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API_DescribeStandards.html) API operation.</td></tr>
-<tr><td><CopyableCode code="disabled_standards_controls" /></td><td><code>array</code></td><td>Specifies which controls are to be disabled in a standard. <br />ASTERIX;MaximumASTERIX;: <code>100</code></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "standards_subscription_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "standards_arn",
+    "type": "string",
+    "description": "The ARN of the standard that you want to enable. To view a list of available ASH standards and their ARNs, use the &#91;DescribeStandards&#93;(https://docs.aws.amazon.com/securityhub/1.0/APIReference/API&#95;DescribeStandards.html) API operation."
+  },
+  {
+    "name": "disabled_standards_controls",
+    "type": "array",
+    "description": "Specifies which controls are to be disabled in a standard. <br />&#42;Maximum&#42;: &#96;&#96;100&#96;&#96;",
+    "children": [
+      {
+        "name": "standards_control_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the control."
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "description": "A user-defined reason for changing a control's enablement status in a specified standard. If you are disabling a control, then this property is required."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-standard.html"><code>AWS::SecurityHub::Standard</code></a>.
 
@@ -82,16 +108,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>standards</code> in a region.
-```sql
-SELECT
-region,
-standards_subscription_arn,
-standards_arn,
-disabled_standards_controls
-FROM awscc.securityhub.standards
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>standard</code>.
 ```sql
 SELECT

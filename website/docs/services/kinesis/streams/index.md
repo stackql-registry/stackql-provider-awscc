@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stream</code> resource or lists <code>streams</code> in a region
 
@@ -32,20 +33,84 @@ Creates, updates, deletes or gets a <code>stream</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the Kinesis stream</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the Kinesis stream.</td></tr>
-<tr><td><CopyableCode code="desired_shard_level_metrics" /></td><td><code>array</code></td><td>The final list of shard-level metrics</td></tr>
-<tr><td><CopyableCode code="retention_period_hours" /></td><td><code>integer</code></td><td>The number of hours for the data records that are stored in shards to remain accessible.</td></tr>
-<tr><td><CopyableCode code="shard_count" /></td><td><code>integer</code></td><td>The number of shards that the stream uses. Required when StreamMode = PROVISIONED is passed.</td></tr>
-<tr><td><CopyableCode code="stream_mode_details" /></td><td><code>object</code></td><td>The mode in which the stream is running.</td></tr>
-<tr><td><CopyableCode code="stream_encryption" /></td><td><code>object</code></td><td>When specified, enables or updates server-side encryption using an AWS KMS key for a specified stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key–value pairs) to associate with the Kinesis stream.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) of the Kinesis stream"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the Kinesis stream."
+  },
+  {
+    "name": "desired_shard_level_metrics",
+    "type": "array",
+    "description": "The final list of shard-level metrics"
+  },
+  {
+    "name": "retention_period_hours",
+    "type": "integer",
+    "description": "The number of hours for the data records that are stored in shards to remain accessible."
+  },
+  {
+    "name": "shard_count",
+    "type": "integer",
+    "description": "The number of shards that the stream uses. Required when StreamMode = PROVISIONED is passed."
+  },
+  {
+    "name": "stream_mode_details",
+    "type": "object",
+    "description": "The mode in which the stream is running.",
+    "children": [
+      {
+        "name": "stream_mode",
+        "type": "string",
+        "description": "The mode of the stream"
+      }
+    ]
+  },
+  {
+    "name": "stream_encryption",
+    "type": "object",
+    "description": "When specified, enables or updates server-side encryption using an AWS KMS key for a specified stream.",
+    "children": [
+      {
+        "name": "encryption_type",
+        "type": "string",
+        "description": "The encryption type to use. The only valid value is KMS."
+      },
+      {
+        "name": "key_id",
+        "type": "string",
+        "description": "The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed by \"alias/\".You can also use a master key owned by Kinesis Data Streams by specifying the alias aws/kinesis."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key–value pairs) to associate with the Kinesis stream.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesis-stream.html"><code>AWS::Kinesis::Stream</code></a>.
 
@@ -87,21 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>streams</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-desired_shard_level_metrics,
-retention_period_hours,
-shard_count,
-stream_mode_details,
-stream_encryption,
-tags
-FROM awscc.kinesis.streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stream</code>.
 ```sql
 SELECT

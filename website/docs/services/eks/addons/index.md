@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>addons</code> in a region
 
@@ -32,23 +33,151 @@ Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>Name of Cluster</td></tr>
-<tr><td><CopyableCode code="addon_name" /></td><td><code>string</code></td><td>Name of Addon</td></tr>
-<tr><td><CopyableCode code="addon_version" /></td><td><code>string</code></td><td>Version of Addon</td></tr>
-<tr><td><CopyableCode code="preserve_on_delete" /></td><td><code>boolean</code></td><td>PreserveOnDelete parameter value</td></tr>
-<tr><td><CopyableCode code="resolve_conflicts" /></td><td><code>string</code></td><td>Resolve parameter value conflicts</td></tr>
-<tr><td><CopyableCode code="service_account_role_arn" /></td><td><code>string</code></td><td>IAM role to bind to the add-on's service account</td></tr>
-<tr><td><CopyableCode code="pod_identity_associations" /></td><td><code>array</code></td><td>An array of pod identities to apply to this add-on.</td></tr>
-<tr><td><CopyableCode code="configuration_values" /></td><td><code>string</code></td><td>The configuration values to use with the add-on</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the add-on</td></tr>
-<tr><td><CopyableCode code="namespace_config" /></td><td><code>object</code></td><td>The custom namespace configuration to use with the add-on</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "Name of Cluster"
+  },
+  {
+    "name": "addon_name",
+    "type": "string",
+    "description": "Name of Addon"
+  },
+  {
+    "name": "addon_version",
+    "type": "string",
+    "description": "Version of Addon"
+  },
+  {
+    "name": "preserve_on_delete",
+    "type": "boolean",
+    "description": "PreserveOnDelete parameter value"
+  },
+  {
+    "name": "resolve_conflicts",
+    "type": "string",
+    "description": "Resolve parameter value conflicts"
+  },
+  {
+    "name": "service_account_role_arn",
+    "type": "string",
+    "description": "IAM role to bind to the add-on's service account"
+  },
+  {
+    "name": "pod_identity_associations",
+    "type": "array",
+    "description": "An array of pod identities to apply to this add-on.",
+    "children": [
+      {
+        "name": "cluster_name",
+        "type": "string",
+        "description": "The cluster that the pod identity association is created for."
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The IAM role ARN that the pod identity association is created for."
+      },
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": "The Kubernetes namespace that the pod identity association is created for."
+      },
+      {
+        "name": "service_account",
+        "type": "string",
+        "description": "The Kubernetes service account that the pod identity association is created for."
+      },
+      {
+        "name": "association_arn",
+        "type": "string",
+        "description": "The ARN of the pod identity association."
+      },
+      {
+        "name": "association_id",
+        "type": "string",
+        "description": "The ID of the pod identity association."
+      },
+      {
+        "name": "target_role_arn",
+        "type": "string",
+        "description": "The Target Role Arn of the pod identity association."
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": "The External Id of the pod identity association."
+      },
+      {
+        "name": "disable_session_tags",
+        "type": "boolean",
+        "description": "The Disable Session Tags of the pod identity association."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "An array of key-value pairs to apply to this resource.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "configuration_values",
+    "type": "string",
+    "description": "The configuration values to use with the add-on"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the add-on"
+  },
+  {
+    "name": "namespace_config",
+    "type": "object",
+    "description": "The custom namespace configuration to use with the add-on",
+    "children": [
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": "The custom namespace for creating the add-on"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-addon.html"><code>AWS::EKS::Addon</code></a>.
 
@@ -90,24 +219,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>addons</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-addon_name,
-addon_version,
-preserve_on_delete,
-resolve_conflicts,
-service_account_role_arn,
-pod_identity_associations,
-configuration_values,
-arn,
-namespace_config,
-tags
-FROM awscc.eks.addons
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>addon</code>.
 ```sql
 SELECT

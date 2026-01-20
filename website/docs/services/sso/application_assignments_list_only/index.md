@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>application_assignments</code> in a region or regions, for all properties use <a href="/services/sso/application_assignments/"><code>application_assignments</code></a>
 
@@ -32,15 +33,28 @@ Lists <code>application_assignments</code> in a region or regions, for all prope
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The ARN of the application.</td></tr>
-<tr><td><CopyableCode code="principal_type" /></td><td><code>string</code></td><td>The entity type for which the assignment will be created.</td></tr>
-<tr><td><CopyableCode code="principal_id" /></td><td><code>string</code></td><td>An identifier for an object in IAM Identity Center, such as a user or group</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": "The ARN of the application."
+  },
+  {
+    "name": "principal_type",
+    "type": "string",
+    "description": "The entity type for which the assignment will be created."
+  },
+  {
+    "name": "principal_id",
+    "type": "string",
+    "description": "An identifier for an object in IAM Identity Center, such as a user or group"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>flow_source</code> resource or lists <code>flow_sources</code> in a region
 
@@ -32,33 +33,184 @@ Creates, updates, deletes or gets a <code>flow_source</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="flow_arn" /></td><td><code>string</code></td><td>The ARN of the flow.</td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>The ARN of the source.</td></tr>
-<tr><td><CopyableCode code="decryption" /></td><td><code>object</code></td><td>The type of encryption that is used on the content ingested from this source.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the source. This value is not used or seen outside of the current AWS Elemental MediaConnect account.</td></tr>
-<tr><td><CopyableCode code="entitlement_arn" /></td><td><code>string</code></td><td>The ARN of the entitlement that allows you to subscribe to content that comes from another AWS account. The entitlement is set by the content originator and the ARN is generated as part of the originator's flow.</td></tr>
-<tr><td><CopyableCode code="gateway_bridge_source" /></td><td><code>object</code></td><td>The source configuration for cloud flows receiving a stream from a bridge.</td></tr>
-<tr><td><CopyableCode code="ingest_ip" /></td><td><code>string</code></td><td>The IP address that the flow will be listening on for incoming content.</td></tr>
-<tr><td><CopyableCode code="ingest_port" /></td><td><code>integer</code></td><td>The port that the flow will be listening on for incoming content.</td></tr>
-<tr><td><CopyableCode code="max_bitrate" /></td><td><code>integer</code></td><td>The smoothing max bitrate for RIST, RTP, and RTP-FEC streams.</td></tr>
-<tr><td><CopyableCode code="max_latency" /></td><td><code>integer</code></td><td>The maximum latency in milliseconds. This parameter applies only to RIST-based and Zixi-based streams.</td></tr>
-<tr><td><CopyableCode code="min_latency" /></td><td><code>integer</code></td><td>The minimum latency in milliseconds.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the source.</td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>string</code></td><td>The protocol that is used by the source.</td></tr>
-<tr><td><CopyableCode code="sender_ip_address" /></td><td><code>string</code></td><td>The IP address that the flow communicates with to initiate connection with the sender for fujitsu-qos protocol.</td></tr>
-<tr><td><CopyableCode code="sender_control_port" /></td><td><code>integer</code></td><td>The port that the flow uses to send outbound requests to initiate connection with the sender for fujitsu-qos protocol.</td></tr>
-<tr><td><CopyableCode code="stream_id" /></td><td><code>string</code></td><td>The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.</td></tr>
-<tr><td><CopyableCode code="source_ingest_port" /></td><td><code>string</code></td><td>The port that the flow will be listening on for incoming content.(ReadOnly)</td></tr>
-<tr><td><CopyableCode code="source_listener_address" /></td><td><code>string</code></td><td>Source IP or domain name for SRT-caller protocol.</td></tr>
-<tr><td><CopyableCode code="source_listener_port" /></td><td><code>integer</code></td><td>Source port for SRT-caller protocol.</td></tr>
-<tr><td><CopyableCode code="vpc_interface_name" /></td><td><code>string</code></td><td>The name of the VPC Interface this Source is configured with.</td></tr>
-<tr><td><CopyableCode code="whitelist_cidr" /></td><td><code>string</code></td><td>The range of IP addresses that should be allowed to contribute content to your source. These IP addresses should be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "flow_arn",
+    "type": "string",
+    "description": "The ARN of the flow."
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": "The ARN of the source."
+  },
+  {
+    "name": "decryption",
+    "type": "object",
+    "description": "The type of encryption that is used on the content ingested from this source.",
+    "children": [
+      {
+        "name": "algorithm",
+        "type": "string",
+        "description": "The type of algorithm that is used for the encryption (such as aes128, aes192, or aes256)."
+      },
+      {
+        "name": "constant_initialization_vector",
+        "type": "string",
+        "description": "A 128-bit, 16-byte hex value represented by a 32-character string, to be used with the key for encrypting content. This parameter is not valid for static key encryption."
+      },
+      {
+        "name": "device_id",
+        "type": "string",
+        "description": "The value of one of the devices that you configured with your digital rights management (DRM) platform key provider. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "key_type",
+        "type": "string",
+        "description": "The type of key that is used for the encryption. If no keyType is provided, the service will use the default setting (static-key)."
+      },
+      {
+        "name": "region",
+        "type": "string",
+        "description": "The AWS Region that the API Gateway proxy endpoint was created in. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "description": "An identifier for the content. The service sends this value to the key server to identify the current endpoint. The resource ID is also known as the content ID. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The ARN of the role that you created during setup (when you set up AWS Elemental MediaConnect as a trusted entity)."
+      },
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "The ARN of the secret that you created in AWS Secrets Manager to store the encryption key. This parameter is required for static key encryption and is not valid for SPEKE encryption."
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "The URL from the API Gateway proxy that you set up to talk to your key server. This parameter is required for SPEKE encryption and is not valid for static key encryption."
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the source. This value is not used or seen outside of the current AWS Elemental MediaConnect account."
+  },
+  {
+    "name": "entitlement_arn",
+    "type": "string",
+    "description": "The ARN of the entitlement that allows you to subscribe to content that comes from another AWS account. The entitlement is set by the content originator and the ARN is generated as part of the originator's flow."
+  },
+  {
+    "name": "gateway_bridge_source",
+    "type": "object",
+    "description": "The source configuration for cloud flows receiving a stream from a bridge.",
+    "children": [
+      {
+        "name": "bridge_arn",
+        "type": "string",
+        "description": "The ARN of the bridge feeding this flow."
+      },
+      {
+        "name": "vpc_interface_attachment",
+        "type": "object",
+        "description": "The name of the VPC interface attachment to use for this bridge source.",
+        "children": [
+          {
+            "name": "vpc_interface_name",
+            "type": "string",
+            "description": "The name of the VPC interface to use for this resource."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ingest_ip",
+    "type": "string",
+    "description": "The IP address that the flow will be listening on for incoming content."
+  },
+  {
+    "name": "ingest_port",
+    "type": "integer",
+    "description": "The port that the flow will be listening on for incoming content."
+  },
+  {
+    "name": "max_bitrate",
+    "type": "integer",
+    "description": "The smoothing max bitrate for RIST, RTP, and RTP-FEC streams."
+  },
+  {
+    "name": "max_latency",
+    "type": "integer",
+    "description": "The maximum latency in milliseconds. This parameter applies only to RIST-based and Zixi-based streams."
+  },
+  {
+    "name": "min_latency",
+    "type": "integer",
+    "description": "The minimum latency in milliseconds."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the source."
+  },
+  {
+    "name": "protocol",
+    "type": "string",
+    "description": "The protocol that is used by the source."
+  },
+  {
+    "name": "sender_ip_address",
+    "type": "string",
+    "description": "The IP address that the flow communicates with to initiate connection with the sender for fujitsu-qos protocol."
+  },
+  {
+    "name": "sender_control_port",
+    "type": "integer",
+    "description": "The port that the flow uses to send outbound requests to initiate connection with the sender for fujitsu-qos protocol."
+  },
+  {
+    "name": "stream_id",
+    "type": "string",
+    "description": "The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams."
+  },
+  {
+    "name": "source_ingest_port",
+    "type": "string",
+    "description": "The port that the flow will be listening on for incoming content.(ReadOnly)"
+  },
+  {
+    "name": "source_listener_address",
+    "type": "string",
+    "description": "Source IP or domain name for SRT-caller protocol."
+  },
+  {
+    "name": "source_listener_port",
+    "type": "integer",
+    "description": "Source port for SRT-caller protocol."
+  },
+  {
+    "name": "vpc_interface_name",
+    "type": "string",
+    "description": "The name of the VPC Interface this Source is configured with."
+  },
+  {
+    "name": "whitelist_cidr",
+    "type": "string",
+    "description": "The range of IP addresses that should be allowed to contribute content to your source. These IP addresses should be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-flowsource.html"><code>AWS::MediaConnect::FlowSource</code></a>.
 
@@ -100,34 +252,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>flow_sources</code> in a region.
-```sql
-SELECT
-region,
-flow_arn,
-source_arn,
-decryption,
-description,
-entitlement_arn,
-gateway_bridge_source,
-ingest_ip,
-ingest_port,
-max_bitrate,
-max_latency,
-min_latency,
-name,
-protocol,
-sender_ip_address,
-sender_control_port,
-stream_id,
-source_ingest_port,
-source_listener_address,
-source_listener_port,
-vpc_interface_name,
-whitelist_cidr
-FROM awscc.mediaconnect.flow_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>flow_source</code>.
 ```sql
 SELECT

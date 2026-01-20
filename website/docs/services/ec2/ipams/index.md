@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ipam</code> resource or lists <code>ipams</code> in a region
 
@@ -32,27 +33,114 @@ Creates, updates, deletes or gets an <code>ipam</code> resource or lists <code>i
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ipam_id" /></td><td><code>string</code></td><td>Id of the IPAM.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IPAM.</td></tr>
-<tr><td><CopyableCode code="default_resource_discovery_id" /></td><td><code>string</code></td><td>The Id of the default resource discovery, created with this IPAM.</td></tr>
-<tr><td><CopyableCode code="default_resource_discovery_association_id" /></td><td><code>string</code></td><td>The Id of the default association to the default resource discovery, created with this IPAM.</td></tr>
-<tr><td><CopyableCode code="resource_discovery_association_count" /></td><td><code>integer</code></td><td>The count of resource discoveries associated with this IPAM.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="public_default_scope_id" /></td><td><code>string</code></td><td>The Id of the default scope for publicly routable IP space, created with this IPAM.</td></tr>
-<tr><td><CopyableCode code="private_default_scope_id" /></td><td><code>string</code></td><td>The Id of the default scope for publicly routable IP space, created with this IPAM.</td></tr>
-<tr><td><CopyableCode code="scope_count" /></td><td><code>integer</code></td><td>The number of scopes that currently exist in this IPAM.</td></tr>
-<tr><td><CopyableCode code="operating_regions" /></td><td><code>array</code></td><td>The regions IPAM is enabled for. Allows pools to be created in these regions, as well as enabling monitoring</td></tr>
-<tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>The tier of the IPAM.</td></tr>
-<tr><td><CopyableCode code="enable_private_gua" /></td><td><code>boolean</code></td><td>Enable provisioning of GUA space in private pools.</td></tr>
-<tr><td><CopyableCode code="metered_account" /></td><td><code>string</code></td><td>A metered account is an account that is charged for active IP addresses managed in IPAM</td></tr>
-<tr><td><CopyableCode code="default_resource_discovery_organizational_unit_exclusions" /></td><td><code>array</code></td><td>A set of organizational unit (OU) exclusions for the default resource discovery, created with this IPAM.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ipam_id",
+    "type": "string",
+    "description": "Id of the IPAM."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IPAM."
+  },
+  {
+    "name": "default_resource_discovery_id",
+    "type": "string",
+    "description": "The Id of the default resource discovery, created with this IPAM."
+  },
+  {
+    "name": "default_resource_discovery_association_id",
+    "type": "string",
+    "description": "The Id of the default association to the default resource discovery, created with this IPAM."
+  },
+  {
+    "name": "resource_discovery_association_count",
+    "type": "integer",
+    "description": "The count of resource discoveries associated with this IPAM."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "public_default_scope_id",
+    "type": "string",
+    "description": "The Id of the default scope for publicly routable IP space, created with this IPAM."
+  },
+  {
+    "name": "private_default_scope_id",
+    "type": "string",
+    "description": "The Id of the default scope for publicly routable IP space, created with this IPAM."
+  },
+  {
+    "name": "scope_count",
+    "type": "integer",
+    "description": "The number of scopes that currently exist in this IPAM."
+  },
+  {
+    "name": "operating_regions",
+    "type": "array",
+    "description": "The regions IPAM is enabled for. Allows pools to be created in these regions, as well as enabling monitoring",
+    "children": [
+      {
+        "name": "region_name",
+        "type": "string",
+        "description": "The name of the region."
+      }
+    ]
+  },
+  {
+    "name": "tier",
+    "type": "string",
+    "description": "The tier of the IPAM."
+  },
+  {
+    "name": "enable_private_gua",
+    "type": "boolean",
+    "description": "Enable provisioning of GUA space in private pools."
+  },
+  {
+    "name": "metered_account",
+    "type": "string",
+    "description": "A metered account is an account that is charged for active IP addresses managed in IPAM"
+  },
+  {
+    "name": "default_resource_discovery_organizational_unit_exclusions",
+    "type": "array",
+    "description": "A set of organizational unit (OU) exclusions for the default resource discovery, created with this IPAM.",
+    "children": [
+      {
+        "name": "organizations_entity_path",
+        "type": "string",
+        "description": "An AWS Organizations entity path. Build the path for the OU(s) using AWS Organizations IDs separated by a '/'. Include all child OUs by ending the path with '/&#42;'."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipam.html"><code>AWS::EC2::IPAM</code></a>.
 
@@ -94,28 +182,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ipams</code> in a region.
-```sql
-SELECT
-region,
-ipam_id,
-arn,
-default_resource_discovery_id,
-default_resource_discovery_association_id,
-resource_discovery_association_count,
-description,
-public_default_scope_id,
-private_default_scope_id,
-scope_count,
-operating_regions,
-tier,
-enable_private_gua,
-metered_account,
-default_resource_discovery_organizational_unit_exclusions,
-tags
-FROM awscc.ec2.ipams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ipam</code>.
 ```sql
 SELECT

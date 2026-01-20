@@ -20,7 +20,7 @@ The ssm service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total resources:&nbsp;<b>14</b></span><br />
 </div>
 </div>
 
@@ -33,10 +33,12 @@ The ssm service documentation.
 <a href="/services/ssm/associations_list_only/">associations_list_only</a><br />
 <a href="/services/ssm/documents/">documents</a><br />
 <a href="/services/ssm/documents_list_only/">documents_list_only</a><br />
-<a href="/services/ssm/parameters/">parameters</a><br />
-<a href="/services/ssm/parameters_list_only/">parameters_list_only</a>
+<a href="/services/ssm/maintenance_window_targets/">maintenance_window_targets</a><br />
+<a href="/services/ssm/maintenance_window_tasks/">maintenance_window_tasks</a><br />
+<a href="/services/ssm/parameters/">parameters</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/ssm/parameters_list_only/">parameters_list_only</a><br />
 <a href="/services/ssm/patch_baselines/">patch_baselines</a><br />
 <a href="/services/ssm/patch_baselines_list_only/">patch_baselines_list_only</a><br />
 <a href="/services/ssm/resource_data_syncs/">resource_data_syncs</a><br />

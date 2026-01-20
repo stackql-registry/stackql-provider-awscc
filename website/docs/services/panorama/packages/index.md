@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>package</code> resource or lists <code>packages</code> in a region
 
@@ -32,18 +33,82 @@ Creates, updates, deletes or gets a <code>package</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="package_name" /></td><td><code>string</code></td><td>A name for the package.</td></tr>
-<tr><td><CopyableCode code="package_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_location" /></td><td><code>object</code></td><td>A storage location.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for the package.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "package_name",
+    "type": "string",
+    "description": "A name for the package."
+  },
+  {
+    "name": "package_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "storage_location",
+    "type": "object",
+    "description": "A storage location.",
+    "children": [
+      {
+        "name": "bucket",
+        "type": "string",
+        "description": "The location's bucket."
+      },
+      {
+        "name": "repo_prefix_location",
+        "type": "string",
+        "description": "The location's repo prefix."
+      },
+      {
+        "name": "generated_prefix_location",
+        "type": "string",
+        "description": "The location's generated prefix."
+      },
+      {
+        "name": "binary_prefix_location",
+        "type": "string",
+        "description": "The location's binary prefix."
+      },
+      {
+        "name": "manifest_prefix_location",
+        "type": "string",
+        "description": "The location's manifest prefix."
+      }
+    ]
+  },
+  {
+    "name": "created_time",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for the package.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-panorama-package.html"><code>AWS::Panorama::Package</code></a>.
 
@@ -85,19 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>packages</code> in a region.
-```sql
-SELECT
-region,
-package_name,
-package_id,
-arn,
-storage_location,
-created_time,
-tags
-FROM awscc.panorama.packages
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>package</code>.
 ```sql
 SELECT

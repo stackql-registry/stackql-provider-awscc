@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>job</code> resource or lists <code>jobs</code> in a region
 
@@ -32,35 +33,171 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="connections" /></td><td><code>object</code></td><td>Specifies the connections used by a job</td></tr>
-<tr><td><CopyableCode code="max_retries" /></td><td><code>number</code></td><td>The maximum number of times to retry this job after a JobRun fails</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the job.</td></tr>
-<tr><td><CopyableCode code="timeout" /></td><td><code>integer</code></td><td>The maximum time that a job run can consume resources before it is terminated and enters TIMEOUT status.</td></tr>
-<tr><td><CopyableCode code="allocated_capacity" /></td><td><code>number</code></td><td>The number of capacity units that are allocated to this job.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you assign to the job definition</td></tr>
-<tr><td><CopyableCode code="role" /></td><td><code>string</code></td><td>The name or Amazon Resource Name (ARN) of the IAM role associated with this job.</td></tr>
-<tr><td><CopyableCode code="default_arguments" /></td><td><code>object</code></td><td>The default arguments for this job, specified as name-value pairs.</td></tr>
-<tr><td><CopyableCode code="notification_property" /></td><td><code>object</code></td><td>Specifies configuration properties of a notification.</td></tr>
-<tr><td><CopyableCode code="worker_type" /></td><td><code>string</code></td><td>TThe type of predefined worker that is allocated when a job runs.</td></tr>
-<tr><td><CopyableCode code="execution_class" /></td><td><code>string</code></td><td>Indicates whether the job is run with a standard or flexible execution class.</td></tr>
-<tr><td><CopyableCode code="log_uri" /></td><td><code>string</code></td><td>This field is reserved for future use.</td></tr>
-<tr><td><CopyableCode code="command" /></td><td><code>object</code></td><td>The code that executes a job.</td></tr>
-<tr><td><CopyableCode code="glue_version" /></td><td><code>string</code></td><td>Glue version determines the versions of Apache Spark and Python that AWS Glue supports.</td></tr>
-<tr><td><CopyableCode code="execution_property" /></td><td><code>object</code></td><td>The maximum number of concurrent runs that are allowed for this job.</td></tr>
-<tr><td><CopyableCode code="security_configuration" /></td><td><code>string</code></td><td>The name of the SecurityConfiguration structure to be used with this job.</td></tr>
-<tr><td><CopyableCode code="number_of_workers" /></td><td><code>integer</code></td><td>The number of workers of a defined workerType that are allocated when a job runs.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags to use with this job.</td></tr>
-<tr><td><CopyableCode code="max_capacity" /></td><td><code>number</code></td><td>The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs.</td></tr>
-<tr><td><CopyableCode code="non_overridable_arguments" /></td><td><code>object</code></td><td>Non-overridable arguments for this job, specified as name-value pairs.</td></tr>
-<tr><td><CopyableCode code="maintenance_window" /></td><td><code>string</code></td><td>Property description not available.</td></tr>
-<tr><td><CopyableCode code="job_mode" /></td><td><code>string</code></td><td>Property description not available.</td></tr>
-<tr><td><CopyableCode code="job_run_queuing_enabled" /></td><td><code>boolean</code></td><td>Property description not available.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "connections",
+    "type": "object",
+    "description": "Specifies the connections used by a job",
+    "children": [
+      {
+        "name": "connections",
+        "type": "array",
+        "description": "A list of connections used by the job."
+      }
+    ]
+  },
+  {
+    "name": "max_retries",
+    "type": "number",
+    "description": "The maximum number of times to retry this job after a JobRun fails"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the job."
+  },
+  {
+    "name": "timeout",
+    "type": "integer",
+    "description": "The maximum time that a job run can consume resources before it is terminated and enters TIMEOUT status."
+  },
+  {
+    "name": "allocated_capacity",
+    "type": "number",
+    "description": "The number of capacity units that are allocated to this job."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you assign to the job definition"
+  },
+  {
+    "name": "role",
+    "type": "string",
+    "description": "The name or Amazon Resource Name (ARN) of the IAM role associated with this job."
+  },
+  {
+    "name": "default_arguments",
+    "type": "object",
+    "description": "The default arguments for this job, specified as name-value pairs."
+  },
+  {
+    "name": "notification_property",
+    "type": "object",
+    "description": "Specifies configuration properties of a notification.",
+    "children": [
+      {
+        "name": "notify_delay_after",
+        "type": "integer",
+        "description": "After a job run starts, the number of minutes to wait before sending a job run delay notification"
+      }
+    ]
+  },
+  {
+    "name": "worker_type",
+    "type": "string",
+    "description": "TThe type of predefined worker that is allocated when a job runs."
+  },
+  {
+    "name": "execution_class",
+    "type": "string",
+    "description": "Indicates whether the job is run with a standard or flexible execution class."
+  },
+  {
+    "name": "log_uri",
+    "type": "string",
+    "description": "This field is reserved for future use."
+  },
+  {
+    "name": "command",
+    "type": "object",
+    "description": "The code that executes a job.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the job command"
+      },
+      {
+        "name": "python_version",
+        "type": "string",
+        "description": "The Python version being used to execute a Python shell job."
+      },
+      {
+        "name": "runtime",
+        "type": "string",
+        "description": "Runtime is used to specify the versions of Ray, Python and additional libraries available in your environment"
+      },
+      {
+        "name": "script_location",
+        "type": "string",
+        "description": "Specifies the Amazon Simple Storage Service (Amazon S3) path to a script that executes a job"
+      }
+    ]
+  },
+  {
+    "name": "glue_version",
+    "type": "string",
+    "description": "Glue version determines the versions of Apache Spark and Python that AWS Glue supports."
+  },
+  {
+    "name": "execution_property",
+    "type": "object",
+    "description": "The maximum number of concurrent runs that are allowed for this job.",
+    "children": [
+      {
+        "name": "max_concurrent_runs",
+        "type": "number",
+        "description": "The maximum number of concurrent runs allowed for the job."
+      }
+    ]
+  },
+  {
+    "name": "security_configuration",
+    "type": "string",
+    "description": "The name of the SecurityConfiguration structure to be used with this job."
+  },
+  {
+    "name": "number_of_workers",
+    "type": "integer",
+    "description": "The number of workers of a defined workerType that are allocated when a job runs."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags to use with this job."
+  },
+  {
+    "name": "max_capacity",
+    "type": "number",
+    "description": "The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs."
+  },
+  {
+    "name": "non_overridable_arguments",
+    "type": "object",
+    "description": "Non-overridable arguments for this job, specified as name-value pairs."
+  },
+  {
+    "name": "maintenance_window",
+    "type": "string",
+    "description": "Property description not available."
+  },
+  {
+    "name": "job_mode",
+    "type": "string",
+    "description": "Property description not available."
+  },
+  {
+    "name": "job_run_queuing_enabled",
+    "type": "boolean",
+    "description": "Property description not available."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html"><code>AWS::Glue::Job</code></a>.
 
@@ -102,36 +239,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>jobs</code> in a region.
-```sql
-SELECT
-region,
-connections,
-max_retries,
-description,
-timeout,
-allocated_capacity,
-name,
-role,
-default_arguments,
-notification_property,
-worker_type,
-execution_class,
-log_uri,
-command,
-glue_version,
-execution_property,
-security_configuration,
-number_of_workers,
-tags,
-max_capacity,
-non_overridable_arguments,
-maintenance_window,
-job_mode,
-job_run_queuing_enabled
-FROM awscc.glue.jobs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>job</code>.
 ```sql
 SELECT

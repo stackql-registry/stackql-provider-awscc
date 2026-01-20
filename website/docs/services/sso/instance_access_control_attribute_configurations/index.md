@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance_access_control_attribute_configuration</code> resource or lists <code>instance_access_control_attribute_configurations</code> in a region
 
@@ -32,15 +33,73 @@ Creates, updates, deletes or gets an <code>instance_access_control_attribute_con
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The ARN of the AWS SSO instance under which the operation will be executed.</td></tr>
-<tr><td><CopyableCode code="instance_access_control_attribute_configuration" /></td><td><code>object</code></td><td>The InstanceAccessControlAttributeConfiguration property has been deprecated but is still supported for backwards compatibility purposes. We recomend that you use AccessControlAttributes property instead.</td></tr>
-<tr><td><CopyableCode code="access_control_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The ARN of the AWS SSO instance under which the operation will be executed."
+  },
+  {
+    "name": "instance_access_control_attribute_configuration",
+    "type": "object",
+    "description": "The InstanceAccessControlAttributeConfiguration property has been deprecated but is still supported for backwards compatibility purposes. We recomend that you use AccessControlAttributes property instead.",
+    "children": [
+      {
+        "name": "access_control_attributes",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "source",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "access_control_attributes",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "source",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-instanceaccesscontrolattributeconfiguration.html"><code>AWS::SSO::InstanceAccessControlAttributeConfiguration</code></a>.
 
@@ -82,16 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instance_access_control_attribute_configurations</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-instance_access_control_attribute_configuration,
-access_control_attributes
-FROM awscc.sso.instance_access_control_attribute_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance_access_control_attribute_configuration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>named_query</code> resource or lists <code>named_queries</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>named_query</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The query name.</td></tr>
-<tr><td><CopyableCode code="database" /></td><td><code>string</code></td><td>The database to which the query belongs.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The query description.</td></tr>
-<tr><td><CopyableCode code="query_string" /></td><td><code>string</code></td><td>The contents of the query with all query statements.</td></tr>
-<tr><td><CopyableCode code="work_group" /></td><td><code>string</code></td><td>The name of the workgroup that contains the named query.</td></tr>
-<tr><td><CopyableCode code="named_query_id" /></td><td><code>string</code></td><td>The unique ID of the query.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The query name."
+  },
+  {
+    "name": "database",
+    "type": "string",
+    "description": "The database to which the query belongs."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The query description."
+  },
+  {
+    "name": "query_string",
+    "type": "string",
+    "description": "The contents of the query with all query statements."
+  },
+  {
+    "name": "work_group",
+    "type": "string",
+    "description": "The name of the workgroup that contains the named query."
+  },
+  {
+    "name": "named_query_id",
+    "type": "string",
+    "description": "The unique ID of the query."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-namedquery.html"><code>AWS::Athena::NamedQuery</code></a>.
 
@@ -80,19 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>named_queries</code> in a region.
-```sql
-SELECT
-region,
-name,
-database,
-description,
-query_string,
-work_group,
-named_query_id
-FROM awscc.athena.named_queries
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>named_query</code>.
 ```sql
 SELECT

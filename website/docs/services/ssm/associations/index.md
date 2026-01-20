@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>association</code> resource or lists <code>associations</code> in a region
 
@@ -32,30 +33,139 @@ Creates, updates, deletes or gets an <code>association</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="association_name" /></td><td><code>string</code></td><td>The name of the association.</td></tr>
-<tr><td><CopyableCode code="calendar_names" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="schedule_expression" /></td><td><code>string</code></td><td>A Cron or Rate expression that specifies when the association is applied to the target.</td></tr>
-<tr><td><CopyableCode code="max_errors" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>Parameter values that the SSM document uses at runtime.</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>The ID of the instance that the SSM document is associated with.</td></tr>
-<tr><td><CopyableCode code="wait_for_success_timeout_seconds" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_concurrency" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compliance_severity" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="targets" /></td><td><code>array</code></td><td>The targets that the SSM document sends commands to.</td></tr>
-<tr><td><CopyableCode code="sync_compliance" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="output_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="schedule_offset" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the SSM document.</td></tr>
-<tr><td><CopyableCode code="apply_only_at_cron_interval" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="document_version" /></td><td><code>string</code></td><td>The version of the SSM document to associate with the target.</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>Unique identifier of the association.</td></tr>
-<tr><td><CopyableCode code="automation_target_parameter_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "association_name",
+    "type": "string",
+    "description": "The name of the association."
+  },
+  {
+    "name": "calendar_names",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "schedule_expression",
+    "type": "string",
+    "description": "A Cron or Rate expression that specifies when the association is applied to the target."
+  },
+  {
+    "name": "max_errors",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "object",
+    "description": "Parameter values that the SSM document uses at runtime."
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "The ID of the instance that the SSM document is associated with."
+  },
+  {
+    "name": "wait_for_success_timeout_seconds",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "max_concurrency",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compliance_severity",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "targets",
+    "type": "array",
+    "description": "The targets that the SSM document sends commands to.",
+    "children": [
+      {
+        "name": "values",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "sync_compliance",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "output_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_location",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "output_s3_key_prefix",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "output_s3_region",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "output_s3_bucket_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "schedule_offset",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the SSM document."
+  },
+  {
+    "name": "apply_only_at_cron_interval",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "document_version",
+    "type": "string",
+    "description": "The version of the SSM document to associate with the target."
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "Unique identifier of the association."
+  },
+  {
+    "name": "automation_target_parameter_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html"><code>AWS::SSM::Association</code></a>.
 
@@ -97,31 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>associations</code> in a region.
-```sql
-SELECT
-region,
-association_name,
-calendar_names,
-schedule_expression,
-max_errors,
-parameters,
-instance_id,
-wait_for_success_timeout_seconds,
-max_concurrency,
-compliance_severity,
-targets,
-sync_compliance,
-output_location,
-schedule_offset,
-name,
-apply_only_at_cron_interval,
-document_version,
-association_id,
-automation_target_parameter_name
-FROM awscc.ssm.associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>association</code>.
 ```sql
 SELECT

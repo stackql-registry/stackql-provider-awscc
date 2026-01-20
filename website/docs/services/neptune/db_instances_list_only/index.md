@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>db_instances</code> in a region or regions, for all properties use <a href="/services/neptune/db_instances/"><code>db_instances</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>db_instances</code> in a region or regions, for all properties use <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_instance_identifier" /></td><td><code>string</code></td><td>Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "db_instance_identifier",
+    "type": "string",
+    "description": "Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

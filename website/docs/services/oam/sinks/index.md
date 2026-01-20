@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>sink</code> resource or lists <code>sinks</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>sink</code> resource or lists <code>si
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the ObservabilityAccessManager Sink</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the ObservabilityAccessManager Sink.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>The policy of this ObservabilityAccessManager Sink.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Tags to apply to the sink</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) of the ObservabilityAccessManager Sink"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the ObservabilityAccessManager Sink."
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "The policy of this ObservabilityAccessManager Sink."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Tags to apply to the sink"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-oam-sink.html"><code>AWS::Oam::Sink</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sinks</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-policy,
-tags
-FROM awscc.oam.sinks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>sink</code>.
 ```sql
 SELECT

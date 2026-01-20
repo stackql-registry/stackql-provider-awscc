@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <code>usage_plans</code> in a region
 
@@ -26,25 +27,112 @@ Creates, updates, deletes or gets an <code>usage_plan</code> resource or lists <
 <tbody>
 <tr><td><b>Name</b></td><td><code>usage_plans</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::UsagePlan</code> resource creates a usage plan for deployed APIs. A usage plan sets a target for the throttling and quota limits on individual client API keys. For more information, see &#91;Creating and Using API Usage Plans in Amazon API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html) in the ASTERIX;API Gateway Developer GuideASTERIX;.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::UsagePlan&#96;&#96; resource creates a usage plan for deployed APIs. A usage plan sets a target for the throttling and quota limits on individual client API keys. For more information, see &#91;Creating and Using API Usage Plans in Amazon API Gateway&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html) in the &#42;API Gateway Developer Guide&#42;.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.usage_plans" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="api_stages" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="quota" /></td><td><code>object</code></td><td><code>QuotaSettings</code> is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies a target for the maximum number of requests users can make to your REST APIs.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="throttle" /></td><td><code>object</code></td><td><code>ThrottleSettings</code> is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies the overall request rate (average requests per second) and burst capacity when users call your REST APIs.</td></tr>
-<tr><td><CopyableCode code="usage_plan_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_stages",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "api_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "stage",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "throttle",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "quota",
+    "type": "object",
+    "description": "&#96;&#96;QuotaSettings&#96;&#96; is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies a target for the maximum number of requests users can make to your REST APIs.<br />In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using &#91;&#93;(https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and &#91;&#93;(https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.",
+    "children": [
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "offset",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "throttle",
+    "type": "object",
+    "description": "&#96;&#96;ThrottleSettings&#96;&#96; is a property of the &#91;AWS::ApiGateway::UsagePlan&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html) resource that specifies the overall request rate (average requests per second) and burst capacity when users call your REST APIs.",
+    "children": [
+      {
+        "name": "burst_limit",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "rate_limit",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "usage_plan_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html"><code>AWS::ApiGateway::UsagePlan</code></a>.
 
@@ -86,20 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>usage_plans</code> in a region.
-```sql
-SELECT
-region,
-id,
-api_stages,
-description,
-quota,
-tags,
-throttle,
-usage_plan_name
-FROM awscc.apigateway.usage_plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>usage_plan</code>.
 ```sql
 SELECT

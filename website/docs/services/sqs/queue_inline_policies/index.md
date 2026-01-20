@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>queue_inline_policy</code> resource or lists <code>queue_inline_policies</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>queue_inline_policy</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_document" /></td><td><code>object</code></td><td>A policy document that contains permissions to add to the specified SQS queue</td></tr>
-<tr><td><CopyableCode code="queue" /></td><td><code>string</code></td><td>The URL of the SQS queue.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_document",
+    "type": "object",
+    "description": "A policy document that contains permissions to add to the specified SQS queue"
+  },
+  {
+    "name": "queue",
+    "type": "string",
+    "description": "The URL of the SQS queue."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queueinlinepolicy.html"><code>AWS::SQS::QueueInlinePolicy</code></a>.
 

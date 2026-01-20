@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>schema_version_metadatum</code> resource or lists <code>schema_version_metadata</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>schema_version_metadatum</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="schema_version_id" /></td><td><code>string</code></td><td>Represents the version ID associated with the schema version.</td></tr>
-<tr><td><CopyableCode code="key" /></td><td><code>string</code></td><td>Metadata key</td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>Metadata value</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "schema_version_id",
+    "type": "string",
+    "description": "Represents the version ID associated with the schema version."
+  },
+  {
+    "name": "key",
+    "type": "string",
+    "description": "Metadata key"
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": "Metadata value"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-schemaversionmetadatum.html"><code>AWS::Glue::SchemaVersionMetadata</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>schema_version_metadata</code> in a region.
-```sql
-SELECT
-region,
-schema_version_id,
-key,
-value
-FROM awscc.glue.schema_version_metadata
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>schema_version_metadatum</code>.
 ```sql
 SELECT

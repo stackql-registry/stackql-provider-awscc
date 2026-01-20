@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>dnssec</code> resource or lists <code>dnssecs</code> in a region
 
@@ -32,13 +33,18 @@ Creates, updates, deletes or gets a <code>dnssec</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="hosted_zone_id" /></td><td><code>string</code></td><td>The unique string (ID) used to identify a hosted zone.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "hosted_zone_id",
+    "type": "string",
+    "description": "The unique string (ID) used to identify a hosted zone."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-dnssec.html"><code>AWS::Route53::DNSSEC</code></a>.
 
@@ -75,14 +81,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>dnssecs</code> in a region.
-```sql
-SELECT
-region,
-hosted_zone_id
-FROM awscc.route53.dnssecs
-;
-```
+
 Gets all properties from an individual <code>dnssec</code>.
 ```sql
 SELECT

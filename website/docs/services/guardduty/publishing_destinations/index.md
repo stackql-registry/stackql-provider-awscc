@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>publishing_destination</code> resource or lists <code>publishing_destinations</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets a <code>publishing_destination</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the publishing destination.</td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td>The ID of the GuardDuty detector associated with the publishing destination.</td></tr>
-<tr><td><CopyableCode code="destination_type" /></td><td><code>string</code></td><td>The type of resource for the publishing destination. Currently only Amazon S3 buckets are supported.</td></tr>
-<tr><td><CopyableCode code="destination_properties" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the publishing destination.</td></tr>
-<tr><td><CopyableCode code="publishing_failure_start_timestamp" /></td><td><code>string</code></td><td>The time, in epoch millisecond format, at which GuardDuty was first unable to publish findings to the destination.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the publishing destination."
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": "The ID of the GuardDuty detector associated with the publishing destination."
+  },
+  {
+    "name": "destination_type",
+    "type": "string",
+    "description": "The type of resource for the publishing destination. Currently only Amazon S3 buckets are supported."
+  },
+  {
+    "name": "destination_properties",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "destination_arn",
+        "type": "string",
+        "description": "The ARN of the resource to publish to."
+      },
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": "The ARN of the KMS key to use for encryption."
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the publishing destination."
+  },
+  {
+    "name": "publishing_failure_start_timestamp",
+    "type": "string",
+    "description": "The time, in epoch millisecond format, at which GuardDuty was first unable to publish findings to the destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-publishingdestination.html"><code>AWS::GuardDuty::PublishingDestination</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>publishing_destinations</code> in a region.
-```sql
-SELECT
-region,
-id,
-detector_id,
-destination_type,
-destination_properties,
-status,
-publishing_failure_start_timestamp,
-tags
-FROM awscc.guardduty.publishing_destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>publishing_destination</code>.
 ```sql
 SELECT

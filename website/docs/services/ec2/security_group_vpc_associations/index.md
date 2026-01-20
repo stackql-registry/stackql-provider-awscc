@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_group_vpc_association</code> resource or lists <code>security_group_vpc_associations</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>security_group_vpc_association</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>The group ID of the specified security group.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC in the security group vpc association.</td></tr>
-<tr><td><CopyableCode code="vpc_owner_id" /></td><td><code>string</code></td><td>The owner of the VPC in the security group vpc association.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the security group vpc association.</td></tr>
-<tr><td><CopyableCode code="state_reason" /></td><td><code>string</code></td><td>The reason for the state of the security group vpc association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "group_id",
+    "type": "string",
+    "description": "The group ID of the specified security group."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC in the security group vpc association."
+  },
+  {
+    "name": "vpc_owner_id",
+    "type": "string",
+    "description": "The owner of the VPC in the security group vpc association."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the security group vpc association."
+  },
+  {
+    "name": "state_reason",
+    "type": "string",
+    "description": "The reason for the state of the security group vpc association."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroupvpcassociation.html"><code>AWS::EC2::SecurityGroupVpcAssociation</code></a>.
 
@@ -79,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_group_vpc_associations</code> in a region.
-```sql
-SELECT
-region,
-group_id,
-vpc_id,
-vpc_owner_id,
-state,
-state_reason
-FROM awscc.ec2.security_group_vpc_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_group_vpc_association</code>.
 ```sql
 SELECT

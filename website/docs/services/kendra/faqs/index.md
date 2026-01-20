@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>faq</code> resource or lists <code>faqs</code> in a region
 
@@ -32,22 +33,87 @@ Creates, updates, deletes or gets a <code>faq</code> resource or lists <code>faq
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique ID of index</td></tr>
-<tr><td><CopyableCode code="index_id" /></td><td><code>string</code></td><td>Index ID</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>FAQ name</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>FAQ description</td></tr>
-<tr><td><CopyableCode code="file_format" /></td><td><code>string</code></td><td>FAQ file format</td></tr>
-<tr><td><CopyableCode code="s3_path" /></td><td><code>object</code></td><td>FAQ S3 path</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>FAQ role ARN</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the FAQ</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="language_code" /></td><td><code>string</code></td><td>The code for a language.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique ID of index"
+  },
+  {
+    "name": "index_id",
+    "type": "string",
+    "description": "Index ID"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "FAQ name"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "FAQ description"
+  },
+  {
+    "name": "file_format",
+    "type": "string",
+    "description": "FAQ file format"
+  },
+  {
+    "name": "s3_path",
+    "type": "object",
+    "description": "FAQ S3 path",
+    "children": [
+      {
+        "name": "bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "FAQ role ARN"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for labeling the FAQ",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "language_code",
+    "type": "string",
+    "description": "The code for a language."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kendra-faq.html"><code>AWS::Kendra::Faq</code></a>.
 
@@ -89,23 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>faqs</code> in a region.
-```sql
-SELECT
-region,
-id,
-index_id,
-name,
-description,
-file_format,
-s3_path,
-role_arn,
-tags,
-arn,
-language_code
-FROM awscc.kendra.faqs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>faq</code>.
 ```sql
 SELECT

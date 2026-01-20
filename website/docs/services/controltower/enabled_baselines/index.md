@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>enabled_baseline</code> resource or lists <code>enabled_baselines</code> in a region
 
@@ -32,18 +33,67 @@ Creates, updates, deletes or gets an <code>enabled_baseline</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="baseline_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="baseline_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled_baseline_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="target_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "baseline_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "baseline_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled_baseline_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "target_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "parameters",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-controltower-enabledbaseline.html"><code>AWS::ControlTower::EnabledBaseline</code></a>.
 
@@ -85,19 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>enabled_baselines</code> in a region.
-```sql
-SELECT
-region,
-baseline_identifier,
-baseline_version,
-enabled_baseline_identifier,
-target_identifier,
-parameters,
-tags
-FROM awscc.controltower.enabled_baselines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>enabled_baseline</code>.
 ```sql
 SELECT

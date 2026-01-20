@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_nf</code> resource or lists <code>location_nfs</code> in a region
 
@@ -32,19 +33,74 @@ Creates, updates, deletes or gets a <code>location_nf</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="mount_options" /></td><td><code>object</code></td><td>The mount options used by DataSync to access the SMB server.</td></tr>
-<tr><td><CopyableCode code="on_prem_config" /></td><td><code>object</code></td><td>Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.</td></tr>
-<tr><td><CopyableCode code="server_hostname" /></td><td><code>string</code></td><td>The name of the NFS server. This value is the IP address or DNS name of the NFS server.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to the NFS destination.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the NFS location.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the NFS location that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "mount_options",
+    "type": "object",
+    "description": "The mount options used by DataSync to access the SMB server.",
+    "children": [
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The specific SMB version that you want DataSync to use to mount your SMB share."
+      }
+    ]
+  },
+  {
+    "name": "on_prem_config",
+    "type": "object",
+    "description": "Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.",
+    "children": [
+      {
+        "name": "agent_arns",
+        "type": "array",
+        "description": "ARN(s) of the agent(s) to use for an NFS location."
+      }
+    ]
+  },
+  {
+    "name": "server_hostname",
+    "type": "string",
+    "description": "The name of the NFS server. This value is the IP address or DNS name of the NFS server."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to the NFS destination."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the NFS location."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the NFS location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationnf.html"><code>AWS::DataSync::LocationNFS</code></a>.
 
@@ -86,20 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_nfs</code> in a region.
-```sql
-SELECT
-region,
-mount_options,
-on_prem_config,
-server_hostname,
-subdirectory,
-tags,
-location_arn,
-location_uri
-FROM awscc.datasync.location_nfs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_nf</code>.
 ```sql
 SELECT

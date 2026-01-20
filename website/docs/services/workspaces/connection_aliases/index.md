@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connection_alias</code> resource or lists <code>connection_aliases</code> in a region
 
@@ -32,17 +33,72 @@ Creates, updates, deletes or gets a <code>connection_alias</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="associations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="alias_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="connection_string" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="connection_alias_state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "associations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "association_status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "associated_account_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "connection_identifier",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "alias_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "connection_string",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "connection_alias_state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-connectionalias.html"><code>AWS::WorkSpaces::ConnectionAlias</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>storage_len</code> resource or lists <code>storage_lens</code> in a region
 
@@ -32,14 +33,226 @@ Creates, updates, deletes or gets a <code>storage_len</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="storage_lens_configuration" /></td><td><code>object</code></td><td>Specifies the details of Amazon S3 Storage Lens configuration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags (key-value pairs) for this Amazon S3 Storage Lens configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "storage_lens_configuration",
+    "type": "object",
+    "description": "Specifies the details of Amazon S3 Storage Lens configuration.",
+    "children": [
+      {
+        "name": "account_level",
+        "type": "object",
+        "description": "Account-level metrics configurations.",
+        "children": [
+          {
+            "name": "advanced_data_protection_metrics",
+            "type": "object",
+            "description": "Enables advanced data protection metrics.",
+            "children": [
+              {
+                "name": "is_enabled",
+                "type": "boolean",
+                "description": "Specifies whether advanced data protection metrics are enabled or disabled."
+              }
+            ]
+          },
+          {
+            "name": "storage_lens_group_level",
+            "type": "object",
+            "description": "Specifies the details of Amazon S3 Storage Lens Group configuration.",
+            "children": [
+              {
+                "name": "storage_lens_group_selection_criteria",
+                "type": "object",
+                "description": "Selection criteria for Storage Lens Group level metrics"
+              }
+            ]
+          },
+          {
+            "name": "activity_metrics",
+            "type": "object",
+            "description": "Enables activity metrics.",
+            "children": [
+              {
+                "name": "is_enabled",
+                "type": "boolean",
+                "description": "Specifies whether activity metrics are enabled or disabled."
+              }
+            ]
+          },
+          {
+            "name": "bucket_level",
+            "type": "object",
+            "description": "Bucket-level metrics configurations.",
+            "children": [
+              {
+                "name": "prefix_level",
+                "type": "object",
+                "description": "Prefix-level metrics configurations."
+              },
+              {
+                "name": "advanced_cost_optimization_metrics",
+                "type": "object",
+                "description": "Enables advanced cost optimization metrics."
+              },
+              {
+                "name": "detailed_status_codes_metrics",
+                "type": "object",
+                "description": "Enables detailed status codes metrics."
+              }
+            ]
+          },
+          {
+            "name": "advanced_cost_optimization_metrics",
+            "type": "object",
+            "description": "Enables advanced cost optimization metrics.",
+            "children": [
+              {
+                "name": "is_enabled",
+                "type": "boolean",
+                "description": "Specifies whether advanced cost optimization metrics are enabled or disabled."
+              }
+            ]
+          },
+          {
+            "name": "detailed_status_codes_metrics",
+            "type": "object",
+            "description": "Enables detailed status codes metrics.",
+            "children": [
+              {
+                "name": "is_enabled",
+                "type": "boolean",
+                "description": "Specifies whether detailed status codes metrics are enabled or disabled."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "exclude",
+        "type": "object",
+        "description": "S3 buckets and Regions to include/exclude in the Amazon S3 Storage Lens configuration.",
+        "children": [
+          {
+            "name": "regions",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "buckets",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "is_enabled",
+        "type": "boolean",
+        "description": "Specifies whether the Amazon S3 Storage Lens configuration is enabled or disabled."
+      },
+      {
+        "name": "aws_org",
+        "type": "object",
+        "description": "The AWS Organizations ARN to use in the Amazon S3 Storage Lens configuration.",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the specified resource."
+          }
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID that identifies the Amazon S3 Storage Lens configuration."
+      },
+      {
+        "name": "storage_lens_arn",
+        "type": "string",
+        "description": "The ARN for the Amazon S3 Storage Lens configuration."
+      },
+      {
+        "name": "data_export",
+        "type": "object",
+        "description": "Specifies how Amazon S3 Storage Lens metrics should be exported.",
+        "children": [
+          {
+            "name": "s3_bucket_destination",
+            "type": "object",
+            "description": "S3 bucket destination settings for the Amazon S3 Storage Lens metrics export.",
+            "children": [
+              {
+                "name": "output_schema_version",
+                "type": "string",
+                "description": "The version of the output schema to use when exporting Amazon S3 Storage Lens metrics."
+              },
+              {
+                "name": "format",
+                "type": "string",
+                "description": "Specifies the file format to use when exporting Amazon S3 Storage Lens metrics export."
+              },
+              {
+                "name": "account_id",
+                "type": "string",
+                "description": "The AWS account ID that owns the destination S3 bucket."
+              },
+              {
+                "name": "prefix",
+                "type": "string",
+                "description": "The prefix to use for Amazon S3 Storage Lens export."
+              },
+              {
+                "name": "encryption",
+                "type": "object",
+                "description": "Configures the server-side encryption for Amazon S3 Storage Lens report files with either S3-managed keys (SSE-S3) or KMS-managed keys (SSE-KMS)."
+              },
+              {
+                "name": "arn",
+                "type": "string",
+                "description": "The ARN of the bucket to which Amazon S3 Storage Lens exports will be placed."
+              }
+            ]
+          },
+          {
+            "name": "cloud_watch_metrics",
+            "type": "object",
+            "description": "CloudWatch metrics settings for the Amazon S3 Storage Lens metrics export.",
+            "children": [
+              {
+                "name": "is_enabled",
+                "type": "boolean",
+                "description": "Specifies whether CloudWatch metrics are enabled or disabled."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A set of tags (key-value pairs) for this Amazon S3 Storage Lens configuration.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-storagelen.html"><code>AWS::S3::StorageLens</code></a>.
 
@@ -81,15 +294,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>storage_lens</code> in a region.
-```sql
-SELECT
-region,
-storage_lens_configuration,
-tags
-FROM awscc.s3.storage_lens
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>storage_len</code>.
 ```sql
 SELECT

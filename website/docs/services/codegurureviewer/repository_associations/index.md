@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>repository_association</code> resource or lists <code>repository_associations</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>repository_association</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the repository to be associated.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of repository to be associated.</td></tr>
-<tr><td><CopyableCode code="owner" /></td><td><code>string</code></td><td>The owner of the repository. For a Bitbucket repository, this is the username for the account that owns the repository.</td></tr>
-<tr><td><CopyableCode code="bucket_name" /></td><td><code>string</code></td><td>The name of the S3 bucket associated with an associated S3 repository. It must start with `codeguru-reviewer-`.</td></tr>
-<tr><td><CopyableCode code="connection_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an AWS CodeStar Connections connection.</td></tr>
-<tr><td><CopyableCode code="association_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the repository association.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags associated with a repository association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the repository to be associated."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of repository to be associated."
+  },
+  {
+    "name": "owner",
+    "type": "string",
+    "description": "The owner of the repository. For a Bitbucket repository, this is the username for the account that owns the repository."
+  },
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "The name of the S3 bucket associated with an associated S3 repository. It must start with &#96;codeguru-reviewer-&#96;."
+  },
+  {
+    "name": "connection_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of an AWS CodeStar Connections connection."
+  },
+  {
+    "name": "association_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the repository association."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags associated with a repository association.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. The allowed characters across services are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . &#95; : / @."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codegurureviewer-repositoryassociation.html"><code>AWS::CodeGuruReviewer::RepositoryAssociation</code></a>.
 
@@ -81,20 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>repository_associations</code> in a region.
-```sql
-SELECT
-region,
-name,
-type,
-owner,
-bucket_name,
-connection_arn,
-association_arn,
-tags
-FROM awscc.codegurureviewer.repository_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>repository_association</code>.
 ```sql
 SELECT

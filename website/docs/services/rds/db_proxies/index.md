@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>db_proxy</code> resource or lists <code>db_proxies</code> in a region
 
@@ -32,25 +33,117 @@ Creates, updates, deletes or gets a <code>db_proxy</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auth" /></td><td><code>array</code></td><td>The authorization mechanism that the proxy uses.</td></tr>
-<tr><td><CopyableCode code="db_proxy_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the proxy.</td></tr>
-<tr><td><CopyableCode code="db_proxy_name" /></td><td><code>string</code></td><td>The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region.</td></tr>
-<tr><td><CopyableCode code="debug_logging" /></td><td><code>boolean</code></td><td>Whether the proxy includes detailed information about SQL statements in its logs.</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td>The endpoint that you can use to connect to the proxy. You include the endpoint value in the connection string for a database client application.</td></tr>
-<tr><td><CopyableCode code="engine_family" /></td><td><code>string</code></td><td>The kinds of databases that the proxy can connect to.</td></tr>
-<tr><td><CopyableCode code="idle_client_timeout" /></td><td><code>integer</code></td><td>The number of seconds that a connection to the proxy can be inactive before the proxy disconnects it.</td></tr>
-<tr><td><CopyableCode code="require_tls" /></td><td><code>boolean</code></td><td>A Boolean parameter that specifies whether Transport Layer Security (TLS) encryption is required for connections to the proxy.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role that the proxy uses to access secrets in AWS Secrets Manager.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An optional set of key-value pairs to associate arbitrary data of your choosing with the proxy.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>VPC ID to associate with the new DB proxy.</td></tr>
-<tr><td><CopyableCode code="vpc_security_group_ids" /></td><td><code>array</code></td><td>VPC security group IDs to associate with the new proxy.</td></tr>
-<tr><td><CopyableCode code="vpc_subnet_ids" /></td><td><code>array</code></td><td>VPC subnet IDs to associate with the new proxy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auth",
+    "type": "array",
+    "description": "The authorization mechanism that the proxy uses.",
+    "children": [
+      {
+        "name": "auth_scheme",
+        "type": "string",
+        "description": "The type of authentication that the proxy uses for connections from the proxy to the underlying database."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A user-specified description about the authentication used by a proxy to log in as a specific database user."
+      },
+      {
+        "name": "iam_auth",
+        "type": "string",
+        "description": "Whether to require or disallow Amazon Web Services Identity and Access Management (IAM) authentication for connections to the proxy. The ENABLED value is valid only for proxies with RDS for Microsoft SQL Server."
+      },
+      {
+        "name": "secret_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) representing the secret that the proxy uses to authenticate to the RDS DB instance or Aurora DB cluster. These secrets are stored within Amazon Secrets Manager."
+      },
+      {
+        "name": "client_password_auth_type",
+        "type": "string",
+        "description": "The type of authentication the proxy uses for connections from clients."
+      }
+    ]
+  },
+  {
+    "name": "db_proxy_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the proxy."
+  },
+  {
+    "name": "db_proxy_name",
+    "type": "string",
+    "description": "The identifier for the proxy. This name must be unique for all proxies owned by your AWS account in the specified AWS Region."
+  },
+  {
+    "name": "debug_logging",
+    "type": "boolean",
+    "description": "Whether the proxy includes detailed information about SQL statements in its logs."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The endpoint that you can use to connect to the proxy. You include the endpoint value in the connection string for a database client application."
+  },
+  {
+    "name": "engine_family",
+    "type": "string",
+    "description": "The kinds of databases that the proxy can connect to."
+  },
+  {
+    "name": "idle_client_timeout",
+    "type": "integer",
+    "description": "The number of seconds that a connection to the proxy can be inactive before the proxy disconnects it."
+  },
+  {
+    "name": "require_tls",
+    "type": "boolean",
+    "description": "A Boolean parameter that specifies whether Transport Layer Security (TLS) encryption is required for connections to the proxy."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM role that the proxy uses to access secrets in AWS Secrets Manager."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An optional set of key-value pairs to associate arbitrary data of your choosing with the proxy.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "VPC ID to associate with the new DB proxy."
+  },
+  {
+    "name": "vpc_security_group_ids",
+    "type": "array",
+    "description": "VPC security group IDs to associate with the new proxy."
+  },
+  {
+    "name": "vpc_subnet_ids",
+    "type": "array",
+    "description": "VPC subnet IDs to associate with the new proxy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbproxy.html"><code>AWS::RDS::DBProxy</code></a>.
 
@@ -92,26 +185,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>db_proxies</code> in a region.
-```sql
-SELECT
-region,
-auth,
-db_proxy_arn,
-db_proxy_name,
-debug_logging,
-endpoint,
-engine_family,
-idle_client_timeout,
-require_tls,
-role_arn,
-tags,
-vpc_id,
-vpc_security_group_ids,
-vpc_subnet_ids
-FROM awscc.rds.db_proxies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>db_proxy</code>.
 ```sql
 SELECT

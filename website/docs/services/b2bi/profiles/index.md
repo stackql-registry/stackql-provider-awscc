@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>profile</code> resource or lists <code>profiles</code> in a region
 
@@ -32,23 +33,80 @@ Creates, updates, deletes or gets a <code>profile</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="business_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="log_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="logging" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="phone" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="profile_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "business_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "log_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "logging",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "modified_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "phone",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "profile_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-b2bi-profile.html"><code>AWS::B2BI::Profile</code></a>.
 
@@ -90,24 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>profiles</code> in a region.
-```sql
-SELECT
-region,
-business_name,
-created_at,
-email,
-log_group_name,
-logging,
-modified_at,
-name,
-phone,
-profile_arn,
-profile_id,
-tags
-FROM awscc.b2bi.profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>profile</code>.
 ```sql
 SELECT

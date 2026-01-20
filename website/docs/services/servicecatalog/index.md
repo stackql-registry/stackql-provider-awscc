@@ -20,7 +20,7 @@ The servicecatalog service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>14</b></span><br />
 </div>
 </div>
 
@@ -30,15 +30,19 @@ The servicecatalog service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/servicecatalog/cloud_formation_provisioned_products/">cloud_formation_provisioned_products</a><br />
+<a href="/services/servicecatalog/launch_notification_constraints/">launch_notification_constraints</a><br />
 <a href="/services/servicecatalog/launch_template_constraints/">launch_template_constraints</a><br />
+<a href="/services/servicecatalog/portfolio_principal_associations/">portfolio_principal_associations</a><br />
 <a href="/services/servicecatalog/portfolio_product_associations/">portfolio_product_associations</a><br />
 <a href="/services/servicecatalog/portfolio_shares/">portfolio_shares</a><br />
-<a href="/services/servicecatalog/service_action_associations/">service_action_associations</a>
+<a href="/services/servicecatalog/resource_update_constraints/">resource_update_constraints</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/servicecatalog/service_action_associations/">service_action_associations</a><br />
 <a href="/services/servicecatalog/service_action_associations_list_only/">service_action_associations_list_only</a><br />
 <a href="/services/servicecatalog/service_actions/">service_actions</a><br />
 <a href="/services/servicecatalog/service_actions_list_only/">service_actions_list_only</a><br />
+<a href="/services/servicecatalog/tag_option_associations/">tag_option_associations</a><br />
 <a href="/services/servicecatalog/tag_options/">tag_options</a><br />
 <a href="/services/servicecatalog/tag_options_list_only/">tag_options_list_only</a>
 </div>

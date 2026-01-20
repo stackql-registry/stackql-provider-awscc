@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>rule_groups_namespace</code> resource or lists <code>rule_groups_namespaces</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>rule_groups_namespace</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="workspace" /></td><td><code>string</code></td><td>Required to identify a specific APS Workspace associated with this RuleGroupsNamespace.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The RuleGroupsNamespace name.</td></tr>
-<tr><td><CopyableCode code="data" /></td><td><code>string</code></td><td>The RuleGroupsNamespace data.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The RuleGroupsNamespace ARN.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "workspace",
+    "type": "string",
+    "description": "Required to identify a specific APS Workspace associated with this RuleGroupsNamespace."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The RuleGroupsNamespace name."
+  },
+  {
+    "name": "data",
+    "type": "string",
+    "description": "The RuleGroupsNamespace data."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The RuleGroupsNamespace ARN."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-aps-rulegroupsnamespace.html"><code>AWS::APS::RuleGroupsNamespace</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>rule_groups_namespaces</code> in a region.
-```sql
-SELECT
-region,
-workspace,
-name,
-data,
-arn,
-tags
-FROM awscc.aps.rule_groups_namespaces
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>rule_groups_namespace</code>.
 ```sql
 SELECT

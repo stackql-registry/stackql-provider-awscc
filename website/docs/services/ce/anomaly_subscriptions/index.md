@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>anomaly_subscription</code> resource or lists <code>anomaly_subscriptions</code> in a region
 
@@ -32,21 +33,87 @@ Creates, updates, deletes or gets an <code>anomaly_subscription</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="subscription_arn" /></td><td><code>string</code></td><td>Subscription ARN</td></tr>
-<tr><td><CopyableCode code="subscription_name" /></td><td><code>string</code></td><td>The name of the subscription.</td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The accountId</td></tr>
-<tr><td><CopyableCode code="monitor_arn_list" /></td><td><code>array</code></td><td>A list of cost anomaly monitors.</td></tr>
-<tr><td><CopyableCode code="subscribers" /></td><td><code>array</code></td><td>A list of subscriber</td></tr>
-<tr><td><CopyableCode code="threshold" /></td><td><code>number</code></td><td>The dollar value that triggers a notification if the threshold is exceeded.</td></tr>
-<tr><td><CopyableCode code="threshold_expression" /></td><td><code>string</code></td><td>An Expression object in JSON String format used to specify the anomalies that you want to generate alerts for.</td></tr>
-<tr><td><CopyableCode code="frequency" /></td><td><code>string</code></td><td>The frequency at which anomaly reports are sent over email.</td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>array</code></td><td>Tags to assign to subscription.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "subscription_arn",
+    "type": "string",
+    "description": "Subscription ARN"
+  },
+  {
+    "name": "subscription_name",
+    "type": "string",
+    "description": "The name of the subscription."
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The accountId"
+  },
+  {
+    "name": "monitor_arn_list",
+    "type": "array",
+    "description": "A list of cost anomaly monitors."
+  },
+  {
+    "name": "subscribers",
+    "type": "array",
+    "description": "A list of subscriber",
+    "children": [
+      {
+        "name": "address",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "threshold",
+    "type": "number",
+    "description": "The dollar value that triggers a notification if the threshold is exceeded."
+  },
+  {
+    "name": "threshold_expression",
+    "type": "string",
+    "description": "An Expression object in JSON String format used to specify the anomalies that you want to generate alerts for."
+  },
+  {
+    "name": "frequency",
+    "type": "string",
+    "description": "The frequency at which anomaly reports are sent over email."
+  },
+  {
+    "name": "resource_tags",
+    "type": "array",
+    "description": "Tags to assign to subscription.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name for the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ce-anomalysubscription.html"><code>AWS::CE::AnomalySubscription</code></a>.
 
@@ -88,22 +155,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>anomaly_subscriptions</code> in a region.
-```sql
-SELECT
-region,
-subscription_arn,
-subscription_name,
-account_id,
-monitor_arn_list,
-subscribers,
-threshold,
-threshold_expression,
-frequency,
-resource_tags
-FROM awscc.ce.anomaly_subscriptions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>anomaly_subscription</code>.
 ```sql
 SELECT

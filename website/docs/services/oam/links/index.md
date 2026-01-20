@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>link</code> resource or lists <code>links</code> in a region
 
@@ -32,19 +33,62 @@ Creates, updates, deletes or gets a <code>link</code> resource or lists <code>li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="label" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="label_template" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_types" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sink_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="link_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Tags to apply to the link</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "label",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "label_template",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_types",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "sink_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "link_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "metric_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "filter",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Tags to apply to the link"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-oam-link.html"><code>AWS::Oam::Link</code></a>.
 
@@ -86,20 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>links</code> in a region.
-```sql
-SELECT
-region,
-arn,
-label,
-label_template,
-resource_types,
-sink_identifier,
-link_configuration,
-tags
-FROM awscc.oam.links
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>link</code>.
 ```sql
 SELECT

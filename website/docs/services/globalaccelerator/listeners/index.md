@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>listener</code> resource or lists <code>listeners</code> in a region
 
@@ -32,17 +33,45 @@ Creates, updates, deletes or gets a <code>listener</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="listener_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the listener.</td></tr>
-<tr><td><CopyableCode code="accelerator_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the accelerator.</td></tr>
-<tr><td><CopyableCode code="port_ranges" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>string</code></td><td>The protocol for the listener.</td></tr>
-<tr><td><CopyableCode code="client_affinity" /></td><td><code>string</code></td><td>Client affinity lets you direct all requests from a user to the same endpoint.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "listener_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the listener."
+  },
+  {
+    "name": "accelerator_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the accelerator."
+  },
+  {
+    "name": "port_ranges",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "from_port",
+        "type": "integer",
+        "description": "A network port number"
+      }
+    ]
+  },
+  {
+    "name": "protocol",
+    "type": "string",
+    "description": "The protocol for the listener."
+  },
+  {
+    "name": "client_affinity",
+    "type": "string",
+    "description": "Client affinity lets you direct all requests from a user to the same endpoint."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-globalaccelerator-listener.html"><code>AWS::GlobalAccelerator::Listener</code></a>.
 
@@ -84,18 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>listeners</code> in a region.
-```sql
-SELECT
-region,
-listener_arn,
-accelerator_arn,
-port_ranges,
-protocol,
-client_affinity
-FROM awscc.globalaccelerator.listeners
-;
-```
+
 Gets all properties from an individual <code>listener</code>.
 ```sql
 SELECT

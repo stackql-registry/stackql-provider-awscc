@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,26 +33,102 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="launch_path" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="launch_parameters" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="working_directory" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="instance_families" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="icon_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_block_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="platforms" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="attributes_to_delete" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "launch_path",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "launch_parameters",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "working_directory",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "instance_families",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "icon_s3_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "platforms",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "attributes_to_delete",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-application.html"><code>AWS::AppStream::Application</code></a>.
 

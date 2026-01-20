@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>readiness_check</code> resource or lists <code>readiness_checks</code> in a region
 
@@ -32,16 +33,45 @@ Creates, updates, deletes or gets a <code>readiness_check</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_set_name" /></td><td><code>string</code></td><td>The name of the resource set to check.</td></tr>
-<tr><td><CopyableCode code="readiness_check_name" /></td><td><code>string</code></td><td>Name of the ReadinessCheck to create.</td></tr>
-<tr><td><CopyableCode code="readiness_check_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the readiness check.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_set_name",
+    "type": "string",
+    "description": "The name of the resource set to check."
+  },
+  {
+    "name": "readiness_check_name",
+    "type": "string",
+    "description": "Name of the ReadinessCheck to create."
+  },
+  {
+    "name": "readiness_check_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the readiness check."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53recoveryreadiness-readinesscheck.html"><code>AWS::Route53RecoveryReadiness::ReadinessCheck</code></a>.
 
@@ -83,17 +113,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>readiness_checks</code> in a region.
-```sql
-SELECT
-region,
-resource_set_name,
-readiness_check_name,
-readiness_check_arn,
-tags
-FROM awscc.route53recoveryreadiness.readiness_checks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>readiness_check</code>.
 ```sql
 SELECT

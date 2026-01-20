@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>scene</code> resource or lists <code>scenes</code> in a region
 
@@ -32,23 +33,63 @@ Creates, updates, deletes or gets a <code>scene</code> resource or lists <code>s
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="scene_id" /></td><td><code>string</code></td><td>The ID of the scene.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the scene.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the scene.</td></tr>
-<tr><td><CopyableCode code="content_location" /></td><td><code>string</code></td><td>The relative path that specifies the location of the content definition file.</td></tr>
-<tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the scene was created.</td></tr>
-<tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The date and time of the current update.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the scene.</td></tr>
-<tr><td><CopyableCode code="capabilities" /></td><td><code>array</code></td><td>A list of capabilities that the scene uses to render.</td></tr>
-<tr><td><CopyableCode code="scene_metadata" /></td><td><code>object</code></td><td>A key-value pair of scene metadata for the scene.</td></tr>
-<tr><td><CopyableCode code="generated_scene_metadata" /></td><td><code>object</code></td><td>A key-value pair of generated scene metadata for the scene.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "scene_id",
+    "type": "string",
+    "description": "The ID of the scene."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the scene."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the scene."
+  },
+  {
+    "name": "content_location",
+    "type": "string",
+    "description": "The relative path that specifies the location of the content definition file."
+  },
+  {
+    "name": "creation_date_time",
+    "type": "string",
+    "description": "The date and time when the scene was created."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "workspace_id",
+    "type": "string",
+    "description": "The ID of the scene."
+  },
+  {
+    "name": "capabilities",
+    "type": "array",
+    "description": "A list of capabilities that the scene uses to render."
+  },
+  {
+    "name": "scene_metadata",
+    "type": "object",
+    "description": "A key-value pair of scene metadata for the scene."
+  },
+  {
+    "name": "generated_scene_metadata",
+    "type": "object",
+    "description": "A key-value pair of generated scene metadata for the scene."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iottwinmaker-scene.html"><code>AWS::IoTTwinMaker::Scene</code></a>.
 
@@ -90,24 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>scenes</code> in a region.
-```sql
-SELECT
-region,
-scene_id,
-arn,
-description,
-content_location,
-creation_date_time,
-update_date_time,
-tags,
-workspace_id,
-capabilities,
-scene_metadata,
-generated_scene_metadata
-FROM awscc.iottwinmaker.scenes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>scene</code>.
 ```sql
 SELECT

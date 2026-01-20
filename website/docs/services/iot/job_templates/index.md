@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>job_template</code> resource or lists <code>job_templates</code> in a region
 
@@ -32,26 +33,327 @@ Creates, updates, deletes or gets a <code>job_template</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_arn" /></td><td><code>string</code></td><td>Optional for copying a JobTemplate from a pre-existing Job configuration.</td></tr>
-<tr><td><CopyableCode code="job_template_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the Job Template.</td></tr>
-<tr><td><CopyableCode code="document" /></td><td><code>string</code></td><td>The job document. Required if you don't specify a value for documentSource.</td></tr>
-<tr><td><CopyableCode code="document_source" /></td><td><code>string</code></td><td>An S3 link to the job document to use in the template. Required if you don't specify a value for document.</td></tr>
-<tr><td><CopyableCode code="timeout_config" /></td><td><code>object</code></td><td>Specifies the amount of time each device has to finish its execution of the job.</td></tr>
-<tr><td><CopyableCode code="job_executions_rollout_config" /></td><td><code>object</code></td><td>Allows you to create a staged rollout of a job.</td></tr>
-<tr><td><CopyableCode code="abort_config" /></td><td><code>object</code></td><td>The criteria that determine when and how a job abort takes place.</td></tr>
-<tr><td><CopyableCode code="presigned_url_config" /></td><td><code>object</code></td><td>Configuration for pre-signed S3 URLs.</td></tr>
-<tr><td><CopyableCode code="job_executions_retry_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="maintenance_windows" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination_package_versions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that can be used to manage the JobTemplate.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_arn",
+    "type": "string",
+    "description": "Optional for copying a JobTemplate from a pre-existing Job configuration."
+  },
+  {
+    "name": "job_template_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the Job Template."
+  },
+  {
+    "name": "document",
+    "type": "string",
+    "description": "The job document. Required if you don't specify a value for documentSource."
+  },
+  {
+    "name": "document_source",
+    "type": "string",
+    "description": "An S3 link to the job document to use in the template. Required if you don't specify a value for document."
+  },
+  {
+    "name": "timeout_config",
+    "type": "object",
+    "description": "Specifies the amount of time each device has to finish its execution of the job.",
+    "children": [
+      {
+        "name": "in_progress_timeout_in_minutes",
+        "type": "integer",
+        "description": "Specifies the amount of time, in minutes, this device has to finish execution of this job."
+      }
+    ]
+  },
+  {
+    "name": "job_executions_rollout_config",
+    "type": "object",
+    "description": "Allows you to create a staged rollout of a job.",
+    "children": [
+      {
+        "name": "exponential_rollout_rate",
+        "type": "object",
+        "description": "The rate of increase for a job rollout. This parameter allows you to define an exponential rate for a job rollout.",
+        "children": [
+          {
+            "name": "base_rate_per_minute",
+            "type": "integer",
+            "description": "The minimum number of things that will be notified of a pending job, per minute at the start of job rollout. This parameter allows you to define the initial rate of rollout."
+          },
+          {
+            "name": "increment_factor",
+            "type": "number",
+            "description": "The exponential factor to increase the rate of rollout for a job."
+          },
+          {
+            "name": "rate_increase_criteria",
+            "type": "object",
+            "description": "The criteria to initiate the increase in rate of rollout for a job.",
+            "children": [
+              {
+                "name": "number_of_notified_things",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "number_of_succeeded_things",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "maximum_per_minute",
+        "type": "integer",
+        "description": "The maximum number of things that will be notified of a pending job, per minute. This parameter allows you to create a staged rollout."
+      }
+    ]
+  },
+  {
+    "name": "abort_config",
+    "type": "object",
+    "description": "The criteria that determine when and how a job abort takes place.",
+    "children": [
+      {
+        "name": "criteria_list",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "action",
+            "type": "object",
+            "description": "The type of job action to take to initiate the job abort.",
+            "children": [
+              {
+                "name": "cloudwatch_alarm",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "cloudwatch_logs",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "cloudwatch_metric",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "dynamo_db",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "dynamo_dbv2",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "elasticsearch",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "firehose",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "http",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "iot_analytics",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "iot_events",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "iot_site_wise",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "kafka",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "kinesis",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "lambda",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "location",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "open_search",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "republish",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "s3",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "sns",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "sqs",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "step_functions",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "timestream",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "failure_type",
+            "type": "string",
+            "description": "The type of job execution failures that can initiate a job abort."
+          },
+          {
+            "name": "min_number_of_executed_things",
+            "type": "integer",
+            "description": "The minimum number of things which must receive job execution notifications before the job can be aborted."
+          },
+          {
+            "name": "threshold_percentage",
+            "type": "number",
+            "description": "The minimum percentage of job execution failures that must occur to initiate the job abort."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "presigned_url_config",
+    "type": "object",
+    "description": "Configuration for pre-signed S3 URLs.",
+    "children": [
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "expires_in_sec",
+        "type": "integer",
+        "description": "How number (in seconds) pre-signed URLs are valid."
+      }
+    ]
+  },
+  {
+    "name": "job_executions_retry_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "retry_criteria_list",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "number_of_retries",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "failure_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "maintenance_windows",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "start_time",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "duration_in_minutes",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "destination_package_versions",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that can be used to manage the JobTemplate.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-jobtemplate.html"><code>AWS::IoT::JobTemplate</code></a>.
 
@@ -88,27 +390,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>job_templates</code> in a region.
-```sql
-SELECT
-region,
-arn,
-job_arn,
-job_template_id,
-description,
-document,
-document_source,
-timeout_config,
-job_executions_rollout_config,
-abort_config,
-presigned_url_config,
-job_executions_retry_config,
-maintenance_windows,
-destination_package_versions,
-tags
-FROM awscc.iot.job_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>job_template</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>fhir_datastore</code> resource or lists <code>fhir_datastores</code> in a region
 
@@ -32,23 +33,140 @@ Creates, updates, deletes or gets a <code>fhir_datastore</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_at" /></td><td><code>object</code></td><td>The time that a Data Store was created.</td></tr>
-<tr><td><CopyableCode code="datastore_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name used in the creation of the Data Store.</td></tr>
-<tr><td><CopyableCode code="datastore_endpoint" /></td><td><code>string</code></td><td>The AWS endpoint for the Data Store. Each Data Store will have it's own endpoint with Data Store ID in the endpoint URL.</td></tr>
-<tr><td><CopyableCode code="datastore_id" /></td><td><code>string</code></td><td>The AWS-generated ID number for the Data Store.</td></tr>
-<tr><td><CopyableCode code="datastore_name" /></td><td><code>string</code></td><td>The user-generated name for the Data Store.</td></tr>
-<tr><td><CopyableCode code="datastore_status" /></td><td><code>string</code></td><td>The status of the Data Store. Possible statuses are 'CREATING', 'ACTIVE', 'DELETING', or 'DELETED'.</td></tr>
-<tr><td><CopyableCode code="datastore_type_version" /></td><td><code>string</code></td><td>The FHIR version. Only R4 version data is supported.</td></tr>
-<tr><td><CopyableCode code="preload_data_config" /></td><td><code>object</code></td><td>The preloaded data configuration for the Data Store. Only data preloaded from Synthea is supported.</td></tr>
-<tr><td><CopyableCode code="sse_configuration" /></td><td><code>object</code></td><td>The server-side encryption key configuration for a customer provided encryption key.</td></tr>
-<tr><td><CopyableCode code="identity_provider_configuration" /></td><td><code>object</code></td><td>The identity provider configuration for the datastore</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_at",
+    "type": "object",
+    "description": "The time that a Data Store was created.",
+    "children": [
+      {
+        "name": "seconds",
+        "type": "string",
+        "description": "Seconds since epoch."
+      },
+      {
+        "name": "nanos",
+        "type": "integer",
+        "description": "Nanoseconds."
+      }
+    ]
+  },
+  {
+    "name": "datastore_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name used in the creation of the Data Store."
+  },
+  {
+    "name": "datastore_endpoint",
+    "type": "string",
+    "description": "The AWS endpoint for the Data Store. Each Data Store will have it's own endpoint with Data Store ID in the endpoint URL."
+  },
+  {
+    "name": "datastore_id",
+    "type": "string",
+    "description": "The AWS-generated ID number for the Data Store."
+  },
+  {
+    "name": "datastore_name",
+    "type": "string",
+    "description": "The user-generated name for the Data Store."
+  },
+  {
+    "name": "datastore_status",
+    "type": "string",
+    "description": "The status of the Data Store. Possible statuses are 'CREATING', 'ACTIVE', 'DELETING', or 'DELETED'."
+  },
+  {
+    "name": "datastore_type_version",
+    "type": "string",
+    "description": "The FHIR version. Only R4 version data is supported."
+  },
+  {
+    "name": "preload_data_config",
+    "type": "object",
+    "description": "The preloaded data configuration for the Data Store. Only data preloaded from Synthea is supported.",
+    "children": [
+      {
+        "name": "preload_data_type",
+        "type": "string",
+        "description": "The type of preloaded data. Only Synthea preloaded data is supported."
+      }
+    ]
+  },
+  {
+    "name": "sse_configuration",
+    "type": "object",
+    "description": "The server-side encryption key configuration for a customer provided encryption key.",
+    "children": [
+      {
+        "name": "kms_encryption_config",
+        "type": "object",
+        "description": "The customer-managed-key (CMK) used when creating a Data Store. If a customer owned key is not specified, an AWS owned key will be used for encryption.",
+        "children": [
+          {
+            "name": "cmk_type",
+            "type": "string",
+            "description": "The type of customer-managed-key (CMK) used for encryption. The two types of supported CMKs are customer owned CMKs and AWS owned CMKs."
+          },
+          {
+            "name": "kms_key_id",
+            "type": "string",
+            "description": "The KMS encryption key id/alias used to encrypt the Data Store contents at rest."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "identity_provider_configuration",
+    "type": "object",
+    "description": "The identity provider configuration for the datastore",
+    "children": [
+      {
+        "name": "authorization_strategy",
+        "type": "string",
+        "description": "Type of Authorization Strategy. The two types of supported Authorization strategies are SMART&#95;ON&#95;FHIR&#95;V1 and AWS&#95;AUTH."
+      },
+      {
+        "name": "fine_grained_authorization_enabled",
+        "type": "boolean",
+        "description": "Flag to indicate if fine-grained authorization will be enabled for the datastore"
+      },
+      {
+        "name": "metadata",
+        "type": "string",
+        "description": "The JSON metadata elements for identity provider configuration."
+      },
+      {
+        "name": "idp_lambda_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the Lambda function that will be used to decode the access token created by the authorization server."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-healthlake-fhirdatastore.html"><code>AWS::HealthLake::FHIRDatastore</code></a>.
 
@@ -90,24 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>fhir_datastores</code> in a region.
-```sql
-SELECT
-region,
-created_at,
-datastore_arn,
-datastore_endpoint,
-datastore_id,
-datastore_name,
-datastore_status,
-datastore_type_version,
-preload_data_config,
-sse_configuration,
-identity_provider_configuration,
-tags
-FROM awscc.healthlake.fhir_datastores
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>fhir_datastore</code>.
 ```sql
 SELECT

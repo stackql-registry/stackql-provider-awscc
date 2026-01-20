@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <code>domain_names</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>domain_name</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="certificate_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="app_sync_domain_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="hosted_zone_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_name_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Domain Name.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this Domain Name.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "certificate_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "app_sync_domain_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "hosted_zone_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the Domain Name."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this Domain Name.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-domainname.html"><code>AWS::AppSync::DomainName</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>domain_names</code> in a region.
-```sql
-SELECT
-region,
-domain_name,
-description,
-certificate_arn,
-app_sync_domain_name,
-hosted_zone_id,
-domain_name_arn,
-tags
-FROM awscc.appsync.domain_names
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>domain_name</code>.
 ```sql
 SELECT

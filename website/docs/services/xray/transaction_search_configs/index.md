@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transaction_search_config</code> resource or lists <code>transaction_search_configs</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>transaction_search_config</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>User account id, used as the primary identifier for the resource</td></tr>
-<tr><td><CopyableCode code="indexing_percentage" /></td><td><code>number</code></td><td>Determines the percentage of traces indexed from CloudWatch Logs to X-Ray</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "User account id, used as the primary identifier for the resource"
+  },
+  {
+    "name": "indexing_percentage",
+    "type": "number",
+    "description": "Determines the percentage of traces indexed from CloudWatch Logs to X-Ray"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-xray-transactionsearchconfig.html"><code>AWS::XRay::TransactionSearchConfig</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transaction_search_configs</code> in a region.
-```sql
-SELECT
-region,
-account_id,
-indexing_percentage
-FROM awscc.xray.transaction_search_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transaction_search_config</code>.
 ```sql
 SELECT

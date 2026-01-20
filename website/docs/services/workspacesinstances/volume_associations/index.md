@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>volume_association</code> resource or lists <code>volume_associations</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>volume_association</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="workspace_instance_id" /></td><td><code>string</code></td><td>ID of the workspace instance to associate with the volume</td></tr>
-<tr><td><CopyableCode code="volume_id" /></td><td><code>string</code></td><td>ID of the volume to attach to the workspace instance</td></tr>
-<tr><td><CopyableCode code="device" /></td><td><code>string</code></td><td>The device name for the volume attachment</td></tr>
-<tr><td><CopyableCode code="disassociate_mode" /></td><td><code>string</code></td><td>Mode to use when disassociating the volume</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "workspace_instance_id",
+    "type": "string",
+    "description": "ID of the workspace instance to associate with the volume"
+  },
+  {
+    "name": "volume_id",
+    "type": "string",
+    "description": "ID of the volume to attach to the workspace instance"
+  },
+  {
+    "name": "device",
+    "type": "string",
+    "description": "The device name for the volume attachment"
+  },
+  {
+    "name": "disassociate_mode",
+    "type": "string",
+    "description": "Mode to use when disassociating the volume"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesinstances-volumeassociation.html"><code>AWS::WorkspacesInstances::VolumeAssociation</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>volume_associations</code> in a region.
-```sql
-SELECT
-region,
-workspace_instance_id,
-volume_id,
-device,
-disassociate_mode
-FROM awscc.workspacesinstances.volume_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>volume_association</code>.
 ```sql
 SELECT

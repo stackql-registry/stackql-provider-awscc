@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route</code> resource or lists <code>routes</code> in a region
 
@@ -32,22 +33,109 @@ Creates, updates, deletes or gets a <code>route</code> resource or lists <code>r
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="path_resource_to_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="route_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="route_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_route" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="uri_path_route" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "path_resource_to_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "route_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "route_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "default_route",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "activation_state",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "uri_path_route",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "source_path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "activation_state",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "methods",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "include_child_paths",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "append_source_path",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-refactorspaces-route.html"><code>AWS::RefactorSpaces::Route</code></a>.
 
@@ -89,23 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>routes</code> in a region.
-```sql
-SELECT
-region,
-path_resource_to_id,
-arn,
-application_identifier,
-environment_identifier,
-route_identifier,
-route_type,
-service_identifier,
-default_route,
-uri_path_route,
-tags
-FROM awscc.refactorspaces.routes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route</code>.
 ```sql
 SELECT

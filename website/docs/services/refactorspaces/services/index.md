@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service</code> resource or lists <code>services</code> in a region
 
@@ -32,23 +33,99 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="application_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="endpoint_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="lambda_endpoint" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="url_endpoint" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "application_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "endpoint_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "lambda_endpoint",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "url_endpoint",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "health_url",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-refactorspaces-service.html"><code>AWS::RefactorSpaces::Service</code></a>.
 
@@ -85,24 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>services</code> in a region.
-```sql
-SELECT
-region,
-arn,
-application_identifier,
-description,
-endpoint_type,
-environment_identifier,
-lambda_endpoint,
-name,
-service_identifier,
-url_endpoint,
-vpc_id,
-tags
-FROM awscc.refactorspaces.services
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service</code>.
 ```sql
 SELECT

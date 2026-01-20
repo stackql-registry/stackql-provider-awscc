@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>license</code> resource or lists <code>licenses</code> in a region
 
@@ -32,25 +33,182 @@ Creates, updates, deletes or gets a <code>license</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="product_sku" /></td><td><code>string</code></td><td>ProductSKU of the license.</td></tr>
-<tr><td><CopyableCode code="issuer" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="license_name" /></td><td><code>string</code></td><td>Name for the created license.</td></tr>
-<tr><td><CopyableCode code="product_name" /></td><td><code>string</code></td><td>Product name for the created license.</td></tr>
-<tr><td><CopyableCode code="home_region" /></td><td><code>string</code></td><td>Home region for the created license.</td></tr>
-<tr><td><CopyableCode code="validity" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="entitlements" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="beneficiary" /></td><td><code>string</code></td><td>Beneficiary of the license.</td></tr>
-<tr><td><CopyableCode code="consumption_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="license_metadata" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="license_arn" /></td><td><code>string</code></td><td>Amazon Resource Name is a unique name for each resource.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version of the license.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "product_sku",
+    "type": "string",
+    "description": "ProductSKU of the license."
+  },
+  {
+    "name": "issuer",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sign_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "license_name",
+    "type": "string",
+    "description": "Name for the created license."
+  },
+  {
+    "name": "product_name",
+    "type": "string",
+    "description": "Product name for the created license."
+  },
+  {
+    "name": "home_region",
+    "type": "string",
+    "description": "Home region for the created license."
+  },
+  {
+    "name": "validity",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "begin",
+        "type": "string",
+        "description": "Validity begin date for the license."
+      },
+      {
+        "name": "end",
+        "type": "string",
+        "description": "Validity begin date for the license."
+      }
+    ]
+  },
+  {
+    "name": "entitlements",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "max_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "overage",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "allow_check_in",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "beneficiary",
+    "type": "string",
+    "description": "Beneficiary of the license."
+  },
+  {
+    "name": "consumption_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "renew_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "provisional_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "max_time_to_live_in_minutes",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "borrow_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "max_time_to_live_in_minutes",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "allow_early_check_in",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "license_metadata",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "license_arn",
+    "type": "string",
+    "description": "Amazon Resource Name is a unique name for each resource."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version of the license."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-licensemanager-license.html"><code>AWS::LicenseManager::License</code></a>.
 
@@ -92,26 +250,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>licenses</code> in a region.
-```sql
-SELECT
-region,
-product_sku,
-issuer,
-license_name,
-product_name,
-home_region,
-validity,
-entitlements,
-beneficiary,
-consumption_configuration,
-license_metadata,
-license_arn,
-status,
-version
-FROM awscc.licensemanager.licenses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>license</code>.
 ```sql
 SELECT

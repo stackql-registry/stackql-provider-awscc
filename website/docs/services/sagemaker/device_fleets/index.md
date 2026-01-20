@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>device_fleet</code> resource or lists <code>device_fleets</code> in a region
 
@@ -32,17 +33,62 @@ Creates, updates, deletes or gets a <code>device_fleet</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description for the edge device fleet</td></tr>
-<tr><td><CopyableCode code="device_fleet_name" /></td><td><code>string</code></td><td>The name of the edge device fleet</td></tr>
-<tr><td><CopyableCode code="output_config" /></td><td><code>object</code></td><td>S3 bucket and an ecryption key id (if available) to store outputs for the fleet</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role associated with the device fleet</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Associate tags with the resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description for the edge device fleet"
+  },
+  {
+    "name": "device_fleet_name",
+    "type": "string",
+    "description": "The name of the edge device fleet"
+  },
+  {
+    "name": "output_config",
+    "type": "object",
+    "description": "S3 bucket and an ecryption key id (if available) to store outputs for the fleet",
+    "children": [
+      {
+        "name": "s3_output_location",
+        "type": "string",
+        "description": "The Amazon Simple Storage (S3) bucket URI"
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": "The KMS key id used for encryption on the S3 bucket"
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role associated with the device fleet"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Associate tags with the resource",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-devicefleet.html"><code>AWS::SageMaker::DeviceFleet</code></a>.
 

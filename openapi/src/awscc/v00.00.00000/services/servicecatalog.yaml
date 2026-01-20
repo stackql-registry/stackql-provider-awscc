@@ -553,6 +553,42 @@ components:
           - servicecatalog:terminateProvisionedProduct
           - servicecatalog:describeRecord
           - cloudformation:DeleteStack
+    LaunchNotificationConstraint:
+      type: object
+      properties:
+        Id:
+          type: string
+        Description:
+          type: string
+        NotificationArns:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        AcceptLanguage:
+          type: string
+        PortfolioId:
+          type: string
+        ProductId:
+          type: string
+      required:
+        - NotificationArns
+        - PortfolioId
+        - ProductId
+      x-stackql-resource-name: launch_notification_constraint
+      description: Resource Type definition for AWS::ServiceCatalog::LaunchNotificationConstraint
+      x-type-name: AWS::ServiceCatalog::LaunchNotificationConstraint
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - NotificationArns
+        - PortfolioId
+        - ProductId
     LaunchTemplateConstraint:
       type: object
       properties:
@@ -586,6 +622,39 @@ components:
         - PortfolioId
         - ProductId
         - Rules
+    PortfolioPrincipalAssociation:
+      type: object
+      properties:
+        Id:
+          type: string
+        PrincipalARN:
+          type: string
+        AcceptLanguage:
+          type: string
+        PortfolioId:
+          type: string
+        PrincipalType:
+          type: string
+      required:
+        - PortfolioId
+        - PrincipalType
+        - PrincipalARN
+      x-stackql-resource-name: portfolio_principal_association
+      description: Resource Type definition for AWS::ServiceCatalog::PortfolioPrincipalAssociation
+      x-type-name: AWS::ServiceCatalog::PortfolioPrincipalAssociation
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - PortfolioId
+        - AcceptLanguage
+        - PrincipalARN
+        - PrincipalType
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - PortfolioId
+        - PrincipalType
+        - PrincipalARN
     PortfolioProductAssociation:
       type: object
       properties:
@@ -647,6 +716,39 @@ components:
       x-required-properties:
         - AccountId
         - PortfolioId
+    ResourceUpdateConstraint:
+      type: object
+      properties:
+        Id:
+          type: string
+        Description:
+          type: string
+        AcceptLanguage:
+          type: string
+        TagUpdateOnProvisionedProduct:
+          type: string
+        PortfolioId:
+          type: string
+        ProductId:
+          type: string
+      required:
+        - TagUpdateOnProvisionedProduct
+        - PortfolioId
+        - ProductId
+      x-stackql-resource-name: resource_update_constraint
+      description: Resource Type definition for AWS::ServiceCatalog::ResourceUpdateConstraint
+      x-type-name: AWS::ServiceCatalog::ResourceUpdateConstraint
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - TagUpdateOnProvisionedProduct
+        - PortfolioId
+        - ProductId
     DefinitionParameter:
       type: object
       properties:
@@ -814,6 +916,31 @@ components:
           - servicecatalog:DeleteTagOption
         list:
           - servicecatalog:ListTagOptions
+    TagOptionAssociation:
+      type: object
+      properties:
+        Id:
+          type: string
+        TagOptionId:
+          type: string
+        ResourceId:
+          type: string
+      required:
+        - TagOptionId
+        - ResourceId
+      x-stackql-resource-name: tag_option_association
+      description: Resource Type definition for AWS::ServiceCatalog::TagOptionAssociation
+      x-type-name: AWS::ServiceCatalog::TagOptionAssociation
+      x-stackql-primary-identifier:
+        - Id
+      x-create-only-properties:
+        - TagOptionId
+        - ResourceId
+      x-read-only-properties:
+        - Id
+      x-required-properties:
+        - TagOptionId
+        - ResourceId
     CreateCloudFormationProvisionedProductRequest:
       properties:
         ClientToken:
@@ -1117,11 +1244,37 @@ components:
                 FROM awscc.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProvisionedProduct'
                 AND data__Identifier = '<ProvisionedProductId>'
                 AND region = 'us-east-1'
+    launch_notification_constraints:
+      name: launch_notification_constraints
+      id: awscc.servicecatalog.launch_notification_constraints
+      x-cfn-schema-name: LaunchNotificationConstraint
+      x-cfn-type-name: AWS::ServiceCatalog::LaunchNotificationConstraint
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
     launch_template_constraints:
       name: launch_template_constraints
       id: awscc.servicecatalog.launch_template_constraints
       x-cfn-schema-name: LaunchTemplateConstraint
       x-cfn-type-name: AWS::ServiceCatalog::LaunchTemplateConstraint
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+    portfolio_principal_associations:
+      name: portfolio_principal_associations
+      id: awscc.servicecatalog.portfolio_principal_associations
+      x-cfn-schema-name: PortfolioPrincipalAssociation
+      x-cfn-type-name: AWS::ServiceCatalog::PortfolioPrincipalAssociation
       x-identifiers:
         - Id
       x-type: cloud_control
@@ -1148,6 +1301,19 @@ components:
       id: awscc.servicecatalog.portfolio_shares
       x-cfn-schema-name: PortfolioShare
       x-cfn-type-name: AWS::ServiceCatalog::PortfolioShare
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
+    resource_update_constraints:
+      name: resource_update_constraints
+      id: awscc.servicecatalog.resource_update_constraints
+      x-cfn-schema-name: ResourceUpdateConstraint
+      x-cfn-type-name: AWS::ServiceCatalog::ResourceUpdateConstraint
       x-identifiers:
         - Id
       x-type: cloud_control
@@ -1495,6 +1661,19 @@ components:
                 json_extract_path_text(Properties, 'Id') as id
                 FROM awscc.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::TagOption'
                 AND region = 'us-east-1'
+    tag_option_associations:
+      name: tag_option_associations
+      id: awscc.servicecatalog.tag_option_associations
+      x-cfn-schema-name: TagOptionAssociation
+      x-cfn-type-name: AWS::ServiceCatalog::TagOptionAssociation
+      x-identifiers:
+        - Id
+      x-type: cloud_control
+      methods: {}
+      sqlVerbs:
+        insert: []
+        delete: []
+        update: []
 paths:
   /?Action=CreateResource&Version=2021-09-30:
     parameters:

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>location_hdf</code> resource or lists <code>location_hdfs</code> in a region
 
@@ -32,27 +33,124 @@ Creates, updates, deletes or gets a <code>location_hdf</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name_nodes" /></td><td><code>array</code></td><td>An array of Name Node(s) of the HDFS location.</td></tr>
-<tr><td><CopyableCode code="block_size" /></td><td><code>integer</code></td><td>Size of chunks (blocks) in bytes that the data is divided into when stored in the HDFS cluster.</td></tr>
-<tr><td><CopyableCode code="replication_factor" /></td><td><code>integer</code></td><td>Number of copies of each block that exists inside the HDFS cluster.</td></tr>
-<tr><td><CopyableCode code="kms_key_provider_uri" /></td><td><code>string</code></td><td>The identifier for the Key Management Server where the encryption keys that encrypt data inside HDFS clusters are stored.</td></tr>
-<tr><td><CopyableCode code="qop_configuration" /></td><td><code>object</code></td><td>Configuration information for RPC Protection and Data Transfer Protection. These parameters can be set to AUTHENTICATION, INTEGRITY, or PRIVACY. The default value is PRIVACY.</td></tr>
-<tr><td><CopyableCode code="authentication_type" /></td><td><code>string</code></td><td>The authentication mode used to determine identity of user.</td></tr>
-<tr><td><CopyableCode code="simple_user" /></td><td><code>string</code></td><td>The user name that has read and write permissions on the specified HDFS cluster.</td></tr>
-<tr><td><CopyableCode code="kerberos_principal" /></td><td><code>string</code></td><td>The unique identity, or principal, to which Kerberos can assign tickets.</td></tr>
-<tr><td><CopyableCode code="kerberos_keytab" /></td><td><code>string</code></td><td>The Base64 string representation of the Keytab file.</td></tr>
-<tr><td><CopyableCode code="kerberos_krb5_conf" /></td><td><code>string</code></td><td>The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="agent_arns" /></td><td><code>array</code></td><td>ARN(s) of the agent(s) to use for an HDFS location.</td></tr>
-<tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in HDFS that is used to read data from the HDFS source location or write data to the HDFS destination.</td></tr>
-<tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the HDFS location.</td></tr>
-<tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the HDFS location that was described.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name_nodes",
+    "type": "array",
+    "description": "An array of Name Node(s) of the HDFS location.",
+    "children": [
+      {
+        "name": "hostname",
+        "type": "string",
+        "description": "The DNS name or IP address of the Name Node in the customer's on premises HDFS cluster."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The port on which the Name Node is listening on for client requests."
+      }
+    ]
+  },
+  {
+    "name": "block_size",
+    "type": "integer",
+    "description": "Size of chunks (blocks) in bytes that the data is divided into when stored in the HDFS cluster."
+  },
+  {
+    "name": "replication_factor",
+    "type": "integer",
+    "description": "Number of copies of each block that exists inside the HDFS cluster."
+  },
+  {
+    "name": "kms_key_provider_uri",
+    "type": "string",
+    "description": "The identifier for the Key Management Server where the encryption keys that encrypt data inside HDFS clusters are stored."
+  },
+  {
+    "name": "qop_configuration",
+    "type": "object",
+    "description": "Configuration information for RPC Protection and Data Transfer Protection. These parameters can be set to AUTHENTICATION, INTEGRITY, or PRIVACY. The default value is PRIVACY.",
+    "children": [
+      {
+        "name": "rpc_protection",
+        "type": "string",
+        "description": "Configuration for RPC Protection."
+      },
+      {
+        "name": "data_transfer_protection",
+        "type": "string",
+        "description": "Configuration for Data Transfer Protection."
+      }
+    ]
+  },
+  {
+    "name": "authentication_type",
+    "type": "string",
+    "description": "The authentication mode used to determine identity of user."
+  },
+  {
+    "name": "simple_user",
+    "type": "string",
+    "description": "The user name that has read and write permissions on the specified HDFS cluster."
+  },
+  {
+    "name": "kerberos_principal",
+    "type": "string",
+    "description": "The unique identity, or principal, to which Kerberos can assign tickets."
+  },
+  {
+    "name": "kerberos_keytab",
+    "type": "string",
+    "description": "The Base64 string representation of the Keytab file."
+  },
+  {
+    "name": "kerberos_krb5_conf",
+    "type": "string",
+    "description": "The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key for an AWS resource tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for an AWS resource tag."
+      }
+    ]
+  },
+  {
+    "name": "agent_arns",
+    "type": "array",
+    "description": "ARN(s) of the agent(s) to use for an HDFS location."
+  },
+  {
+    "name": "subdirectory",
+    "type": "string",
+    "description": "The subdirectory in HDFS that is used to read data from the HDFS source location or write data to the HDFS destination."
+  },
+  {
+    "name": "location_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the HDFS location."
+  },
+  {
+    "name": "location_uri",
+    "type": "string",
+    "description": "The URL of the HDFS location that was described."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-locationhdf.html"><code>AWS::DataSync::LocationHDFS</code></a>.
 
@@ -94,28 +192,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>location_hdfs</code> in a region.
-```sql
-SELECT
-region,
-name_nodes,
-block_size,
-replication_factor,
-kms_key_provider_uri,
-qop_configuration,
-authentication_type,
-simple_user,
-kerberos_principal,
-kerberos_keytab,
-kerberos_krb5_conf,
-tags,
-agent_arns,
-subdirectory,
-location_arn,
-location_uri
-FROM awscc.datasync.location_hdfs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>location_hdf</code>.
 ```sql
 SELECT

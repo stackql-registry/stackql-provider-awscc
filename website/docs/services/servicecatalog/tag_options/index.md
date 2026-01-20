@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tag_option</code> resource or lists <code>tag_options</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>tag_option</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The TagOption identifier.</td></tr>
-<tr><td><CopyableCode code="active" /></td><td><code>boolean</code></td><td>The TagOption active state.</td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>The TagOption value.</td></tr>
-<tr><td><CopyableCode code="key" /></td><td><code>string</code></td><td>The TagOption key.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The TagOption identifier."
+  },
+  {
+    "name": "active",
+    "type": "boolean",
+    "description": "The TagOption active state."
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": "The TagOption value."
+  },
+  {
+    "name": "key",
+    "type": "string",
+    "description": "The TagOption key."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-tagoption.html"><code>AWS::ServiceCatalog::TagOption</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tag_options</code> in a region.
-```sql
-SELECT
-region,
-id,
-active,
-value,
-key
-FROM awscc.servicecatalog.tag_options
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tag_option</code>.
 ```sql
 SELECT

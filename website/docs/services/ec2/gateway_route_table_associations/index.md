@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>gateway_route_table_association</code> resource or lists <code>gateway_route_table_associations</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>gateway_route_table_association</code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="route_table_id" /></td><td><code>string</code></td><td>The ID of the route table.</td></tr>
-<tr><td><CopyableCode code="gateway_id" /></td><td><code>string</code></td><td>The ID of the gateway.</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>The route table association ID.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "route_table_id",
+    "type": "string",
+    "description": "The ID of the route table."
+  },
+  {
+    "name": "gateway_id",
+    "type": "string",
+    "description": "The ID of the gateway."
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "The route table association ID."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-gatewayroutetableassociation.html"><code>AWS::EC2::GatewayRouteTableAssociation</code></a>.
 

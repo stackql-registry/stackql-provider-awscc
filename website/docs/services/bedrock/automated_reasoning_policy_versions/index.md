@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>automated_reasoning_policy_version</code> resource or lists <code>automated_reasoning_policy_versions</code> in a region
 
@@ -32,22 +33,70 @@ Creates, updates, deletes or gets an <code>automated_reasoning_policy_version</c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_arn" /></td><td><code>string</code></td><td>Arn of the policy</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name inherited from the policy</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description inherited from the policy</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version of the policy</td></tr>
-<tr><td><CopyableCode code="definition_hash" /></td><td><code>string</code></td><td>The hash for this version</td></tr>
-<tr><td><CopyableCode code="last_updated_definition_hash" /></td><td><code>string</code></td><td>The hash for this version</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Time this policy version was created</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time this policy was last updated</td></tr>
-<tr><td><CopyableCode code="policy_id" /></td><td><code>string</code></td><td>The id of the associated policy</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "policy_arn",
+    "type": "string",
+    "description": "Arn of the policy"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name inherited from the policy"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description inherited from the policy"
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version of the policy"
+  },
+  {
+    "name": "definition_hash",
+    "type": "string",
+    "description": "The hash for this version"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Time this policy version was created"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Time this policy was last updated"
+  },
+  {
+    "name": "policy_id",
+    "type": "string",
+    "description": "The id of the associated policy"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Tag Key"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Tag Value"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-automatedreasoningpolicyversion.html"><code>AWS::Bedrock::AutomatedReasoningPolicyVersion</code></a>.
 
@@ -84,23 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>automated_reasoning_policy_versions</code> in a region.
-```sql
-SELECT
-region,
-policy_arn,
-name,
-description,
-version,
-definition_hash,
-last_updated_definition_hash,
-created_at,
-updated_at,
-policy_id,
-tags
-FROM awscc.bedrock.automated_reasoning_policy_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>automated_reasoning_policy_version</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_key</code> resource or lists <code>security_keys</code> in a region
 
@@ -32,15 +33,28 @@ Creates, updates, deletes or gets a <code>security_key</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="key" /></td><td><code>string</code></td><td>A valid security key in PEM format.</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>Amazon Connect instance identifier</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>An associationID is automatically generated when a storage config is associated with an instance</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "key",
+    "type": "string",
+    "description": "A valid security key in PEM format."
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "Amazon Connect instance identifier"
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "An associationID is automatically generated when a storage config is associated with an instance"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-securitykey.html"><code>AWS::Connect::SecurityKey</code></a>.
 
@@ -77,16 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_keys</code> in a region.
-```sql
-SELECT
-region,
-key,
-instance_id,
-association_id
-FROM awscc.connect.security_keys
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_key</code>.
 ```sql
 SELECT

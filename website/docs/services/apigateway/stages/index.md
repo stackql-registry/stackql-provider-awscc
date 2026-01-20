@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>stages</code> in a region
 
@@ -26,32 +27,187 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
 <tbody>
 <tr><td><b>Name</b></td><td><code>stages</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::Stage</code> resource creates a stage for a deployment.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::Stage&#96;&#96; resource creates a stage for a deployment.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.stages" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_log_setting" /></td><td><code>object</code></td><td>The <code>AccessLogSetting</code> property type specifies settings for logging access in this stage.<br /><code>AccessLogSetting</code> is a property of the &#91;AWS::ApiGateway::Stage&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html) resource.</td></tr>
-<tr><td><CopyableCode code="cache_cluster_enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="cache_cluster_size" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="canary_setting" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="client_certificate_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deployment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="documentation_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="method_settings" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="rest_api_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="stage_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracing_enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="variables" /></td><td><code>object</code></td><td>A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: <code>&#91;A-Za-z0-9-._~:/?#&=,&#93;+</code>.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_log_setting",
+    "type": "object",
+    "description": "The &#96;&#96;AccessLogSetting&#96;&#96; property type specifies settings for logging access in this stage.<br />&#96;&#96;AccessLogSetting&#96;&#96; is a property of the &#91;AWS::ApiGateway::Stage&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html) resource.",
+    "children": [
+      {
+        "name": "destination_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with &#96;&#96;amazon-apigateway-&#96;&#96;. This parameter is required to enable access logging."
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "description": "A single line format of the access logs of data, as specified by selected &#91;$context variables&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference). The format must include at least &#96;&#96;$context.requestId&#96;&#96;. This parameter is required to enable access logging."
+      }
+    ]
+  },
+  {
+    "name": "cache_cluster_enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "cache_cluster_size",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "canary_setting",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "deployment_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "percent_traffic",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "stage_variable_overrides",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "use_stage_cache",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "client_certificate_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "deployment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "documentation_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "method_settings",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "cache_data_encrypted",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "cache_ttl_in_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "caching_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "data_trace_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "http_method",
+        "type": "string",
+        "description": "The HTTP method. To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+      },
+      {
+        "name": "logging_level",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "metrics_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "resource_path",
+        "type": "string",
+        "description": "The resource path for this method. Forward slashes (&#96;&#96;/&#96;&#96;) are encoded as &#96;&#96;&#126;1&#96;&#96; and the initial slash must include a forward slash. For example, the path value &#96;&#96;/resource/subresource&#96;&#96; must be encoded as &#96;&#96;/&#126;1resource&#126;1subresource&#96;&#96;. To specify the root path, use only a slash (&#96;&#96;/&#96;&#96;). To apply settings to multiple resources and methods, specify an asterisk (&#96;&#96;&#42;&#96;&#96;) for the &#96;&#96;HttpMethod&#96;&#96; and &#96;&#96;/&#42;&#96;&#96; for the &#96;&#96;ResourcePath&#96;&#96;. This parameter is required when you specify a &#96;&#96;MethodSetting&#96;&#96;."
+      },
+      {
+        "name": "throttling_burst_limit",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "throttling_rate_limit",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stage_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tracing_enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "variables",
+    "type": "object",
+    "description": "A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: &#96;&#96;&#91;A-Za-z0-9-.&#95;&#126;:/?#&=,&#93;+&#96;&#96;."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html"><code>AWS::ApiGateway::Stage</code></a>.
 
@@ -93,27 +249,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stages</code> in a region.
-```sql
-SELECT
-region,
-access_log_setting,
-cache_cluster_enabled,
-cache_cluster_size,
-canary_setting,
-client_certificate_id,
-deployment_id,
-description,
-documentation_version,
-method_settings,
-rest_api_id,
-stage_name,
-tags,
-tracing_enabled,
-variables
-FROM awscc.apigateway.stages
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stage</code>.
 ```sql
 SELECT

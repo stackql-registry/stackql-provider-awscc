@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connection</code> resource or lists <code>connections</code> in a region
 
@@ -32,25 +33,100 @@ Creates, updates, deletes or gets a <code>connection</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="aws_location" /></td><td><code>object</code></td><td>AWS Location of project</td></tr>
-<tr><td><CopyableCode code="connection_id" /></td><td><code>string</code></td><td>The ID of the connection.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the connection.</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the domain in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="domain_identifier" /></td><td><code>string</code></td><td>The identifier of the domain in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="domain_unit_id" /></td><td><code>string</code></td><td>The ID of the domain unit in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="environment_id" /></td><td><code>string</code></td><td>The ID of the environment in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="environment_identifier" /></td><td><code>string</code></td><td>The identifier of the environment in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="environment_user_role" /></td><td><code>string</code></td><td>The role of the user in the environment.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the connection.</td></tr>
-<tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>The ID of the project in which the connection is created.</td></tr>
-<tr><td><CopyableCode code="props" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Connection Type</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "aws_location",
+    "type": "object",
+    "description": "AWS Location of project",
+    "children": [
+      {
+        "name": "access_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "aws_account_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "aws_region",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "iam_connection_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "connection_id",
+    "type": "string",
+    "description": "The ID of the connection."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the connection."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the domain in which the connection is created."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The identifier of the domain in which the connection is created."
+  },
+  {
+    "name": "domain_unit_id",
+    "type": "string",
+    "description": "The ID of the domain unit in which the connection is created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The ID of the environment in which the connection is created."
+  },
+  {
+    "name": "environment_identifier",
+    "type": "string",
+    "description": "The identifier of the environment in which the connection is created."
+  },
+  {
+    "name": "environment_user_role",
+    "type": "string",
+    "description": "The role of the user in the environment."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the connection."
+  },
+  {
+    "name": "project_id",
+    "type": "string",
+    "description": "The ID of the project in which the connection is created."
+  },
+  {
+    "name": "props",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Connection Type"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-connection.html"><code>AWS::DataZone::Connection</code></a>.
 
@@ -92,26 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connections</code> in a region.
-```sql
-SELECT
-region,
-aws_location,
-connection_id,
-description,
-domain_id,
-domain_identifier,
-domain_unit_id,
-environment_id,
-environment_identifier,
-environment_user_role,
-name,
-project_id,
-props,
-type
-FROM awscc.datazone.connections
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connection</code>.
 ```sql
 SELECT

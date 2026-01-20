@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_analyzer_configuration</code> resource or lists <code>network_analyzer_configurations</code> in a region
 
@@ -32,19 +33,72 @@ Creates, updates, deletes or gets a <code>network_analyzer_configuration</code> 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the network analyzer configuration</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the new resource</td></tr>
-<tr><td><CopyableCode code="trace_content" /></td><td><code>object</code></td><td>Trace content for your wireless gateway and wireless device resources</td></tr>
-<tr><td><CopyableCode code="wireless_devices" /></td><td><code>array</code></td><td>List of wireless gateway resources that have been added to the network analyzer configuration</td></tr>
-<tr><td><CopyableCode code="wireless_gateways" /></td><td><code>array</code></td><td>List of wireless gateway resources that have been added to the network analyzer configuration</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn for network analyzer configuration, Returned upon successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the network analyzer configuration"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the new resource"
+  },
+  {
+    "name": "trace_content",
+    "type": "object",
+    "description": "Trace content for your wireless gateway and wireless device resources",
+    "children": [
+      {
+        "name": "wireless_device_frame_info",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "log_level",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "wireless_devices",
+    "type": "array",
+    "description": "List of wireless gateway resources that have been added to the network analyzer configuration"
+  },
+  {
+    "name": "wireless_gateways",
+    "type": "array",
+    "description": "List of wireless gateway resources that have been added to the network analyzer configuration"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Arn for network analyzer configuration, Returned upon successful create."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-networkanalyzerconfiguration.html"><code>AWS::IoTWireless::NetworkAnalyzerConfiguration</code></a>.
 
@@ -86,20 +140,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_analyzer_configurations</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-trace_content,
-wireless_devices,
-wireless_gateways,
-arn,
-tags
-FROM awscc.iotwireless.network_analyzer_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_analyzer_configuration</code>.
 ```sql
 SELECT

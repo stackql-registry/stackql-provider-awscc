@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>filter</code> resource or lists <code>filters</code> in a region
 
@@ -32,18 +33,130 @@ Creates, updates, deletes or gets a <code>filter</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Findings filter name.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Findings filter description.</td></tr>
-<tr><td><CopyableCode code="filter_criteria" /></td><td><code>object</code></td><td>Findings filter criteria.</td></tr>
-<tr><td><CopyableCode code="filter_action" /></td><td><code>string</code></td><td>Findings filter action.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Findings filter ARN.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Findings filter name."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Findings filter description."
+  },
+  {
+    "name": "filter_criteria",
+    "type": "object",
+    "description": "Findings filter criteria.",
+    "children": [
+      {
+        "name": "aws_account_id",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "comparison",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ecr_image_pushed_at",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "end_inclusive",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "epss_score",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "lower_inclusive",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "upper_inclusive",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "port_range",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "begin_inclusive",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "resource_tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "comparison",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "vulnerable_packages",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "filter_action",
+    "type": "string",
+    "description": "Findings filter action."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Findings filter ARN."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspectorv2-filter.html"><code>AWS::InspectorV2::Filter</code></a>.
 
@@ -85,19 +198,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>filters</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-filter_criteria,
-filter_action,
-arn,
-tags
-FROM awscc.inspectorv2.filters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>filter</code>.
 ```sql
 SELECT

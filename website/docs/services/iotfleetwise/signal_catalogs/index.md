@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>signal_catalog</code> resource or lists <code>signal_catalogs</code> in a region
 
@@ -32,20 +33,92 @@ Creates, updates, deletes or gets a <code>signal_catalog</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modification_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="node_counts" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="nodes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modification_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "node_counts",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "total_nodes",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "total_branches",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "total_sensors",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "total_attributes",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "total_actuators",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "nodes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-signalcatalog.html"><code>AWS::IoTFleetWise::SignalCatalog</code></a>.
 
@@ -87,21 +160,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>signal_catalogs</code> in a region.
-```sql
-SELECT
-region,
-arn,
-creation_time,
-description,
-last_modification_time,
-name,
-node_counts,
-nodes,
-tags
-FROM awscc.iotfleetwise.signal_catalogs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>signal_catalog</code>.
 ```sql
 SELECT

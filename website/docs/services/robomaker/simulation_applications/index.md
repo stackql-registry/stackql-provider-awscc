@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>simulation_application</code> resource or lists <code>simulation_applications</code> in a region
 
@@ -32,21 +33,111 @@ Creates, updates, deletes or gets a <code>simulation_application</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the simulation application.</td></tr>
-<tr><td><CopyableCode code="current_revision_id" /></td><td><code>string</code></td><td>The current revision id.</td></tr>
-<tr><td><CopyableCode code="rendering_engine" /></td><td><code>object</code></td><td>The rendering engine for the simulation application.</td></tr>
-<tr><td><CopyableCode code="robot_software_suite" /></td><td><code>object</code></td><td>The robot software suite used by the simulation application.</td></tr>
-<tr><td><CopyableCode code="simulation_software_suite" /></td><td><code>object</code></td><td>The simulation software suite used by the simulation application.</td></tr>
-<tr><td><CopyableCode code="sources" /></td><td><code>array</code></td><td>The sources of the simulation application.</td></tr>
-<tr><td><CopyableCode code="environment" /></td><td><code>string</code></td><td>The URI of the Docker image for the robot application.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the simulation application."
+  },
+  {
+    "name": "current_revision_id",
+    "type": "string",
+    "description": "The current revision id."
+  },
+  {
+    "name": "rendering_engine",
+    "type": "object",
+    "description": "The rendering engine for the simulation application.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the rendering engine."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the rendering engine."
+      }
+    ]
+  },
+  {
+    "name": "robot_software_suite",
+    "type": "object",
+    "description": "The robot software suite used by the simulation application.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the robot software suite."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the robot software suite."
+      }
+    ]
+  },
+  {
+    "name": "simulation_software_suite",
+    "type": "object",
+    "description": "The simulation software suite used by the simulation application.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the simulation software suite."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of the simulation software suite."
+      }
+    ]
+  },
+  {
+    "name": "sources",
+    "type": "array",
+    "description": "The sources of the simulation application.",
+    "children": [
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": "The Amazon S3 bucket name."
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": "The s3 object key."
+      },
+      {
+        "name": "architecture",
+        "type": "string",
+        "description": "The target processor architecture for the application."
+      }
+    ]
+  },
+  {
+    "name": "environment",
+    "type": "string",
+    "description": "The URI of the Docker image for the robot application."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-robomaker-simulationapplication.html"><code>AWS::RoboMaker::SimulationApplication</code></a>.
 
@@ -88,22 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>simulation_applications</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-current_revision_id,
-rendering_engine,
-robot_software_suite,
-simulation_software_suite,
-sources,
-environment,
-tags
-FROM awscc.robomaker.simulation_applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>simulation_application</code>.
 ```sql
 SELECT

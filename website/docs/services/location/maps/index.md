@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>map</code> resource or lists <code>maps</code> in a region
 
@@ -32,21 +33,82 @@ Creates, updates, deletes or gets a <code>map</code> resource or lists <code>map
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="create_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="map_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="map_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pricing_plan" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "style",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "political_view",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_layers",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "create_time",
+    "type": "string",
+    "description": "The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "map_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "map_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "pricing_plan",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-location-map.html"><code>AWS::Location::Map</code></a>.
 
@@ -88,22 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>maps</code> in a region.
-```sql
-SELECT
-region,
-configuration,
-create_time,
-description,
-map_arn,
-map_name,
-pricing_plan,
-tags,
-update_time,
-arn
-FROM awscc.location.maps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>map</code>.
 ```sql
 SELECT

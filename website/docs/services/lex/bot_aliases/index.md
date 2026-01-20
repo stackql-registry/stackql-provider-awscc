@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bot_alias</code> resource or lists <code>bot_aliases</code> in a region
 
@@ -32,23 +33,187 @@ Creates, updates, deletes or gets a <code>bot_alias</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="bot_alias_id" /></td><td><code>string</code></td><td>Unique ID of resource</td></tr>
-<tr><td><CopyableCode code="bot_id" /></td><td><code>string</code></td><td>Unique ID of resource</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bot_alias_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="bot_alias_locale_settings" /></td><td><code>array</code></td><td>A list of bot alias locale settings to add to the bot alias.</td></tr>
-<tr><td><CopyableCode code="bot_alias_name" /></td><td><code>string</code></td><td>A unique identifier for a resource.</td></tr>
-<tr><td><CopyableCode code="bot_version" /></td><td><code>object</code></td><td>A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.</td></tr>
-<tr><td><CopyableCode code="conversation_log_settings" /></td><td><code>object</code></td><td>Contains information about code hooks that Amazon Lex calls during a conversation.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the version. Use the description to help identify the version in lists.</td></tr>
-<tr><td><CopyableCode code="sentiment_analysis_settings" /></td><td><code>object</code></td><td>Determines whether Amazon Lex will use Amazon Comprehend to detect the sentiment of user utterances.</td></tr>
-<tr><td><CopyableCode code="bot_alias_tags" /></td><td><code>array</code></td><td>A list of tags to add to the bot alias.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "bot_alias_id",
+    "type": "string",
+    "description": "Unique ID of resource"
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bot_alias_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "bot_alias_locale_settings",
+    "type": "array",
+    "description": "A list of bot alias locale settings to add to the bot alias.",
+    "children": [
+      {
+        "name": "locale_id",
+        "type": "string",
+        "description": "A string used to identify the locale"
+      },
+      {
+        "name": "bot_alias_locale_setting",
+        "type": "object",
+        "description": "You can use this parameter to specify a specific Lambda function to run different functions in different locales.",
+        "children": [
+          {
+            "name": "code_hook_specification",
+            "type": "object",
+            "description": "Contains information about code hooks that Amazon Lex calls during a conversation.",
+            "children": [
+              {
+                "name": "lambda_code_hook",
+                "type": "object",
+                "description": "Contains information about code hooks that Amazon Lex calls during a conversation."
+              }
+            ]
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Whether the Lambda code hook is enabled"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bot_alias_name",
+    "type": "string",
+    "description": "A unique identifier for a resource."
+  },
+  {
+    "name": "bot_version",
+    "type": "object",
+    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description of the version. Use the description to help identify the version in lists."
+      },
+      {
+        "name": "bot_version_locale_specification",
+        "type": "array",
+        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
+        "children": [
+          {
+            "name": "locale_id",
+            "type": "string",
+            "description": "The identifier of the language and locale that the bot will be used in."
+          },
+          {
+            "name": "bot_version_locale_details",
+            "type": "object",
+            "description": "The version of a bot used for a bot locale."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "conversation_log_settings",
+    "type": "object",
+    "description": "Contains information about code hooks that Amazon Lex calls during a conversation.",
+    "children": [
+      {
+        "name": "audio_log_settings",
+        "type": "array",
+        "description": "List of audio log settings",
+        "children": [
+          {
+            "name": "destination",
+            "type": "object",
+            "description": "The location of audio log files collected when conversation logging is enabled for a bot.",
+            "children": [
+              {
+                "name": "s3_bucket",
+                "type": "object",
+                "description": "Specifies an Amazon S3 bucket for logging audio conversations"
+              }
+            ]
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "text_log_settings",
+        "type": "array",
+        "description": "List of text log settings",
+        "children": [
+          {
+            "name": "destination",
+            "type": "object",
+            "description": "Defines the Amazon CloudWatch Logs destination log group for conversation text logs.",
+            "children": [
+              {
+                "name": "cloud_watch",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the version. Use the description to help identify the version in lists."
+  },
+  {
+    "name": "sentiment_analysis_settings",
+    "type": "object",
+    "description": "Determines whether Amazon Lex will use Amazon Comprehend to detect the sentiment of user utterances.",
+    "children": [
+      {
+        "name": "detect_sentiment",
+        "type": "boolean",
+        "description": "Enable to call Amazon Comprehend for Sentiment natively within Lex"
+      }
+    ]
+  },
+  {
+    "name": "bot_alias_tags",
+    "type": "array",
+    "description": "A list of tags to add to the bot alias.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string used to identify this tag"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string containing the value for the tag"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lex-botalias.html"><code>AWS::Lex::BotAlias</code></a>.
 
@@ -90,24 +255,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>bot_aliases</code> in a region.
-```sql
-SELECT
-region,
-bot_alias_id,
-bot_id,
-arn,
-bot_alias_status,
-bot_alias_locale_settings,
-bot_alias_name,
-bot_version,
-conversation_log_settings,
-description,
-sentiment_analysis_settings,
-bot_alias_tags
-FROM awscc.lex.bot_aliases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>bot_alias</code>.
 ```sql
 SELECT

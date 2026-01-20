@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_protection_setting</code> resource or lists <code>data_protection_settings</code> in a region
 
@@ -32,21 +33,158 @@ Creates, updates, deletes or gets a <code>data_protection_setting</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_encryption_context" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="associated_portal_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="customer_managed_key" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_protection_settings_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="inline_redaction_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "additional_encryption_context",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "associated_portal_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "customer_managed_key",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_protection_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "inline_redaction_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "inline_redaction_patterns",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "built_in_pattern_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "custom_pattern",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "pattern_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "pattern_regex",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "pattern_description",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "keyword_regex",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "redaction_place_holder",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "redaction_place_holder_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "redaction_place_holder_text",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "enforced_urls",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "exempt_urls",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "confidence_level",
+            "type": "number",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "global_enforced_urls",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "global_exempt_urls",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "global_confidence_level",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-dataprotectionsetting.html"><code>AWS::WorkSpacesWeb::DataProtectionSettings</code></a>.
 
@@ -88,22 +226,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_protection_settings</code> in a region.
-```sql
-SELECT
-region,
-additional_encryption_context,
-associated_portal_arns,
-creation_date,
-customer_managed_key,
-data_protection_settings_arn,
-description,
-display_name,
-inline_redaction_configuration,
-tags
-FROM awscc.workspacesweb.data_protection_settings
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_protection_setting</code>.
 ```sql
 SELECT

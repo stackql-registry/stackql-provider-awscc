@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>hypervisor</code> resource or lists <code>hypervisors</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>hypervisor</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="host" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="hypervisor_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="log_group_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="password" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="username" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "host",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "hypervisor_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "kms_key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "log_group_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "password",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "username",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backupgateway-hypervisor.html"><code>AWS::BackupGateway::Hypervisor</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hypervisors</code> in a region.
-```sql
-SELECT
-region,
-host,
-hypervisor_arn,
-kms_key_arn,
-log_group_arn,
-name,
-password,
-tags,
-username
-FROM awscc.backupgateway.hypervisors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>hypervisor</code>.
 ```sql
 SELECT

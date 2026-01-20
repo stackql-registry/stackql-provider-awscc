@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mail_manager_ingress_point</code> resource or lists <code>mail_manager_ingress_points</code> in a region
 
@@ -32,24 +33,85 @@ Creates, updates, deletes or gets a <code>mail_manager_ingress_point</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="a_record" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="traffic_policy_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ingress_point_configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="ingress_point_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ingress_point_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ingress_point_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_set_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status_to_update" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "a_record",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "traffic_policy_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ingress_point_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "ingress_point_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ingress_point_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ingress_point_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "network_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "rule_set_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status_to_update",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanageringresspoint.html"><code>AWS::SES::MailManagerIngressPoint</code></a>.
 
@@ -91,25 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mail_manager_ingress_points</code> in a region.
-```sql
-SELECT
-region,
-a_record,
-traffic_policy_id,
-ingress_point_configuration,
-ingress_point_arn,
-ingress_point_id,
-ingress_point_name,
-network_configuration,
-rule_set_id,
-status,
-status_to_update,
-tags,
-type
-FROM awscc.ses.mail_manager_ingress_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mail_manager_ingress_point</code>.
 ```sql
 SELECT

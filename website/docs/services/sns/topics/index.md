@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>topics</code> in a region
 
@@ -26,32 +27,135 @@ Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>t
 <tbody>
 <tr><td><b>Name</b></td><td><code>topics</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::SNS::Topic</code> resource creates a topic to which notifications can be published.<br />One account can create a maximum of 100,000 standard topics and 1,000 FIFO topics. For more information, see &#91;endpoints and quotas&#93;(https://docs.aws.amazon.com/general/latest/gr/sns.html) in the ASTERIX;General ReferenceASTERIX;.<br />The structure of <code>AUTHPARAMS</code> depends on the .signature of the API request. For more information, see &#91;Examples of the complete Signature Version 4 signing process&#93;(https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html) in the ASTERIX;General ReferenceASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SNS::Topic&#96;&#96; resource creates a topic to which notifications can be published.<br />One account can create a maximum of 100,000 standard topics and 1,000 FIFO topics. For more information, see &#91;endpoints and quotas&#93;(https://docs.aws.amazon.com/general/latest/gr/sns.html) in the &#42;General Reference&#42;.<br />The structure of &#96;&#96;AUTHPARAMS&#96;&#96; depends on the .signature of the API request. For more information, see &#91;Examples of the complete Signature Version 4 signing process&#93;(https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html) in the &#42;General Reference&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.sns.topics" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name to use for an SNS topic with SMS subscriptions. The display name must be maximum 100 characters long, including hyphens (-), underscores (_), spaces, and tabs.</td></tr>
-<tr><td><CopyableCode code="kms_master_key_id" /></td><td><code>string</code></td><td>The ID of an AWS managed customer master key (CMK) for SNS or a custom CMK. For more information, see &#91;Key terms&#93;(https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms). For more examples, see <code>KeyId</code> in the ASTERIX;API ReferenceASTERIX;.<br />This property applies only to &#91;server-side-encryption&#93;(https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html).</td></tr>
-<tr><td><CopyableCode code="data_protection_policy" /></td><td><code>object</code></td><td>The body of the policy document you want to use for this topic.<br />You can only add one policy per topic.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30,720.</td></tr>
-<tr><td><CopyableCode code="subscription" /></td><td><code>array</code></td><td>The SNS subscriptions (endpoints) for this topic.<br />If you specify the <code>Subscription</code> property in the <code>AWS::SNS::Topic</code> resource and it creates an associated subscription resource, the associated subscription is not deleted when the <code>AWS::SNS::Topic</code> resource is deleted.</td></tr>
-<tr><td><CopyableCode code="fifo_topic" /></td><td><code>boolean</code></td><td>Set to true to create a FIFO topic.</td></tr>
-<tr><td><CopyableCode code="content_based_deduplication" /></td><td><code>boolean</code></td><td>Enables content-based deduplication for FIFO topics.<br />+ By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO topic and this attribute is <code>false</code>, you must specify a value for the <code>MessageDeduplicationId</code> parameter for the &#91;Publish&#93;(https://docs.aws.amazon.com/sns/latest/api/API_Publish.html) action. <br />+ When you set <code>ContentBasedDeduplication</code> to <code>true</code>, SNS uses a SHA-256 hash to generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes of the message).<br />(Optional) To override the generated value, you can specify a value for the the <code>MessageDeduplicationId</code> parameter for the <code>Publish</code> action.</td></tr>
-<tr><td><CopyableCode code="archive_policy" /></td><td><code>object</code></td><td>The archive policy determines the number of days SNS retains messages. You can set a retention period from 1 to 365 days.</td></tr>
-<tr><td><CopyableCode code="fifo_throughput_scope" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The list of tags to add to a new topic.<br />To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and <code>sns:TagResource</code> permissions.</td></tr>
-<tr><td><CopyableCode code="topic_name" /></td><td><code>string</code></td><td>The name of the topic you want to create. Topic names must include only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. FIFO topic names must end with <code>.fifo</code>.<br />If you don't specify a name, CFN generates a unique physical ID and uses that ID for the topic name. For more information, see &#91;Name type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.</td></tr>
-<tr><td><CopyableCode code="topic_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="signature_version" /></td><td><code>string</code></td><td>The signature version corresponds to the hashing algorithm used while creating the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.</td></tr>
-<tr><td><CopyableCode code="tracing_config" /></td><td><code>string</code></td><td>Tracing mode of an SNS topic. By default <code>TracingConfig</code> is set to <code>PassThrough</code>, and the topic passes through the tracing header it receives from an SNS publisher to its subscriptions. If set to <code>Active</code>, SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing header is true.</td></tr>
-<tr><td><CopyableCode code="delivery_status_logging" /></td><td><code>array</code></td><td>The <code>DeliveryStatusLogging</code> configuration enables you to log the delivery status of messages sent from your Amazon SNS topic to subscribed endpoints with the following supported delivery protocols:<br />+ HTTP <br />+ Amazon Kinesis Data Firehose<br />+ AWS Lambda<br />+ Platform application endpoint<br />+ Amazon Simple Queue Service<br /><br />Once configured, log entries are sent to Amazon CloudWatch Logs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name to use for an SNS topic with SMS subscriptions. The display name must be maximum 100 characters long, including hyphens (-), underscores (&#95;), spaces, and tabs."
+  },
+  {
+    "name": "kms_master_key_id",
+    "type": "string",
+    "description": "The ID of an AWS managed customer master key (CMK) for SNS or a custom CMK. For more information, see &#91;Key terms&#93;(https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms). For more examples, see &#96;&#96;KeyId&#96;&#96; in the &#42;API Reference&#42;.<br />This property applies only to &#91;server-side-encryption&#93;(https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html)."
+  },
+  {
+    "name": "data_protection_policy",
+    "type": "object",
+    "description": "The body of the policy document you want to use for this topic.<br />You can only add one policy per topic.<br />The policy must be in JSON string format.<br />Length Constraints: Maximum length of 30,720."
+  },
+  {
+    "name": "subscription",
+    "type": "array",
+    "description": "The SNS subscriptions (endpoints) for this topic.<br />If you specify the &#96;&#96;Subscription&#96;&#96; property in the &#96;&#96;AWS::SNS::Topic&#96;&#96; resource and it creates an associated subscription resource, the associated subscription is not deleted when the &#96;&#96;AWS::SNS::Topic&#96;&#96; resource is deleted.",
+    "children": [
+      {
+        "name": "endpoint",
+        "type": "string",
+        "description": "The endpoint that receives notifications from the SNS topic. The endpoint value depends on the protocol that you specify. For more information, see the &#96;&#96;Endpoint&#96;&#96; parameter of the &#96;&#96;Subscribe&#96;&#96; action in the &#42;API Reference&#42;."
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The subscription's protocol. For more information, see the &#96;&#96;Protocol&#96;&#96; parameter of the &#96;&#96;Subscribe&#96;&#96; action in the &#42;API Reference&#42;."
+      }
+    ]
+  },
+  {
+    "name": "fifo_topic",
+    "type": "boolean",
+    "description": "Set to true to create a FIFO topic."
+  },
+  {
+    "name": "content_based_deduplication",
+    "type": "boolean",
+    "description": "Enables content-based deduplication for FIFO topics.<br />+ By default, &#96;&#96;ContentBasedDeduplication&#96;&#96; is set to &#96;&#96;false&#96;&#96;. If you create a FIFO topic and this attribute is &#96;&#96;false&#96;&#96;, you must specify a value for the &#96;&#96;MessageDeduplicationId&#96;&#96; parameter for the &#91;Publish&#93;(https://docs.aws.amazon.com/sns/latest/api/API&#95;Publish.html) action. <br />+ When you set &#96;&#96;ContentBasedDeduplication&#96;&#96; to &#96;&#96;true&#96;&#96;, SNS uses a SHA-256 hash to generate the &#96;&#96;MessageDeduplicationId&#96;&#96; using the body of the message (but not the attributes of the message).<br />(Optional) To override the generated value, you can specify a value for the the &#96;&#96;MessageDeduplicationId&#96;&#96; parameter for the &#96;&#96;Publish&#96;&#96; action."
+  },
+  {
+    "name": "archive_policy",
+    "type": "object",
+    "description": "The archive policy determines the number of days SNS retains messages. You can set a retention period from 1 to 365 days."
+  },
+  {
+    "name": "fifo_throughput_scope",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The list of tags to add to a new topic.<br />To be able to tag a topic on creation, you must have the &#96;&#96;sns:CreateTopic&#96;&#96; and &#96;&#96;sns:TagResource&#96;&#96; permissions.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The required key portion of the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The optional value portion of the tag."
+      }
+    ]
+  },
+  {
+    "name": "topic_name",
+    "type": "string",
+    "description": "The name of the topic you want to create. Topic names must include only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. FIFO topic names must end with &#96;&#96;.fifo&#96;&#96;.<br />If you don't specify a name, CFN generates a unique physical ID and uses that ID for the topic name. For more information, see &#91;Name type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "topic_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "signature_version",
+    "type": "string",
+    "description": "The signature version corresponds to the hashing algorithm used while creating the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by Amazon SNS. By default, &#96;&#96;SignatureVersion&#96;&#96; is set to &#96;&#96;1&#96;&#96;."
+  },
+  {
+    "name": "tracing_config",
+    "type": "string",
+    "description": "Tracing mode of an SNS topic. By default &#96;&#96;TracingConfig&#96;&#96; is set to &#96;&#96;PassThrough&#96;&#96;, and the topic passes through the tracing header it receives from an SNS publisher to its subscriptions. If set to &#96;&#96;Active&#96;&#96;, SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing header is true."
+  },
+  {
+    "name": "delivery_status_logging",
+    "type": "array",
+    "description": "The &#96;&#96;DeliveryStatusLogging&#96;&#96; configuration enables you to log the delivery status of messages sent from your Amazon SNS topic to subscribed endpoints with the following supported delivery protocols:<br />+ HTTP <br />+ Amazon Kinesis Data Firehose<br />+ AWS Lambda<br />+ Platform application endpoint<br />+ Amazon Simple Queue Service<br /><br />Once configured, log entries are sent to Amazon CloudWatch Logs.",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "Indicates one of the supported protocols for the Amazon SNS topic.<br />At least one of the other three &#96;&#96;LoggingConfig&#96;&#96; properties is recommend along with &#96;&#96;Protocol&#96;&#96;."
+      },
+      {
+        "name": "success_feedback_role_arn",
+        "type": "string",
+        "description": "The IAM role ARN to be used when logging successful message deliveries in Amazon CloudWatch."
+      },
+      {
+        "name": "success_feedback_sample_rate",
+        "type": "string",
+        "description": "The percentage of successful message deliveries to be logged in Amazon CloudWatch. Valid percentage values range from 0 to 100."
+      },
+      {
+        "name": "failure_feedback_role_arn",
+        "type": "string",
+        "description": "The IAM role ARN to be used when logging failed message deliveries in Amazon CloudWatch."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html"><code>AWS::SNS::Topic</code></a>.
 
@@ -93,27 +197,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>topics</code> in a region.
-```sql
-SELECT
-region,
-display_name,
-kms_master_key_id,
-data_protection_policy,
-subscription,
-fifo_topic,
-content_based_deduplication,
-archive_policy,
-fifo_throughput_scope,
-tags,
-topic_name,
-topic_arn,
-signature_version,
-tracing_config,
-delivery_status_logging
-FROM awscc.sns.topics
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>topic</code>.
 ```sql
 SELECT

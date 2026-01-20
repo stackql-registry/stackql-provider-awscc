@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,28 +33,105 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cluster_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cluster_endpoint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="admin_user_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="admin_user_password" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="shard_capacity" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="shard_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_security_group_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="preferred_maintenance_window" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="preferred_backup_window" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_retention_period" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="shard_instance_count" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="auth_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cluster_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cluster_endpoint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "admin_user_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "admin_user_password",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "shard_capacity",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "shard_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "vpc_security_group_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "preferred_maintenance_window",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "preferred_backup_window",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_retention_period",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "shard_instance_count",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "auth_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdbelastic-cluster.html"><code>AWS::DocDBElastic::Cluster</code></a>.
 
@@ -95,29 +173,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-cluster_name,
-cluster_arn,
-cluster_endpoint,
-admin_user_name,
-admin_user_password,
-shard_capacity,
-shard_count,
-vpc_security_group_ids,
-subnet_ids,
-preferred_maintenance_window,
-preferred_backup_window,
-backup_retention_period,
-shard_instance_count,
-kms_key_id,
-tags,
-auth_type
-FROM awscc.docdbelastic.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>backup_vault</code> resource or lists <code>backup_vaults</code> in a region
 
@@ -32,19 +33,77 @@ Creates, updates, deletes or gets a <code>backup_vault</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="access_policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="notifications" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="lock_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "access_policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "backup_vault_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_vault_tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "encryption_key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "notifications",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "sns_topic_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "backup_vault_events",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "lock_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "min_retention_days",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "max_retention_days",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "changeable_for_days",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "backup_vault_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-backupvault.html"><code>AWS::Backup::BackupVault</code></a>.
 
@@ -86,20 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>backup_vaults</code> in a region.
-```sql
-SELECT
-region,
-access_policy,
-backup_vault_name,
-backup_vault_tags,
-encryption_key_arn,
-notifications,
-lock_configuration,
-backup_vault_arn
-FROM awscc.backup.backup_vaults
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>backup_vault</code>.
 ```sql
 SELECT

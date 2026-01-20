@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>sync_job</code> resource or lists <code>sync_jobs</code> in a region
 
@@ -32,20 +33,48 @@ Creates, updates, deletes or gets a <code>sync_job</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the workspace.</td></tr>
-<tr><td><CopyableCode code="sync_source" /></td><td><code>string</code></td><td>The source of the SyncJob.</td></tr>
-<tr><td><CopyableCode code="sync_role" /></td><td><code>string</code></td><td>The IAM Role that execute SyncJob.</td></tr>
-<tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the sync job was created.</td></tr>
-<tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The date and time when the sync job was updated.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the SyncJob.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of SyncJob.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "workspace_id",
+    "type": "string",
+    "description": "The ID of the workspace."
+  },
+  {
+    "name": "sync_source",
+    "type": "string",
+    "description": "The source of the SyncJob."
+  },
+  {
+    "name": "sync_role",
+    "type": "string",
+    "description": "The IAM Role that execute SyncJob."
+  },
+  {
+    "name": "creation_date_time",
+    "type": "string",
+    "description": "The date and time when the sync job was created."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the SyncJob."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of SyncJob."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iottwinmaker-syncjob.html"><code>AWS::IoTTwinMaker::SyncJob</code></a>.
 
@@ -82,21 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>sync_jobs</code> in a region.
-```sql
-SELECT
-region,
-workspace_id,
-sync_source,
-sync_role,
-creation_date_time,
-update_date_time,
-arn,
-state,
-tags
-FROM awscc.iottwinmaker.sync_jobs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>sync_job</code>.
 ```sql
 SELECT

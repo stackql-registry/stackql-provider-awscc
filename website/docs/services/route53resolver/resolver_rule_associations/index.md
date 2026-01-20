@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resolver_rule_association</code> resource or lists <code>resolver_rule_associations</code> in a region
 
@@ -26,22 +27,39 @@ Creates, updates, deletes or gets a <code>resolver_rule_association</code> resou
 <tbody>
 <tr><td><b>Name</b></td><td><code>resolver_rule_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>In the response to an &#91;AssociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_AssociateResolverRule.html), &#91;DisassociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_DisassociateResolverRule.html), or &#91;ListResolverRuleAssociations&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_ListResolverRuleAssociations.html) request, provides information about an association between a resolver rule and a VPC. The association determines which DNS queries that originate in the VPC are forwarded to your network.</td></tr>
+<tr><td><b>Description</b></td><td>In the response to an &#91;AssociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;AssociateResolverRule.html), &#91;DisassociateResolverRule&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;DisassociateResolverRule.html), or &#91;ListResolverRuleAssociations&#93;(https://docs.aws.amazon.com/Route53/latest/APIReference/API&#95;route53resolver&#95;ListResolverRuleAssociations.html) request, provides information about an association between a resolver rule and a VPC. The association determines which DNS queries that originate in the VPC are forwarded to your network.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.route53resolver.resolver_rule_associations" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC that you associated the Resolver rule with.</td></tr>
-<tr><td><CopyableCode code="resolver_rule_id" /></td><td><code>string</code></td><td>The ID of the Resolver rule that you associated with the VPC that is specified by <code>VPCId</code>.</td></tr>
-<tr><td><CopyableCode code="resolver_rule_association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of an association between a Resolver rule and a VPC.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC that you associated the Resolver rule with."
+  },
+  {
+    "name": "resolver_rule_id",
+    "type": "string",
+    "description": "The ID of the Resolver rule that you associated with the VPC that is specified by &#96;&#96;VPCId&#96;&#96;."
+  },
+  {
+    "name": "resolver_rule_association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of an association between a Resolver rule and a VPC."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverruleassociation.html"><code>AWS::Route53Resolver::ResolverRuleAssociation</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resolver_rule_associations</code> in a region.
-```sql
-SELECT
-region,
-vpc_id,
-resolver_rule_id,
-resolver_rule_association_id,
-name
-FROM awscc.route53resolver.resolver_rule_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resolver_rule_association</code>.
 ```sql
 SELECT

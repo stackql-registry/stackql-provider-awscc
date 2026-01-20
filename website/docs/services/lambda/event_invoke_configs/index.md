@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>event_invoke_config</code> resource or lists <code>event_invoke_configs</code> in a region
 
@@ -32,17 +33,52 @@ Creates, updates, deletes or gets an <code>event_invoke_config</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="destination_config" /></td><td><code>object</code></td><td>A configuration object that specifies the destination of an event after Lambda processes it. For more information, see &#91;Adding a destination&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-async-destinations).</td></tr>
-<tr><td><CopyableCode code="function_name" /></td><td><code>string</code></td><td>The name of the Lambda function.</td></tr>
-<tr><td><CopyableCode code="maximum_event_age_in_seconds" /></td><td><code>integer</code></td><td>The maximum age of a request that Lambda sends to a function for processing.</td></tr>
-<tr><td><CopyableCode code="maximum_retry_attempts" /></td><td><code>integer</code></td><td>The maximum number of times to retry when the function returns an error.</td></tr>
-<tr><td><CopyableCode code="qualifier" /></td><td><code>string</code></td><td>The identifier of a version or alias.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "destination_config",
+    "type": "object",
+    "description": "A configuration object that specifies the destination of an event after Lambda processes it. For more information, see &#91;Adding a destination&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html#invocation-async-destinations).",
+    "children": [
+      {
+        "name": "on_failure",
+        "type": "object",
+        "description": "The destination configuration for failed invocations.",
+        "children": [
+          {
+            "name": "destination",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the destination resource.<br />To retain records of unsuccessful &#91;asynchronous invocations&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations), you can configure an Amazon SNS topic, Amazon SQS queue, Amazon S3 bucket, Lambda function, or Amazon EventBridge event bus as the destination.<br />To retain records of failed invocations from &#91;Kinesis&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html), &#91;DynamoDB&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html), &#91;self-managed Kafka&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination) or &#91;Amazon MSK&#93;(https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination), you can configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket as the destination."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "function_name",
+    "type": "string",
+    "description": "The name of the Lambda function."
+  },
+  {
+    "name": "maximum_event_age_in_seconds",
+    "type": "integer",
+    "description": "The maximum age of a request that Lambda sends to a function for processing."
+  },
+  {
+    "name": "maximum_retry_attempts",
+    "type": "integer",
+    "description": "The maximum number of times to retry when the function returns an error."
+  },
+  {
+    "name": "qualifier",
+    "type": "string",
+    "description": "The identifier of a version or alias."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-eventinvokeconfig.html"><code>AWS::Lambda::EventInvokeConfig</code></a>.
 
@@ -84,18 +120,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>event_invoke_configs</code> in a region.
-```sql
-SELECT
-region,
-destination_config,
-function_name,
-maximum_event_age_in_seconds,
-maximum_retry_attempts,
-qualifier
-FROM awscc.lambda.event_invoke_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>event_invoke_config</code>.
 ```sql
 SELECT

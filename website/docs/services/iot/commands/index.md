@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>command</code> resource or lists <code>commands</code> in a region
 
@@ -32,25 +33,156 @@ Creates, updates, deletes or gets a <code>command</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="command_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the command.</td></tr>
-<tr><td><CopyableCode code="command_id" /></td><td><code>string</code></td><td>The unique identifier for the command.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time when the command was created.</td></tr>
-<tr><td><CopyableCode code="deprecated" /></td><td><code>boolean</code></td><td>A flag indicating whether the command is deprecated.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the command.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name for the command.</td></tr>
-<tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The date and time when the command was last updated.</td></tr>
-<tr><td><CopyableCode code="mandatory_parameters" /></td><td><code>array</code></td><td>The list of mandatory parameters for the command.</td></tr>
-<tr><td><CopyableCode code="namespace" /></td><td><code>string</code></td><td>The namespace to which the command belongs.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The customer role associated with the command.</td></tr>
-<tr><td><CopyableCode code="payload" /></td><td><code>object</code></td><td>The payload associated with the command.</td></tr>
-<tr><td><CopyableCode code="pending_deletion" /></td><td><code>boolean</code></td><td>A flag indicating whether the command is pending deletion.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to be associated with the command.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "command_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the command."
+  },
+  {
+    "name": "command_id",
+    "type": "string",
+    "description": "The unique identifier for the command."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time when the command was created."
+  },
+  {
+    "name": "deprecated",
+    "type": "boolean",
+    "description": "A flag indicating whether the command is deprecated."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the command."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name for the command."
+  },
+  {
+    "name": "last_updated_at",
+    "type": "string",
+    "description": "The date and time when the command was last updated."
+  },
+  {
+    "name": "mandatory_parameters",
+    "type": "array",
+    "description": "The list of mandatory parameters for the command.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "b",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "i",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "l",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "d",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "b_in",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "u_l",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "namespace",
+    "type": "string",
+    "description": "The namespace to which the command belongs."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The customer role associated with the command."
+  },
+  {
+    "name": "payload",
+    "type": "object",
+    "description": "The payload associated with the command.",
+    "children": [
+      {
+        "name": "content",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "content_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "pending_deletion",
+    "type": "boolean",
+    "description": "A flag indicating whether the command is pending deletion."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to be associated with the command.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-command.html"><code>AWS::IoT::Command</code></a>.
 
@@ -92,26 +224,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>commands</code> in a region.
-```sql
-SELECT
-region,
-command_arn,
-command_id,
-created_at,
-deprecated,
-description,
-display_name,
-last_updated_at,
-mandatory_parameters,
-namespace,
-role_arn,
-payload,
-pending_deletion,
-tags
-FROM awscc.iot.commands
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>command</code>.
 ```sql
 SELECT

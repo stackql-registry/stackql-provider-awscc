@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>landing_zone</code> resource or lists <code>landing_zones</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>landing_zone</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="latest_available_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="drift_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="manifest" /></td><td><code></code></td><td></td></tr>
-<tr><td><CopyableCode code="landing_zone_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "latest_available_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "drift_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "manifest",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "landing_zone_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-controltower-landingzone.html"><code>AWS::ControlTower::LandingZone</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>landing_zones</code> in a region.
-```sql
-SELECT
-region,
-status,
-latest_available_version,
-version,
-drift_status,
-arn,
-manifest,
-landing_zone_identifier,
-tags
-FROM awscc.controltower.landing_zones
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>landing_zone</code>.
 ```sql
 SELECT

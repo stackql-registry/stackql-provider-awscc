@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_point</code> resource or lists <code>access_points</code> in a region
 
@@ -32,22 +33,116 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this Access Point. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the access point name. For directory buckets, the access point name must consist of a base name that you provide and suﬃx that includes the ZoneID (AWS Availability Zone or Local Zone) of your bucket location, followed by --xa-s3.</td></tr>
-<tr><td><CopyableCode code="bucket" /></td><td><code>string</code></td><td>The name of the bucket that you want to associate this Access Point with.</td></tr>
-<tr><td><CopyableCode code="bucket_account_id" /></td><td><code>string</code></td><td>The AWS account ID associated with the S3 bucket associated with this access point.</td></tr>
-<tr><td><CopyableCode code="vpc_configuration" /></td><td><code>object</code></td><td>If you include this field, Amazon S3 restricts access to this Access Point to requests from the specified Virtual Private Cloud (VPC).</td></tr>
-<tr><td><CopyableCode code="public_access_block_configuration" /></td><td><code>object</code></td><td>The PublicAccessBlock configuration that you want to apply to this Access Point.</td></tr>
-<tr><td><CopyableCode code="scope" /></td><td><code>object</code></td><td>For directory buckets, you can ﬁlter access control to speciﬁc preﬁxes, API operations, or a combination of both.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>The Access Point Policy you want to apply to this access point.</td></tr>
-<tr><td><CopyableCode code="network_origin" /></td><td><code>string</code></td><td>Indicates whether this Access Point allows access from the public Internet. If VpcConfiguration is specified for this Access Point, then NetworkOrigin is VPC, and the Access Point doesn't allow access from the public Internet. Otherwise, NetworkOrigin is Internet, and the Access Point allows access from the public Internet, subject to the Access Point and bucket access policies.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified accesspoint.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this Access Point. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the access point name. For directory buckets, the access point name must consist of a base name that you provide and suﬃx that includes the ZoneID (AWS Availability Zone or Local Zone) of your bucket location, followed by --xa-s3."
+  },
+  {
+    "name": "bucket",
+    "type": "string",
+    "description": "The name of the bucket that you want to associate this Access Point with."
+  },
+  {
+    "name": "bucket_account_id",
+    "type": "string",
+    "description": "The AWS account ID associated with the S3 bucket associated with this access point."
+  },
+  {
+    "name": "vpc_configuration",
+    "type": "object",
+    "description": "If you include this field, Amazon S3 restricts access to this Access Point to requests from the specified Virtual Private Cloud (VPC).",
+    "children": [
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": "If this field is specified, this access point will only allow connections from the specified VPC ID."
+      }
+    ]
+  },
+  {
+    "name": "public_access_block_configuration",
+    "type": "object",
+    "description": "The PublicAccessBlock configuration that you want to apply to this Access Point.",
+    "children": [
+      {
+        "name": "block_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:<br />- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs."
+      },
+      {
+        "name": "ignore_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should ignore public ACLs for buckets in this account. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on buckets in this account and any objects that they contain. Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set."
+      },
+      {
+        "name": "block_public_policy",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public bucket policies for buckets in this account. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access. Enabling this setting doesn't affect existing bucket policies."
+      },
+      {
+        "name": "restrict_public_buckets",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.<br />Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+      }
+    ]
+  },
+  {
+    "name": "scope",
+    "type": "object",
+    "description": "For directory buckets, you can ﬁlter access control to speciﬁc preﬁxes, API operations, or a combination of both.",
+    "children": [
+      {
+        "name": "prefixes",
+        "type": "array",
+        "description": "You can specify any amount of preﬁxes, but the total length of characters of all preﬁxes must be less than 256 bytes in size."
+      },
+      {
+        "name": "permissions",
+        "type": "array",
+        "description": "You can include one or more API operations as permissions"
+      }
+    ]
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "The Access Point Policy you want to apply to this access point."
+  },
+  {
+    "name": "network_origin",
+    "type": "string",
+    "description": "Indicates whether this Access Point allows access from the public Internet. If VpcConfiguration is specified for this Access Point, then NetworkOrigin is VPC, and the Access Point doesn't allow access from the public Internet. Otherwise, NetworkOrigin is Internet, and the Access Point allows access from the public Internet, subject to the Access Point and bucket access policies."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the specified accesspoint."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3express-accesspoint.html"><code>AWS::S3Express::AccessPoint</code></a>.
 
@@ -89,23 +184,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_points</code> in a region.
-```sql
-SELECT
-region,
-name,
-bucket,
-bucket_account_id,
-vpc_configuration,
-public_access_block_configuration,
-scope,
-policy,
-network_origin,
-arn,
-tags
-FROM awscc.s3express.access_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT

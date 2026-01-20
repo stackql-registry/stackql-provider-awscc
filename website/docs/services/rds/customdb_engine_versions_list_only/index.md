@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>customdb_engine_versions</code> in a region or regions, for all properties use <a href="/services/rds/customdb_engine_versions/"><code>customdb_engine_versions</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>customdb_engine_versions</code> in a region or regions, for all prop
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>The database engine to use for your custom engine version (CEV).<br />Valid values:<br />+ <code>custom-oracle-ee</code> <br />+ <code>custom-oracle-ee-cdb</code></td></tr>
-<tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The name of your CEV. The name format is <code>major version.customized_string</code>. For example, a valid CEV name is <code>19.my_cev1</code>. This setting is required for RDS Custom for Oracle, but optional for Amazon RDS. The combination of <code>Engine</code> and <code>EngineVersion</code> is unique per customer per Region.<br />ASTERIX;Constraints:ASTERIX; Minimum length is 1. Maximum length is 60.<br />ASTERIX;Pattern:ASTERIX;<code>^&#91;a-z0-9_.-&#93;&#123;1,60$</code>&#125;</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "engine",
+    "type": "string",
+    "description": "The database engine to use for your custom engine version (CEV).<br />Valid values:<br />+ &#96;&#96;custom-oracle-ee&#96;&#96; <br />+ &#96;&#96;custom-oracle-ee-cdb&#96;&#96;"
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": "The name of your CEV. The name format is &#96;&#96;major version.customized&#95;string&#96;&#96;. For example, a valid CEV name is &#96;&#96;19.my&#95;cev1&#96;&#96;. This setting is required for RDS Custom for Oracle, but optional for Amazon RDS. The combination of &#96;&#96;Engine&#96;&#96; and &#96;&#96;EngineVersion&#96;&#96; is unique per customer per Region.<br />&#42;Constraints:&#42; Minimum length is 1. Maximum length is 60.<br />&#42;Pattern:&#42;&#96;&#96;^&#91;a-z0-9&#95;.-&#93;&#123;1,60$&#96;&#96;&#125;"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>function</code> resource or lists <code>functions</code> in a region
 
@@ -26,25 +27,85 @@ Creates, updates, deletes or gets a <code>function</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>functions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Creates a CF function.<br />To create a function, you provide the function code and some configuration information about the function. The response contains an Amazon Resource Name (ARN) that uniquely identifies the function, and the function’s stage.<br />By default, when you create a function, it’s in the <code>DEVELOPMENT</code> stage. In this stage, you can &#91;test the function&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/test-function.html) in the CF console (or with <code>TestFunction</code> in the CF API).<br />When you’re ready to use your function with a CF distribution, publish the function to the <code>LIVE</code> stage. You can do this in the CF console, with <code>PublishFunction</code> in the CF API, or by updating the <code>AWS::CloudFront::Function</code> resource with the <code>AutoPublish</code> property set to <code>true</code>. When the function is published to the <code>LIVE</code> stage, you can attach it to a distribution’s cache behavior, using the function’s ARN.<br />To automatically publish the function to the <code>LIVE</code> stage when it’s created, set the <code>AutoPublish</code> property to <code>true</code>.</td></tr>
+<tr><td><b>Description</b></td><td>Creates a CF function.<br />To create a function, you provide the function code and some configuration information about the function. The response contains an Amazon Resource Name (ARN) that uniquely identifies the function, and the function’s stage.<br />By default, when you create a function, it’s in the &#96;&#96;DEVELOPMENT&#96;&#96; stage. In this stage, you can &#91;test the function&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/test-function.html) in the CF console (or with &#96;&#96;TestFunction&#96;&#96; in the CF API).<br />When you’re ready to use your function with a CF distribution, publish the function to the &#96;&#96;LIVE&#96;&#96; stage. You can do this in the CF console, with &#96;&#96;PublishFunction&#96;&#96; in the CF API, or by updating the &#96;&#96;AWS::CloudFront::Function&#96;&#96; resource with the &#96;&#96;AutoPublish&#96;&#96; property set to &#96;&#96;true&#96;&#96;. When the function is published to the &#96;&#96;LIVE&#96;&#96; stage, you can attach it to a distribution’s cache behavior, using the function’s ARN.<br />To automatically publish the function to the &#96;&#96;LIVE&#96;&#96; stage when it’s created, set the &#96;&#96;AutoPublish&#96;&#96; property to &#96;&#96;true&#96;&#96;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.cloudfront.functions" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="auto_publish" /></td><td><code>boolean</code></td><td>A flag that determines whether to automatically publish the function to the <code>LIVE</code> stage when it’s created. To automatically publish to the <code>LIVE</code> stage, set this property to <code>true</code>.</td></tr>
-<tr><td><CopyableCode code="function_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="function_code" /></td><td><code>string</code></td><td>The function code. For more information about writing a CloudFront function, see &#91;Writing function code for CloudFront Functions&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html) in the ASTERIX;Amazon CloudFront Developer GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="function_config" /></td><td><code>object</code></td><td>Contains configuration information about a CloudFront function.</td></tr>
-<tr><td><CopyableCode code="function_metadata" /></td><td><code>object</code></td><td>Contains metadata about a CloudFront function.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name to identify the function.</td></tr>
-<tr><td><CopyableCode code="stage" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "auto_publish",
+    "type": "boolean",
+    "description": "A flag that determines whether to automatically publish the function to the &#96;&#96;LIVE&#96;&#96; stage when it’s created. To automatically publish to the &#96;&#96;LIVE&#96;&#96; stage, set this property to &#96;&#96;true&#96;&#96;."
+  },
+  {
+    "name": "function_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "function_code",
+    "type": "string",
+    "description": "The function code. For more information about writing a CloudFront function, see &#91;Writing function code for CloudFront Functions&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html) in the &#42;Amazon CloudFront Developer Guide&#42;."
+  },
+  {
+    "name": "function_config",
+    "type": "object",
+    "description": "Contains configuration information about a CloudFront function.",
+    "children": [
+      {
+        "name": "comment",
+        "type": "string",
+        "description": "A comment to describe the function."
+      },
+      {
+        "name": "runtime",
+        "type": "string",
+        "description": "The function's runtime environment version."
+      },
+      {
+        "name": "key_value_store_associations",
+        "type": "array",
+        "description": "The configuration for the key value store associations.",
+        "children": [
+          {
+            "name": "key_value_store_arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the key value store association."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "function_metadata",
+    "type": "object",
+    "description": "Contains metadata about a CloudFront function.",
+    "children": [
+      {
+        "name": "function_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the function. The ARN uniquely identifies the function."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name to identify the function."
+  },
+  {
+    "name": "stage",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-function.html"><code>AWS::CloudFront::Function</code></a>.
 
@@ -86,20 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>functions</code> in a region.
-```sql
-SELECT
-region,
-auto_publish,
-function_arn,
-function_code,
-function_config,
-function_metadata,
-name,
-stage
-FROM awscc.cloudfront.functions
-;
-```
+
 Gets all properties from an individual <code>function</code>.
 ```sql
 SELECT

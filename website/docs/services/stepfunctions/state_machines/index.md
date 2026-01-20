@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>state_machine</code> resource or lists <code>state_machines</code> in a region
 
@@ -32,26 +33,167 @@ Creates, updates, deletes or gets a <code>state_machine</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition_string" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_machine_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_machine_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_machine_revision_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="logging_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracing_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition_s3_location" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition_substitutions" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "definition_string",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_machine_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_machine_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_machine_revision_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "logging_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "level",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "include_execution_data",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "destinations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "cloud_watch_logs_log_group",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "log_group_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tracing_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "encryption_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_data_key_reuse_period_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "definition_s3_location",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "definition_substitutions",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "definition",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachine.html"><code>AWS::StepFunctions::StateMachine</code></a>.
 
@@ -93,27 +235,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>state_machines</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-definition_string,
-role_arn,
-state_machine_name,
-state_machine_type,
-state_machine_revision_id,
-logging_configuration,
-tracing_configuration,
-encryption_configuration,
-definition_s3_location,
-definition_substitutions,
-definition,
-tags
-FROM awscc.stepfunctions.state_machines
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>state_machine</code>.
 ```sql
 SELECT

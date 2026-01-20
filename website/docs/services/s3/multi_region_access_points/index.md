@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>multi_region_access_point</code> resource or lists <code>multi_region_access_points</code> in a region
 
@@ -32,17 +33,72 @@ Creates, updates, deletes or gets a <code>multi_region_access_point</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="public_access_block_configuration" /></td><td><code>object</code></td><td>The PublicAccessBlock configuration that you want to apply to this Multi Region Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>The alias is a unique identifier to, and is part of the public DNS name for this Multi Region Access Point</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of the when the Multi Region Access Point is created</td></tr>
-<tr><td><CopyableCode code="regions" /></td><td><code>array</code></td><td>The list of buckets that you want to associate this Multi Region Access Point with.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this Multi Region Access Point.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "public_access_block_configuration",
+    "type": "object",
+    "description": "The PublicAccessBlock configuration that you want to apply to this Multi Region Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.",
+    "children": [
+      {
+        "name": "restrict_public_buckets",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.<br />Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+      },
+      {
+        "name": "block_public_policy",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public bucket policies for buckets in this account. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access. Enabling this setting doesn't affect existing bucket policies."
+      },
+      {
+        "name": "block_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:<br />- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs."
+      },
+      {
+        "name": "ignore_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should ignore public ACLs for buckets in this account. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on buckets in this account and any objects that they contain. Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set."
+      }
+    ]
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "The alias is a unique identifier to, and is part of the public DNS name for this Multi Region Access Point"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The timestamp of the when the Multi Region Access Point is created"
+  },
+  {
+    "name": "regions",
+    "type": "array",
+    "description": "The list of buckets that you want to associate this Multi Region Access Point with.",
+    "children": [
+      {
+        "name": "bucket",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bucket_account_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this Multi Region Access Point."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-multiregionaccesspoint.html"><code>AWS::S3::MultiRegionAccessPoint</code></a>.
 
@@ -79,18 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>multi_region_access_points</code> in a region.
-```sql
-SELECT
-region,
-public_access_block_configuration,
-alias,
-created_at,
-regions,
-name
-FROM awscc.s3.multi_region_access_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>multi_region_access_point</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>route</code> resource or lists <code>routes</code> in a region
 
@@ -26,34 +27,99 @@ Creates, updates, deletes or gets a <code>route</code> resource or lists <code>r
 <tbody>
 <tr><td><b>Name</b></td><td><code>routes</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a route in a route table. For more information, see &#91;Routes&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#route-table-routes) in the ASTERIX;Amazon VPC User GuideASTERIX;.<br />You must specify either a destination CIDR block or prefix list ID. You must also specify exactly one of the resources as the target.<br />If you create a route that references a transit gateway in the same template where you create the transit gateway, you must declare a dependency on the transit gateway attachment. The route table cannot use the transit gateway until it has successfully attached to the VPC. Add a &#91;DependsOn Attribute&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) in the <code>AWS::EC2::Route</code> resource to explicitly declare a dependency on the <code>AWS::EC2::TransitGatewayAttachment</code> resource.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a route in a route table. For more information, see &#91;Routes&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC&#95;Route&#95;Tables.html#route-table-routes) in the &#42;Amazon VPC User Guide&#42;.<br />You must specify either a destination CIDR block or prefix list ID. You must also specify exactly one of the resources as the target.<br />If you create a route that references a transit gateway in the same template where you create the transit gateway, you must declare a dependency on the transit gateway attachment. The route table cannot use the transit gateway until it has successfully attached to the VPC. Add a &#91;DependsOn Attribute&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) in the &#96;&#96;AWS::EC2::Route&#96;&#96; resource to explicitly declare a dependency on the &#96;&#96;AWS::EC2::TransitGatewayAttachment&#96;&#96; resource.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.routes" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="carrier_gateway_id" /></td><td><code>string</code></td><td>The ID of the carrier gateway.<br />You can only use this option when the VPC contains a subnet which is associated with a Wavelength Zone.</td></tr>
-<tr><td><CopyableCode code="cidr_block" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="core_network_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the core network.</td></tr>
-<tr><td><CopyableCode code="destination_cidr_block" /></td><td><code>string</code></td><td>The IPv4 CIDR address block used for the destination match. Routing decisions are based on the most specific match. We modify the specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it to <code>100.68.0.0/18</code>.</td></tr>
-<tr><td><CopyableCode code="destination_ipv6_cidr_block" /></td><td><code>string</code></td><td>The IPv6 CIDR block used for the destination match. Routing decisions are based on the most specific match.</td></tr>
-<tr><td><CopyableCode code="destination_prefix_list_id" /></td><td><code>string</code></td><td>The ID of a prefix list used for the destination match.</td></tr>
-<tr><td><CopyableCode code="egress_only_internet_gateway_id" /></td><td><code>string</code></td><td>&#91;IPv6 traffic only&#93; The ID of an egress-only internet gateway.</td></tr>
-<tr><td><CopyableCode code="gateway_id" /></td><td><code>string</code></td><td>The ID of an internet gateway or virtual private gateway attached to your VPC.</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>The ID of a NAT instance in your VPC. The operation fails if you specify an instance ID unless exactly one network interface is attached.</td></tr>
-<tr><td><CopyableCode code="local_gateway_id" /></td><td><code>string</code></td><td>The ID of the local gateway.</td></tr>
-<tr><td><CopyableCode code="nat_gateway_id" /></td><td><code>string</code></td><td>&#91;IPv4 traffic only&#93; The ID of a NAT gateway.</td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The ID of a network interface.</td></tr>
-<tr><td><CopyableCode code="route_table_id" /></td><td><code>string</code></td><td>The ID of the route table for the route.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td>The ID of a transit gateway.</td></tr>
-<tr><td><CopyableCode code="vpc_endpoint_id" /></td><td><code>string</code></td><td>The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.</td></tr>
-<tr><td><CopyableCode code="vpc_peering_connection_id" /></td><td><code>string</code></td><td>The ID of a VPC peering connection.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "carrier_gateway_id",
+    "type": "string",
+    "description": "The ID of the carrier gateway.<br />You can only use this option when the VPC contains a subnet which is associated with a Wavelength Zone."
+  },
+  {
+    "name": "cidr_block",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "core_network_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the core network."
+  },
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The IPv4 CIDR address block used for the destination match. Routing decisions are based on the most specific match. We modify the specified CIDR block to its canonical form; for example, if you specify &#96;&#96;100.68.0.18/18&#96;&#96;, we modify it to &#96;&#96;100.68.0.0/18&#96;&#96;."
+  },
+  {
+    "name": "destination_ipv6_cidr_block",
+    "type": "string",
+    "description": "The IPv6 CIDR block used for the destination match. Routing decisions are based on the most specific match."
+  },
+  {
+    "name": "destination_prefix_list_id",
+    "type": "string",
+    "description": "The ID of a prefix list used for the destination match."
+  },
+  {
+    "name": "egress_only_internet_gateway_id",
+    "type": "string",
+    "description": "&#91;IPv6 traffic only&#93; The ID of an egress-only internet gateway."
+  },
+  {
+    "name": "gateway_id",
+    "type": "string",
+    "description": "The ID of an internet gateway or virtual private gateway attached to your VPC."
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "The ID of a NAT instance in your VPC. The operation fails if you specify an instance ID unless exactly one network interface is attached."
+  },
+  {
+    "name": "local_gateway_id",
+    "type": "string",
+    "description": "The ID of the local gateway."
+  },
+  {
+    "name": "nat_gateway_id",
+    "type": "string",
+    "description": "&#91;IPv4 traffic only&#93; The ID of a NAT gateway."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of a network interface."
+  },
+  {
+    "name": "route_table_id",
+    "type": "string",
+    "description": "The ID of the route table for the route."
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": "The ID of a transit gateway."
+  },
+  {
+    "name": "vpc_endpoint_id",
+    "type": "string",
+    "description": "The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only."
+  },
+  {
+    "name": "vpc_peering_connection_id",
+    "type": "string",
+    "description": "The ID of a VPC peering connection."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html"><code>AWS::EC2::Route</code></a>.
 
@@ -95,29 +161,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>routes</code> in a region.
-```sql
-SELECT
-region,
-carrier_gateway_id,
-cidr_block,
-core_network_arn,
-destination_cidr_block,
-destination_ipv6_cidr_block,
-destination_prefix_list_id,
-egress_only_internet_gateway_id,
-gateway_id,
-instance_id,
-local_gateway_id,
-nat_gateway_id,
-network_interface_id,
-route_table_id,
-transit_gateway_id,
-vpc_endpoint_id,
-vpc_peering_connection_id
-FROM awscc.ec2.routes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>route</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <code>job_queues</code> in a region
 
@@ -32,22 +33,104 @@ Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="job_queue_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_queue_arn" /></td><td><code>string</code></td><td>ARN of the Scheduling Policy.</td></tr>
-<tr><td><CopyableCode code="job_queue_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_environment_order" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_environment_order" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="job_state_time_limit_actions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="priority" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="scheduling_policy_arn" /></td><td><code>string</code></td><td>ARN of the Scheduling Policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "job_queue_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "job_queue_arn",
+    "type": "string",
+    "description": "ARN of the Scheduling Policy."
+  },
+  {
+    "name": "job_queue_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_environment_order",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "compute_environment",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "order",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "service_environment_order",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "service_environment",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "order",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "job_state_time_limit_actions",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "action",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "max_time_seconds",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "state",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "priority",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobqueue.html"><code>AWS::Batch::JobQueue</code></a>.
 
@@ -89,23 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>job_queues</code> in a region.
-```sql
-SELECT
-region,
-job_queue_name,
-job_queue_arn,
-job_queue_type,
-compute_environment_order,
-service_environment_order,
-job_state_time_limit_actions,
-priority,
-state,
-scheduling_policy_arn,
-tags
-FROM awscc.batch.job_queues
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>job_queue</code>.
 ```sql
 SELECT

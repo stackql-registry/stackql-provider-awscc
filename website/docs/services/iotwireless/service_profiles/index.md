@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service_profile</code> resource or lists <code>service_profiles</code> in a region
 
@@ -32,17 +33,147 @@ Creates, updates, deletes or gets a <code>service_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of service profile</td></tr>
-<tr><td><CopyableCode code="lo_ra_wan" /></td><td><code>object</code></td><td>LoRaWAN supports all LoRa specific attributes for service profile for CreateServiceProfile operation</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the service profile.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Service profile Arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Service profile Id. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of service profile"
+  },
+  {
+    "name": "lo_ra_wan",
+    "type": "object",
+    "description": "LoRaWAN supports all LoRa specific attributes for service profile for CreateServiceProfile operation",
+    "children": [
+      {
+        "name": "ul_rate",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ul_bucket_size",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ul_rate_policy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "dl_rate",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "dl_bucket_size",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "dl_rate_policy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "add_gw_metadata",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "dev_status_req_freq",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "report_dev_status_battery",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "report_dev_status_margin",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "dr_min",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "dr_max",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "channel_mask",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pr_allowed",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "hr_allowed",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "ra_allowed",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "nwk_geo_loc",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "target_per",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "min_gw_diversity",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the service profile.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Service profile Arn. Returned after successful create."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Service profile Id. Returned after successful create."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-serviceprofile.html"><code>AWS::IoTWireless::ServiceProfile</code></a>.
 
@@ -84,18 +215,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>service_profiles</code> in a region.
-```sql
-SELECT
-region,
-name,
-lo_ra_wan,
-tags,
-arn,
-id
-FROM awscc.iotwireless.service_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service_profile</code>.
 ```sql
 SELECT

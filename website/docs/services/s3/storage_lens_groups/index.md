@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>storage_lens_group</code> resource or lists <code>storage_lens_groups</code> in a region
 
@@ -32,16 +33,118 @@ Creates, updates, deletes or gets a <code>storage_lens_group</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name that identifies the Amazon S3 Storage Lens Group.</td></tr>
-<tr><td><CopyableCode code="filter" /></td><td><code>object</code></td><td>Sets the Storage Lens Group filter.</td></tr>
-<tr><td><CopyableCode code="storage_lens_group_arn" /></td><td><code>string</code></td><td>The ARN for the Amazon S3 Storage Lens Group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags (key-value pairs) for this Amazon S3 Storage Lens Group.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name that identifies the Amazon S3 Storage Lens Group."
+  },
+  {
+    "name": "filter",
+    "type": "object",
+    "description": "Sets the Storage Lens Group filter.",
+    "children": [
+      {
+        "name": "match_any_prefix",
+        "type": "array",
+        "description": "Filter to match any of the specified prefixes."
+      },
+      {
+        "name": "match_any_suffix",
+        "type": "array",
+        "description": "Filter to match any of the specified suffixes."
+      },
+      {
+        "name": "match_any_tag",
+        "type": "array",
+        "description": "Filter to match any of the specified object tags.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "match_object_size",
+        "type": "object",
+        "description": "Filter to match all of the specified values for the minimum and maximum object size.",
+        "children": [
+          {
+            "name": "bytes_greater_than",
+            "type": "integer",
+            "description": "Minimum object size to which the rule applies."
+          },
+          {
+            "name": "bytes_less_than",
+            "type": "integer",
+            "description": "Maximum object size to which the rule applies."
+          }
+        ]
+      },
+      {
+        "name": "match_object_age",
+        "type": "object",
+        "description": "Filter to match all of the specified values for the minimum and maximum object age.",
+        "children": [
+          {
+            "name": "days_greater_than",
+            "type": "integer",
+            "description": "Minimum object age to which the rule applies."
+          },
+          {
+            "name": "days_less_than",
+            "type": "integer",
+            "description": "Maximum object age to which the rule applies."
+          }
+        ]
+      },
+      {
+        "name": "and",
+        "type": "object",
+        "description": "The Storage Lens group will include objects that match all of the specified filter values."
+      },
+      {
+        "name": "or",
+        "type": "object",
+        "description": "The Storage Lens group will include objects that match any of the specified filter values."
+      }
+    ]
+  },
+  {
+    "name": "storage_lens_group_arn",
+    "type": "string",
+    "description": "The ARN for the Amazon S3 Storage Lens Group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A set of tags (key-value pairs) for this Amazon S3 Storage Lens Group.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-storagelensgroup.html"><code>AWS::S3::StorageLensGroup</code></a>.
 
@@ -83,17 +186,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>storage_lens_groups</code> in a region.
-```sql
-SELECT
-region,
-name,
-filter,
-storage_lens_group_arn,
-tags
-FROM awscc.s3.storage_lens_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>storage_lens_group</code>.
 ```sql
 SELECT

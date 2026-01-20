@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>data_source</code> resource or lists <code>data_sources</code> in a region
 
@@ -32,29 +33,262 @@ Creates, updates, deletes or gets a <code>data_source</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code></code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_source_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_source_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="document_enrichment_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="media_extraction_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="index_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sync_schedule" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpc_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_source_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_source_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "document_enrichment_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "inline_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "condition",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "operator",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "target",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "attribute_value_operator",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "document_content_operator",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "pre_extraction_hook_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "invocation_condition",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "operator",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "lambda_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "s3_bucket_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "role_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "media_extraction_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "image_extraction_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "image_extraction_status",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "audio_extraction_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "audio_extraction_status",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "video_extraction_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "video_extraction_status",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "index_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sync_schedule",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpc_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-datasource.html"><code>AWS::QBusiness::DataSource</code></a>.
 
@@ -96,30 +330,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>data_sources</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-configuration,
-created_at,
-data_source_arn,
-data_source_id,
-description,
-display_name,
-document_enrichment_configuration,
-media_extraction_configuration,
-index_id,
-role_arn,
-status,
-sync_schedule,
-tags,
-type,
-updated_at,
-vpc_configuration
-FROM awscc.qbusiness.data_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>data_source</code>.
 ```sql
 SELECT

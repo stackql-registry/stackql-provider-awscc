@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,21 +33,94 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the Cluster.</td></tr>
-<tr><td><CopyableCode code="channel_ids" /></td><td><code>array</code></td><td>The MediaLive Channels that are currently running on Nodes in this Cluster.</td></tr>
-<tr><td><CopyableCode code="cluster_type" /></td><td><code>string</code></td><td>The hardware type for the cluster.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The unique ID of the Cluster.</td></tr>
-<tr><td><CopyableCode code="instance_role_arn" /></td><td><code>string</code></td><td>The IAM role your nodes will use.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The user-specified name of the Cluster to be created.</td></tr>
-<tr><td><CopyableCode code="network_settings" /></td><td><code>object</code></td><td>On premises settings which will have the interface network mappings and default Output logical interface</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The current state of the Cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of key-value pairs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the Cluster."
+  },
+  {
+    "name": "channel_ids",
+    "type": "array",
+    "description": "The MediaLive Channels that are currently running on Nodes in this Cluster."
+  },
+  {
+    "name": "cluster_type",
+    "type": "string",
+    "description": "The hardware type for the cluster."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The unique ID of the Cluster."
+  },
+  {
+    "name": "instance_role_arn",
+    "type": "string",
+    "description": "The IAM role your nodes will use."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The user-specified name of the Cluster to be created."
+  },
+  {
+    "name": "network_settings",
+    "type": "object",
+    "description": "On premises settings which will have the interface network mappings and default Output logical interface",
+    "children": [
+      {
+        "name": "default_route",
+        "type": "string",
+        "description": "Default value if the customer does not define it in channel Output API"
+      },
+      {
+        "name": "interface_mappings",
+        "type": "array",
+        "description": "Network mappings for the cluster",
+        "children": [
+          {
+            "name": "logical_interface_name",
+            "type": "string",
+            "description": "logical interface name, unique in the list"
+          },
+          {
+            "name": "network_id",
+            "type": "string",
+            "description": "Network Id to be associated with the logical interface name, can be duplicated in list"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The current state of the Cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of key-value pairs.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-cluster.html"><code>AWS::MediaLive::Cluster</code></a>.
 
@@ -88,22 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-arn,
-channel_ids,
-cluster_type,
-id,
-instance_role_arn,
-name,
-network_settings,
-state,
-tags
-FROM awscc.medialive.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

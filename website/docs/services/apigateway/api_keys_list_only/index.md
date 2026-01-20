@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>api_keys</code> in a region or regions, for all properties use <a href="/services/apigateway/api_keys/"><code>api_keys</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>api_keys</code> in a region or regions, for all properties use <a hr
 <tbody>
 <tr><td><b>Name</b></td><td><code>api_keys_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ApiGateway::ApiKey</code> resource creates a unique key that you can distribute to clients who are executing API Gateway <code>Method</code> resources that require an API key. To specify which API key clients must use, map the API key with the <code>RestApi</code> and <code>Stage</code> resources that include the methods that require a key.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ApiGateway::ApiKey&#96;&#96; resource creates a unique key that you can distribute to clients who are executing API Gateway &#96;&#96;Method&#96;&#96; resources that require an API key. To specify which API key clients must use, map the API key with the &#96;&#96;RestApi&#96;&#96; and &#96;&#96;Stage&#96;&#96; resources that include the methods that require a key.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.apigateway.api_keys_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="api_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "api_key_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

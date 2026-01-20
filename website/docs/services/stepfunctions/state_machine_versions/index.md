@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>state_machine_version</code> resource or lists <code>state_machine_versions</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>state_machine_version</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_machine_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state_machine_revision_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_machine_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state_machine_revision_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachineversion.html"><code>AWS::StepFunctions::StateMachineVersion</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>state_machine_versions</code> in a region.
-```sql
-SELECT
-region,
-arn,
-state_machine_arn,
-state_machine_revision_id,
-description
-FROM awscc.stepfunctions.state_machine_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>state_machine_version</code>.
 ```sql
 SELECT

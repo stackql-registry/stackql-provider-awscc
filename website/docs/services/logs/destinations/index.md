@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>destination</code> resource or lists <code>destinations</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>destination</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="destination_name" /></td><td><code>string</code></td><td>The name of the destination resource</td></tr>
-<tr><td><CopyableCode code="destination_policy" /></td><td><code>string</code></td><td>An IAM policy document that governs which AWS accounts can create subscription filters against this destination.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of an IAM role that permits CloudWatch Logs to send data to the specified AWS resource</td></tr>
-<tr><td><CopyableCode code="target_arn" /></td><td><code>string</code></td><td>The ARN of the physical target where the log events are delivered (for example, a Kinesis stream)</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of this key-value pair."
+      }
+    ]
+  },
+  {
+    "name": "destination_name",
+    "type": "string",
+    "description": "The name of the destination resource"
+  },
+  {
+    "name": "destination_policy",
+    "type": "string",
+    "description": "An IAM policy document that governs which AWS accounts can create subscription filters against this destination."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The ARN of an IAM role that permits CloudWatch Logs to send data to the specified AWS resource"
+  },
+  {
+    "name": "target_arn",
+    "type": "string",
+    "description": "The ARN of the physical target where the log events are delivered (for example, a Kinesis stream)"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-destination.html"><code>AWS::Logs::Destination</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>destinations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-tags,
-destination_name,
-destination_policy,
-role_arn,
-target_arn
-FROM awscc.logs.destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>destination</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>tag_sync_task</code> resource or lists <code>tag_sync_tasks</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>tag_sync_task</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="group" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) or name of the application group for which you want to create a tag-sync task</td></tr>
-<tr><td><CopyableCode code="group_arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the ApplicationGroup for which the TagSyncTask is created</td></tr>
-<tr><td><CopyableCode code="group_name" /></td><td><code>string</code></td><td>The Name of the application group for which the TagSyncTask is created</td></tr>
-<tr><td><CopyableCode code="task_arn" /></td><td><code>string</code></td><td>The ARN of the TagSyncTask resource</td></tr>
-<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>The tag key. Resources tagged with this tag key-value pair will be added to the application. If a resource with this tag is later untagged, the tag-sync task removes the resource from the application.</td></tr>
-<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>The tag value. Resources tagged with this tag key-value pair will be added to the application. If a resource with this tag is later untagged, the tag-sync task removes the resource from the application.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the role assumed by the service to tag and untag resources on your behalf.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the TagSyncTask</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "group",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) or name of the application group for which you want to create a tag-sync task"
+  },
+  {
+    "name": "group_arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) of the ApplicationGroup for which the TagSyncTask is created"
+  },
+  {
+    "name": "group_name",
+    "type": "string",
+    "description": "The Name of the application group for which the TagSyncTask is created"
+  },
+  {
+    "name": "task_arn",
+    "type": "string",
+    "description": "The ARN of the TagSyncTask resource"
+  },
+  {
+    "name": "tag_key",
+    "type": "string",
+    "description": "The tag key. Resources tagged with this tag key-value pair will be added to the application. If a resource with this tag is later untagged, the tag-sync task removes the resource from the application."
+  },
+  {
+    "name": "tag_value",
+    "type": "string",
+    "description": "The tag value. Resources tagged with this tag key-value pair will be added to the application. If a resource with this tag is later untagged, the tag-sync task removes the resource from the application."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon resource name (ARN) of the role assumed by the service to tag and untag resources on your behalf."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the TagSyncTask"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-resourcegroups-tagsynctask.html"><code>AWS::ResourceGroups::TagSyncTask</code></a>.
 
@@ -82,21 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>tag_sync_tasks</code> in a region.
-```sql
-SELECT
-region,
-group,
-group_arn,
-group_name,
-task_arn,
-tag_key,
-tag_value,
-role_arn,
-status
-FROM awscc.resourcegroups.tag_sync_tasks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>tag_sync_task</code>.
 ```sql
 SELECT

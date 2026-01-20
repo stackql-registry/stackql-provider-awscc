@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>feature_group</code> resource or lists <code>feature_groups</code> in a region
 
@@ -32,24 +33,206 @@ Creates, updates, deletes or gets a <code>feature_group</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="feature_group_name" /></td><td><code>string</code></td><td>The Name of the FeatureGroup.</td></tr>
-<tr><td><CopyableCode code="record_identifier_feature_name" /></td><td><code>string</code></td><td>The Record Identifier Feature Name.</td></tr>
-<tr><td><CopyableCode code="event_time_feature_name" /></td><td><code>string</code></td><td>The Event Time Feature Name.</td></tr>
-<tr><td><CopyableCode code="feature_definitions" /></td><td><code>array</code></td><td>An Array of Feature Definition</td></tr>
-<tr><td><CopyableCode code="online_store_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="offline_store_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="throughput_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description about the FeatureGroup.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>A timestamp of FeatureGroup creation time.</td></tr>
-<tr><td><CopyableCode code="feature_group_status" /></td><td><code>string</code></td><td>The status of the feature group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pair to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "feature_group_name",
+    "type": "string",
+    "description": "The Name of the FeatureGroup."
+  },
+  {
+    "name": "record_identifier_feature_name",
+    "type": "string",
+    "description": "The Record Identifier Feature Name."
+  },
+  {
+    "name": "event_time_feature_name",
+    "type": "string",
+    "description": "The Event Time Feature Name."
+  },
+  {
+    "name": "feature_definitions",
+    "type": "array",
+    "description": "An Array of Feature Definition",
+    "children": [
+      {
+        "name": "feature_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "feature_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "online_store_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "security_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "kms_key_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "enable_online_store",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "storage_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ttl_duration",
+        "type": "object",
+        "description": "TTL configuration of the feature group",
+        "children": [
+          {
+            "name": "unit",
+            "type": "string",
+            "description": "Unit of ttl configuration"
+          },
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "Value of ttl configuration"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "offline_store_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "s3_storage_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "s3_uri",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "kms_key_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "disable_glue_table_creation",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "data_catalog_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "table_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "catalog",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "database",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "table_format",
+        "type": "string",
+        "description": "Format for the offline store feature group. Iceberg is the optimal format for feature groups shared between offline and online stores."
+      }
+    ]
+  },
+  {
+    "name": "throughput_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "throughput_mode",
+        "type": "string",
+        "description": "Throughput mode configuration of the feature group"
+      },
+      {
+        "name": "provisioned_read_capacity_units",
+        "type": "integer",
+        "description": "For provisioned feature groups with online store enabled, this indicates the read throughput you are billed for and can consume without throttling."
+      },
+      {
+        "name": "provisioned_write_capacity_units",
+        "type": "integer",
+        "description": "For provisioned feature groups, this indicates the write throughput you are billed for and can consume without throttling."
+      }
+    ]
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "Role Arn"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description about the FeatureGroup."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "A timestamp of FeatureGroup creation time."
+  },
+  {
+    "name": "feature_group_status",
+    "type": "string",
+    "description": "The status of the feature group."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pair to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-featuregroup.html"><code>AWS::SageMaker::FeatureGroup</code></a>.
 
@@ -91,25 +274,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>feature_groups</code> in a region.
-```sql
-SELECT
-region,
-feature_group_name,
-record_identifier_feature_name,
-event_time_feature_name,
-feature_definitions,
-online_store_config,
-offline_store_config,
-throughput_config,
-role_arn,
-description,
-creation_time,
-feature_group_status,
-tags
-FROM awscc.sagemaker.feature_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>feature_group</code>.
 ```sql
 SELECT

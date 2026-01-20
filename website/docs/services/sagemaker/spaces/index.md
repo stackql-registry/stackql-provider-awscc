@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>space</code> resource or lists <code>spaces</code> in a region
 
@@ -32,21 +33,367 @@ Creates, updates, deletes or gets a <code>space</code> resource or lists <code>s
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="space_arn" /></td><td><code>string</code></td><td>The space Amazon Resource Name (ARN).</td></tr>
-<tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the associated Domain.</td></tr>
-<tr><td><CopyableCode code="space_name" /></td><td><code>string</code></td><td>A name for the Space.</td></tr>
-<tr><td><CopyableCode code="space_settings" /></td><td><code>object</code></td><td>A collection of settings.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the space.</td></tr>
-<tr><td><CopyableCode code="ownership_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="space_sharing_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="space_display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "space_arn",
+    "type": "string",
+    "description": "The space Amazon Resource Name (ARN)."
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The ID of the associated Domain."
+  },
+  {
+    "name": "space_name",
+    "type": "string",
+    "description": "A name for the Space."
+  },
+  {
+    "name": "space_settings",
+    "type": "object",
+    "description": "A collection of settings.",
+    "children": [
+      {
+        "name": "jupyter_server_app_settings",
+        "type": "object",
+        "description": "The Jupyter server's app settings.",
+        "children": [
+          {
+            "name": "default_resource_spec",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": "The instance type that the image version runs on."
+              },
+              {
+                "name": "sage_maker_image_arn",
+                "type": "string",
+                "description": "The ARN of the SageMaker image that the image version belongs to."
+              },
+              {
+                "name": "sage_maker_image_version_arn",
+                "type": "string",
+                "description": "The ARN of the image version created on the instance."
+              },
+              {
+                "name": "lifecycle_config_arn",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource."
+              }
+            ]
+          },
+          {
+            "name": "lifecycle_config_arns",
+            "type": "array",
+            "description": "A list of LifecycleConfigArns available for use with JupyterServer apps."
+          }
+        ]
+      },
+      {
+        "name": "kernel_gateway_app_settings",
+        "type": "object",
+        "description": "The kernel gateway app settings.",
+        "children": [
+          {
+            "name": "custom_images",
+            "type": "array",
+            "description": "A list of custom SageMaker images that are configured to run as a KernelGateway app.",
+            "children": [
+              {
+                "name": "app_image_config_name",
+                "type": "string",
+                "description": "The Name of the AppImageConfig."
+              },
+              {
+                "name": "image_name",
+                "type": "string",
+                "description": "The name of the CustomImage. Must be unique to your account."
+              },
+              {
+                "name": "image_version_number",
+                "type": "integer",
+                "description": "The version number of the CustomImage."
+              }
+            ]
+          },
+          {
+            "name": "default_resource_spec",
+            "type": "object",
+            "description": "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.",
+            "children": [
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": "The instance type that the image version runs on."
+              },
+              {
+                "name": "sage_maker_image_arn",
+                "type": "string",
+                "description": "The ARN of the SageMaker image that the image version belongs to."
+              },
+              {
+                "name": "sage_maker_image_version_arn",
+                "type": "string",
+                "description": "The ARN of the image version created on the instance."
+              },
+              {
+                "name": "lifecycle_config_arn",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource."
+              }
+            ]
+          },
+          {
+            "name": "lifecycle_config_arns",
+            "type": "array",
+            "description": "A list of LifecycleConfigArns available for use with KernelGateway apps."
+          }
+        ]
+      },
+      {
+        "name": "jupyter_lab_app_settings",
+        "type": "object",
+        "description": "The JupyterLab app settings.",
+        "children": [
+          {
+            "name": "default_resource_spec",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": "The instance type that the image version runs on."
+              },
+              {
+                "name": "sage_maker_image_arn",
+                "type": "string",
+                "description": "The ARN of the SageMaker image that the image version belongs to."
+              },
+              {
+                "name": "sage_maker_image_version_arn",
+                "type": "string",
+                "description": "The ARN of the image version created on the instance."
+              },
+              {
+                "name": "lifecycle_config_arn",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource."
+              }
+            ]
+          },
+          {
+            "name": "app_lifecycle_management",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "idle_settings",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "code_repositories",
+            "type": "array",
+            "description": "A list of CodeRepositories available for use with JupyterLab apps.",
+            "children": [
+              {
+                "name": "repository_url",
+                "type": "string",
+                "description": "A CodeRepository (valid URL) to be used within Jupyter's Git extension."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "code_editor_app_settings",
+        "type": "object",
+        "description": "The CodeEditor app settings.",
+        "children": [
+          {
+            "name": "default_resource_spec",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "instance_type",
+                "type": "string",
+                "description": "The instance type that the image version runs on."
+              },
+              {
+                "name": "sage_maker_image_arn",
+                "type": "string",
+                "description": "The ARN of the SageMaker image that the image version belongs to."
+              },
+              {
+                "name": "sage_maker_image_version_arn",
+                "type": "string",
+                "description": "The ARN of the image version created on the instance."
+              },
+              {
+                "name": "lifecycle_config_arn",
+                "type": "string",
+                "description": "The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource."
+              }
+            ]
+          },
+          {
+            "name": "app_lifecycle_management",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "idle_settings",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "space_storage_settings",
+        "type": "object",
+        "description": "Default storage settings for a space.",
+        "children": [
+          {
+            "name": "ebs_storage_settings",
+            "type": "object",
+            "description": "Properties related to the space's Amazon Elastic Block Store volume.",
+            "children": [
+              {
+                "name": "ebs_volume_size_in_gb",
+                "type": "integer",
+                "description": "Size of the Amazon EBS volume in Gb"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "space_managed_resources",
+        "type": "string",
+        "description": "This is a flag used to indicate if space managed resources needs to be created."
+      },
+      {
+        "name": "remote_access",
+        "type": "string",
+        "description": "This is a flag used to indicate if remote access is enabled."
+      },
+      {
+        "name": "app_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_file_systems",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "e_fs_file_system",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "file_system_id",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "f_sx_lustre_file_system",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "file_system_id",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "s3_file_system",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "s3_uri",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags to apply to the space.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "ownership_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "owner_user_profile_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "space_sharing_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "sharing_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "space_display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-space.html"><code>AWS::SageMaker::Space</code></a>.
 
@@ -88,22 +435,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>spaces</code> in a region.
-```sql
-SELECT
-region,
-space_arn,
-domain_id,
-space_name,
-space_settings,
-tags,
-ownership_settings,
-space_sharing_settings,
-space_display_name,
-url
-FROM awscc.sagemaker.spaces
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>space</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>database</code> resource or lists <code>databases</code> in a region
 
@@ -32,15 +33,113 @@ Creates, updates, deletes or gets a <code>database</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="catalog_id" /></td><td><code>string</code></td><td>The AWS account ID for the account in which to create the catalog object.</td></tr>
-<tr><td><CopyableCode code="database_input" /></td><td><code>object</code></td><td>The metadata for the database.</td></tr>
-<tr><td><CopyableCode code="database_name" /></td><td><code>string</code></td><td>The name of the database. For hive compatibility, this is folded to lowercase when it is store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "catalog_id",
+    "type": "string",
+    "description": "The AWS account ID for the account in which to create the catalog object."
+  },
+  {
+    "name": "database_input",
+    "type": "object",
+    "description": "The metadata for the database.",
+    "children": [
+      {
+        "name": "location_uri",
+        "type": "string",
+        "description": "The location of the database (for example, an HDFS path)."
+      },
+      {
+        "name": "create_table_default_permissions",
+        "type": "array",
+        "description": "Creates a set of default permissions on the table for principals. Used by AWS Lake Formation. Not used in the normal course of AWS Glue operations.",
+        "children": [
+          {
+            "name": "permissions",
+            "type": "array",
+            "description": "The permissions that are granted to the principal."
+          },
+          {
+            "name": "principal",
+            "type": "object",
+            "description": "The principal who is granted permissions.",
+            "children": [
+              {
+                "name": "data_lake_principal_identifier",
+                "type": "string",
+                "description": "An identifier for the AWS Lake Formation principal."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description of the database."
+      },
+      {
+        "name": "parameters",
+        "type": "object",
+        "description": "These key-value pairs define parameters and properties of the database."
+      },
+      {
+        "name": "target_database",
+        "type": "object",
+        "description": "A DatabaseIdentifier structure that describes a target database for resource linking.",
+        "children": [
+          {
+            "name": "database_name",
+            "type": "string",
+            "description": "The name of the catalog database."
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "description": "Region of the target database."
+          },
+          {
+            "name": "catalog_id",
+            "type": "string",
+            "description": "The ID of the Data Catalog in which the database resides."
+          }
+        ]
+      },
+      {
+        "name": "federated_database",
+        "type": "object",
+        "description": "A FederatedDatabase structure that references an entity outside the AWS Glue Data Catalog.",
+        "children": [
+          {
+            "name": "connection_name",
+            "type": "string",
+            "description": "The name of the connection to the external metastore."
+          },
+          {
+            "name": "identifier",
+            "type": "string",
+            "description": "A unique identifier for the federated database."
+          }
+        ]
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of the database. For hive compatibility, this is folded to lowercase when it is stored."
+      }
+    ]
+  },
+  {
+    "name": "database_name",
+    "type": "string",
+    "description": "The name of the database. For hive compatibility, this is folded to lowercase when it is store."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-database.html"><code>AWS::Glue::Database</code></a>.
 
@@ -82,16 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>databases</code> in a region.
-```sql
-SELECT
-region,
-catalog_id,
-database_input,
-database_name
-FROM awscc.glue.databases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>database</code>.
 ```sql
 SELECT

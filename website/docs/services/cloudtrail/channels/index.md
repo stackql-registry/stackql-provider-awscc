@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel</code> resource or lists <code>channels</code> in a region
 
@@ -32,17 +33,62 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the channel.</td></tr>
-<tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td>The ARN of an on-premises storage solution or application, or a partner event source.</td></tr>
-<tr><td><CopyableCode code="destinations" /></td><td><code>array</code></td><td>One or more resources to which events arriving through a channel are logged and stored.</td></tr>
-<tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of a channel.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the channel."
+  },
+  {
+    "name": "source",
+    "type": "string",
+    "description": "The ARN of an on-premises storage solution or application, or a partner event source."
+  },
+  {
+    "name": "destinations",
+    "type": "array",
+    "description": "One or more resources to which events arriving through a channel are logged and stored.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of destination for events arriving from a channel."
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "description": "The ARN of a resource that receives events from a channel."
+      }
+    ]
+  },
+  {
+    "name": "channel_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of a channel."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-channel.html"><code>AWS::CloudTrail::Channel</code></a>.
 
@@ -84,18 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channels</code> in a region.
-```sql
-SELECT
-region,
-name,
-source,
-destinations,
-channel_arn,
-tags
-FROM awscc.cloudtrail.channels
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_performance_metric_subscription</code> resource or lists <code>network_performance_metric_subscriptions</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>network_performance_metric_subscriptio
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td>The starting Region or Availability Zone for metric to subscribe to.</td></tr>
-<tr><td><CopyableCode code="destination" /></td><td><code>string</code></td><td>The target Region or Availability Zone for the metric to subscribe to.</td></tr>
-<tr><td><CopyableCode code="metric" /></td><td><code>string</code></td><td>The metric type to subscribe to.</td></tr>
-<tr><td><CopyableCode code="statistic" /></td><td><code>string</code></td><td>The statistic to subscribe to.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "source",
+    "type": "string",
+    "description": "The starting Region or Availability Zone for metric to subscribe to."
+  },
+  {
+    "name": "destination",
+    "type": "string",
+    "description": "The target Region or Availability Zone for the metric to subscribe to."
+  },
+  {
+    "name": "metric",
+    "type": "string",
+    "description": "The metric type to subscribe to."
+  },
+  {
+    "name": "statistic",
+    "type": "string",
+    "description": "The statistic to subscribe to."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkperformancemetricsubscription.html"><code>AWS::EC2::NetworkPerformanceMetricSubscription</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_performance_metric_subscriptions</code> in a region.
-```sql
-SELECT
-region,
-source,
-destination,
-metric,
-statistic
-FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_performance_metric_subscription</code>.
 ```sql
 SELECT

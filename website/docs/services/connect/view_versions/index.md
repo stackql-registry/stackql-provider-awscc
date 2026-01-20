@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>view_version</code> resource or lists <code>view_versions</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>view_version</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="view_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the view for which a version is being created.</td></tr>
-<tr><td><CopyableCode code="view_version_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the created view version.</td></tr>
-<tr><td><CopyableCode code="version_description" /></td><td><code>string</code></td><td>The description for the view version.</td></tr>
-<tr><td><CopyableCode code="view_content_sha256" /></td><td><code>string</code></td><td>The view content hash to be checked.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>integer</code></td><td>The version of the view.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "view_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the view for which a version is being created."
+  },
+  {
+    "name": "view_version_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the created view version."
+  },
+  {
+    "name": "version_description",
+    "type": "string",
+    "description": "The description for the view version."
+  },
+  {
+    "name": "view_content_sha256",
+    "type": "string",
+    "description": "The view content hash to be checked."
+  },
+  {
+    "name": "version",
+    "type": "integer",
+    "description": "The version of the view."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-viewversion.html"><code>AWS::Connect::ViewVersion</code></a>.
 
@@ -79,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>view_versions</code> in a region.
-```sql
-SELECT
-region,
-view_arn,
-view_version_arn,
-version_description,
-view_content_sha256,
-version
-FROM awscc.connect.view_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>view_version</code>.
 ```sql
 SELECT

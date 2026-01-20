@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>framework</code> resource or lists <code>frameworks</code> in a region
 
@@ -32,20 +33,123 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="framework_name" /></td><td><code>string</code></td><td>The unique name of a framework. This name is between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (_).</td></tr>
-<tr><td><CopyableCode code="framework_description" /></td><td><code>string</code></td><td>An optional description of the framework with a maximum 1,024 characters.</td></tr>
-<tr><td><CopyableCode code="framework_arn" /></td><td><code>string</code></td><td>An Amazon Resource Name (ARN) that uniquely identifies Framework as a resource</td></tr>
-<tr><td><CopyableCode code="deployment_status" /></td><td><code>string</code></td><td>The deployment status of a framework. The statuses are: `CREATE_IN_PROGRESS | UPDATE_IN_PROGRESS | DELETE_IN_PROGRESS | COMPLETED | FAILED`</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The date and time that a framework is created, in ISO 8601 representation. The value of CreationTime is accurate to milliseconds. For example, 2020-07-10T15:00:00.000-08:00 represents the 10th of July 2020 at 3:00 PM 8 hours behind UTC.</td></tr>
-<tr><td><CopyableCode code="framework_controls" /></td><td><code>array</code></td><td>Contains detailed information about all of the controls of a framework. Each framework must contain at least one control.</td></tr>
-<tr><td><CopyableCode code="framework_status" /></td><td><code>string</code></td><td>A framework consists of one or more controls. Each control governs a resource, such as backup plans, backup selections, backup vaults, or recovery points. You can also turn AWS Config recording on or off for each resource. The statuses are:<br />`ACTIVE` when recording is turned on for all resources governed by the framework.<br />`PARTIALLY_ACTIVE` when recording is turned off for at least one resource governed by the framework.<br />`INACTIVE` when recording is turned off for all resources governed by the framework.<br />`UNAVAILABLE` when AWS Backup is unable to validate recording status at this time.</td></tr>
-<tr><td><CopyableCode code="framework_tags" /></td><td><code>array</code></td><td>Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "framework_name",
+    "type": "string",
+    "description": "The unique name of a framework. This name is between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (&#95;)."
+  },
+  {
+    "name": "framework_description",
+    "type": "string",
+    "description": "An optional description of the framework with a maximum 1,024 characters."
+  },
+  {
+    "name": "framework_arn",
+    "type": "string",
+    "description": "An Amazon Resource Name (ARN) that uniquely identifies Framework as a resource"
+  },
+  {
+    "name": "deployment_status",
+    "type": "string",
+    "description": "The deployment status of a framework. The statuses are: &#96;CREATE&#95;IN&#95;PROGRESS &#124; UPDATE&#95;IN&#95;PROGRESS &#124; DELETE&#95;IN&#95;PROGRESS &#124; COMPLETED &#124; FAILED&#96;"
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The date and time that a framework is created, in ISO 8601 representation. The value of CreationTime is accurate to milliseconds. For example, 2020-07-10T15:00:00.000-08:00 represents the 10th of July 2020 at 3:00 PM 8 hours behind UTC."
+  },
+  {
+    "name": "framework_controls",
+    "type": "array",
+    "description": "Contains detailed information about all of the controls of a framework. Each framework must contain at least one control.",
+    "children": [
+      {
+        "name": "control_name",
+        "type": "string",
+        "description": "The name of a control. This name is between 1 and 256 characters."
+      },
+      {
+        "name": "control_input_parameters",
+        "type": "array",
+        "description": "A list of ParameterName and ParameterValue pairs.",
+        "children": [
+          {
+            "name": "parameter_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "parameter_value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "control_scope",
+        "type": "object",
+        "description": "The scope of a control. The control scope defines what the control will evaluate. Three examples of control scopes are: a specific backup plan, all backup plans with a specific tag, or all backup plans.",
+        "children": [
+          {
+            "name": "compliance_resource_ids",
+            "type": "array",
+            "description": "The ID of the only AWS resource that you want your control scope to contain."
+          },
+          {
+            "name": "compliance_resource_types",
+            "type": "array",
+            "description": "Describes whether the control scope includes one or more types of resources, such as &#96;EFS&#96; or &#96;RDS&#96;."
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "Describes whether the control scope includes resources with one or more tags. Each tag is a key-value pair.",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "framework_status",
+    "type": "string",
+    "description": "A framework consists of one or more controls. Each control governs a resource, such as backup plans, backup selections, backup vaults, or recovery points. You can also turn AWS Config recording on or off for each resource. The statuses are:<br />&#96;ACTIVE&#96; when recording is turned on for all resources governed by the framework.<br />&#96;PARTIALLY&#95;ACTIVE&#96; when recording is turned off for at least one resource governed by the framework.<br />&#96;INACTIVE&#96; when recording is turned off for all resources governed by the framework.<br />&#96;UNAVAILABLE&#96; when AWS Backup is unable to validate recording status at this time."
+  },
+  {
+    "name": "framework_tags",
+    "type": "array",
+    "description": "Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-framework.html"><code>AWS::Backup::Framework</code></a>.
 
@@ -87,21 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>frameworks</code> in a region.
-```sql
-SELECT
-region,
-framework_name,
-framework_description,
-framework_arn,
-deployment_status,
-creation_time,
-framework_controls,
-framework_status,
-framework_tags
-FROM awscc.backup.frameworks
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>framework</code>.
 ```sql
 SELECT

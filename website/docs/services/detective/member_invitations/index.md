@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>member_invitation</code> resource or lists <code>member_invitations</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>member_invitation</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="graph_arn" /></td><td><code>string</code></td><td>The ARN of the graph to which the member account will be invited</td></tr>
-<tr><td><CopyableCode code="member_id" /></td><td><code>string</code></td><td>The AWS account ID to be invited to join the graph as a member</td></tr>
-<tr><td><CopyableCode code="member_email_address" /></td><td><code>string</code></td><td>The root email address for the account to be invited, for validation. Updating this field has no effect.</td></tr>
-<tr><td><CopyableCode code="disable_email_notification" /></td><td><code>boolean</code></td><td>When set to true, invitation emails are not sent to the member accounts. Member accounts must still accept the invitation before they are added to the behavior graph. Updating this field has no effect.</td></tr>
-<tr><td><CopyableCode code="message" /></td><td><code>string</code></td><td>A message to be included in the email invitation sent to the invited account. Updating this field has no effect.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "graph_arn",
+    "type": "string",
+    "description": "The ARN of the graph to which the member account will be invited"
+  },
+  {
+    "name": "member_id",
+    "type": "string",
+    "description": "The AWS account ID to be invited to join the graph as a member"
+  },
+  {
+    "name": "member_email_address",
+    "type": "string",
+    "description": "The root email address for the account to be invited, for validation. Updating this field has no effect."
+  },
+  {
+    "name": "disable_email_notification",
+    "type": "boolean",
+    "description": "When set to true, invitation emails are not sent to the member accounts. Member accounts must still accept the invitation before they are added to the behavior graph. Updating this field has no effect."
+  },
+  {
+    "name": "message",
+    "type": "string",
+    "description": "A message to be included in the email invitation sent to the invited account. Updating this field has no effect."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-detective-memberinvitation.html"><code>AWS::Detective::MemberInvitation</code></a>.
 
@@ -79,18 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>member_invitations</code> in a region.
-```sql
-SELECT
-region,
-graph_arn,
-member_id,
-member_email_address,
-disable_email_notification,
-message
-FROM awscc.detective.member_invitations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>member_invitation</code>.
 ```sql
 SELECT

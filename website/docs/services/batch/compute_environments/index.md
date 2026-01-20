@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>compute_environment</code> resource or lists <code>compute_environments</code> in a region
 
@@ -32,24 +33,260 @@ Creates, updates, deletes or gets a <code>compute_environment</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="compute_environment_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compute_resources" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="replace_compute_environment" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="update_policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="unmanagedv_cpus" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="eks_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="context" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "compute_environment_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compute_resources",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allocation_strategy",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "bid_percentage",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "desiredv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "ec2_configuration",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "image_id_override",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image_kubernetes_version",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "ec2_key_pair",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "image_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_types",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "launch_template",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "launch_template_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "launch_template_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "userdata_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "overrides",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "launch_template_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "launch_template_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "version",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "userdata_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "target_instance_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "maxv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "minv_cpus",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "placement_group",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "spot_iam_fleet_role",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subnets",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "object",
+        "description": "A key-value pair to associate with a resource."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "update_to_latest_image_version",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "replace_compute_environment",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "service_role",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "update_policy",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "terminate_jobs_on_update",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "job_execution_timeout_minutes",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "unmanagedv_cpus",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "eks_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "eks_cluster_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kubernetes_namespace",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "context",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html"><code>AWS::Batch::ComputeEnvironment</code></a>.
 
@@ -91,25 +328,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>compute_environments</code> in a region.
-```sql
-SELECT
-region,
-compute_environment_arn,
-compute_environment_name,
-compute_resources,
-replace_compute_environment,
-service_role,
-state,
-tags,
-type,
-update_policy,
-unmanagedv_cpus,
-eks_configuration,
-context
-FROM awscc.batch.compute_environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>compute_environment</code>.
 ```sql
 SELECT

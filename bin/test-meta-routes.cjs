@@ -23,6 +23,7 @@ let port = 5444;
 let verbose = false;
 let outputFormat = 'json';
 let timeoutMs = 60000; // Default timeout: 60 seconds
+let ignoreNoMethods = false;
 
 for (let i = 0; i < args.length; i++) {
   if (args[i].startsWith('--')) {
@@ -43,6 +44,9 @@ for (let i = 0; i < args.length; i++) {
       case '--timeout':
         timeoutMs = parseInt(args[++i], 10);
         break;
+      case '--ignore-no-methods':
+        ignoreNoMethods = true;
+        break;        
       case '--help':
         console.log(`
 Usage: test-meta-routes.js <provider> [OPTIONS]
@@ -57,6 +61,7 @@ Options:
   --verbose                 Enable verbose output
   --format FORMAT           Output format: json, csv, markdown (default: json)
   --timeout MILLISECONDS    Query timeout in milliseconds (default: 60000)
+  --ignore-no-methods       Skip resources with no methods (e.g., views)
   --help                    Display this help message
         `);
         process.exit(0);
@@ -222,6 +227,10 @@ async function testMetaRoutes() {
         const methodsQuery = `SHOW EXTENDED METHODS IN ${resourceFQRN}`;
         const methods = await executeQuery(methodsQuery, `  Getting methods for ${resourceName}`);
         if (!methods || methods.length === 0) {
+          if (ignoreNoMethods) {
+            console.log(`⏭️  Skipping (no methods - likely a view)`);
+            continue;
+          }
           console.error(`Error: Resource ${resourceName} has no methods`);
           process.exit(1);
         } else {

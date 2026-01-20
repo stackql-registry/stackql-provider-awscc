@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>workspace_instance</code> resource or lists <code>workspace_instances</code> in a region
 
@@ -32,17 +33,491 @@ Creates, updates, deletes or gets a <code>workspace_instance</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="managed_instance" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="workspace_instance_id" /></td><td><code>string</code></td><td>Unique identifier for the workspace instance</td></tr>
-<tr><td><CopyableCode code="provision_state" /></td><td><code>string</code></td><td>The current state of the workspace instance</td></tr>
-<tr><td><CopyableCode code="e_c2_managed_instance" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "managed_instance",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "block_device_mappings",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ebs",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "volume_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "encrypted",
+                "type": "boolean",
+                "description": ""
+              },
+              {
+                "name": "kms_key_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "iops",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "throughput",
+                "type": "integer",
+                "description": ""
+              },
+              {
+                "name": "volume_size",
+                "type": "integer",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "no_device",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "virtual_name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "capacity_reservation_specification",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "capacity_reservation_preference",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "capacity_reservation_target",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "capacity_reservation_id",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "capacity_reservation_resource_group_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "cpu_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "core_count",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "threads_per_core",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "credit_specification",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "cpu_credits",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "disable_api_stop",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "ebs_optimized",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enable_primary_ipv6",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enclave_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "hibernation_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "configured",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "iam_instance_profile",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "image_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_market_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "market_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "spot_options",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "instance_interruption_behavior",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "max_price",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "spot_instance_type",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "valid_until_utc",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "ipv6_address_count",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "key_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "license_specifications",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "license_configuration_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "maintenance_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "auto_recovery",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "metadata_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "http_endpoint",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "http_protocol_ipv6",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "http_put_response_hop_limit",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "http_tokens",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "instance_metadata_tags",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "monitoring",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "network_interfaces",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "description",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "device_index",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "groups",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "subnet_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "network_performance_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "bandwidth_weighting",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "placement",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "availability_zone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "group_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "partition_number",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "tenancy",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "private_dns_name_options",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "hostname_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "enable_resource_name_dns_arecord",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "enable_resource_name_dns_aa_aa_record",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "subnet_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tag_specifications",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "tags",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "user_data",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "workspace_instance_id",
+    "type": "string",
+    "description": "Unique identifier for the workspace instance"
+  },
+  {
+    "name": "provision_state",
+    "type": "string",
+    "description": "The current state of the workspace instance"
+  },
+  {
+    "name": "e_c2_managed_instance",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "instance_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesinstances-workspaceinstance.html"><code>AWS::WorkspacesInstances::WorkspaceInstance</code></a>.
 
@@ -84,18 +559,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>workspace_instances</code> in a region.
-```sql
-SELECT
-region,
-managed_instance,
-tags,
-workspace_instance_id,
-provision_state,
-e_c2_managed_instance
-FROM awscc.workspacesinstances.workspace_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>workspace_instance</code>.
 ```sql
 SELECT

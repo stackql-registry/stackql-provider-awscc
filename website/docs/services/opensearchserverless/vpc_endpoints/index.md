@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_endpoint</code> resource or lists <code>vpc_endpoints</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>vpc_endpoint</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The identifier of the VPC Endpoint</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the VPC Endpoint</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The ID of one or more security groups to associate with the endpoint network interface</td></tr>
-<tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The ID of one or more subnets in which to create an endpoint network interface</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC in which the endpoint will be used.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The identifier of the VPC Endpoint"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the VPC Endpoint"
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The ID of one or more security groups to associate with the endpoint network interface"
+  },
+  {
+    "name": "subnet_ids",
+    "type": "array",
+    "description": "The ID of one or more subnets in which to create an endpoint network interface"
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC in which the endpoint will be used."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchserverless-vpcendpoint.html"><code>AWS::OpenSearchServerless::VpcEndpoint</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_endpoints</code> in a region.
-```sql
-SELECT
-region,
-id,
-name,
-security_group_ids,
-subnet_ids,
-vpc_id
-FROM awscc.opensearchserverless.vpc_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_endpoint</code>.
 ```sql
 SELECT

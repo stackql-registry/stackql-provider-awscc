@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>attribute_group_association</code> resource or lists <code>attribute_group_associations</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets an <code>attribute_group_association</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application" /></td><td><code>string</code></td><td>The name or the Id of the Application.</td></tr>
-<tr><td><CopyableCode code="attribute_group" /></td><td><code>string</code></td><td>The name or the Id of the AttributeGroup.</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="attribute_group_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application",
+    "type": "string",
+    "description": "The name or the Id of the Application."
+  },
+  {
+    "name": "attribute_group",
+    "type": "string",
+    "description": "The name or the Id of the AttributeGroup."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "attribute_group_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalogappregistry-attributegroupassociation.html"><code>AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation</code></a>.
 
@@ -78,17 +96,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>attribute_group_associations</code> in a region.
-```sql
-SELECT
-region,
-application,
-attribute_group,
-application_arn,
-attribute_group_arn
-FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>attribute_group_association</code>.
 ```sql
 SELECT

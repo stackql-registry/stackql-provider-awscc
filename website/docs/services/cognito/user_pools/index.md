@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>user_pool</code> resource or lists <code>user_pools</code> in a region
 
@@ -32,45 +33,577 @@ Creates, updates, deletes or gets an <code>user_pool</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="user_pool_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policies" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="account_recovery_setting" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="admin_create_user_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="alias_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="username_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_verified_attributes" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="device_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="email_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="email_verification_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email_verification_subject" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="deletion_protection" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="lambda_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="mfa_configuration" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled_mfas" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="sms_authentication_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email_authentication_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email_authentication_subject" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sms_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="sms_verification_message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_authn_relying_party_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_authn_user_verification" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="username_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_attribute_update_settings" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="verification_message_template" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_add_ons" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="provider_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="user_pool_tier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "user_pool_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policies",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "password_policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "minimum_length",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "require_lowercase",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "require_numbers",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "require_symbols",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "require_uppercase",
+            "type": "boolean",
+            "description": ""
+          },
+          {
+            "name": "temporary_password_validity_days",
+            "type": "integer",
+            "description": ""
+          },
+          {
+            "name": "password_history_size",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "sign_in_policy",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "allowed_first_auth_factors",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "account_recovery_setting",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "recovery_mechanisms",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "priority",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "admin_create_user_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "allow_admin_create_user_only",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "invite_message_template",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "email_message",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "email_subject",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "s_ms_message",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "unused_account_validity_days",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "alias_attributes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "username_attributes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "auto_verified_attributes",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "device_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "challenge_required_on_new_device",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "device_only_remembered_on_user_prompt",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "email_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "reply_to_email_address",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "source_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration_set",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "email_sending_account",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "email_verification_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email_verification_subject",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "deletion_protection",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "lambda_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "create_auth_challenge",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_message",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "define_auth_challenge",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "post_authentication",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "post_confirmation",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pre_authentication",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pre_sign_up",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "verify_auth_challenge_response",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "user_migration",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pre_token_generation",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "custom_email_sender",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "lambda_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "lambda_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "custom_sm_ssender",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "lambda_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "lambda_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pre_token_generation_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "lambda_version",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "lambda_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mfa_configuration",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled_mfas",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "sms_authentication_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email_authentication_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email_authentication_subject",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "sms_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "external_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sns_caller_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sns_region",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "sms_verification_message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "web_authn_relying_party_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "web_authn_user_verification",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schema",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "attribute_data_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "developer_only_attribute",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "mutable",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "number_attribute_constraints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "max_value",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "min_value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "string_attribute_constraints",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "max_length",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "min_length",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "username_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "case_sensitive",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_attribute_update_settings",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "attributes_require_verification_before_update",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_pool_tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "verification_message_template",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "default_email_option",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "email_message",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "email_message_by_link",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "email_subject",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "email_subject_by_link",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sms_message",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "user_pool_add_ons",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "advanced_security_mode",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "advanced_security_additional_flows",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "custom_auth_mode",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "provider_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "user_pool_tier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html"><code>AWS::Cognito::UserPool</code></a>.
 
@@ -112,46 +645,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>user_pools</code> in a region.
-```sql
-SELECT
-region,
-user_pool_name,
-policies,
-account_recovery_setting,
-admin_create_user_config,
-alias_attributes,
-username_attributes,
-auto_verified_attributes,
-device_configuration,
-email_configuration,
-email_verification_message,
-email_verification_subject,
-deletion_protection,
-lambda_config,
-mfa_configuration,
-enabled_mfas,
-sms_authentication_message,
-email_authentication_message,
-email_authentication_subject,
-sms_configuration,
-sms_verification_message,
-web_authn_relying_party_id,
-web_authn_user_verification,
-schema,
-username_configuration,
-user_attribute_update_settings,
-user_pool_tags,
-verification_message_template,
-user_pool_add_ons,
-provider_name,
-provider_url,
-arn,
-user_pool_id,
-user_pool_tier
-FROM awscc.cognito.user_pools
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user_pool</code>.
 ```sql
 SELECT

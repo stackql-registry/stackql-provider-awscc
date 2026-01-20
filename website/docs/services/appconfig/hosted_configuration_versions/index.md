@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>hosted_configuration_version</code> resource or lists <code>hosted_configuration_versions</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>hosted_configuration_version</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="configuration_profile_id" /></td><td><code>string</code></td><td>The configuration profile ID.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the hosted configuration version.</td></tr>
-<tr><td><CopyableCode code="content_type" /></td><td><code>string</code></td><td>A standard MIME type describing the format of the configuration content.</td></tr>
-<tr><td><CopyableCode code="latest_version_number" /></td><td><code>integer</code></td><td>An optional locking token used to prevent race conditions from overwriting configuration updates when creating a new version. To ensure your data is not overwritten when creating multiple hosted configuration versions in rapid succession, specify the version number of the latest hosted configuration version.</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>string</code></td><td>The content of the configuration or the configuration data.</td></tr>
-<tr><td><CopyableCode code="version_label" /></td><td><code>string</code></td><td>A user-defined label for an AWS AppConfig hosted configuration version.</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application ID.</td></tr>
-<tr><td><CopyableCode code="version_number" /></td><td><code>string</code></td><td>Current version number of hosted configuration version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "configuration_profile_id",
+    "type": "string",
+    "description": "The configuration profile ID."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the hosted configuration version."
+  },
+  {
+    "name": "content_type",
+    "type": "string",
+    "description": "A standard MIME type describing the format of the configuration content."
+  },
+  {
+    "name": "latest_version_number",
+    "type": "integer",
+    "description": "An optional locking token used to prevent race conditions from overwriting configuration updates when creating a new version. To ensure your data is not overwritten when creating multiple hosted configuration versions in rapid succession, specify the version number of the latest hosted configuration version."
+  },
+  {
+    "name": "content",
+    "type": "string",
+    "description": "The content of the configuration or the configuration data."
+  },
+  {
+    "name": "version_label",
+    "type": "string",
+    "description": "A user-defined label for an AWS AppConfig hosted configuration version."
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The application ID."
+  },
+  {
+    "name": "version_number",
+    "type": "string",
+    "description": "Current version number of hosted configuration version."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-hostedconfigurationversion.html"><code>AWS::AppConfig::HostedConfigurationVersion</code></a>.
 
@@ -82,21 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hosted_configuration_versions</code> in a region.
-```sql
-SELECT
-region,
-configuration_profile_id,
-description,
-content_type,
-latest_version_number,
-content,
-version_label,
-application_id,
-version_number
-FROM awscc.appconfig.hosted_configuration_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>hosted_configuration_version</code>.
 ```sql
 SELECT

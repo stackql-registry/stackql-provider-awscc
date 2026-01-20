@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>managed_notification_account_contact_association</code> resource or lists <code>managed_notification_account_contact_associations</code> in a region
 
@@ -32,14 +33,23 @@ Creates, updates, deletes or gets a <code>managed_notification_account_contact_a
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="managed_notification_configuration_arn" /></td><td><code>string</code></td><td>The managed notification configuration ARN, against which the account contact association will be created</td></tr>
-<tr><td><CopyableCode code="contact_identifier" /></td><td><code>string</code></td><td>This unique identifier for Contact</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "managed_notification_configuration_arn",
+    "type": "string",
+    "description": "The managed notification configuration ARN, against which the account contact association will be created"
+  },
+  {
+    "name": "contact_identifier",
+    "type": "string",
+    "description": "This unique identifier for Contact"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-managednotificationaccountcontactassociation.html"><code>AWS::Notifications::ManagedNotificationAccountContactAssociation</code></a>.
 
@@ -81,15 +91,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>managed_notification_account_contact_associations</code> in a region.
-```sql
-SELECT
-region,
-managed_notification_configuration_arn,
-contact_identifier
-FROM awscc.notifications.managed_notification_account_contact_associations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>managed_notification_account_contact_association</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_log_subscription</code> resource or lists <code>access_log_subscriptions</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets an <code>access_log_subscription</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="destination_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_network_log_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "destination_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_network_log_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-vpclattice-accesslogsubscription.html"><code>AWS::VpcLattice::AccessLogSubscription</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_log_subscriptions</code> in a region.
-```sql
-SELECT
-region,
-arn,
-destination_arn,
-id,
-resource_arn,
-resource_id,
-resource_identifier,
-service_network_log_type,
-tags
-FROM awscc.vpclattice.access_log_subscriptions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_log_subscription</code>.
 ```sql
 SELECT

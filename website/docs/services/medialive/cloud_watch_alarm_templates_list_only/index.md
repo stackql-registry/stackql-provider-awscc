@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>cloud_watch_alarm_templates</code> in a region or regions, for all properties use <a href="/services/medialive/cloud_watch_alarm_templates/"><code>cloud_watch_alarm_templates</code></a>
 
@@ -32,14 +33,23 @@ Lists <code>cloud_watch_alarm_templates</code> in a region or regions, for all p
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>A cloudwatch alarm template's id. AWS provided templates have ids that start with `aws-`</td></tr>
-<tr><td><CopyableCode code="identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

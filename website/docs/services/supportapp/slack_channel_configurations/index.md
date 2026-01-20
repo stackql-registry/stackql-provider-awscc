@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>slack_channel_configuration</code> resource or lists <code>slack_channel_configurations</code> in a region
 
@@ -32,20 +33,53 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="team_id" /></td><td><code>string</code></td><td>The team ID in Slack, which uniquely identifies a workspace.</td></tr>
-<tr><td><CopyableCode code="channel_id" /></td><td><code>string</code></td><td>The channel ID in Slack, which identifies a channel within a workspace.</td></tr>
-<tr><td><CopyableCode code="channel_name" /></td><td><code>string</code></td><td>The channel name in Slack.</td></tr>
-<tr><td><CopyableCode code="notify_on_create_or_reopen_case" /></td><td><code>boolean</code></td><td>Whether to notify when a case is created or reopened.</td></tr>
-<tr><td><CopyableCode code="notify_on_add_correspondence_to_case" /></td><td><code>boolean</code></td><td>Whether to notify when a correspondence is added to a case.</td></tr>
-<tr><td><CopyableCode code="notify_on_resolve_case" /></td><td><code>boolean</code></td><td>Whether to notify when a case is resolved.</td></tr>
-<tr><td><CopyableCode code="notify_on_case_severity" /></td><td><code>string</code></td><td>The severity level of a support case that a customer wants to get notified for.</td></tr>
-<tr><td><CopyableCode code="channel_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that grants the AWS Support App access to perform operations for AWS services.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "team_id",
+    "type": "string",
+    "description": "The team ID in Slack, which uniquely identifies a workspace."
+  },
+  {
+    "name": "channel_id",
+    "type": "string",
+    "description": "The channel ID in Slack, which identifies a channel within a workspace."
+  },
+  {
+    "name": "channel_name",
+    "type": "string",
+    "description": "The channel name in Slack."
+  },
+  {
+    "name": "notify_on_create_or_reopen_case",
+    "type": "boolean",
+    "description": "Whether to notify when a case is created or reopened."
+  },
+  {
+    "name": "notify_on_add_correspondence_to_case",
+    "type": "boolean",
+    "description": "Whether to notify when a correspondence is added to a case."
+  },
+  {
+    "name": "notify_on_resolve_case",
+    "type": "boolean",
+    "description": "Whether to notify when a case is resolved."
+  },
+  {
+    "name": "notify_on_case_severity",
+    "type": "string",
+    "description": "The severity level of a support case that a customer wants to get notified for."
+  },
+  {
+    "name": "channel_role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of an IAM role that grants the AWS Support App access to perform operations for AWS services."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-supportapp-slackchannelconfiguration.html"><code>AWS::SupportApp::SlackChannelConfiguration</code></a>.
 
@@ -87,21 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>slack_channel_configurations</code> in a region.
-```sql
-SELECT
-region,
-team_id,
-channel_id,
-channel_name,
-notify_on_create_or_reopen_case,
-notify_on_add_correspondence_to_case,
-notify_on_resolve_case,
-notify_on_case_severity,
-channel_role_arn
-FROM awscc.supportapp.slack_channel_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
 SELECT

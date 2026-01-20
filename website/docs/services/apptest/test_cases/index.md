@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>test_case</code> resource or lists <code>test_cases</code> in a region
 
@@ -32,23 +33,97 @@ Creates, updates, deletes or gets a <code>test_case</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_update_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="latest_version" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="steps" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="test_case_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="test_case_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="test_case_version" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_update_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "latest_version",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "version",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "steps",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "action",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "test_case_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "test_case_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "test_case_version",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apptest-testcase.html"><code>AWS::AppTest::TestCase</code></a>.
 
@@ -90,24 +165,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>test_cases</code> in a region.
-```sql
-SELECT
-region,
-creation_time,
-description,
-last_update_time,
-latest_version,
-name,
-status,
-steps,
-tags,
-test_case_arn,
-test_case_id,
-test_case_version
-FROM awscc.apptest.test_cases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>test_case</code>.
 ```sql
 SELECT

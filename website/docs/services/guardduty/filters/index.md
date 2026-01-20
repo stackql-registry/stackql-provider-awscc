@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>filter</code> resource or lists <code>filters</code> in a region
 
@@ -32,19 +33,67 @@ Creates, updates, deletes or gets a <code>filter</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="finding_criteria" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="rank" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "finding_criteria",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "criterion",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "rank",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-filter.html"><code>AWS::GuardDuty::Filter</code></a>.
 
@@ -86,20 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>filters</code> in a region.
-```sql
-SELECT
-region,
-action,
-description,
-detector_id,
-finding_criteria,
-rank,
-name,
-tags
-FROM awscc.guardduty.filters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>filter</code>.
 ```sql
 SELECT

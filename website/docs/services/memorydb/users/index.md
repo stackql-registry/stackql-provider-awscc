@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>user</code> resource or lists <code>users</code> in a region
 
@@ -32,18 +33,67 @@ Creates, updates, deletes or gets a <code>user</code> resource or lists <code>us
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Indicates the user status. Can be "active", "modifying" or "deleting".</td></tr>
-<tr><td><CopyableCode code="user_name" /></td><td><code>string</code></td><td>The name of the user.</td></tr>
-<tr><td><CopyableCode code="access_string" /></td><td><code>string</code></td><td>Access permissions string used for this user account.</td></tr>
-<tr><td><CopyableCode code="authentication_mode" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the user account.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this user.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Indicates the user status. Can be \"active\", \"modifying\" or \"deleting\"."
+  },
+  {
+    "name": "user_name",
+    "type": "string",
+    "description": "The name of the user."
+  },
+  {
+    "name": "access_string",
+    "type": "string",
+    "description": "Access permissions string used for this user account."
+  },
+  {
+    "name": "authentication_mode",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Type of authentication strategy for this user."
+      },
+      {
+        "name": "passwords",
+        "type": "array",
+        "description": "Passwords used for this user account. You can create up to two passwords for each user."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the user account."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this user.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with 'aws:'. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-memorydb-user.html"><code>AWS::MemoryDB::User</code></a>.
 
@@ -85,19 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>users</code> in a region.
-```sql
-SELECT
-region,
-status,
-user_name,
-access_string,
-authentication_mode,
-arn,
-tags
-FROM awscc.memorydb.users
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>user</code>.
 ```sql
 SELECT

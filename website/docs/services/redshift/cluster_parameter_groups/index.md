@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster_parameter_group</code> resource or lists <code>cluster_parameter_groups</code> in a region
 
@@ -32,17 +33,62 @@ Creates, updates, deletes or gets a <code>cluster_parameter_group</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="parameter_group_name" /></td><td><code>string</code></td><td>The name of the cluster parameter group.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the parameter group.</td></tr>
-<tr><td><CopyableCode code="parameter_group_family" /></td><td><code>string</code></td><td>The Amazon Redshift engine version to which the cluster parameter group applies. The cluster engine version determines the set of parameters.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>An array of parameters to be modified. A maximum of 20 parameters can be modified in a single request.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "parameter_group_name",
+    "type": "string",
+    "description": "The name of the cluster parameter group."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the parameter group."
+  },
+  {
+    "name": "parameter_group_family",
+    "type": "string",
+    "description": "The Amazon Redshift engine version to which the cluster parameter group applies. The cluster engine version determines the set of parameters."
+  },
+  {
+    "name": "parameters",
+    "type": "array",
+    "description": "An array of parameters to be modified. A maximum of 20 parameters can be modified in a single request.",
+    "children": [
+      {
+        "name": "parameter_name",
+        "type": "string",
+        "description": "The name of the parameter."
+      },
+      {
+        "name": "parameter_value",
+        "type": "string",
+        "description": "The value of the parameter. If &#96;ParameterName&#96; is &#96;wlm&#95;json&#95;configuration&#96;, then the maximum size of &#96;ParameterValue&#96; is 8000 characters."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-clusterparametergroup.html"><code>AWS::Redshift::ClusterParameterGroup</code></a>.
 
@@ -84,18 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cluster_parameter_groups</code> in a region.
-```sql
-SELECT
-region,
-parameter_group_name,
-description,
-parameter_group_family,
-parameters,
-tags
-FROM awscc.redshift.cluster_parameter_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster_parameter_group</code>.
 ```sql
 SELECT

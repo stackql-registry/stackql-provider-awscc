@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>game_session_queue</code> resource or lists <code>game_session_queues</code> in a region
 
@@ -32,22 +33,113 @@ Creates, updates, deletes or gets a <code>game_session_queue</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A descriptive label that is associated with game session queue. Queue names must be unique within each Region.</td></tr>
-<tr><td><CopyableCode code="timeout_in_seconds" /></td><td><code>integer</code></td><td>The maximum time, in seconds, that a new game session placement request remains in the queue.</td></tr>
-<tr><td><CopyableCode code="destinations" /></td><td><code>array</code></td><td>A list of fleets and/or fleet aliases that can be used to fulfill game session placement requests in the queue.</td></tr>
-<tr><td><CopyableCode code="player_latency_policies" /></td><td><code>array</code></td><td>A set of policies that act as a sliding cap on player latency.</td></tr>
-<tr><td><CopyableCode code="custom_event_data" /></td><td><code>string</code></td><td>Information that is added to all events that are related to this game session queue.</td></tr>
-<tr><td><CopyableCode code="notification_target" /></td><td><code>string</code></td><td>An SNS topic ARN that is set up to receive game session placement notifications.</td></tr>
-<tr><td><CopyableCode code="filter_configuration" /></td><td><code>object</code></td><td>A list of locations where a queue is allowed to place new game sessions.</td></tr>
-<tr><td><CopyableCode code="priority_configuration" /></td><td><code>object</code></td><td>Custom settings to use when prioritizing destinations and locations for game session placements.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) that is assigned to a Amazon GameLift game session queue resource and uniquely identifies it.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A descriptive label that is associated with game session queue. Queue names must be unique within each Region."
+  },
+  {
+    "name": "timeout_in_seconds",
+    "type": "integer",
+    "description": "The maximum time, in seconds, that a new game session placement request remains in the queue."
+  },
+  {
+    "name": "destinations",
+    "type": "array",
+    "description": "A list of fleets and/or fleet aliases that can be used to fulfill game session placement requests in the queue.",
+    "children": [
+      {
+        "name": "destination_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "player_latency_policies",
+    "type": "array",
+    "description": "A set of policies that act as a sliding cap on player latency.",
+    "children": [
+      {
+        "name": "maximum_individual_player_latency_milliseconds",
+        "type": "integer",
+        "description": "The maximum latency value that is allowed for any player, in milliseconds. All policies must have a value set for this property."
+      },
+      {
+        "name": "policy_duration_seconds",
+        "type": "integer",
+        "description": "The length of time, in seconds, that the policy is enforced while placing a new game session."
+      }
+    ]
+  },
+  {
+    "name": "custom_event_data",
+    "type": "string",
+    "description": "Information that is added to all events that are related to this game session queue."
+  },
+  {
+    "name": "notification_target",
+    "type": "string",
+    "description": "An SNS topic ARN that is set up to receive game session placement notifications."
+  },
+  {
+    "name": "filter_configuration",
+    "type": "object",
+    "description": "A list of locations where a queue is allowed to place new game sessions.",
+    "children": [
+      {
+        "name": "allowed_locations",
+        "type": "array",
+        "description": "A list of locations to allow game session placement in, in the form of AWS Region codes such as us-west-2."
+      }
+    ]
+  },
+  {
+    "name": "priority_configuration",
+    "type": "object",
+    "description": "Custom settings to use when prioritizing destinations and locations for game session placements.",
+    "children": [
+      {
+        "name": "location_order",
+        "type": "array",
+        "description": "The prioritization order to use for fleet locations, when the PriorityOrder property includes LOCATION."
+      },
+      {
+        "name": "priority_order",
+        "type": "array",
+        "description": "The recommended sequence to use when prioritizing where to place new game sessions."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) that is assigned to a Amazon GameLift game session queue resource and uniquely identifies it."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-gamelift-gamesessionqueue.html"><code>AWS::GameLift::GameSessionQueue</code></a>.
 
@@ -89,23 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>game_session_queues</code> in a region.
-```sql
-SELECT
-region,
-name,
-timeout_in_seconds,
-destinations,
-player_latency_policies,
-custom_event_data,
-notification_target,
-filter_configuration,
-priority_configuration,
-arn,
-tags
-FROM awscc.gamelift.game_session_queues
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>game_session_queue</code>.
 ```sql
 SELECT

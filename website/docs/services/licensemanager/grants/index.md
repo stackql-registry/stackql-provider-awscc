@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>grant</code> resource or lists <code>grants</code> in a region
 
@@ -32,20 +33,48 @@ Creates, updates, deletes or gets a <code>grant</code> resource or lists <code>g
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="grant_arn" /></td><td><code>string</code></td><td>Arn of the grant.</td></tr>
-<tr><td><CopyableCode code="grant_name" /></td><td><code>string</code></td><td>Name for the created Grant.</td></tr>
-<tr><td><CopyableCode code="license_arn" /></td><td><code>string</code></td><td>License Arn for the grant.</td></tr>
-<tr><td><CopyableCode code="home_region" /></td><td><code>string</code></td><td>Home region for the created grant.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version of the grant.</td></tr>
-<tr><td><CopyableCode code="allowed_operations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="principals" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "grant_arn",
+    "type": "string",
+    "description": "Arn of the grant."
+  },
+  {
+    "name": "grant_name",
+    "type": "string",
+    "description": "Name for the created Grant."
+  },
+  {
+    "name": "home_region",
+    "type": "string",
+    "description": "Home region for the created grant."
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version of the grant."
+  },
+  {
+    "name": "allowed_operations",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "principals",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-licensemanager-grant.html"><code>AWS::LicenseManager::Grant</code></a>.
 
@@ -87,21 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>grants</code> in a region.
-```sql
-SELECT
-region,
-grant_arn,
-grant_name,
-license_arn,
-home_region,
-version,
-allowed_operations,
-principals,
-status
-FROM awscc.licensemanager.grants
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>grant</code>.
 ```sql
 SELECT

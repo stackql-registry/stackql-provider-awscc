@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>report_plan</code> resource or lists <code>report_plans</code> in a region
 
@@ -32,18 +33,99 @@ Creates, updates, deletes or gets a <code>report_plan</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="report_plan_name" /></td><td><code>string</code></td><td>The unique name of the report plan. The name must be between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (_).</td></tr>
-<tr><td><CopyableCode code="report_plan_arn" /></td><td><code>string</code></td><td>An Amazon Resource Name (ARN) that uniquely identifies a resource. The format of the ARN depends on the resource type.</td></tr>
-<tr><td><CopyableCode code="report_plan_description" /></td><td><code>string</code></td><td>An optional description of the report plan with a maximum of 1,024 characters.</td></tr>
-<tr><td><CopyableCode code="report_plan_tags" /></td><td><code>array</code></td><td>Metadata that you can assign to help organize the report plans that you create. Each tag is a key-value pair.</td></tr>
-<tr><td><CopyableCode code="report_delivery_channel" /></td><td><code>object</code></td><td>A structure that contains information about where and how to deliver your reports, specifically your Amazon S3 bucket name, S3 key prefix, and the formats of your reports.</td></tr>
-<tr><td><CopyableCode code="report_setting" /></td><td><code>object</code></td><td>Identifies the report template for the report. Reports are built using a report template.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "report_plan_name",
+    "type": "string",
+    "description": "The unique name of the report plan. The name must be between 1 and 256 characters, starting with a letter, and consisting of letters (a-z, A-Z), numbers (0-9), and underscores (&#95;)."
+  },
+  {
+    "name": "report_plan_arn",
+    "type": "string",
+    "description": "An Amazon Resource Name (ARN) that uniquely identifies a resource. The format of the ARN depends on the resource type."
+  },
+  {
+    "name": "report_plan_description",
+    "type": "string",
+    "description": "An optional description of the report plan with a maximum of 1,024 characters."
+  },
+  {
+    "name": "report_plan_tags",
+    "type": "array",
+    "description": "Metadata that you can assign to help organize the report plans that you create. Each tag is a key-value pair.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "report_delivery_channel",
+    "type": "object",
+    "description": "A structure that contains information about where and how to deliver your reports, specifically your Amazon S3 bucket name, S3 key prefix, and the formats of your reports.",
+    "children": [
+      {
+        "name": "formats",
+        "type": "array",
+        "description": "A list of the format of your reports: CSV, JSON, or both. If not specified, the default format is CSV."
+      },
+      {
+        "name": "s3_bucket_name",
+        "type": "string",
+        "description": "The unique name of the S3 bucket that receives your reports."
+      },
+      {
+        "name": "s3_key_prefix",
+        "type": "string",
+        "description": "The prefix for where AWS Backup Audit Manager delivers your reports to Amazon S3. The prefix is this part of the following path: s3://your-bucket-name/prefix/Backup/us-west-2/year/month/day/report-name. If not specified, there is no prefix."
+      }
+    ]
+  },
+  {
+    "name": "report_setting",
+    "type": "object",
+    "description": "Identifies the report template for the report. Reports are built using a report template.",
+    "children": [
+      {
+        "name": "report_template",
+        "type": "string",
+        "description": "Identifies the report template for the report. Reports are built using a report template. The report templates are: &#96;BACKUP&#95;JOB&#95;REPORT &#124; COPY&#95;JOB&#95;REPORT &#124; RESTORE&#95;JOB&#95;REPORT&#96;"
+      },
+      {
+        "name": "framework_arns",
+        "type": "array",
+        "description": "The Amazon Resource Names (ARNs) of the frameworks a report covers."
+      },
+      {
+        "name": "accounts",
+        "type": "array",
+        "description": "The list of AWS accounts that a report covers."
+      },
+      {
+        "name": "organization_units",
+        "type": "array",
+        "description": "The list of AWS organization units that a report covers."
+      },
+      {
+        "name": "regions",
+        "type": "array",
+        "description": "The list of AWS regions that a report covers."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-reportplan.html"><code>AWS::Backup::ReportPlan</code></a>.
 
@@ -85,19 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>report_plans</code> in a region.
-```sql
-SELECT
-region,
-report_plan_name,
-report_plan_arn,
-report_plan_description,
-report_plan_tags,
-report_delivery_channel,
-report_setting
-FROM awscc.backup.report_plans
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>report_plan</code>.
 ```sql
 SELECT

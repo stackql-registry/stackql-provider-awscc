@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>access_point</code> resource or lists <code>access_points</code> in a region
 
@@ -32,19 +33,123 @@ Creates, updates, deletes or gets an <code>access_point</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name you want to assign to this Object lambda Access Point.</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="creation_date" /></td><td><code>string</code></td><td>The date and time when the Object lambda Access Point was created.</td></tr>
-<tr><td><CopyableCode code="public_access_block_configuration" /></td><td><code>object</code></td><td>The PublicAccessBlock configuration that you want to apply to this Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.</td></tr>
-<tr><td><CopyableCode code="policy_status" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="object_lambda_configuration" /></td><td><code>object</code></td><td>The Object lambda Access Point Configuration that configures transformations to be applied on the objects on specified S3 Actions</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you want to assign to this Object lambda Access Point."
+  },
+  {
+    "name": "alias",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "The status of the Object Lambda alias."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value of the Object Lambda alias."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "creation_date",
+    "type": "string",
+    "description": "The date and time when the Object lambda Access Point was created."
+  },
+  {
+    "name": "public_access_block_configuration",
+    "type": "object",
+    "description": "The PublicAccessBlock configuration that you want to apply to this Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.",
+    "children": [
+      {
+        "name": "block_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public access control lists (ACLs) to this object lambda access point. Setting this element to TRUE causes the following behavior:<br />- PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.<br />- PUT Object calls fail if the request includes a public ACL.<br />. - PUT Bucket calls fail if the request includes a public ACL.<br />Enabling this setting doesn't affect existing policies or ACLs."
+      },
+      {
+        "name": "ignore_public_acls",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should ignore public ACLs for buckets in this account. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on buckets in this account and any objects that they contain. Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set."
+      },
+      {
+        "name": "block_public_policy",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should block public bucket policies for buckets in this account. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access. Enabling this setting doesn't affect existing bucket policies."
+      },
+      {
+        "name": "restrict_public_buckets",
+        "type": "boolean",
+        "description": "Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.<br />Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+      }
+    ]
+  },
+  {
+    "name": "policy_status",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "is_public",
+        "type": "boolean",
+        "description": "Specifies whether the Object lambda Access Point Policy is Public or not. Object lambda Access Points are private by default."
+      }
+    ]
+  },
+  {
+    "name": "object_lambda_configuration",
+    "type": "object",
+    "description": "The Object lambda Access Point Configuration that configures transformations to be applied on the objects on specified S3 Actions",
+    "children": [
+      {
+        "name": "supporting_access_point",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "allowed_features",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "cloud_watch_metrics_enabled",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "transformation_configurations",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "actions",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "content_transformation",
+            "type": "object",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3objectlambda-accesspoint.html"><code>AWS::S3ObjectLambda::AccessPoint</code></a>.
 
@@ -86,20 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>access_points</code> in a region.
-```sql
-SELECT
-region,
-name,
-alias,
-arn,
-creation_date,
-public_access_block_configuration,
-policy_status,
-object_lambda_configuration
-FROM awscc.s3objectlambda.access_points
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>access_point</code>.
 ```sql
 SELECT

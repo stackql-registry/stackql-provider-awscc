@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_multicast_group_source</code> resource or lists <code>transit_gateway_multicast_group_sources</code> in a region
 
@@ -32,22 +33,63 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_group_source
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="group_ip_address" /></td><td><code>string</code></td><td>The IP address assigned to the transit gateway multicast group.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the transit gateway attachment.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_multicast_domain_id" /></td><td><code>string</code></td><td>The ID of the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet.</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The ID of the resource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of resource, for example a VPC attachment.</td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The ID of the transit gateway attachment.</td></tr>
-<tr><td><CopyableCode code="group_member" /></td><td><code>boolean</code></td><td>Indicates that the resource is a transit gateway multicast group member.</td></tr>
-<tr><td><CopyableCode code="group_source" /></td><td><code>boolean</code></td><td>Indicates that the resource is a transit gateway multicast group member.</td></tr>
-<tr><td><CopyableCode code="source_type" /></td><td><code>string</code></td><td>The source type.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "group_ip_address",
+    "type": "string",
+    "description": "The IP address assigned to the transit gateway multicast group."
+  },
+  {
+    "name": "transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the transit gateway attachment."
+  },
+  {
+    "name": "transit_gateway_multicast_domain_id",
+    "type": "string",
+    "description": "The ID of the transit gateway multicast domain."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The ID of the subnet."
+  },
+  {
+    "name": "resource_id",
+    "type": "string",
+    "description": "The ID of the resource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The type of resource, for example a VPC attachment."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of the transit gateway attachment."
+  },
+  {
+    "name": "group_member",
+    "type": "boolean",
+    "description": "Indicates that the resource is a transit gateway multicast group member."
+  },
+  {
+    "name": "group_source",
+    "type": "boolean",
+    "description": "Indicates that the resource is a transit gateway multicast group member."
+  },
+  {
+    "name": "source_type",
+    "type": "string",
+    "description": "The source type."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewaymulticastgroupsource.html"><code>AWS::EC2::TransitGatewayMulticastGroupSource</code></a>.
 
@@ -84,23 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_multicast_group_sources</code> in a region.
-```sql
-SELECT
-region,
-group_ip_address,
-transit_gateway_attachment_id,
-transit_gateway_multicast_domain_id,
-subnet_id,
-resource_id,
-resource_type,
-network_interface_id,
-group_member,
-group_source,
-source_type
-FROM awscc.ec2.transit_gateway_multicast_group_sources
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_multicast_group_source</code>.
 ```sql
 SELECT

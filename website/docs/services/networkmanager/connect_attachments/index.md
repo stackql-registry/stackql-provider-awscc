@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>connect_attachment</code> resource or lists <code>connect_attachments</code> in a region
 
@@ -32,30 +33,180 @@ Creates, updates, deletes or gets a <code>connect_attachment</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="core_network_id" /></td><td><code>string</code></td><td>ID of the CoreNetwork that the attachment will be attached to.</td></tr>
-<tr><td><CopyableCode code="core_network_arn" /></td><td><code>string</code></td><td>The ARN of a core network.</td></tr>
-<tr><td><CopyableCode code="attachment_id" /></td><td><code>string</code></td><td>The ID of the attachment.</td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>The ID of the attachment account owner.</td></tr>
-<tr><td><CopyableCode code="attachment_type" /></td><td><code>string</code></td><td>The type of attachment.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>State of the attachment.</td></tr>
-<tr><td><CopyableCode code="edge_location" /></td><td><code>string</code></td><td>Edge location of the attachment.</td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The attachment resource ARN.</td></tr>
-<tr><td><CopyableCode code="attachment_policy_rule_number" /></td><td><code>integer</code></td><td>The policy rule number associated with the attachment.</td></tr>
-<tr><td><CopyableCode code="segment_name" /></td><td><code>string</code></td><td>The name of the segment attachment.</td></tr>
-<tr><td><CopyableCode code="proposed_segment_change" /></td><td><code>object</code></td><td>The attachment to move from one segment to another.</td></tr>
-<tr><td><CopyableCode code="network_function_group_name" /></td><td><code>string</code></td><td>The name of the network function group attachment.</td></tr>
-<tr><td><CopyableCode code="proposed_network_function_group_change" /></td><td><code>object</code></td><td>The attachment to move from one network function group to another.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for the attachment.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>Creation time of the attachment.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Last update time of the attachment.</td></tr>
-<tr><td><CopyableCode code="transport_attachment_id" /></td><td><code>string</code></td><td>Id of transport attachment</td></tr>
-<tr><td><CopyableCode code="options" /></td><td><code>object</code></td><td>Protocol options for connect attachment</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "core_network_id",
+    "type": "string",
+    "description": "ID of the CoreNetwork that the attachment will be attached to."
+  },
+  {
+    "name": "core_network_arn",
+    "type": "string",
+    "description": "The ARN of a core network."
+  },
+  {
+    "name": "attachment_id",
+    "type": "string",
+    "description": "The ID of the attachment."
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": "The ID of the attachment account owner."
+  },
+  {
+    "name": "attachment_type",
+    "type": "string",
+    "description": "The type of attachment."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "State of the attachment."
+  },
+  {
+    "name": "edge_location",
+    "type": "string",
+    "description": "Edge location of the attachment."
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The attachment resource ARN."
+  },
+  {
+    "name": "attachment_policy_rule_number",
+    "type": "integer",
+    "description": "The policy rule number associated with the attachment."
+  },
+  {
+    "name": "segment_name",
+    "type": "string",
+    "description": "The name of the segment attachment."
+  },
+  {
+    "name": "proposed_segment_change",
+    "type": "object",
+    "description": "The attachment to move from one segment to another.",
+    "children": [
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "The key-value tags that changed for the segment.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      },
+      {
+        "name": "attachment_policy_rule_number",
+        "type": "integer",
+        "description": "The rule number in the policy document that applies to this change."
+      },
+      {
+        "name": "segment_name",
+        "type": "string",
+        "description": "The name of the segment to change."
+      }
+    ]
+  },
+  {
+    "name": "network_function_group_name",
+    "type": "string",
+    "description": "The name of the network function group attachment."
+  },
+  {
+    "name": "proposed_network_function_group_change",
+    "type": "object",
+    "description": "The attachment to move from one network function group to another.",
+    "children": [
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "The key-value tags that changed for the network function group.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+          }
+        ]
+      },
+      {
+        "name": "attachment_policy_rule_number",
+        "type": "integer",
+        "description": "The rule number in the policy document that applies to this change."
+      },
+      {
+        "name": "network_function_group_name",
+        "type": "string",
+        "description": "The name of the network function group to change."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags for the attachment.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "Creation time of the attachment."
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "Last update time of the attachment."
+  },
+  {
+    "name": "transport_attachment_id",
+    "type": "string",
+    "description": "Id of transport attachment"
+  },
+  {
+    "name": "options",
+    "type": "object",
+    "description": "Protocol options for connect attachment",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "Tunnel protocol for connect attachment"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html"><code>AWS::NetworkManager::ConnectAttachment</code></a>.
 
@@ -97,31 +248,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>connect_attachments</code> in a region.
-```sql
-SELECT
-region,
-core_network_id,
-core_network_arn,
-attachment_id,
-owner_account_id,
-attachment_type,
-state,
-edge_location,
-resource_arn,
-attachment_policy_rule_number,
-segment_name,
-proposed_segment_change,
-network_function_group_name,
-proposed_network_function_group_change,
-tags,
-created_at,
-updated_at,
-transport_attachment_id,
-options
-FROM awscc.networkmanager.connect_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>connect_attachment</code>.
 ```sql
 SELECT

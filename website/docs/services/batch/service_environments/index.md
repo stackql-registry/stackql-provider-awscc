@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>service_environment</code> resource or lists <code>service_environments</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets a <code>service_environment</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="service_environment_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_environment_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="capacity_limits" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "service_environment_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_environment_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_environment_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "capacity_limits",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "max_capacity",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "capacity_unit",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-serviceenvironment.html"><code>AWS::Batch::ServiceEnvironment</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>service_environments</code> in a region.
-```sql
-SELECT
-region,
-service_environment_arn,
-service_environment_name,
-state,
-service_environment_type,
-capacity_limits,
-tags
-FROM awscc.batch.service_environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>service_environment</code>.
 ```sql
 SELECT

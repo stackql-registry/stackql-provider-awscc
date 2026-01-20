@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>environment</code> resource or lists <code>environments</code> in a region
 
@@ -32,25 +33,129 @@ Creates, updates, deletes or gets an <code>environment</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="platform_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the custom platform to use with the environment.</td></tr>
-<tr><td><CopyableCode code="application_name" /></td><td><code>string</code></td><td>The name of the application that is associated with this environment.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Your description for this environment.</td></tr>
-<tr><td><CopyableCode code="environment_name" /></td><td><code>string</code></td><td>A unique name for the environment.</td></tr>
-<tr><td><CopyableCode code="operations_role" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role.</td></tr>
-<tr><td><CopyableCode code="tier" /></td><td><code>object</code></td><td>Specifies the tier to use in creating this environment. The environment tier that you choose determines whether Elastic Beanstalk provisions resources to support a web application that handles HTTP(S) requests or a web application that handles background-processing tasks.</td></tr>
-<tr><td><CopyableCode code="version_label" /></td><td><code>string</code></td><td>The name of the application version to deploy.</td></tr>
-<tr><td><CopyableCode code="endpoint_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="option_settings" /></td><td><code>array</code></td><td>Key-value pairs defining configuration options for this environment, such as the instance type.</td></tr>
-<tr><td><CopyableCode code="template_name" /></td><td><code>string</code></td><td>The name of the Elastic Beanstalk configuration template to use with the environment.</td></tr>
-<tr><td><CopyableCode code="solution_stack_name" /></td><td><code>string</code></td><td>The name of an Elastic Beanstalk solution stack (platform version) to use with the environment.</td></tr>
-<tr><td><CopyableCode code="cname_prefix" /></td><td><code>string</code></td><td>If specified, the environment attempts to use this value as the prefix for the CNAME in your Elastic Beanstalk environment URL. If not specified, the CNAME is generated automatically by appending a random alphanumeric string to the environment name.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Specifies the tags applied to resources in the environment.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "platform_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the custom platform to use with the environment."
+  },
+  {
+    "name": "application_name",
+    "type": "string",
+    "description": "The name of the application that is associated with this environment."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Your description for this environment."
+  },
+  {
+    "name": "environment_name",
+    "type": "string",
+    "description": "A unique name for the environment."
+  },
+  {
+    "name": "operations_role",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role."
+  },
+  {
+    "name": "tier",
+    "type": "object",
+    "description": "Specifies the tier to use in creating this environment. The environment tier that you choose determines whether Elastic Beanstalk provisions resources to support a web application that handles HTTP(S) requests or a web application that handles background-processing tasks.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of this environment tier."
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "The version of this environment tier. When you don't set a value to it, Elastic Beanstalk uses the latest compatible worker tier version."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name of this environment tier."
+      }
+    ]
+  },
+  {
+    "name": "version_label",
+    "type": "string",
+    "description": "The name of the application version to deploy."
+  },
+  {
+    "name": "endpoint_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "option_settings",
+    "type": "array",
+    "description": "Key-value pairs defining configuration options for this environment, such as the instance type.",
+    "children": [
+      {
+        "name": "resource_name",
+        "type": "string",
+        "description": "A unique resource name for the option setting. Use it for a time–based scaling configuration option."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The current value for the configuration option."
+      },
+      {
+        "name": "namespace",
+        "type": "string",
+        "description": "A unique namespace that identifies the option's associated AWS resource."
+      },
+      {
+        "name": "option_name",
+        "type": "string",
+        "description": "The name of the configuration option."
+      }
+    ]
+  },
+  {
+    "name": "template_name",
+    "type": "string",
+    "description": "The name of the Elastic Beanstalk configuration template to use with the environment."
+  },
+  {
+    "name": "solution_stack_name",
+    "type": "string",
+    "description": "The name of an Elastic Beanstalk solution stack (platform version) to use with the environment."
+  },
+  {
+    "name": "cname_prefix",
+    "type": "string",
+    "description": "If specified, the environment attempts to use this value as the prefix for the CNAME in your Elastic Beanstalk environment URL. If not specified, the CNAME is generated automatically by appending a random alphanumeric string to the environment name."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Specifies the tags applied to resources in the environment.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-environment.html"><code>AWS::ElasticBeanstalk::Environment</code></a>.
 
@@ -92,26 +197,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>environments</code> in a region.
-```sql
-SELECT
-region,
-platform_arn,
-application_name,
-description,
-environment_name,
-operations_role,
-tier,
-version_label,
-endpoint_url,
-option_settings,
-template_name,
-solution_stack_name,
-cname_prefix,
-tags
-FROM awscc.elasticbeanstalk.environments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>environment</code>.
 ```sql
 SELECT

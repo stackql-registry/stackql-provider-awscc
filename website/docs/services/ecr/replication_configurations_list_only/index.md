@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>replication_configurations</code> in a region or regions, for all properties use <a href="/services/ecr/replication_configurations/"><code>replication_configurations</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>replication_configurations</code> in a region or regions, for all pr
 <tbody>
 <tr><td><b>Name</b></td><td><code>replication_configurations_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ECR::ReplicationConfiguration</code> resource creates or updates the replication configuration for a private registry. The first time a replication configuration is applied to a private registry, a service-linked IAM role is created in your account for the replication process. For more information, see &#91;Using Service-Linked Roles for Amazon ECR&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html) in the ASTERIX;Amazon Elastic Container Registry User GuideASTERIX;.<br />When configuring cross-account replication, the destination account must grant the source account permission to replicate. This permission is controlled using a private registry permissions policy. For more information, see <code>AWS::ECR::RegistryPolicy</code>.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::ReplicationConfiguration&#96;&#96; resource creates or updates the replication configuration for a private registry. The first time a replication configuration is applied to a private registry, a service-linked IAM role is created in your account for the replication process. For more information, see &#91;Using Service-Linked Roles for Amazon ECR&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html) in the &#42;Amazon Elastic Container Registry User Guide&#42;.<br />When configuring cross-account replication, the destination account must grant the source account permission to replicate. This permission is controlled using a private registry permissions policy. For more information, see &#96;&#96;AWS::ECR::RegistryPolicy&#96;&#96;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.replication_configurations_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="registry_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "registry_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

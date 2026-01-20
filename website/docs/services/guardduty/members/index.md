@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>member</code> resource or lists <code>members</code> in a region
 
@@ -32,18 +33,43 @@ Creates, updates, deletes or gets a <code>member</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="member_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="email" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="message" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="disable_email_notification" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "member_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "email",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "message",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "disable_email_notification",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html"><code>AWS::GuardDuty::Member</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>members</code> in a region.
-```sql
-SELECT
-region,
-status,
-member_id,
-email,
-message,
-disable_email_notification,
-detector_id
-FROM awscc.guardduty.members
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>member</code>.
 ```sql
 SELECT

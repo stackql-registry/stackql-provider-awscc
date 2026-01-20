@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance_storage_config</code> resource or lists <code>instance_storage_configs</code> in a region
 
@@ -32,20 +33,125 @@ Creates, updates, deletes or gets an <code>instance_storage_config</code> resour
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>Connect Instance ID with which the storage config will be associated</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>Specifies the type of storage resource available for the instance</td></tr>
-<tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>An associationID is automatically generated when a storage config is associated with an instance</td></tr>
-<tr><td><CopyableCode code="storage_type" /></td><td><code>string</code></td><td>Specifies the storage type to be associated with the instance</td></tr>
-<tr><td><CopyableCode code="s3_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="kinesis_video_stream_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="kinesis_stream_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="kinesis_firehose_config" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "Connect Instance ID with which the storage config will be associated"
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "Specifies the type of storage resource available for the instance"
+  },
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "An associationID is automatically generated when a storage config is associated with an instance"
+  },
+  {
+    "name": "storage_type",
+    "type": "string",
+    "description": "Specifies the storage type to be associated with the instance"
+  },
+  {
+    "name": "s3_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": "A name for the S3 Bucket"
+      },
+      {
+        "name": "bucket_prefix",
+        "type": "string",
+        "description": "Prefixes are used to infer logical hierarchy"
+      },
+      {
+        "name": "encryption_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "encryption_type",
+            "type": "string",
+            "description": "Specifies default encryption using AWS KMS-Managed Keys"
+          },
+          {
+            "name": "key_id",
+            "type": "string",
+            "description": "Specifies the encryption key id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kinesis_video_stream_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "prefix",
+        "type": "string",
+        "description": "Prefixes are used to infer logical hierarchy"
+      },
+      {
+        "name": "retention_period_hours",
+        "type": "number",
+        "description": "Number of hours"
+      },
+      {
+        "name": "encryption_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "encryption_type",
+            "type": "string",
+            "description": "Specifies default encryption using AWS KMS-Managed Keys"
+          },
+          {
+            "name": "key_id",
+            "type": "string",
+            "description": "Specifies the encryption key id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kinesis_stream_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "stream_arn",
+        "type": "string",
+        "description": "An ARN is a unique AWS resource identifier."
+      }
+    ]
+  },
+  {
+    "name": "kinesis_firehose_config",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "firehose_arn",
+        "type": "string",
+        "description": "An ARN is a unique AWS resource identifier."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-instancestorageconfig.html"><code>AWS::Connect::InstanceStorageConfig</code></a>.
 
@@ -87,21 +193,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instance_storage_configs</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-resource_type,
-association_id,
-storage_type,
-s3_config,
-kinesis_video_stream_config,
-kinesis_stream_config,
-kinesis_firehose_config
-FROM awscc.connect.instance_storage_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance_storage_config</code>.
 ```sql
 SELECT

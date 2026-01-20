@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>template</code> resource or lists <code>templates</code> in a region
 
@@ -32,14 +33,30 @@ Creates, updates, deletes or gets a <code>template</code> resource or lists <cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="template" /></td><td><code>object</code></td><td>Resource Type definition for AWS::SES::Template</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "template",
+    "type": "object",
+    "description": "Resource Type definition for AWS::SES::Template",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-template.html"><code>AWS::SES::Template</code></a>.
 
@@ -81,15 +98,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>templates</code> in a region.
-```sql
-SELECT
-region,
-id,
-template
-FROM awscc.ses.templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>template</code>.
 ```sql
 SELECT

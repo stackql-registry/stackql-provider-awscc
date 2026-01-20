@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>resource_policy</code> resource or lists <code>resource_policies</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>resource_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to.</td></tr>
-<tr><td><CopyableCode code="revision_id" /></td><td><code>string</code></td><td>The current revision of the resource policy. Use the revision ID to make sure that you are updating the most current version of a resource policy when you add a policy statement to a resource, delete a resource, or update a resource.</td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>A resource policy to add to the resource. The policy is a JSON structure following the IAM syntax that contains one or more statements that define the policy.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The Physical ID of the resource policy.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the bot or bot alias that the resource policy is attached to."
+  },
+  {
+    "name": "revision_id",
+    "type": "string",
+    "description": "The current revision of the resource policy. Use the revision ID to make sure that you are updating the most current version of a resource policy when you add a policy statement to a resource, delete a resource, or update a resource."
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": "A resource policy to add to the resource. The policy is a JSON structure following the IAM syntax that contains one or more statements that define the policy."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The Physical ID of the resource policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lex-resourcepolicy.html"><code>AWS::Lex::ResourcePolicy</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>resource_policies</code> in a region.
-```sql
-SELECT
-region,
-resource_arn,
-revision_id,
-policy,
-id
-FROM awscc.lex.resource_policies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>resource_policy</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>event_subscriptions</code> in a region or regions, for all properties use <a href="/services/rds/event_subscriptions/"><code>event_subscriptions</code></a>
 
@@ -26,19 +27,24 @@ Lists <code>event_subscriptions</code> in a region or regions, for all propertie
 <tbody>
 <tr><td><b>Name</b></td><td><code>event_subscriptions_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::RDS::EventSubscription</code> resource allows you to receive notifications for Amazon Relational Database Service events through the Amazon Simple Notification Service (Amazon SNS). For more information, see &#91;Using Amazon RDS Event Notification&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html) in the ASTERIX;Amazon RDS User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::RDS::EventSubscription&#96;&#96; resource allows you to receive notifications for Amazon Relational Database Service events through the Amazon Simple Notification Service (Amazon SNS). For more information, see &#91;Using Amazon RDS Event Notification&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER&#95;Events.html) in the &#42;Amazon RDS User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.rds.event_subscriptions_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="subscription_name" /></td><td><code>string</code></td><td>The name of the subscription.<br />Constraints: The name must be less than 255 characters.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "subscription_name",
+    "type": "string",
+    "description": "The name of the subscription.<br />Constraints: The name must be less than 255 characters."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

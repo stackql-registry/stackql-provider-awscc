@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>repository</code> resource or lists <code>repositories</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>repository</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="repository_name" /></td><td><code>string</code></td><td>The name of the repository.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the repository. This is used for GetAtt</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The name of the domain that contains the repository.</td></tr>
-<tr><td><CopyableCode code="domain_owner" /></td><td><code>string</code></td><td>The 12-digit account ID of the AWS account that owns the domain.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A text description of the repository.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the repository.</td></tr>
-<tr><td><CopyableCode code="external_connections" /></td><td><code>array</code></td><td>A list of external connections associated with the repository.</td></tr>
-<tr><td><CopyableCode code="upstreams" /></td><td><code>array</code></td><td>A list of upstream repositories associated with the repository.</td></tr>
-<tr><td><CopyableCode code="permissions_policy_document" /></td><td><code>object</code></td><td>The access control resource policy on the provided repository.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "repository_name",
+    "type": "string",
+    "description": "The name of the repository."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the repository. This is used for GetAtt"
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The name of the domain that contains the repository."
+  },
+  {
+    "name": "domain_owner",
+    "type": "string",
+    "description": "The 12-digit account ID of the AWS account that owns the domain."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A text description of the repository."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the repository."
+  },
+  {
+    "name": "external_connections",
+    "type": "array",
+    "description": "A list of external connections associated with the repository."
+  },
+  {
+    "name": "upstreams",
+    "type": "array",
+    "description": "A list of upstream repositories associated with the repository."
+  },
+  {
+    "name": "permissions_policy_document",
+    "type": "object",
+    "description": "The access control resource policy on the provided repository."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codeartifact-repository.html"><code>AWS::CodeArtifact::Repository</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>repositories</code> in a region.
-```sql
-SELECT
-region,
-repository_name,
-name,
-domain_name,
-domain_owner,
-description,
-arn,
-external_connections,
-upstreams,
-permissions_policy_document,
-tags
-FROM awscc.codeartifact.repositories
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>repository</code>.
 ```sql
 SELECT

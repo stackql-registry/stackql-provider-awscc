@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or lists <code>automation_rule_v2s</code> in a region
 
@@ -32,23 +33,155 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="rule_name" /></td><td><code>string</code></td><td>The name of the automation rule</td></tr>
-<tr><td><CopyableCode code="rule_status" /></td><td><code>string</code></td><td>The status of the automation rule</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the automation rule</td></tr>
-<tr><td><CopyableCode code="rule_order" /></td><td><code>number</code></td><td>The value for the rule priority</td></tr>
-<tr><td><CopyableCode code="criteria" /></td><td><code>object</code></td><td>Defines the parameters and conditions used to evaluate and filter security findings</td></tr>
-<tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>A list of actions to be performed when the rule criteria is met</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.</td></tr>
-<tr><td><CopyableCode code="rule_arn" /></td><td><code>string</code></td><td>The ARN of the automation rule</td></tr>
-<tr><td><CopyableCode code="rule_id" /></td><td><code>string</code></td><td>The ID of the automation rule</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The date and time, in UTC and ISO 8601 format.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "rule_name",
+    "type": "string",
+    "description": "The name of the automation rule"
+  },
+  {
+    "name": "rule_status",
+    "type": "string",
+    "description": "The status of the automation rule"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the automation rule"
+  },
+  {
+    "name": "rule_order",
+    "type": "number",
+    "description": "The value for the rule priority"
+  },
+  {
+    "name": "criteria",
+    "type": "object",
+    "description": "Defines the parameters and conditions used to evaluate and filter security findings",
+    "children": [
+      {
+        "name": "ocsf_finding_criteria",
+        "type": "object",
+        "description": "The filtering conditions that align with OCSF standards",
+        "children": [
+          {
+            "name": "composite_filters",
+            "type": "array",
+            "description": "Enables the creation of complex filtering conditions by combining filter",
+            "children": [
+              {
+                "name": "string_filters",
+                "type": "array",
+                "description": "Enables filtering based on string field values"
+              },
+              {
+                "name": "date_filters",
+                "type": "array",
+                "description": "Enables filtering based on date and timestamp fields"
+              },
+              {
+                "name": "boolean_filters",
+                "type": "array",
+                "description": "Enables filtering based on boolean field values"
+              },
+              {
+                "name": "number_filters",
+                "type": "array",
+                "description": "Enables filtering based on numerical field values"
+              },
+              {
+                "name": "map_filters",
+                "type": "array",
+                "description": "Enables filtering based on map field value"
+              },
+              {
+                "name": "operator",
+                "type": "string",
+                "description": "The logical operator used to combine multiple conditions"
+              }
+            ]
+          },
+          {
+            "name": "composite_operator",
+            "type": "string",
+            "description": "The logical operator used to combine multiple conditions"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "actions",
+    "type": "array",
+    "description": "A list of actions to be performed when the rule criteria is met",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The category of action to be executed by the automation rule"
+      },
+      {
+        "name": "finding_fields_update",
+        "type": "object",
+        "description": "The changes to be applied to fields in a security finding when an automation rule is triggered",
+        "children": [
+          {
+            "name": "severity_id",
+            "type": "integer",
+            "description": "The severity level to be assigned to findings that match the automation rule criteria"
+          },
+          {
+            "name": "comment",
+            "type": "string",
+            "description": "Notes or contextual information for findings that are modified by the automation rule"
+          },
+          {
+            "name": "status_id",
+            "type": "integer",
+            "description": "The status to be applied to findings that match automation rule criteria"
+          }
+        ]
+      },
+      {
+        "name": "external_integration_configuration",
+        "type": "object",
+        "description": "The settings for integrating automation rule actions with external systems or service",
+        "children": [
+          {
+            "name": "connector_arn",
+            "type": "string",
+            "description": "The ARN of the connector that establishes the integration"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "A key-value pair to associate with the Security Hub V2 resource. You can specify a key that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+  },
+  {
+    "name": "rule_arn",
+    "type": "string",
+    "description": "The ARN of the automation rule"
+  },
+  {
+    "name": "rule_id",
+    "type": "string",
+    "description": "The ID of the automation rule"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time, in UTC and ISO 8601 format."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-automationrulev2.html"><code>AWS::SecurityHub::AutomationRuleV2</code></a>.
 
@@ -90,24 +223,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>automation_rule_v2s</code> in a region.
-```sql
-SELECT
-region,
-rule_name,
-rule_status,
-description,
-rule_order,
-criteria,
-actions,
-tags,
-rule_arn,
-rule_id,
-created_at,
-updated_at
-FROM awscc.securityhub.automation_rule_v2s
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>automation_rule_v2</code>.
 ```sql
 SELECT

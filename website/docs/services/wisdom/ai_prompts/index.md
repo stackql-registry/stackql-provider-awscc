@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ai_prompt</code> resource or lists <code>ai_prompts</code> in a region
 
@@ -32,25 +33,78 @@ Creates, updates, deletes or gets an <code>ai_prompt</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="a_iprompt_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="a_iprompt_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="api_format" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="assistant_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="model_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="template_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="modified_time_seconds" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "a_iprompt_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "a_iprompt_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_format",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "assistant_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "model_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "template_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "template_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "modified_time_seconds",
+    "type": "number",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-aiprompt.html"><code>AWS::Wisdom::AIPrompt</code></a>.
 
@@ -92,26 +146,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ai_prompts</code> in a region.
-```sql
-SELECT
-region,
-a_iprompt_id,
-a_iprompt_arn,
-api_format,
-assistant_id,
-assistant_arn,
-description,
-model_id,
-name,
-tags,
-template_configuration,
-template_type,
-type,
-modified_time_seconds
-FROM awscc.wisdom.ai_prompts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ai_prompt</code>.
 ```sql
 SELECT

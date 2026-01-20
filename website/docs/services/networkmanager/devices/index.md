@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>device</code> resource or lists <code>devices</code> in a region
 
@@ -32,26 +33,124 @@ Creates, updates, deletes or gets a <code>device</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="device_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the device.</td></tr>
-<tr><td><CopyableCode code="device_id" /></td><td><code>string</code></td><td>The ID of the device.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the device.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the device.</td></tr>
-<tr><td><CopyableCode code="global_network_id" /></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
-<tr><td><CopyableCode code="aws_location" /></td><td><code>object</code></td><td>The Amazon Web Services location of the device, if applicable.</td></tr>
-<tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>The site location.</td></tr>
-<tr><td><CopyableCode code="model" /></td><td><code>string</code></td><td>The device model</td></tr>
-<tr><td><CopyableCode code="serial_number" /></td><td><code>string</code></td><td>The device serial number.</td></tr>
-<tr><td><CopyableCode code="site_id" /></td><td><code>string</code></td><td>The site ID.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The device type.</td></tr>
-<tr><td><CopyableCode code="vendor" /></td><td><code>string</code></td><td>The device vendor.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the device.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "device_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the device."
+  },
+  {
+    "name": "device_id",
+    "type": "string",
+    "description": "The ID of the device."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the device."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the device.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "global_network_id",
+    "type": "string",
+    "description": "The ID of the global network."
+  },
+  {
+    "name": "aws_location",
+    "type": "object",
+    "description": "The Amazon Web Services location of the device, if applicable.",
+    "children": [
+      {
+        "name": "zone",
+        "type": "string",
+        "description": "The Zone that the device is located in. Specify the ID of an Availability Zone, Local Zone, Wavelength Zone, or an Outpost."
+      },
+      {
+        "name": "subnet_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the subnet that the device is located in."
+      }
+    ]
+  },
+  {
+    "name": "location",
+    "type": "object",
+    "description": "The site location.",
+    "children": [
+      {
+        "name": "address",
+        "type": "string",
+        "description": "The physical address."
+      },
+      {
+        "name": "latitude",
+        "type": "string",
+        "description": "The latitude."
+      },
+      {
+        "name": "longitude",
+        "type": "string",
+        "description": "The longitude."
+      }
+    ]
+  },
+  {
+    "name": "model",
+    "type": "string",
+    "description": "The device model"
+  },
+  {
+    "name": "serial_number",
+    "type": "string",
+    "description": "The device serial number."
+  },
+  {
+    "name": "site_id",
+    "type": "string",
+    "description": "The site ID."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The device type."
+  },
+  {
+    "name": "vendor",
+    "type": "string",
+    "description": "The device vendor."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time that the device was created."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the device."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-device.html"><code>AWS::NetworkManager::Device</code></a>.
 
@@ -93,27 +192,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>devices</code> in a region.
-```sql
-SELECT
-region,
-device_arn,
-device_id,
-description,
-tags,
-global_network_id,
-aws_location,
-location,
-model,
-serial_number,
-site_id,
-type,
-vendor,
-created_at,
-state
-FROM awscc.networkmanager.devices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>device</code>.
 ```sql
 SELECT

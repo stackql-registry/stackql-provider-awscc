@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>security_profile</code> resource or lists <code>security_profiles</code> in a region
 
@@ -32,21 +33,238 @@ Creates, updates, deletes or gets a <code>security_profile</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="security_profile_name" /></td><td><code>string</code></td><td>A unique identifier for the security profile.</td></tr>
-<tr><td><CopyableCode code="security_profile_description" /></td><td><code>string</code></td><td>A description of the security profile.</td></tr>
-<tr><td><CopyableCode code="behaviors" /></td><td><code>array</code></td><td>Specifies the behaviors that, when violated by a device (thing), cause an alert.</td></tr>
-<tr><td><CopyableCode code="alert_targets" /></td><td><code>object</code></td><td>Specifies the destinations to which alerts are sent.</td></tr>
-<tr><td><CopyableCode code="additional_metrics_to_retain_v2" /></td><td><code>array</code></td><td>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.</td></tr>
-<tr><td><CopyableCode code="metrics_export_config" /></td><td><code>object</code></td><td>A structure containing the mqtt topic for metrics export.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that can be used to manage the security profile.</td></tr>
-<tr><td><CopyableCode code="target_arns" /></td><td><code>array</code></td><td>A set of target ARNs that the security profile is attached to.</td></tr>
-<tr><td><CopyableCode code="security_profile_arn" /></td><td><code>string</code></td><td>The ARN (Amazon resource name) of the created security profile.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "security_profile_name",
+    "type": "string",
+    "description": "A unique identifier for the security profile."
+  },
+  {
+    "name": "security_profile_description",
+    "type": "string",
+    "description": "A description of the security profile."
+  },
+  {
+    "name": "behaviors",
+    "type": "array",
+    "description": "Specifies the behaviors that, when violated by a device (thing), cause an alert.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The name for the behavior."
+      },
+      {
+        "name": "metric",
+        "type": "string",
+        "description": "What is measured by the behavior."
+      },
+      {
+        "name": "metric_dimension",
+        "type": "object",
+        "description": "The dimension of a metric.",
+        "children": [
+          {
+            "name": "dimension_name",
+            "type": "string",
+            "description": "A unique identifier for the dimension."
+          },
+          {
+            "name": "operator",
+            "type": "string",
+            "description": "Defines how the dimensionValues of a dimension are interpreted."
+          }
+        ]
+      },
+      {
+        "name": "criteria",
+        "type": "object",
+        "description": "The criteria by which the behavior is determined to be normal.",
+        "children": [
+          {
+            "name": "comparison_operator",
+            "type": "string",
+            "description": "The operator that relates the thing measured (metric) to the criteria (containing a value or statisticalThreshold)."
+          },
+          {
+            "name": "value",
+            "type": "object",
+            "description": "The value to be compared with the metric.",
+            "children": [
+              {
+                "name": "count",
+                "type": "string",
+                "description": "If the ComparisonOperator calls for a numeric value, use this to specify that (integer) numeric value to be compared with the metric."
+              },
+              {
+                "name": "cidrs",
+                "type": "array",
+                "description": "If the ComparisonOperator calls for a set of CIDRs, use this to specify that set to be compared with the metric."
+              },
+              {
+                "name": "ports",
+                "type": "array",
+                "description": "If the ComparisonOperator calls for a set of ports, use this to specify that set to be compared with the metric."
+              },
+              {
+                "name": "number",
+                "type": "number",
+                "description": "The numeral value of a metric."
+              },
+              {
+                "name": "numbers",
+                "type": "array",
+                "description": "The numeral values of a metric."
+              },
+              {
+                "name": "strings",
+                "type": "array",
+                "description": "The string values of a metric."
+              }
+            ]
+          },
+          {
+            "name": "duration_seconds",
+            "type": "integer",
+            "description": "Use this to specify the time duration over which the behavior is evaluated."
+          },
+          {
+            "name": "consecutive_datapoints_to_alarm",
+            "type": "integer",
+            "description": "If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs. If not specified, the default is 1."
+          },
+          {
+            "name": "consecutive_datapoints_to_clear",
+            "type": "integer",
+            "description": "If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared. If not specified, the default is 1."
+          },
+          {
+            "name": "statistical_threshold",
+            "type": "object",
+            "description": "A statistical ranking (percentile) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.",
+            "children": [
+              {
+                "name": "statistic",
+                "type": "string",
+                "description": "The percentile which resolves to a threshold value by which compliance with a behavior is determined"
+              }
+            ]
+          },
+          {
+            "name": "ml_detection_config",
+            "type": "object",
+            "description": "The configuration of an ML Detect Security Profile.",
+            "children": [
+              {
+                "name": "confidence_level",
+                "type": "string",
+                "description": "The sensitivity of anomalous behavior evaluation. Can be Low, Medium, or High."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "suppress_alerts",
+        "type": "boolean",
+        "description": "Manage Detect alarm SNS notifications by setting behavior notification to on or suppressed. Detect will continue to performing device behavior evaluations. However, suppressed alarms wouldn't be forwarded for SNS notification."
+      },
+      {
+        "name": "export_metric",
+        "type": "boolean",
+        "description": "Flag to enable/disable metrics export for metric to be retained."
+      }
+    ]
+  },
+  {
+    "name": "alert_targets",
+    "type": "object",
+    "description": "Specifies the destinations to which alerts are sent."
+  },
+  {
+    "name": "additional_metrics_to_retain_v2",
+    "type": "array",
+    "description": "A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.",
+    "children": [
+      {
+        "name": "metric",
+        "type": "string",
+        "description": "What is measured by the behavior."
+      },
+      {
+        "name": "metric_dimension",
+        "type": "object",
+        "description": "The dimension of a metric.",
+        "children": [
+          {
+            "name": "dimension_name",
+            "type": "string",
+            "description": "A unique identifier for the dimension."
+          },
+          {
+            "name": "operator",
+            "type": "string",
+            "description": "Defines how the dimensionValues of a dimension are interpreted."
+          }
+        ]
+      },
+      {
+        "name": "export_metric",
+        "type": "boolean",
+        "description": "Flag to enable/disable metrics export for metric to be retained."
+      }
+    ]
+  },
+  {
+    "name": "metrics_export_config",
+    "type": "object",
+    "description": "A structure containing the mqtt topic for metrics export.",
+    "children": [
+      {
+        "name": "mqtt_topic",
+        "type": "string",
+        "description": "The topic for metrics export."
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": "The ARN of the role that grants permission to publish to mqtt topic."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Metadata that can be used to manage the security profile.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "target_arns",
+    "type": "array",
+    "description": "A set of target ARNs that the security profile is attached to."
+  },
+  {
+    "name": "security_profile_arn",
+    "type": "string",
+    "description": "The ARN (Amazon resource name) of the created security profile."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-securityprofile.html"><code>AWS::IoT::SecurityProfile</code></a>.
 
@@ -88,22 +306,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>security_profiles</code> in a region.
-```sql
-SELECT
-region,
-security_profile_name,
-security_profile_description,
-behaviors,
-alert_targets,
-additional_metrics_to_retain_v2,
-metrics_export_config,
-tags,
-target_arns,
-security_profile_arn
-FROM awscc.iot.security_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>security_profile</code>.
 ```sql
 SELECT

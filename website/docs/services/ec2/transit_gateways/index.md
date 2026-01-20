@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway</code> resource or lists <code>transit_gateways</code> in a region
 
@@ -32,27 +33,100 @@ Creates, updates, deletes or gets a <code>transit_gateway</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="default_route_table_propagation" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="transit_gateway_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auto_accept_shared_attachments" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="default_route_table_association" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="vpn_ecmp_support" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="dns_support" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="security_group_referencing_support" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="multicast_support" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="amazon_side_asn" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="transit_gateway_cidr_blocks" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="association_default_route_table_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="propagation_default_route_table_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "default_route_table_propagation",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "transit_gateway_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auto_accept_shared_attachments",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "default_route_table_association",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "vpn_ecmp_support",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "dns_support",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "security_group_referencing_support",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "multicast_support",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "amazon_side_asn",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "transit_gateway_cidr_blocks",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "association_default_route_table_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "propagation_default_route_table_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html"><code>AWS::EC2::TransitGateway</code></a>.
 
@@ -94,28 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateways</code> in a region.
-```sql
-SELECT
-region,
-default_route_table_propagation,
-transit_gateway_arn,
-description,
-auto_accept_shared_attachments,
-default_route_table_association,
-id,
-vpn_ecmp_support,
-dns_support,
-security_group_referencing_support,
-multicast_support,
-amazon_side_asn,
-transit_gateway_cidr_blocks,
-tags,
-association_default_route_table_id,
-propagation_default_route_table_id
-FROM awscc.ec2.transit_gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway</code>.
 ```sql
 SELECT

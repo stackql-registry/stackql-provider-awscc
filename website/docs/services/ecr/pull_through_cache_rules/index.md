@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>pull_through_cache_rule</code> resource or lists <code>pull_through_cache_rules</code> in a region
 
@@ -26,24 +27,49 @@ Creates, updates, deletes or gets a <code>pull_through_cache_rule</code> resourc
 <tbody>
 <tr><td><b>Name</b></td><td><code>pull_through_cache_rules</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::ECR::PullThroughCacheRule</code> resource creates or updates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry in your Amazon ECR private registry.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::ECR::PullThroughCacheRule&#96;&#96; resource creates or updates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream registry in your Amazon ECR private registry.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ecr.pull_through_cache_rules" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ecr_repository_prefix" /></td><td><code>string</code></td><td>The Amazon ECR repository prefix associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="upstream_registry_url" /></td><td><code>string</code></td><td>The upstream registry URL associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="credential_arn" /></td><td><code>string</code></td><td>The ARN of the Secrets Manager secret associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="upstream_registry" /></td><td><code>string</code></td><td>The name of the upstream source registry associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="custom_role_arn" /></td><td><code>string</code></td><td>The ARN of the IAM role associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="upstream_repository_prefix" /></td><td><code>string</code></td><td>The upstream repository prefix associated with the pull through cache rule.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ecr_repository_prefix",
+    "type": "string",
+    "description": "The Amazon ECR repository prefix associated with the pull through cache rule."
+  },
+  {
+    "name": "upstream_registry_url",
+    "type": "string",
+    "description": "The upstream registry URL associated with the pull through cache rule."
+  },
+  {
+    "name": "credential_arn",
+    "type": "string",
+    "description": "The ARN of the Secrets Manager secret associated with the pull through cache rule."
+  },
+  {
+    "name": "upstream_registry",
+    "type": "string",
+    "description": "The name of the upstream source registry associated with the pull through cache rule."
+  },
+  {
+    "name": "custom_role_arn",
+    "type": "string",
+    "description": "The ARN of the IAM role associated with the pull through cache rule."
+  },
+  {
+    "name": "upstream_repository_prefix",
+    "type": "string",
+    "description": "The upstream repository prefix associated with the pull through cache rule."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-pullthroughcacherule.html"><code>AWS::ECR::PullThroughCacheRule</code></a>.
 
@@ -85,19 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>pull_through_cache_rules</code> in a region.
-```sql
-SELECT
-region,
-ecr_repository_prefix,
-upstream_registry_url,
-credential_arn,
-upstream_registry,
-custom_role_arn,
-upstream_repository_prefix
-FROM awscc.ecr.pull_through_cache_rules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>pull_through_cache_rule</code>.
 ```sql
 SELECT

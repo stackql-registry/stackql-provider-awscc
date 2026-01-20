@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>vpc_endpoint_service</code> resource or lists <code>vpc_endpoint_services</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>vpc_endpoint_service</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="network_load_balancer_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="contributor_insights_enabled" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="payer_responsibility" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="service_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="acceptance_required" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="gateway_load_balancer_arns" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to add to the VPC endpoint service.</td></tr>
-<tr><td><CopyableCode code="supported_ip_address_types" /></td><td><code>array</code></td><td>Specify which Ip Address types are supported for VPC endpoint service.</td></tr>
-<tr><td><CopyableCode code="supported_regions" /></td><td><code>array</code></td><td>The Regions from which service consumers can access the service.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "network_load_balancer_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "contributor_insights_enabled",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "payer_responsibility",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "service_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "acceptance_required",
+    "type": "boolean",
+    "description": ""
+  },
+  {
+    "name": "gateway_load_balancer_arns",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to add to the VPC endpoint service.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "supported_ip_address_types",
+    "type": "array",
+    "description": "Specify which Ip Address types are supported for VPC endpoint service."
+  },
+  {
+    "name": "supported_regions",
+    "type": "array",
+    "description": "The Regions from which service consumers can access the service."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpointservice.html"><code>AWS::EC2::VPCEndpointService</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>vpc_endpoint_services</code> in a region.
-```sql
-SELECT
-region,
-network_load_balancer_arns,
-contributor_insights_enabled,
-payer_responsibility,
-service_id,
-acceptance_required,
-gateway_load_balancer_arns,
-tags,
-supported_ip_address_types,
-supported_regions
-FROM awscc.ec2.vpc_endpoint_services
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>vpc_endpoint_service</code>.
 ```sql
 SELECT

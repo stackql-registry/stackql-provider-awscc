@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>wireless_device</code> resource or lists <code>wireless_devices</code> in a region
 
@@ -32,24 +33,238 @@ Creates, updates, deletes or gets a <code>wireless_device</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Wireless device type, currently only Sidewalk and LoRa</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Wireless device name</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Wireless device description</td></tr>
-<tr><td><CopyableCode code="destination_name" /></td><td><code>string</code></td><td>Wireless device destination name</td></tr>
-<tr><td><CopyableCode code="lo_ra_wan" /></td><td><code>object</code></td><td>The combination of Package, Station and Model which represents the version of the LoRaWAN Wireless Device.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the device. Currently not supported, will not create if tags are passed.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Wireless device arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Wireless device Id. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="thing_arn" /></td><td><code>string</code></td><td>Thing arn. Passed into update to associate Thing with Wireless device.</td></tr>
-<tr><td><CopyableCode code="thing_name" /></td><td><code>string</code></td><td>Thing Arn. If there is a Thing created, this can be returned with a Get call.</td></tr>
-<tr><td><CopyableCode code="last_uplink_received_at" /></td><td><code>string</code></td><td>The date and time when the most recent uplink was received.</td></tr>
-<tr><td><CopyableCode code="positioning" /></td><td><code>string</code></td><td>FPort values for the GNSS, stream, and ClockSync functions of the positioning information.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type",
+    "type": "string",
+    "description": "Wireless device type, currently only Sidewalk and LoRa"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Wireless device name"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Wireless device description"
+  },
+  {
+    "name": "destination_name",
+    "type": "string",
+    "description": "Wireless device destination name"
+  },
+  {
+    "name": "lo_ra_wan",
+    "type": "object",
+    "description": "The combination of Package, Station and Model which represents the version of the LoRaWAN Wireless Device.",
+    "children": [
+      {
+        "name": "dev_eui",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "device_profile_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "service_profile_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "otaa_v11",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "app_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "nwk_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "join_eui",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "otaa_v10x",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "app_key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "app_eui",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "abp_v11",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "dev_addr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "session_keys",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "f_nwk_sint_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "s_nwk_sint_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "nwk_senc_key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "app_skey",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "abp_v10x",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "dev_addr",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "session_keys",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "nwk_skey",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "app_skey",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "f_ports",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "applications",
+            "type": "array",
+            "description": "A list of optional LoRaWAN application information, which can be used for geolocation.",
+            "children": [
+              {
+                "name": "destination_name",
+                "type": "string",
+                "description": "The name of the position data destination that describes the AWS IoT rule that processes the device's position data for use by AWS IoT Core for LoRaWAN."
+              },
+              {
+                "name": "f_port",
+                "type": "integer",
+                "description": "The Fport value."
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": "Application type, which can be specified to obtain real-time position information of your LoRaWAN device."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the device. Currently not supported, will not create if tags are passed.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Wireless device arn. Returned after successful create."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Wireless device Id. Returned after successful create."
+  },
+  {
+    "name": "thing_arn",
+    "type": "string",
+    "description": "Thing arn. Passed into update to associate Thing with Wireless device."
+  },
+  {
+    "name": "thing_name",
+    "type": "string",
+    "description": "Thing Arn. If there is a Thing created, this can be returned with a Get call."
+  },
+  {
+    "name": "last_uplink_received_at",
+    "type": "string",
+    "description": "The date and time when the most recent uplink was received."
+  },
+  {
+    "name": "positioning",
+    "type": "string",
+    "description": "FPort values for the GNSS, stream, and ClockSync functions of the positioning information."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotwireless-wirelessdevice.html"><code>AWS::IoTWireless::WirelessDevice</code></a>.
 
@@ -91,25 +306,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>wireless_devices</code> in a region.
-```sql
-SELECT
-region,
-type,
-name,
-description,
-destination_name,
-lo_ra_wan,
-tags,
-arn,
-id,
-thing_arn,
-thing_name,
-last_uplink_received_at,
-positioning
-FROM awscc.iotwireless.wireless_devices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>wireless_device</code>.
 ```sql
 SELECT

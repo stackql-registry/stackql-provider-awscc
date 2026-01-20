@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stream_processor</code> resource or lists <code>stream_processors</code> in a region
 
@@ -32,28 +33,191 @@ Creates, updates, deletes or gets a <code>stream_processor</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the stream processor</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the stream processor. It's an identifier you assign to the stream processor. You can use it to manage the stream processor.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The KMS key that is used by Rekognition to encrypt any intermediate customer metadata and store in the customer's S3 bucket.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>ARN of the IAM role that allows access to the stream processor, and provides Rekognition read permissions for KVS stream and write permissions to S3 bucket and SNS topic.</td></tr>
-<tr><td><CopyableCode code="kinesis_video_stream" /></td><td><code>object</code></td><td>The Kinesis Video Stream that streams the source video.</td></tr>
-<tr><td><CopyableCode code="face_search_settings" /></td><td><code>object</code></td><td>Face search settings to use on a streaming video. Note that either FaceSearchSettings or ConnectedHomeSettings should be set. Not both</td></tr>
-<tr><td><CopyableCode code="connected_home_settings" /></td><td><code>object</code></td><td>Connected home settings to use on a streaming video. Note that either ConnectedHomeSettings or FaceSearchSettings should be set. Not both</td></tr>
-<tr><td><CopyableCode code="kinesis_data_stream" /></td><td><code>object</code></td><td>The Amazon Kinesis Data Stream stream to which the Amazon Rekognition stream processor streams the analysis results, as part of face search feature.</td></tr>
-<tr><td><CopyableCode code="s3_destination" /></td><td><code>object</code></td><td>The S3 location in customer's account where inference output & artifacts are stored, as part of connected home feature.</td></tr>
-<tr><td><CopyableCode code="notification_channel" /></td><td><code>object</code></td><td>The ARN of the SNS notification channel where events of interests are published, as part of connected home feature.</td></tr>
-<tr><td><CopyableCode code="data_sharing_preference" /></td><td><code>object</code></td><td>Indicates whether Rekognition is allowed to store the video stream data for model-training.</td></tr>
-<tr><td><CopyableCode code="polygon_regions_of_interest" /></td><td><code>array</code></td><td>The PolygonRegionsOfInterest specifies a set of polygon areas of interest in the video frames to analyze, as part of connected home feature. Each polygon is in turn, an ordered list of Point</td></tr>
-<tr><td><CopyableCode code="bounding_box_regions_of_interest" /></td><td><code>array</code></td><td>The BoundingBoxRegionsOfInterest specifies an array of bounding boxes of interest in the video frames to analyze, as part of connected home feature. If an object is partially in a region of interest, Rekognition will tag it as detected if the overlap of the object with the region-of-interest is greater than 20%.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Current status of the stream processor.</td></tr>
-<tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>Detailed status message about the stream processor.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the stream processor"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the stream processor. It's an identifier you assign to the stream processor. You can use it to manage the stream processor."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The KMS key that is used by Rekognition to encrypt any intermediate customer metadata and store in the customer's S3 bucket."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "ARN of the IAM role that allows access to the stream processor, and provides Rekognition read permissions for KVS stream and write permissions to S3 bucket and SNS topic."
+  },
+  {
+    "name": "kinesis_video_stream",
+    "type": "object",
+    "description": "The Kinesis Video Stream that streams the source video.",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "ARN of the Kinesis Video Stream that streams the source video."
+      }
+    ]
+  },
+  {
+    "name": "face_search_settings",
+    "type": "object",
+    "description": "Face search settings to use on a streaming video. Note that either FaceSearchSettings or ConnectedHomeSettings should be set. Not both",
+    "children": [
+      {
+        "name": "collection_id",
+        "type": "string",
+        "description": "The ID of a collection that contains faces that you want to search for."
+      },
+      {
+        "name": "face_match_threshold",
+        "type": "number",
+        "description": "Minimum face match confidence score percentage that must be met to return a result for a recognized face. The default is 80. 0 is the lowest confidence. 100 is the highest confidence. Values between 0 and 100 are accepted."
+      }
+    ]
+  },
+  {
+    "name": "connected_home_settings",
+    "type": "object",
+    "description": "Connected home settings to use on a streaming video. Note that either ConnectedHomeSettings or FaceSearchSettings should be set. Not both",
+    "children": [
+      {
+        "name": "labels",
+        "type": "array",
+        "description": "List of labels that need to be detected in the video stream. Current supported values are PERSON, PET, PACKAGE, ALL."
+      },
+      {
+        "name": "min_confidence",
+        "type": "number",
+        "description": "Minimum object class match confidence score that must be met to return a result for a recognized object."
+      }
+    ]
+  },
+  {
+    "name": "kinesis_data_stream",
+    "type": "object",
+    "description": "The Amazon Kinesis Data Stream stream to which the Amazon Rekognition stream processor streams the analysis results, as part of face search feature.",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "ARN of the Kinesis Data Stream stream."
+      }
+    ]
+  },
+  {
+    "name": "s3_destination",
+    "type": "object",
+    "description": "The S3 location in customer's account where inference output & artifacts are stored, as part of connected home feature.",
+    "children": [
+      {
+        "name": "bucket_name",
+        "type": "string",
+        "description": "Name of the S3 bucket."
+      },
+      {
+        "name": "object_key_prefix",
+        "type": "string",
+        "description": "The object key prefix path where the results will be stored. Default is no prefix path"
+      }
+    ]
+  },
+  {
+    "name": "notification_channel",
+    "type": "object",
+    "description": "The ARN of the SNS notification channel where events of interests are published, as part of connected home feature.",
+    "children": [
+      {
+        "name": "arn",
+        "type": "string",
+        "description": "ARN of the SNS topic."
+      }
+    ]
+  },
+  {
+    "name": "data_sharing_preference",
+    "type": "object",
+    "description": "Indicates whether Rekognition is allowed to store the video stream data for model-training.",
+    "children": [
+      {
+        "name": "opt_in",
+        "type": "boolean",
+        "description": "Flag to enable data-sharing"
+      }
+    ]
+  },
+  {
+    "name": "polygon_regions_of_interest",
+    "type": "array",
+    "description": "The PolygonRegionsOfInterest specifies a set of polygon areas of interest in the video frames to analyze, as part of connected home feature. Each polygon is in turn, an ordered list of Point"
+  },
+  {
+    "name": "bounding_box_regions_of_interest",
+    "type": "array",
+    "description": "The BoundingBoxRegionsOfInterest specifies an array of bounding boxes of interest in the video frames to analyze, as part of connected home feature. If an object is partially in a region of interest, Rekognition will tag it as detected if the overlap of the object with the region-of-interest is greater than 20%.",
+    "children": [
+      {
+        "name": "height",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "left",
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "top",
+        "type": "number",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Current status of the stream processor."
+  },
+  {
+    "name": "status_message",
+    "type": "string",
+    "description": "Detailed status message about the stream processor."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rekognition-streamprocessor.html"><code>AWS::Rekognition::StreamProcessor</code></a>.
 
@@ -95,29 +259,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>stream_processors</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-kms_key_id,
-role_arn,
-kinesis_video_stream,
-face_search_settings,
-connected_home_settings,
-kinesis_data_stream,
-s3_destination,
-notification_channel,
-data_sharing_preference,
-polygon_regions_of_interest,
-bounding_box_regions_of_interest,
-status,
-status_message,
-tags
-FROM awscc.rekognition.stream_processors
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stream_processor</code>.
 ```sql
 SELECT

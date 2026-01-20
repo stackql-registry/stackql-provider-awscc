@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>application</code> resource or lists <code>applications</code> in a region
 
@@ -32,31 +33,361 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="architecture" /></td><td><code>string</code></td><td>The cpu architecture of an application.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>User friendly Application name.</td></tr>
-<tr><td><CopyableCode code="release_label" /></td><td><code>string</code></td><td>EMR release label.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the application</td></tr>
-<tr><td><CopyableCode code="initial_capacity" /></td><td><code>array</code></td><td>Initial capacity initialized when an Application is started.</td></tr>
-<tr><td><CopyableCode code="maximum_capacity" /></td><td><code>object</code></td><td>Maximum allowed cumulative resources for an Application. No new resources will be created once the limit is hit.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tag map with key and value</td></tr>
-<tr><td><CopyableCode code="auto_start_configuration" /></td><td><code>object</code></td><td>Configuration for Auto Start of Application.</td></tr>
-<tr><td><CopyableCode code="auto_stop_configuration" /></td><td><code>object</code></td><td>Configuration for Auto Stop of Application.</td></tr>
-<tr><td><CopyableCode code="image_configuration" /></td><td><code>object</code></td><td>The image configuration.</td></tr>
-<tr><td><CopyableCode code="monitoring_configuration" /></td><td><code>object</code></td><td>Monitoring configuration for batch and interactive JobRun.</td></tr>
-<tr><td><CopyableCode code="runtime_configuration" /></td><td><code>array</code></td><td>Runtime configuration for batch and interactive JobRun.</td></tr>
-<tr><td><CopyableCode code="interactive_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="network_configuration" /></td><td><code>object</code></td><td>Network Configuration for customer VPC connectivity.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the EMR Serverless Application.</td></tr>
-<tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The ID of the EMR Serverless Application.</td></tr>
-<tr><td><CopyableCode code="worker_type_specifications" /></td><td><code>object</code></td><td>The key-value pairs that specify worker type to WorkerTypeSpecificationInput. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include Driver and Executor for Spark applications and HiveDriver and TezTask for Hive applications. You can either set image details in this parameter for each worker type, or in imageConfiguration for all worker types.</td></tr>
-<tr><td><CopyableCode code="scheduler_configuration" /></td><td><code>object</code></td><td>The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.</td></tr>
-<tr><td><CopyableCode code="identity_center_configuration" /></td><td><code>object</code></td><td>The IAM IdentityCenter configuration for trusted-identity-propagation on this application. Supported with release labels emr-7.8.0 and above.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "architecture",
+    "type": "string",
+    "description": "The cpu architecture of an application."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "User friendly Application name."
+  },
+  {
+    "name": "release_label",
+    "type": "string",
+    "description": "EMR release label."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of the application"
+  },
+  {
+    "name": "initial_capacity",
+    "type": "array",
+    "description": "Initial capacity initialized when an Application is started.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Worker type for an analytics framework."
+      },
+      {
+        "name": "value",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "worker_count",
+            "type": "integer",
+            "description": "Initial count of workers to be initialized when an Application is started. This count will be continued to be maintained until the Application is stopped"
+          },
+          {
+            "name": "worker_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "cpu",
+                "type": "string",
+                "description": "Per worker CPU resource. vCPU is the only supported unit and specifying vCPU is optional."
+              },
+              {
+                "name": "memory",
+                "type": "string",
+                "description": "Per worker memory resource. GB is the only supported unit and specifying GB is optional."
+              },
+              {
+                "name": "disk",
+                "type": "string",
+                "description": "Per worker Disk resource. GB is the only supported unit and specifying GB is optional"
+              },
+              {
+                "name": "disk_type",
+                "type": "string",
+                "description": "Per worker DiskType resource. Shuffle optimized and Standard are only supported types and specifying diskType is optional"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "maximum_capacity",
+    "type": "object",
+    "description": "Maximum allowed cumulative resources for an Application. No new resources will be created once the limit is hit.",
+    "children": [
+      {
+        "name": "cpu",
+        "type": "string",
+        "description": "Per worker CPU resource. vCPU is the only supported unit and specifying vCPU is optional."
+      },
+      {
+        "name": "memory",
+        "type": "string",
+        "description": "Per worker memory resource. GB is the only supported unit and specifying GB is optional."
+      },
+      {
+        "name": "disk",
+        "type": "string",
+        "description": "Per worker Disk resource. GB is the only supported unit and specifying GB is optional"
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tag map with key and value",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 128 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "auto_start_configuration",
+    "type": "object",
+    "description": "Configuration for Auto Start of Application.",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "If set to true, the Application will automatically start. Defaults to true."
+      }
+    ]
+  },
+  {
+    "name": "auto_stop_configuration",
+    "type": "object",
+    "description": "Configuration for Auto Stop of Application.",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "If set to true, the Application will automatically stop after being idle. Defaults to true."
+      },
+      {
+        "name": "idle_timeout_minutes",
+        "type": "integer",
+        "description": "The amount of time &#91;in minutes&#93; to wait before auto stopping the Application when idle. Defaults to 15 minutes."
+      }
+    ]
+  },
+  {
+    "name": "image_configuration",
+    "type": "object",
+    "description": "The image configuration.",
+    "children": [
+      {
+        "name": "image_uri",
+        "type": "string",
+        "description": "The URI of an image in the Amazon ECR registry. This field is required when you create a new application. If you leave this field blank in an update, Amazon EMR will remove the image configuration."
+      }
+    ]
+  },
+  {
+    "name": "monitoring_configuration",
+    "type": "object",
+    "description": "Monitoring configuration for batch and interactive JobRun.",
+    "children": [
+      {
+        "name": "s3_monitoring_configuration",
+        "type": "object",
+        "description": "S3 monitoring configurations for a JobRun.",
+        "children": [
+          {
+            "name": "log_uri",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "encryption_key_arn",
+            "type": "string",
+            "description": "KMS key ARN to encrypt the logs stored in given s3"
+          }
+        ]
+      },
+      {
+        "name": "managed_persistence_monitoring_configuration",
+        "type": "object",
+        "description": "Managed log persistence configurations for a JobRun.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "If set to false, managed logging will be turned off. Defaults to true."
+          },
+          {
+            "name": "encryption_key_arn",
+            "type": "string",
+            "description": "KMS key ARN to encrypt the logs stored in managed persistence"
+          }
+        ]
+      },
+      {
+        "name": "cloud_watch_logging_configuration",
+        "type": "object",
+        "description": "CloudWatch logging configurations for a JobRun.",
+        "children": [
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "If set to false, CloudWatch logging will be turned off. Defaults to false."
+          },
+          {
+            "name": "log_group_name",
+            "type": "string",
+            "description": "Log-group name to produce log-streams on CloudWatch. If undefined, logs will be produced in a default log-group /aws/emr-serverless"
+          },
+          {
+            "name": "log_stream_name_prefix",
+            "type": "string",
+            "description": "Log-stream name prefix by which log-stream names will start in the CloudWatch Log-group."
+          },
+          {
+            "name": "encryption_key_arn",
+            "type": "string",
+            "description": "KMS key ARN to encrypt the logs stored in given CloudWatch log-group."
+          },
+          {
+            "name": "log_type_map",
+            "type": "array",
+            "description": "The specific log-streams which need to be uploaded to CloudWatch.",
+            "children": [
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "value",
+                "type": "array",
+                "description": "List of Applicable values: &#91;STDOUT, STDERR, HIVE&#95;LOG, TEZ&#95;AM, SYSTEM&#95;LOGS&#93;"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "prometheus_monitoring_configuration",
+        "type": "object",
+        "description": "Prometheus monitoring configurations for a JobRun.",
+        "children": [
+          {
+            "name": "remote_write_url",
+            "type": "string",
+            "description": "The remote write URL in the Amazon Managed Service for Prometheus workspace to send metrics to."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "runtime_configuration",
+    "type": "array",
+    "description": "Runtime configuration for batch and interactive JobRun.",
+    "children": [
+      {
+        "name": "classification",
+        "type": "string",
+        "description": "String with a maximum length of 1024."
+      },
+      {
+        "name": "properties",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "configurations",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "interactive_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "livy_endpoint_enabled",
+        "type": "boolean",
+        "description": "Enables an Apache Livy endpoint that you can connect to and run interactive jobs"
+      },
+      {
+        "name": "studio_enabled",
+        "type": "boolean",
+        "description": "Enabled you to connect an Application to Amazon EMR Studio to run interactive workloads in a notebook"
+      }
+    ]
+  },
+  {
+    "name": "network_configuration",
+    "type": "object",
+    "description": "Network Configuration for customer VPC connectivity.",
+    "children": [
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": "The ID of the subnets in the VPC to which you want to connect your job or application."
+      },
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "The ID of the security groups in the VPC to which you want to connect your job or application."
+      }
+    ]
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the EMR Serverless Application."
+  },
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The ID of the EMR Serverless Application."
+  },
+  {
+    "name": "worker_type_specifications",
+    "type": "object",
+    "description": "The key-value pairs that specify worker type to WorkerTypeSpecificationInput. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include Driver and Executor for Spark applications and HiveDriver and TezTask for Hive applications. You can either set image details in this parameter for each worker type, or in imageConfiguration for all worker types."
+  },
+  {
+    "name": "scheduler_configuration",
+    "type": "object",
+    "description": "The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.",
+    "children": [
+      {
+        "name": "queue_timeout_minutes",
+        "type": "integer",
+        "description": "The maximum duration in minutes for the job in QUEUED state. If scheduler configuration is enabled on your application, the default value is 360 minutes (6 hours). The valid range is from 15 to 720."
+      },
+      {
+        "name": "max_concurrent_runs",
+        "type": "integer",
+        "description": "The maximum concurrent job runs on this application. If scheduler configuration is enabled on your application, the default value is 15. The valid range is 1 to 1000."
+      }
+    ]
+  },
+  {
+    "name": "identity_center_configuration",
+    "type": "object",
+    "description": "The IAM IdentityCenter configuration for trusted-identity-propagation on this application. Supported with release labels emr-7.8.0 and above.",
+    "children": [
+      {
+        "name": "identity_center_instance_arn",
+        "type": "string",
+        "description": "The IAM IdentityCenter instance arn"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html"><code>AWS::EMRServerless::Application</code></a>.
 
@@ -98,32 +429,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>applications</code> in a region.
-```sql
-SELECT
-region,
-architecture,
-name,
-release_label,
-type,
-initial_capacity,
-maximum_capacity,
-tags,
-auto_start_configuration,
-auto_stop_configuration,
-image_configuration,
-monitoring_configuration,
-runtime_configuration,
-interactive_configuration,
-network_configuration,
-arn,
-application_id,
-worker_type_specifications,
-scheduler_configuration,
-identity_center_configuration
-FROM awscc.emrserverless.applications
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>application</code>.
 ```sql
 SELECT

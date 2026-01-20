@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>target_account_configuration</code> resource or lists <code>target_account_configurations</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>target_account_configuration</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="experiment_template_id" /></td><td><code>string</code></td><td>The ID of the experiment template.</td></tr>
-<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The AWS account ID of the target account.</td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role for the target account.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the target account.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "experiment_template_id",
+    "type": "string",
+    "description": "The ID of the experiment template."
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The AWS account ID of the target account."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of an IAM role for the target account."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the target account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fis-targetaccountconfiguration.html"><code>AWS::FIS::TargetAccountConfiguration</code></a>.
 
@@ -83,17 +101,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>target_account_configurations</code> in a region.
-```sql
-SELECT
-region,
-experiment_template_id,
-account_id,
-role_arn,
-description
-FROM awscc.fis.target_account_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>target_account_configuration</code>.
 ```sql
 SELECT

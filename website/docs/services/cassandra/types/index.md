@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>type</code> resource or lists <code>types</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>type</code> resource or lists <code>ty
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="keyspace_name" /></td><td><code>string</code></td><td>Name of the Keyspace which contains the User-Defined Type.</td></tr>
-<tr><td><CopyableCode code="type_name" /></td><td><code>string</code></td><td>Name of the User-Defined Type.</td></tr>
-<tr><td><CopyableCode code="fields" /></td><td><code>array</code></td><td>Field definitions of the User-Defined Type</td></tr>
-<tr><td><CopyableCode code="direct_referring_tables" /></td><td><code>array</code></td><td>List of Tables that directly reference the User-Defined Type in their columns.</td></tr>
-<tr><td><CopyableCode code="direct_parent_types" /></td><td><code>array</code></td><td>List of parent User-Defined Types that directly reference the User-Defined Type in their fields.</td></tr>
-<tr><td><CopyableCode code="max_nesting_depth" /></td><td><code>integer</code></td><td>Maximum nesting depth of the User-Defined Type across the field types.</td></tr>
-<tr><td><CopyableCode code="last_modified_timestamp" /></td><td><code>number</code></td><td>Timestamp of the last time the User-Defined Type's meta data was modified.</td></tr>
-<tr><td><CopyableCode code="keyspace_arn" /></td><td><code>string</code></td><td>ARN of the Keyspace which contains the User-Defined Type.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "keyspace_name",
+    "type": "string",
+    "description": "Name of the Keyspace which contains the User-Defined Type."
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": "Name of the User-Defined Type."
+  },
+  {
+    "name": "fields",
+    "type": "array",
+    "description": "Field definitions of the User-Defined Type",
+    "children": [
+      {
+        "name": "field_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "field_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "direct_referring_tables",
+    "type": "array",
+    "description": "List of Tables that directly reference the User-Defined Type in their columns."
+  },
+  {
+    "name": "direct_parent_types",
+    "type": "array",
+    "description": "List of parent User-Defined Types that directly reference the User-Defined Type in their fields."
+  },
+  {
+    "name": "max_nesting_depth",
+    "type": "integer",
+    "description": "Maximum nesting depth of the User-Defined Type across the field types."
+  },
+  {
+    "name": "last_modified_timestamp",
+    "type": "number",
+    "description": "Timestamp of the last time the User-Defined Type's meta data was modified."
+  },
+  {
+    "name": "keyspace_arn",
+    "type": "string",
+    "description": "ARN of the Keyspace which contains the User-Defined Type."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cassandra-type.html"><code>AWS::Cassandra::Type</code></a>.
 
@@ -82,21 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>types</code> in a region.
-```sql
-SELECT
-region,
-keyspace_name,
-type_name,
-fields,
-direct_referring_tables,
-direct_parent_types,
-max_nesting_depth,
-last_modified_timestamp,
-keyspace_arn
-FROM awscc.cassandra.types
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>type</code>.
 ```sql
 SELECT

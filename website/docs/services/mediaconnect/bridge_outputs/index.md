@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>bridge_output</code> resource or lists <code>bridge_outputs</code> in a region
 
@@ -32,15 +33,55 @@ Creates, updates, deletes or gets a <code>bridge_output</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="bridge_arn" /></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) of the bridge.</td></tr>
-<tr><td><CopyableCode code="network_output" /></td><td><code>object</code></td><td>The output of the bridge.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The network output name.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "bridge_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) of the bridge."
+  },
+  {
+    "name": "network_output",
+    "type": "object",
+    "description": "The output of the bridge.",
+    "children": [
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The network output protocol."
+      },
+      {
+        "name": "ip_address",
+        "type": "string",
+        "description": "The network output IP Address."
+      },
+      {
+        "name": "port",
+        "type": "integer",
+        "description": "The network output port."
+      },
+      {
+        "name": "network_name",
+        "type": "string",
+        "description": "The network output's gateway network name."
+      },
+      {
+        "name": "ttl",
+        "type": "integer",
+        "description": "The network output TTL."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The network output name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-bridgeoutput.html"><code>AWS::MediaConnect::BridgeOutput</code></a>.
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>channel_placement_group</code> resource or lists <code>channel_placement_groups</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>channel_placement_group</code> resourc
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the channel placement group.</td></tr>
-<tr><td><CopyableCode code="channels" /></td><td><code>array</code></td><td>List of channel IDs added to the channel placement group.</td></tr>
-<tr><td><CopyableCode code="cluster_id" /></td><td><code>string</code></td><td>The ID of the cluster the node is on.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique internal identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the channel placement group.</td></tr>
-<tr><td><CopyableCode code="nodes" /></td><td><code>array</code></td><td>List of nodes added to the channel placement group</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The current state of the ChannelPlacementGroupState</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of key-value pairs.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The ARN of the channel placement group."
+  },
+  {
+    "name": "channels",
+    "type": "array",
+    "description": "List of channel IDs added to the channel placement group."
+  },
+  {
+    "name": "cluster_id",
+    "type": "string",
+    "description": "The ID of the cluster the node is on."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Unique internal identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the channel placement group."
+  },
+  {
+    "name": "nodes",
+    "type": "array",
+    "description": "List of nodes added to the channel placement group"
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The current state of the ChannelPlacementGroupState"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of key-value pairs.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-channelplacementgroup.html"><code>AWS::MediaLive::ChannelPlacementGroup</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>channel_placement_groups</code> in a region.
-```sql
-SELECT
-region,
-arn,
-channels,
-cluster_id,
-id,
-name,
-nodes,
-state,
-tags
-FROM awscc.medialive.channel_placement_groups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>channel_placement_group</code>.
 ```sql
 SELECT

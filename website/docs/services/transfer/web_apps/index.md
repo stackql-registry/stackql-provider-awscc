@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>web_app</code> resource or lists <code>web_apps</code> in a region
 
@@ -32,20 +33,99 @@ Creates, updates, deletes or gets a <code>web_app</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the web app.</td></tr>
-<tr><td><CopyableCode code="web_app_id" /></td><td><code>string</code></td><td>A unique identifier for the web app.</td></tr>
-<tr><td><CopyableCode code="identity_provider_details" /></td><td><code>object</code></td><td>You can provide a structure that contains the details for the identity provider to use with your web app.</td></tr>
-<tr><td><CopyableCode code="access_endpoint" /></td><td><code>string</code></td><td>The AccessEndpoint is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value.</td></tr>
-<tr><td><CopyableCode code="web_app_units" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_app_customization" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="web_app_endpoint_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for web apps.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Specifies the unique Amazon Resource Name (ARN) for the web app."
+  },
+  {
+    "name": "web_app_id",
+    "type": "string",
+    "description": "A unique identifier for the web app."
+  },
+  {
+    "name": "identity_provider_details",
+    "type": "object",
+    "description": "You can provide a structure that contains the details for the identity provider to use with your web app.",
+    "children": [
+      {
+        "name": "application_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "instance_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) for the IAM Identity Center used for the web app."
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "description": "The IAM role in IAM Identity Center used for the web app."
+      }
+    ]
+  },
+  {
+    "name": "access_endpoint",
+    "type": "string",
+    "description": "The AccessEndpoint is the URL that you provide to your users for them to interact with the Transfer Family web app. You can specify a custom URL or use the default value."
+  },
+  {
+    "name": "web_app_units",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "web_app_customization",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Specifies a title to display on the web app."
+      },
+      {
+        "name": "logo_file",
+        "type": "string",
+        "description": "Specifies a logo to display on the web app."
+      },
+      {
+        "name": "favicon_file",
+        "type": "string",
+        "description": "Specifies a favicon to display in the browser tab."
+      }
+    ]
+  },
+  {
+    "name": "web_app_endpoint_policy",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Key-value pairs that can be used to group and search for web apps.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The name assigned to the tag that you create."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Contains one or more values that you assigned to the key name you create."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-webapp.html"><code>AWS::Transfer::WebApp</code></a>.
 
@@ -87,21 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>web_apps</code> in a region.
-```sql
-SELECT
-region,
-arn,
-web_app_id,
-identity_provider_details,
-access_endpoint,
-web_app_units,
-web_app_customization,
-web_app_endpoint_policy,
-tags
-FROM awscc.transfer.web_apps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>web_app</code>.
 ```sql
 SELECT

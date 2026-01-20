@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>allow_list</code> resource or lists <code>allow_lists</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets an <code>allow_list</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of AllowList.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Description of AllowList.</td></tr>
-<tr><td><CopyableCode code="criteria" /></td><td><code>object</code></td><td>AllowList criteria.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>AllowList ID.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>AllowList ARN.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>AllowList status.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of AllowList."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Description of AllowList."
+  },
+  {
+    "name": "criteria",
+    "type": "object",
+    "description": "AllowList criteria."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "AllowList ID."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "AllowList ARN."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "AllowList status."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A collection of tags associated with a resource",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag's key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag's value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html"><code>AWS::Macie::AllowList</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>allow_lists</code> in a region.
-```sql
-SELECT
-region,
-name,
-description,
-criteria,
-id,
-arn,
-status,
-tags
-FROM awscc.macie.allow_lists
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>allow_list</code>.
 ```sql
 SELECT

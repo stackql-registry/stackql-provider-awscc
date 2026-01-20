@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>ingest_configuration</code> resource or lists <code>ingest_configurations</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets an <code>ingest_configuration</code> resource 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>IngestConfiguration ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>IngestConfiguration</td></tr>
-<tr><td><CopyableCode code="stage_arn" /></td><td><code>string</code></td><td>Stage ARN. A value other than an empty string indicates that stage is linked to IngestConfiguration. Default: "" (recording is disabled).</td></tr>
-<tr><td><CopyableCode code="participant_id" /></td><td><code>string</code></td><td>Participant Id is automatically generated on creation and assigned.</td></tr>
-<tr><td><CopyableCode code="ingest_protocol" /></td><td><code>string</code></td><td>Ingest Protocol.</td></tr>
-<tr><td><CopyableCode code="insecure_ingest" /></td><td><code>boolean</code></td><td>Whether ingest configuration allows insecure ingest.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>State of IngestConfiguration which determines whether IngestConfiguration is in use or not.</td></tr>
-<tr><td><CopyableCode code="stream_key" /></td><td><code>string</code></td><td>Stream-key value.</td></tr>
-<tr><td><CopyableCode code="user_id" /></td><td><code>string</code></td><td>User defined indentifier for participant associated with IngestConfiguration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "IngestConfiguration ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "IngestConfiguration"
+  },
+  {
+    "name": "stage_arn",
+    "type": "string",
+    "description": "Stage ARN. A value other than an empty string indicates that stage is linked to IngestConfiguration. Default: \"\" (recording is disabled)."
+  },
+  {
+    "name": "participant_id",
+    "type": "string",
+    "description": "Participant Id is automatically generated on creation and assigned."
+  },
+  {
+    "name": "ingest_protocol",
+    "type": "string",
+    "description": "Ingest Protocol."
+  },
+  {
+    "name": "insecure_ingest",
+    "type": "boolean",
+    "description": "Whether ingest configuration allows insecure ingest."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "State of IngestConfiguration which determines whether IngestConfiguration is in use or not."
+  },
+  {
+    "name": "stream_key",
+    "type": "string",
+    "description": "Stream-key value."
+  },
+  {
+    "name": "user_id",
+    "type": "string",
+    "description": "User defined indentifier for participant associated with IngestConfiguration."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the asset model.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-ingestconfiguration.html"><code>AWS::IVS::IngestConfiguration</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>ingest_configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-stage_arn,
-participant_id,
-ingest_protocol,
-insecure_ingest,
-state,
-stream_key,
-user_id,
-tags
-FROM awscc.ivs.ingest_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>ingest_configuration</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>influxdb_instance</code> resource or lists <code>influxdb_instances</code> in a region
 
@@ -32,36 +33,164 @@ Creates, updates, deletes or gets an <code>influxdb_instance</code> resource or 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="username" /></td><td><code>string</code></td><td>The username for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="password" /></td><td><code>string</code></td><td>The password for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="organization" /></td><td><code>string</code></td><td>The organization for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="bucket" /></td><td><code>string</code></td><td>The bucket for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="db_instance_type" /></td><td><code>string</code></td><td>The compute instance of the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="vpc_subnet_ids" /></td><td><code>array</code></td><td>A list of EC2 subnet IDs for this InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="vpc_security_group_ids" /></td><td><code>array</code></td><td>A list of Amazon EC2 VPC security groups to associate with this InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="publicly_accessible" /></td><td><code>boolean</code></td><td>Attach a public IP to the customer ENI.</td></tr>
-<tr><td><CopyableCode code="db_storage_type" /></td><td><code>string</code></td><td>The storage type of the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="allocated_storage" /></td><td><code>integer</code></td><td>The allocated storage for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="db_parameter_group_identifier" /></td><td><code>string</code></td><td>The name of an existing InfluxDB parameter group.</td></tr>
-<tr><td><CopyableCode code="port" /></td><td><code>integer</code></td><td>The port number on which InfluxDB accepts connections.</td></tr>
-<tr><td><CopyableCode code="network_type" /></td><td><code>string</code></td><td>Network type of the InfluxDB Instance.</td></tr>
-<tr><td><CopyableCode code="log_delivery_configuration" /></td><td><code>object</code></td><td>Configuration for sending logs to customer account from the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of the InfluxDB Instance.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) that is associated with the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The unique name that is associated with the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The Availability Zone (AZ) where the InfluxDB instance is created.</td></tr>
-<tr><td><CopyableCode code="secondary_availability_zone" /></td><td><code>string</code></td><td>The Secondary Availability Zone (AZ) where the InfluxDB instance is created, if DeploymentType is set as WITH_MULTIAZ_STANDBY.</td></tr>
-<tr><td><CopyableCode code="endpoint" /></td><td><code>string</code></td><td>The connection endpoint for the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="influx_auth_parameters_secret_arn" /></td><td><code>string</code></td><td>The Auth parameters secret Amazon Resource name (ARN) that is associated with the InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The service generated unique identifier for InfluxDB instance.</td></tr>
-<tr><td><CopyableCode code="deployment_type" /></td><td><code>string</code></td><td>Deployment type of the InfluxDB Instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this DB instance.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "username",
+    "type": "string",
+    "description": "The username for the InfluxDB instance."
+  },
+  {
+    "name": "password",
+    "type": "string",
+    "description": "The password for the InfluxDB instance."
+  },
+  {
+    "name": "organization",
+    "type": "string",
+    "description": "The organization for the InfluxDB instance."
+  },
+  {
+    "name": "bucket",
+    "type": "string",
+    "description": "The bucket for the InfluxDB instance."
+  },
+  {
+    "name": "db_instance_type",
+    "type": "string",
+    "description": "The compute instance of the InfluxDB instance."
+  },
+  {
+    "name": "vpc_subnet_ids",
+    "type": "array",
+    "description": "A list of EC2 subnet IDs for this InfluxDB instance."
+  },
+  {
+    "name": "vpc_security_group_ids",
+    "type": "array",
+    "description": "A list of Amazon EC2 VPC security groups to associate with this InfluxDB instance."
+  },
+  {
+    "name": "publicly_accessible",
+    "type": "boolean",
+    "description": "Attach a public IP to the customer ENI."
+  },
+  {
+    "name": "db_storage_type",
+    "type": "string",
+    "description": "The storage type of the InfluxDB instance."
+  },
+  {
+    "name": "allocated_storage",
+    "type": "integer",
+    "description": "The allocated storage for the InfluxDB instance."
+  },
+  {
+    "name": "db_parameter_group_identifier",
+    "type": "string",
+    "description": "The name of an existing InfluxDB parameter group."
+  },
+  {
+    "name": "port",
+    "type": "integer",
+    "description": "The port number on which InfluxDB accepts connections."
+  },
+  {
+    "name": "network_type",
+    "type": "string",
+    "description": "Network type of the InfluxDB Instance."
+  },
+  {
+    "name": "log_delivery_configuration",
+    "type": "object",
+    "description": "Configuration for sending logs to customer account from the InfluxDB instance.",
+    "children": [
+      {
+        "name": "s3_configuration",
+        "type": "object",
+        "description": "S3 configuration for sending logs to customer account from the InfluxDB instance.",
+        "children": [
+          {
+            "name": "bucket_name",
+            "type": "string",
+            "description": "The bucket name for logs to be sent from the InfluxDB instance"
+          },
+          {
+            "name": "enabled",
+            "type": "boolean",
+            "description": "Specifies whether logging to customer specified bucket is enabled."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "Status of the InfluxDB Instance."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) that is associated with the InfluxDB instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The unique name that is associated with the InfluxDB instance."
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The Availability Zone (AZ) where the InfluxDB instance is created."
+  },
+  {
+    "name": "secondary_availability_zone",
+    "type": "string",
+    "description": "The Secondary Availability Zone (AZ) where the InfluxDB instance is created, if DeploymentType is set as WITH&#95;MULTIAZ&#95;STANDBY."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The connection endpoint for the InfluxDB instance."
+  },
+  {
+    "name": "influx_auth_parameters_secret_arn",
+    "type": "string",
+    "description": "The Auth parameters secret Amazon Resource name (ARN) that is associated with the InfluxDB instance."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The service generated unique identifier for InfluxDB instance."
+  },
+  {
+    "name": "deployment_type",
+    "type": "string",
+    "description": "Deployment type of the InfluxDB Instance."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An arbitrary set of tags (key-value pairs) for this DB instance.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-timestream-influxdbinstance.html"><code>AWS::Timestream::InfluxDBInstance</code></a>.
 
@@ -103,37 +232,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>influxdb_instances</code> in a region.
-```sql
-SELECT
-region,
-username,
-password,
-organization,
-bucket,
-db_instance_type,
-vpc_subnet_ids,
-vpc_security_group_ids,
-publicly_accessible,
-db_storage_type,
-allocated_storage,
-db_parameter_group_identifier,
-port,
-network_type,
-log_delivery_configuration,
-status,
-arn,
-name,
-availability_zone,
-secondary_availability_zone,
-endpoint,
-influx_auth_parameters_secret_arn,
-id,
-deployment_type,
-tags
-FROM awscc.timestream.influxdb_instances
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>influxdb_instance</code>.
 ```sql
 SELECT

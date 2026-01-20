@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>s3access_point_attachment</code> resource or lists <code>s3access_point_attachments</code> in a region
 
@@ -32,16 +33,103 @@ Creates, updates, deletes or gets a <code>s3access_point_attachment</code> resou
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The Name of the S3AccessPointAttachment</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="open_zf_sconfiguration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="s3_access_point" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The Name of the S3AccessPointAttachment"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "open_zf_sconfiguration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "volume_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "file_system_identity",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "type",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "posix_user",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "uid",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "gid",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "secondary_gids",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "s3_access_point",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "resource_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "alias",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "vpc_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "vpc_id",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "policy",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fsx-s3accesspointattachment.html"><code>AWS::FSx::S3AccessPointAttachment</code></a>.
 
@@ -78,17 +166,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>s3access_point_attachments</code> in a region.
-```sql
-SELECT
-region,
-name,
-type,
-open_zf_sconfiguration,
-s3_access_point
-FROM awscc.fsx.s3access_point_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>s3access_point_attachment</code>.
 ```sql
 SELECT

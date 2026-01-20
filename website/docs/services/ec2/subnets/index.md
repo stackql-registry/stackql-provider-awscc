@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>subnets</code> in a region
 
@@ -26,39 +27,160 @@ Creates, updates, deletes or gets a <code>subnet</code> resource or lists <code>
 <tbody>
 <tr><td><b>Name</b></td><td><code>subnets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a subnet for the specified VPC.<br />For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see &#91;Subnets for your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) in the ASTERIX;Amazon VPC User GuideASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a subnet for the specified VPC.<br />For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.<br />For more information, see &#91;Subnets for your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) in the &#42;Amazon VPC User Guide&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.subnets" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="assign_ipv6_address_on_creation" /></td><td><code>boolean</code></td><td>Indicates whether a network interface created in this subnet receives an IPv6 address. The default value is <code>false</code>.<br />If you specify <code>AssignIpv6AddressOnCreation</code>, you must also specify an IPv6 CIDR block.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC the subnet is in.<br />If you update this property, you must also update the <code>CidrBlock</code> property.</td></tr>
-<tr><td><CopyableCode code="map_public_ip_on_launch" /></td><td><code>boolean</code></td><td>Indicates whether instances launched in this subnet receive a public IPv4 address. The default value is <code>false</code>.<br />AWS charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the ASTERIX;Public IPv4 AddressASTERIX; tab on the &#91;VPC pricing page&#93;(https://docs.aws.amazon.com/vpc/pricing/).</td></tr>
-<tr><td><CopyableCode code="enable_lni_at_device_index" /></td><td><code>integer</code></td><td>Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network interface (eth1).</td></tr>
-<tr><td><CopyableCode code="network_acl_association_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The Availability Zone of the subnet.<br />If you update this property, you must also update the <code>CidrBlock</code> property.</td></tr>
-<tr><td><CopyableCode code="availability_zone_id" /></td><td><code>string</code></td><td>The AZ ID of the subnet.</td></tr>
-<tr><td><CopyableCode code="cidr_block" /></td><td><code>string</code></td><td>The IPv4 CIDR block assigned to the subnet.<br />If you update this property, we create a new subnet, and then delete the existing one.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ipv6_cidr_blocks" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="ipv6_cidr_block" /></td><td><code>string</code></td><td>The IPv6 CIDR block.<br />If you specify <code>AssignIpv6AddressOnCreation</code>, you must also specify an IPv6 CIDR block.</td></tr>
-<tr><td><CopyableCode code="outpost_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Outpost.</td></tr>
-<tr><td><CopyableCode code="ipv6_native" /></td><td><code>boolean</code></td><td>Indicates whether this is an IPv6 only subnet. For more information, see &#91;Subnet basics&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#subnet-basics) in the ASTERIX;User GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="enable_dns64" /></td><td><code>boolean</code></td><td>Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.<br />You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a <code>0.0.0.0/0</code> route pointing to the internet gateway. For more information, see &#91;Configure DNS64 and NAT64&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough) in the ASTERIX;User GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="private_dns_name_options_on_launch" /></td><td><code>object</code></td><td>The hostname type for EC2 instances launched into this subnet and how DNS A and AAAA record queries to the instances should be handled. For more information, see &#91;Amazon EC2 instance hostname types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the ASTERIX;User GuideASTERIX;.<br />Available options:<br />+ EnableResourceNameDnsAAAARecord (true | false)<br />+ EnableResourceNameDnsARecord (true | false)<br />+ HostnameType (ip-name | resource-name)</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the subnet.</td></tr>
-<tr><td><CopyableCode code="ipv4_ipam_pool_id" /></td><td><code>string</code></td><td>An IPv4 IPAM pool ID for the subnet.</td></tr>
-<tr><td><CopyableCode code="ipv4_netmask_length" /></td><td><code>integer</code></td><td>An IPv4 netmask length for the subnet.</td></tr>
-<tr><td><CopyableCode code="ipv6_ipam_pool_id" /></td><td><code>string</code></td><td>An IPv6 IPAM pool ID for the subnet.</td></tr>
-<tr><td><CopyableCode code="ipv6_netmask_length" /></td><td><code>integer</code></td><td>An IPv6 netmask length for the subnet.</td></tr>
-<tr><td><CopyableCode code="block_public_access_states" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "assign_ipv6_address_on_creation",
+    "type": "boolean",
+    "description": "Indicates whether a network interface created in this subnet receives an IPv6 address. The default value is &#96;&#96;false&#96;&#96;.<br />If you specify &#96;&#96;AssignIpv6AddressOnCreation&#96;&#96;, you must also specify an IPv6 CIDR block."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC the subnet is in.<br />If you update this property, you must also update the &#96;&#96;CidrBlock&#96;&#96; property."
+  },
+  {
+    "name": "map_public_ip_on_launch",
+    "type": "boolean",
+    "description": "Indicates whether instances launched in this subnet receive a public IPv4 address. The default value is &#96;&#96;false&#96;&#96;.<br />AWS charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the &#42;Public IPv4 Address&#42; tab on the &#91;VPC pricing page&#93;(https://docs.aws.amazon.com/vpc/pricing/)."
+  },
+  {
+    "name": "enable_lni_at_device_index",
+    "type": "integer",
+    "description": "Indicates the device position for local network interfaces in this subnet. For example, &#96;&#96;1&#96;&#96; indicates local network interfaces in this subnet are the secondary network interface (eth1)."
+  },
+  {
+    "name": "network_acl_association_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The Availability Zone of the subnet.<br />If you update this property, you must also update the &#96;&#96;CidrBlock&#96;&#96; property."
+  },
+  {
+    "name": "availability_zone_id",
+    "type": "string",
+    "description": "The AZ ID of the subnet."
+  },
+  {
+    "name": "cidr_block",
+    "type": "string",
+    "description": "The IPv4 CIDR block assigned to the subnet.<br />If you update this property, we create a new subnet, and then delete the existing one."
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "ipv6_cidr_blocks",
+    "type": "array",
+    "description": ""
+  },
+  {
+    "name": "ipv6_cidr_block",
+    "type": "string",
+    "description": "The IPv6 CIDR block.<br />If you specify &#96;&#96;AssignIpv6AddressOnCreation&#96;&#96;, you must also specify an IPv6 CIDR block."
+  },
+  {
+    "name": "outpost_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Outpost."
+  },
+  {
+    "name": "ipv6_native",
+    "type": "boolean",
+    "description": "Indicates whether this is an IPv6 only subnet. For more information, see &#91;Subnet basics&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC&#95;Subnets.html#subnet-basics) in the &#42;User Guide&#42;."
+  },
+  {
+    "name": "enable_dns64",
+    "type": "boolean",
+    "description": "Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.<br />You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a &#96;&#96;0.0.0.0/0&#96;&#96; route pointing to the internet gateway. For more information, see &#91;Configure DNS64 and NAT64&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough) in the &#42;User Guide&#42;."
+  },
+  {
+    "name": "private_dns_name_options_on_launch",
+    "type": "object",
+    "description": "The hostname type for EC2 instances launched into this subnet and how DNS A and AAAA record queries to the instances should be handled. For more information, see &#91;Amazon EC2 instance hostname types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the &#42;User Guide&#42;.<br />Available options:<br />+ EnableResourceNameDnsAAAARecord (true &#124; false)<br />+ EnableResourceNameDnsARecord (true &#124; false)<br />+ HostnameType (ip-name &#124; resource-name)",
+    "children": [
+      {
+        "name": "hostname_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "enable_resource_name_dns_arecord",
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "enable_resource_name_dns_aa_aa_record",
+        "type": "boolean",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the subnet.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "ipv4_ipam_pool_id",
+    "type": "string",
+    "description": "An IPv4 IPAM pool ID for the subnet."
+  },
+  {
+    "name": "ipv4_netmask_length",
+    "type": "integer",
+    "description": "An IPv4 netmask length for the subnet."
+  },
+  {
+    "name": "ipv6_ipam_pool_id",
+    "type": "string",
+    "description": "An IPv6 IPAM pool ID for the subnet."
+  },
+  {
+    "name": "ipv6_netmask_length",
+    "type": "integer",
+    "description": "An IPv6 netmask length for the subnet."
+  },
+  {
+    "name": "block_public_access_states",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "internet_gateway_block_mode",
+        "type": "string",
+        "description": "The mode of VPC BPA. Options here are off, block-bidirectional, block-ingress"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html"><code>AWS::EC2::Subnet</code></a>.
 
@@ -100,34 +222,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>subnets</code> in a region.
-```sql
-SELECT
-region,
-assign_ipv6_address_on_creation,
-vpc_id,
-map_public_ip_on_launch,
-enable_lni_at_device_index,
-network_acl_association_id,
-availability_zone,
-availability_zone_id,
-cidr_block,
-subnet_id,
-ipv6_cidr_blocks,
-ipv6_cidr_block,
-outpost_arn,
-ipv6_native,
-enable_dns64,
-private_dns_name_options_on_launch,
-tags,
-ipv4_ipam_pool_id,
-ipv4_netmask_length,
-ipv6_ipam_pool_id,
-ipv6_netmask_length,
-block_public_access_states
-FROM awscc.ec2.subnets
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>subnet</code>.
 ```sql
 SELECT

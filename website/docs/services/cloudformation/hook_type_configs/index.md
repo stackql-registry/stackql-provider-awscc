@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>hook_type_config</code> resource or lists <code>hook_type_configs</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>hook_type_config</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the type without version number.</td></tr>
-<tr><td><CopyableCode code="type_name" /></td><td><code>string</code></td><td>The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company_or_organization::service::type.</td></tr>
-<tr><td><CopyableCode code="configuration_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the configuration data, in this account and region.</td></tr>
-<tr><td><CopyableCode code="configuration" /></td><td><code>string</code></td><td>The configuration data for the extension, in this account and region.</td></tr>
-<tr><td><CopyableCode code="configuration_alias" /></td><td><code>string</code></td><td>An alias by which to refer to this extension configuration data.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the type without version number."
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": "The name of the type being registered.<br />We recommend that type names adhere to the following pattern: company&#95;or&#95;organization::service::type."
+  },
+  {
+    "name": "configuration_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the configuration data, in this account and region."
+  },
+  {
+    "name": "configuration",
+    "type": "string",
+    "description": "The configuration data for the extension, in this account and region."
+  },
+  {
+    "name": "configuration_alias",
+    "type": "string",
+    "description": "An alias by which to refer to this extension configuration data."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-hooktypeconfig.html"><code>AWS::CloudFormation::HookTypeConfig</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hook_type_configs</code> in a region.
-```sql
-SELECT
-region,
-type_arn,
-type_name,
-configuration_arn,
-configuration,
-configuration_alias
-FROM awscc.cloudformation.hook_type_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>hook_type_config</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>storage_profile</code> resource or lists <code>storage_profiles</code> in a region
 
@@ -32,17 +33,55 @@ Creates, updates, deletes or gets a <code>storage_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="file_system_locations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="os_family" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "file_system_locations",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "os_family",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "storage_profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-storageprofile.html"><code>AWS::Deadline::StorageProfile</code></a>.
 
@@ -84,18 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>storage_profiles</code> in a region.
-```sql
-SELECT
-region,
-display_name,
-farm_id,
-file_system_locations,
-os_family,
-storage_profile_id
-FROM awscc.deadline.storage_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>storage_profile</code>.
 ```sql
 SELECT

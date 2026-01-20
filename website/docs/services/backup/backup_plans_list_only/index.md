@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>backup_plans</code> in a region or regions, for all properties use <a href="/services/backup/backup_plans/"><code>backup_plans</code></a>
 
@@ -32,14 +33,145 @@ Lists <code>backup_plans</code> in a region or regions, for all properties use <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="backup_plan" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_plan_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "backup_plan",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "backup_plan_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "advanced_backup_settings",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "backup_options",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "backup_plan_rule",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_backup_vault",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "start_window_minutes",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "completion_window_minutes",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "schedule_expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "schedule_expression_timezone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "index_actions",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "recovery_point_tags",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "copy_actions",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "lifecycle",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "destination_backup_vault_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "lifecycle",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "move_to_cold_storage_after_days",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "delete_after_days",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "opt_in_to_archive_for_supported_resources",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "enable_continuous_backup",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "backup_plan_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

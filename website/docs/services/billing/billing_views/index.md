@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>billing_view</code> resource or lists <code>billing_views</code> in a region
 
@@ -32,22 +33,111 @@ Creates, updates, deletes or gets a <code>billing_view</code> resource or lists 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="billing_view_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_filter_expression" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>number</code></td><td>The time when the billing view was created.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs associated to the billing view being created.</td></tr>
-<tr><td><CopyableCode code="source_views" /></td><td><code>array</code></td><td>An array of strings that define the billing view's source.</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>number</code></td><td>The time when the billing view was last updated.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "billing_view_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_filter_expression",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "dimensions",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "values",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "type": "number",
+    "description": "The time when the billing view was created."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "owner_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs associated to the billing view being created.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "source_views",
+    "type": "array",
+    "description": "An array of strings that define the billing view's source."
+  },
+  {
+    "name": "updated_at",
+    "type": "number",
+    "description": "The time when the billing view was last updated."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-billing-billingview.html"><code>AWS::Billing::BillingView</code></a>.
 
@@ -89,23 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>billing_views</code> in a region.
-```sql
-SELECT
-region,
-arn,
-billing_view_type,
-data_filter_expression,
-created_at,
-description,
-name,
-owner_account_id,
-tags,
-source_views,
-updated_at
-FROM awscc.billing.billing_views
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>billing_view</code>.
 ```sql
 SELECT

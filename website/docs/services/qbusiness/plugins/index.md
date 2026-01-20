@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>plugin</code> resource or lists <code>plugins</code> in a region
 
@@ -32,25 +33,107 @@ Creates, updates, deletes or gets a <code>plugin</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="auth_configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="build_status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_plugin_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="plugin_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="plugin_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_url" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "auth_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "build_status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "custom_plugin_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "api_schema_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "api_schema",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "plugin_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "plugin_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "server_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qbusiness-plugin.html"><code>AWS::QBusiness::Plugin</code></a>.
 
@@ -92,26 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>plugins</code> in a region.
-```sql
-SELECT
-region,
-application_id,
-auth_configuration,
-build_status,
-created_at,
-custom_plugin_configuration,
-display_name,
-plugin_arn,
-plugin_id,
-server_url,
-state,
-tags,
-type,
-updated_at
-FROM awscc.qbusiness.plugins
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>plugin</code>.
 ```sql
 SELECT

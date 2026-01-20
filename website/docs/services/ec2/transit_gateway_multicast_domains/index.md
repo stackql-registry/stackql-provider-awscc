@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain</code> resource or lists <code>transit_gateway_multicast_domains</code> in a region
 
@@ -32,19 +33,77 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain</code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="transit_gateway_multicast_domain_id" /></td><td><code>string</code></td><td>The ID of the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_multicast_domain_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_id" /></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time the transit gateway multicast domain was created.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="options" /></td><td><code>object</code></td><td>The options for the transit gateway multicast domain.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_multicast_domain_id",
+    "type": "string",
+    "description": "The ID of the transit gateway multicast domain."
+  },
+  {
+    "name": "transit_gateway_multicast_domain_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the transit gateway multicast domain."
+  },
+  {
+    "name": "transit_gateway_id",
+    "type": "string",
+    "description": "The ID of the transit gateway."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the transit gateway multicast domain."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time the transit gateway multicast domain was created."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the transit gateway multicast domain.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "options",
+    "type": "object",
+    "description": "The options for the transit gateway multicast domain.",
+    "children": [
+      {
+        "name": "auto_accept_shared_associations",
+        "type": "string",
+        "description": "Indicates whether to automatically cross-account subnet associations that are associated with the transit gateway multicast domain. Valid Values: enable &#124; disable"
+      },
+      {
+        "name": "igmpv2_support",
+        "type": "string",
+        "description": "Indicates whether Internet Group Management Protocol (IGMP) version 2 is turned on for the transit gateway multicast domain. Valid Values: enable &#124; disable"
+      },
+      {
+        "name": "static_sources_support",
+        "type": "string",
+        "description": "Indicates whether support for statically configuring transit gateway multicast group sources is turned on. Valid Values: enable &#124; disable"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewaymulticastdomain.html"><code>AWS::EC2::TransitGatewayMulticastDomain</code></a>.
 
@@ -86,20 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_multicast_domains</code> in a region.
-```sql
-SELECT
-region,
-transit_gateway_multicast_domain_id,
-transit_gateway_multicast_domain_arn,
-transit_gateway_id,
-state,
-creation_time,
-tags,
-options
-FROM awscc.ec2.transit_gateway_multicast_domains
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_multicast_domain</code>.
 ```sql
 SELECT

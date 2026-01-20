@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>gateway</code> resource or lists <code>gateways</code> in a region
 
@@ -32,18 +33,98 @@ Creates, updates, deletes or gets a <code>gateway</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="gateway_name" /></td><td><code>string</code></td><td>A unique, friendly name for the gateway.</td></tr>
-<tr><td><CopyableCode code="gateway_platform" /></td><td><code>object</code></td><td>The gateway's platform. You can only specify one platform in a gateway.</td></tr>
-<tr><td><CopyableCode code="gateway_version" /></td><td><code>string</code></td><td>The version of the gateway you want to create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the gateway.</td></tr>
-<tr><td><CopyableCode code="gateway_id" /></td><td><code>string</code></td><td>The ID of the gateway device.</td></tr>
-<tr><td><CopyableCode code="gateway_capability_summaries" /></td><td><code>array</code></td><td>A list of gateway capability summaries that each contain a namespace and status.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "gateway_name",
+    "type": "string",
+    "description": "A unique, friendly name for the gateway."
+  },
+  {
+    "name": "gateway_platform",
+    "type": "object",
+    "description": "The gateway's platform. You can only specify one platform in a gateway.",
+    "children": [
+      {
+        "name": "greengrass_v2",
+        "type": "object",
+        "description": "A gateway that runs on AWS IoT Greengrass V2.",
+        "children": [
+          {
+            "name": "core_device_thing_name",
+            "type": "string",
+            "description": "The name of the CoreDevice in GreenGrass V2."
+          },
+          {
+            "name": "core_device_operating_system",
+            "type": "string",
+            "description": "The operating system of the core device in AWS IoT Greengrass V2."
+          }
+        ]
+      },
+      {
+        "name": "siemens_ie",
+        "type": "object",
+        "description": "A gateway that runs on Siemens Industrial Edge.",
+        "children": [
+          {
+            "name": "iot_core_thing_name",
+            "type": "string",
+            "description": "The name of the IoT Core Thing."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "gateway_version",
+    "type": "string",
+    "description": "The version of the gateway you want to create."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of key-value pairs that contain metadata for the gateway.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "gateway_id",
+    "type": "string",
+    "description": "The ID of the gateway device."
+  },
+  {
+    "name": "gateway_capability_summaries",
+    "type": "array",
+    "description": "A list of gateway capability summaries that each contain a namespace and status.",
+    "children": [
+      {
+        "name": "capability_namespace",
+        "type": "string",
+        "description": "The namespace of the capability configuration."
+      },
+      {
+        "name": "capability_configuration",
+        "type": "string",
+        "description": "The JSON document that defines the gateway capability's configuration."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-gateway.html"><code>AWS::IoTSiteWise::Gateway</code></a>.
 
@@ -85,19 +166,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>gateways</code> in a region.
-```sql
-SELECT
-region,
-gateway_name,
-gateway_platform,
-gateway_version,
-tags,
-gateway_id,
-gateway_capability_summaries
-FROM awscc.iotsitewise.gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>gateway</code>.
 ```sql
 SELECT

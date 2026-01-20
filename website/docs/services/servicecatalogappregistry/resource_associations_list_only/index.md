@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>resource_associations</code> in a region or regions, for all properties use <a href="/services/servicecatalogappregistry/resource_associations/"><code>resource_associations</code></a>
 
@@ -32,17 +33,38 @@ Lists <code>resource_associations</code> in a region or regions, for all propert
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application" /></td><td><code>string</code></td><td>The name or the Id of the Application.</td></tr>
-<tr><td><CopyableCode code="resource" /></td><td><code>string</code></td><td>The name or the Id of the Resource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of the CFN Resource for now it's enum CFN_STACK.</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "application",
+    "type": "string",
+    "description": "The name or the Id of the Application."
+  },
+  {
+    "name": "resource",
+    "type": "string",
+    "description": "The name or the Id of the Resource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The type of the CFN Resource for now it's enum CFN&#95;STACK."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -20,7 +20,7 @@ The transfer service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>17</b></span><br />
+<span>total resources:&nbsp;<b>16</b></span><br />
 </div>
 </div>
 
@@ -36,8 +36,7 @@ The transfer service documentation.
 <a href="/services/transfer/connectors/">connectors</a><br />
 <a href="/services/transfer/connectors_list_only/">connectors_list_only</a><br />
 <a href="/services/transfer/profiles/">profiles</a><br />
-<a href="/services/transfer/profiles_list_only/">profiles_list_only</a><br />
-<a href="/services/transfer/public_keys/">public_keys</a>
+<a href="/services/transfer/profiles_list_only/">profiles_list_only</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/transfer/servers/">servers</a><br />

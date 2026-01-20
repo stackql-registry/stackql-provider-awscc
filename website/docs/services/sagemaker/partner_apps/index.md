@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>partner_app</code> resource or lists <code>partner_apps</code> in a region
 
@@ -32,25 +33,109 @@ Creates, updates, deletes or gets a <code>partner_app</code> resource or lists <
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the created PartnerApp.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of PartnerApp.</td></tr>
-<tr><td><CopyableCode code="execution_role_arn" /></td><td><code>string</code></td><td>The execution role for the user.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The AWS KMS customer managed key used to encrypt the data associated with the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>The tier of the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="enable_iam_session_based_identity" /></td><td><code>boolean</code></td><td>Enables IAM Session based Identity for PartnerApp.</td></tr>
-<tr><td><CopyableCode code="application_config" /></td><td><code>object</code></td><td>A collection of settings that specify the maintenance schedule for the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="auth_type" /></td><td><code>string</code></td><td>The Auth type of PartnerApp.</td></tr>
-<tr><td><CopyableCode code="base_url" /></td><td><code>string</code></td><td>The AppServerUrl based on app and account-info.</td></tr>
-<tr><td><CopyableCode code="maintenance_config" /></td><td><code>object</code></td><td>A collection of settings that specify the maintenance schedule for the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>The client token for the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the PartnerApp.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the created PartnerApp."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the PartnerApp."
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of PartnerApp."
+  },
+  {
+    "name": "execution_role_arn",
+    "type": "string",
+    "description": "The execution role for the user."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The AWS KMS customer managed key used to encrypt the data associated with the PartnerApp."
+  },
+  {
+    "name": "tier",
+    "type": "string",
+    "description": "The tier of the PartnerApp."
+  },
+  {
+    "name": "enable_iam_session_based_identity",
+    "type": "boolean",
+    "description": "Enables IAM Session based Identity for PartnerApp."
+  },
+  {
+    "name": "application_config",
+    "type": "object",
+    "description": "A collection of settings that specify the maintenance schedule for the PartnerApp.",
+    "children": [
+      {
+        "name": "admin_users",
+        "type": "array",
+        "description": "A list of users with administrator privileges for the PartnerApp."
+      },
+      {
+        "name": "arguments",
+        "type": "object",
+        "description": "A list of arguments to pass to the PartnerApp."
+      }
+    ]
+  },
+  {
+    "name": "auth_type",
+    "type": "string",
+    "description": "The Auth type of PartnerApp."
+  },
+  {
+    "name": "base_url",
+    "type": "string",
+    "description": "The AppServerUrl based on app and account-info."
+  },
+  {
+    "name": "maintenance_config",
+    "type": "object",
+    "description": "A collection of settings that specify the maintenance schedule for the PartnerApp.",
+    "children": [
+      {
+        "name": "maintenance_window_start",
+        "type": "string",
+        "description": "The maintenance window start day and time for the PartnerApp."
+      }
+    ]
+  },
+  {
+    "name": "client_token",
+    "type": "string",
+    "description": "The client token for the PartnerApp."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags to apply to the PartnerApp.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-partnerapp.html"><code>AWS::SageMaker::PartnerApp</code></a>.
 
@@ -92,26 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>partner_apps</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-type,
-execution_role_arn,
-kms_key_id,
-tier,
-enable_iam_session_based_identity,
-application_config,
-auth_type,
-base_url,
-maintenance_config,
-client_token,
-tags
-FROM awscc.sagemaker.partner_apps
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>partner_app</code>.
 ```sql
 SELECT

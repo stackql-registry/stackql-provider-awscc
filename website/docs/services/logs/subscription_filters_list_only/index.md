@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>subscription_filters</code> in a region or regions, for all properties use <a href="/services/logs/subscription_filters/"><code>subscription_filters</code></a>
 
@@ -26,20 +27,29 @@ Lists <code>subscription_filters</code> in a region or regions, for all properti
 <tbody>
 <tr><td><b>Name</b></td><td><code>subscription_filters_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::Logs::SubscriptionFilter</code> resource specifies a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events and have them delivered to a specific destination. Currently, the supported destinations are:<br />+ An Amazon Kinesis data stream belonging to the same account as the subscription filter, for same-account delivery.<br />+ A logical destination that belongs to a different account, for cross-account delivery.<br />+ An Amazon Kinesis Firehose delivery stream that belongs to the same account as the subscription filter, for same-account delivery.<br />+ An LAMlong function that belongs to the same account as the subscription filter, for same-account delivery.<br /><br />There can be as many as two subscription filters associated with a log group.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::Logs::SubscriptionFilter&#96;&#96; resource specifies a subscription filter and associates it with the specified log group. Subscription filters allow you to subscribe to a real-time stream of log events and have them delivered to a specific destination. Currently, the supported destinations are:<br />+ An Amazon Kinesis data stream belonging to the same account as the subscription filter, for same-account delivery.<br />+ A logical destination that belongs to a different account, for cross-account delivery.<br />+ An Amazon Kinesis Firehose delivery stream that belongs to the same account as the subscription filter, for same-account delivery.<br />+ An LAMlong function that belongs to the same account as the subscription filter, for same-account delivery.<br /><br />There can be as many as two subscription filters associated with a log group.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.logs.subscription_filters_list_only" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="filter_name" /></td><td><code>string</code></td><td>The name of the subscription filter.</td></tr>
-<tr><td><CopyableCode code="log_group_name" /></td><td><code>string</code></td><td>The log group to associate with the subscription filter. All log events that are uploaded to this log group are filtered and delivered to the specified AWS resource if the filter pattern matches the log events.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "filter_name",
+    "type": "string",
+    "description": "The name of the subscription filter."
+  },
+  {
+    "name": "log_group_name",
+    "type": "string",
+    "description": "The log group to associate with the subscription filter. All log events that are uploaded to this log group are filtered and delivered to the specified AWS resource if the filter pattern matches the log events."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

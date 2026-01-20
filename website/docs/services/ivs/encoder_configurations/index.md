@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>encoder_configuration</code> resource or lists <code>encoder_configurations</code> in a region
 
@@ -32,16 +33,67 @@ Creates, updates, deletes or gets an <code>encoder_configuration</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Encoder configuration identifier.</td></tr>
-<tr><td><CopyableCode code="video" /></td><td><code>object</code></td><td>Video configuration. Default: video resolution 1280x720, bitrate 2500 kbps, 30 fps</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Encoder configuration name.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Encoder configuration identifier."
+  },
+  {
+    "name": "video",
+    "type": "object",
+    "description": "Video configuration. Default: video resolution 1280x720, bitrate 2500 kbps, 30 fps",
+    "children": [
+      {
+        "name": "bitrate",
+        "type": "integer",
+        "description": "Bitrate for generated output, in bps. Default: 2500000."
+      },
+      {
+        "name": "framerate",
+        "type": "number",
+        "description": "Video frame rate, in fps. Default: 30."
+      },
+      {
+        "name": "height",
+        "type": "integer",
+        "description": "Video-resolution height. This must be an even number. Note that the maximum value is determined by width times height, such that the maximum total pixels is 2073600 (1920x1080 or 1080x1920). Default: 720."
+      },
+      {
+        "name": "width",
+        "type": "integer",
+        "description": "Video-resolution width. This must be an even number. Note that the maximum value is determined by width times height, such that the maximum total pixels is 2073600 (1920x1080 or 1080x1920). Default: 1280."
+      }
+    ]
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Encoder configuration name."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-encoderconfiguration.html"><code>AWS::IVS::EncoderConfiguration</code></a>.
 
@@ -83,17 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>encoder_configurations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-video,
-name,
-tags
-FROM awscc.ivs.encoder_configurations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>encoder_configuration</code>.
 ```sql
 SELECT

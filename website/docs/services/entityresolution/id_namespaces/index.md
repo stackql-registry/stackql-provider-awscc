@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>id_namespace</code> resource or lists <code>id_namespaces</code> in a region
 
@@ -32,22 +33,145 @@ Creates, updates, deletes or gets an <code>id_namespace</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id_namespace_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="input_source_config" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_mapping_workflow_properties" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id_namespace_arn" /></td><td><code>string</code></td><td>The arn associated with the IdNamespace</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time when the IdNamespace was created</td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The date and time when the IdNamespace was updated</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id_namespace_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "input_source_config",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "input_source_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id_mapping_workflow_properties",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "id_mapping_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "rule_based_properties",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rules",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "rule_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "matching_keys",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "rule_definition_types",
+            "type": "array",
+            "description": ""
+          },
+          {
+            "name": "attribute_matching_model",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "record_matching_models",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "provider_properties",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "provider_service_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "provider_configuration",
+            "type": "object",
+            "description": "Additional Provider configuration that would be required for the provider service. The Configuration must be in JSON string format."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id_namespace_arn",
+    "type": "string",
+    "description": "The arn associated with the IdNamespace"
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": "The date and time when the IdNamespace was created"
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": "The date and time when the IdNamespace was updated"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-entityresolution-idnamespace.html"><code>AWS::EntityResolution::IdNamespace</code></a>.
 
@@ -89,23 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>id_namespaces</code> in a region.
-```sql
-SELECT
-region,
-id_namespace_name,
-description,
-input_source_config,
-id_mapping_workflow_properties,
-type,
-role_arn,
-id_namespace_arn,
-created_at,
-updated_at,
-tags
-FROM awscc.entityresolution.id_namespaces
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>id_namespace</code>.
 ```sql
 SELECT

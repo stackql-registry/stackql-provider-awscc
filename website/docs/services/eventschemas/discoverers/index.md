@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>discoverer</code> resource or lists <code>discoverers</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>discoverer</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="discoverer_arn" /></td><td><code>string</code></td><td>The ARN of the discoverer.</td></tr>
-<tr><td><CopyableCode code="discoverer_id" /></td><td><code>string</code></td><td>The Id of the discoverer.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the discoverer.</td></tr>
-<tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>The ARN of the event bus.</td></tr>
-<tr><td><CopyableCode code="cross_account" /></td><td><code>boolean</code></td><td>Defines whether event schemas from other accounts are discovered. Default is True.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Defines the current state of the discoverer.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with the resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "discoverer_arn",
+    "type": "string",
+    "description": "The ARN of the discoverer."
+  },
+  {
+    "name": "discoverer_id",
+    "type": "string",
+    "description": "The Id of the discoverer."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the discoverer."
+  },
+  {
+    "name": "source_arn",
+    "type": "string",
+    "description": "The ARN of the event bus."
+  },
+  {
+    "name": "cross_account",
+    "type": "boolean",
+    "description": "Defines whether event schemas from other accounts are discovered. Default is True."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "Defines the current state of the discoverer."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags associated with the resource.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eventschemas-discoverer.html"><code>AWS::EventSchemas::Discoverer</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>discoverers</code> in a region.
-```sql
-SELECT
-region,
-discoverer_arn,
-discoverer_id,
-description,
-source_arn,
-cross_account,
-state,
-tags
-FROM awscc.eventschemas.discoverers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>discoverer</code>.
 ```sql
 SELECT

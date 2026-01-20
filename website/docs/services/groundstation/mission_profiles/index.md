@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>mission_profile</code> resource or lists <code>mission_profiles</code> in a region
 
@@ -32,24 +33,114 @@ Creates, updates, deletes or gets a <code>mission_profile</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name used to identify a mission profile.</td></tr>
-<tr><td><CopyableCode code="contact_pre_pass_duration_seconds" /></td><td><code>integer</code></td><td>Pre-pass time needed before the contact.</td></tr>
-<tr><td><CopyableCode code="contact_post_pass_duration_seconds" /></td><td><code>integer</code></td><td>Post-pass time needed after the contact.</td></tr>
-<tr><td><CopyableCode code="minimum_viable_contact_duration_seconds" /></td><td><code>integer</code></td><td>Visibilities with shorter duration than the specified minimum viable contact duration will be ignored when searching for available contacts.</td></tr>
-<tr><td><CopyableCode code="streams_kms_key" /></td><td><code>object</code></td><td>The ARN of a KMS Key used for encrypting data during transmission from the source to destination locations.</td></tr>
-<tr><td><CopyableCode code="streams_kms_role" /></td><td><code>string</code></td><td>The ARN of the KMS Key or Alias Key role used to define permissions on KMS Key usage.</td></tr>
-<tr><td><CopyableCode code="dataflow_edges" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracking_config_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name used to identify a mission profile."
+  },
+  {
+    "name": "contact_pre_pass_duration_seconds",
+    "type": "integer",
+    "description": "Pre-pass time needed before the contact."
+  },
+  {
+    "name": "contact_post_pass_duration_seconds",
+    "type": "integer",
+    "description": "Post-pass time needed after the contact."
+  },
+  {
+    "name": "minimum_viable_contact_duration_seconds",
+    "type": "integer",
+    "description": "Visibilities with shorter duration than the specified minimum viable contact duration will be ignored when searching for available contacts."
+  },
+  {
+    "name": "streams_kms_key",
+    "type": "object",
+    "description": "The ARN of a KMS Key used for encrypting data during transmission from the source to destination locations.",
+    "children": [
+      {
+        "name": "kms_key_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_alias_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "kms_alias_name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "streams_kms_role",
+    "type": "string",
+    "description": "The ARN of the KMS Key or Alias Key role used to define permissions on KMS Key usage."
+  },
+  {
+    "name": "dataflow_edges",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "source",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "destination",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tracking_config_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-groundstation-missionprofile.html"><code>AWS::GroundStation::MissionProfile</code></a>.
 
@@ -91,25 +182,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>mission_profiles</code> in a region.
-```sql
-SELECT
-region,
-name,
-contact_pre_pass_duration_seconds,
-contact_post_pass_duration_seconds,
-minimum_viable_contact_duration_seconds,
-streams_kms_key,
-streams_kms_role,
-dataflow_edges,
-tracking_config_arn,
-tags,
-id,
-arn,
-region
-FROM awscc.groundstation.mission_profiles
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>mission_profile</code>.
 ```sql
 SELECT

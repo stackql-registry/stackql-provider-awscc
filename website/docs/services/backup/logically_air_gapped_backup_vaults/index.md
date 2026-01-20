@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>logically_air_gapped_backup_vault</code> resource or lists <code>logically_air_gapped_backup_vaults</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>logically_air_gapped_backup_vault</cod
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vault_state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="vault_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="backup_vault_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="encryption_key_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="max_retention_days" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="min_retention_days" /></td><td><code>integer</code></td><td></td></tr>
-<tr><td><CopyableCode code="notifications" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="access_policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "vault_state",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_vault_tags",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "vault_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_vault_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "backup_vault_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "encryption_key_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "max_retention_days",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "min_retention_days",
+    "type": "integer",
+    "description": ""
+  },
+  {
+    "name": "notifications",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "sns_topic_arn",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "backup_vault_events",
+        "type": "array",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "access_policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-logicallyairgappedbackupvault.html"><code>AWS::Backup::LogicallyAirGappedBackupVault</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>logically_air_gapped_backup_vaults</code> in a region.
-```sql
-SELECT
-region,
-vault_state,
-backup_vault_tags,
-vault_type,
-backup_vault_name,
-backup_vault_arn,
-encryption_key_arn,
-max_retention_days,
-min_retention_days,
-notifications,
-access_policy
-FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>logically_air_gapped_backup_vault</code>.
 ```sql
 SELECT

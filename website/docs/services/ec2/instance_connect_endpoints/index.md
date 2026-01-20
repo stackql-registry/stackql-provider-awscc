@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>instance_connect_endpoint</code> resource or lists <code>instance_connect_endpoints</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets an <code>instance_connect_endpoint</code> reso
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The id of the instance connect endpoint</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The subnet id of the instance connect endpoint</td></tr>
-<tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>The client token of the instance connect endpoint.</td></tr>
-<tr><td><CopyableCode code="preserve_client_ip" /></td><td><code>boolean</code></td><td>If true, the address of the instance connect endpoint client is preserved when connecting to the end resource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags of the instance connect endpoint.</td></tr>
-<tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The security group IDs of the instance connect endpoint.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The id of the instance connect endpoint"
+  },
+  {
+    "name": "subnet_id",
+    "type": "string",
+    "description": "The subnet id of the instance connect endpoint"
+  },
+  {
+    "name": "client_token",
+    "type": "string",
+    "description": "The client token of the instance connect endpoint."
+  },
+  {
+    "name": "preserve_client_ip",
+    "type": "boolean",
+    "description": "If true, the address of the instance connect endpoint client is preserved when connecting to the end resource"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags of the instance connect endpoint.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "security_group_ids",
+    "type": "array",
+    "description": "The security group IDs of the instance connect endpoint."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-instanceconnectendpoint.html"><code>AWS::EC2::InstanceConnectEndpoint</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>instance_connect_endpoints</code> in a region.
-```sql
-SELECT
-region,
-id,
-subnet_id,
-client_token,
-preserve_client_ip,
-tags,
-security_group_ids
-FROM awscc.ec2.instance_connect_endpoints
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>instance_connect_endpoint</code>.
 ```sql
 SELECT

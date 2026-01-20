@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code>clusters</code> in a region
 
@@ -32,26 +33,307 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the HyperPod Cluster.</td></tr>
-<tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td>Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC. For more information, see https://docs.aws.amazon.com/sagemaker/latest/dg/infrastructure-give-access.html</td></tr>
-<tr><td><CopyableCode code="node_recovery" /></td><td><code>string</code></td><td>If node auto-recovery is set to true, faulty nodes will be replaced or rebooted when a failure is detected. If set to false, nodes will be labelled when a fault is detected.</td></tr>
-<tr><td><CopyableCode code="instance_groups" /></td><td><code>array</code></td><td>The instance groups of the SageMaker HyperPod cluster.</td></tr>
-<tr><td><CopyableCode code="restricted_instance_groups" /></td><td><code>array</code></td><td>The restricted instance groups of the SageMaker HyperPod cluster.</td></tr>
-<tr><td><CopyableCode code="orchestrator" /></td><td><code>object</code></td><td>Specifies parameter(s) specific to the orchestrator, e.g. specify the EKS cluster.</td></tr>
-<tr><td><CopyableCode code="cluster_role" /></td><td><code>string</code></td><td>The cluster role for the autoscaler to assume.</td></tr>
-<tr><td><CopyableCode code="node_provisioning_mode" /></td><td><code>string</code></td><td>Determines the scaling strategy for the SageMaker HyperPod cluster. When set to 'Continuous', enables continuous scaling which dynamically manages node provisioning. If the parameter is omitted, uses the standard scaling approach in previous release.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time at which the HyperPod cluster was created.</td></tr>
-<tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>The name of the HyperPod Cluster.</td></tr>
-<tr><td><CopyableCode code="failure_message" /></td><td><code>string</code></td><td>The failure message of the HyperPod Cluster.</td></tr>
-<tr><td><CopyableCode code="auto_scaling" /></td><td><code>object</code></td><td>Configuration for cluster auto-scaling</td></tr>
-<tr><td><CopyableCode code="cluster_status" /></td><td><code>string</code></td><td>The status of the HyperPod Cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Custom tags for managing the SageMaker HyperPod cluster as an AWS resource. You can add tags to your cluster in the same way you add them in other AWS services that support tagging.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cluster_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the HyperPod Cluster."
+  },
+  {
+    "name": "vpc_config",
+    "type": "object",
+    "description": "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC. For more information, see https://docs.aws.amazon.com/sagemaker/latest/dg/infrastructure-give-access.html",
+    "children": [
+      {
+        "name": "security_group_ids",
+        "type": "array",
+        "description": "The VPC security group IDs, in the form 'sg-xxxxxxxx'. Specify the security groups for the VPC that is specified in the 'Subnets' field."
+      },
+      {
+        "name": "subnets",
+        "type": "array",
+        "description": "The ID of the subnets in the VPC to which you want to connect your training job or model. For information about the availability of specific instance types, see https://docs.aws.amazon.com/sagemaker/latest/dg/regions-quotas.html"
+      }
+    ]
+  },
+  {
+    "name": "node_recovery",
+    "type": "string",
+    "description": "If node auto-recovery is set to true, faulty nodes will be replaced or rebooted when a failure is detected. If set to false, nodes will be labelled when a fault is detected."
+  },
+  {
+    "name": "instance_groups",
+    "type": "array",
+    "description": "The instance groups of the SageMaker HyperPod cluster.",
+    "children": [
+      {
+        "name": "instance_group_name",
+        "type": "string",
+        "description": "The name of the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "instance_storage_configs",
+        "type": "array",
+        "description": "The instance storage configuration for the instance group."
+      },
+      {
+        "name": "life_cycle_config",
+        "type": "object",
+        "description": "The lifecycle configuration for a SageMaker HyperPod cluster.",
+        "children": [
+          {
+            "name": "source_s3_uri",
+            "type": "string",
+            "description": "An Amazon S3 bucket path where your lifecycle scripts are stored."
+          },
+          {
+            "name": "on_create",
+            "type": "string",
+            "description": "The file name of the entrypoint script of lifecycle scripts under SourceS3Uri. This entrypoint script runs during cluster creation."
+          }
+        ]
+      },
+      {
+        "name": "training_plan_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the training plan to use for this cluster instance group. For more information about how to reserve GPU capacity for your SageMaker HyperPod clusters using Amazon SageMaker Training Plan, see CreateTrainingPlan."
+      },
+      {
+        "name": "threads_per_core",
+        "type": "integer",
+        "description": "The number you specified to TreadsPerCore in CreateCluster for enabling or disabling multithreading. For instance types that support multithreading, you can specify 1 for disabling multithreading and 2 for enabling multithreading."
+      },
+      {
+        "name": "instance_count",
+        "type": "integer",
+        "description": "The number of instances you specified to add to the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "on_start_deep_health_checks",
+        "type": "array",
+        "description": "Nodes will undergo advanced stress test to detect and replace faulty instances, based on the type of deep health check(s) passed in."
+      },
+      {
+        "name": "image_id",
+        "type": "string",
+        "description": "AMI Id to be used for launching EC2 instances - HyperPodPublicAmiId or CustomAmiId"
+      },
+      {
+        "name": "current_count",
+        "type": "integer",
+        "description": "The number of instances that are currently in the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "scheduled_update_config",
+        "type": "object",
+        "description": "The configuration object of the schedule that SageMaker follows when updating the AMI.",
+        "children": [
+          {
+            "name": "schedule_expression",
+            "type": "string",
+            "description": "A cron expression that specifies the schedule that SageMaker follows when updating the AMI."
+          },
+          {
+            "name": "deployment_config",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "auto_rollback_configuration",
+                "type": "object",
+                "description": "Configuration for automatic rollback if an error occurs during deployment."
+              },
+              {
+                "name": "blue_green_update_policy",
+                "type": "object",
+                "description": "Configuration for blue-green update deployment policies."
+              },
+              {
+                "name": "rolling_update_policy",
+                "type": "object",
+                "description": "Configuration for rolling update deployment policies."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": "The instance type of the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "execution_role",
+        "type": "string",
+        "description": "The execution role for the instance group to assume."
+      }
+    ]
+  },
+  {
+    "name": "restricted_instance_groups",
+    "type": "array",
+    "description": "The restricted instance groups of the SageMaker HyperPod cluster.",
+    "children": [
+      {
+        "name": "instance_count",
+        "type": "integer",
+        "description": "The number of instances you specified to add to the restricted instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "on_start_deep_health_checks",
+        "type": "array",
+        "description": "Nodes will undergo advanced stress test to detect and replace faulty instances, based on the type of deep health check(s) passed in."
+      },
+      {
+        "name": "environment_config",
+        "type": "object",
+        "description": "The configuration for the restricted instance groups (RIG) environment.",
+        "children": [
+          {
+            "name": "f_sx_lustre_config",
+            "type": "object",
+            "description": "Configuration settings for an Amazon FSx for Lustre file system to be used with the cluster.",
+            "children": [
+              {
+                "name": "size_in_gi_b",
+                "type": "integer",
+                "description": "The storage capacity of the FSx for Lustre file system, specified in gibibytes (GiB)."
+              },
+              {
+                "name": "per_unit_storage_throughput",
+                "type": "integer",
+                "description": "The throughput capacity of the FSx for Lustre file system, measured in MB/s per TiB of storage."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "instance_group_name",
+        "type": "string",
+        "description": "The name of the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "instance_storage_configs",
+        "type": "array",
+        "description": "The instance storage configuration for the instance group."
+      },
+      {
+        "name": "current_count",
+        "type": "integer",
+        "description": "The number of instances that are currently in the restricted instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "training_plan_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the training plan to use for this cluster restricted instance group. For more information about how to reserve GPU capacity for your SageMaker HyperPod clusters using Amazon SageMaker Training Plan, see CreateTrainingPlan."
+      },
+      {
+        "name": "instance_type",
+        "type": "string",
+        "description": "The instance type of the instance group of a SageMaker HyperPod cluster."
+      },
+      {
+        "name": "threads_per_core",
+        "type": "integer",
+        "description": "The number you specified to TreadsPerCore in CreateCluster for enabling or disabling multithreading. For instance types that support multithreading, you can specify 1 for disabling multithreading and 2 for enabling multithreading."
+      },
+      {
+        "name": "execution_role",
+        "type": "string",
+        "description": "The execution role for the instance group to assume."
+      }
+    ]
+  },
+  {
+    "name": "orchestrator",
+    "type": "object",
+    "description": "Specifies parameter(s) specific to the orchestrator, e.g. specify the EKS cluster.",
+    "children": [
+      {
+        "name": "eks",
+        "type": "object",
+        "description": "Specifies parameter(s) related to EKS as orchestrator, e.g. the EKS cluster nodes will attach to,",
+        "children": [
+          {
+            "name": "cluster_arn",
+            "type": "string",
+            "description": "The ARN of the EKS cluster, such as arn:aws:eks:us-west-2:123456789012:cluster/my-eks-cluster"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cluster_role",
+    "type": "string",
+    "description": "The cluster role for the autoscaler to assume."
+  },
+  {
+    "name": "node_provisioning_mode",
+    "type": "string",
+    "description": "Determines the scaling strategy for the SageMaker HyperPod cluster. When set to 'Continuous', enables continuous scaling which dynamically manages node provisioning. If the parameter is omitted, uses the standard scaling approach in previous release."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The time at which the HyperPod cluster was created."
+  },
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The name of the HyperPod Cluster."
+  },
+  {
+    "name": "failure_message",
+    "type": "string",
+    "description": "The failure message of the HyperPod Cluster."
+  },
+  {
+    "name": "auto_scaling",
+    "type": "object",
+    "description": "Configuration for cluster auto-scaling",
+    "children": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "The auto-scaling mode for the cluster"
+      },
+      {
+        "name": "auto_scaler_type",
+        "type": "string",
+        "description": "The type of auto-scaler to use"
+      }
+    ]
+  },
+  {
+    "name": "cluster_status",
+    "type": "string",
+    "description": "The status of the HyperPod Cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Custom tags for managing the SageMaker HyperPod cluster as an AWS resource. You can add tags to your cluster in the same way you add them in other AWS services that support tagging.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-cluster.html"><code>AWS::SageMaker::Cluster</code></a>.
 
@@ -93,27 +375,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>clusters</code> in a region.
-```sql
-SELECT
-region,
-cluster_arn,
-vpc_config,
-node_recovery,
-instance_groups,
-restricted_instance_groups,
-orchestrator,
-cluster_role,
-node_provisioning_mode,
-creation_time,
-cluster_name,
-failure_message,
-auto_scaling,
-cluster_status,
-tags
-FROM awscc.sagemaker.clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cluster</code>.
 ```sql
 SELECT

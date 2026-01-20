@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cloud_vm_cluster</code> resource or lists <code>cloud_vm_clusters</code> in a region
 
@@ -32,47 +33,217 @@ Creates, updates, deletes or gets a <code>cloud_vm_cluster</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cloud_exadata_infrastructure_id" /></td><td><code>string</code></td><td>The unique identifier of the Exadata infrastructure that this VM cluster belongs to.</td></tr>
-<tr><td><CopyableCode code="cloud_vm_cluster_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the VM cluster.</td></tr>
-<tr><td><CopyableCode code="cloud_vm_cluster_id" /></td><td><code>string</code></td><td>The unique identifier of the VM cluster.</td></tr>
-<tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>The name of the Grid Infrastructure (GI) cluster.</td></tr>
-<tr><td><CopyableCode code="compute_model" /></td><td><code>string</code></td><td>The OCI model compute model used when you create or clone an instance: ECPU or OCPU. An ECPU is an abstracted measure of compute resources. ECPUs are based on the number of cores elastically allocated from a pool of compute and storage servers. An OCPU is a legacy physical measure of compute resources. OCPUs are based on the physical core of a processor with hyper-threading enabled.</td></tr>
-<tr><td><CopyableCode code="cpu_core_count" /></td><td><code>integer</code></td><td>The number of CPU cores enabled on the VM cluster.</td></tr>
-<tr><td><CopyableCode code="data_collection_options" /></td><td><code>object</code></td><td>The set of diagnostic collection options enabled for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="data_storage_size_in_tbs" /></td><td><code>number</code></td><td>The size of the data disk group, in terabytes (TB), that's allocated for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="db_node_storage_size_in_gbs" /></td><td><code>integer</code></td><td>The amount of local node storage, in gigabytes (GB), that's allocated for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="db_servers" /></td><td><code>array</code></td><td>The list of database servers for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The user-friendly name for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="disk_redundancy" /></td><td><code>string</code></td><td>The type of redundancy configured for the VM cluster. NORMAL is 2-way redundancy. HIGH is 3-way redundancy.</td></tr>
-<tr><td><CopyableCode code="domain" /></td><td><code>string</code></td><td>The domain of the VM cluster.</td></tr>
-<tr><td><CopyableCode code="gi_version" /></td><td><code>string</code></td><td>The software version of the Oracle Grid Infrastructure (GI) for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="hostname" /></td><td><code>string</code></td><td>The host name for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="is_local_backup_enabled" /></td><td><code>boolean</code></td><td>Indicates whether database backups to local Exadata storage is enabled for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="is_sparse_diskgroup_enabled" /></td><td><code>boolean</code></td><td>Indicates whether the VM cluster is configured with a sparse disk group.</td></tr>
-<tr><td><CopyableCode code="license_model" /></td><td><code>string</code></td><td>The Oracle license model applied to the VM cluster.</td></tr>
-<tr><td><CopyableCode code="listener_port" /></td><td><code>integer</code></td><td>The port number configured for the listener on the VM cluster.</td></tr>
-<tr><td><CopyableCode code="memory_size_in_gbs" /></td><td><code>integer</code></td><td>The amount of memory, in gigabytes (GB), that's allocated for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="node_count" /></td><td><code>integer</code></td><td>The number of nodes in the VM cluster.</td></tr>
-<tr><td><CopyableCode code="odb_network_id" /></td><td><code>string</code></td><td>The unique identifier of the ODB network for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="ocid" /></td><td><code>string</code></td><td>The OCID of the VM cluster.</td></tr>
-<tr><td><CopyableCode code="oci_resource_anchor_name" /></td><td><code>string</code></td><td>The name of the OCI resource anchor for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="oci_url" /></td><td><code>string</code></td><td>The HTTPS link to the VM cluster in OCI.</td></tr>
-<tr><td><CopyableCode code="scan_dns_name" /></td><td><code>string</code></td><td>The FQDN of the DNS record for the Single Client Access Name (SCAN) IP addresses that are associated with the VM cluster.</td></tr>
-<tr><td><CopyableCode code="scan_ip_ids" /></td><td><code>array</code></td><td>The OCID of the SCAN IP addresses that are associated with the VM cluster.</td></tr>
-<tr><td><CopyableCode code="scan_listener_port_tcp" /></td><td><code>integer</code></td><td>Property description not available.</td></tr>
-<tr><td><CopyableCode code="shape" /></td><td><code>string</code></td><td>The hardware model name of the Exadata infrastructure that's running the VM cluster.</td></tr>
-<tr><td><CopyableCode code="ssh_public_keys" /></td><td><code>array</code></td><td>The public key portion of one or more key pairs used for SSH access to the VM cluster.</td></tr>
-<tr><td><CopyableCode code="storage_size_in_gbs" /></td><td><code>integer</code></td><td>The amount of local node storage, in gigabytes (GB), that's allocated to the VM cluster.</td></tr>
-<tr><td><CopyableCode code="system_version" /></td><td><code>string</code></td><td>The operating system version of the image chosen for the VM cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags to assign to the Vm Cluster.</td></tr>
-<tr><td><CopyableCode code="time_zone" /></td><td><code>string</code></td><td>The time zone of the VM cluster.</td></tr>
-<tr><td><CopyableCode code="vip_ids" /></td><td><code>array</code></td><td>The virtual IP (VIP) addresses that are associated with the VM cluster. Oracle's Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the VM cluster to enable failover. If one node fails, the VIP is reassigned to another active node in the cluster.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "cloud_exadata_infrastructure_id",
+    "type": "string",
+    "description": "The unique identifier of the Exadata infrastructure that this VM cluster belongs to."
+  },
+  {
+    "name": "cloud_vm_cluster_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the VM cluster."
+  },
+  {
+    "name": "cloud_vm_cluster_id",
+    "type": "string",
+    "description": "The unique identifier of the VM cluster."
+  },
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The name of the Grid Infrastructure (GI) cluster."
+  },
+  {
+    "name": "compute_model",
+    "type": "string",
+    "description": "The OCI model compute model used when you create or clone an instance: ECPU or OCPU. An ECPU is an abstracted measure of compute resources. ECPUs are based on the number of cores elastically allocated from a pool of compute and storage servers. An OCPU is a legacy physical measure of compute resources. OCPUs are based on the physical core of a processor with hyper-threading enabled."
+  },
+  {
+    "name": "cpu_core_count",
+    "type": "integer",
+    "description": "The number of CPU cores enabled on the VM cluster."
+  },
+  {
+    "name": "data_collection_options",
+    "type": "object",
+    "description": "The set of diagnostic collection options enabled for the VM cluster.",
+    "children": [
+      {
+        "name": "is_diagnostics_events_enabled",
+        "type": "boolean",
+        "description": "Indicates whether diagnostic collection is enabled for the VM cluster."
+      },
+      {
+        "name": "is_health_monitoring_enabled",
+        "type": "boolean",
+        "description": "Indicates whether health monitoring is enabled for the VM cluster."
+      },
+      {
+        "name": "is_incident_logs_enabled",
+        "type": "boolean",
+        "description": "Indicates whether incident logs are enabled for the cloud VM cluster."
+      }
+    ]
+  },
+  {
+    "name": "data_storage_size_in_tbs",
+    "type": "number",
+    "description": "The size of the data disk group, in terabytes (TB), that's allocated for the VM cluster."
+  },
+  {
+    "name": "db_node_storage_size_in_gbs",
+    "type": "integer",
+    "description": "The amount of local node storage, in gigabytes (GB), that's allocated for the VM cluster."
+  },
+  {
+    "name": "db_servers",
+    "type": "array",
+    "description": "The list of database servers for the VM cluster."
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The user-friendly name for the VM cluster."
+  },
+  {
+    "name": "disk_redundancy",
+    "type": "string",
+    "description": "The type of redundancy configured for the VM cluster. NORMAL is 2-way redundancy. HIGH is 3-way redundancy."
+  },
+  {
+    "name": "domain",
+    "type": "string",
+    "description": "The domain of the VM cluster."
+  },
+  {
+    "name": "gi_version",
+    "type": "string",
+    "description": "The software version of the Oracle Grid Infrastructure (GI) for the VM cluster."
+  },
+  {
+    "name": "hostname",
+    "type": "string",
+    "description": "The host name for the VM cluster."
+  },
+  {
+    "name": "is_local_backup_enabled",
+    "type": "boolean",
+    "description": "Indicates whether database backups to local Exadata storage is enabled for the VM cluster."
+  },
+  {
+    "name": "is_sparse_diskgroup_enabled",
+    "type": "boolean",
+    "description": "Indicates whether the VM cluster is configured with a sparse disk group."
+  },
+  {
+    "name": "license_model",
+    "type": "string",
+    "description": "The Oracle license model applied to the VM cluster."
+  },
+  {
+    "name": "listener_port",
+    "type": "integer",
+    "description": "The port number configured for the listener on the VM cluster."
+  },
+  {
+    "name": "memory_size_in_gbs",
+    "type": "integer",
+    "description": "The amount of memory, in gigabytes (GB), that's allocated for the VM cluster."
+  },
+  {
+    "name": "node_count",
+    "type": "integer",
+    "description": "The number of nodes in the VM cluster."
+  },
+  {
+    "name": "odb_network_id",
+    "type": "string",
+    "description": "The unique identifier of the ODB network for the VM cluster."
+  },
+  {
+    "name": "ocid",
+    "type": "string",
+    "description": "The OCID of the VM cluster."
+  },
+  {
+    "name": "oci_resource_anchor_name",
+    "type": "string",
+    "description": "The name of the OCI resource anchor for the VM cluster."
+  },
+  {
+    "name": "oci_url",
+    "type": "string",
+    "description": "The HTTPS link to the VM cluster in OCI."
+  },
+  {
+    "name": "scan_dns_name",
+    "type": "string",
+    "description": "The FQDN of the DNS record for the Single Client Access Name (SCAN) IP addresses that are associated with the VM cluster."
+  },
+  {
+    "name": "scan_ip_ids",
+    "type": "array",
+    "description": "The OCID of the SCAN IP addresses that are associated with the VM cluster."
+  },
+  {
+    "name": "scan_listener_port_tcp",
+    "type": "integer",
+    "description": "Property description not available."
+  },
+  {
+    "name": "shape",
+    "type": "string",
+    "description": "The hardware model name of the Exadata infrastructure that's running the VM cluster."
+  },
+  {
+    "name": "ssh_public_keys",
+    "type": "array",
+    "description": "The public key portion of one or more key pairs used for SSH access to the VM cluster."
+  },
+  {
+    "name": "storage_size_in_gbs",
+    "type": "integer",
+    "description": "The amount of local node storage, in gigabytes (GB), that's allocated to the VM cluster."
+  },
+  {
+    "name": "system_version",
+    "type": "string",
+    "description": "The operating system version of the image chosen for the VM cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags to assign to the Vm Cluster.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that's 1 to 128 Unicode characters in length and can't be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., :, /, =, +, @, -, and \"."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that's 1 to 256 characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "time_zone",
+    "type": "string",
+    "description": "The time zone of the VM cluster."
+  },
+  {
+    "name": "vip_ids",
+    "type": "array",
+    "description": "The virtual IP (VIP) addresses that are associated with the VM cluster. Oracle's Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the VM cluster to enable failover. If one node fails, the VIP is reassigned to another active node in the cluster."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-odb-cloudvmcluster.html"><code>AWS::ODB::CloudVmCluster</code></a>.
 
@@ -114,48 +285,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cloud_vm_clusters</code> in a region.
-```sql
-SELECT
-region,
-cloud_exadata_infrastructure_id,
-cloud_vm_cluster_arn,
-cloud_vm_cluster_id,
-cluster_name,
-compute_model,
-cpu_core_count,
-data_collection_options,
-data_storage_size_in_tbs,
-db_node_storage_size_in_gbs,
-db_servers,
-display_name,
-disk_redundancy,
-domain,
-gi_version,
-hostname,
-is_local_backup_enabled,
-is_sparse_diskgroup_enabled,
-license_model,
-listener_port,
-memory_size_in_gbs,
-node_count,
-odb_network_id,
-ocid,
-oci_resource_anchor_name,
-oci_url,
-scan_dns_name,
-scan_ip_ids,
-scan_listener_port_tcp,
-shape,
-ssh_public_keys,
-storage_size_in_gbs,
-system_version,
-tags,
-time_zone,
-vip_ids
-FROM awscc.odb.cloud_vm_clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cloud_vm_cluster</code>.
 ```sql
 SELECT

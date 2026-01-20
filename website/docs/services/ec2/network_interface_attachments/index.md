@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>network_interface_attachment</code> resource or lists <code>network_interface_attachments</code> in a region
 
@@ -32,18 +33,62 @@ Creates, updates, deletes or gets a <code>network_interface_attachment</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="attachment_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="delete_on_termination" /></td><td><code>boolean</code></td><td>Whether to delete the network interface when the instance terminates. By default, this value is set to <code>true</code>.</td></tr>
-<tr><td><CopyableCode code="device_index" /></td><td><code>string</code></td><td>The network interface's position in the attachment order. For example, the first attached network interface has a <code>DeviceIndex</code> of 0.</td></tr>
-<tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>The ID of the instance to which you will attach the ENI.</td></tr>
-<tr><td><CopyableCode code="network_interface_id" /></td><td><code>string</code></td><td>The ID of the ENI that you want to attach.</td></tr>
-<tr><td><CopyableCode code="ena_srd_specification" /></td><td><code>object</code></td><td>Configures ENA Express for the network interface that this action attaches to the instance.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "attachment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "delete_on_termination",
+    "type": "boolean",
+    "description": "Whether to delete the network interface when the instance terminates. By default, this value is set to &#96;&#96;true&#96;&#96;."
+  },
+  {
+    "name": "device_index",
+    "type": "string",
+    "description": "The network interface's position in the attachment order. For example, the first attached network interface has a &#96;&#96;DeviceIndex&#96;&#96; of 0."
+  },
+  {
+    "name": "instance_id",
+    "type": "string",
+    "description": "The ID of the instance to which you will attach the ENI."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of the ENI that you want to attach."
+  },
+  {
+    "name": "ena_srd_specification",
+    "type": "object",
+    "description": "Configures ENA Express for the network interface that this action attaches to the instance.",
+    "children": [
+      {
+        "name": "ena_srd_enabled",
+        "type": "boolean",
+        "description": "Indicates whether ENA Express is enabled for the network interface."
+      },
+      {
+        "name": "ena_srd_udp_specification",
+        "type": "object",
+        "description": "Configures ENA Express for UDP network traffic.",
+        "children": [
+          {
+            "name": "ena_srd_udp_enabled",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinterfaceattachment.html"><code>AWS::EC2::NetworkInterfaceAttachment</code></a>.
 
@@ -85,19 +130,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>network_interface_attachments</code> in a region.
-```sql
-SELECT
-region,
-attachment_id,
-delete_on_termination,
-device_index,
-instance_id,
-network_interface_id,
-ena_srd_specification
-FROM awscc.ec2.network_interface_attachments
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>network_interface_attachment</code>.
 ```sql
 SELECT

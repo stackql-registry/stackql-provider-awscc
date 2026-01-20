@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>cost_category</code> resource or lists <code>cost_categories</code> in a region
 
@@ -32,20 +33,65 @@ Creates, updates, deletes or gets a <code>cost_category</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Cost category ARN</td></tr>
-<tr><td><CopyableCode code="effective_start" /></td><td><code>string</code></td><td>ISO 8601 date time with offset format</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rules" /></td><td><code>string</code></td><td>JSON array format of Expression in Billing and Cost Management API</td></tr>
-<tr><td><CopyableCode code="split_charge_rules" /></td><td><code>string</code></td><td>Json array format of CostCategorySplitChargeRule in Billing and Cost Management API</td></tr>
-<tr><td><CopyableCode code="default_value" /></td><td><code>string</code></td><td>The default value for the cost category</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags to assign to the cost category.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Cost category ARN"
+  },
+  {
+    "name": "effective_start",
+    "type": "string",
+    "description": "ISO 8601 date time with offset format"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rule_version",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rules",
+    "type": "string",
+    "description": "JSON array format of Expression in Billing and Cost Management API"
+  },
+  {
+    "name": "split_charge_rules",
+    "type": "string",
+    "description": "Json array format of CostCategorySplitChargeRule in Billing and Cost Management API"
+  },
+  {
+    "name": "default_value",
+    "type": "string",
+    "description": "The default value for the cost category"
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Tags to assign to the cost category.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name for the tag."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ce-costcategory.html"><code>AWS::CE::CostCategory</code></a>.
 
@@ -87,21 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>cost_categories</code> in a region.
-```sql
-SELECT
-region,
-arn,
-effective_start,
-name,
-rule_version,
-rules,
-split_charge_rules,
-default_value,
-tags
-FROM awscc.ce.cost_categories
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>cost_category</code>.
 ```sql
 SELECT

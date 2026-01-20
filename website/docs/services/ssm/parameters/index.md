@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>parameter</code> resource or lists <code>parameters</code> in a region
 
@@ -26,27 +27,64 @@ Creates, updates, deletes or gets a <code>parameter</code> resource or lists <co
 <tbody>
 <tr><td><b>Name</b></td><td><code>parameters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>The <code>AWS::SSM::Parameter</code> resource creates an SSM parameter in SYSlong Parameter Store.<br />To create an SSM parameter, you must have the IAMlong (IAM) permissions <code>ssm:PutParameter</code> and <code>ssm:AddTagsToResource</code>. On stack creation, CFNlong adds the following three tags to the parameter: <code>aws:cloudformation:stack-name</code>, <code>aws:cloudformation:logical-id</code>, and <code>aws:cloudformation:stack-id</code>, in addition to any custom tags you specify.<br />To add, update, or remove tags during stack update, you must have IAM permissions for both <code>ssm:AddTagsToResource</code> and <code>ssm:RemoveTagsFromResource</code>. For more information, see &#91;Managing access using policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/security-iam.html#security_iam_access-manage) in the ASTERIX;User GuideASTERIX;.<br />For information about valid values for parameters, see &#91;About requirements and constraints for parameter names&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints) in the ASTERIX;User GuideASTERIX; and &#91;PutParameter&#93;(https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html) in the ASTERIX;API ReferenceASTERIX;.</td></tr>
+<tr><td><b>Description</b></td><td>The &#96;&#96;AWS::SSM::Parameter&#96;&#96; resource creates an SSM parameter in SYSlong Parameter Store.<br />To create an SSM parameter, you must have the IAMlong (IAM) permissions &#96;&#96;ssm:PutParameter&#96;&#96; and &#96;&#96;ssm:AddTagsToResource&#96;&#96;. On stack creation, CFNlong adds the following three tags to the parameter: &#96;&#96;aws:cloudformation:stack-name&#96;&#96;, &#96;&#96;aws:cloudformation:logical-id&#96;&#96;, and &#96;&#96;aws:cloudformation:stack-id&#96;&#96;, in addition to any custom tags you specify.<br />To add, update, or remove tags during stack update, you must have IAM permissions for both &#96;&#96;ssm:AddTagsToResource&#96;&#96; and &#96;&#96;ssm:RemoveTagsFromResource&#96;&#96;. For more information, see &#91;Managing access using policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/security-iam.html#security&#95;iam&#95;access-manage) in the &#42;User Guide&#42;.<br />For information about valid values for parameters, see &#91;About requirements and constraints for parameter names&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html#sysman-parameter-name-constraints) in the &#42;User Guide&#42; and &#91;PutParameter&#93;(https://docs.aws.amazon.com/systems-manager/latest/APIReference/API&#95;PutParameter.html) in the &#42;API Reference&#42;.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ssm.parameters" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of parameter.<br />Parameters of type <code>SecureString</code> are not supported by CFNlong.</td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>The parameter value.<br />If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in the <code>Value</code> field.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Information about the parameter.</td></tr>
-<tr><td><CopyableCode code="policies" /></td><td><code>string</code></td><td>Information about the policies assigned to a parameter.<br />&#91;Assigning parameter policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html) in the ASTERIX;User GuideASTERIX;.</td></tr>
-<tr><td><CopyableCode code="allowed_pattern" /></td><td><code>string</code></td><td>A regular expression used to validate the parameter value. For example, for <code>String</code> types with values restricted to numbers, you can specify the following: <code>AllowedPattern=^\d+$</code></td></tr>
-<tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>The parameter tier.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Optional metadata that you assign to a resource in the form of an arbitrary set of tags (key-value pairs). Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag a SYS parameter to identify the type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter.</td></tr>
-<tr><td><CopyableCode code="data_type" /></td><td><code>string</code></td><td>The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the parameter.<br />The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "type",
+    "type": "string",
+    "description": "The type of parameter.<br />Parameters of type &#96;&#96;SecureString&#96;&#96; are not supported by CFNlong."
+  },
+  {
+    "name": "value",
+    "type": "string",
+    "description": "The parameter value.<br />If type is &#96;&#96;StringList&#96;&#96;, the system returns a comma-separated string with no spaces between commas in the &#96;&#96;Value&#96;&#96; field."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "Information about the parameter."
+  },
+  {
+    "name": "policies",
+    "type": "string",
+    "description": "Information about the policies assigned to a parameter.<br />&#91;Assigning parameter policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html) in the &#42;User Guide&#42;."
+  },
+  {
+    "name": "allowed_pattern",
+    "type": "string",
+    "description": "A regular expression used to validate the parameter value. For example, for &#96;&#96;String&#96;&#96; types with values restricted to numbers, you can specify the following: &#96;&#96;AllowedPattern=^\\d+$&#96;&#96;"
+  },
+  {
+    "name": "tier",
+    "type": "string",
+    "description": "The parameter tier."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "Optional metadata that you assign to a resource in the form of an arbitrary set of tags (key-value pairs). Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag a SYS parameter to identify the type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter."
+  },
+  {
+    "name": "data_type",
+    "type": "string",
+    "description": "The data type of the parameter, such as &#96;&#96;text&#96;&#96; or &#96;&#96;aws:ec2:image&#96;&#96;. The default is &#96;&#96;text&#96;&#96;."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the parameter.<br />The reported maximum length of 2048 characters for a parameter name includes 1037 characters that are reserved for internal use by SYS. The maximum length for a parameter name that you specify is 1011 characters.<br />This count of 1011 characters includes the characters in the ARN that precede the name you specify. This ARN length will vary depending on your partition and Region. For example, the following 45 characters count toward the 1011 character maximum for a parameter created in the US East (Ohio) Region: &#96;&#96;arn:aws:ssm:us-east-2:111122223333:parameter/&#96;&#96;."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html"><code>AWS::SSM::Parameter</code></a>.
 
@@ -88,22 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>parameters</code> in a region.
-```sql
-SELECT
-region,
-type,
-value,
-description,
-policies,
-allowed_pattern,
-tier,
-tags,
-data_type,
-name
-FROM awscc.ssm.parameters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>parameter</code>.
 ```sql
 SELECT

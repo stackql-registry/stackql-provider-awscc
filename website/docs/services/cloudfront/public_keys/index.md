@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>public_key</code> resource or lists <code>public_keys</code> in a region
 
@@ -32,15 +33,50 @@ Creates, updates, deletes or gets a <code>public_key</code> resource or lists <c
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="public_key_config" /></td><td><code>object</code></td><td>Configuration information about a public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "public_key_config",
+    "type": "object",
+    "description": "Configuration information about a public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).",
+    "children": [
+      {
+        "name": "caller_reference",
+        "type": "string",
+        "description": "A string included in the request to help make sure that the request can't be replayed."
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "description": "A comment to describe the public key. The comment cannot be longer than 128 characters."
+      },
+      {
+        "name": "encoded_key",
+        "type": "string",
+        "description": "The public key that you can use with &#91;signed URLs and signed cookies&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with &#91;field-level encryption&#93;(https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html)."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "A name to help identify the public key."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-publickey.html"><code>AWS::CloudFront::PublicKey</code></a>.
 
@@ -82,16 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>public_keys</code> in a region.
-```sql
-SELECT
-region,
-created_time,
-id,
-public_key_config
-FROM awscc.cloudfront.public_keys
-;
-```
+
 Gets all properties from an individual <code>public_key</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>key_pair</code> resource or lists <code>key_pairs</code> in a region
 
@@ -26,25 +27,66 @@ Creates, updates, deletes or gets a <code>key_pair</code> resource or lists <cod
 <tbody>
 <tr><td><b>Name</b></td><td><code>key_pairs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Specifies a key pair for use with an EC2long instance as follows:<br />+ To import an existing key pair, include the <code>PublicKeyMaterial</code> property.<br />+ To create a new key pair, omit the <code>PublicKeyMaterial</code> property.<br /><br />When you import an existing key pair, you specify the public key material for the key. We assume that you have the private key material for the key. CFNlong does not create or return the private key material when you import a key pair.<br />When you create a new key pair, the private key is saved to SYSlong Parameter Store, using a parameter with the following name: <code>/ec2/keypair/&#123;key_pair_id&#125;</code>. For more information about retrieving private key, and the required permissions, see &#91;Create a key pair using&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#create-key-pair-cloudformation) in the ASTERIX;User GuideASTERIX;.<br />When CFN deletes a key pair that was created or imported by a stack, it also deletes the parameter that was used to store the private key material in Parameter Store.</td></tr>
+<tr><td><b>Description</b></td><td>Specifies a key pair for use with an EC2long instance as follows:<br />+ To import an existing key pair, include the &#96;&#96;PublicKeyMaterial&#96;&#96; property.<br />+ To create a new key pair, omit the &#96;&#96;PublicKeyMaterial&#96;&#96; property.<br /><br />When you import an existing key pair, you specify the public key material for the key. We assume that you have the private key material for the key. CFNlong does not create or return the private key material when you import a key pair.<br />When you create a new key pair, the private key is saved to SYSlong Parameter Store, using a parameter with the following name: &#96;&#96;/ec2/keypair/&#123;key&#95;pair&#95;id&#125;&#96;&#96;. For more information about retrieving private key, and the required permissions, see &#91;Create a key pair using&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#create-key-pair-cloudformation) in the &#42;User Guide&#42;.<br />When CFN deletes a key pair that was created or imported by a stack, it also deletes the parameter that was used to store the private key material in Parameter Store.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="awscc.ec2.key_pairs" /></td></tr>
 </tbody>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="key_name" /></td><td><code>string</code></td><td>A unique name for the key pair.<br />Constraints: Up to 255 ASCII characters</td></tr>
-<tr><td><CopyableCode code="key_type" /></td><td><code>string</code></td><td>The type of key pair. Note that ED25519 keys are not supported for Windows instances.<br />If the <code>PublicKeyMaterial</code> property is specified, the <code>KeyType</code> property is ignored, and the key type is inferred from the <code>PublicKeyMaterial</code> value.<br />Default: <code>rsa</code></td></tr>
-<tr><td><CopyableCode code="key_format" /></td><td><code>string</code></td><td>The format of the key pair.<br />Default: <code>pem</code></td></tr>
-<tr><td><CopyableCode code="public_key_material" /></td><td><code>string</code></td><td>The public key material. The <code>PublicKeyMaterial</code> property is used to import a key pair. If this property is not specified, then a new key pair will be created.</td></tr>
-<tr><td><CopyableCode code="key_fingerprint" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="key_pair_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the key pair.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "key_name",
+    "type": "string",
+    "description": "A unique name for the key pair.<br />Constraints: Up to 255 ASCII characters"
+  },
+  {
+    "name": "key_type",
+    "type": "string",
+    "description": "The type of key pair. Note that ED25519 keys are not supported for Windows instances.<br />If the &#96;&#96;PublicKeyMaterial&#96;&#96; property is specified, the &#96;&#96;KeyType&#96;&#96; property is ignored, and the key type is inferred from the &#96;&#96;PublicKeyMaterial&#96;&#96; value.<br />Default: &#96;&#96;rsa&#96;&#96;"
+  },
+  {
+    "name": "key_format",
+    "type": "string",
+    "description": "The format of the key pair.<br />Default: &#96;&#96;pem&#96;&#96;"
+  },
+  {
+    "name": "public_key_material",
+    "type": "string",
+    "description": "The public key material. The &#96;&#96;PublicKeyMaterial&#96;&#96; property is used to import a key pair. If this property is not specified, then a new key pair will be created."
+  },
+  {
+    "name": "key_fingerprint",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "key_pair_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags to apply to the key pair.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-keypair.html"><code>AWS::EC2::KeyPair</code></a>.
 
@@ -81,20 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>key_pairs</code> in a region.
-```sql
-SELECT
-region,
-key_name,
-key_type,
-key_format,
-public_key_material,
-key_fingerprint,
-key_pair_id,
-tags
-FROM awscc.ec2.key_pairs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>key_pair</code>.
 ```sql
 SELECT

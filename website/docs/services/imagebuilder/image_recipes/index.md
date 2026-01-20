@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>image_recipe</code> resource or lists <code>image_recipes</code> in a region
 
@@ -32,22 +33,170 @@ Creates, updates, deletes or gets an <code>image_recipe</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the image recipe.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the image recipe.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the image recipe.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The version of the image recipe.</td></tr>
-<tr><td><CopyableCode code="components" /></td><td><code>array</code></td><td>The components of the image recipe.</td></tr>
-<tr><td><CopyableCode code="block_device_mappings" /></td><td><code>array</code></td><td>The block device mappings to apply when creating images from this recipe.</td></tr>
-<tr><td><CopyableCode code="parent_image" /></td><td><code>string</code></td><td>The parent image of the image recipe.</td></tr>
-<tr><td><CopyableCode code="working_directory" /></td><td><code>string</code></td><td>The working directory to be used during build and test workflows.</td></tr>
-<tr><td><CopyableCode code="additional_instance_configuration" /></td><td><code>object</code></td><td>Specify additional settings and launch scripts for your build instances.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags of the image recipe.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the image recipe."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the image recipe."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the image recipe."
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The version of the image recipe."
+  },
+  {
+    "name": "components",
+    "type": "array",
+    "description": "The components of the image recipe.",
+    "children": [
+      {
+        "name": "component_arn",
+        "type": "string",
+        "description": "The Amazon Resource Name (ARN) of the component."
+      },
+      {
+        "name": "parameters",
+        "type": "array",
+        "description": "A group of parameter settings that are used to configure the component for a specific recipe.",
+        "children": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the component parameter to set."
+          },
+          {
+            "name": "value",
+            "type": "array",
+            "description": "Sets the value for the named component parameter."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "block_device_mappings",
+    "type": "array",
+    "description": "The block device mappings to apply when creating images from this recipe.",
+    "children": [
+      {
+        "name": "device_name",
+        "type": "string",
+        "description": "The device to which these mappings apply."
+      },
+      {
+        "name": "virtual_name",
+        "type": "string",
+        "description": "Use to manage instance ephemeral devices."
+      },
+      {
+        "name": "no_device",
+        "type": "string",
+        "description": "Use to remove a mapping from the parent image."
+      },
+      {
+        "name": "ebs",
+        "type": "object",
+        "description": "Use to manage Amazon EBS-specific configuration for this mapping.",
+        "children": [
+          {
+            "name": "encrypted",
+            "type": "boolean",
+            "description": "Use to configure device encryption."
+          },
+          {
+            "name": "delete_on_termination",
+            "type": "boolean",
+            "description": "Use to configure delete on termination of the associated device."
+          },
+          {
+            "name": "iops",
+            "type": "integer",
+            "description": "Use to configure device IOPS."
+          },
+          {
+            "name": "kms_key_id",
+            "type": "string",
+            "description": "Use to configure the KMS key to use when encrypting the device."
+          },
+          {
+            "name": "snapshot_id",
+            "type": "string",
+            "description": "The snapshot that defines the device contents."
+          },
+          {
+            "name": "throughput",
+            "type": "integer",
+            "description": "For GP3 volumes only - The throughput in MiB/s that the volume supports."
+          },
+          {
+            "name": "volume_size",
+            "type": "integer",
+            "description": "Use to override the device's volume size."
+          },
+          {
+            "name": "volume_type",
+            "type": "string",
+            "description": "Use to override the device's volume type."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "parent_image",
+    "type": "string",
+    "description": "The parent image of the image recipe."
+  },
+  {
+    "name": "working_directory",
+    "type": "string",
+    "description": "The working directory to be used during build and test workflows."
+  },
+  {
+    "name": "additional_instance_configuration",
+    "type": "object",
+    "description": "Specify additional settings and launch scripts for your build instances.",
+    "children": [
+      {
+        "name": "systems_manager_agent",
+        "type": "object",
+        "description": "Contains settings for the SSM agent on your build instance.",
+        "children": [
+          {
+            "name": "uninstall_after_build",
+            "type": "boolean",
+            "description": "Controls whether the SSM agent is removed from your final build image, prior to creating the new AMI. If this is set to true, then the agent is removed from the final image. If it's set to false, then the agent is left in, so that it is included in the new AMI. The default value is false."
+          }
+        ]
+      },
+      {
+        "name": "user_data_override",
+        "type": "string",
+        "description": "Use this property to provide commands or a command script to run when you launch your build instance."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The tags of the image recipe."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-imagerecipe.html"><code>AWS::ImageBuilder::ImageRecipe</code></a>.
 
@@ -89,23 +238,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>image_recipes</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-description,
-version,
-components,
-block_device_mappings,
-parent_image,
-working_directory,
-additional_instance_configuration,
-tags
-FROM awscc.imagebuilder.image_recipes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>image_recipe</code>.
 ```sql
 SELECT

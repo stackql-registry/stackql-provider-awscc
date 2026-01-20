@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>topic_rule_destination</code> resource or lists <code>topic_rule_destinations</code> in a region
 
@@ -32,17 +33,67 @@ Creates, updates, deletes or gets a <code>topic_rule_destination</code> resource
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN).</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the TopicRuleDestination.</td></tr>
-<tr><td><CopyableCode code="http_url_properties" /></td><td><code>object</code></td><td>HTTP URL destination properties.</td></tr>
-<tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td>The reasoning for the current status of the TopicRuleDestination.</td></tr>
-<tr><td><CopyableCode code="vpc_properties" /></td><td><code>object</code></td><td>VPC destination properties.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN)."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": "The status of the TopicRuleDestination."
+  },
+  {
+    "name": "http_url_properties",
+    "type": "object",
+    "description": "HTTP URL destination properties.",
+    "children": [
+      {
+        "name": "confirmation_url",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "status_reason",
+    "type": "string",
+    "description": "The reasoning for the current status of the TopicRuleDestination."
+  },
+  {
+    "name": "vpc_properties",
+    "type": "object",
+    "description": "VPC destination properties.",
+    "children": [
+      {
+        "name": "subnet_ids",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "security_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "vpc_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "role_arn",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-topicruledestination.html"><code>AWS::IoT::TopicRuleDestination</code></a>.
 
@@ -84,18 +135,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>topic_rule_destinations</code> in a region.
-```sql
-SELECT
-region,
-arn,
-status,
-http_url_properties,
-status_reason,
-vpc_properties
-FROM awscc.iot.topic_rule_destinations
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>topic_rule_destination</code>.
 ```sql
 SELECT

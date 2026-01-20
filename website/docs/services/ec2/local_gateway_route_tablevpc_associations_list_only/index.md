@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>local_gateway_route_tablevpc_associations</code> in a region or regions, for all properties use <a href="/services/ec2/local_gateway_route_tablevpc_associations/"><code>local_gateway_route_tablevpc_associations</code></a>
 
@@ -32,13 +33,18 @@ Lists <code>local_gateway_route_tablevpc_associations</code> in a region or regi
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="local_gateway_route_table_vpc_association_id" /></td><td><code>string</code></td><td>The ID of the association.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "local_gateway_route_table_vpc_association_id",
+    "type": "string",
+    "description": "The ID of the association."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>app_image_config</code> resource or lists <code>app_image_configs</code> in a region
 
@@ -32,18 +33,168 @@ Creates, updates, deletes or gets an <code>app_image_config</code> resource or l
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_image_config_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AppImageConfig.</td></tr>
-<tr><td><CopyableCode code="app_image_config_name" /></td><td><code>string</code></td><td>The Name of the AppImageConfig.</td></tr>
-<tr><td><CopyableCode code="kernel_gateway_image_config" /></td><td><code>object</code></td><td>The KernelGatewayImageConfig.</td></tr>
-<tr><td><CopyableCode code="jupyter_lab_app_image_config" /></td><td><code>object</code></td><td>The JupyterLabAppImageConfig.</td></tr>
-<tr><td><CopyableCode code="code_editor_app_image_config" /></td><td><code>object</code></td><td>The CodeEditorAppImageConfig.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the AppImageConfig.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "app_image_config_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the AppImageConfig."
+  },
+  {
+    "name": "app_image_config_name",
+    "type": "string",
+    "description": "The Name of the AppImageConfig."
+  },
+  {
+    "name": "kernel_gateway_image_config",
+    "type": "object",
+    "description": "The KernelGatewayImageConfig.",
+    "children": [
+      {
+        "name": "file_system_config",
+        "type": "object",
+        "description": "The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.",
+        "children": [
+          {
+            "name": "default_gid",
+            "type": "integer",
+            "description": "The default POSIX group ID (GID). If not specified, defaults to 100."
+          },
+          {
+            "name": "default_uid",
+            "type": "integer",
+            "description": "The default POSIX user ID (UID). If not specified, defaults to 1000."
+          },
+          {
+            "name": "mount_path",
+            "type": "string",
+            "description": "The path within the image to mount the user's EFS home directory. The directory should be empty. If not specified, defaults to /home/sagemaker-user."
+          }
+        ]
+      },
+      {
+        "name": "kernel_specs",
+        "type": "array",
+        "description": "The specification of the Jupyter kernels in the image.",
+        "children": [
+          {
+            "name": "display_name",
+            "type": "string",
+            "description": "The display name of the kernel."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "The name of the kernel."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "jupyter_lab_app_image_config",
+    "type": "object",
+    "description": "The JupyterLabAppImageConfig.",
+    "children": [
+      {
+        "name": "container_config",
+        "type": "object",
+        "description": "The container configuration for a SageMaker image.",
+        "children": [
+          {
+            "name": "container_arguments",
+            "type": "array",
+            "description": "A list of arguments to apply to the container."
+          },
+          {
+            "name": "container_entrypoint",
+            "type": "array",
+            "description": "The custom entry point to use on container."
+          },
+          {
+            "name": "container_environment_variables",
+            "type": "array",
+            "description": "A list of variables to apply to the custom container.",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "code_editor_app_image_config",
+    "type": "object",
+    "description": "The CodeEditorAppImageConfig.",
+    "children": [
+      {
+        "name": "container_config",
+        "type": "object",
+        "description": "The container configuration for a SageMaker image.",
+        "children": [
+          {
+            "name": "container_arguments",
+            "type": "array",
+            "description": "A list of arguments to apply to the container."
+          },
+          {
+            "name": "container_entrypoint",
+            "type": "array",
+            "description": "The custom entry point to use on container."
+          },
+          {
+            "name": "container_environment_variables",
+            "type": "array",
+            "description": "A list of variables to apply to the custom container.",
+            "children": [
+              {
+                "name": "value",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "key",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A list of tags to apply to the AppImageConfig.",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-appimageconfig.html"><code>AWS::SageMaker::AppImageConfig</code></a>.
 
@@ -85,19 +236,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>app_image_configs</code> in a region.
-```sql
-SELECT
-region,
-app_image_config_arn,
-app_image_config_name,
-kernel_gateway_image_config,
-jupyter_lab_app_image_config,
-code_editor_app_image_config,
-tags
-FROM awscc.sagemaker.app_image_configs
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>app_image_config</code>.
 ```sql
 SELECT

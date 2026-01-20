@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>deployment_strategy</code> resource or lists <code>deployment_strategies</code> in a region
 
@@ -32,21 +33,70 @@ Creates, updates, deletes or gets a <code>deployment_strategy</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="deployment_duration_in_minutes" /></td><td><code>number</code></td><td>Total amount of time for a deployment to last.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the deployment strategy.</td></tr>
-<tr><td><CopyableCode code="final_bake_time_in_minutes" /></td><td><code>number</code></td><td>Specifies the amount of time AWS AppConfig monitors for Amazon CloudWatch alarms after the configuration has been deployed to 100% of its targets, before considering the deployment to be complete. If an alarm is triggered during this time, AWS AppConfig rolls back the deployment. You must configure permissions for AWS AppConfig to roll back based on CloudWatch alarms. For more information, see Configuring permissions for rollback based on Amazon CloudWatch alarms in the AWS AppConfig User Guide.</td></tr>
-<tr><td><CopyableCode code="growth_factor" /></td><td><code>number</code></td><td>The percentage of targets to receive a deployed configuration during each interval.</td></tr>
-<tr><td><CopyableCode code="growth_type" /></td><td><code>string</code></td><td>The algorithm used to define how percentage grows over time. AWS AppConfig supports the following growth types:<br />Linear: For this type, AWS AppConfig processes the deployment by dividing the total number of targets by the value specified for Step percentage. For example, a linear deployment that uses a Step percentage of 10 deploys the configuration to 10 percent of the hosts. After those deployments are complete, the system deploys the configuration to the next 10 percent. This continues until 100% of the targets have successfully received the configuration.<br />Exponential: For this type, AWS AppConfig processes the deployment exponentially using the following formula: GASTERIX;(2^N). In this formula, G is the growth factor specified by the user and N is the number of steps until the configuration is deployed to all targets. For example, if you specify a growth factor of 2, then the system rolls out the configuration as follows:<br />2ASTERIX;(2^0)<br />2ASTERIX;(2^1)<br />2ASTERIX;(2^2)<br />Expressed numerically, the deployment rolls out as follows: 2% of the targets, 4% of the targets, 8% of the targets, and continues until the configuration has been deployed to all targets.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the deployment strategy.</td></tr>
-<tr><td><CopyableCode code="replicate_to" /></td><td><code>string</code></td><td>Save the deployment strategy to a Systems Manager (SSM) document.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Assigns metadata to an AWS AppConfig resource. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define. You can specify a maximum of 50 tags for a resource.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The deployment strategy ID.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "deployment_duration_in_minutes",
+    "type": "number",
+    "description": "Total amount of time for a deployment to last."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description of the deployment strategy."
+  },
+  {
+    "name": "final_bake_time_in_minutes",
+    "type": "number",
+    "description": "Specifies the amount of time AWS AppConfig monitors for Amazon CloudWatch alarms after the configuration has been deployed to 100% of its targets, before considering the deployment to be complete. If an alarm is triggered during this time, AWS AppConfig rolls back the deployment. You must configure permissions for AWS AppConfig to roll back based on CloudWatch alarms. For more information, see Configuring permissions for rollback based on Amazon CloudWatch alarms in the AWS AppConfig User Guide."
+  },
+  {
+    "name": "growth_factor",
+    "type": "number",
+    "description": "The percentage of targets to receive a deployed configuration during each interval."
+  },
+  {
+    "name": "growth_type",
+    "type": "string",
+    "description": "The algorithm used to define how percentage grows over time. AWS AppConfig supports the following growth types:<br />Linear: For this type, AWS AppConfig processes the deployment by dividing the total number of targets by the value specified for Step percentage. For example, a linear deployment that uses a Step percentage of 10 deploys the configuration to 10 percent of the hosts. After those deployments are complete, the system deploys the configuration to the next 10 percent. This continues until 100% of the targets have successfully received the configuration.<br />Exponential: For this type, AWS AppConfig processes the deployment exponentially using the following formula: G&#42;(2^N). In this formula, G is the growth factor specified by the user and N is the number of steps until the configuration is deployed to all targets. For example, if you specify a growth factor of 2, then the system rolls out the configuration as follows:<br />2&#42;(2^0)<br />2&#42;(2^1)<br />2&#42;(2^2)<br />Expressed numerically, the deployment rolls out as follows: 2% of the targets, 4% of the targets, 8% of the targets, and continues until the configuration has been deployed to all targets."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A name for the deployment strategy."
+  },
+  {
+    "name": "replicate_to",
+    "type": "string",
+    "description": "Save the deployment strategy to a Systems Manager (SSM) document."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Assigns metadata to an AWS AppConfig resource. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define. You can specify a maximum of 50 tags for a resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The deployment strategy ID."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appconfig-deploymentstrategy.html"><code>AWS::AppConfig::DeploymentStrategy</code></a>.
 
@@ -88,22 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>deployment_strategies</code> in a region.
-```sql
-SELECT
-region,
-deployment_duration_in_minutes,
-description,
-final_bake_time_in_minutes,
-growth_factor,
-growth_type,
-name,
-replicate_to,
-tags,
-id
-FROM awscc.appconfig.deployment_strategies
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>deployment_strategy</code>.
 ```sql
 SELECT

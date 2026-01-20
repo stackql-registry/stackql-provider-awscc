@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>stream</code> resource or lists <code>streams</code> in a region
 
@@ -32,19 +33,60 @@ Creates, updates, deletes or gets a <code>stream</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Kinesis Video stream.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the Kinesis Video stream.</td></tr>
-<tr><td><CopyableCode code="data_retention_in_hours" /></td><td><code>integer</code></td><td>The number of hours till which Kinesis Video will retain the data in the stream</td></tr>
-<tr><td><CopyableCode code="device_name" /></td><td><code>string</code></td><td>The name of the device that is writing to the stream.</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>AWS KMS key ID that Kinesis Video Streams uses to encrypt stream data.</td></tr>
-<tr><td><CopyableCode code="media_type" /></td><td><code>string</code></td><td>The media type of the stream. Consumers of the stream can use this information when processing the stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs associated with the Kinesis Video Stream.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Kinesis Video stream."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the Kinesis Video stream."
+  },
+  {
+    "name": "data_retention_in_hours",
+    "type": "integer",
+    "description": "The number of hours till which Kinesis Video will retain the data in the stream"
+  },
+  {
+    "name": "device_name",
+    "type": "string",
+    "description": "The name of the device that is writing to the stream."
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "AWS KMS key ID that Kinesis Video Streams uses to encrypt stream data."
+  },
+  {
+    "name": "media_type",
+    "type": "string",
+    "description": "The media type of the stream. Consumers of the stream can use this information when processing the stream."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs associated with the Kinesis Video Stream.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. Specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisvideo-stream.html"><code>AWS::KinesisVideo::Stream</code></a>.
 
@@ -86,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>streams</code> in a region.
-```sql
-SELECT
-region,
-arn,
-name,
-data_retention_in_hours,
-device_name,
-kms_key_id,
-media_type,
-tags
-FROM awscc.kinesisvideo.streams
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>stream</code>.
 ```sql
 SELECT

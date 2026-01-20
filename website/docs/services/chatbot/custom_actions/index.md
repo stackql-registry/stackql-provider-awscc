@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>custom_action</code> resource or lists <code>custom_actions</code> in a region
 
@@ -32,18 +33,101 @@ Creates, updates, deletes or gets a <code>custom_action</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="action_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="alias_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="attachments" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="custom_action_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="definition" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "action_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "alias_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "attachments",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "notification_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "button_text",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "criteria",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "operator",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "variable_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "variables",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "custom_action_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "definition",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "command_text",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-chatbot-customaction.html"><code>AWS::Chatbot::CustomAction</code></a>.
 
@@ -85,19 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>custom_actions</code> in a region.
-```sql
-SELECT
-region,
-action_name,
-alias_name,
-attachments,
-custom_action_arn,
-definition,
-tags
-FROM awscc.chatbot.custom_actions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>custom_action</code>.
 ```sql
 SELECT

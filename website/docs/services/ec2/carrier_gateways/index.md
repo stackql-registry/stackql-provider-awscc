@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>carrier_gateway</code> resource or lists <code>carrier_gateways</code> in a region
 
@@ -32,17 +33,50 @@ Creates, updates, deletes or gets a <code>carrier_gateway</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="carrier_gateway_id" /></td><td><code>string</code></td><td>The ID of the carrier gateway.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the carrier gateway.</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The ID of the owner.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the carrier gateway.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "carrier_gateway_id",
+    "type": "string",
+    "description": "The ID of the carrier gateway."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the carrier gateway."
+  },
+  {
+    "name": "vpc_id",
+    "type": "string",
+    "description": "The ID of the VPC."
+  },
+  {
+    "name": "owner_id",
+    "type": "string",
+    "description": "The ID of the owner."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the carrier gateway.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-carriergateway.html"><code>AWS::EC2::CarrierGateway</code></a>.
 
@@ -84,18 +118,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>carrier_gateways</code> in a region.
-```sql
-SELECT
-region,
-carrier_gateway_id,
-state,
-vpc_id,
-owner_id,
-tags
-FROM awscc.ec2.carrier_gateways
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>carrier_gateway</code>.
 ```sql
 SELECT

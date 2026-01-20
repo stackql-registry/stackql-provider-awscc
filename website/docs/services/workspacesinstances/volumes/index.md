@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>volume</code> resource or lists <code>volumes</code> in a region
 
@@ -32,22 +33,87 @@ Creates, updates, deletes or gets a <code>volume</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="volume_id" /></td><td><code>string</code></td><td>Unique identifier for the volume</td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The Availability Zone in which to create the volume</td></tr>
-<tr><td><CopyableCode code="encrypted" /></td><td><code>boolean</code></td><td>Indicates whether the volume should be encrypted</td></tr>
-<tr><td><CopyableCode code="iops" /></td><td><code>integer</code></td><td>The number of I/O operations per second (IOPS)</td></tr>
-<tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS encryption</td></tr>
-<tr><td><CopyableCode code="size_in_gb" /></td><td><code>integer</code></td><td>The size of the volume, in GiBs</td></tr>
-<tr><td><CopyableCode code="snapshot_id" /></td><td><code>string</code></td><td>The snapshot from which to create the volume</td></tr>
-<tr><td><CopyableCode code="throughput" /></td><td><code>integer</code></td><td>The throughput to provision for a volume, with a maximum of 1,000 MiB/s</td></tr>
-<tr><td><CopyableCode code="volume_type" /></td><td><code>string</code></td><td>The volume type</td></tr>
-<tr><td><CopyableCode code="tag_specifications" /></td><td><code>array</code></td><td>The tags passed to EBS volume</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "volume_id",
+    "type": "string",
+    "description": "Unique identifier for the volume"
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The Availability Zone in which to create the volume"
+  },
+  {
+    "name": "encrypted",
+    "type": "boolean",
+    "description": "Indicates whether the volume should be encrypted"
+  },
+  {
+    "name": "iops",
+    "type": "integer",
+    "description": "The number of I/O operations per second (IOPS)"
+  },
+  {
+    "name": "kms_key_id",
+    "type": "string",
+    "description": "The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS encryption"
+  },
+  {
+    "name": "size_in_gb",
+    "type": "integer",
+    "description": "The size of the volume, in GiBs"
+  },
+  {
+    "name": "snapshot_id",
+    "type": "string",
+    "description": "The snapshot from which to create the volume"
+  },
+  {
+    "name": "throughput",
+    "type": "integer",
+    "description": "The throughput to provision for a volume, with a maximum of 1,000 MiB/s"
+  },
+  {
+    "name": "volume_type",
+    "type": "string",
+    "description": "The volume type"
+  },
+  {
+    "name": "tag_specifications",
+    "type": "array",
+    "description": "The tags passed to EBS volume",
+    "children": [
+      {
+        "name": "resource_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesinstances-volume.html"><code>AWS::WorkspacesInstances::Volume</code></a>.
 
@@ -84,23 +150,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>volumes</code> in a region.
-```sql
-SELECT
-region,
-volume_id,
-availability_zone,
-encrypted,
-iops,
-kms_key_id,
-size_in_gb,
-snapshot_id,
-throughput,
-volume_type,
-tag_specifications
-FROM awscc.workspacesinstances.volumes
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>volume</code>.
 ```sql
 SELECT

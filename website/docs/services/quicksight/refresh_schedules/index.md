@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>refresh_schedule</code> resource or lists <code>refresh_schedules</code> in a region
 
@@ -32,16 +33,89 @@ Creates, updates, deletes or gets a <code>refresh_schedule</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) of the data source.</p></td></tr>
-<tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_set_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schedule" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "<p>The Amazon Resource Name (ARN) of the data source.</p>"
+  },
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_set_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "schedule_id",
+        "type": "string",
+        "description": "<p>An unique identifier for the refresh schedule.</p>"
+      },
+      {
+        "name": "schedule_frequency",
+        "type": "object",
+        "description": "<p>Information about the schedule frequency.</p>",
+        "children": [
+          {
+            "name": "interval",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "refresh_on_day",
+            "type": "object",
+            "description": "<p>The day scheduled for refresh.</p>",
+            "children": [
+              {
+                "name": "day_of_week",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "day_of_month",
+                "type": "string",
+                "description": "<p>The Day Of Month for scheduled refresh.</p>"
+              }
+            ]
+          },
+          {
+            "name": "time_zone",
+            "type": "string",
+            "description": "<p>The timezone for scheduled refresh.</p>"
+          },
+          {
+            "name": "time_of_the_day",
+            "type": "string",
+            "description": "<p>The time of the day for scheduled refresh.</p>"
+          }
+        ]
+      },
+      {
+        "name": "start_after_date_time",
+        "type": "string",
+        "description": "<p>The date time after which refresh is to be scheduled</p>"
+      },
+      {
+        "name": "refresh_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-refreshschedule.html"><code>AWS::QuickSight::RefreshSchedule</code></a>.
 
@@ -83,17 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>refresh_schedules</code> in a region.
-```sql
-SELECT
-region,
-arn,
-aws_account_id,
-data_set_id,
-schedule
-FROM awscc.quicksight.refresh_schedules
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>refresh_schedule</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Lists <code>training_datasets</code> in a region or regions, for all properties use <a href="/services/cleanroomsml/training_datasets/"><code>training_datasets</code></a>
 
@@ -32,14 +33,66 @@ Lists <code>training_datasets</code> in a region or regions, for all properties 
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="training_data" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="training_dataset_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "training_data",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "input_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "schema",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "column_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "column_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "data_source",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "glue_data_source",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "training_dataset_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 ## Methods
 

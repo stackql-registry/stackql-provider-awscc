@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>host</code> resource or lists <code>hosts</code> in a region
 
@@ -32,22 +33,75 @@ Creates, updates, deletes or gets a <code>host</code> resource or lists <code>ho
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="host_id" /></td><td><code>string</code></td><td>ID of the host created.</td></tr>
-<tr><td><CopyableCode code="auto_placement" /></td><td><code>string</code></td><td>Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID.</td></tr>
-<tr><td><CopyableCode code="availability_zone" /></td><td><code>string</code></td><td>The Availability Zone in which to allocate the Dedicated Host.</td></tr>
-<tr><td><CopyableCode code="host_recovery" /></td><td><code>string</code></td><td>Indicates whether to enable or disable host recovery for the Dedicated Host. Host recovery is disabled by default.</td></tr>
-<tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td>Specifies the instance type to be supported by the Dedicated Hosts. If you specify an instance type, the Dedicated Hosts support instances of the specified instance type only.</td></tr>
-<tr><td><CopyableCode code="instance_family" /></td><td><code>string</code></td><td>Specifies the instance family to be supported by the Dedicated Hosts. If you specify an instance family, the Dedicated Hosts support multiple instance types within that instance family.</td></tr>
-<tr><td><CopyableCode code="outpost_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which to allocate the Dedicated Host.</td></tr>
-<tr><td><CopyableCode code="host_maintenance" /></td><td><code>string</code></td><td>Automatically allocates a new dedicated host and moves your instances on to it if a degradation is detected on your current host.</td></tr>
-<tr><td><CopyableCode code="asset_id" /></td><td><code>string</code></td><td>The ID of the Outpost hardware asset.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the Host.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "host_id",
+    "type": "string",
+    "description": "ID of the host created."
+  },
+  {
+    "name": "auto_placement",
+    "type": "string",
+    "description": "Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID."
+  },
+  {
+    "name": "availability_zone",
+    "type": "string",
+    "description": "The Availability Zone in which to allocate the Dedicated Host."
+  },
+  {
+    "name": "host_recovery",
+    "type": "string",
+    "description": "Indicates whether to enable or disable host recovery for the Dedicated Host. Host recovery is disabled by default."
+  },
+  {
+    "name": "instance_type",
+    "type": "string",
+    "description": "Specifies the instance type to be supported by the Dedicated Hosts. If you specify an instance type, the Dedicated Hosts support instances of the specified instance type only."
+  },
+  {
+    "name": "instance_family",
+    "type": "string",
+    "description": "Specifies the instance family to be supported by the Dedicated Hosts. If you specify an instance family, the Dedicated Hosts support multiple instance types within that instance family."
+  },
+  {
+    "name": "outpost_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which to allocate the Dedicated Host."
+  },
+  {
+    "name": "host_maintenance",
+    "type": "string",
+    "description": "Automatically allocates a new dedicated host and moves your instances on to it if a degradation is detected on your current host."
+  },
+  {
+    "name": "asset_id",
+    "type": "string",
+    "description": "The ID of the Outpost hardware asset."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "Any tags assigned to the Host.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-host.html"><code>AWS::EC2::Host</code></a>.
 
@@ -89,23 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>hosts</code> in a region.
-```sql
-SELECT
-region,
-host_id,
-auto_placement,
-availability_zone,
-host_recovery,
-instance_type,
-instance_family,
-outpost_arn,
-host_maintenance,
-asset_id,
-tags
-FROM awscc.ec2.hosts
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>host</code>.
 ```sql
 SELECT

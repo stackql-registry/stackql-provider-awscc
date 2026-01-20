@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>repository_creation_template</code> resource or lists <code>repository_creation_templates</code> in a region
 
@@ -32,24 +33,109 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="prefix" /></td><td><code>string</code></td><td>The repository namespace prefix associated with the repository creation template.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description associated with the repository creation template.</td></tr>
-<tr><td><CopyableCode code="image_tag_mutability" /></td><td><code>string</code></td><td>The tag mutability setting for the repository. If this parameter is omitted, the default setting of <code>MUTABLE</code> will be used which will allow image tags to be overwritten. If <code>IMMUTABLE</code> is specified, all image tags within the repository will be immutable which will prevent them from being overwritten.</td></tr>
-<tr><td><CopyableCode code="image_tag_mutability_exclusion_filters" /></td><td><code>array</code></td><td>Defines the image tag mutability exclusion filters to apply when creating repositories from this template. These filters specify which image tags can override the repository's default image tag mutability setting.</td></tr>
-<tr><td><CopyableCode code="repository_policy" /></td><td><code>string</code></td><td>The repository policy to apply to repositories created using the template. A repository policy is a permissions policy associated with a repository to control access permissions.</td></tr>
-<tr><td><CopyableCode code="lifecycle_policy" /></td><td><code>string</code></td><td>The lifecycle policy to use for repositories created using the template.</td></tr>
-<tr><td><CopyableCode code="encryption_configuration" /></td><td><code>object</code></td><td>The encryption configuration associated with the repository creation template.</td></tr>
-<tr><td><CopyableCode code="resource_tags" /></td><td><code>array</code></td><td>The metadata to apply to the repository to help you categorize and organize. Each tag consists of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.</td></tr>
-<tr><td><CopyableCode code="applied_for" /></td><td><code>array</code></td><td>A list of enumerable Strings representing the repository creation scenarios that this template will apply towards. The two supported scenarios are PULL_THROUGH_CACHE and REPLICATION</td></tr>
-<tr><td><CopyableCode code="custom_role_arn" /></td><td><code>string</code></td><td>The ARN of the role to be assumed by Amazon ECR. Amazon ECR will assume your supplied role when the customRoleArn is specified. When this field isn't specified, Amazon ECR will use the service-linked role for the repository creation template.</td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "prefix",
+    "type": "string",
+    "description": "The repository namespace prefix associated with the repository creation template."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description associated with the repository creation template."
+  },
+  {
+    "name": "image_tag_mutability",
+    "type": "string",
+    "description": "The tag mutability setting for the repository. If this parameter is omitted, the default setting of &#96;&#96;MUTABLE&#96;&#96; will be used which will allow image tags to be overwritten. If &#96;&#96;IMMUTABLE&#96;&#96; is specified, all image tags within the repository will be immutable which will prevent them from being overwritten."
+  },
+  {
+    "name": "image_tag_mutability_exclusion_filters",
+    "type": "array",
+    "description": "Defines the image tag mutability exclusion filters to apply when creating repositories from this template. These filters specify which image tags can override the repository's default image tag mutability setting.",
+    "children": [
+      {
+        "name": "image_tag_mutability_exclusion_filter_type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "image_tag_mutability_exclusion_filter_value",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "repository_policy",
+    "type": "string",
+    "description": "The repository policy to apply to repositories created using the template. A repository policy is a permissions policy associated with a repository to control access permissions."
+  },
+  {
+    "name": "lifecycle_policy",
+    "type": "string",
+    "description": "The lifecycle policy to use for repositories created using the template."
+  },
+  {
+    "name": "encryption_configuration",
+    "type": "object",
+    "description": "The encryption configuration associated with the repository creation template.",
+    "children": [
+      {
+        "name": "encryption_type",
+        "type": "string",
+        "description": "The encryption type to use.<br />If you use the &#96;&#96;KMS&#96;&#96; encryption type, the contents of the repository will be encrypted using server-side encryption with KMSlong key stored in KMS. When you use KMS to encrypt your data, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you already created.<br />If you use the &#96;&#96;KMS&#95;DSSE&#96;&#96; encryption type, the contents of the repository will be encrypted with two layers of encryption using server-side encryption with the KMS Management Service key stored in KMS. Similar to the &#96;&#96;KMS&#96;&#96; encryption type, you can either use the default AWS managed KMS key for Amazon ECR, or specify your own KMS key, which you've already created. <br />If you use the &#96;&#96;AES256&#96;&#96; encryption type, Amazon ECR uses server-side encryption with Amazon S3-managed encryption keys which encrypts the images in the repository using an AES256 encryption algorithm.<br />For more information, see &#91;Amazon ECR encryption at rest&#93;(https://docs.aws.amazon.com/AmazonECR/latest/userguide/encryption-at-rest.html) in the &#42;Amazon Elastic Container Registry User Guide&#42;."
+      },
+      {
+        "name": "kms_key",
+        "type": "string",
+        "description": "If you use the &#96;&#96;KMS&#96;&#96; encryption type, specify the KMS key to use for encryption. The alias, key ID, or full ARN of the KMS key can be specified. The key must exist in the same Region as the repository. If no key is specified, the default AWS managed KMS key for Amazon ECR will be used."
+      }
+    ]
+  },
+  {
+    "name": "resource_tags",
+    "type": "array",
+    "description": "The metadata to apply to the repository to help you categorize and organize. Each tag consists of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "One part of a key-value pair that make up a tag. A &#96;&#96;key&#96;&#96; is a general label that acts like a category for more specific tag values."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A &#96;&#96;value&#96;&#96; acts as a descriptor within a tag category (key)."
+      }
+    ]
+  },
+  {
+    "name": "applied_for",
+    "type": "array",
+    "description": "A list of enumerable Strings representing the repository creation scenarios that this template will apply towards. The two supported scenarios are PULL&#95;THROUGH&#95;CACHE and REPLICATION"
+  },
+  {
+    "name": "custom_role_arn",
+    "type": "string",
+    "description": "The ARN of the role to be assumed by Amazon ECR. Amazon ECR will assume your supplied role when the customRoleArn is specified. When this field isn't specified, Amazon ECR will use the service-linked role for the repository creation template."
+  },
+  {
+    "name": "created_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "updated_at",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repositorycreationtemplate.html"><code>AWS::ECR::RepositoryCreationTemplate</code></a>.
 
@@ -91,25 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>repository_creation_templates</code> in a region.
-```sql
-SELECT
-region,
-prefix,
-description,
-image_tag_mutability,
-image_tag_mutability_exclusion_filters,
-repository_policy,
-lifecycle_policy,
-encryption_configuration,
-resource_tags,
-applied_for,
-custom_role_arn,
-created_at,
-updated_at
-FROM awscc.ecr.repository_creation_templates
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>repository_creation_template</code>.
 ```sql
 SELECT

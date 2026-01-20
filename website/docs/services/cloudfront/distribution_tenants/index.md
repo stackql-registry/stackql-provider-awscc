@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or lists <code>distribution_tenants</code> in a region
 
@@ -32,28 +33,194 @@ Creates, updates, deletes or gets a <code>distribution_tenant</code> resource or
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="distribution_id" /></td><td><code>string</code></td><td>The ID of the multi-tenant distribution.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the distribution tenant.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domain_results" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A complex type that contains zero or more <code>Tag</code> elements.</td></tr>
-<tr><td><CopyableCode code="customizations" /></td><td><code>object</code></td><td>Customizations for the distribution tenant. For each distribution tenant, you can specify the geographic restrictions, and the Amazon Resource Names (ARNs) for the ACM certificate and WAF web ACL. These are specific values that you can override or disable from the multi-tenant distribution that was used to create the distribution tenant.</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>A list of parameter values to add to the resource. A parameter is specified as a key-value pair. A valid parameter value must exist for any parameter that is marked as required in the multi-tenant distribution.</td></tr>
-<tr><td><CopyableCode code="connection_group_id" /></td><td><code>string</code></td><td>The ID of the connection group for the distribution tenant. If you don't specify a connection group, CloudFront uses the default connection group.</td></tr>
-<tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="enabled" /></td><td><code>boolean</code></td><td>Indicates whether the distribution tenant is in an enabled state. If disabled, the distribution tenant won't serve traffic.</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="e_tag" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="domains" /></td><td><code>array</code></td><td>The domains associated with the distribution tenant.</td></tr>
-<tr><td><CopyableCode code="managed_certificate_request" /></td><td><code>object</code></td><td>An object that represents the request for the Amazon CloudFront managed ACM certificate.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "distribution_id",
+    "type": "string",
+    "description": "The ID of the multi-tenant distribution."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the distribution tenant."
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_results",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "domain",
+        "type": "string",
+        "description": "The specified domain."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Whether the domain is active or inactive."
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "A complex type that contains zero or more &#96;&#96;Tag&#96;&#96; elements.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "A string that contains &#96;&#96;Tag&#96;&#96; key.<br />The string length should be between 1 and 128 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "A string that contains an optional &#96;&#96;Tag&#96;&#96; value.<br />The string length should be between 0 and 256 characters. Valid characters include &#96;&#96;a-z&#96;&#96;, &#96;&#96;A-Z&#96;&#96;, &#96;&#96;0-9&#96;&#96;, space, and the special characters &#96;&#96;&#95; - . : / = + @&#96;&#96;."
+      }
+    ]
+  },
+  {
+    "name": "customizations",
+    "type": "object",
+    "description": "Customizations for the distribution tenant. For each distribution tenant, you can specify the geographic restrictions, and the Amazon Resource Names (ARNs) for the ACM certificate and WAF web ACL. These are specific values that you can override or disable from the multi-tenant distribution that was used to create the distribution tenant.",
+    "children": [
+      {
+        "name": "web_acl",
+        "type": "object",
+        "description": "The WAF web ACL.",
+        "children": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "The action for the WAF web ACL customization. You can specify &#96;&#96;override&#96;&#96; to specify a separate WAF web ACL for the distribution tenant. If you specify &#96;&#96;disable&#96;&#96;, the distribution tenant won't have WAF web ACL protections and won't inherit from the multi-tenant distribution."
+          },
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the WAF web ACL."
+          }
+        ]
+      },
+      {
+        "name": "certificate",
+        "type": "object",
+        "description": "The ACMlong (ACM) certificate.",
+        "children": [
+          {
+            "name": "arn",
+            "type": "string",
+            "description": "The Amazon Resource Name (ARN) of the ACM certificate."
+          }
+        ]
+      },
+      {
+        "name": "geo_restrictions",
+        "type": "object",
+        "description": "The geographic restrictions.",
+        "children": [
+          {
+            "name": "restriction_type",
+            "type": "string",
+            "description": "The method that you want to use to restrict distribution of your content by country:<br />+ &#96;&#96;none&#96;&#96;: No geographic restriction is enabled, meaning access to content is not restricted by client geo location.<br />+ &#96;&#96;blacklist&#96;&#96;: The &#96;&#96;Location&#96;&#96; elements specify the countries in which you don't want CloudFront to distribute your content.<br />+ &#96;&#96;whitelist&#96;&#96;: The &#96;&#96;Location&#96;&#96; elements specify the countries in which you want CloudFront to distribute your content."
+          },
+          {
+            "name": "locations",
+            "type": "array",
+            "description": "The locations for geographic restrictions."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "parameters",
+    "type": "array",
+    "description": "A list of parameter values to add to the resource. A parameter is specified as a key-value pair. A valid parameter value must exist for any parameter that is marked as required in the multi-tenant distribution.",
+    "children": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "The parameter name."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The parameter value."
+      }
+    ]
+  },
+  {
+    "name": "connection_group_id",
+    "type": "string",
+    "description": "The ID of the connection group for the distribution tenant. If you don't specify a connection group, CloudFront uses the default connection group."
+  },
+  {
+    "name": "created_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "last_modified_time",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "enabled",
+    "type": "boolean",
+    "description": "Indicates whether the distribution tenant is in an enabled state. If disabled, the distribution tenant won't serve traffic."
+  },
+  {
+    "name": "status",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "e_tag",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domains",
+    "type": "array",
+    "description": "The domains associated with the distribution tenant."
+  },
+  {
+    "name": "managed_certificate_request",
+    "type": "object",
+    "description": "An object that represents the request for the Amazon CloudFront managed ACM certificate.",
+    "children": [
+      {
+        "name": "validation_token_host",
+        "type": "string",
+        "description": "Specify how the HTTP validation token will be served when requesting the CloudFront managed ACM certificate.<br />+ For &#96;&#96;cloudfront&#96;&#96;, CloudFront will automatically serve the validation token. Choose this mode if you can point the domain's DNS to CloudFront immediately.<br />+ For &#96;&#96;self-hosted&#96;&#96;, you serve the validation token from your existing infrastructure. Choose this mode when you need to maintain current traffic flow while your certificate is being issued. You can place the validation token at the well-known path on your existing web server, wait for ACM to validate and issue the certificate, and then update your DNS to point to CloudFront."
+      },
+      {
+        "name": "primary_domain_name",
+        "type": "string",
+        "description": "The primary domain name associated with the CloudFront managed ACM certificate."
+      },
+      {
+        "name": "certificate_transparency_logging_preference",
+        "type": "string",
+        "description": "You can opt out of certificate transparency logging by specifying the &#96;&#96;disabled&#96;&#96; option. Opt in by specifying &#96;&#96;enabled&#96;&#96;. For more information, see &#91;Certificate Transparency Logging&#93;(https://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency) in the &#42;User Guide&#42;."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distributiontenant.html"><code>AWS::CloudFront::DistributionTenant</code></a>.
 
@@ -95,29 +262,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>distribution_tenants</code> in a region.
-```sql
-SELECT
-region,
-id,
-distribution_id,
-name,
-arn,
-domain_results,
-tags,
-customizations,
-parameters,
-connection_group_id,
-created_time,
-last_modified_time,
-enabled,
-status,
-e_tag,
-domains,
-managed_certificate_request
-FROM awscc.cloudfront.distribution_tenants
-;
-```
+
 Gets all properties from an individual <code>distribution_tenant</code>.
 ```sql
 SELECT

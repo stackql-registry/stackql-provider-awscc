@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>registry_policy</code> resource or lists <code>registry_policies</code> in a region
 
@@ -32,16 +33,33 @@ Creates, updates, deletes or gets a <code>registry_policy</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="registry_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="revision_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "registry_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "revision_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eventschemas-registrypolicy.html"><code>AWS::EventSchemas::RegistryPolicy</code></a>.
 

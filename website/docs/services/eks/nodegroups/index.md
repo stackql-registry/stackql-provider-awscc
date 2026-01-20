@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>nodegroup</code> resource or lists <code>nodegroups</code> in a region
 
@@ -32,33 +33,205 @@ Creates, updates, deletes or gets a <code>nodegroup</code> resource or lists <co
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="ami_type" /></td><td><code>string</code></td><td>The AMI type for your node group.</td></tr>
-<tr><td><CopyableCode code="capacity_type" /></td><td><code>string</code></td><td>The capacity type of your managed node group.</td></tr>
-<tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td>Name of the cluster to create the node group in.</td></tr>
-<tr><td><CopyableCode code="disk_size" /></td><td><code>integer</code></td><td>The root device disk size (in GiB) for your node group instances.</td></tr>
-<tr><td><CopyableCode code="force_update_enabled" /></td><td><code>boolean</code></td><td>Force the update if the existing node group's pods are unable to be drained due to a pod disruption budget issue.</td></tr>
-<tr><td><CopyableCode code="instance_types" /></td><td><code>array</code></td><td>Specify the instance types for a node group.</td></tr>
-<tr><td><CopyableCode code="labels" /></td><td><code>object</code></td><td>The Kubernetes labels to be applied to the nodes in the node group when they are created.</td></tr>
-<tr><td><CopyableCode code="launch_template" /></td><td><code>object</code></td><td>An object representing a node group's launch template specification.</td></tr>
-<tr><td><CopyableCode code="nodegroup_name" /></td><td><code>string</code></td><td>The unique name to give your node group.</td></tr>
-<tr><td><CopyableCode code="node_role" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role to associate with your node group.</td></tr>
-<tr><td><CopyableCode code="release_version" /></td><td><code>string</code></td><td>The AMI version of the Amazon EKS-optimized AMI to use with your node group.</td></tr>
-<tr><td><CopyableCode code="remote_access" /></td><td><code>object</code></td><td>The remote access (SSH) configuration to use with your node group.</td></tr>
-<tr><td><CopyableCode code="scaling_config" /></td><td><code>object</code></td><td>The scaling configuration details for the Auto Scaling group that is created for your node group.</td></tr>
-<tr><td><CopyableCode code="subnets" /></td><td><code>array</code></td><td>The subnets to use for the Auto Scaling group that is created for your node group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The metadata, as key-value pairs, to apply to the node group to assist with categorization and organization. Follows same schema as Labels for consistency.</td></tr>
-<tr><td><CopyableCode code="taints" /></td><td><code>array</code></td><td>The Kubernetes taints to be applied to the nodes in the node group when they are created.</td></tr>
-<tr><td><CopyableCode code="update_config" /></td><td><code>object</code></td><td>The node group update configuration.</td></tr>
-<tr><td><CopyableCode code="node_repair_config" /></td><td><code>object</code></td><td>The node auto repair configuration for node group.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>The Kubernetes version to use for your managed nodes.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "ami_type",
+    "type": "string",
+    "description": "The AMI type for your node group."
+  },
+  {
+    "name": "capacity_type",
+    "type": "string",
+    "description": "The capacity type of your managed node group."
+  },
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "Name of the cluster to create the node group in."
+  },
+  {
+    "name": "disk_size",
+    "type": "integer",
+    "description": "The root device disk size (in GiB) for your node group instances."
+  },
+  {
+    "name": "force_update_enabled",
+    "type": "boolean",
+    "description": "Force the update if the existing node group's pods are unable to be drained due to a pod disruption budget issue."
+  },
+  {
+    "name": "instance_types",
+    "type": "array",
+    "description": "Specify the instance types for a node group."
+  },
+  {
+    "name": "labels",
+    "type": "object",
+    "description": "The Kubernetes labels to be applied to the nodes in the node group when they are created."
+  },
+  {
+    "name": "launch_template",
+    "type": "object",
+    "description": "An object representing a node group's launch template specification.",
+    "children": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "nodegroup_name",
+    "type": "string",
+    "description": "The unique name to give your node group."
+  },
+  {
+    "name": "node_role",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM role to associate with your node group."
+  },
+  {
+    "name": "release_version",
+    "type": "string",
+    "description": "The AMI version of the Amazon EKS-optimized AMI to use with your node group."
+  },
+  {
+    "name": "remote_access",
+    "type": "object",
+    "description": "The remote access (SSH) configuration to use with your node group.",
+    "children": [
+      {
+        "name": "source_security_groups",
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "ec2_ssh_key",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "scaling_config",
+    "type": "object",
+    "description": "The scaling configuration details for the Auto Scaling group that is created for your node group.",
+    "children": [
+      {
+        "name": "min_size",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "desired_size",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "max_size",
+        "type": "integer",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "subnets",
+    "type": "array",
+    "description": "The subnets to use for the Auto Scaling group that is created for your node group."
+  },
+  {
+    "name": "tags",
+    "type": "object",
+    "description": "The metadata, as key-value pairs, to apply to the node group to assist with categorization and organization. Follows same schema as Labels for consistency."
+  },
+  {
+    "name": "taints",
+    "type": "array",
+    "description": "The Kubernetes taints to be applied to the nodes in the node group when they are created.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "effect",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "update_config",
+    "type": "object",
+    "description": "The node group update configuration.",
+    "children": [
+      {
+        "name": "max_unavailable",
+        "type": "number",
+        "description": "The maximum number of nodes unavailable at once during a version update. Nodes will be updated in parallel. This value or maxUnavailablePercentage is required to have a value.The maximum number is 100."
+      },
+      {
+        "name": "max_unavailable_percentage",
+        "type": "number",
+        "description": "The maximum percentage of nodes unavailable during a version update. This percentage of nodes will be updated in parallel, up to 100 nodes at once. This value or maxUnavailable is required to have a value."
+      },
+      {
+        "name": "update_strategy",
+        "type": "string",
+        "description": "The configuration for the behavior to follow during an node group version update of this managed node group. You choose between two possible strategies for replacing nodes during an UpdateNodegroupVersion action."
+      }
+    ]
+  },
+  {
+    "name": "node_repair_config",
+    "type": "object",
+    "description": "The node auto repair configuration for node group.",
+    "children": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Set this value to true to enable node auto repair for the node group."
+      }
+    ]
+  },
+  {
+    "name": "version",
+    "type": "string",
+    "description": "The Kubernetes version to use for your managed nodes."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-nodegroup.html"><code>AWS::EKS::Nodegroup</code></a>.
 
@@ -100,34 +273,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>nodegroups</code> in a region.
-```sql
-SELECT
-region,
-ami_type,
-capacity_type,
-cluster_name,
-disk_size,
-force_update_enabled,
-instance_types,
-labels,
-launch_template,
-nodegroup_name,
-node_role,
-release_version,
-remote_access,
-scaling_config,
-subnets,
-tags,
-taints,
-update_config,
-node_repair_config,
-version,
-id,
-arn
-FROM awscc.eks.nodegroups
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>nodegroup</code>.
 ```sql
 SELECT

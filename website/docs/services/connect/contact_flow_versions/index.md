@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>contact_flow_version</code> resource or lists <code>contact_flow_versions</code> in a region
 
@@ -32,17 +33,38 @@ Creates, updates, deletes or gets a <code>contact_flow_version</code> resource o
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="contact_flow_version_arn" /></td><td><code>string</code></td><td>The identifier of the contact flow version (ARN).</td></tr>
-<tr><td><CopyableCode code="contact_flow_id" /></td><td><code>string</code></td><td>The ARN of the contact flow this version is tied to.</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>integer</code></td><td>The version number of this revision</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the version.</td></tr>
-<tr><td><CopyableCode code="flow_content_sha256" /></td><td><code>string</code></td><td>Indicates the checksum value of the latest published flow content</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "contact_flow_version_arn",
+    "type": "string",
+    "description": "The identifier of the contact flow version (ARN)."
+  },
+  {
+    "name": "contact_flow_id",
+    "type": "string",
+    "description": "The ARN of the contact flow this version is tied to."
+  },
+  {
+    "name": "version",
+    "type": "integer",
+    "description": "The version number of this revision"
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the version."
+  },
+  {
+    "name": "flow_content_sha256",
+    "type": "string",
+    "description": "Indicates the checksum value of the latest published flow content"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-contactflowversion.html"><code>AWS::Connect::ContactFlowVersion</code></a>.
 
@@ -84,18 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>contact_flow_versions</code> in a region.
-```sql
-SELECT
-region,
-contact_flow_version_arn,
-contact_flow_id,
-version,
-description,
-flow_content_sha256
-FROM awscc.connect.contact_flow_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>contact_flow_version</code>.
 ```sql
 SELECT

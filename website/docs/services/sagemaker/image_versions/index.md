@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>image_version</code> resource or lists <code>image_versions</code> in a region
 
@@ -32,27 +33,88 @@ Creates, updates, deletes or gets an <code>image_version</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="image_name" /></td><td><code>string</code></td><td>The name of the image this version belongs to.</td></tr>
-<tr><td><CopyableCode code="image_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the parent image.</td></tr>
-<tr><td><CopyableCode code="image_version_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the image version.</td></tr>
-<tr><td><CopyableCode code="base_image" /></td><td><code>string</code></td><td>The registry path of the container image on which this image version is based.</td></tr>
-<tr><td><CopyableCode code="container_image" /></td><td><code>string</code></td><td>The image to use for the container that will be materialized for the inference component</td></tr>
-<tr><td><CopyableCode code="version" /></td><td><code>integer</code></td><td>The version number of the image version.</td></tr>
-<tr><td><CopyableCode code="alias" /></td><td><code>string</code></td><td>The alias of the image version.</td></tr>
-<tr><td><CopyableCode code="aliases" /></td><td><code>array</code></td><td>List of aliases for the image version.</td></tr>
-<tr><td><CopyableCode code="vendor_guidance" /></td><td><code>string</code></td><td>The availability of the image version specified by the maintainer.</td></tr>
-<tr><td><CopyableCode code="job_type" /></td><td><code>string</code></td><td>Indicates SageMaker job type compatibility.</td></tr>
-<tr><td><CopyableCode code="ml_framework" /></td><td><code>string</code></td><td>The machine learning framework vended in the image version.</td></tr>
-<tr><td><CopyableCode code="programming_lang" /></td><td><code>string</code></td><td>The supported programming language and its version.</td></tr>
-<tr><td><CopyableCode code="processor" /></td><td><code>string</code></td><td>Indicates CPU or GPU compatibility.</td></tr>
-<tr><td><CopyableCode code="horovod" /></td><td><code>boolean</code></td><td>Indicates Horovod compatibility.</td></tr>
-<tr><td><CopyableCode code="release_notes" /></td><td><code>string</code></td><td>The maintainer description of the image version.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "image_name",
+    "type": "string",
+    "description": "The name of the image this version belongs to."
+  },
+  {
+    "name": "image_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the parent image."
+  },
+  {
+    "name": "image_version_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the image version."
+  },
+  {
+    "name": "base_image",
+    "type": "string",
+    "description": "The registry path of the container image on which this image version is based."
+  },
+  {
+    "name": "container_image",
+    "type": "string",
+    "description": "The image to use for the container that will be materialized for the inference component"
+  },
+  {
+    "name": "version",
+    "type": "integer",
+    "description": "The version number of the image version."
+  },
+  {
+    "name": "alias",
+    "type": "string",
+    "description": "The alias of the image version."
+  },
+  {
+    "name": "aliases",
+    "type": "array",
+    "description": "List of aliases for the image version."
+  },
+  {
+    "name": "vendor_guidance",
+    "type": "string",
+    "description": "The availability of the image version specified by the maintainer."
+  },
+  {
+    "name": "job_type",
+    "type": "string",
+    "description": "Indicates SageMaker job type compatibility."
+  },
+  {
+    "name": "ml_framework",
+    "type": "string",
+    "description": "The machine learning framework vended in the image version."
+  },
+  {
+    "name": "programming_lang",
+    "type": "string",
+    "description": "The supported programming language and its version."
+  },
+  {
+    "name": "processor",
+    "type": "string",
+    "description": "Indicates CPU or GPU compatibility."
+  },
+  {
+    "name": "horovod",
+    "type": "boolean",
+    "description": "Indicates Horovod compatibility."
+  },
+  {
+    "name": "release_notes",
+    "type": "string",
+    "description": "The maintainer description of the image version."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-imageversion.html"><code>AWS::SageMaker::ImageVersion</code></a>.
 
@@ -94,28 +156,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>image_versions</code> in a region.
-```sql
-SELECT
-region,
-image_name,
-image_arn,
-image_version_arn,
-base_image,
-container_image,
-version,
-alias,
-aliases,
-vendor_guidance,
-job_type,
-ml_framework,
-programming_lang,
-processor,
-horovod,
-release_notes
-FROM awscc.sagemaker.image_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>image_version</code>.
 ```sql
 SELECT

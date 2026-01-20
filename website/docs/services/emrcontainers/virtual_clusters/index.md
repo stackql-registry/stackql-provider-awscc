@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>virtual_cluster</code> resource or lists <code>virtual_clusters</code> in a region
 
@@ -32,18 +33,86 @@ Creates, updates, deletes or gets a <code>virtual_cluster</code> resource or lis
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="container_provider" /></td><td><code>object</code></td><td>Container provider of the virtual cluster.</td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the virtual cluster.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the virtual cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this virtual cluster.</td></tr>
-<tr><td><CopyableCode code="security_configuration_id" /></td><td><code>string</code></td><td>The ID of the security configuration.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "container_provider",
+    "type": "object",
+    "description": "Container provider of the virtual cluster.",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": "The type of the container provider"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "The ID of the container cluster"
+      },
+      {
+        "name": "info",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "eks_info",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "namespace",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the virtual cluster."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the virtual cluster."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this virtual cluster.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "security_configuration_id",
+    "type": "string",
+    "description": "The ID of the security configuration."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrcontainers-virtualcluster.html"><code>AWS::EMRContainers::VirtualCluster</code></a>.
 
@@ -85,19 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>virtual_clusters</code> in a region.
-```sql
-SELECT
-region,
-arn,
-container_provider,
-id,
-name,
-tags,
-security_configuration_id
-FROM awscc.emrcontainers.virtual_clusters
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>virtual_cluster</code>.
 ```sql
 SELECT

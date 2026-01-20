@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>knowledge_base</code> resource or lists <code>knowledge_bases</code> in a region
 
@@ -32,22 +33,188 @@ Creates, updates, deletes or gets a <code>knowledge_base</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="knowledge_base_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="knowledge_base_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="knowledge_base_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="rendering_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="server_side_encryption_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="source_configuration" /></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><CopyableCode code="vector_ingestion_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "description",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "knowledge_base_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "knowledge_base_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "knowledge_base_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rendering_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "template_uri",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "server_side_encryption_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "source_configuration",
+    "type": "object",
+    "description": ""
+  },
+  {
+    "name": "vector_ingestion_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "chunking_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "chunking_strategy",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fixed_size_chunking_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "max_tokens",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "overlap_percentage",
+                "type": "number",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "hierarchical_chunking_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "level_configurations",
+                "type": "array",
+                "description": ""
+              },
+              {
+                "name": "overlap_tokens",
+                "type": "number",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "semantic_chunking_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "max_tokens",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "buffer_size",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "breakpoint_percentile_threshold",
+                "type": "number",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "parsing_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "parsing_strategy",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bedrock_foundation_model_configuration",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "model_arn",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "parsing_prompt",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wisdom-knowledgebase.html"><code>AWS::Wisdom::KnowledgeBase</code></a>.
 
@@ -89,23 +256,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>knowledge_bases</code> in a region.
-```sql
-SELECT
-region,
-description,
-knowledge_base_arn,
-knowledge_base_id,
-knowledge_base_type,
-name,
-rendering_configuration,
-server_side_encryption_configuration,
-source_configuration,
-vector_ingestion_configuration,
-tags
-FROM awscc.wisdom.knowledge_bases
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>knowledge_base</code>.
 ```sql
 SELECT

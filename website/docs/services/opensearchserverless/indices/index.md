@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>index</code> resource or lists <code>indices</code> in a region
 
@@ -32,17 +33,69 @@ Creates, updates, deletes or gets an <code>index</code> resource or lists <code>
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="collection_endpoint" /></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr>
-<tr><td><CopyableCode code="index_name" /></td><td><code>string</code></td><td>The name of the OpenSearch Serverless index.</td></tr>
-<tr><td><CopyableCode code="settings" /></td><td><code>object</code></td><td>Index settings</td></tr>
-<tr><td><CopyableCode code="mappings" /></td><td><code>object</code></td><td>Index Mappings</td></tr>
-<tr><td><CopyableCode code="uuid" /></td><td><code>string</code></td><td>The unique identifier for the index.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "collection_endpoint",
+    "type": "string",
+    "description": "The endpoint for the collection."
+  },
+  {
+    "name": "index_name",
+    "type": "string",
+    "description": "The name of the OpenSearch Serverless index."
+  },
+  {
+    "name": "settings",
+    "type": "object",
+    "description": "Index settings",
+    "children": [
+      {
+        "name": "index",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "refresh_interval",
+            "type": "string",
+            "description": "How often to perform refresh operation (e.g. '1s', '5s')"
+          },
+          {
+            "name": "knn",
+            "type": "boolean",
+            "description": "Enable/disable k-nearest neighbor search capability"
+          },
+          {
+            "name": "knn_algo_param_ef_search",
+            "type": "integer",
+            "description": "Size of the dynamic list for the nearest neighbors"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mappings",
+    "type": "object",
+    "description": "Index Mappings",
+    "children": [
+      {
+        "name": "properties",
+        "type": "object",
+        "description": "Defines the fields within the mapping, including their types and configurations"
+      }
+    ]
+  },
+  {
+    "name": "uuid",
+    "type": "string",
+    "description": "The unique identifier for the index."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opensearchserverless-index.html"><code>AWS::OpenSearchServerless::Index</code></a>.
 
@@ -84,18 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>indices</code> in a region.
-```sql
-SELECT
-region,
-collection_endpoint,
-index_name,
-settings,
-mappings,
-uuid
-FROM awscc.opensearchserverless.indices
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>index</code>.
 ```sql
 SELECT

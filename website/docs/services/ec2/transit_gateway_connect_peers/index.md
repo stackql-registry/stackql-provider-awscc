@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>transit_gateway_connect_peer</code> resource or lists <code>transit_gateway_connect_peers</code> in a region
 
@@ -32,18 +33,109 @@ Creates, updates, deletes or gets a <code>transit_gateway_connect_peer</code> re
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the Connect attachment.</td></tr>
-<tr><td><CopyableCode code="transit_gateway_connect_peer_id" /></td><td><code>string</code></td><td>The ID of the Connect peer.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the Connect peer.</td></tr>
-<tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The creation time.</td></tr>
-<tr><td><CopyableCode code="connect_peer_configuration" /></td><td><code>object</code></td><td>The Connect peer details.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the Connect Peer.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_attachment_id",
+    "type": "string",
+    "description": "The ID of the Connect attachment."
+  },
+  {
+    "name": "transit_gateway_connect_peer_id",
+    "type": "string",
+    "description": "The ID of the Connect peer."
+  },
+  {
+    "name": "state",
+    "type": "string",
+    "description": "The state of the Connect peer."
+  },
+  {
+    "name": "creation_time",
+    "type": "string",
+    "description": "The creation time."
+  },
+  {
+    "name": "connect_peer_configuration",
+    "type": "object",
+    "description": "The Connect peer details.",
+    "children": [
+      {
+        "name": "transit_gateway_address",
+        "type": "string",
+        "description": "The Connect peer IP address on the transit gateway side of the tunnel."
+      },
+      {
+        "name": "peer_address",
+        "type": "string",
+        "description": "The peer IP address (GRE outer IP address) on the appliance side of the Connect peer."
+      },
+      {
+        "name": "inside_cidr_blocks",
+        "type": "array",
+        "description": "The range of interior BGP peer IP addresses."
+      },
+      {
+        "name": "protocol",
+        "type": "string",
+        "description": "The tunnel protocol."
+      },
+      {
+        "name": "bgp_configurations",
+        "type": "array",
+        "description": "The BGP configuration details.",
+        "children": [
+          {
+            "name": "transit_gateway_asn",
+            "type": "number",
+            "description": "The transit gateway Autonomous System Number (ASN)."
+          },
+          {
+            "name": "peer_asn",
+            "type": "number",
+            "description": "The peer Autonomous System Number (ASN)."
+          },
+          {
+            "name": "transit_gateway_address",
+            "type": "string",
+            "description": "The interior BGP peer IP address for the transit gateway."
+          },
+          {
+            "name": "peer_address",
+            "type": "string",
+            "description": "The interior BGP peer IP address for the appliance."
+          },
+          {
+            "name": "bgp_status",
+            "type": "string",
+            "description": "The BGP status."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "The tags for the Connect Peer.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The tag key."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The tag value."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewayconnectpeer.html"><code>AWS::EC2::TransitGatewayConnectPeer</code></a>.
 
@@ -85,19 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>transit_gateway_connect_peers</code> in a region.
-```sql
-SELECT
-region,
-transit_gateway_attachment_id,
-transit_gateway_connect_peer_id,
-state,
-creation_time,
-connect_peer_configuration,
-tags
-FROM awscc.ec2.transit_gateway_connect_peers
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>transit_gateway_connect_peer</code>.
 ```sql
 SELECT

@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>layer_version</code> resource or lists <code>layer_versions</code> in a region
 
@@ -32,19 +33,65 @@ Creates, updates, deletes or gets a <code>layer_version</code> resource or lists
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="compatible_runtimes" /></td><td><code>array</code></td><td>A list of compatible function runtimes. Used for filtering with ListLayers and ListLayerVersions.</td></tr>
-<tr><td><CopyableCode code="license_info" /></td><td><code>string</code></td><td>The layer's software license.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the version.</td></tr>
-<tr><td><CopyableCode code="layer_name" /></td><td><code>string</code></td><td>The name or Amazon Resource Name (ARN) of the layer.</td></tr>
-<tr><td><CopyableCode code="content" /></td><td><code>object</code></td><td>The function layer archive.</td></tr>
-<tr><td><CopyableCode code="layer_version_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="compatible_architectures" /></td><td><code>array</code></td><td>A list of compatible instruction set architectures.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "compatible_runtimes",
+    "type": "array",
+    "description": "A list of compatible function runtimes. Used for filtering with ListLayers and ListLayerVersions."
+  },
+  {
+    "name": "license_info",
+    "type": "string",
+    "description": "The layer's software license."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "The description of the version."
+  },
+  {
+    "name": "layer_name",
+    "type": "string",
+    "description": "The name or Amazon Resource Name (ARN) of the layer."
+  },
+  {
+    "name": "content",
+    "type": "object",
+    "description": "The function layer archive.",
+    "children": [
+      {
+        "name": "s3_object_version",
+        "type": "string",
+        "description": "For versioned objects, the version of the layer archive object to use."
+      },
+      {
+        "name": "s3_bucket",
+        "type": "string",
+        "description": "The Amazon S3 bucket of the layer archive."
+      },
+      {
+        "name": "s3_key",
+        "type": "string",
+        "description": "The Amazon S3 key of the layer archive."
+      }
+    ]
+  },
+  {
+    "name": "layer_version_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "compatible_architectures",
+    "type": "array",
+    "description": "A list of compatible instruction set architectures."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversion.html"><code>AWS::Lambda::LayerVersion</code></a>.
 
@@ -81,20 +128,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>layer_versions</code> in a region.
-```sql
-SELECT
-region,
-compatible_runtimes,
-license_info,
-description,
-layer_name,
-content,
-layer_version_arn,
-compatible_architectures
-FROM awscc.lambda.layer_versions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>layer_version</code>.
 ```sql
 SELECT

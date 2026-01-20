@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets an <code>email_address</code> resource or lists <code>email_addresses</code> in a region
 
@@ -32,18 +33,55 @@ Creates, updates, deletes or gets an <code>email_address</code> resource or list
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr>
-<tr><td><CopyableCode code="email_address_arn" /></td><td><code>string</code></td><td>The identifier of the email address.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the email address.</td></tr>
-<tr><td><CopyableCode code="email_address" /></td><td><code>string</code></td><td>Email address to be created for this instance</td></tr>
-<tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td>The display name for the email address.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "email_address_arn",
+    "type": "string",
+    "description": "The identifier of the email address."
+  },
+  {
+    "name": "description",
+    "type": "string",
+    "description": "A description for the email address."
+  },
+  {
+    "name": "email_address",
+    "type": "string",
+    "description": "Email address to be created for this instance"
+  },
+  {
+    "name": "display_name",
+    "type": "string",
+    "description": "The display name for the email address."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "One or more tags.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. . You can specify a value that is maximum of 256 Unicode characters"
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-emailaddress.html"><code>AWS::Connect::EmailAddress</code></a>.
 
@@ -85,19 +123,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>email_addresses</code> in a region.
-```sql
-SELECT
-region,
-instance_arn,
-email_address_arn,
-description,
-email_address,
-display_name,
-tags
-FROM awscc.connect.email_addresses
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>email_address</code>.
 ```sql
 SELECT

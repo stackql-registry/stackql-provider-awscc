@@ -18,6 +18,7 @@ image: /img/stackql-aws-provider-featured-image.png
 import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SchemaTable from '@site/src/components/SchemaTable/SchemaTable';
 
 Creates, updates, deletes or gets a <code>suite_definition</code> resource or lists <code>suite_definitions</code> in a region
 
@@ -32,17 +33,89 @@ Creates, updates, deletes or gets a <code>suite_definition</code> resource or li
 </table>
 
 ## Fields
-<table>
-<tbody>
-<tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="suite_definition_configuration" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="suite_definition_id" /></td><td><code>string</code></td><td>The unique identifier for the suite definition.</td></tr>
-<tr><td><CopyableCode code="suite_definition_arn" /></td><td><code>string</code></td><td>The Amazon Resource name for the suite definition.</td></tr>
-<tr><td><CopyableCode code="suite_definition_version" /></td><td><code>string</code></td><td>The suite definition version of a test suite.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
-
-</tbody>
-</table>
+<SchemaTable fields={[
+  {
+    "name": "suite_definition_configuration",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "device_permission_role_arn",
+        "type": "string",
+        "description": "The device permission role arn of the test suite."
+      },
+      {
+        "name": "devices",
+        "type": "array",
+        "description": "The devices being tested in the test suite",
+        "children": [
+          {
+            "name": "certificate_arn",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "thing_arn",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "intended_for_qualification",
+        "type": "boolean",
+        "description": "Whether the tests are intended for qualification in a suite."
+      },
+      {
+        "name": "root_group",
+        "type": "string",
+        "description": "The root group of the test suite."
+      },
+      {
+        "name": "suite_definition_name",
+        "type": "string",
+        "description": "The Name of the suite definition."
+      }
+    ]
+  },
+  {
+    "name": "suite_definition_id",
+    "type": "string",
+    "description": "The unique identifier for the suite definition."
+  },
+  {
+    "name": "suite_definition_arn",
+    "type": "string",
+    "description": "The Amazon Resource name for the suite definition."
+  },
+  {
+    "name": "suite_definition_version",
+    "type": "string",
+    "description": "The suite definition version of a test suite."
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "description": "An array of key-value pairs to apply to this resource.",
+    "children": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, &#95;, ., /, =, +, and -."
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotcoredeviceadvisor-suitedefinition.html"><code>AWS::IoTCoreDeviceAdvisor::SuiteDefinition</code></a>.
 
@@ -84,18 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Gets all <code>suite_definitions</code> in a region.
-```sql
-SELECT
-region,
-suite_definition_configuration,
-suite_definition_id,
-suite_definition_arn,
-suite_definition_version,
-tags
-FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE region = 'us-east-1';
-```
+
 Gets all properties from an individual <code>suite_definition</code>.
 ```sql
 SELECT
