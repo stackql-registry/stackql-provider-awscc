@@ -280,7 +280,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>simulations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 simspaceweaver:StartSimulation,
 simspaceweaver:DescribeSimulation,
@@ -288,12 +299,16 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 simspaceweaver:DescribeSimulation
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 simspaceweaver:StartSimulation,
 simspaceweaver:StopSimulation,
@@ -301,14 +316,21 @@ simspaceweaver:DeleteSimulation,
 simspaceweaver:DescribeSimulation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 simspaceweaver:StopSimulation,
 simspaceweaver:DeleteSimulation,
 simspaceweaver:DescribeSimulation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 simspaceweaver:ListSimulations
 ```
+
+</TabItem>
+</Tabs>

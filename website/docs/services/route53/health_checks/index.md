@@ -361,6 +361,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>health_check</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53.health_checks
@@ -385,7 +387,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>health_checks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53:CreateHealthCheck,
 route53:ChangeTagsForResource,
@@ -393,13 +406,17 @@ cloudwatch:DescribeAlarms,
 route53-recovery-control-config:DescribeRoutingControl
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53:GetHealthCheck,
 route53:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53:UpdateHealthCheck,
 route53:ChangeTagsForResource,
@@ -407,13 +424,20 @@ route53:ListTagsForResource,
 cloudwatch:DescribeAlarms
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53:DeleteHealthCheck
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53:ListHealthChecks,
 route53:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

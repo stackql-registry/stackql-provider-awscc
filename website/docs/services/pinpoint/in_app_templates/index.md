@@ -408,6 +408,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>in_app_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pinpoint.in_app_templates
@@ -436,35 +438,57 @@ AND region = 'us-east-1';
 
 To operate on the <code>in_app_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mobiletargeting:CreateInAppTemplate,
 mobiletargeting:GetInAppTemplate,
 mobiletargeting:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mobiletargeting:DeleteInAppTemplate,
 mobiletargeting:GetInAppTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mobiletargeting:GetInAppTemplate,
 mobiletargeting:ListTemplates
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mobiletargeting:GetInAppTemplate,
 mobiletargeting:ListTemplates
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mobiletargeting:UpdateInAppTemplate,
 mobiletargeting:GetInAppTemplate,
 mobiletargeting:TagResource,
 mobiletargeting:UntagResource
 ```
+
+</TabItem>
+</Tabs>

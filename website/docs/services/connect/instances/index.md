@@ -371,6 +371,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.instances
@@ -396,7 +398,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>instances</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateInstance,
 connect:DescribeInstance,
@@ -414,14 +427,18 @@ iam:PutRolePolicy,
 logs:CreateLogGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeInstance,
 connect:ListInstanceAttributes,
 ds:DescribeDirectories
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:ListInstanceAttributes,
 connect:UpdateInstanceAttribute,
@@ -434,7 +451,9 @@ connect:TagResource,
 connect:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteInstance,
 connect:DescribeInstance,
@@ -444,9 +463,14 @@ ds:UnauthorizeApplication,
 ds:DescribeDirectories
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListInstances,
 connect:ListInstanceAttributes,
 ds:DescribeDirectories
 ```
+
+</TabItem>
+</Tabs>

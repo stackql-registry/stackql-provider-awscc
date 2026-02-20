@@ -388,6 +388,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>approval_team</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mpa.approval_teams
@@ -414,7 +416,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>approval_teams</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mpa:CreateApprovalTeam,
 mpa:TagResource,
@@ -422,13 +435,17 @@ mpa:GetApprovalTeam,
 mpa:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mpa:GetApprovalTeam,
 mpa:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mpa:GetApprovalTeam,
 mpa:UpdateApprovalTeam,
@@ -437,7 +454,9 @@ mpa:ListTagsForResource,
 mpa:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mpa:StartActiveApprovalTeamDeletion,
 mpa:DeleteInactiveApprovalTeamVersion,
@@ -445,8 +464,13 @@ mpa:GetApprovalTeam,
 mpa:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mpa:ListApprovalTeams,
 mpa:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

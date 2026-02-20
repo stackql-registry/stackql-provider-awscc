@@ -855,6 +855,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>job</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.databrew.jobs
@@ -896,7 +898,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>jobs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 databrew:CreateProfileJob,
 databrew:CreateRecipeJob,
@@ -906,13 +919,17 @@ databrew:UntagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 databrew:DescribeJob,
 iam:ListRoles
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 databrew:UpdateProfileJob,
 databrew:UpdateRecipeJob,
@@ -921,14 +938,21 @@ databrew:UntagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 databrew:DeleteJob
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 databrew:ListJobs,
 databrew:ListTagsForResource,
 iam:ListRoles
 ```
+
+</TabItem>
+</Tabs>

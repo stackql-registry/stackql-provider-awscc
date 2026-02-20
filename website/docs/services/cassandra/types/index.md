@@ -291,24 +291,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>types</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cassandra:Create,
 cassandra:Select
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cassandra:Select
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cassandra:Drop,
 cassandra:Select
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cassandra:Select
 ```
+
+</TabItem>
+</Tabs>

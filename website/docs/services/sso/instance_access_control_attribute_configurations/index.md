@@ -281,6 +281,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance_access_control_attribute_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sso.instance_access_control_attribute_configurations
@@ -306,31 +308,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>instance_access_control_attribute_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sso:CreateInstanceAccessControlAttributeConfiguration,
 sso:UpdateApplicationProfileForAWSAccountInstance,
 sso:DescribeInstanceAccessControlAttributeConfiguration
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sso:DescribeInstanceAccessControlAttributeConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sso:UpdateInstanceAccessControlAttributeConfiguration,
 sso:DescribeInstanceAccessControlAttributeConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sso:DeleteInstanceAccessControlAttributeConfiguration,
 sso:DescribeInstanceAccessControlAttributeConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sso:DescribeInstanceAccessControlAttributeConfiguration
 ```
+
+</TabItem>
+</Tabs>

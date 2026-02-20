@@ -630,6 +630,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>listener_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.listener_rules
@@ -656,32 +658,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>listener_rules</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeRules
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:CreateRule,
 elasticloadbalancing:DescribeRules,
 cognito-idp:DescribeUserPoolClient
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticloadbalancing:ModifyRule,
 elasticloadbalancing:SetRulePriorities,
 elasticloadbalancing:DescribeRules
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeRules
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteRule,
 elasticloadbalancing:DescribeRules
 ```
+
+</TabItem>
+</Tabs>

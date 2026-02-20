@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.proton.environment_templates
@@ -317,7 +319,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>environment_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 proton:CreateEnvironmentTemplate,
 proton:DeleteEnvironmentTemplate,
@@ -361,7 +374,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 proton:CreateEnvironmentTemplate,
 proton:DeleteEnvironmentTemplate,
@@ -404,7 +419,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 proton:CreateEnvironmentTemplate,
 proton:DeleteEnvironmentTemplate,
@@ -450,7 +467,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 proton:CreateEnvironmentTemplate,
 proton:DeleteEnvironmentTemplate,
@@ -495,7 +514,12 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 proton:ListEnvironmentTemplates
 ```
+
+</TabItem>
+</Tabs>

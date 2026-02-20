@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_specific_logging</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iot.resource_specific_loggings
@@ -265,30 +267,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_specific_loggings</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:ListV2LoggingLevels,
 iot:SetV2LoggingLevel
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:ListV2LoggingLevels
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:ListV2LoggingLevels,
 iot:SetV2LoggingLevel
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:ListV2LoggingLevels,
 iot:DeleteV2LoggingLevel
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListV2LoggingLevels
 ```
+
+</TabItem>
+</Tabs>

@@ -344,18 +344,32 @@ AND region = 'us-east-1';
 
 To operate on the <code>backup_selections</code> resource, the following permissions are required:
 
-### Delete
+<Tabs
+    defaultValue="delete"
+    values={[
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="delete">
+
 ```json
 backup:GetBackupSelection,
 backup:DeleteBackupSelection
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 backup:GetBackupSelection
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 backup:CreateBackupSelection,
 iam:GetRole,
@@ -363,8 +377,13 @@ iam:PassRole,
 iam:CreateServiceLinkedRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 backup:ListBackupSelections,
 backup:ListBackupPlans
 ```
+
+</TabItem>
+</Tabs>

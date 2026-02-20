@@ -246,6 +246,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>bridge_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.bridge_sources
@@ -271,24 +273,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>bridge_sources</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediaconnect:AddBridgeSources,
 mediaconnect:DescribeBridge
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediaconnect:DescribeBridge
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediaconnect:DescribeBridge,
 mediaconnect:UpdateBridgeSource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediaconnect:RemoveBridgeSource
 ```
+
+</TabItem>
+</Tabs>

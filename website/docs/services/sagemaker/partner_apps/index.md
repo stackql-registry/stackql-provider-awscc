@@ -368,6 +368,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>partner_app</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.partner_apps
@@ -397,7 +399,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>partner_apps</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreatePartnerApp,
 sagemaker:DescribePartnerApp,
@@ -408,13 +421,17 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribePartnerApp,
 sagemaker:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sagemaker:UpdatePartnerApp,
 sagemaker:DescribePartnerApp,
@@ -424,16 +441,23 @@ sagemaker:DeleteTags,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeletePartnerApp,
 sagemaker:DescribePartnerApp,
 sagemaker:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListPartnerApps,
 sagemaker:DescribePartnerApp,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

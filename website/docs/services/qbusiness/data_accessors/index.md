@@ -391,6 +391,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>data_accessor</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.qbusiness.data_accessors
@@ -418,7 +420,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>data_accessors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 qbusiness:CreateDataAccessor,
 qbusiness:GetDataAccessor,
@@ -432,13 +445,17 @@ sso:PutApplicationAccessScope,
 sso:DescribeTrustedTokenIssuer
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 qbusiness:GetDataAccessor,
 qbusiness:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 qbusiness:GetDataAccessor,
 qbusiness:ListTagsForResource,
@@ -452,14 +469,21 @@ sso:DescribeTrustedTokenIssuer,
 sso:UpdateApplication
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 qbusiness:DeleteDataAccessor,
 qbusiness:GetDataAccessor,
 sso:DeleteApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 qbusiness:ListDataAccessors
 ```
+
+</TabItem>
+</Tabs>

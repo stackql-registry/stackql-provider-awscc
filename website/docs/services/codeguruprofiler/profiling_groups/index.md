@@ -294,6 +294,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>profiling_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codeguruprofiler.profiling_groups
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>profiling_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sns:Publish,
 codeguru-profiler:AddNotificationChannels,
@@ -329,7 +342,9 @@ codeguru-profiler:PutPermission,
 codeguru-profiler:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codeguru-profiler:DescribeProfilingGroup,
 codeguru-profiler:ListTagsForResource,
@@ -337,7 +352,9 @@ codeguru-profiler:GetNotificationConfiguration,
 codeguru-profiler:GetPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sns:Publish,
 codeguru-profiler:DescribeProfilingGroup,
@@ -352,15 +369,22 @@ codeguru-profiler:UntagResource,
 codeguru-profiler:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codeguru-profiler:DeleteProfilingGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codeguru-profiler:ListProfilingGroups,
 codeguru-profiler:ListTagsForResource,
 codeguru-profiler:GetNotificationConfiguration,
 codeguru-profiler:GetPolicy
 ```
+
+</TabItem>
+</Tabs>

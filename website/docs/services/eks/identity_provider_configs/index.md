@@ -343,6 +343,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>identity_provider_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.identity_provider_configs
@@ -367,7 +369,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>identity_provider_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:DescribeUpdate,
 eks:AssociateIdentityProviderConfig,
@@ -375,25 +388,36 @@ eks:DescribeIdentityProviderConfig,
 eks:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribeIdentityProviderConfig
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 eks:DescribeIdentityProviderConfig,
 eks:TagResource,
 eks:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DisassociateIdentityProviderConfig,
 eks:DescribeIdentityProviderConfig
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListIdentityProviderConfigs
 ```
+
+</TabItem>
+</Tabs>

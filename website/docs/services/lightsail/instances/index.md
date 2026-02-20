@@ -600,6 +600,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.instances
@@ -627,7 +629,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>instances</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:CreateInstances,
 lightsail:GetInstances,
@@ -645,25 +658,33 @@ lightsail:TagResource,
 lightsail:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetInstances,
 lightsail:GetInstance
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:GetInstances,
 lightsail:GetInstance,
 lightsail:DeleteInstance
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetInstances
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:GetInstances,
 lightsail:GetInstance,
@@ -679,3 +700,6 @@ lightsail:GetDisk,
 lightsail:TagResource,
 lightsail:UntagResource
 ```
+
+</TabItem>
+</Tabs>

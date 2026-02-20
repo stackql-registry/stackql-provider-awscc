@@ -351,6 +351,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>simulation_application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.robomaker.simulation_applications
@@ -381,7 +383,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>simulation_applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 robomaker:CreateSimulationApplication,
 robomaker:TagResource,
@@ -393,12 +406,16 @@ ecr-public:GetAuthorizationToken,
 sts:GetServiceBearerToken
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 robomaker:DescribeSimulationApplication
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 robomaker:TagResource,
 robomaker:UntagResource,
@@ -409,13 +426,20 @@ ecr:BatchCheckLayerAvailability,
 ecr-public:GetAuthorizationToken
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 robomaker:DescribeSimulationApplication,
 robomaker:DeleteSimulationApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 robomaker:ListSimulationApplications
 ```
+
+</TabItem>
+</Tabs>

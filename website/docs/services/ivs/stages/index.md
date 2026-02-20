@@ -339,6 +339,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>stage</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ivs.stages
@@ -365,7 +367,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>stages</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ivs:CreateStage,
 ivs:GetStage,
@@ -373,13 +386,17 @@ ivs:TagResource,
 ivs:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ivs:GetStage,
 ivs:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ivs:GetStage,
 ivs:UpdateStage,
@@ -388,14 +405,21 @@ ivs:UntagResource,
 ivs:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ivs:DeleteStage,
 ivs:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ivs:ListStages,
 ivs:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

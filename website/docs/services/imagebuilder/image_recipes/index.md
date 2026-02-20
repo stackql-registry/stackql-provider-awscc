@@ -430,6 +430,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>image_recipe</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.imagebuilder.image_recipes
@@ -455,7 +457,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>image_recipes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:GetRole,
 iam:CreateServiceLinkedRole,
@@ -467,25 +480,36 @@ imagebuilder:CreateImageRecipe,
 ec2:DescribeImages
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 imagebuilder:GetImageRecipe
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 imagebuilder:TagResource,
 imagebuilder:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 imagebuilder:UntagResource,
 imagebuilder:GetImageRecipe,
 imagebuilder:DeleteImageRecipe
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 imagebuilder:ListImageRecipes
 ```
+
+</TabItem>
+</Tabs>

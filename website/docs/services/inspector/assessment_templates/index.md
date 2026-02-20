@@ -282,24 +282,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>assessment_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 inspector:CreateAssessmentTemplate,
 inspector:ListAssessmentTemplates,
 inspector:DescribeAssessmentTemplates
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 inspector:DescribeAssessmentTemplates
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 inspector:DeleteAssessmentTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 inspector:ListAssessmentTemplates
 ```
+
+</TabItem>
+</Tabs>

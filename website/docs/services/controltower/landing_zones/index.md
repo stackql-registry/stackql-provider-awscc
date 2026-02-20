@@ -277,6 +277,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>landing_zone</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.controltower.landing_zones
@@ -303,13 +305,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>landing_zones</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 controltower:GetLandingZone,
 controltower:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 controltower:CreateLandingZone,
 controltower:GetLandingZoneOperation,
@@ -346,7 +361,9 @@ cloudformation:EnableOrganizationsAccess,
 sso:RegisterRegion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 controltower:UpdateLandingZone,
 controltower:GetLandingZoneOperation,
@@ -384,12 +401,16 @@ sso:StartPeregrine,
 sso:RegisterRegion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 controltower:ListLandingZones
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 controltower:DeleteLandingZone,
 controltower:GetLandingZone,
@@ -416,3 +437,6 @@ iam:DetachRolePolicy,
 cloudformation:EnableOrganizationsAccess,
 iam:DeleteRole
 ```
+
+</TabItem>
+</Tabs>

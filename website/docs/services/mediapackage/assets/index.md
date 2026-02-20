@@ -323,7 +323,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>assets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediapackage-vod:CreateAsset,
 mediapackage-vod:DescribeAsset,
@@ -331,19 +341,28 @@ mediapackage-vod:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediapackage-vod:DescribeAsset
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediapackage-vod:DescribeAsset,
 mediapackage-vod:DeleteAsset
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediapackage-vod:ListAssets,
 mediapackage-vod:DescribePackagingGroup
 ```
+
+</TabItem>
+</Tabs>

@@ -377,6 +377,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>quick_response</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.wisdom.quick_responses
@@ -410,7 +412,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>quick_responses</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wisdom:CreateQuickResponse,
 wisdom:GetQuickResponse,
@@ -419,7 +432,9 @@ connect:SearchRoutingProfiles,
 connect:DescribeRoutingProfile
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wisdom:UpdateQuickResponse,
 wisdom:GetQuickResponse,
@@ -429,18 +444,27 @@ connect:SearchRoutingProfiles,
 connect:DescribeRoutingProfile
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wisdom:DeleteQuickResponse,
 wisdom:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wisdom:ListQuickResponses
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wisdom:GetQuickResponse
 ```
+
+</TabItem>
+</Tabs>

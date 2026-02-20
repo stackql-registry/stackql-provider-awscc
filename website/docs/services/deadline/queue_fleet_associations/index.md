@@ -253,20 +253,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>queue_fleet_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 deadline:CreateQueueFleetAssociation,
 deadline:GetQueueFleetAssociation,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 deadline:GetQueueFleetAssociation,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 deadline:DeleteQueueFleetAssociation,
 deadline:GetQueueFleetAssociation,
@@ -274,8 +288,13 @@ deadline:UpdateQueueFleetAssociation,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 deadline:ListQueueFleetAssociations,
 identitystore:ListGroupMembershipsForMember
 ```
+
+</TabItem>
+</Tabs>

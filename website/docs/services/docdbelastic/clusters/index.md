@@ -377,6 +377,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.docdbelastic.clusters
@@ -410,7 +412,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 docdb-elastic:CreateCluster,
 docdb-elastic:TagResource,
@@ -437,13 +450,17 @@ kms:Decrypt,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 docdb-elastic:GetCluster,
 docdb-elastic:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 docdb-elastic:UpdateCluster,
 docdb-elastic:TagResource,
@@ -470,7 +487,9 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 docdb-elastic:DeleteCluster,
 docdb-elastic:GetCluster,
@@ -484,7 +503,12 @@ ec2:DescribeVpcs,
 ec2:DescribeAvailabilityZones
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 docdb-elastic:ListClusters
 ```
+
+</TabItem>
+</Tabs>

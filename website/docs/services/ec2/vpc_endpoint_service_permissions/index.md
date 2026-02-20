@@ -222,6 +222,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_endpoint_service_permission</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpc_endpoint_service_permissions
@@ -246,7 +248,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_endpoint_service_permissions</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:CreateVpcEndpointServicePermissions,
 ec2:ModifyVpcEndpointServicePermissions,
@@ -254,7 +267,9 @@ ec2:DeleteVpcEndpointServicePermissions,
 ec2:DescribeVpcEndpointServicePermissions
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpcEndpointServicePermissions,
 ec2:ModifyVpcEndpointServicePermissions,
@@ -262,7 +277,9 @@ ec2:DeleteVpcEndpointServicePermissions,
 ec2:DescribeVpcEndpointServicePermissions
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateVpcEndpointServicePermissions,
 ec2:ModifyVpcEndpointServicePermissions,
@@ -270,7 +287,9 @@ ec2:DeleteVpcEndpointServicePermissions,
 ec2:DescribeVpcEndpointServicePermissions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:CreateVpcEndpointServicePermissions,
 ec2:ModifyVpcEndpointServicePermissions,
@@ -278,10 +297,15 @@ ec2:DeleteVpcEndpointServicePermissions,
 ec2:DescribeVpcEndpointServicePermissions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:CreateVpcEndpointServicePermissions,
 ec2:ModifyVpcEndpointServicePermissions,
 ec2:DeleteVpcEndpointServicePermissions,
 ec2:DescribeVpcEndpointServicePermissions
 ```
+
+</TabItem>
+</Tabs>

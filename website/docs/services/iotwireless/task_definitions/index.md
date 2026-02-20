@@ -374,6 +374,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>task_definition</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotwireless.task_definitions
@@ -403,7 +405,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>task_definitions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotwireless:CreateWirelessGatewayTaskDefinition,
 iotwireless:TagResource,
@@ -411,26 +424,37 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotwireless:GetWirelessGatewayTaskDefinition,
 iotwireless:TagResource,
 iotwireless:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotwireless:GetWirelessGatewayTaskDefinition,
 iotwireless:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotwireless:DeleteWirelessGatewayTaskDefinition
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotwireless:ListWirelessGatewayTaskDefinitions,
 iotwireless:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

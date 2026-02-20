@@ -383,6 +383,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>training_dataset</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cleanroomsml.training_datasets
@@ -407,7 +409,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>training_datasets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cleanrooms-ml:CreateTrainingDataset,
 cleanrooms-ml:GetTrainingDataset,
@@ -415,23 +428,34 @@ cleanrooms-ml:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cleanrooms-ml:GetTrainingDataset
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cleanrooms-ml:DeleteTrainingDataset
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cleanrooms-ml:ListTrainingDatasets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cleanrooms-ml:TagResource,
 cleanrooms-ml:UntagResource
 ```
+
+</TabItem>
+</Tabs>

@@ -271,6 +271,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.voiceid.domains
@@ -298,7 +300,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>domains</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 voiceid:CreateDomain,
 voiceid:DescribeDomain,
@@ -309,14 +322,18 @@ kms:DescribeKey,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 voiceid:DescribeDomain,
 voiceid:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 voiceid:DescribeDomain,
 voiceid:UpdateDomain,
@@ -328,15 +345,22 @@ kms:Decrypt,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 voiceid:DeleteDomain,
 voiceid:DescribeDomain,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 voiceid:ListDomains,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

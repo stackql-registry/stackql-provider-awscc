@@ -363,7 +363,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>services</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 refactor-spaces:CreateService,
 refactor-spaces:GetService,
@@ -380,13 +390,17 @@ ec2:CreateRoute,
 lambda:GetFunctionConfiguration
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 refactor-spaces:GetService,
 refactor-spaces:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 refactor-spaces:DeleteService,
 refactor-spaces:GetService,
@@ -403,8 +417,13 @@ ec2:DeleteTransitGatewayVpcAttachment,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 refactor-spaces:ListServices,
 refactor-spaces:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

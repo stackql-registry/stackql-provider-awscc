@@ -636,6 +636,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>graphql_api</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appsync.graphql_apis
@@ -677,20 +679,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>graphql_apis</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appsync:CreateGraphqlApi,
 appsync:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appsync:GetGraphqlApi,
 appsync:GetGraphqlApiEnvironmentVariables,
 appsync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appsync:GetGraphqlApi,
 appsync:UpdateGraphqlApi,
@@ -698,12 +715,19 @@ appsync:TagResource,
 appsync:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appsync:DeleteGraphqlApi
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appsync:ListGraphqlApis
 ```
+
+</TabItem>
+</Tabs>

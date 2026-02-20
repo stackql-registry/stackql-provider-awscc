@@ -297,24 +297,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>auto_scaling_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apprunner:CreateAutoScalingConfiguration,
 apprunner:DescribeAutoScalingConfiguration,
 apprunner:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apprunner:DescribeAutoScalingConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apprunner:DeleteAutoScalingConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apprunner:ListAutoScalingConfigurations
 ```
+
+</TabItem>
+</Tabs>

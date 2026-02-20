@@ -760,7 +760,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>job_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:CreateJobTemplate,
 iam:PassRole,
@@ -768,18 +778,27 @@ s3:GetObject,
 iot:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:DescribeJobTemplate,
 iot:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:DeleteJobTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListJobTemplates
 ```
+
+</TabItem>
+</Tabs>

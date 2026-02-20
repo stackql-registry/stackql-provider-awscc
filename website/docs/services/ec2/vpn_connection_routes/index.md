@@ -235,24 +235,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpn_connection_routes</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVpnConnections
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpnConnectionRoute,
 ec2:DescribeVpnConnections
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVpnConnections
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpnConnectionRoute,
 ec2:DescribeVpnConnections
 ```
+
+</TabItem>
+</Tabs>

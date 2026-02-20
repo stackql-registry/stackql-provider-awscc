@@ -299,6 +299,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>suite_definition</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotcoredeviceadvisor.suite_definitions
@@ -324,7 +326,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>suite_definitions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:DescribeCertificate,
 iot:DescribeThing,
@@ -339,13 +352,17 @@ iotdeviceadvisor:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotdeviceadvisor:GetSuiteDefinition,
 iot:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:DescribeCertificate,
 iot:DescribeThing,
@@ -362,13 +379,20 @@ iotdeviceadvisor:TagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotdeviceadvisor:GetSuiteDefinition,
 iotdeviceadvisor:DeleteSuiteDefinition
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotdeviceadvisor:ListSuiteDefinitions
 ```
+
+</TabItem>
+</Tabs>

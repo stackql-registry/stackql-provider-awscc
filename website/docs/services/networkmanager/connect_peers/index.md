@@ -381,6 +381,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>connect_peer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.connect_peers
@@ -405,7 +407,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>connect_peers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:GetConnectPeer,
 networkmanager:CreateConnectPeer,
@@ -413,12 +426,16 @@ networkmanager:TagResource,
 ec2:DescribeRegions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetConnectPeer
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 networkmanager:GetConnectPeer,
 networkmanager:ListTagsForResource,
@@ -427,14 +444,21 @@ networkmanager:UntagResource,
 ec2:DescribeRegions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:GetConnectPeer,
 networkmanager:DeleteConnectPeer,
 ec2:DescribeRegions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:ListConnectPeers
 ```
+
+</TabItem>
+</Tabs>

@@ -500,6 +500,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>matching_workflow</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.entityresolution.matching_workflows
@@ -530,7 +532,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>matching_workflows</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 entityresolution:CreateMatchingWorkflow,
 entityresolution:GetMatchingWorkflow,
@@ -544,13 +557,17 @@ events:PutTargets,
 events:ListTargetsByRule
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 entityresolution:GetMatchingWorkflow,
 entityresolution:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 entityresolution:DeleteMatchingWorkflow,
 entityresolution:GetMatchingWorkflow,
@@ -562,12 +579,16 @@ events:RemoveTargets,
 events:ListTargetsByRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 entityresolution:ListMatchingWorkflows
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 entityresolution:GetMatchingWorkflow,
 entityresolution:UpdateMatchingWorkflow,
@@ -583,3 +604,6 @@ events:PutTargets,
 events:RemoveTargets,
 events:ListTargetsByRule
 ```
+
+</TabItem>
+</Tabs>

@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>service_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.proton.service_templates
@@ -317,7 +319,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>service_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 proton:CreateServiceTemplate,
 proton:TagResource,
@@ -359,7 +372,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 proton:GetServiceTemplate,
 proton:ListTagsForResource,
@@ -400,7 +415,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 proton:GetServiceTemplate,
 proton:CreateServiceTemplate,
@@ -445,7 +462,9 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 proton:DeleteServiceTemplate,
 proton:UntagResource,
@@ -487,8 +506,13 @@ kms:UpdateKeyDescription,
 kms:UpdatePrimaryRegion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 proton:ListServiceTemplates,
 proton:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

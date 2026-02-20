@@ -486,6 +486,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>fleet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codebuild.fleets
@@ -521,32 +523,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codebuild:BatchGetFleets,
 codebuild:CreateFleet,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codebuild:BatchGetFleets,
 codebuild:DeleteFleet
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codebuild:BatchGetFleets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codebuild:ListFleets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 codebuild:BatchGetFleets,
 codebuild:UpdateFleet,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

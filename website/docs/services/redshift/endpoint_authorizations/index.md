@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>endpoint_authorization</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.redshift.endpoint_authorizations
@@ -308,30 +310,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>endpoint_authorizations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 redshift:DescribeEndpointAuthorization
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 redshift:AuthorizeEndpointAccess,
 redshift:DescribeEndpointAuthorization
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 redshift:AuthorizeEndpointAccess,
 redshift:DescribeEndpointAuthorization,
 redshift:RevokeEndpointAccess
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 redshift:DescribeEndpointAuthorization
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 redshift:RevokeEndpointAccess,
 redshift:DeleteEndpointAccess,
@@ -343,3 +364,6 @@ ec2:DescribeAddresses,
 ec2:DescribeInternetGateways,
 ec2:DescribeSubnets
 ```
+
+</TabItem>
+</Tabs>

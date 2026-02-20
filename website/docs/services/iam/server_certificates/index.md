@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>server_certificate</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.server_certificates
@@ -316,19 +318,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>server_certificates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:UploadServerCertificate,
 iam:TagServerCertificate,
 iam:GetServerCertificate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetServerCertificate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:TagServerCertificate,
 iam:UntagServerCertificate,
@@ -336,13 +353,20 @@ iam:ListServerCertificateTags,
 iam:GetServerCertificate
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DeleteServerCertificate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iam:ListServerCertificates,
 iam:GetServerCertificate
 ```
+
+</TabItem>
+</Tabs>

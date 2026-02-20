@@ -382,6 +382,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>transit_gateway</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.transit_gateways
@@ -416,7 +418,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>transit_gateways</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateTransitGateway,
 ec2:CreateTags,
@@ -424,13 +437,17 @@ ec2:DescribeTransitGateways,
 ec2:DescribeTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeTransitGateways,
 ec2:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeTransitGateways,
 ec2:DescribeTags,
@@ -438,7 +455,9 @@ ec2:DeleteTransitGateway,
 ec2:DeleteTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTransitGateway,
 ec2:CreateTags,
@@ -450,8 +469,13 @@ ec2:ModifyTransitGateway,
 ec2:ModifyTransitGatewayOptions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeTransitGateways,
 ec2:DescribeTags
 ```
+
+</TabItem>
+</Tabs>

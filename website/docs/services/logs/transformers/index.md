@@ -785,6 +785,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>transformer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.logs.transformers
@@ -809,30 +811,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>transformers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 logs:PutTransformer,
 logs:GetTransformer
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 logs:GetTransformer
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 logs:GetTransformer,
 logs:PutTransformer
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteTransformer
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:DescribeLogGroups,
 logs:GetTransformer
 ```
+
+</TabItem>
+</Tabs>

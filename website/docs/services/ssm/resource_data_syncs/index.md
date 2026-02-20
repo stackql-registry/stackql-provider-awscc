@@ -365,6 +365,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_data_sync</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ssm.resource_data_syncs
@@ -389,30 +391,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_data_syncs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ssm:CreateResourceDataSync,
 ssm:ListResourceDataSync
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm:ListResourceDataSync,
 ssm:DeleteResourceDataSync
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ssm:ListResourceDataSync,
 ssm:UpdateResourceDataSync
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm:ListResourceDataSync
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm:ListResourceDataSync
 ```
+
+</TabItem>
+</Tabs>

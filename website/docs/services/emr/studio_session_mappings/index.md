@@ -259,6 +259,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>studio_session_mapping</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.emr.studio_session_mappings
@@ -283,7 +285,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>studio_session_mappings</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticmapreduce:CreateStudioSessionMapping,
 sso-directory:SearchUsers,
@@ -314,7 +327,9 @@ sso:DeleteApplicationAssignment,
 sso:ListApplicationAssignments
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticmapreduce:GetStudioSessionMapping,
 sso-directory:SearchUsers,
@@ -325,7 +340,9 @@ sso:GetManagedApplicationInstance,
 sso:DescribeInstance
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticmapreduce:GetStudioSessionMapping,
 elasticmapreduce:UpdateStudioSessionMapping,
@@ -337,7 +354,9 @@ sso:GetManagedApplicationInstance,
 sso:DescribeInstance
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticmapreduce:GetStudioSessionMapping,
 elasticmapreduce:DeleteStudioSessionMapping,
@@ -353,7 +372,12 @@ sso:ListProfiles,
 sso:DisassociateProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticmapreduce:ListStudioSessionMappings
 ```
+
+</TabItem>
+</Tabs>

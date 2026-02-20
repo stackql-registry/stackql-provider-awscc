@@ -348,6 +348,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>folder</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.folders
@@ -374,14 +376,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>folders</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 quicksight:DescribeFolder,
 quicksight:DescribeFolderPermissions,
 quicksight:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 quicksight:CreateFolder,
 quicksight:DescribeFolder,
@@ -391,7 +406,9 @@ quicksight:TagResource,
 quicksight:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 quicksight:DescribeFolder,
 quicksight:UpdateFolder,
@@ -402,12 +419,19 @@ quicksight:TagResource,
 quicksight:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 quicksight:DeleteFolder
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 quicksight:ListFolders
 ```
+
+</TabItem>
+</Tabs>

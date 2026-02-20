@@ -335,6 +335,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>session_logger</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.session_loggers
@@ -362,7 +364,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>session_loggers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-web:CreateSessionLogger,
 workspaces-web:GetSessionLogger,
@@ -378,14 +391,18 @@ kms:ReEncryptTo,
 kms:ReEncryptFrom
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces-web:GetSessionLogger,
 workspaces-web:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces-web:UpdateSessionLogger,
 workspaces-web:GetSessionLogger,
@@ -398,15 +415,22 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-web:GetSessionLogger,
 workspaces-web:DeleteSessionLogger,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces-web:ListSessionLoggers,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

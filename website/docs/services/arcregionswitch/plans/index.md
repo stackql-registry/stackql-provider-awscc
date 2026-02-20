@@ -470,6 +470,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>plan</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.arcregionswitch.plans
@@ -500,7 +502,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>plans</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 arc-region-switch:CreatePlan,
 arc-region-switch:GetPlan,
@@ -510,14 +523,18 @@ arc-region-switch:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 arc-region-switch:GetPlan,
 arc-region-switch:ListRoute53HealthChecks,
 arc-region-switch:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 arc-region-switch:GetPlan,
 arc-region-switch:ListRoute53HealthChecks,
@@ -528,13 +545,20 @@ arc-region-switch:UpdatePlan,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 arc-region-switch:DeletePlan,
 arc-region-switch:GetPlan
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 arc-region-switch:ListPlans
 ```
+
+</TabItem>
+</Tabs>

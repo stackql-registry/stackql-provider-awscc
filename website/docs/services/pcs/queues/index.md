@@ -285,6 +285,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>queue</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pcs.queues
@@ -310,7 +312,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>queues</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkInterface,
 ec2:DescribeVpcs,
@@ -326,13 +339,17 @@ pcs:ListTagsForResource,
 pcs:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pcs:GetQueue,
 pcs:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pcs:GetQueue,
 pcs:UpdateQueue,
@@ -341,14 +358,21 @@ pcs:TagResource,
 pcs:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 pcs:DeleteQueue,
 pcs:GetQueue
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pcs:ListClusters,
 pcs:ListQueues
 ```
+
+</TabItem>
+</Tabs>

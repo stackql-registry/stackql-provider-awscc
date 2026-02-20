@@ -1000,6 +1000,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.opensearchservice.domains
@@ -1040,7 +1042,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>domains</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 es:CreateDomain,
 es:DescribeDomain,
@@ -1049,13 +1061,17 @@ es:ListTags,
 es:DescribeDomainChangeProgress
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 es:DescribeDomain,
 es:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 es:UpdateDomain,
 es:UpgradeDomain,
@@ -1066,8 +1082,13 @@ es:ListTags,
 es:DescribeDomainChangeProgress
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 es:DeleteDomain,
 es:DescribeDomain
 ```
+
+</TabItem>
+</Tabs>

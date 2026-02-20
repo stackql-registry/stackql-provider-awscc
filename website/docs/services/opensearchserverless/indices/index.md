@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>index</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.opensearchserverless.indices
@@ -316,27 +318,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>indices</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aoss:APIAccessAll
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aoss:APIAccessAll
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aoss:APIAccessAll
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aoss:APIAccessAll
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aoss:APIAccessAll
 ```
+
+</TabItem>
+</Tabs>

@@ -332,6 +332,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>routing_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.routing_rules
@@ -358,27 +360,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>routing_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apigateway:CreateRoutingRule
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apigateway:GetRoutingRule
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:UpdateRoutingRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:DeleteRoutingRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:ListRoutingRules
 ```
+
+</TabItem>
+</Tabs>

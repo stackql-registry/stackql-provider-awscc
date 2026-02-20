@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sso.applications
@@ -351,7 +353,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sso:CreateApplication,
 sso:DescribeApplication,
@@ -359,13 +372,17 @@ sso:TagResource,
 sso:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sso:DescribeApplication,
 sso:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sso:UpdateApplication,
 sso:TagResource,
@@ -374,13 +391,20 @@ sso:ListTagsForResource,
 sso:DescribeApplication
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sso:DeleteApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sso:ListApplications,
 sso:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

@@ -353,6 +353,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>code_security_integration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.inspectorv2.code_security_integrations
@@ -379,20 +381,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>code_security_integrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 inspector2:CreateCodeSecurityIntegration,
 inspector2:GetCodeSecurityIntegration,
 inspector2:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 inspector2:GetCodeSecurityIntegration,
 inspector2:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 inspector2:UpdateCodeSecurityIntegration,
 inspector2:GetCodeSecurityIntegration,
@@ -401,13 +418,20 @@ inspector2:TagResource,
 inspector2:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 inspector2:DeleteCodeSecurityIntegration,
 inspector2:GetCodeSecurityIntegration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 inspector2:ListCodeSecurityIntegrations
 ```
+
+</TabItem>
+</Tabs>

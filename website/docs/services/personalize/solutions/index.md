@@ -415,24 +415,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>solutions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 personalize:CreateSolution,
 personalize:DescribeSolution
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 personalize:DescribeSolution
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 personalize:DeleteSolution,
 personalize:DescribeSolution
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 personalize:ListSolutions
 ```
+
+</TabItem>
+</Tabs>

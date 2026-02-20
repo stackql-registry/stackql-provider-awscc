@@ -245,6 +245,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>policy_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.verifiedpermissions.policy_templates
@@ -270,31 +272,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>policy_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 verifiedpermissions:CreatePolicyTemplate,
 verifiedpermissions:GetPolicyTemplate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 verifiedpermissions:GetPolicyTemplate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 verifiedpermissions:UpdatePolicyTemplate,
 verifiedpermissions:GetPolicyTemplate
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 verifiedpermissions:DeletePolicyTemplate,
 verifiedpermissions:GetPolicyTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 verifiedpermissions:ListPolicyTemplates,
 verifiedpermissions:GetPolicyTemplate
 ```
+
+</TabItem>
+</Tabs>

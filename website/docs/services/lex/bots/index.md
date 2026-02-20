@@ -1243,6 +1243,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>bot</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lex.bots
@@ -1279,7 +1281,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>bots</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 lex:DescribeBot,
@@ -1318,14 +1331,18 @@ lex:DescribeBotReplica,
 lex:DeleteBotReplica
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lex:DescribeBot,
 lex:ListTagsForResource,
 lex:DescribeBotReplica
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 lex:DescribeBot,
@@ -1363,7 +1380,9 @@ lex:DescribeBotReplica,
 lex:DeleteBotReplica
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lex:DeleteBot,
 lex:DescribeBot,
@@ -1378,8 +1397,13 @@ lex:DeleteCustomVocabulary,
 lex:DeleteBotReplica
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lex:ListBots,
 lex:ListBotReplicas
 ```
+
+</TabItem>
+</Tabs>

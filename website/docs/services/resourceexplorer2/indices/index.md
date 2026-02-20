@@ -233,6 +233,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>index</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.resourceexplorer2.indices
@@ -258,7 +260,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>indices</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resource-explorer-2:CreateIndex,
 resource-explorer-2:GetIndex,
@@ -268,7 +281,9 @@ resource-explorer-2:DeleteIndex,
 iam:CreateServiceLinkedRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 resource-explorer-2:GetIndex,
 resource-explorer-2:UpdateIndexType,
@@ -277,19 +292,28 @@ resource-explorer-2:UntagResource,
 resource-explorer-2:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resource-explorer-2:DeleteIndex,
 resource-explorer-2:GetIndex,
 resource-explorer-2:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resource-explorer-2:ListIndexes
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resource-explorer-2:GetIndex
 ```
+
+</TabItem>
+</Tabs>

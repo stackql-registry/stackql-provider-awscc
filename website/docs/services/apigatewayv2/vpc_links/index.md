@@ -251,6 +251,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_link</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.vpc_links
@@ -276,7 +278,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_links</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apigateway:POST,
 apigateway:GET,
@@ -286,7 +299,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:PATCH,
 apigateway:GET,
@@ -297,7 +312,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apigateway:GET,
 iam:CreateServiceLinkedRole,
@@ -305,7 +322,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:GET,
 apigateway:DELETE,
@@ -314,10 +333,15 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:GET,
 iam:CreateServiceLinkedRole,
 iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
+
+</TabItem>
+</Tabs>

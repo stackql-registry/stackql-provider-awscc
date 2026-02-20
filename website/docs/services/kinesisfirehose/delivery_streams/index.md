@@ -3241,6 +3241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>delivery_stream</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kinesisfirehose.delivery_streams
@@ -3271,13 +3273,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>delivery_streams</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 firehose:DescribeDeliveryStream,
 firehose:ListTagsForDeliveryStream
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 firehose:CreateDeliveryStream,
 firehose:DescribeDeliveryStream,
@@ -3288,7 +3303,9 @@ kms:DescribeKey,
 firehose:TagDeliveryStream
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 firehose:UpdateDestination,
 firehose:DescribeDeliveryStream,
@@ -3303,15 +3320,22 @@ kms:DescribeKey,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 firehose:ListDeliveryStreams
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 firehose:DeleteDeliveryStream,
 firehose:DescribeDeliveryStream,
 kms:RevokeGrant,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

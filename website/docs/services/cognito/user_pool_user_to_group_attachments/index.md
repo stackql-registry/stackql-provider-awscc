@@ -183,19 +183,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_pool_user_to_group_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:AdminAddUserToGroup,
 cognito-idp:AdminListGroupsForUser
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:AdminRemoveUserFromGroup,
 cognito-idp:AdminListGroupsForUser
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:AdminListGroupsForUser
 ```
+
+</TabItem>
+</Tabs>

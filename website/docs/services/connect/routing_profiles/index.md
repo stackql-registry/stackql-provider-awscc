@@ -371,6 +371,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>routing_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.routing_profiles
@@ -402,25 +404,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>routing_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateRoutingProfile,
 connect:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeRoutingProfile,
 connect:ListRoutingProfileQueues
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteRoutingProfile,
 connect:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:AssociateRoutingProfileQueues,
 connect:DisassociateRoutingProfileQueues,
@@ -434,8 +453,13 @@ connect:ListRoutingProfileQueues,
 connect:UpdateRoutingProfileAgentAvailabilityTimer
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListRoutingProfiles,
 connect:ListRoutingProfileQueues
 ```
+
+</TabItem>
+</Tabs>

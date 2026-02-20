@@ -665,6 +665,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>storage_len</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3.storage_lens
@@ -689,13 +691,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>storage_lens</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 s3:GetStorageLensConfiguration,
 s3:GetStorageLensConfigurationTagging
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 s3:PutStorageLensConfiguration,
 s3:PutStorageLensConfigurationTagging,
@@ -708,7 +723,9 @@ organizations:ListDelegatedAdministrators,
 iam:CreateServiceLinkedRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:PutStorageLensConfiguration,
 s3:PutStorageLensConfigurationTagging,
@@ -721,13 +738,20 @@ organizations:ListDelegatedAdministrators,
 iam:CreateServiceLinkedRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3:ListStorageLensConfigurations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteStorageLensConfiguration,
 s3:DeleteStorageLensConfigurationTagging
 ```
+
+</TabItem>
+</Tabs>

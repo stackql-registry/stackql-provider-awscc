@@ -332,6 +332,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_point</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.efs.access_points
@@ -356,33 +358,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_points</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticfilesystem:CreateAccessPoint,
 elasticfilesystem:TagResource,
 elasticfilesystem:DescribeAccessPoints
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticfilesystem:DescribeAccessPoints
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticfilesystem:DeleteAccessPoint,
 elasticfilesystem:DescribeAccessPoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticfilesystem:DescribeAccessPoints
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticfilesystem:DescribeAccessPoints,
 elasticfilesystem:ListTagsForResource,
 elasticfilesystem:TagResource,
 elasticfilesystem:UntagResource
 ```
+
+</TabItem>
+</Tabs>

@@ -407,6 +407,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>custom_line_item</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.billingconductor.custom_line_items
@@ -433,7 +435,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>custom_line_items</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 billingconductor:CreateCustomLineItem,
 billingconductor:BatchAssociateResourcesToCustomLineItem,
@@ -442,7 +455,9 @@ billingconductor:TagResource,
 billingconductor:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 billingconductor:ListCustomLineItems,
 billingconductor:ListCustomLineItemVersions,
@@ -450,14 +465,18 @@ billingconductor:ListResourcesAssociatedToCustomLineItem,
 billingconductor:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 billingconductor:ListCustomLineItems,
 billingconductor:ListResourcesAssociatedToCustomLineItem,
 billingconductor:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 billingconductor:UpdateCustomLineItem,
 billingconductor:ListCustomLineItems,
@@ -468,7 +487,9 @@ billingconductor:TagResource,
 billingconductor:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 billingconductor:DeleteCustomLineItem,
 billingconductor:ListCustomLineItems,
@@ -476,3 +497,6 @@ billingconductor:BatchDisassociateResourcesFromCustomLineItem,
 billingconductor:ListResourcesAssociatedToCustomLineItem,
 billingconductor:UntagResource
 ```
+
+</TabItem>
+</Tabs>

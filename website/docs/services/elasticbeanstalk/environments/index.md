@@ -387,6 +387,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticbeanstalk.environments
@@ -417,14 +419,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 elasticbeanstalk:DescribeEnvironments,
 elasticbeanstalk:DescribeConfigurationSettings,
 elasticbeanstalk:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 elasticbeanstalk:DescribeEnvironments,
 elasticbeanstalk:CreateEnvironment,
@@ -433,7 +448,9 @@ elasticbeanstalk:ListTagsForResource,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticbeanstalk:DescribeEnvironments,
 elasticbeanstalk:UpdateEnvironment,
@@ -449,14 +466,21 @@ s3:PutBucketPolicy,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticbeanstalk:DescribeEnvironments,
 elasticbeanstalk:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticbeanstalk:DescribeEnvironments,
 elasticbeanstalk:TerminateEnvironment
 ```
+
+</TabItem>
+</Tabs>

@@ -190,6 +190,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>certificate_authority_activation</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.acmpca.certificate_authority_activations
@@ -216,25 +218,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>certificate_authority_activations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 acm-pca:ImportCertificateAuthorityCertificate,
 acm-pca:UpdateCertificateAuthority
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 acm-pca:GetCertificateAuthorityCertificate,
 acm-pca:DescribeCertificateAuthority
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 acm-pca:UpdateCertificateAuthority
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 acm-pca:ImportCertificateAuthorityCertificate,
 acm-pca:UpdateCertificateAuthority
 ```
+
+</TabItem>
+</Tabs>

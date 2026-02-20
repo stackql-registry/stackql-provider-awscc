@@ -313,6 +313,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance_snapshot</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.instance_snapshots
@@ -337,32 +339,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>instance_snapshots</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:CreateInstanceSnapshot,
 lightsail:GetInstanceSnapshot,
 lightsail:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetInstanceSnapshot
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:GetInstanceSnapshot,
 lightsail:TagResource,
 lightsail:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:GetInstanceSnapshot,
 lightsail:DeleteInstanceSnapshot
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetInstanceSnapshots
 ```
+
+</TabItem>
+</Tabs>

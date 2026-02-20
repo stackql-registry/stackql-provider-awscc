@@ -293,7 +293,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>hook_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:DescribeType,
 cloudformation:DescribeTypeRegistration,
@@ -304,19 +314,28 @@ s3:ListBucket,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribeType
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudformation:DeregisterType,
 cloudformation:DescribeType
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListTypes,
 cloudformation:ListTypeVersions
 ```
+
+</TabItem>
+</Tabs>

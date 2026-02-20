@@ -293,6 +293,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>service_network</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.vpclattice.service_networks
@@ -319,7 +321,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>service_networks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 vpc-lattice:GetServiceNetwork,
 vpc-lattice:ListTagsForResource,
@@ -328,13 +341,17 @@ vpc-lattice:TagResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 vpc-lattice:GetServiceNetwork,
 vpc-lattice:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 vpc-lattice:GetServiceNetwork,
 vpc-lattice:UpdateServiceNetwork,
@@ -343,13 +360,20 @@ vpc-lattice:UntagResource,
 vpc-lattice:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 vpc-lattice:DeleteServiceNetwork,
 vpc-lattice:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 vpc-lattice:ListServiceNetworks
 ```
+
+</TabItem>
+</Tabs>

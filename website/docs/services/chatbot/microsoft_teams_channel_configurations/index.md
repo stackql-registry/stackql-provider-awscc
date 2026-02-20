@@ -352,6 +352,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>microsoft_teams_channel_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.chatbot.microsoft_teams_channel_configurations
@@ -384,7 +386,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>microsoft_teams_channel_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 chatbot:CreateMicrosoftTeamsChannelConfiguration,
 chatbot:TagResource,
@@ -394,13 +407,17 @@ iam:PassRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 chatbot:GetMicrosoftTeamsChannelConfiguration,
 chatbot:ListAssociations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 chatbot:UpdateMicrosoftTeamsChannelConfiguration,
 chatbot:TagResource,
@@ -412,7 +429,9 @@ chatbot:ListAssociations,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 chatbot:GetMicrosoftTeamsChannelConfiguration,
 chatbot:DeleteMicrosoftTeamsChannelConfiguration,
@@ -420,8 +439,13 @@ chatbot:DisassociateFromConfiguration,
 chatbot:ListAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 chatbot:ListMicrosoftTeamsChannelConfigurations,
 chatbot:ListAssociations
 ```
+
+</TabItem>
+</Tabs>

@@ -385,6 +385,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>capacity_reservation_fleet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.capacity_reservation_fleets
@@ -411,7 +413,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>capacity_reservation_fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateCapacityReservationFleet,
 ec2:ModifyCapacityReservationFleet,
@@ -425,7 +438,9 @@ ec2:CreateTags,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:CreateCapacityReservationFleet,
 ec2:ModifyCapacityReservationFleet,
@@ -437,21 +452,27 @@ ec2:CancelCapacityReservation,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeCapacityReservationFleets,
 ec2:DescribeCapacityReservations,
 ec2:DescribeInstances
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeCapacityReservationFleets,
 ec2:DescribeInstances,
 ec2:DescribeCapacityReservations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateCapacityReservationFleet,
 ec2:ModifyCapacityReservationFleet,
@@ -464,3 +485,6 @@ ec2:CancelCapacityReservation,
 ec2:DescribeInstances,
 ec2:DeleteTags
 ```
+
+</TabItem>
+</Tabs>

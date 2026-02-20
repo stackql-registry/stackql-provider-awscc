@@ -679,6 +679,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>function</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lambda.functions
@@ -726,14 +728,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>functions</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 lambda:GetFunction,
 lambda:GetFunctionCodeSigningConfig,
 lambda:GetFunctionRecursionConfig
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 lambda:CreateFunction,
 lambda:GetFunction,
@@ -759,7 +774,9 @@ lambda:PutFunctionRecursionConfig,
 lambda:GetFunctionRecursionConfig
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lambda:DeleteFunctionConcurrency,
 lambda:GetFunction,
@@ -788,14 +805,21 @@ lambda:PutFunctionRecursionConfig,
 lambda:GetFunctionRecursionConfig
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:ListFunctions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:DeleteFunction,
 lambda:GetFunction,
 ec2:DescribeNetworkInterfaces
 ```
+
+</TabItem>
+</Tabs>

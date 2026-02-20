@@ -353,6 +353,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>component_type</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iottwinmaker.component_types
@@ -384,7 +386,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>component_types</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iottwinmaker:CreateComponentType,
 iottwinmaker:GetComponentType,
@@ -393,14 +406,18 @@ iottwinmaker:ListTagsForResource,
 iottwinmaker:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iottwinmaker:GetComponentType,
 iottwinmaker:GetWorkspace,
 iottwinmaker:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iottwinmaker:GetComponentType,
 iottwinmaker:GetWorkspace,
@@ -410,17 +427,24 @@ iottwinmaker:UntagResource,
 iottwinmaker:UpdateComponentType
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iottwinmaker:DeleteComponentType,
 iottwinmaker:GetComponentType,
 iottwinmaker:GetWorkspace
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iottwinmaker:GetComponentType,
 iottwinmaker:GetWorkspace,
 iottwinmaker:ListComponentTypes,
 iottwinmaker:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

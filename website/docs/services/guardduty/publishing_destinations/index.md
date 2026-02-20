@@ -297,6 +297,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>publishing_destination</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.guardduty.publishing_destinations
@@ -323,7 +325,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>publishing_destinations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:CreatePublishingDestination,
 guardduty:TagResource,
@@ -331,13 +344,17 @@ guardduty:DescribePublishingDestination,
 guardduty:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:DescribePublishingDestination,
 guardduty:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 guardduty:UpdatePublishingDestination,
 guardduty:TagResource,
@@ -346,13 +363,20 @@ guardduty:ListTagsForResource,
 guardduty:DescribePublishingDestination
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:DeletePublishingDestination,
 guardduty:DescribePublishingDestination
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:ListPublishingDestinations
 ```
+
+</TabItem>
+</Tabs>

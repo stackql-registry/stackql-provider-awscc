@@ -426,6 +426,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>form</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.amplifyuibuilder.forms
@@ -459,7 +461,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>forms</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 amplify:GetApp,
 amplifyuibuilder:CreateForm,
@@ -467,13 +480,17 @@ amplifyuibuilder:GetForm,
 amplifyuibuilder:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 amplify:GetApp,
 amplifyuibuilder:GetForm
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 amplify:GetApp,
 amplifyuibuilder:GetForm,
@@ -482,15 +499,22 @@ amplifyuibuilder:UntagResource,
 amplifyuibuilder:UpdateForm
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 amplify:GetApp,
 amplifyuibuilder:DeleteForm,
 amplifyuibuilder:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 amplify:GetApp,
 amplifyuibuilder:ListForms
 ```
+
+</TabItem>
+</Tabs>

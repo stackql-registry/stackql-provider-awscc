@@ -331,6 +331,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment_blueprint_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datazone.environment_blueprint_configurations
@@ -360,12 +362,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>environment_blueprint_configurations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 datazone:GetEnvironmentBlueprintConfiguration
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 datazone:ListEnvironmentBlueprints,
 iam:PassRole,
@@ -373,7 +388,9 @@ datazone:GetEnvironmentBlueprintConfiguration,
 datazone:PutEnvironmentBlueprintConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datazone:DeleteEnvironmentBlueprintConfiguration,
 iam:PassRole,
@@ -381,13 +398,20 @@ datazone:GetEnvironmentBlueprintConfiguration,
 datazone:PutEnvironmentBlueprintConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datazone:ListEnvironmentBlueprintConfigurations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datazone:GetEnvironmentBlueprintConfiguration,
 datazone:DeleteEnvironmentBlueprintConfiguration
 ```
+
+</TabItem>
+</Tabs>

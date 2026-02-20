@@ -981,7 +981,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>spot_fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 ec2:CreateTags,
@@ -990,24 +1001,35 @@ ec2:DescribeSpotFleetRequests,
 ec2:RunInstances
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeSpotFleetRequests,
 ec2:CancelSpotFleetRequests
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeSpotFleetRequests
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeSpotFleetRequests
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifySpotFleetRequest,
 ec2:DescribeSpotFleetRequests
 ```
+
+</TabItem>
+</Tabs>

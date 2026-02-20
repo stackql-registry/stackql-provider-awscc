@@ -289,6 +289,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_ingress_connection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apprunner.vpc_ingress_connections
@@ -313,7 +315,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_ingress_connections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apprunner:CreateVpcIngressConnection,
 apprunner:DescribeVpcIngressConnection,
@@ -323,22 +336,33 @@ ec2:DescribeSubnets,
 apprunner:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apprunner:DescribeVpcIngressConnection
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apprunner:UpdateVpcIngressConnection
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apprunner:DeleteVpcIngressConnection
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apprunner:ListVpcIngressConnections
 ```
+
+</TabItem>
+</Tabs>

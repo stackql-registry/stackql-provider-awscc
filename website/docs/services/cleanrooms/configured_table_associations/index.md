@@ -331,6 +331,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>configured_table_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cleanrooms.configured_table_associations
@@ -358,7 +360,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>configured_table_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cleanrooms:CreateConfiguredTableAssociation,
 iam:PassRole,
@@ -372,14 +385,18 @@ cleanrooms:CreateConfiguredTableAssociationAnalysisRule,
 cleanrooms:GetConfiguredTableAssociationAnalysisRule
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cleanrooms:GetConfiguredTableAssociation,
 cleanrooms:ListTagsForResource,
 cleanrooms:GetConfiguredTableAssociationAnalysisRule
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cleanrooms:UpdateConfiguredTableAssociation,
 cleanrooms:GetConfiguredTableAssociation,
@@ -393,7 +410,9 @@ cleanrooms:GetConfiguredTableAssociationAnalysisRule,
 cleanrooms:UpdateConfiguredTableAssociationAnalysisRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cleanrooms:DeleteConfiguredTableAssociation,
 cleanrooms:GetConfiguredTableAssociation,
@@ -404,7 +423,12 @@ cleanrooms:DeleteConfiguredTableAssociationAnalysisRule,
 cleanrooms:GetConfiguredTableAssociationAnalysisRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cleanrooms:ListConfiguredTableAssociations
 ```
+
+</TabItem>
+</Tabs>

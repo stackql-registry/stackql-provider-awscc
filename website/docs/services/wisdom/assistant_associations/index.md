@@ -315,28 +315,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>assistant_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wisdom:CreateAssistantAssociation,
 wisdom:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wisdom:GetAssistantAssociation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wisdom:GetAssistantAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wisdom:ListAssistantAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wisdom:DeleteAssistantAssociation
 ```
+
+</TabItem>
+</Tabs>

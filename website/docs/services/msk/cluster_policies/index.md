@@ -229,6 +229,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.cluster_policies
@@ -253,30 +255,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>cluster_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafka:PutClusterPolicy,
 kafka:GetClusterPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:GetClusterPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:GetClusterPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:PutClusterPolicy,
 kafka:GetClusterPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:DeleteClusterPolicy,
 kafka:GetClusterPolicy
 ```
+
+</TabItem>
+</Tabs>

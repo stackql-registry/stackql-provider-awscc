@@ -251,6 +251,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>security_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.opensearchserverless.security_policies
@@ -276,7 +278,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>security_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aoss:GetSecurityPolicy,
 aoss:CreateSecurityPolicy,
@@ -284,7 +297,9 @@ kms:DescribeKey,
 kms:CreateGrant
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aoss:GetSecurityPolicy,
 aoss:UpdateSecurityPolicy,
@@ -292,19 +307,28 @@ kms:DescribeKey,
 kms:CreateGrant
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aoss:GetSecurityPolicy,
 aoss:DeleteSecurityPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aoss:ListSecurityPolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aoss:GetSecurityPolicy,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

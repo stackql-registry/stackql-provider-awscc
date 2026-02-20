@@ -572,6 +572,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>campaign</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotfleetwise.campaigns
@@ -599,13 +601,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>campaigns</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 iotfleetwise:GetCampaign,
 iotfleetwise:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 iotfleetwise:CreateCampaign,
 iotfleetwise:GetCampaign,
@@ -616,7 +631,9 @@ timestream:DescribeEndpoints,
 timestream:DescribeTable
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotfleetwise:GetCampaign,
 iotfleetwise:ListTagsForResource,
@@ -625,14 +642,21 @@ iotfleetwise:TagResource,
 iotfleetwise:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotfleetwise:ListCampaigns,
 iotfleetwise:GetCampaign
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotfleetwise:DeleteCampaign,
 iotfleetwise:GetCampaign
 ```
+
+</TabItem>
+</Tabs>

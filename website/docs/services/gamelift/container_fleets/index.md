@@ -712,6 +712,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>container_fleet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.gamelift.container_fleets
@@ -750,7 +752,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>container_fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 gamelift:CreateContainerFleet,
 gamelift:DescribeContainerFleet,
@@ -766,7 +779,9 @@ gamelift:UpdateFleetCapacity,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 gamelift:DescribeContainerFleet,
 gamelift:DescribeFleetLocationAttributes,
@@ -775,18 +790,24 @@ gamelift:DescribeScalingPolicies,
 gamelift:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 gamelift:DeleteContainerFleet,
 gamelift:DescribeContainerFleet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 gamelift:ListContainerFleets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 gamelift:CreateFleetLocations,
 gamelift:DeleteFleetLocations,
@@ -806,3 +827,6 @@ gamelift:UpdateContainerFleet,
 gamelift:UpdateFleetCapacity,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

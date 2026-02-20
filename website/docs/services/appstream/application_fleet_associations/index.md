@@ -171,19 +171,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>application_fleet_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appstream:AssociateApplicationFleet,
 appstream:DescribeApplicationFleetAssociations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appstream:DescribeApplicationFleetAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appstream:DisassociateApplicationFleet,
 appstream:DescribeApplicationFleetAssociations
 ```
+
+</TabItem>
+</Tabs>

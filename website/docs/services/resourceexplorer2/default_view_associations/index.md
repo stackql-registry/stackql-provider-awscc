@@ -158,6 +158,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>default_view_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.resourceexplorer2.default_view_associations
@@ -182,25 +184,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>default_view_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resource-explorer-2:GetDefaultView,
 resource-explorer-2:AssociateDefaultView
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 resource-explorer-2:GetDefaultView,
 resource-explorer-2:AssociateDefaultView
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resource-explorer-2:GetDefaultView
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resource-explorer-2:GetDefaultView,
 resource-explorer-2:DisassociateDefaultView
 ```
+
+</TabItem>
+</Tabs>

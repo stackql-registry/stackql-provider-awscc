@@ -269,7 +269,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>private_graph_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpcEndpoint,
 ec2:DescribeVpcEndpoints,
@@ -286,18 +297,24 @@ neptune-graph:GetPrivateGraphEndpoint,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 neptune-graph:GetPrivateGraphEndpoint
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 neptune-graph:GetPrivateGraphEndpoint
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpcEndpoints,
 ec2:DescribeVpcEndpoints,
@@ -312,9 +329,14 @@ neptune-graph:DeletePrivateGraphEndpoint,
 neptune-graph:GetPrivateGraphEndpoint
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 neptune-graph:GetPrivateGraphEndpoint,
 neptune-graph:ListPrivateGraphEndpoints,
 neptune-graph:ListGraphs
 ```
+
+</TabItem>
+</Tabs>

@@ -283,7 +283,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>key_pairs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateKeyPair,
 ec2:ImportKeyPair,
@@ -291,19 +301,28 @@ ec2:CreateTags,
 ssm:PutParameter
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeKeyPairs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeKeyPairs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteKeyPair,
 ssm:DeleteParameter,
 ec2:DescribeKeyPairs
 ```
+
+</TabItem>
+</Tabs>

@@ -237,6 +237,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>sink</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.oam.sinks
@@ -262,7 +264,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>sinks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 oam:CreateSink,
 oam:PutSinkPolicy,
@@ -272,26 +285,34 @@ oam:TagResource,
 oam:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 oam:DeleteSink,
 oam:GetSinkPolicy,
 oam:GetSink
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 oam:ListSinks
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 oam:GetSinkPolicy,
 oam:GetSink,
 oam:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 oam:PutSinkPolicy,
 oam:GetSinkPolicy,
@@ -300,3 +321,6 @@ oam:TagResource,
 oam:UntagResource,
 oam:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

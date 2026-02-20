@@ -385,6 +385,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>directory_bucket</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3express.directory_buckets
@@ -411,7 +413,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>directory_buckets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kms:GenerateDataKey,
 kms:Decrypt,
@@ -422,7 +435,9 @@ s3express:PutLifecycleConfiguration,
 s3express:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3express:ListAllMyDirectoryBuckets,
 ec2:DescribeAvailabilityZones,
@@ -431,7 +446,9 @@ s3express:GetLifecycleConfiguration,
 s3express:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kms:GenerateDataKey,
 kms:Decrypt,
@@ -441,13 +458,20 @@ s3express:TagResource,
 s3express:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3express:DeleteBucket,
 s3express:ListAllMyDirectoryBuckets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3express:ListAllMyDirectoryBuckets
 ```
+
+</TabItem>
+</Tabs>

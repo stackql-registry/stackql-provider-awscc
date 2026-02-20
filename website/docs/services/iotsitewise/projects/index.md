@@ -280,6 +280,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>project</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.projects
@@ -307,7 +309,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>projects</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotsitewise:CreateProject,
 iotsitewise:DescribeProject,
@@ -317,14 +330,18 @@ iotsitewise:TagResource,
 iotsitewise:BatchAssociateProjectAssets
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotsitewise:DescribeProject,
 iotsitewise:ListTagsForResource,
 iotsitewise:ListProjectAssets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotsitewise:DescribeProject,
 iotsitewise:UpdateProject,
@@ -336,15 +353,22 @@ iotsitewise:UntagResource,
 iotsitewise:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotsitewise:DescribeProject,
 iotsitewise:DeleteProject
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotsitewise:ListPortals,
 iotsitewise:ListProjects,
 iotsitewise:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

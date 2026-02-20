@@ -277,6 +277,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>route_server</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.route_servers
@@ -304,7 +306,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>route_servers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateRouteServer,
 ec2:CreateTags,
@@ -312,13 +325,17 @@ ec2:DescribeRouteServers,
 sns:CreateTopic
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeRouteServers,
 ec2:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTags,
 ec2:DeleteTags,
@@ -329,7 +346,9 @@ sns:CreateTopic,
 sns:DeleteTopic
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeTags,
 ec2:DescribeRouteServers,
@@ -338,8 +357,13 @@ ec2:DeleteTags,
 sns:DeleteTopic
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeTags,
 ec2:DescribeRouteServers
 ```
+
+</TabItem>
+</Tabs>

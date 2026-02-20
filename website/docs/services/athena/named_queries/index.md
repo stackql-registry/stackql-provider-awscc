@@ -270,22 +270,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>named_queries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 athena:CreateNamedQuery
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 athena:GetNamedQuery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 athena:ListNamedQueries
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 athena:DeleteNamedQuery
 ```
+
+</TabItem>
+</Tabs>

@@ -330,6 +330,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>report_plan</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.backup.report_plans
@@ -357,7 +359,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>report_plans</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 backup:CreateReportPlan,
 backup:DescribeReportPlan,
@@ -366,13 +379,17 @@ backup:TagResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 backup:DescribeReportPlan,
 backup:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 backup:DescribeReportPlan,
 backup:UpdateReportPlan,
@@ -381,13 +398,20 @@ backup:UntagResource,
 backup:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 backup:DeleteReportPlan,
 backup:DescribeReportPlan
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 backup:ListReportPlans
 ```
+
+</TabItem>
+</Tabs>

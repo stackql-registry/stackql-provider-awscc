@@ -661,6 +661,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>service_level_objective</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.applicationsignals.service_level_objectives
@@ -691,7 +693,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>service_level_objectives</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 application-signals:CreateServiceLevelObjective,
 cloudwatch:GetMetricData,
@@ -704,14 +717,18 @@ application-signals:ListServiceLevelObjectiveExclusionWindows,
 application-signals:BatchUpdateExclusionWindows
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 application-signals:GetServiceLevelObjective,
 application-signals:ListTagsForResource,
 application-signals:ListServiceLevelObjectiveExclusionWindows
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 application-signals:UpdateServiceLevelObjective,
 cloudwatch:GetMetricData,
@@ -723,16 +740,23 @@ application-signals:ListServiceLevelObjectiveExclusionWindows,
 application-signals:BatchUpdateExclusionWindows
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 application-signals:DeleteServiceLevelObjective,
 application-signals:UntagResource,
 application-signals:GetServiceLevelObjective
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 application-signals:ListServiceLevelObjectives,
 application-signals:ListTagsForResource,
 application-signals:ListServiceLevelObjectiveExclusionWindows
 ```
+
+</TabItem>
+</Tabs>

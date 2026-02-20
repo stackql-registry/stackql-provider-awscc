@@ -410,6 +410,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>migration_project</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.dms.migration_projects
@@ -445,7 +447,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>migration_projects</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 dms:CreateMigrationProject,
 dms:ListMigrationProjects,
@@ -455,14 +468,18 @@ dms:ListTagsForResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 dms:DescribeMigrationProjects,
 dms:ListMigrationProjects,
 dms:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 dms:UpdateMigrationProject,
 dms:ModifyMigrationProject,
@@ -472,14 +489,21 @@ dms:ListTagsForResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 dms:DeleteMigrationProject
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 dms:ListMigrationProjects,
 dms:DescribeMigrationProjects,
 dms:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

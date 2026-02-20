@@ -309,6 +309,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>schema_mapping</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.entityresolution.schema_mappings
@@ -335,26 +337,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>schema_mappings</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 entityresolution:CreateSchemaMapping,
 entityresolution:GetSchemaMapping,
 entityresolution:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 entityresolution:GetSchemaMapping,
 entityresolution:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 entityresolution:DeleteSchemaMapping,
 entityresolution:GetSchemaMapping
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 entityresolution:GetSchemaMapping,
 entityresolution:UpdateSchemaMapping,
@@ -363,7 +382,12 @@ entityresolution:TagResource,
 entityresolution:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 entityresolution:ListSchemaMappings
 ```
+
+</TabItem>
+</Tabs>

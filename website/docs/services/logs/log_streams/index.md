@@ -233,23 +233,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>log_streams</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 logs:DescribeLogStreams
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 logs:CreateLogStream,
 logs:DescribeLogStreams
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:DescribeLogStreams
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteLogStream
 ```
+
+</TabItem>
+</Tabs>

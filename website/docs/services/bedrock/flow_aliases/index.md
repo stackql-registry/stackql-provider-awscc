@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>flow_alias</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.flow_aliases
@@ -351,7 +353,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>flow_aliases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateFlowAlias,
 bedrock:GetFlowAlias,
@@ -359,13 +372,17 @@ bedrock:TagResource,
 bedrock:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetFlowAlias,
 bedrock:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:UpdateFlowAlias,
 bedrock:GetFlowAlias,
@@ -374,12 +391,19 @@ bedrock:UntagResource,
 bedrock:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteFlowAlias
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListFlowAliases
 ```
+
+</TabItem>
+</Tabs>

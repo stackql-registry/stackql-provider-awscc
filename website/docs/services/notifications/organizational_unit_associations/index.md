@@ -235,25 +235,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>organizational_unit_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 notifications:AssociateOrganizationalUnit,
 notifications:GetNotificationConfiguration,
 notifications:ListOrganizationalUnits
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 notifications:ListOrganizationalUnits
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications:DisassociateOrganizationalUnit,
 notifications:ListOrganizationalUnits
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications:ListOrganizationalUnits
 ```
+
+</TabItem>
+</Tabs>

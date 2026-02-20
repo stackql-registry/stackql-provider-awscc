@@ -453,6 +453,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>lifecycle_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.imagebuilder.lifecycle_policies
@@ -483,7 +485,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>lifecycle_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 imagebuilder:CreateLifecyclePolicy,
@@ -491,7 +504,9 @@ imagebuilder:GetLifecyclePolicy,
 imagebuilder:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 imagebuilder:GetLifecyclePolicy,
@@ -500,19 +515,28 @@ imagebuilder:TagResource,
 imagebuilder:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 imagebuilder:GetLifecyclePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 imagebuilder:GetLifecyclePolicy,
 imagebuilder:DeleteLifecyclePolicy,
 imagebuilder:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 imagebuilder:ListLifecyclePolicies
 ```
+
+</TabItem>
+</Tabs>

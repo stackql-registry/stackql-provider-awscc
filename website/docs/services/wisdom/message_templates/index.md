@@ -861,6 +861,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>message_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.wisdom.message_templates
@@ -891,7 +893,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>message_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wisdom:CreateMessageTemplate,
 wisdom:GetMessageTemplate,
@@ -902,7 +915,9 @@ wisdom:CreateMessageTemplateAttachment,
 wisdom:DeleteMessageTemplateAttachment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wisdom:UpdateMessageTemplate,
 wisdom:UpdateMessageTemplateMetadata,
@@ -915,19 +930,28 @@ wisdom:CreateMessageTemplateAttachment,
 wisdom:DeleteMessageTemplateAttachment
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wisdom:DeleteMessageTemplate,
 wisdom:UntagResource,
 wisdom:DeleteMessageTemplateAttachment
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wisdom:ListMessageTemplates
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wisdom:GetMessageTemplate
 ```
+
+</TabItem>
+</Tabs>

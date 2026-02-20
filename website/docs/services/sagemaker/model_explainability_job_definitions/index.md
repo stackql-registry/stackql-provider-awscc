@@ -619,7 +619,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>model_explainability_job_definitions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreateModelExplainabilityJobDefinition,
 sagemaker:DescribeModelExplainabilityJobDefinition,
@@ -628,19 +638,28 @@ sagemaker:AddTags,
 sagemaker:ListTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeleteModelExplainabilityJobDefinition
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeModelExplainabilityJobDefinition,
 sagemaker:ListTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListModelExplainabilityJobDefinitions,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

@@ -303,22 +303,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>permissions</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 lambda:GetPolicy
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 lambda:AddPermission
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:GetPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:RemovePermission
 ```
+
+</TabItem>
+</Tabs>

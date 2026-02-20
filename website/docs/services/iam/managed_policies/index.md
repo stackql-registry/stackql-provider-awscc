@@ -322,6 +322,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>managed_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.managed_policies
@@ -349,7 +351,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>managed_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreatePolicy,
 iam:AttachGroupPolicy,
@@ -357,14 +370,18 @@ iam:AttachUserPolicy,
 iam:AttachRolePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetPolicy,
 iam:ListEntitiesForPolicy,
 iam:GetPolicyVersion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:DetachRolePolicy,
 iam:GetPolicy,
@@ -378,7 +395,9 @@ iam:AttachUserPolicy,
 iam:AttachRolePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DetachRolePolicy,
 iam:GetPolicy,
@@ -390,7 +409,12 @@ iam:DeletePolicy,
 iam:ListEntitiesForPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iam:ListPolicies
 ```
+
+</TabItem>
+</Tabs>

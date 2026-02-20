@@ -305,6 +305,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>script</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.gamelift.scripts
@@ -332,7 +334,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>scripts</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 gamelift:CreateScript,
 gamelift:ListTagsForResource,
@@ -341,25 +354,33 @@ gamelift:DescribeScript,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 gamelift:DescribeScript,
 gamelift:ListScripts,
 gamelift:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 gamelift:DeleteScript
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 gamelift:ListScripts,
 gamelift:DescribeScript
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 gamelift:DescribeScript,
 gamelift:UpdateScript,
@@ -368,3 +389,6 @@ gamelift:TagResource,
 gamelift:UntagResource,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

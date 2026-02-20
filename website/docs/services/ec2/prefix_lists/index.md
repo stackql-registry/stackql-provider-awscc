@@ -305,6 +305,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>prefix_list</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.prefix_lists
@@ -333,20 +335,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>prefix_lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 EC2:CreateManagedPrefixList,
 EC2:DescribeManagedPrefixLists,
 EC2:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 EC2:GetManagedPrefixListEntries,
 EC2:DescribeManagedPrefixLists
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 EC2:DescribeManagedPrefixLists,
 EC2:GetManagedPrefixListEntries,
@@ -355,14 +372,21 @@ EC2:CreateTags,
 EC2:DeleteTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 EC2:DeleteManagedPrefixList,
 EC2:DescribeManagedPrefixLists
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 EC2:DescribeManagedPrefixLists,
 EC2:GetManagedPrefixListEntries
 ```
+
+</TabItem>
+</Tabs>

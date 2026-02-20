@@ -383,6 +383,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>firewall</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkfirewall.firewalls
@@ -417,7 +419,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>firewalls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpcEndpoint,
 ec2:DescribeVpcEndpoints,
@@ -434,13 +447,17 @@ network-firewall:AssociateFirewallPolicy,
 network-firewall:DescribeFirewall
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 network-firewall:DescribeFirewall,
 network-firewall:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 network-firewall:AssociateSubnets,
 network-firewall:DisassociateSubnets,
@@ -458,7 +475,9 @@ network-firewall:AssociateAvailabilityZones,
 network-firewall:UpdateAvailabilityZoneChangeProtection
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpcEndpoints,
 ec2:DescribeRouteTables,
@@ -471,7 +490,12 @@ network-firewall:UntagResource,
 network-firewall:DescribeFirewall
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 network-firewall:ListFirewalls
 ```
+
+</TabItem>
+</Tabs>

@@ -271,6 +271,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>activity</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.stepfunctions.activities
@@ -295,7 +297,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>activities</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 states:CreateActivity,
 states:DescribeActivity,
@@ -303,26 +316,37 @@ states:TagResource,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 states:DescribeActivity,
 states:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 states:ListTagsForResource,
 states:TagResource,
 states:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 states:DescribeActivity,
 states:DeleteActivity
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 states:ListActivities
 ```
+
+</TabItem>
+</Tabs>

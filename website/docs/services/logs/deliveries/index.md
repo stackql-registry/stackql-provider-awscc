@@ -301,6 +301,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>delivery</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.logs.deliveries
@@ -329,7 +331,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>deliveries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 logs:CreateDelivery,
 logs:GetDelivery,
@@ -340,13 +353,17 @@ logs:GetDeliverySource,
 logs:GetDeliveryDestination
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 logs:GetDelivery,
 logs:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 logs:GetDelivery,
 logs:ListTagsForResource,
@@ -355,15 +372,22 @@ logs:UntagResource,
 logs:UpdateDeliveryConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteDelivery,
 logs:ListTagsForResource,
 logs:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:DescribeDeliveries,
 logs:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

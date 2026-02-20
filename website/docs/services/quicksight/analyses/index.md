@@ -3214,6 +3214,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>analysis</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.analyses
@@ -3249,14 +3251,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>analyses</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 quicksight:DescribeAnalysis,
 quicksight:DescribeAnalysisPermissions,
 quicksight:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 quicksight:DescribeAnalysis,
 quicksight:DescribeAnalysisPermissions,
@@ -3272,7 +3287,9 @@ quicksight:DeleteFolderMembership,
 quicksight:ListFoldersForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 quicksight:DescribeAnalysis,
 quicksight:DescribeAnalysisPermissions,
@@ -3289,13 +3306,20 @@ quicksight:UntagResource,
 quicksight:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 quicksight:ListAnalyses
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 quicksight:DescribeAnalysis,
 quicksight:DeleteAnalysis
 ```
+
+</TabItem>
+</Tabs>

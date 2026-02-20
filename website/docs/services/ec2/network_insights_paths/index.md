@@ -352,6 +352,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>network_insights_path</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_insights_paths
@@ -376,31 +378,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_insights_paths</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkInsightsPath,
 ec2:CreateTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteNetworkInsightsPath,
 ec2:DeleteTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNetworkInsightsPaths
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeNetworkInsightsPaths
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeNetworkInsightsPaths,
 ec2:CreateTags,
 ec2:DeleteTags
 ```
+
+</TabItem>
+</Tabs>

@@ -259,28 +259,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>resources</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 apigateway:GET
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 apigateway:POST
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:GET,
 apigateway:PATCH
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:GET
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:DELETE
 ```
+
+</TabItem>
+</Tabs>

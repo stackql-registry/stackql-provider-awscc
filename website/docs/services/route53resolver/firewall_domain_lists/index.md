@@ -316,6 +316,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>firewall_domain_list</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53resolver.firewall_domain_lists
@@ -342,7 +344,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>firewall_domain_lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:CreateFirewallDomainList,
 route53resolver:GetFirewallDomainList,
@@ -352,19 +365,25 @@ route53resolver:TagResource,
 route53resolver:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListFirewallDomainLists,
 route53resolver:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetFirewallDomainList,
 route53resolver:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:GetFirewallDomainList,
 route53resolver:DeleteFirewallDomainList,
@@ -372,7 +391,9 @@ route53resolver:UntagResource,
 route53resolver:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53resolver:GetFirewallDomainList,
 route53resolver:ImportFirewallDomains,
@@ -381,3 +402,6 @@ route53resolver:TagResource,
 route53resolver:UntagResource,
 route53resolver:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

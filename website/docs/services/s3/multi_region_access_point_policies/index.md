@@ -182,6 +182,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>multi_region_access_point_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3.multi_region_access_point_policies
@@ -206,26 +208,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>multi_region_access_point_policies</code> resource, the following permissions are required:
 
-### Update
+<Tabs
+    defaultValue="update"
+    values={[
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Create', value: 'create', },
+    ]
+}>
+<TabItem value="update">
+
 ```json
 s3:PutMultiRegionAccessPointPolicy,
 s3:DescribeMultiRegionAccessPointOperation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3:GetMultiRegionAccessPointPolicy,
 s3:GetMultiRegionAccessPointPolicyStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:GetMultiRegionAccessPointPolicy,
 s3:GetMultiRegionAccessPoint
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 s3:PutMultiRegionAccessPointPolicy,
 s3:DescribeMultiRegionAccessPointOperation
 ```
+
+</TabItem>
+</Tabs>

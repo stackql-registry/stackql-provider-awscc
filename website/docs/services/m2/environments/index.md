@@ -368,6 +368,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.m2.environments
@@ -396,7 +398,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkInterface,
 ec2:CreateNetworkInterfacePermission,
@@ -420,13 +433,17 @@ m2:ListTagsForResource,
 m2:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 m2:ListTagsForResource,
 m2:GetEnvironment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 m2:TagResource,
 m2:UntagResource,
@@ -436,14 +453,21 @@ m2:UpdateEnvironment,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteLoadBalancer,
 m2:DeleteEnvironment,
 m2:GetEnvironment
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 m2:ListEnvironments
 ```
+
+</TabItem>
+</Tabs>

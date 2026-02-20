@@ -259,7 +259,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_query_logging_config_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resolverquerylogging:AssociateConfig,
 resolverquerylogging:GetConfigAssociation,
@@ -268,13 +278,17 @@ ec2:DescribeVpcs,
 route53resolver:GetResolverQueryLogConfigAssociation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resolverquerylogging:GetConfigAssociation,
 route53resolver:GetResolverQueryLogConfigAssociation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resolverquerylogging:DisassociateConfig,
 resolverquerylogging:ListConfigAssociation,
@@ -283,8 +297,13 @@ route53resolver:ListResolverQueryLogConfigAssociations,
 route53resolver:GetResolverQueryLogConfigAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resolverquerylogging:ListConfigAssociations,
 route53resolver:ListResolverQueryLogConfigAssociations
 ```
+
+</TabItem>
+</Tabs>

@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_gateway</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.vpclattice.resource_gateways
@@ -329,13 +331,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_gateways</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 vpc-lattice:GetResourceGateway,
 vpc-lattice:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 vpc-lattice:CreateResourceGateway,
 vpc-lattice:GetResourceGateway,
@@ -346,7 +361,9 @@ ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 vpc-lattice:UpdateResourceGateway,
 vpc-lattice:GetResourceGateway,
@@ -358,14 +375,21 @@ ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 vpc-lattice:ListResourceGateways
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 vpc-lattice:DeleteResourceGateway,
 vpc-lattice:GetResourceGateway,
 vpc-lattice:UntagResource
 ```
+
+</TabItem>
+</Tabs>

@@ -256,6 +256,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster_capacity_provider_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecs.cluster_capacity_provider_associations
@@ -281,32 +283,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>cluster_capacity_provider_associations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ecs:DescribeClusters
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ecs:DescribeClusters,
 ecs:PutClusterCapacityProviders,
 ecs:DescribeCapacityProviders
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecs:DescribeClusters,
 ecs:PutClusterCapacityProviders
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecs:DescribeClusters,
 ecs:ListClusters
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecs:PutClusterCapacityProviders,
 ecs:DescribeClusters
 ```
+
+</TabItem>
+</Tabs>

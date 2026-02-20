@@ -297,6 +297,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>extension_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appconfig.extension_associations
@@ -322,32 +324,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>extension_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appconfig:CreateExtensionAssociation,
 appconfig:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appconfig:GetExtensionAssociation,
 appconfig:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appconfig:UpdateExtensionAssociation,
 appconfig:TagResource,
 appconfig:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appconfig:DeleteExtensionAssociation,
 appconfig:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appconfig:ListExtensionAssociations
 ```
+
+</TabItem>
+</Tabs>

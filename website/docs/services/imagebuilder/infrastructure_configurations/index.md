@@ -413,6 +413,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>infrastructure_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.imagebuilder.infrastructure_configurations
@@ -449,7 +451,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>infrastructure_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 iam:GetRole,
@@ -461,7 +474,9 @@ imagebuilder:GetInfrastructureConfiguration,
 imagebuilder:CreateInfrastructureConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 sns:Publish,
@@ -471,19 +486,28 @@ imagebuilder:TagResource,
 imagebuilder:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 imagebuilder:GetInfrastructureConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 imagebuilder:UntagResource,
 imagebuilder:GetInfrastructureConfiguration,
 imagebuilder:DeleteInfrastructureConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 imagebuilder:ListInfrastructureConfigurations
 ```
+
+</TabItem>
+</Tabs>

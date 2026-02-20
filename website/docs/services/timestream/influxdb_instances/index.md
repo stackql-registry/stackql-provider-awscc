@@ -483,6 +483,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>influxdb_instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.timestream.influxdb_instances
@@ -514,7 +516,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>influxdb_instances</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3:ListBucket,
 s3:GetBucketPolicy,
@@ -531,13 +544,17 @@ ec2:CreateNetworkInterface,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 timestream-influxdb:GetDbInstance,
 timestream-influxdb:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:ListBucket,
 s3:GetBucketPolicy,
@@ -551,14 +568,21 @@ ec2:DescribeSubnets,
 ec2:DescribeVpcs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 timestream-influxdb:GetDbInstance,
 timestream-influxdb:ListDbInstances,
 timestream-influxdb:DeleteDbInstance
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 timestream-influxdb:ListDbInstances
 ```
+
+</TabItem>
+</Tabs>

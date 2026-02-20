@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>egress_only_internet_gateway</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.egress_only_internet_gateways
@@ -265,20 +267,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>egress_only_internet_gateways</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateEgressOnlyInternetGateway,
 ec2:CreateTags,
 ec2:DescribeEgressOnlyInternetGateways
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeEgressOnlyInternetGateways,
 ec2:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteEgressOnlyInternetGateway,
 ec2:DescribeEgressOnlyInternetGateways,
@@ -286,14 +303,21 @@ ec2:DescribeVpcs,
 ec2:DeleteTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DeleteTags,
 ec2:CreateTags,
 ec2:DescribeEgressOnlyInternetGateways
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeEgressOnlyInternetGateways
 ```
+
+</TabItem>
+</Tabs>

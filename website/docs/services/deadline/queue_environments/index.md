@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>queue_environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.deadline.queue_environments
@@ -309,33 +311,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>queue_environments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 deadline:CreateQueueEnvironment,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 deadline:GetQueueEnvironment,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 deadline:UpdateQueueEnvironment,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 deadline:DeleteQueueEnvironment,
 deadline:GetQueueEnvironment,
 identitystore:ListGroupMembershipsForMember
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 deadline:ListQueueEnvironments,
 identitystore:ListGroupMembershipsForMember
 ```
+
+</TabItem>
+</Tabs>

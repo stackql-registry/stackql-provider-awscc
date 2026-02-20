@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>scheduling_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.batch.scheduling_policies
@@ -299,32 +301,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>scheduling_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 Batch:CreateSchedulingPolicy,
 Batch:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 Batch:DescribeSchedulingPolicies
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 Batch:UpdateSchedulingPolicy,
 Batch:TagResource,
 Batch:UnTagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 Batch:DescribeSchedulingPolicies,
 Batch:DeleteSchedulingPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 Batch:ListSchedulingPolicies,
 Batch:DescribeSchedulingPolicies
 ```
+
+</TabItem>
+</Tabs>

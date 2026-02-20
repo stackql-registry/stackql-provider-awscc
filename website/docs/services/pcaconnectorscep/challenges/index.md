@@ -227,6 +227,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>challenge</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pcaconnectorscep.challenges
@@ -251,33 +253,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>challenges</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 pca-connector-scep:CreateChallenge,
 pca-connector-scep:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pca-connector-scep:ListTagsForResource,
 pca-connector-scep:GetChallengeMetadata
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 pca-connector-scep:GetChallengeMetadata,
 pca-connector-scep:DeleteChallenge,
 pca-connector-scep:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pca-connector-scep:ListChallengeMetadata
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pca-connector-scep:ListTagsForResource,
 pca-connector-scep:TagResource,
 pca-connector-scep:UntagResource
 ```
+
+</TabItem>
+</Tabs>

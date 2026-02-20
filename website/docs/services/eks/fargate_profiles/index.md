@@ -320,6 +320,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>fargate_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.fargate_profiles
@@ -344,7 +346,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>fargate_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:CreateFargateProfile,
 eks:DescribeFargateProfile,
@@ -354,25 +367,36 @@ iam:CreateServiceLinkedRole,
 eks:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribeFargateProfile
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DeleteFargateProfile,
 eks:DescribeFargateProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListFargateProfiles
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 eks:DescribeFargateProfile,
 eks:TagResource,
 eks:UntagResource
 ```
+
+</TabItem>
+</Tabs>

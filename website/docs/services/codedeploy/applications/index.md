@@ -249,6 +249,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codedeploy.applications
@@ -273,31 +275,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codedeploy:CreateApplication,
 codedeploy:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codedeploy:GetApplication,
 codedeploy:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codedeploy:GetApplication,
 codedeploy:DeleteApplication
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 codedeploy:TagResource,
 codedeploy:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codedeploy:ListApplications
 ```
+
+</TabItem>
+</Tabs>

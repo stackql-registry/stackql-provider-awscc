@@ -249,6 +249,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>proactive_engagement</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.shield.proactive_engagements
@@ -274,7 +276,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>proactive_engagements</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 shield:DescribeSubscription,
 shield:DescribeEmergencyContactSettings,
@@ -283,7 +296,9 @@ shield:UpdateEmergencyContactSettings,
 shield:EnableProactiveEngagement
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 shield:DescribeSubscription,
 shield:DescribeEmergencyContactSettings,
@@ -291,13 +306,17 @@ shield:UpdateEmergencyContactSettings,
 shield:DisableProactiveEngagement
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 shield:DescribeSubscription,
 shield:DescribeEmergencyContactSettings
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 shield:DescribeSubscription,
 shield:DescribeEmergencyContactSettings,
@@ -306,8 +325,13 @@ shield:EnableProactiveEngagement,
 shield:DisableProactiveEngagement
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 shield:DescribeSubscription,
 shield:DescribeEmergencyContactSettings
 ```
+
+</TabItem>
+</Tabs>

@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>link</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.oam.links
@@ -309,7 +311,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>links</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 oam:CreateLink,
 oam:GetLink,
@@ -323,13 +336,17 @@ internetmonitor:Link,
 application-signals:Link
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 oam:GetLink,
 oam:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 oam:GetLink,
 oam:UpdateLink,
@@ -344,13 +361,20 @@ oam:UntagResource,
 oam:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 oam:DeleteLink,
 oam:GetLink
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 oam:ListLinks
 ```
+
+</TabItem>
+</Tabs>

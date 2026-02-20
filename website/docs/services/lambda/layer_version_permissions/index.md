@@ -257,23 +257,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>layer_version_permissions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lambda:AddLayerVersionPermission
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lambda:GetLayerVersionPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:GetLayerVersionPolicy,
 lambda:RemoveLayerVersionPermission
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:GetLayerVersionPolicy
 ```
+
+</TabItem>
+</Tabs>

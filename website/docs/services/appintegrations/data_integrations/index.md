@@ -346,6 +346,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>data_integration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appintegrations.data_integrations
@@ -374,7 +376,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>data_integrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 app-integrations:CreateDataIntegration,
 app-integrations:TagResource,
@@ -395,18 +408,24 @@ s3:PutBucketNotification,
 s3:GetEncryptionConfiguration
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 app-integrations:GetDataIntegration,
 app-integrations:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 app-integrations:ListDataIntegrations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 app-integrations:GetDataIntegration,
 app-integrations:UpdateDataIntegration,
@@ -425,7 +444,9 @@ kms:ListGrants,
 kms:ListKeys
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 app-integrations:DeleteDataIntegration,
 app-integrations:UntagResource,
@@ -441,3 +462,6 @@ kms:ListAliases,
 kms:ListGrants,
 kms:ListKeys
 ```
+
+</TabItem>
+</Tabs>

@@ -251,6 +251,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>prepared_statement</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.athena.prepared_statements
@@ -276,29 +278,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>prepared_statements</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 athena:CreatePreparedStatement,
 athena:GetPreparedStatement
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 athena:GetPreparedStatement
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 athena:UpdatePreparedStatement
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 athena:DeletePreparedStatement,
 athena:GetPreparedStatement
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 athena:ListPreparedStatements
 ```
+
+</TabItem>
+</Tabs>

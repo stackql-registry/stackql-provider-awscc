@@ -284,6 +284,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>list</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.frauddetector.lists
@@ -311,7 +313,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 frauddetector:CreateList,
 frauddetector:GetListElements,
@@ -321,14 +334,18 @@ frauddetector:TagResource,
 frauddetector:UpdateList
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 frauddetector:GetListElements,
 frauddetector:GetListsMetadata,
 frauddetector:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 frauddetector:GetListElements,
 frauddetector:GetListsMetadata,
@@ -338,15 +355,22 @@ frauddetector:UpdateList,
 frauddetector:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 frauddetector:DeleteList,
 frauddetector:GetListsMetadata
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 frauddetector:GetListElements,
 frauddetector:GetListsMetadata,
 frauddetector:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

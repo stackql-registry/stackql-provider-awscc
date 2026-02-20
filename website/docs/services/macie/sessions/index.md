@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>session</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.macie.sessions
@@ -266,33 +268,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>sessions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 macie2:GetMacieSession,
 macie2:EnableMacie,
 macie2:ListAutomatedDiscoveryAccounts
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 macie2:GetMacieSession,
 macie2:ListAutomatedDiscoveryAccounts
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 macie2:GetMacieSession,
 macie2:ListAutomatedDiscoveryAccounts
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 macie2:GetMacieSession,
 macie2:UpdateMacieSession,
 macie2:ListAutomatedDiscoveryAccounts
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 macie2:DisableMacie
 ```
+
+</TabItem>
+</Tabs>

@@ -374,6 +374,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>app_block_builder</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appstream.app_block_builders
@@ -407,7 +409,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>app_block_builders</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appstream:CreateAppBlockBuilder,
 appstream:DescribeAppBlockBuilders,
@@ -419,13 +432,17 @@ appstream:ListTagsForResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appstream:DescribeAppBlockBuilders,
 appstream:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appstream:UpdateAppBlockBuilder,
 appstream:DescribeAppBlockBuilders,
@@ -440,7 +457,9 @@ appstream:UntagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appstream:DescribeAppBlockBuilders,
 appstream:DeleteAppBlockBuilder,
@@ -448,7 +467,12 @@ appstream:DisassociateAppBlockBuilderAppBlock,
 appstream:DescribeAppBlockBuilderAppBlockAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appstream:DescribeAppBlockBuilders
 ```
+
+</TabItem>
+</Tabs>

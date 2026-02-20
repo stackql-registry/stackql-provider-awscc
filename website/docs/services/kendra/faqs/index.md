@@ -333,6 +333,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>faq</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kendra.faqs
@@ -358,7 +360,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>faqs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kendra:CreateFaq,
 kendra:DescribeFaq,
@@ -367,26 +380,37 @@ kendra:ListTagsForResource,
 kendra:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kendra:ListTagsForResource,
 kendra:UntagResource,
 kendra:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kendra:DescribeFaq,
 kendra:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kendra:DeleteFaq,
 kendra:DescribeFaq
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kendra:ListFaqs
 ```
+
+</TabItem>
+</Tabs>

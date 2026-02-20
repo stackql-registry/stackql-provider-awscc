@@ -329,6 +329,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resolver_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53resolver.resolver_rules
@@ -358,7 +360,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:CreateResolverRule,
 route53resolver:GetResolverRule,
@@ -366,13 +379,17 @@ route53resolver:ListTagsForResource,
 route53resolver:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetResolverRule,
 route53resolver:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53resolver:UpdateResolverRule,
 route53resolver:GetResolverRule,
@@ -381,13 +398,20 @@ route53resolver:TagResource,
 route53resolver:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:DeleteResolverRule,
 route53resolver:GetResolverRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListResolverRules
 ```
+
+</TabItem>
+</Tabs>

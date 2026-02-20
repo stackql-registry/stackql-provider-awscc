@@ -317,6 +317,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>decoder_manifest</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotfleetwise.decoder_manifests
@@ -346,7 +348,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>decoder_manifests</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotfleetwise:CreateDecoderManifest,
 iotfleetwise:GetDecoderManifest,
@@ -357,7 +370,9 @@ iotfleetwise:ListTagsForResource,
 iotfleetwise:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotfleetwise:GetDecoderManifest,
 iotfleetwise:ListDecoderManifestSignals,
@@ -365,7 +380,9 @@ iotfleetwise:ListDecoderManifestNetworkInterfaces,
 iotfleetwise:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotfleetwise:UpdateDecoderManifest,
 iotfleetwise:GetDecoderManifest,
@@ -376,13 +393,20 @@ iotfleetwise:TagResource,
 iotfleetwise:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotfleetwise:DeleteDecoderManifest,
 iotfleetwise:GetDecoderManifest
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotfleetwise:ListDecoderManifests
 ```
+
+</TabItem>
+</Tabs>

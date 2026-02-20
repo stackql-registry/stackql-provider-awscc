@@ -375,6 +375,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3tables.tables
@@ -402,13 +404,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>tables</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 s3tables:GetTable,
 s3tables:GetTableMaintenanceConfiguration
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 s3tables:CreateTable,
 s3tables:PutTableData,
@@ -416,22 +431,31 @@ s3tables:GetTable,
 s3tables:PutTableMaintenanceConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3tables:GetTable,
 s3tables:RenameTable,
 s3tables:PutTableMaintenanceConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3tables:ListTables,
 s3tables:ListTableBuckets,
 s3tables:ListNamespaces
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3tables:GetTable,
 s3tables:DeleteTable
 ```
+
+</TabItem>
+</Tabs>

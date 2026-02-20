@@ -267,6 +267,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>archive</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.events.archives
@@ -294,7 +296,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>archives</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 events:DescribeArchive,
 events:CreateArchive,
@@ -303,18 +316,24 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 events:DescribeArchive,
 events:DeleteArchive
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 events:ListArchives
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 events:DescribeArchive,
 events:UpdateArchive,
@@ -325,8 +344,13 @@ kms:ReEncryptTo,
 kms:ReEncryptFrom
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 events:DescribeArchive,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

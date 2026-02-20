@@ -568,6 +568,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>db_cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.neptune.db_clusters
@@ -606,7 +608,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>db_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 iam:CreateServiceLinkedRole,
@@ -623,7 +636,9 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rds:DescribeDBClusters,
 rds:ListTagsForResource,
@@ -631,7 +646,9 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeSecurityGroups,
 iam:PassRole,
@@ -651,7 +668,9 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rds:DeleteDBCluster,
 rds:DeleteDBInstance,
@@ -664,10 +683,15 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rds:DescribeDBClusters,
 rds:ListTagsForResource,
 kms:CreateGrant,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

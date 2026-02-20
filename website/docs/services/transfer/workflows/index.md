@@ -464,6 +464,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workflow</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.transfer.workflows
@@ -488,29 +490,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>workflows</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 transfer:CreateWorkflow,
 transfer:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 transfer:DescribeWorkflow
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 transfer:DeleteWorkflow
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 transfer:ListWorkflows
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 transfer:UnTagResource,
 transfer:TagResource
 ```
+
+</TabItem>
+</Tabs>

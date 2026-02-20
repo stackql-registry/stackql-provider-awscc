@@ -271,24 +271,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_performance_metric_subscriptions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:DescribeAwsNetworkPerformanceMetricSubscriptions,
 ec2:EnableAwsNetworkPerformanceMetricSubscription
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeAwsNetworkPerformanceMetricSubscriptions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeAwsNetworkPerformanceMetricSubscriptions,
 ec2:DisableAwsNetworkPerformanceMetricSubscription
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeAwsNetworkPerformanceMetricSubscriptions
 ```
+
+</TabItem>
+</Tabs>

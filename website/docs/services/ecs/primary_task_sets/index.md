@@ -171,6 +171,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>primary_task_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecs.primary_task_sets
@@ -186,14 +188,27 @@ AND Identifier = '<Cluster>|<Service>';
 
 To operate on the <code>primary_task_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecs:DescribeTaskSets,
 ecs:UpdateServicePrimaryTaskSet
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecs:DescribeTaskSets,
 ecs:UpdateServicePrimaryTaskSet
 ```
+
+</TabItem>
+</Tabs>

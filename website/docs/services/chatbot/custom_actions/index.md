@@ -327,6 +327,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>custom_action</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.chatbot.custom_actions
@@ -354,7 +356,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>custom_actions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 chatbot:CreateCustomAction,
 chatbot:GetCustomAction,
@@ -362,13 +375,17 @@ chatbot:TagResource,
 chatbot:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 chatbot:GetCustomAction,
 chatbot:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 chatbot:UpdateCustomAction,
 chatbot:GetCustomAction,
@@ -377,12 +394,19 @@ chatbot:UntagResource,
 chatbot:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 chatbot:DeleteCustomAction
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 chatbot:ListCustomActions
 ```
+
+</TabItem>
+</Tabs>

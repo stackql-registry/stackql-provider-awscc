@@ -223,22 +223,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>projects</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lookoutvision:CreateProject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lookoutvision:DescribeProject
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lookoutvision:DeleteProject
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lookoutvision:ListProjects
 ```
+
+</TabItem>
+</Tabs>

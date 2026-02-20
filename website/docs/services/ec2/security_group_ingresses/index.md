@@ -327,6 +327,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>security_group_ingress</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.security_group_ingresses
@@ -351,30 +353,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>security_group_ingresses</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:DescribeSecurityGroupRules,
 ec2:AuthorizeSecurityGroupIngress
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:UpdateSecurityGroupRuleDescriptionsIngress
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeSecurityGroupRules,
 ec2:RevokeSecurityGroupIngress
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeSecurityGroups,
 ec2:DescribeSecurityGroupRules
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeSecurityGroupRules
 ```
+
+</TabItem>
+</Tabs>

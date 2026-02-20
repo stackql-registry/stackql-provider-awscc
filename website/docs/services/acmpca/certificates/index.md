@@ -549,18 +549,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>certificates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 acm-pca:IssueCertificate,
 acm-pca:GetCertificate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 acm-pca:GetCertificate
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 acm-pca:GetCertificate
 ```
+
+</TabItem>
+</Tabs>

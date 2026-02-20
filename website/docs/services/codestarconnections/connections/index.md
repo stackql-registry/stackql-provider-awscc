@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>connection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codestarconnections.connections
@@ -297,32 +299,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>connections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codestar-connections:CreateConnection,
 codestar-connections:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codestar-connections:GetConnection,
 codestar-connections:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 codestar-connections:ListTagsForResource,
 codestar-connections:TagResource,
 codestar-connections:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codestar-connections:DeleteConnection
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codestar-connections:ListConnections,
 codestar-connections:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

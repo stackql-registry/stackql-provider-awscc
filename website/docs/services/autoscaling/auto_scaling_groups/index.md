@@ -890,6 +890,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>auto_scaling_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.autoscaling.auto_scaling_groups
@@ -946,13 +948,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>auto_scaling_groups</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 autoscaling:Describe*,
 managed-fleets:Get*
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 autoscaling:CreateAutoScalingGroup,
 autoscaling:UpdateAutoScalingGroup,
@@ -977,7 +992,9 @@ vpc-lattice:ListTargets,
 vpc-lattice:RegisterTargets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 autoscaling:UpdateAutoScalingGroup,
 autoscaling:CreateOrUpdateTags,
@@ -1013,12 +1030,16 @@ vpc-lattice:ListTargets,
 vpc-lattice:RegisterTargets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 autoscaling:Describe*
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 autoscaling:DeleteAutoScalingGroup,
 autoscaling:UpdateAutoScalingGroup,
@@ -1026,3 +1047,6 @@ autoscaling:Describe*,
 managed-fleets:Get*,
 managed-fleets:DeleteAutoScalingGroup
 ```
+
+</TabItem>
+</Tabs>

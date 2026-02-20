@@ -296,6 +296,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>log_anomaly_detector</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.logs.log_anomaly_detectors
@@ -326,27 +328,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>log_anomaly_detectors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 logs:CreateLogAnomalyDetector
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 logs:GetLogAnomalyDetector
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 logs:UpdateLogAnomalyDetector
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteLogAnomalyDetector
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:ListLogAnomalyDetectors
 ```
+
+</TabItem>
+</Tabs>

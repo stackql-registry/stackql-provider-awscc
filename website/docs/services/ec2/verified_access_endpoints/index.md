@@ -607,6 +607,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>verified_access_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.verified_access_endpoints
@@ -636,7 +638,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>verified_access_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateVerifiedAccessEndpoint,
 ec2:DescribeVerifiedAccessEndpoints,
@@ -669,7 +682,9 @@ ec2:DescribeAvailabilityZones,
 ec2:DescribeVpcEndpointServiceConfigurations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVerifiedAccessEndpoints,
 ec2:GetVerifiedAccessEndpointPolicy,
@@ -679,7 +694,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyVerifiedAccessEndpoint,
 ec2:ModifyVerifiedAccessEndpointPolicy,
@@ -705,7 +722,9 @@ rds:DescribeDbProxies,
 rds:DescribeDbClusters
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeVerifiedAccessEndpoints,
 ec2:DeleteVerifiedAccessEndpoint,
@@ -719,7 +738,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVerifiedAccessEndpoints,
 ec2:GetVerifiedAccessEndpointPolicy,
@@ -728,3 +749,6 @@ kms:DescribeKey,
 kms:Decrypt,
 kms:GenerateDataKey
 ```
+
+</TabItem>
+</Tabs>

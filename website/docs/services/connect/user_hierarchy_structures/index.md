@@ -300,6 +300,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user_hierarchy_structure</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.user_hierarchy_structures
@@ -324,22 +326,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_hierarchy_structures</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:UpdateUserHierarchyStructure
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeUserHierarchyStructure
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:UpdateUserHierarchyStructure
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateUserHierarchyStructure
 ```
+
+</TabItem>
+</Tabs>

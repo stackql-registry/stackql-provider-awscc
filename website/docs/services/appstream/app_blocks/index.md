@@ -280,6 +280,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>app_block</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appstream.app_blocks
@@ -304,7 +306,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>app_blocks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appstream:CreateAppBlock,
 appstream:TagResource,
@@ -313,21 +325,30 @@ s3:ListBucket,
 s3:GetBucketOwnershipControls
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appstream:DescribeAppBlocks,
 appstream:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appstream:DeleteAppBlock,
 appstream:DescribeAppBlocks
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appstream:DescribeAppBlocks,
 appstream:TagResource,
 appstream:UntagResource
 ```
+
+</TabItem>
+</Tabs>

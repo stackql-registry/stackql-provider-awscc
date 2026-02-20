@@ -404,6 +404,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>identity_pool</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.identity_pools
@@ -439,7 +441,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>identity_pools</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-identity:CreateIdentityPool,
 cognito-sync:SetIdentityPoolConfiguration,
@@ -448,12 +461,16 @@ cognito-identity:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-identity:DescribeIdentityPool
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-identity:UpdateIdentityPool,
 cognito-identity:DescribeIdentityPool,
@@ -464,12 +481,19 @@ cognito-identity:UntagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-identity:DeleteIdentityPool
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cognito-identity:ListIdentityPools
 ```
+
+</TabItem>
+</Tabs>

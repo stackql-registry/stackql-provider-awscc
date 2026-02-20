@@ -292,6 +292,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>feature</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.evidently.features
@@ -321,20 +323,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>features</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 evidently:CreateFeature,
 evidently:TagResource,
 evidently:GetFeature
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 evidently:GetFeature,
 evidently:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 evidently:UpdateFeature,
 evidently:ListTagsForResource,
@@ -343,9 +359,14 @@ evidently:UntagResource,
 evidently:GetFeature
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 evidently:DeleteFeature,
 evidently:UntagResource,
 evidently:GetFeature
 ```
+
+</TabItem>
+</Tabs>

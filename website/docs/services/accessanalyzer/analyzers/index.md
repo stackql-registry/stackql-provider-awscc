@@ -382,6 +382,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>analyzer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.accessanalyzer.analyzers
@@ -408,7 +410,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>analyzers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 access-analyzer:CreateAnalyzer,
 access-analyzer:TagResource,
@@ -417,14 +430,18 @@ organizations:ListAWSServiceAccessForOrganization,
 organizations:ListDelegatedAdministrators
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 access-analyzer:ListAnalyzers,
 access-analyzer:GetAnalyzer,
 access-analyzer:ListArchiveRules
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 access-analyzer:CreateArchiveRule,
 access-analyzer:DeleteArchiveRule,
@@ -435,12 +452,19 @@ access-analyzer:UpdateAnalyzer,
 access-analyzer:UpdateArchiveRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 access-analyzer:DeleteAnalyzer
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 access-analyzer:ListAnalyzers
 ```
+
+</TabItem>
+</Tabs>

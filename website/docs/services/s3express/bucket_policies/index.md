@@ -223,6 +223,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>bucket_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3express.bucket_policies
@@ -247,31 +249,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>bucket_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3express:GetBucketPolicy,
 s3express:PutBucketPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3express:GetBucketPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3express:GetBucketPolicy,
 s3express:PutBucketPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3express:GetBucketPolicy,
 s3express:DeleteBucketPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3express:GetBucketPolicy,
 s3express:ListAllMyDirectoryBuckets
 ```
+
+</TabItem>
+</Tabs>

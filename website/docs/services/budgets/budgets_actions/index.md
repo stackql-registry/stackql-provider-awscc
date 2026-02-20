@@ -442,6 +442,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>budgets_action</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.budgets.budgets_actions
@@ -472,20 +474,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>budgets_actions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 budgets:CreateBudgetAction,
 iam:PassRole,
 budgets:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 budgets:DescribeBudgetAction,
 budgets:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 budgets:UpdateBudgetAction,
 iam:PassRole,
@@ -494,13 +511,20 @@ budgets:UntagResource,
 budgets:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 budgets:DeleteBudgetAction
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 budgets:DescribeBudgetActionsForAccount,
 budgets:DescribeBudgetActionsForBudget
 ```
+
+</TabItem>
+</Tabs>

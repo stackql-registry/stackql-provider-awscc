@@ -224,6 +224,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>log_delivery_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.log_delivery_configurations
@@ -248,7 +250,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>log_delivery_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:GetLogDeliveryConfiguration,
 cognito-idp:SetLogDeliveryConfiguration,
@@ -269,12 +281,16 @@ firehose:TagDeliveryStream,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:GetLogDeliveryConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-idp:GetLogDeliveryConfiguration,
 cognito-idp:SetLogDeliveryConfiguration,
@@ -295,7 +311,9 @@ firehose:TagDeliveryStream,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:GetLogDeliveryConfiguration,
 cognito-idp:SetLogDeliveryConfiguration,
@@ -315,3 +333,6 @@ s3:GetBucketAcl,
 firehose:TagDeliveryStream,
 iam:CreateServiceLinkedRole
 ```
+
+</TabItem>
+</Tabs>

@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>filter</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.guardduty.filters
@@ -331,20 +333,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>filters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:CreateFilter,
 guardduty:GetFilter,
 guardduty:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:GetFilter,
 guardduty:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:ListDetectors,
 guardduty:ListFilters,
@@ -352,7 +369,9 @@ guardduty:GetFilter,
 guardduty:DeleteFilter
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 guardduty:UpdateFilter,
 guardduty:GetFilter,
@@ -361,7 +380,12 @@ guardduty:TagResource,
 guardduty:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:ListFilters
 ```
+
+</TabItem>
+</Tabs>

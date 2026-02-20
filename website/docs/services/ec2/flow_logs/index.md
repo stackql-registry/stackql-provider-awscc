@@ -363,6 +363,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>flow_log</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.flow_logs
@@ -387,7 +389,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>flow_logs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateFlowLogs,
 ec2:DescribeFlowLogs,
@@ -398,26 +411,37 @@ s3:GetBucketPolicy,
 s3:PutBucketPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeFlowLogs
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTags,
 ec2:DeleteTags,
 ec2:DescribeFlowLogs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteFlowLogs,
 ec2:DescribeFlowLogs,
 logs:DeleteLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeFlowLogs
 ```
+
+</TabItem>
+</Tabs>

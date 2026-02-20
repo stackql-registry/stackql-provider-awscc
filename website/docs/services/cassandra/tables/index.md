@@ -546,6 +546,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cassandra.tables
@@ -578,7 +580,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>tables</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cassandra:Create,
 cassandra:CreateMultiRegionResource,
@@ -602,7 +615,9 @@ cloudwatch:PutMetricAlarm,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cassandra:Select,
 cassandra:SelectMultiRegionResource,
@@ -617,7 +632,9 @@ cloudwatch:GetMetricData,
 cloudwatch:PutMetricAlarm
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cassandra:Alter,
 cassandra:AlterMultiRegionResource,
@@ -643,7 +660,9 @@ cloudwatch:PutMetricAlarm,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cassandra:Drop,
 cassandra:DropMultiRegionResource,
@@ -660,7 +679,9 @@ cloudwatch:GetMetricData,
 cloudwatch:PutMetricAlarm
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cassandra:Select,
 cassandra:SelectMultiRegionResource,
@@ -674,3 +695,6 @@ cloudwatch:DescribeAlarms,
 cloudwatch:GetMetricData,
 cloudwatch:PutMetricAlarm
 ```
+
+</TabItem>
+</Tabs>

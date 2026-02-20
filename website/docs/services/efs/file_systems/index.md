@@ -469,6 +469,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>file_system</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.efs.file_systems
@@ -500,7 +502,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>file_systems</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticfilesystem:CreateFileSystem,
 elasticfilesystem:DescribeReplicationConfigurations,
@@ -518,7 +531,9 @@ iam:PassRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticfilesystem:DescribeBackupPolicy,
 elasticfilesystem:DescribeFileSystemPolicy,
@@ -527,7 +542,9 @@ elasticfilesystem:DescribeLifecycleConfiguration,
 elasticfilesystem:DescribeReplicationConfigurations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticfilesystem:CreateReplicationConfiguration,
 elasticfilesystem:DeleteFileSystemPolicy,
@@ -553,7 +570,9 @@ iam:PassRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticfilesystem:DescribeFileSystems,
 elasticfilesystem:DeleteFileSystem,
@@ -561,7 +580,9 @@ elasticfilesystem:DeleteReplicationConfiguration,
 elasticfilesystem:DescribeReplicationConfigurations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticfilesystem:DescribeBackupPolicy,
 elasticfilesystem:DescribeFileSystemPolicy,
@@ -569,3 +590,6 @@ elasticfilesystem:DescribeFileSystems,
 elasticfilesystem:DescribeLifecycleConfiguration,
 elasticfilesystem:DescribeReplicationConfigurations
 ```
+
+</TabItem>
+</Tabs>

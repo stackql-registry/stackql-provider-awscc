@@ -179,17 +179,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 inspector:CreateResourceGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 inspector:CreateResourceGroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 inspector:CreateResourceGroup
 ```
+
+</TabItem>
+</Tabs>

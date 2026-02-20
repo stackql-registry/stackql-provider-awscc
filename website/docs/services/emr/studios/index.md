@@ -403,6 +403,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>studio</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.emr.studios
@@ -433,7 +435,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>studios</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticmapreduce:CreateStudio,
 elasticmapreduce:DescribeStudio,
@@ -443,13 +456,17 @@ sso:DeleteManagedApplicationInstance,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticmapreduce:DescribeStudio,
 sso:GetManagedApplicationInstance
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticmapreduce:UpdateStudio,
 elasticmapreduce:DescribeStudio,
@@ -457,14 +474,21 @@ elasticmapreduce:AddTags,
 elasticmapreduce:RemoveTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticmapreduce:DeleteStudio,
 elasticmapreduce:DescribeStudio,
 sso:DeleteManagedApplicationInstance
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticmapreduce:ListStudios
 ```
+
+</TabItem>
+</Tabs>

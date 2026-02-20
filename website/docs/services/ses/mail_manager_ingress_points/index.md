@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mail_manager_ingress_point</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_ingress_points
@@ -352,7 +354,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>mail_manager_ingress_points</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:TagResource,
 ses:ListTagsForResource,
@@ -362,13 +375,17 @@ iam:CreateServiceLinkedRole,
 ec2:DescribeVpcEndpoints
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:ListTagsForResource,
 ses:GetIngressPoint
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:TagResource,
 ses:UntagResource,
@@ -377,13 +394,20 @@ ses:GetIngressPoint,
 ses:UpdateIngressPoint
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:GetIngressPoint,
 ses:DeleteIngressPoint
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListIngressPoints
 ```
+
+</TabItem>
+</Tabs>

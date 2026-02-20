@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>saml_provider</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.saml_providers
@@ -350,19 +352,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>saml_providers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateSAMLProvider,
 iam:GetSAMLProvider,
 iam:TagSAMLProvider
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetSAMLProvider
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:UpdateSAMLProvider,
 iam:GetSAMLProvider,
@@ -371,13 +388,20 @@ iam:ListSAMLProviderTags,
 iam:UntagSAMLProvider
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DeleteSAMLProvider
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iam:ListSAMLProviders,
 iam:GetSAMLProvider
 ```
+
+</TabItem>
+</Tabs>

@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.fms.resource_sets
@@ -303,7 +305,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 fms:PutResourceSet,
 fms:BatchAssociateResource,
@@ -311,7 +324,9 @@ fms:ListResourceSetResources,
 fms:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 fms:PutResourceSet,
 fms:BatchAssociateResource,
@@ -323,19 +338,28 @@ fms:UntagResource,
 fms:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 fms:GetResourceSet,
 fms:ListResourceSetResources,
 fms:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 fms:DeleteResourceSet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 fms:ListResourceSets
 ```
+
+</TabItem>
+</Tabs>

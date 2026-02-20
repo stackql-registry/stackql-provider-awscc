@@ -223,7 +223,16 @@ AND region = 'us-east-1';
 
 To operate on the <code>connection_aliases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces:CreateConnectionAlias,
 workspaces:CreateTags,
@@ -231,16 +240,23 @@ workspaces:DescribeConnectionAliases,
 workspaces:DescribeTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces:DescribeConnectionAliases,
 workspaces:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces:DeleteConnectionAlias,
 workspaces:DeleteTags,
 workspaces:DescribeTags,
 workspaces:DescribeConnectionAliases
 ```
+
+</TabItem>
+</Tabs>

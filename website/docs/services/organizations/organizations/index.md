@@ -247,6 +247,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>organization</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.organizations.organizations
@@ -271,7 +273,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>organizations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 organizations:CreateOrganization,
 organizations:DescribeOrganization,
@@ -279,24 +292,35 @@ iam:CreateServiceLinkedRole,
 organizations:ListRoots
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 organizations:DescribeOrganization,
 organizations:ListRoots
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 organizations:DeleteOrganization,
 organizations:DescribeOrganization
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 organizations:DescribeOrganization
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 organizations:DescribeOrganization
 ```
+
+</TabItem>
+</Tabs>

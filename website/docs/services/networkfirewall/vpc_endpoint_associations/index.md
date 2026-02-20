@@ -296,6 +296,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_endpoint_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkfirewall.vpc_endpoint_associations
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_endpoint_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 network-firewall:CreateVpcEndpointAssociation,
 network-firewall:DescribeVpcEndpointAssociation,
@@ -333,20 +346,26 @@ ec2:DescribeVpcs,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 network-firewall:DescribeVpcEndpointAssociation,
 network-firewall:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 network-firewall:DescribeVpcEndpointAssociation,
 network-firewall:TagResource,
 network-firewall:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 network-firewall:DeleteVpcEndpointAssociation,
 network-firewall:DescribeVpcEndpointAssociation,
@@ -355,7 +374,12 @@ ec2:DeleteVpcEndpoints,
 ec2:DescribeRouteTables
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 network-firewall:ListVpcEndpointAssociations
 ```
+
+</TabItem>
+</Tabs>

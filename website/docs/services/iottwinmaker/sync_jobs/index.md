@@ -276,7 +276,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>sync_jobs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 iottwinmaker:CreateSyncJob,
@@ -286,23 +296,32 @@ iottwinmaker:ListTagsForResource,
 iottwinmaker:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iottwinmaker:GetSyncJob,
 iottwinmaker:GetWorkspace,
 iottwinmaker:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iottwinmaker:DeleteSyncJob,
 iottwinmaker:GetSyncJob,
 iottwinmaker:GetWorkspace
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iottwinmaker:GetWorkspace,
 iottwinmaker:ListSyncJobs,
 iottwinmaker:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

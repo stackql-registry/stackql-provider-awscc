@@ -170,6 +170,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>auth_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.vpclattice.auth_policies
@@ -194,25 +196,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>auth_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 vpc-lattice:GetAuthPolicy,
 vpc-lattice:PutAuthPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 vpc-lattice:GetAuthPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 vpc-lattice:GetAuthPolicy,
 vpc-lattice:PutAuthPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 vpc-lattice:GetAuthPolicy,
 vpc-lattice:DeleteAuthPolicy
 ```
+
+</TabItem>
+</Tabs>

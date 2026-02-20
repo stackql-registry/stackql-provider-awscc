@@ -283,7 +283,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>pull_through_cache_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecr:DescribePullThroughCacheRules,
 ecr:CreatePullThroughCacheRule,
@@ -293,12 +304,16 @@ secretsmanager:GetSecretValue,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ecr:DescribePullThroughCacheRules
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecr:DescribePullThroughCacheRules,
 ecr:CreatePullThroughCacheRule,
@@ -308,13 +323,20 @@ secretsmanager:GetSecretValue,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecr:DescribePullThroughCacheRules,
 ecr:DeletePullThroughCacheRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecr:DescribePullThroughCacheRules
 ```
+
+</TabItem>
+</Tabs>

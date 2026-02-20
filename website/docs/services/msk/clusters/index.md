@@ -632,6 +632,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.clusters
@@ -665,7 +667,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
@@ -692,7 +705,9 @@ firehose:TagDeliveryStream,
 acm-pca:GetCertificateAuthorityCertificate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:UpdateMonitoring,
 kafka:UpdateClusterKafkaVersion,
@@ -728,18 +743,27 @@ firehose:TagDeliveryStream,
 acm-pca:GetCertificateAuthorityCertificate
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:DeleteCluster,
 kafka:DescribeCluster
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListClusters
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:DescribeCluster
 ```
+
+</TabItem>
+</Tabs>

@@ -365,6 +365,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datazone.domains
@@ -394,7 +396,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>domains</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 datazone:CreateDomain,
 datazone:UpdateDomain,
@@ -415,12 +428,16 @@ sso:DeleteApplicationAssignment,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 datazone:GetDomain
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datazone:UpdateDomain,
 datazone:GetDomain,
@@ -434,7 +451,9 @@ sso:PutApplicationAccessScope,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datazone:DeleteDomain,
 datazone:GetDomain,
@@ -445,7 +464,12 @@ sso:DeleteApplicationAssignment,
 sso:ListInstances
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datazone:ListDomains
 ```
+
+</TabItem>
+</Tabs>

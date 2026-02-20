@@ -315,24 +315,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>policy_grants</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 datazone:ListPolicyGrants
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 datazone:AddPolicyGrant,
 datazone:ListPolicyGrants
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datazone:ListPolicyGrants
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datazone:RemovePolicyGrant,
 datazone:ListPolicyGrants
 ```
+
+</TabItem>
+</Tabs>

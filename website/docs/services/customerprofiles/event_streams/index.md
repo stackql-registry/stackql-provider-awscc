@@ -296,6 +296,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>event_stream</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.event_streams
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>event_streams</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 profile:CreateEventStream,
 iam:PutRolePolicy,
@@ -328,13 +341,17 @@ kinesis:DescribeStreamSummary,
 profile:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 profile:GetEventStream,
 kinesis:DescribeStreamSummary
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kinesis:DescribeStreamSummary,
 profile:GetEventStream,
@@ -342,13 +359,20 @@ profile:UntagResource,
 profile:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 profile:DeleteEventStream,
 iam:DeleteRolePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 profile:ListEventStreams
 ```
+
+</TabItem>
+</Tabs>

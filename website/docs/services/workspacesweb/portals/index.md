@@ -441,6 +441,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>portal</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.portals
@@ -477,7 +479,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>portals</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-web:CreatePortal,
 workspaces-web:GetPortal*,
@@ -510,7 +523,9 @@ sso:Describe*,
 s3:PutObject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces-web:GetPortal*,
 workspaces-web:List*,
@@ -518,7 +533,9 @@ kms:Decrypt,
 kms:DescribeKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces-web:GetPortal*,
 workspaces-web:UpdatePortal,
@@ -562,7 +579,9 @@ sso:List*,
 s3:PutObject
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-web:GetPortal*,
 workspaces-web:DeletePortal,
@@ -579,9 +598,14 @@ kms:DescribeKey,
 sso:DeleteManagedApplicationInstance
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces-web:List*,
 kms:Decrypt,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

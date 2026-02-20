@@ -498,6 +498,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>distribution_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.imagebuilder.distribution_configurations
@@ -524,7 +526,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>distribution_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:GetRole,
 iam:CreateServiceLinkedRole,
@@ -537,7 +550,9 @@ imagebuilder:GetDistributionConfiguration,
 imagebuilder:CreateDistributionConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeLaunchTemplates,
 ec2:CreateLaunchTemplateVersion,
@@ -549,19 +564,28 @@ imagebuilder:TagResource,
 imagebuilder:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 imagebuilder:GetDistributionConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 imagebuilder:GetDistributionConfiguration,
 imagebuilder:UntagResource,
 imagebuilder:DeleteDistributionConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 imagebuilder:ListDistributionConfigurations
 ```
+
+</TabItem>
+</Tabs>

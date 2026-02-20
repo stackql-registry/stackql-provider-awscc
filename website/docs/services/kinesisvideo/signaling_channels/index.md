@@ -261,6 +261,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>signaling_channel</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kinesisvideo.signaling_channels
@@ -287,20 +289,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>signaling_channels</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kinesisvideo:CreateSignalingChannel,
 kinesisvideo:DescribeSignalingChannel,
 kinesisvideo:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kinesisvideo:DescribeSignalingChannel,
 kinesisvideo:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kinesisvideo:UpdateSignalingChannel,
 kinesisvideo:DescribeSignalingChannel,
@@ -309,13 +326,20 @@ kinesisvideo:UntagResource,
 kinesisvideo:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kinesisvideo:DeleteSignalingChannel,
 kinesisvideo:DescribeSignalingChannel
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kinesisvideo:ListSignalingChannels
 ```
+
+</TabItem>
+</Tabs>

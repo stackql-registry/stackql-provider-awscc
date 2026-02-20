@@ -176,7 +176,16 @@ AND region = 'us-east-1';
 
 To operate on the <code>simulation_application_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 robomaker:CreateSimulationApplicationVersion,
 s3:GetObject,
@@ -187,13 +196,20 @@ ecr-public:GetAuthorizationToken,
 sts:GetServiceBearerToken
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 robomaker:DeleteSimulationApplication,
 robomaker:DescribeSimulationApplication
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 robomaker:DescribeSimulationApplication
 ```
+
+</TabItem>
+</Tabs>

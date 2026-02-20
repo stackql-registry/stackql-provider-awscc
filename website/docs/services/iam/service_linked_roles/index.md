@@ -178,6 +178,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>service_linked_role</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.service_linked_roles
@@ -202,26 +204,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>service_linked_roles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateServiceLinkedRole,
 iam:GetRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:UpdateRole,
 iam:GetRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus,
 iam:GetRole
 ```
+
+</TabItem>
+</Tabs>

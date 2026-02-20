@@ -437,6 +437,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>stack</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.stacks
@@ -474,14 +476,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>stacks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:DescribeStacks,
 cloudformation:CreateStack,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudformation:DescribeStacks,
 cloudformation:UpdateStack,
@@ -490,20 +505,29 @@ cloudformation:SetStackPolicy,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudformation:DescribeStacks,
 cloudformation:DeleteStack
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribeStacks,
 cloudformation:GetStackPolicy,
 cloudformation:GetTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListStacks
 ```
+
+</TabItem>
+</Tabs>

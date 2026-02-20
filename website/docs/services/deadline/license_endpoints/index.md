@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>license_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.deadline.license_endpoints
@@ -315,7 +317,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>license_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 deadline:CreateLicenseEndpoint,
 deadline:GetLicenseEndpoint,
@@ -326,13 +339,17 @@ deadline:TagResource,
 deadline:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 deadline:GetLicenseEndpoint,
 deadline:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 deadline:TagResource,
 deadline:UntagResource,
@@ -340,7 +357,9 @@ deadline:ListTagsForResource,
 deadline:GetLicenseEndpoint
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 deadline:GetLicenseEndpoint,
 deadline:DeleteLicenseEndpoint,
@@ -348,7 +367,12 @@ ec2:DeleteVpcEndpoints,
 ec2:DescribeVpcEndpoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 deadline:ListLicenseEndpoints
 ```
+
+</TabItem>
+</Tabs>

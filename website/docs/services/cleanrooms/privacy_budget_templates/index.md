@@ -321,6 +321,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>privacy_budget_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cleanrooms.privacy_budget_templates
@@ -346,7 +348,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>privacy_budget_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cleanrooms:CreatePrivacyBudgetTemplate,
 cleanrooms:ListTagsForResource,
@@ -355,13 +368,17 @@ cleanrooms:GetPrivacyBudgetTemplate,
 cleanrooms:ListPrivacyBudgetTemplates
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cleanrooms:GetPrivacyBudgetTemplate,
 cleanrooms:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cleanrooms:UpdatePrivacyBudgetTemplate,
 cleanrooms:GetPrivacyBudgetTemplate,
@@ -370,7 +387,9 @@ cleanrooms:TagResource,
 cleanrooms:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cleanrooms:DeletePrivacyBudgetTemplate,
 cleanrooms:GetPrivacyBudgetTemplate,
@@ -379,7 +398,12 @@ cleanrooms:ListTagsForResource,
 cleanrooms:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cleanrooms:ListPrivacyBudgetTemplates
 ```
+
+</TabItem>
+</Tabs>

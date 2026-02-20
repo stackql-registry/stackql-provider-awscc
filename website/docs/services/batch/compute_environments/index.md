@@ -543,6 +543,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>compute_environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.batch.compute_environments
@@ -572,7 +574,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>compute_environments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 Batch:CreateComputeEnvironment,
 Batch:TagResource,
@@ -583,12 +596,16 @@ Eks:DescribeCluster,
 ec2:DescribeLaunchTemplateVersions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 Batch:DescribeComputeEnvironments
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 Batch:UpdateComputeEnvironment,
 Batch:DescribeComputeEnvironments,
@@ -599,7 +616,9 @@ Eks:DescribeCluster,
 ec2:DescribeLaunchTemplateVersions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 Batch:DeleteComputeEnvironment,
 Batch:DescribeComputeEnvironments,
@@ -609,7 +628,12 @@ Eks:DescribeCluster,
 ec2:DescribeLaunchTemplateVersions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 Batch:DescribeComputeEnvironments
 ```
+
+</TabItem>
+</Tabs>

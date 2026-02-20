@@ -264,6 +264,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>dataset_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.forecast.dataset_groups
@@ -290,27 +292,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>dataset_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 forecast:CreateDatasetGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 forecast:DescribeDatasetGroup
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 forecast:UpdateDatasetGroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 forecast:DeleteDatasetGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 forecast:ListDatasetGroups
 ```
+
+</TabItem>
+</Tabs>

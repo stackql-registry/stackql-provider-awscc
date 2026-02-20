@@ -552,6 +552,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.applicationinsights.applications
@@ -585,7 +587,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 applicationinsights:CreateApplication,
 applicationinsights:Describe*,
@@ -616,13 +629,17 @@ resource-explorer:ListResources,
 elasticfilesystem:DescribeFileSystems
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 applicationinsights:Describe*,
 applicationinsights:List*
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 applicationinsights:CreateApplication,
 applicationinsights:Describe*,
@@ -638,14 +655,21 @@ applicationinsights:UpdateLogPattern,
 applicationinsights:UpdateComponentConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 applicationinsights:DeleteApplication,
 applicationinsights:DescribeApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 applicationinsights:List*,
 applicationinsights:Describe*
 ```
+
+</TabItem>
+</Tabs>

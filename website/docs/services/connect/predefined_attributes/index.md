@@ -295,6 +295,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>predefined_attribute</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.predefined_attributes
@@ -321,27 +323,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>predefined_attributes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreatePredefinedAttribute
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribePredefinedAttribute
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeletePredefinedAttribute
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdatePredefinedAttribute
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListPredefinedAttributes
 ```
+
+</TabItem>
+</Tabs>

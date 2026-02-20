@@ -1207,6 +1207,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>network_insights_analysis</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_insights_analyses
@@ -1232,12 +1234,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_insights_analyses</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:Describe*
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateTags,
 ec2:StartNetworkInsightsAnalysis,
@@ -1252,20 +1267,29 @@ tiros:GetQueryAnswer,
 tiros:GetQueryExplanation
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTags,
 ec2:Describe*,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:Describe*
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteNetworkInsightsAnalysis,
 ec2:DeleteTags
 ```
+
+</TabItem>
+</Tabs>

@@ -409,6 +409,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>site_to_site_vpn_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.site_to_site_vpn_attachments
@@ -436,7 +438,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>site_to_site_vpn_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:GetSiteToSiteVpnAttachment,
 networkmanager:CreateSiteToSiteVpnAttachment,
@@ -444,12 +457,16 @@ ec2:DescribeRegions,
 networkmanager:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetSiteToSiteVpnAttachment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 networkmanager:GetSiteToSiteVpnAttachment,
 networkmanager:ListTagsForResource,
@@ -458,14 +475,21 @@ networkmanager:UntagResource,
 ec2:DescribeRegions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:GetSiteToSiteVpnAttachment,
 networkmanager:DeleteAttachment,
 ec2:DescribeRegions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:ListAttachments
 ```
+
+</TabItem>
+</Tabs>

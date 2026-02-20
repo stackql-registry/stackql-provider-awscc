@@ -338,6 +338,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cache_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.cache_policies
@@ -362,29 +364,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>cache_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateCachePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteCachePolicy,
 cloudfront:GetCachePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListCachePolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetCachePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudfront:UpdateCachePolicy,
 cloudfront:GetCachePolicy
 ```
+
+</TabItem>
+</Tabs>

@@ -271,7 +271,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>studio_lifecycle_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreateStudioLifecycleConfig,
 sagemaker:DescribeStudioLifecycleConfig,
@@ -279,13 +289,17 @@ sagemaker:AddTags,
 sagemaker:ListTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeStudioLifecycleConfig,
 sagemaker:ListTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeleteStudioLifecycleConfig,
 sagemaker:DescribeStudioLifecycleConfig,
@@ -293,8 +307,13 @@ sagemaker:DeleteTags,
 sagemaker:ListTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListStudioLifecycleConfigs,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

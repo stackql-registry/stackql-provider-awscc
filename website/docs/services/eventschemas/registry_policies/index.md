@@ -180,6 +180,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>registry_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eventschemas.registry_policies
@@ -206,26 +208,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>registry_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 schemas:PutResourcePolicy,
 schemas:GetResourcePolicy,
 schemas:DescribeRegistry
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 schemas:DeleteResourcePolicy,
 schemas:GetResourcePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 schemas:PutResourcePolicy,
 schemas:GetResourcePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 schemas:GetResourcePolicy
 ```
+
+</TabItem>
+</Tabs>

@@ -521,6 +521,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>inference_experiment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.inference_experiments
@@ -552,7 +554,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>inference_experiments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreateInferenceExperiment,
 sagemaker:DescribeInferenceExperiment,
@@ -561,7 +574,9 @@ sagemaker:ListTags,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeleteInferenceExperiment,
 sagemaker:DescribeInferenceExperiment,
@@ -569,18 +584,24 @@ sagemaker:StopInferenceExperiment,
 sagemaker:ListTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListInferenceExperiments
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeInferenceExperiment,
 sagemaker:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sagemaker:UpdateInferenceExperiment,
 sagemaker:StartInferenceExperiment,
@@ -590,3 +611,6 @@ sagemaker:AddTags,
 sagemaker:DeleteTags,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

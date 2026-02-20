@@ -299,7 +299,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>email_contacts</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 notifications-contacts:CreateEmailContact,
 notifications-contacts:GetEmailContact,
@@ -310,20 +320,29 @@ notifications-contacts:UntagResource,
 notifications-contacts:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 notifications-contacts:GetEmailContact,
 notifications-contacts:ListTagsForResource,
 notifications-contacts:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications-contacts:DeleteEmailContact,
 notifications-contacts:GetEmailContact
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications-contacts:ListEmailContacts
 ```
+
+</TabItem>
+</Tabs>

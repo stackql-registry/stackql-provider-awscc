@@ -297,6 +297,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>export</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bcmdataexports.exports
@@ -321,7 +323,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>exports</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bcm-data-exports:CreateExport,
 bcm-data-exports:GetExport,
@@ -330,13 +343,17 @@ bcm-data-exports:TagResource,
 cur:PutReportDefinition
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bcm-data-exports:GetExport,
 bcm-data-exports:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bcm-data-exports:UpdateExport,
 bcm-data-exports:TagResource,
@@ -345,12 +362,19 @@ bcm-data-exports:GetExport,
 bcm-data-exports:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bcm-data-exports:DeleteExport
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bcm-data-exports:ListExports
 ```
+
+</TabItem>
+</Tabs>

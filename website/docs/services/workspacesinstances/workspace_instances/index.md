@@ -772,6 +772,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workspace_instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesinstances.workspace_instances
@@ -796,7 +798,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>workspace_instances</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-instances:CreateWorkspaceInstance,
 workspaces-instances:GetWorkspaceInstance,
@@ -808,13 +821,17 @@ ec2:CreateTags,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces-instances:GetWorkspaceInstance,
 workspaces-instances:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces-instances:TagResource,
 workspaces-instances:UntagResource,
@@ -822,7 +839,9 @@ workspaces-instances:ListTagsForResource,
 workspaces-instances:GetWorkspaceInstance
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-instances:DeleteWorkspaceInstance,
 workspaces-instances:GetWorkspaceInstance,
@@ -831,7 +850,12 @@ ec2:DescribeInstances,
 ec2:DescribeInstanceStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces-instances:ListWorkspaceInstances
 ```
+
+</TabItem>
+</Tabs>

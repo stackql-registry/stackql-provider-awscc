@@ -361,6 +361,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>investigation_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.aiops.investigation_groups
@@ -392,7 +394,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>investigation_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aiops:CreateInvestigationGroup,
 aiops:GetInvestigationGroup,
@@ -408,7 +421,9 @@ kms:Encrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aiops:GetInvestigationGroup,
 aiops:GetInvestigationGroupPolicy,
@@ -419,7 +434,9 @@ kms:Decrypt,
 kms:Encrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aiops:GetInvestigationGroup,
 aiops:UpdateInvestigationGroup,
@@ -437,7 +454,9 @@ kms:Encrypt,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aiops:DeleteInvestigationGroup,
 aiops:GetInvestigationGroup,
@@ -448,9 +467,14 @@ kms:DescribeKey,
 kms:ListAliases
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aiops:ListInvestigationGroups,
 kms:DescribeKey,
 kms:ListAliases
 ```
+
+</TabItem>
+</Tabs>

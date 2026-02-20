@@ -265,6 +265,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>policy_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.policy_associations
@@ -289,31 +291,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>policy_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 securityhub:StartConfigurationPolicyAssociation,
 securityhub:GetConfigurationPolicyAssociation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securityhub:GetConfigurationPolicyAssociation,
 securityhub:GetConfigurationPolicyAssociation
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 securityhub:StartConfigurationPolicyAssociation,
 securityhub:GetConfigurationPolicyAssociation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 securityhub:StartConfigurationPolicyDisassociation,
 securityhub:GetConfigurationPolicyAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securityhub:ListConfigurationPolicyAssociations
 ```
+
+</TabItem>
+</Tabs>

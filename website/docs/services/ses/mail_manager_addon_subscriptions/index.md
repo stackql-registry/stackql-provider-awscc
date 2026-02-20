@@ -247,6 +247,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mail_manager_addon_subscription</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_addon_subscriptions
@@ -271,7 +273,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>mail_manager_addon_subscriptions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:TagResource,
 ses:ListTagsForResource,
@@ -279,13 +292,17 @@ ses:GetAddonSubscription,
 ses:CreateAddonSubscription
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:ListTagsForResource,
 ses:GetAddonSubscription
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:TagResource,
 ses:UntagResource,
@@ -293,13 +310,20 @@ ses:ListTagsForResource,
 ses:GetAddonSubscription
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:GetAddonSubscription,
 ses:DeleteAddonSubscription
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListAddonSubscriptions
 ```
+
+</TabItem>
+</Tabs>

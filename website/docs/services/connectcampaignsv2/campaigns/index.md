@@ -630,6 +630,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>campaign</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connectcampaignsv2.campaigns
@@ -661,7 +663,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>campaigns</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect-campaigns:CreateCampaign,
 connect-campaigns:DescribeCampaign,
@@ -675,12 +688,16 @@ profile:GetSegmentDefinition,
 wisdom:GetMessageTemplate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect-campaigns:DescribeCampaign
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect-campaigns:DeleteCampaign,
 connect-campaigns:DeleteCampaignChannelSubtypeConfig,
@@ -688,12 +705,16 @@ connect-campaigns:DeleteCampaignCommunicationLimits,
 connect-campaigns:DeleteCampaignCommunicationTime
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect-campaigns:ListCampaigns
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect-campaigns:DeleteCampaignChannelSubtypeConfig,
 connect-campaigns:DeleteCampaignCommunicationLimits,
@@ -715,3 +736,6 @@ connect:DescribeQueue,
 profile:GetSegmentDefinition,
 wisdom:GetMessageTemplate
 ```
+
+</TabItem>
+</Tabs>

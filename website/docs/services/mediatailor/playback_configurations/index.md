@@ -583,6 +583,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>playback_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediatailor.playback_configurations
@@ -621,7 +623,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>playback_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediatailor:PutPlaybackConfiguration,
 mediatailor:ConfigureLogsForPlaybackConfiguration,
@@ -630,12 +643,16 @@ mediatailor:UntagResource,
 mediatailor:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediatailor:GetPlaybackConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediatailor:PutPlaybackConfiguration,
 mediatailor:ConfigureLogsForPlaybackConfiguration,
@@ -644,12 +661,19 @@ mediatailor:UntagResource,
 mediatailor:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediatailor:DeletePlaybackConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediatailor:ListPlaybackConfigurations
 ```
+
+</TabItem>
+</Tabs>

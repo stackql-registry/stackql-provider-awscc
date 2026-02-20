@@ -512,6 +512,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>nodegroup</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.nodegroups
@@ -545,7 +547,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>nodegroups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:CreateNodegroup,
 eks:DescribeNodegroup,
@@ -566,23 +579,31 @@ iam:PassRole,
 iam:ListAttachedRolePolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribeNodegroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DeleteNodegroup,
 eks:DescribeNodegroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListNodegroups
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:GetRole,
 iam:PassRole,
@@ -596,3 +617,6 @@ eks:UpdateNodegroupVersion,
 ec2:DescribeLaunchTemplateVersions,
 ec2:RunInstances
 ```
+
+</TabItem>
+</Tabs>

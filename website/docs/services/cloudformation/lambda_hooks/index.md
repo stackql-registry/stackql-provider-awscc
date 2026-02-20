@@ -350,6 +350,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>lambda_hook</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.lambda_hooks
@@ -380,7 +382,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>lambda_hooks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:ListTypes,
 cloudformation:ActivateType,
@@ -390,13 +403,17 @@ cloudformation:SetTypeConfiguration,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DescribeType
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DescribeType,
@@ -404,7 +421,9 @@ cloudformation:SetTypeConfiguration,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DeactivateType,
@@ -412,9 +431,14 @@ cloudformation:DescribeType,
 cloudformation:SetTypeConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListTypes,
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DescribeType
 ```
+
+</TabItem>
+</Tabs>

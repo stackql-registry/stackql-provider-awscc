@@ -381,6 +381,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>agreement</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.transfer.agreements
@@ -414,19 +416,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>agreements</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 transfer:CreateAgreement,
 transfer:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 transfer:DescribeAgreement
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 transfer:UpdateAgreement,
 transfer:UnTagResource,
@@ -434,12 +451,19 @@ transfer:TagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 transfer:DeleteAgreement
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 transfer:ListAgreements
 ```
+
+</TabItem>
+</Tabs>

@@ -345,6 +345,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>partner_account</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotwireless.partner_accounts
@@ -374,26 +376,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>partner_accounts</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotwireless:AssociateAwsAccountWithPartnerAccount,
 iotwireless:TagResource,
 iotwireless:GetPartnerAccount
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotwireless:GetPartnerAccount,
 iotwireless:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotwireless:ListPartnerAccounts,
 iotwireless:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotwireless:GetPartnerAccount,
 iotwireless:AssociateAwsAccountWithPartnerAccount,
@@ -403,7 +422,12 @@ iotwireless:TagResource,
 iotwireless:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotwireless:DisassociateAwsAccountFromPartnerAccount
 ```
+
+</TabItem>
+</Tabs>

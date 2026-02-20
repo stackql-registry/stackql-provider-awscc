@@ -3447,6 +3447,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>dashboard</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.dashboards
@@ -3483,14 +3485,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>dashboards</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 quicksight:DescribeDashboard,
 quicksight:DescribeDashboardPermissions,
 quicksight:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 quicksight:DescribeDashboard,
 quicksight:DescribeDashboardPermissions,
@@ -3506,7 +3521,9 @@ quicksight:DeleteFolderMembership,
 quicksight:ListFoldersForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 quicksight:DescribeDashboard,
 quicksight:DescribeDashboardPermissions,
@@ -3525,13 +3542,20 @@ quicksight:UntagResource,
 quicksight:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 quicksight:ListDashboards
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 quicksight:DescribeDashboard,
 quicksight:DeleteDashboard
 ```
+
+</TabItem>
+</Tabs>

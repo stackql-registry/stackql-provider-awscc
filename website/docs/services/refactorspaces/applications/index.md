@@ -355,7 +355,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 refactor-spaces:GetApplication,
 refactor-spaces:CreateApplication,
@@ -381,13 +391,17 @@ elasticloadbalancing:AddTags,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 refactor-spaces:GetApplication,
 refactor-spaces:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 refactor-spaces:GetApplication,
 refactor-spaces:DeleteApplication,
@@ -407,8 +421,13 @@ apigateway:PUT,
 apigateway:UpdateRestApiPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 refactor-spaces:ListApplications,
 refactor-spaces:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

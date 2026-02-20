@@ -813,6 +813,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>data_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.data_sources
@@ -840,7 +842,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>data_sources</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateDataSource,
 bedrock:GetDataSource,
@@ -848,25 +861,36 @@ bedrock:GetKnowledgeBase,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetDataSource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:GetDataSource,
 bedrock:UpdateDataSource,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:GetDataSource,
 bedrock:DeleteDataSource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListDataSources
 ```
+
+</TabItem>
+</Tabs>

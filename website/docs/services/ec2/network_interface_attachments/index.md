@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>network_interface_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_interface_attachments
@@ -308,24 +310,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_interface_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AttachNetworkInterface,
 ec2:DescribeNetworkInterfaces,
 ec2:ModifyNetworkInterfaceAttribute
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNetworkInterfaces
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeNetworkInterfaces
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyNetworkInterfaceAttribute,
 ec2:DescribeNetworkInterfaces,
@@ -333,8 +352,13 @@ ec2:AttachNetworkInterface,
 ec2:DetachNetworkInterface
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DetachNetworkInterface,
 ec2:DescribeNetworkInterfaces
 ```
+
+</TabItem>
+</Tabs>

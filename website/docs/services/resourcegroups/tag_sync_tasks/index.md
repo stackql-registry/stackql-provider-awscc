@@ -277,25 +277,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>tag_sync_tasks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resource-groups:StartTagSyncTask,
 resource-groups:CreateGroup,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resource-groups:GetTagSyncTask
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resource-groups:CancelTagSyncTask,
 resource-groups:DeleteGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resource-groups:ListTagSyncTasks
 ```
+
+</TabItem>
+</Tabs>

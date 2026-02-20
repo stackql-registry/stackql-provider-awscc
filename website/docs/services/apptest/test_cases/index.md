@@ -317,6 +317,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>test_case</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apptest.test_cases
@@ -343,20 +345,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>test_cases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apptest:CreateTestCase,
 apptest:GetTestCase,
 apptest:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apptest:GetTestCase,
 apptest:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apptest:UpdateTestCase,
 apptest:GetTestCase,
@@ -365,14 +382,21 @@ apptest:UnTagResource,
 apptest:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apptest:GetTestCase,
 apptest:ListTagsForResource,
 apptest:DeleteTestCase
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apptest:ListTestCases
 ```
+
+</TabItem>
+</Tabs>

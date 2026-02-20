@@ -285,6 +285,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.m2.applications
@@ -311,7 +313,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 m2:CreateApplication,
 m2:GetApplication,
@@ -324,13 +337,17 @@ kms:CreateGrant,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 m2:GetApplication,
 m2:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 m2:UpdateApplication,
 m2:GetApplication,
@@ -341,7 +358,9 @@ s3:GetObject,
 s3:ListBucket
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteListener,
 elasticloadbalancing:DeleteTargetGroup,
@@ -350,7 +369,12 @@ m2:GetApplication,
 m2:DeleteApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 m2:ListApplications
 ```
+
+</TabItem>
+</Tabs>

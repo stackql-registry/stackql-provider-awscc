@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>threat_entity_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.guardduty.threat_entity_sets
@@ -351,7 +353,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>threat_entity_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:CreateThreatEntitySet,
 guardduty:GetThreatEntitySet,
@@ -359,12 +372,16 @@ guardduty:TagResource,
 s3:GetObject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:GetThreatEntitySet
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:ListDetectors,
 guardduty:ListThreatEntitySets,
@@ -372,7 +389,9 @@ guardduty:DeleteThreatEntitySet,
 guardduty:GetThreatEntitySet
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 guardduty:UpdateThreatEntitySet,
 guardduty:GetThreatEntitySet,
@@ -382,7 +401,12 @@ guardduty:UntagResource,
 s3:GetObject
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:ListThreatEntitySets
 ```
+
+</TabItem>
+</Tabs>

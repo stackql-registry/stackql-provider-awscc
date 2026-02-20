@@ -311,6 +311,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>graph</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.neptunegraph.graphs
@@ -338,7 +340,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>graphs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 neptune-graph:CreateGraph,
@@ -351,7 +364,9 @@ kms:Decrypt,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 neptune-graph:GetGraph,
 neptune-graph:ListTagsForResource,
@@ -360,7 +375,9 @@ kms:CreateGrant,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 neptune-graph:GetGraph,
@@ -373,7 +390,9 @@ kms:CreateGrant,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 neptune-graph:DeleteGraph,
 neptune-graph:GetGraph,
@@ -382,7 +401,9 @@ kms:CreateGrant,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 neptune-graph:GetGraph,
 neptune-graph:ListGraphs,
@@ -390,3 +411,6 @@ kms:DescribeKey,
 kms:CreateGrant,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

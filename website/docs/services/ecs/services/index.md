@@ -1069,6 +1069,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>service</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecs.services
@@ -1113,12 +1115,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>services</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ecs:DescribeServices
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ecs:CreateService,
 ecs:DescribeServiceDeployments,
@@ -1128,7 +1143,9 @@ iam:PassRole,
 ecs:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecs:DescribeServiceDeployments,
 ecs:DescribeServices,
@@ -1140,15 +1157,22 @@ ecs:UntagResource,
 ecs:UpdateService
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecs:DescribeServices,
 ecs:ListClusters,
 ecs:ListServices
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecs:DeleteService,
 ecs:DescribeServices
 ```
+
+</TabItem>
+</Tabs>

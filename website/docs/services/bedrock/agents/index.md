@@ -734,6 +734,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>agent</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.agents
@@ -777,7 +779,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>agents</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateAgent,
 bedrock:GetAgent,
@@ -804,7 +817,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetAgent,
 bedrock:GetAgentActionGroup,
@@ -820,7 +835,9 @@ kms:GenerateDataKey,
 kms:Encrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:GetAgent,
 bedrock:UpdateAgent,
@@ -854,7 +871,9 @@ kms:ReEncryptTo,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:GetAgent,
 bedrock:DeleteAgent,
@@ -865,8 +884,13 @@ kms:Encrypt,
 kms:GenerateDataKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListAgents,
 bedrock:ListGuardrails
 ```
+
+</TabItem>
+</Tabs>

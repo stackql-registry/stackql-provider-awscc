@@ -450,6 +450,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>bot_alias</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lex.bot_aliases
@@ -480,13 +482,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>bot_aliases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lex:CreateBotAlias,
 lex:DescribeBot
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lex:UpdateBotAlias,
 lex:DescribeBotAlias,
@@ -495,17 +510,26 @@ lex:TagResource,
 lex:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lex:DescribeBotAlias
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lex:DeleteBotAlias
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lex:ListBotAliases
 ```
+
+</TabItem>
+</Tabs>

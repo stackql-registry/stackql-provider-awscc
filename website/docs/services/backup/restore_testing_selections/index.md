@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>restore_testing_selection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.backup.restore_testing_selections
@@ -351,33 +353,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>restore_testing_selections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 backup:CreateRestoreTestingSelection,
 backup:GetRestoreTestingSelection,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 backup:GetRestoreTestingSelection
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 backup:UpdateRestoreTestingSelection,
 backup:GetRestoreTestingSelection,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 backup:DeleteRestoreTestingSelection,
 backup:GetRestoreTestingSelection
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 backup:ListRestoreTestingSelections,
 backup:ListRestoreTestingPlans
 ```
+
+</TabItem>
+</Tabs>

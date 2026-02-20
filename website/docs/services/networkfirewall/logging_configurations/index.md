@@ -200,6 +200,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>logging_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkfirewall.logging_configurations
@@ -225,7 +227,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 logs:CreateLogDelivery,
 logs:GetLogDelivery,
@@ -241,14 +253,18 @@ network-firewall:UpdateLoggingConfiguration,
 network-firewall:DescribeLoggingConfiguration
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 logs:GetLogDelivery,
 logs:ListLogDeliveries,
 network-firewall:DescribeLoggingConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 logs:CreateLogDelivery,
 logs:DeleteLogDelivery,
@@ -266,7 +282,9 @@ network-firewall:UpdateLoggingConfiguration,
 network-firewall:DescribeLoggingConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteLogDelivery,
 logs:ListLogDeliveries,
@@ -274,3 +292,6 @@ logs:GetLogDelivery,
 network-firewall:UpdateLoggingConfiguration,
 network-firewall:DescribeLoggingConfiguration
 ```
+
+</TabItem>
+</Tabs>

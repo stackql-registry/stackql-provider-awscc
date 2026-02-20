@@ -217,7 +217,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>dnssecs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53:GetDNSSEC,
 route53:EnableHostedZoneDNSSEC,
@@ -227,12 +237,16 @@ kms:Sign,
 kms:CreateGrant
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53:GetDNSSEC
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53:GetDNSSEC,
 route53:DisableHostedZoneDNSSEC,
@@ -242,8 +256,13 @@ kms:Sign,
 kms:CreateGrant
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53:GetDNSSEC,
 route53:ListHostedZones
 ```
+
+</TabItem>
+</Tabs>

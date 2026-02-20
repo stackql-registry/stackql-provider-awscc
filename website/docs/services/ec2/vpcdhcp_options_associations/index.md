@@ -241,27 +241,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpcdhcp_options_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AssociateDhcpOptions
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:AssociateDhcpOptions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:AssociateDhcpOptions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVpcs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVpcs
 ```
+
+</TabItem>
+</Tabs>

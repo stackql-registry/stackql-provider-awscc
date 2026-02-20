@@ -222,6 +222,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>batch_scram_secret</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.batch_scram_secrets
@@ -246,7 +248,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>batch_scram_secrets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafka:BatchAssociateScramSecret,
 kafka:ListScramSecrets,
@@ -255,7 +268,9 @@ kms:DescribeKey,
 secretsmanager:GetSecretValue
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:BatchDisassociateScramSecret,
 kafka:ListScramSecrets,
@@ -263,7 +278,9 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListScramSecrets,
 kms:CreateGrant,
@@ -271,7 +288,9 @@ kms:DescribeKey,
 secretsmanager:GetSecretValue
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:ListScramSecrets,
 kms:CreateGrant,
@@ -279,7 +298,9 @@ kms:DescribeKey,
 secretsmanager:GetSecretValue
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:BatchAssociateScramSecret,
 kafka:BatchDisassociateScramSecret,
@@ -288,3 +309,6 @@ kms:CreateGrant,
 kms:DescribeKey,
 secretsmanager:GetSecretValue
 ```
+
+</TabItem>
+</Tabs>

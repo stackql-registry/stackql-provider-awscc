@@ -254,6 +254,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>project</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.evidently.projects
@@ -281,7 +283,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>projects</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 evidently:CreateProject,
 evidently:GetProject,
@@ -301,7 +313,9 @@ iam:GetRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 evidently:GetProject,
 logs:GetLogDelivery,
@@ -312,7 +326,9 @@ logs:DescribeLogGroups,
 evidently:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 evidently:UpdateProject,
 evidently:UpdateProjectDataDelivery,
@@ -338,7 +354,9 @@ iam:GetRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 evidently:DeleteProject,
 evidently:GetProject,
@@ -354,3 +372,6 @@ appconfig:DeleteHostedConfigurationVersion,
 appconfig:DeleteExtensionAssociation,
 appconfig:DeleteConfigurationProfile
 ```
+
+</TabItem>
+</Tabs>

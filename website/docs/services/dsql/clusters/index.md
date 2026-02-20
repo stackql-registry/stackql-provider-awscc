@@ -323,6 +323,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.dsql.clusters
@@ -350,7 +352,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 dsql:CreateCluster,
 dsql:UpdateCluster,
@@ -368,7 +381,9 @@ kms:GenerateDataKey,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 dsql:GetCluster,
 dsql:GetVpcEndpointServiceName,
@@ -377,7 +392,9 @@ tag:GetTagKeys,
 tag:GetTagValues
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 dsql:UpdateCluster,
 dsql:GetCluster,
@@ -395,17 +412,24 @@ kms:GenerateDataKey,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 dsql:DeleteCluster,
 dsql:GetCluster,
 dsql:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 dsql:ListClusters,
 dsql:ListTagsForResource,
 tag:GetTagKeys,
 tag:GetTagValues
 ```
+
+</TabItem>
+</Tabs>

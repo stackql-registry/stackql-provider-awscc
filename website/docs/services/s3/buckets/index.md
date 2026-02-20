@@ -1640,6 +1640,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>bucket</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3.buckets
@@ -1682,7 +1684,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>buckets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3:CreateBucket,
 s3:PutBucketTagging,
@@ -1721,7 +1734,9 @@ s3tables:GetTableMetadataLocation,
 s3tables:UpdateTableMetadataLocation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3:GetAccelerateConfiguration,
 s3:GetLifecycleConfiguration,
@@ -1745,7 +1760,9 @@ s3:GetBucketMetadataTableConfiguration,
 s3:ListBucket
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:PutBucketAcl,
 s3:PutBucketTagging,
@@ -1791,13 +1808,20 @@ iam:PassRole,
 s3:ListBucket
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteBucket,
 s3:ListBucket
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3:ListAllMyBuckets
 ```
+
+</TabItem>
+</Tabs>

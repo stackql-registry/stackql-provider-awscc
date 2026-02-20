@@ -471,6 +471,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>image_pipeline</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.imagebuilder.image_pipelines
@@ -507,7 +509,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>image_pipelines</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecr:BatchGetRepositoryScanningConfiguration,
 iam:GetRole,
@@ -523,7 +536,9 @@ imagebuilder:GetWorkflow,
 inspector2:BatchGetAccountStatus
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 imagebuilder:GetImagePipeline,
@@ -533,19 +548,28 @@ imagebuilder:TagResource,
 imagebuilder:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 imagebuilder:GetImagePipeline
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 imagebuilder:UntagResource,
 imagebuilder:GetImagePipeline,
 imagebuilder:DeleteImagePipeline
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 imagebuilder:ListImagePipelines
 ```
+
+</TabItem>
+</Tabs>

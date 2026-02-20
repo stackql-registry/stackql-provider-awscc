@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>subscriber_notification</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.securitylake.subscriber_notifications
@@ -299,7 +301,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>subscriber_notifications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 securitylake:CreateDataLake,
 securitylake:CreateSubscriber,
@@ -333,12 +346,16 @@ sqs:GetQueueUrl,
 sqs:SetQueueAttributes
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securitylake:GetSubscriber
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 securitylake:UpdateSubscriberNotification,
 securitylake:GetSubscriber,
@@ -372,7 +389,9 @@ sqs:GetQueueAttributes,
 sqs:SetQueueAttributes
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 securitylake:DeleteSubscriberNotification,
 securitylake:GetSubscriber,
@@ -387,7 +406,12 @@ events:RemoveTargets,
 sqs:DeleteQueue
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securitylake:ListSubscribers
 ```
+
+</TabItem>
+</Tabs>

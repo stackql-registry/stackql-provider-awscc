@@ -252,28 +252,47 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:UpdateResolverConfig,
 route53resolver:GetResolverConfig,
 ec2:DescribeVpcs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetResolverConfig,
 ec2:DescribeVpcs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:UpdateResolverConfig,
 route53resolver:ListResolverConfigs,
 ec2:DescribeVpcs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListResolverConfigs,
 ec2:DescribeVpcs
 ```
+
+</TabItem>
+</Tabs>

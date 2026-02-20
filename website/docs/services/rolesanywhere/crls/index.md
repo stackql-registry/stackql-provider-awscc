@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>crl</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.rolesanywhere.crls
@@ -301,19 +303,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>crls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 rolesanywhere:ImportCrl,
 rolesanywhere:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rolesanywhere:GetCrl,
 rolesanywhere:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 rolesanywhere:EnableCrl,
 rolesanywhere:DisableCrl,
@@ -323,13 +340,20 @@ rolesanywhere:UntagResource,
 rolesanywhere:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rolesanywhere:DeleteCrl
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rolesanywhere:ListCrls,
 rolesanywhere:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

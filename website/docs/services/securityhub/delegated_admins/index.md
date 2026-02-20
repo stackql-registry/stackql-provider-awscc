@@ -229,7 +229,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>delegated_admins</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 securityhub:EnableOrganizationAdminAccount,
 organizations:DescribeOrganization,
@@ -237,20 +247,29 @@ organizations:EnableAWSServiceAccess,
 organizations:RegisterDelegatedAdministrator
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securityhub:ListOrganizationAdminAccounts,
 organizations:DescribeOrganization
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 securityhub:DisableOrganizationAdminAccount,
 organizations:DescribeOrganization
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securityhub:ListOrganizationAdminAccounts,
 organizations:DescribeOrganization
 ```
+
+</TabItem>
+</Tabs>

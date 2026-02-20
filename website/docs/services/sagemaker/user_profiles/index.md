@@ -848,7 +848,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreateUserProfile,
 sagemaker:DescribeUserProfile,
@@ -857,12 +868,16 @@ sagemaker:DescribeImageVersion,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeUserProfile
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sagemaker:UpdateUserProfile,
 sagemaker:DescribeUserProfile,
@@ -871,13 +886,20 @@ sagemaker:DescribeImageVersion,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeleteUserProfile,
 sagemaker:DescribeUserProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListUserProfiles
 ```
+
+</TabItem>
+</Tabs>

@@ -164,6 +164,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>channel_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediatailor.channel_policies
@@ -188,25 +190,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>channel_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediatailor:PutChannelPolicy,
 mediatailor:GetChannelPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediatailor:GetChannelPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediatailor:PutChannelPolicy,
 mediatailor:GetChannelPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediatailor:DeleteChannelPolicy,
 mediatailor:GetChannelPolicy
 ```
+
+</TabItem>
+</Tabs>

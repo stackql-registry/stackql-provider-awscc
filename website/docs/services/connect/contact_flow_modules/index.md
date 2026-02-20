@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>contact_flow_module</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.contact_flow_modules
@@ -320,24 +322,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>contact_flow_modules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateContactFlowModule,
 connect:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeContactFlowModule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteContactFlowModule,
 connect:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateContactFlowModuleMetadata,
 connect:UpdateContactFlowModuleContent,
@@ -345,7 +364,12 @@ connect:TagResource,
 connect:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListContactFlowModules
 ```
+
+</TabItem>
+</Tabs>

@@ -517,6 +517,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>stack_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.stack_sets
@@ -553,7 +555,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>stack_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:GetTemplateSummary,
 cloudformation:CreateStackSet,
@@ -564,14 +577,18 @@ cloudformation:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribeStackSet,
 cloudformation:ListStackInstances,
 cloudformation:DescribeStackInstance
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudformation:GetTemplateSummary,
 cloudformation:UpdateStackSet,
@@ -586,7 +603,9 @@ cloudformation:UntagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudformation:DeleteStackSet,
 cloudformation:DeleteStackInstances,
@@ -596,10 +615,15 @@ cloudformation:ListStackSetOperationResults,
 cloudformation:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListStackSets,
 cloudformation:DescribeStackSet,
 cloudformation:ListStackInstances,
 cloudformation:DescribeStackInstance
 ```
+
+</TabItem>
+</Tabs>

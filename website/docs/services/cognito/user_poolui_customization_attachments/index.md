@@ -174,6 +174,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user_poolui_customization_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_poolui_customization_attachments
@@ -198,24 +200,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_poolui_customization_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:SetUICustomization,
 cognito-idp:GetUICustomization
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:GetUICustomization
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-idp:SetUICustomization
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:SetUICustomization,
 cognito-idp:GetUICustomization
 ```
+
+</TabItem>
+</Tabs>

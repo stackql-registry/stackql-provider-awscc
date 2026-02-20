@@ -383,6 +383,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>repository</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecr.repositories
@@ -413,7 +415,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>repositories</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecr:CreateRepository,
 ecr:PutLifecyclePolicy,
@@ -424,7 +437,9 @@ kms:CreateGrant,
 kms:RetireGrant
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ecr:DescribeRepositories,
 ecr:GetLifecyclePolicy,
@@ -432,7 +447,9 @@ ecr:GetRepositoryPolicy,
 ecr:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecr:DescribeRepositories,
 ecr:PutLifecyclePolicy,
@@ -448,13 +465,20 @@ kms:CreateGrant,
 kms:RetireGrant
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecr:DeleteRepository,
 kms:RetireGrant
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecr:DescribeRepositories
 ```
+
+</TabItem>
+</Tabs>

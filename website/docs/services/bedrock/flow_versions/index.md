@@ -382,7 +382,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>flow_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateFlowVersion,
 bedrock:GetFlowVersion,
@@ -393,14 +404,18 @@ bedrock:CreateGuardrailVersion,
 bedrock:GetGuardrail
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetFlowVersion,
 kms:Decrypt,
 bedrock:GetGuardrail
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteFlowVersion,
 bedrock:GetFlowVersion,
@@ -408,13 +423,20 @@ bedrock:DeleteGuardrail,
 bedrock:GetGuardrail
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListFlowVersions,
 bedrock:ListGuardrails
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 noservice:NoAction
 ```
+
+</TabItem>
+</Tabs>

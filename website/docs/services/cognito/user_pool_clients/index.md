@@ -529,6 +529,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user_pool_client</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_clients
@@ -573,7 +575,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_pool_clients</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:CreateUserPoolClient,
 iam:PassRole,
@@ -581,26 +594,37 @@ iam:PutRolePolicy,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:DescribeUserPoolClient
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-idp:UpdateUserPoolClient,
 iam:PassRole,
 iam:PutRolePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:DeleteUserPoolClient,
 iam:PutRolePolicy,
 iam:DeleteRolePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cognito-idp:ListUserPoolClients
 ```
+
+</TabItem>
+</Tabs>

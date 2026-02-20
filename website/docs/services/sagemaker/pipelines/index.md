@@ -297,6 +297,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>pipeline</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.pipelines
@@ -326,7 +328,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>pipelines</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 s3:GetObject,
@@ -336,13 +349,17 @@ sagemaker:AddTags,
 sagemaker:ListTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribePipeline,
 sagemaker:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 s3:GetObject,
@@ -353,12 +370,19 @@ sagemaker:DeleteTags,
 sagemaker:ListTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeletePipeline
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListPipelines
 ```
+
+</TabItem>
+</Tabs>

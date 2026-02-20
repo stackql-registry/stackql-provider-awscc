@@ -198,6 +198,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user_pool_domain</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_domains
@@ -223,27 +225,46 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_pool_domains</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:CreateUserPoolDomain,
 cognito-idp:DescribeUserPoolDomain,
 cloudfront:updateDistribution
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:DescribeUserPoolDomain
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-idp:UpdateUserPoolDomain,
 cognito-idp:DescribeUserPoolDomain,
 cloudfront:updateDistribution
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:DeleteUserPoolDomain,
 cognito-idp:DescribeUserPoolDomain
 ```
+
+</TabItem>
+</Tabs>

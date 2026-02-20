@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>discoverer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eventschemas.discoverers
@@ -299,7 +301,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>discoverers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 schemas:CreateDiscoverer,
 schemas:DescribeDiscoverer,
@@ -311,12 +324,16 @@ events:ListTargetsByRule,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 schemas:DescribeDiscoverer
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 schemas:DescribeDiscoverer,
 schemas:UpdateDiscoverer,
@@ -327,7 +344,9 @@ events:PutTargets,
 events:PutRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 schemas:DescribeDiscoverer,
 schemas:DeleteDiscoverer,
@@ -336,7 +355,12 @@ events:DisableRule,
 events:RemoveTargets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 schemas:ListDiscoverers
 ```
+
+</TabItem>
+</Tabs>

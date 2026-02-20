@@ -437,6 +437,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>experiment_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.fis.experiment_templates
@@ -468,20 +470,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>experiment_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 fis:CreateExperimentTemplate,
 fis:TagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 fis:GetExperimentTemplate,
 fis:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 fis:UpdateExperimentTemplate,
 fis:TagResource,
@@ -489,13 +506,20 @@ fis:UntagResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 fis:DeleteExperimentTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 fis:ListExperimentTemplates,
 fis:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

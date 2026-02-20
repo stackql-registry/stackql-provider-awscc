@@ -269,6 +269,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>oidc_provider</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.oidc_providers
@@ -295,19 +297,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>oidc_providers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateOpenIDConnectProvider,
 iam:TagOpenIDConnectProvider,
 iam:GetOpenIDConnectProvider
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetOpenIDConnectProvider
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:UpdateOpenIDConnectProviderThumbprint,
 iam:RemoveClientIDFromOpenIDConnectProvider,
@@ -318,13 +335,20 @@ iam:UntagOpenIDConnectProvider,
 iam:ListOpenIDConnectProviderTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DeleteOpenIDConnectProvider
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iam:ListOpenIDConnectProviders,
 iam:GetOpenIDConnectProvider
 ```
+
+</TabItem>
+</Tabs>

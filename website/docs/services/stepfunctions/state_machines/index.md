@@ -427,6 +427,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>state_machine</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.stepfunctions.state_machines
@@ -459,7 +461,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>state_machines</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 states:CreateStateMachine,
 states:DescribeStateMachine,
@@ -470,14 +483,18 @@ kms:DescribeKey,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 states:DescribeStateMachine,
 states:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 states:UpdateStateMachine,
 states:TagResource,
@@ -488,13 +505,20 @@ kms:DescribeKey,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 states:DeleteStateMachine,
 states:DescribeStateMachine
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 states:ListStateMachines
 ```
+
+</TabItem>
+</Tabs>

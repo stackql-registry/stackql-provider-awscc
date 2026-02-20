@@ -289,7 +289,16 @@ AND region = 'us-east-1';
 
 To operate on the <code>principal_permissions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lakeformation:GrantPermissions,
 lakeformation:ListPermissions,
@@ -297,17 +306,24 @@ glue:GetTable,
 glue:GetDatabase
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lakeformation:ListPermissions,
 glue:GetTable,
 glue:GetDatabase
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lakeformation:RevokePermissions,
 lakeformation:ListPermissions,
 glue:GetTable,
 glue:GetDatabase
 ```
+
+</TabItem>
+</Tabs>

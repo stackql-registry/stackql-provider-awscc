@@ -430,6 +430,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>automation_rule_v2</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.automation_rule_v2s
@@ -460,7 +462,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>automation_rule_v2s</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 securityhub:CreateAutomationRuleV2,
 securityhub:GetAutomationRuleV2,
@@ -468,13 +481,17 @@ securityhub:TagResource,
 securityhub:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securityhub:GetAutomationRuleV2,
 securityhub:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 securityhub:UpdateAutomationRuleV2,
 securityhub:GetAutomationRuleV2,
@@ -483,14 +500,21 @@ securityhub:UntagResource,
 securityhub:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 securityhub:GetAutomationRuleV2,
 securityhub:DeleteAutomationRuleV2
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securityhub:ListAutomationRulesV2,
 securityhub:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

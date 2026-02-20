@@ -351,6 +351,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>volume</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.volumes
@@ -387,14 +389,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>volumes</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVolumes,
 ec2:DescribeVolumeAttribute,
 ec2:DescribeTags
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateVolume,
 ec2:DescribeVolumes,
@@ -405,7 +420,9 @@ kms:GenerateDataKeyWithoutPlaintext,
 kms:CreateGrant
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyVolume,
 ec2:ModifyVolumeAttribute,
@@ -416,14 +433,18 @@ ec2:CreateTags,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVolumes,
 ec2:DescribeTags,
 ec2:DescribeVolumeAttribute
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVolume,
 ec2:CreateSnapshot,
@@ -431,3 +452,6 @@ ec2:DescribeSnapshots,
 ec2:DeleteTags,
 ec2:DescribeVolumes
 ```
+
+</TabItem>
+</Tabs>

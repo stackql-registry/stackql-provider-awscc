@@ -452,6 +452,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>task_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.task_templates
@@ -486,32 +488,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>task_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateTaskTemplate,
 connect:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:GetTaskTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListTaskTemplates
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateTaskTemplate,
 connect:TagResource,
 connect:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteTaskTemplate,
 connect:UntagResource,
 connect:GetTaskTemplate
 ```
+
+</TabItem>
+</Tabs>

@@ -325,6 +325,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.medialive.clusters
@@ -351,7 +353,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 medialive:CreateCluster,
 medialive:DescribeCluster,
@@ -364,13 +377,17 @@ iam:PassRole,
 medialive:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 medialive:DescribeCluster,
 medialive:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 medialive:UpdateCluster,
 medialive:DescribeCluster,
@@ -379,14 +396,21 @@ medialive:DeleteTags,
 medialive:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 medialive:DeleteCluster,
 medialive:DescribeCluster,
 ecs:DeleteService
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 medialive:ListClusters
 ```
+
+</TabItem>
+</Tabs>

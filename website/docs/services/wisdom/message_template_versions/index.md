@@ -233,6 +233,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>message_template_version</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.wisdom.message_template_versions
@@ -257,28 +259,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>message_template_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wisdom:CreateMessageTemplateVersion,
 wisdom:ListMessageTemplateVersions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wisdom:DeleteMessageTemplate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wisdom:CreateMessageTemplateVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wisdom:ListMessageTemplateVersions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wisdom:GetMessageTemplate
 ```
+
+</TabItem>
+</Tabs>

@@ -495,6 +495,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>api</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.apis
@@ -535,14 +537,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>apis</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apigateway:POST,
 apigateway:PUT,
 s3:getObject
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:PATCH,
 apigateway:GET,
@@ -551,21 +566,30 @@ apigateway:POST,
 s3:getObject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apigateway:GET,
 s3:getObject
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:GET,
 apigateway:DELETE,
 s3:getObject
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:GET,
 s3:getObject
 ```
+
+</TabItem>
+</Tabs>

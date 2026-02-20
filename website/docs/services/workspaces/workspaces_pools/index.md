@@ -371,6 +371,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workspaces_pool</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspaces.workspaces_pools
@@ -402,20 +404,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>workspaces_pools</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces:CreateWorkspacesPool,
 workspaces:DescribeWorkspacesPools,
 workspaces:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces:DescribeWorkspacesPools,
 workspaces:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces:UpdateWorkspacesPool,
 workspaces:CreateTags,
@@ -424,15 +441,22 @@ workspaces:DescribeWorkspacesPools,
 workspaces:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces:DescribeWorkspacesPools,
 workspaces:TerminateWorkspacesPool,
 workspaces:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces:DescribeWorkspacesPools,
 workspaces:DescribeTags
 ```
+
+</TabItem>
+</Tabs>

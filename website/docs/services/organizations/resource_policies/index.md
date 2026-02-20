@@ -247,6 +247,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.organizations.resource_policies
@@ -272,7 +274,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 organizations:PutResourcePolicy,
 organizations:DescribeResourcePolicy,
@@ -280,13 +293,17 @@ organizations:ListTagsForResource,
 organizations:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 organizations:DescribeResourcePolicy,
 organizations:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 organizations:DescribeResourcePolicy,
 organizations:PutResourcePolicy,
@@ -295,12 +312,19 @@ organizations:TagResource,
 organizations:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 organizations:DeleteResourcePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 organizations:DescribeResourcePolicy
 ```
+
+</TabItem>
+</Tabs>

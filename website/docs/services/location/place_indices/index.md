@@ -304,6 +304,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>place_index</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.location.place_indices
@@ -331,7 +333,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>place_indices</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 geo:CreatePlaceIndex,
 geo:DescribePlaceIndex,
@@ -339,12 +352,16 @@ geo:TagResource,
 geo:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 geo:DescribePlaceIndex
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 geo:CreatePlaceIndex,
 geo:DescribePlaceIndex,
@@ -353,13 +370,20 @@ geo:UntagResource,
 geo:UpdatePlaceIndex
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 geo:DeletePlaceIndex,
 geo:DescribePlaceIndex
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 geo:ListPlaceIndexes
 ```
+
+</TabItem>
+</Tabs>

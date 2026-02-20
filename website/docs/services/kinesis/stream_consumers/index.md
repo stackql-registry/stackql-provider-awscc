@@ -271,27 +271,46 @@ AND region = 'us-east-1';
 
 To operate on the <code>stream_consumers</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 kinesis:DescribeStreamConsumer,
 kinesis:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 kinesis:RegisterStreamConsumer,
 kinesis:DescribeStreamConsumer,
 kinesis:TagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kinesis:ListStreamConsumers
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kinesis:DeregisterStreamConsumer,
 kinesis:DescribeStreamConsumer,
 kinesis:UntagResource
 ```
+
+</TabItem>
+</Tabs>

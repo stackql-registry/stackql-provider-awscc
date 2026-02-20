@@ -479,6 +479,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>flow_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flow_sources
@@ -519,7 +521,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>flow_sources</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediaconnect:CreateFlow,
 mediaconnect:DescribeFlow,
@@ -527,25 +540,36 @@ mediaconnect:AddFlowSources,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediaconnect:DescribeFlow
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediaconnect:DescribeFlow,
 mediaconnect:UpdateFlowSource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediaconnect:DescribeFlow,
 mediaconnect:RemoveFlowSource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediaconnect:DescribeFlow,
 mediaconnect:ListFlows
 ```
+
+</TabItem>
+</Tabs>

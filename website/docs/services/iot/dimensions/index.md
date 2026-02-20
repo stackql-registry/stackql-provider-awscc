@@ -264,6 +264,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>dimension</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iot.dimensions
@@ -289,19 +291,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>dimensions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:CreateDimension,
 iot:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:DescribeDimension,
 iot:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:UpdateDimension,
 iot:ListTagsForResource,
@@ -309,13 +326,20 @@ iot:UntagResource,
 iot:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:DescribeDimension,
 iot:DeleteDimension
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListDimensions
 ```
+
+</TabItem>
+</Tabs>

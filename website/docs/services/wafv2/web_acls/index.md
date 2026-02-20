@@ -1287,6 +1287,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>web_acl</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.wafv2.web_acls
@@ -1322,7 +1324,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>web_acls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wafv2:CreateWebACL,
 wafv2:GetWebACL,
@@ -1331,19 +1344,25 @@ wafv2:TagResource,
 wafv2:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wafv2:DeleteWebACL,
 wafv2:GetWebACL
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wafv2:GetWebACL,
 wafv2:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wafv2:UpdateWebACL,
 wafv2:GetWebACL,
@@ -1352,7 +1371,12 @@ wafv2:TagResource,
 wafv2:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wafv2:listWebACLs
 ```
+
+</TabItem>
+</Tabs>

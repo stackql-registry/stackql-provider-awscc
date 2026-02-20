@@ -538,6 +538,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>integration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.integrations
@@ -566,7 +568,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>integrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 profile:GetIntegration,
 profile:PutIntegration,
@@ -582,12 +595,16 @@ events:PutEvents,
 profile:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 profile:GetIntegration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 profile:DeleteIntegration,
 appflow:DeleteFlow,
@@ -598,7 +615,9 @@ events:ListTargetsByRule,
 events:DeleteRule
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 profile:PutIntegration,
 profile:GetIntegration,
@@ -619,7 +638,12 @@ connect:DescribeInstance,
 ds:DescribeDirectories
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 profile:ListIntegrations
 ```
+
+</TabItem>
+</Tabs>

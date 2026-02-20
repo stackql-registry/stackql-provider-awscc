@@ -256,28 +256,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>contact_flow_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateContactFlowVersion,
 connect:DescribeContactFlow
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeContactFlow
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteContactFlowVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListContactFlowVersions
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:DescribeContactFlow
 ```
+
+</TabItem>
+</Tabs>

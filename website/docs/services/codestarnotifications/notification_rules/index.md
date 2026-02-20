@@ -330,6 +330,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>notification_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codestarnotifications.notification_rules
@@ -362,30 +364,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>notification_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codestar-notifications:createNotificationRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codestar-notifications:listNotificationRules
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codestar-notifications:describeNotificationRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codestar-notifications:deleteNotificationRule,
 codestar-notifications:describeNotificationRule
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 codestar-notifications:updateNotificationRule,
 codestar-notifications:TagResource,
 codestar-notifications:UntagResource
 ```
+
+</TabItem>
+</Tabs>

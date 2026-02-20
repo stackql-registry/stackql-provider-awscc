@@ -256,6 +256,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>traffic_mirror_filter</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.traffic_mirror_filters
@@ -281,7 +283,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>traffic_mirror_filters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateTrafficMirrorFilter,
 ec2:DescribeTrafficMirrorFilters,
@@ -290,13 +303,17 @@ ec2:ModifyTrafficMirrorFilterNetworkServices,
 ec2:DescribeTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeTrafficMirrorFilters,
 ec2:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyTrafficMirrorFilterNetworkServices,
 ec2:DescribeTrafficMirrorFilters,
@@ -305,7 +322,9 @@ ec2:DeleteTags,
 ec2:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeTrafficMirrorFilters,
 ec2:DeleteTrafficMirrorFilter,
@@ -313,8 +332,13 @@ ec2:DeleteTags,
 ec2:DescribeTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeTrafficMirrorFilters,
 ec2:DescribeTags
 ```
+
+</TabItem>
+</Tabs>

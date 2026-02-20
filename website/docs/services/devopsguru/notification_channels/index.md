@@ -261,7 +261,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>notification_channels</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 devops-guru:AddNotificationChannel,
 devops-guru:ListNotificationChannels,
@@ -270,18 +280,27 @@ sns:GetTopicAttributes,
 sns:SetTopicAttributes
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 devops-guru:ListNotificationChannels
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 devops-guru:RemoveNotificationChannel,
 devops-guru:ListNotificationChannels
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 devops-guru:ListNotificationChannels
 ```
+
+</TabItem>
+</Tabs>

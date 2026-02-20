@@ -327,6 +327,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>web_app</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.transfer.web_apps
@@ -354,7 +356,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>web_apps</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 transfer:CreateWebApp,
 transfer:DescribeWebApp,
@@ -376,13 +389,17 @@ sso:GetApplicationAccessScope,
 sso:ListApplicationAccessScopes
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 transfer:DescribeWebApp,
 transfer:DescribeWebAppCustomization
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 transfer:DescribeWebApp,
 transfer:DescribeWebAppCustomization,
@@ -400,14 +417,21 @@ sso:DescribeApplication,
 sso:ListApplications
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 transfer:DeleteWebApp,
 sso:DescribeApplication,
 sso:DeleteApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 transfer:ListWebApps
 ```
+
+</TabItem>
+</Tabs>

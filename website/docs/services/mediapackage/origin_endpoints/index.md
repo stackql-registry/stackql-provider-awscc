@@ -840,6 +840,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>origin_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediapackage.origin_endpoints
@@ -876,7 +878,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>origin_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediapackage:CreateOriginEndpoint,
 mediapackage:DescribeOriginEndpoint,
@@ -886,12 +899,16 @@ iam:PassRole,
 acm:DescribeCertificate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediapackage:DescribeOriginEndpoint
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediapackage:UpdateOriginEndpoint,
 mediapackage:TagResource,
@@ -901,12 +918,19 @@ mediapackage:DescribeOriginEndpoint,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediapackage:DeleteOriginEndpoint
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediapackage:ListOriginEndpoints
 ```
+
+</TabItem>
+</Tabs>

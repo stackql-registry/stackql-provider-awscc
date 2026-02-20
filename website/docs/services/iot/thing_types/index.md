@@ -322,6 +322,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>thing_type</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iot.thing_types
@@ -348,7 +350,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>thing_types</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:DescribeThingType,
 iot:ListTagsForResource,
@@ -357,26 +370,34 @@ iot:DeprecateThingType,
 iot:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:DescribeThingType,
 iot:DeleteThingType,
 iot:DeprecateThingType
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListThingTypes,
 iot:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:DescribeThingType,
 iot:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:DescribeThingType,
 iot:UpdateThingType,
@@ -385,3 +406,6 @@ iot:TagResource,
 iot:UntagResource,
 iot:DeprecateThingType
 ```
+
+</TabItem>
+</Tabs>

@@ -339,6 +339,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>id_mapping_table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cleanrooms.id_mapping_tables
@@ -365,7 +367,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>id_mapping_tables</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cleanrooms:CreateIdMappingTable,
 cleanrooms:GetIdMappingTable,
@@ -378,7 +391,9 @@ entityresolution:GetIdMappingWorkflow,
 entityresolution:AddPolicyStatement
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cleanrooms:GetIdMappingTable,
 cleanrooms:ListTagsForResource,
@@ -386,7 +401,9 @@ cleanrooms:GetMembership,
 cleanrooms:GetCollaboration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cleanrooms:UpdateIdMappingTable,
 cleanrooms:GetIdMappingTable,
@@ -398,7 +415,9 @@ entityresolution:GetIdMappingWorkflow,
 entityresolution:AddPolicyStatement
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cleanrooms:DeleteIdMappingTable,
 cleanrooms:GetIdMappingTable,
@@ -411,9 +430,14 @@ entityresolution:AddPolicyStatement,
 entityresolution:DeletePolicyStatement
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cleanrooms:ListIdMappingTables,
 cleanrooms:GetMembership,
 cleanrooms:GetCollaboration
 ```
+
+</TabItem>
+</Tabs>

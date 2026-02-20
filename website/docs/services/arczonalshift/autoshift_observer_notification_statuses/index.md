@@ -248,23 +248,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>autoshift_observer_notification_statuses</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 arc-zonal-shift:UpdateAutoshiftObserverNotificationStatus
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 arc-zonal-shift:GetAutoshiftObserverNotificationStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 arc-zonal-shift:UpdateAutoshiftObserverNotificationStatus,
 arc-zonal-shift:GetAutoshiftObserverNotificationStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 arc-zonal-shift:GetAutoshiftObserverNotificationStatus
 ```
+
+</TabItem>
+</Tabs>

@@ -345,7 +345,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>prompt_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreatePromptVersion,
 bedrock:GetPrompt,
@@ -355,20 +365,29 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetPrompt,
 bedrock:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeletePrompt,
 bedrock:GetPrompt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListPrompts
 ```
+
+</TabItem>
+</Tabs>

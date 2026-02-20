@@ -282,6 +282,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cross_account_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.globalaccelerator.cross_account_attachments
@@ -309,19 +311,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>cross_account_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 globalaccelerator:DescribeCrossAccountAttachment,
 globalaccelerator:CreateCrossAccountAttachment,
 globalaccelerator:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 globalaccelerator:DescribeCrossAccountAttachment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 globalaccelerator:UpdateCrossAccountAttachment,
 globalaccelerator:DescribeCrossAccountAttachment,
@@ -329,13 +346,20 @@ globalaccelerator:TagResource,
 globalaccelerator:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 globalaccelerator:DescribeCrossAccountAttachment,
 globalaccelerator:DeleteCrossAccountAttachment
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 globalaccelerator:ListCrossAccountAttachments
 ```
+
+</TabItem>
+</Tabs>

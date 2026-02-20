@@ -286,6 +286,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>protection_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.shield.protection_groups
@@ -314,25 +316,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>protection_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 shield:CreateProtectionGroup,
 shield:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 shield:DeleteProtectionGroup,
 shield:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 shield:DescribeProtectionGroup,
 shield:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 shield:UpdateProtectionGroup,
 shield:ListTagsForResource,
@@ -340,7 +359,12 @@ shield:TagResource,
 shield:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 shield:ListProtectionGroups
 ```
+
+</TabItem>
+</Tabs>

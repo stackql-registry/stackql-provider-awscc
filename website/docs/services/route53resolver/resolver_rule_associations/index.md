@@ -245,26 +245,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_rule_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:AssociateResolverRule,
 route53resolver:GetResolverRuleAssociation,
 ec2:DescribeVpcs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetResolverRuleAssociation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:DisassociateResolverRule,
 route53resolver:GetResolverRuleAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListResolverRuleAssociations,
 ec2:DescribeVpcs
 ```
+
+</TabItem>
+</Tabs>

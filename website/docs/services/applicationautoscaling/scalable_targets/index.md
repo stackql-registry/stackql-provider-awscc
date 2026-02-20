@@ -384,6 +384,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>scalable_target</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.applicationautoscaling.scalable_targets
@@ -412,13 +414,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>scalable_targets</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 application-autoscaling:DescribeScalableTargets,
 application-autoscaling:DescribeScheduledActions
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 application-autoscaling:DescribeScalableTargets,
 application-autoscaling:RegisterScalableTarget,
@@ -434,7 +449,9 @@ lambda:PutProvisionedConcurrencyConfig,
 lambda:DeleteProvisionedConcurrencyConfig
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 application-autoscaling:RegisterScalableTarget,
 application-autoscaling:DescribeScalableTargets,
@@ -449,12 +466,19 @@ lambda:PutProvisionedConcurrencyConfig,
 lambda:DeleteProvisionedConcurrencyConfig
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 application-autoscaling:DescribeScalableTargets
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 application-autoscaling:DeregisterScalableTarget
 ```
+
+</TabItem>
+</Tabs>

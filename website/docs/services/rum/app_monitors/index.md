@@ -480,6 +480,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>app_monitor</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.rum.app_monitors
@@ -511,7 +513,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>app_monitors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 rum:GetAppMonitor,
 rum:CreateAppMonitor,
@@ -543,7 +556,9 @@ rum:GetResourcePolicy,
 rum:PutResourcePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rum:GetAppMonitor,
 dynamodb:GetItem,
@@ -556,7 +571,9 @@ rum:BatchGetRumMetricDefinitions,
 rum:GetResourcePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 rum:GetAppMonitor,
 rum:UpdateAppMonitor,
@@ -594,7 +611,9 @@ rum:PutResourcePolicy,
 rum:DeleteResourcePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rum:GetAppMonitor,
 rum:DeleteAppMonitor,
@@ -614,7 +633,9 @@ rum:PutResourcePolicy,
 rum:DeleteResourcePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rum:ListAppMonitors,
 dynamodb:DescribeTable,
@@ -628,3 +649,6 @@ s3:GetObjectAcl,
 logs:DescribeLogGroups,
 rum:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>
