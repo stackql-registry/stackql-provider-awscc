@@ -213,7 +213,9 @@ function buildTemplate(sections) {
 
   if (sections.insert) {
     parts.push(sections.insert);
-  } else if (sections.update) {
+  }
+
+  if (sections.update) {
     parts.push(sections.update);
   } else if (sections.replace) {
     parts.push(sections.replace);
