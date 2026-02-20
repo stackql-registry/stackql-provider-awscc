@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>key_signing_keys</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>key_signing_keys</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>key_signing_keys</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ status,
 name,
 key_management_service_arn
 FROM awscc.route53.key_signing_keys
-WHERE data__Identifier = '<HostedZoneId>|<Name>';
+WHERE Identifier = '<HostedZoneId>|<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,11 +256,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.route53.key_signing_keys
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HostedZoneId>|<Name>';
+AND Identifier = '<HostedZoneId>|<Name>';
 ```
 
 
@@ -269,7 +269,7 @@ AND data__Identifier = '<HostedZoneId>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.key_signing_keys
-WHERE data__Identifier = '<HostedZoneId|Name>'
+WHERE Identifier = '<HostedZoneId|Name>'
 AND region = 'us-east-1';
 ```
 

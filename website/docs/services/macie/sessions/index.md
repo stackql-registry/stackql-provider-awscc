@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>sessions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>sessions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>sessions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ finding_publishing_frequency,
 service_role,
 automated_discovery_status
 FROM awscc.macie.sessions
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,12 +244,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.macie.sessions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Status": status,
     "FindingPublishingFrequency": finding_publishing_frequency
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>';
+AND Identifier = '<AwsAccountId>';
 ```
 
 
@@ -258,7 +258,7 @@ AND data__Identifier = '<AwsAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.sessions
-WHERE data__Identifier = '<AwsAccountId>'
+WHERE Identifier = '<AwsAccountId>'
 AND region = 'us-east-1';
 ```
 

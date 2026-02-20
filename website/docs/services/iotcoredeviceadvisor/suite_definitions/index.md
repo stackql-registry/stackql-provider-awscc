@@ -165,13 +165,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>suite_definitions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>suite_definitions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -183,7 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>suite_definitions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -209,7 +209,7 @@ suite_definition_arn,
 suite_definition_version,
 tags
 FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE region = 'us-east-1' AND data__Identifier = '<SuiteDefinitionId>';
+WHERE region = 'us-east-1' AND Identifier = '<SuiteDefinitionId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,12 +302,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotcoredeviceadvisor.suite_definitions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SuiteDefinitionConfiguration": suite_definition_configuration,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SuiteDefinitionId>';
+AND Identifier = '<SuiteDefinitionId>';
 ```
 
 
@@ -316,7 +316,7 @@ AND data__Identifier = '<SuiteDefinitionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE data__Identifier = '<SuiteDefinitionId>'
+WHERE Identifier = '<SuiteDefinitionId>'
 AND region = 'us-east-1';
 ```
 

@@ -47,7 +47,7 @@ Returns all tag values for the specified key that are used in the specified AWS 
   <tr>
     <td><CopyableCode code="get_tag_values" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

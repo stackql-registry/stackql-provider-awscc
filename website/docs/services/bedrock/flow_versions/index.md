@@ -239,13 +239,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_versions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_versions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -257,7 +257,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_versions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -288,7 +288,7 @@ status,
 version,
 customer_encryption_key_arn
 FROM awscc.bedrock.flow_versions
-WHERE region = 'us-east-1' AND data__Identifier = '<FlowArn>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '<FlowArn>|<Version>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -374,7 +374,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_versions
-WHERE data__Identifier = '<FlowArn|Version>'
+WHERE Identifier = '<FlowArn|Version>'
 AND region = 'us-east-1';
 ```
 

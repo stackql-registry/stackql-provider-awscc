@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>deployments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>deployments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>deployments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ application_version,
 deployment_id,
 status
 FROM awscc.m2.deployments
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,11 +250,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.m2.deployments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ApplicationVersion": application_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationId>';
+AND Identifier = '<ApplicationId>';
 ```
 
 
@@ -263,7 +263,7 @@ AND data__Identifier = '<ApplicationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.deployments
-WHERE data__Identifier = '<ApplicationId>'
+WHERE Identifier = '<ApplicationId>'
 AND region = 'us-east-1';
 ```
 

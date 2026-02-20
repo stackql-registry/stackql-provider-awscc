@@ -309,13 +309,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>access_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>access_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -327,7 +327,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>access_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -353,7 +353,7 @@ access_policy_identity,
 access_policy_permission,
 access_policy_resource
 FROM awscc.iotsitewise.access_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<AccessPolicyId>';
+WHERE region = 'us-east-1' AND Identifier = '<AccessPolicyId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -474,13 +474,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.access_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccessPolicyIdentity": access_policy_identity,
     "AccessPolicyPermission": access_policy_permission,
     "AccessPolicyResource": access_policy_resource
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccessPolicyId>';
+AND Identifier = '<AccessPolicyId>';
 ```
 
 
@@ -489,7 +489,7 @@ AND data__Identifier = '<AccessPolicyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.access_policies
-WHERE data__Identifier = '<AccessPolicyId>'
+WHERE Identifier = '<AccessPolicyId>'
 AND region = 'us-east-1';
 ```
 

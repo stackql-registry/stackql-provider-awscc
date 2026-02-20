@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_block_public_access_exclusions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_block_public_access_exclusions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_block_public_access_exclusions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ vpc_id,
 subnet_id,
 tags
 FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE region = 'us-east-1' AND data__Identifier = '<ExclusionId>';
+WHERE region = 'us-east-1' AND Identifier = '<ExclusionId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,12 +264,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpc_block_public_access_exclusions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InternetGatewayExclusionMode": internet_gateway_exclusion_mode,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ExclusionId>';
+AND Identifier = '<ExclusionId>';
 ```
 
 
@@ -278,7 +278,7 @@ AND data__Identifier = '<ExclusionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE data__Identifier = '<ExclusionId>'
+WHERE Identifier = '<ExclusionId>'
 AND region = 'us-east-1';
 ```
 

@@ -400,13 +400,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>functions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>functions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -418,7 +418,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>functions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -467,7 +467,7 @@ arn,
 ephemeral_storage,
 architectures
 FROM awscc.lambda.functions
-WHERE region = 'us-east-1' AND data__Identifier = '<FunctionName>';
+WHERE region = 'us-east-1' AND Identifier = '<FunctionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -682,7 +682,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lambda.functions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "TracingConfig": tracing_config,
     "VpcConfig": vpc_config,
@@ -709,7 +709,7 @@ SET data__PatchDocument = string('{{ {
     "Architectures": architectures
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FunctionName>';
+AND Identifier = '<FunctionName>';
 ```
 
 
@@ -718,7 +718,7 @@ AND data__Identifier = '<FunctionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.functions
-WHERE data__Identifier = '<FunctionName>'
+WHERE Identifier = '<FunctionName>'
 AND region = 'us-east-1';
 ```
 

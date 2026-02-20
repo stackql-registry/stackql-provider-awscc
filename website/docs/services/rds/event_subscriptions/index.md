@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>event_subscriptions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>event_subscriptions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>event_subscriptions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ sns_topic_arn,
 source_ids,
 source_type
 FROM awscc.rds.event_subscriptions
-WHERE region = 'us-east-1' AND data__Identifier = '<SubscriptionName>';
+WHERE region = 'us-east-1' AND Identifier = '<SubscriptionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,7 +290,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rds.event_subscriptions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags,
     "Enabled": enabled,
     "EventCategories": event_categories,
@@ -298,7 +298,7 @@ SET data__PatchDocument = string('{{ {
     "SourceType": source_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SubscriptionName>';
+AND Identifier = '<SubscriptionName>';
 ```
 
 
@@ -307,7 +307,7 @@ AND data__Identifier = '<SubscriptionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.event_subscriptions
-WHERE data__Identifier = '<SubscriptionName>'
+WHERE Identifier = '<SubscriptionName>'
 AND region = 'us-east-1';
 ```
 

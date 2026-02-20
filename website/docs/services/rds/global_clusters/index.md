@@ -153,13 +153,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>global_clusters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>global_clusters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -171,7 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>global_clusters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -201,7 +201,7 @@ source_db_cluster_identifier,
 storage_encrypted,
 global_endpoint
 FROM awscc.rds.global_clusters
-WHERE region = 'us-east-1' AND data__Identifier = '<GlobalClusterIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<GlobalClusterIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,14 +325,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rds.global_clusters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags,
     "EngineLifecycleSupport": engine_lifecycle_support,
     "EngineVersion": engine_version,
     "DeletionProtection": deletion_protection
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<GlobalClusterIdentifier>';
+AND Identifier = '<GlobalClusterIdentifier>';
 ```
 
 
@@ -341,7 +341,7 @@ AND data__Identifier = '<GlobalClusterIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.global_clusters
-WHERE data__Identifier = '<GlobalClusterIdentifier>'
+WHERE Identifier = '<GlobalClusterIdentifier>'
 AND region = 'us-east-1';
 ```
 

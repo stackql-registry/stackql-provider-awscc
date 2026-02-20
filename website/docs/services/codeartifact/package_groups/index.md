@@ -167,13 +167,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>package_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>package_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -185,7 +185,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>package_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -214,7 +214,7 @@ origin_configuration,
 tags,
 arn
 FROM awscc.codeartifact.package_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -329,7 +329,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.codeartifact.package_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DomainOwner": domain_owner,
     "ContactInfo": contact_info,
     "Description": description,
@@ -337,7 +337,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -346,7 +346,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.package_groups
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

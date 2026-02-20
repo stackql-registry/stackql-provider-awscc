@@ -124,13 +124,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_pool_identity_providers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_pool_identity_providers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -142,7 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_pool_identity_providers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -169,7 +169,7 @@ provider_details,
 idp_identifiers,
 attribute_mapping
 FROM awscc.cognito.user_pool_identity_providers
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<ProviderName>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ProviderName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,13 +277,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_identity_providers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ProviderDetails": provider_details,
     "IdpIdentifiers": idp_identifiers,
     "AttributeMapping": attribute_mapping
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>|<ProviderName>';
+AND Identifier = '<UserPoolId>|<ProviderName>';
 ```
 
 
@@ -292,7 +292,7 @@ AND data__Identifier = '<UserPoolId>|<ProviderName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_identity_providers
-WHERE data__Identifier = '<UserPoolId|ProviderName>'
+WHERE Identifier = '<UserPoolId|ProviderName>'
 AND region = 'us-east-1';
 ```
 

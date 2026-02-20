@@ -134,13 +134,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>slack_channel_configurations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>slack_channel_configurations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -152,7 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>slack_channel_configurations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ notify_on_resolve_case,
 notify_on_case_severity,
 channel_role_arn
 FROM awscc.supportapp.slack_channel_configurations
-WHERE region = 'us-east-1' AND data__Identifier = '<TeamId>|<ChannelId>';
+WHERE region = 'us-east-1' AND Identifier = '<TeamId>|<ChannelId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,7 +296,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.supportapp.slack_channel_configurations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ChannelName": channel_name,
     "NotifyOnCreateOrReopenCase": notify_on_create_or_reopen_case,
     "NotifyOnAddCorrespondenceToCase": notify_on_add_correspondence_to_case,
@@ -305,7 +305,7 @@ SET data__PatchDocument = string('{{ {
     "ChannelRoleArn": channel_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TeamId>|<ChannelId>';
+AND Identifier = '<TeamId>|<ChannelId>';
 ```
 
 
@@ -314,7 +314,7 @@ AND data__Identifier = '<TeamId>|<ChannelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.slack_channel_configurations
-WHERE data__Identifier = '<TeamId|ChannelId>'
+WHERE Identifier = '<TeamId|ChannelId>'
 AND region = 'us-east-1';
 ```
 

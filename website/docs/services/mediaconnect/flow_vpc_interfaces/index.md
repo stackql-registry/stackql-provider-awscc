@@ -124,13 +124,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_vpc_interfaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_vpc_interfaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -142,7 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_vpc_interfaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -169,7 +169,7 @@ security_group_ids,
 subnet_id,
 network_interface_ids
 FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE region = 'us-east-1' AND data__Identifier = '<FlowArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '<FlowArn>|<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,13 +275,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flow_vpc_interfaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "SecurityGroupIds": security_group_ids,
     "SubnetId": subnet_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FlowArn>|<Name>';
+AND Identifier = '<FlowArn>|<Name>';
 ```
 
 
@@ -290,7 +290,7 @@ AND data__Identifier = '<FlowArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE data__Identifier = '<FlowArn|Name>'
+WHERE Identifier = '<FlowArn|Name>'
 AND region = 'us-east-1';
 ```
 

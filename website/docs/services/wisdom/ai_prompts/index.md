@@ -159,13 +159,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ai_prompts</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ai_prompts</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -177,7 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ai_prompts</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ template_type,
 type,
 modified_time_seconds
 FROM awscc.wisdom.ai_prompts
-WHERE region = 'us-east-1' AND data__Identifier = '<AIPromptId>|<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '<AIPromptId>|<AssistantId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,13 +332,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.wisdom.ai_prompts
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "ModelId": model_id,
     "TemplateConfiguration": template_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AIPromptId>|<AssistantId>';
+AND Identifier = '<AIPromptId>|<AssistantId>';
 ```
 
 
@@ -347,7 +347,7 @@ AND data__Identifier = '<AIPromptId>|<AssistantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_prompts
-WHERE data__Identifier = '<AIPromptId|AssistantId>'
+WHERE Identifier = '<AIPromptId|AssistantId>'
 AND region = 'us-east-1';
 ```
 

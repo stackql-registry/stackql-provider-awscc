@@ -124,7 +124,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>network_performance_metric_subscriptions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -136,7 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>network_performance_metric_subscriptions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -161,7 +161,7 @@ destination,
 metric,
 statistic
 FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE region = 'us-east-1' AND data__Identifier = '<Source>|<Destination>|<Metric>|<Statistic>';
+WHERE region = 'us-east-1' AND Identifier = '<Source>|<Destination>|<Metric>|<Statistic>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE data__Identifier = '<Source|Destination|Metric|Statistic>'
+WHERE Identifier = '<Source|Destination|Metric|Statistic>'
 AND region = 'us-east-1';
 ```
 

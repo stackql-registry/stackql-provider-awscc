@@ -80,17 +80,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -106,7 +106,7 @@ custom_suffix,
 description,
 aws_service_name
 FROM awscc.iam.service_linked_roles
-WHERE data__Identifier = '<RoleName>';
+WHERE Identifier = '<RoleName>';
 ```
 
 ## `INSERT` example
@@ -181,11 +181,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.service_linked_roles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RoleName>';
+AND Identifier = '<RoleName>';
 ```
 
 
@@ -194,7 +194,7 @@ AND data__Identifier = '<RoleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.service_linked_roles
-WHERE data__Identifier = '<RoleName>'
+WHERE Identifier = '<RoleName>'
 AND region = 'us-east-1';
 ```
 

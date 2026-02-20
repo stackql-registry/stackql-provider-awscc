@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>virtualmfa_devices</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>virtualmfa_devices</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>virtualmfa_devices</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ serial_number,
 users,
 tags
 FROM awscc.iam.virtualmfa_devices
-WHERE data__Identifier = '<SerialNumber>';
+WHERE Identifier = '<SerialNumber>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,12 +265,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.virtualmfa_devices
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Users": users,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SerialNumber>';
+AND Identifier = '<SerialNumber>';
 ```
 
 
@@ -279,7 +279,7 @@ AND data__Identifier = '<SerialNumber>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.virtualmfa_devices
-WHERE data__Identifier = '<SerialNumber>'
+WHERE Identifier = '<SerialNumber>'
 AND region = 'us-east-1';
 ```
 

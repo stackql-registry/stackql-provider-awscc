@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>prompts</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>prompts</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>prompts</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ s3_uri,
 prompt_arn,
 tags
 FROM awscc.connect.prompts
-WHERE region = 'us-east-1' AND data__Identifier = '<PromptArn>';
+WHERE region = 'us-east-1' AND Identifier = '<PromptArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,7 +276,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.prompts
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InstanceArn": instance_arn,
     "Name": name,
     "Description": description,
@@ -284,7 +284,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PromptArn>';
+AND Identifier = '<PromptArn>';
 ```
 
 
@@ -293,7 +293,7 @@ AND data__Identifier = '<PromptArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.prompts
-WHERE data__Identifier = '<PromptArn>'
+WHERE Identifier = '<PromptArn>'
 AND region = 'us-east-1';
 ```
 

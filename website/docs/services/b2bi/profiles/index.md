@@ -156,13 +156,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -174,7 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ profile_arn,
 profile_id,
 tags
 FROM awscc.b2bi.profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<ProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '<ProfileId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -314,7 +314,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.b2bi.profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BusinessName": business_name,
     "Email": email,
     "Name": name,
@@ -322,7 +322,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ProfileId>';
+AND Identifier = '<ProfileId>';
 ```
 
 
@@ -331,7 +331,7 @@ AND data__Identifier = '<ProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.profiles
-WHERE data__Identifier = '<ProfileId>'
+WHERE Identifier = '<ProfileId>'
 AND region = 'us-east-1';
 ```
 

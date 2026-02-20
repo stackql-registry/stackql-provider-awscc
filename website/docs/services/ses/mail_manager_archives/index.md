@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mail_manager_archives</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mail_manager_archives</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mail_manager_archives</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ kms_key_arn,
 retention,
 tags
 FROM awscc.ses.mail_manager_archives
-WHERE region = 'us-east-1' AND data__Identifier = '<ArchiveId>';
+WHERE region = 'us-east-1' AND Identifier = '<ArchiveId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,13 +282,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_archives
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ArchiveName": archive_name,
     "Retention": retention,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ArchiveId>';
+AND Identifier = '<ArchiveId>';
 ```
 
 
@@ -297,7 +297,7 @@ AND data__Identifier = '<ArchiveId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_archives
-WHERE data__Identifier = '<ArchiveId>'
+WHERE Identifier = '<ArchiveId>'
 AND region = 'us-east-1';
 ```
 

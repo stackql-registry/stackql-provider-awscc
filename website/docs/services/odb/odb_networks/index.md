@@ -166,13 +166,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>odb_networks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>odb_networks</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -184,7 +184,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>odb_networks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -218,7 +218,7 @@ odb_network_arn,
 odb_network_id,
 tags
 FROM awscc.odb.odb_networks
-WHERE region = 'us-east-1' AND data__Identifier = '<OdbNetworkArn>';
+WHERE region = 'us-east-1' AND Identifier = '<OdbNetworkArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,12 +342,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.odb.odb_networks
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DeleteAssociatedResources": delete_associated_resources,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<OdbNetworkArn>';
+AND Identifier = '<OdbNetworkArn>';
 ```
 
 
@@ -356,7 +356,7 @@ AND data__Identifier = '<OdbNetworkArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.odb_networks
-WHERE data__Identifier = '<OdbNetworkArn>'
+WHERE Identifier = '<OdbNetworkArn>'
 AND region = 'us-east-1';
 ```
 

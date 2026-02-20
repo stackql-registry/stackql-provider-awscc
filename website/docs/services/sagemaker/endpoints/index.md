@@ -242,13 +242,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>endpoints</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>endpoints</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -260,7 +260,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>endpoints</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -289,7 +289,7 @@ retain_all_variant_properties,
 retain_deployment_config,
 tags
 FROM awscc.sagemaker.endpoints
-WHERE region = 'us-east-1' AND data__Identifier = '<EndpointArn>';
+WHERE region = 'us-east-1' AND Identifier = '<EndpointArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -410,7 +410,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.endpoints
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DeploymentConfig": deployment_config,
     "EndpointConfigName": endpoint_config_name,
     "ExcludeRetainedVariantProperties": exclude_retained_variant_properties,
@@ -419,7 +419,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EndpointArn>';
+AND Identifier = '<EndpointArn>';
 ```
 
 
@@ -428,7 +428,7 @@ AND data__Identifier = '<EndpointArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.endpoints
-WHERE data__Identifier = '<EndpointArn>'
+WHERE Identifier = '<EndpointArn>'
 AND region = 'us-east-1';
 ```
 

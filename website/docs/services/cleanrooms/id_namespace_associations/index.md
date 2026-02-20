@@ -187,13 +187,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>id_namespace_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>id_namespace_associations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -205,7 +205,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>id_namespace_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -238,7 +238,7 @@ description,
 id_mapping_config,
 input_reference_properties
 FROM awscc.cleanrooms.id_namespace_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -348,14 +348,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cleanrooms.id_namespace_associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags,
     "Name": name,
     "Description": description,
     "IdMappingConfig": id_mapping_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
+AND Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
 ```
 
 
@@ -364,7 +364,7 @@ AND data__Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.id_namespace_associations
-WHERE data__Identifier = '<IdNamespaceAssociationIdentifier|MembershipIdentifier>'
+WHERE Identifier = '<IdNamespaceAssociationIdentifier|MembershipIdentifier>'
 AND region = 'us-east-1';
 ```
 

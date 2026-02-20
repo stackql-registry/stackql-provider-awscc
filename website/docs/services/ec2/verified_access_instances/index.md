@@ -411,13 +411,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>verified_access_instances</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>verified_access_instances</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -429,7 +429,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>verified_access_instances</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -461,7 +461,7 @@ fips_enabled,
 cidr_endpoints_custom_sub_domain,
 cidr_endpoints_custom_sub_domain_name_servers
 FROM awscc.ec2.verified_access_instances
-WHERE region = 'us-east-1' AND data__Identifier = '<VerifiedAccessInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessInstanceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -623,7 +623,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.verified_access_instances
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "VerifiedAccessTrustProviders": verified_access_trust_providers,
     "VerifiedAccessTrustProviderIds": verified_access_trust_provider_ids,
     "Description": description,
@@ -633,7 +633,7 @@ SET data__PatchDocument = string('{{ {
     "CidrEndpointsCustomSubDomain": cidr_endpoints_custom_sub_domain
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VerifiedAccessInstanceId>';
+AND Identifier = '<VerifiedAccessInstanceId>';
 ```
 
 
@@ -642,7 +642,7 @@ AND data__Identifier = '<VerifiedAccessInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_instances
-WHERE data__Identifier = '<VerifiedAccessInstanceId>'
+WHERE Identifier = '<VerifiedAccessInstanceId>'
 AND region = 'us-east-1';
 ```
 

@@ -173,13 +173,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>test_cases</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>test_cases</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -191,7 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>test_cases</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ test_case_arn,
 test_case_id,
 test_case_version
 FROM awscc.apptest.test_cases
-WHERE region = 'us-east-1' AND data__Identifier = '<TestCaseId>';
+WHERE region = 'us-east-1' AND Identifier = '<TestCaseId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,13 +320,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apptest.test_cases
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Steps": steps,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TestCaseId>';
+AND Identifier = '<TestCaseId>';
 ```
 
 
@@ -335,7 +335,7 @@ AND data__Identifier = '<TestCaseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apptest.test_cases
-WHERE data__Identifier = '<TestCaseId>'
+WHERE Identifier = '<TestCaseId>'
 AND region = 'us-east-1';
 ```
 

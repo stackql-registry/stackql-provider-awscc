@@ -176,13 +176,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>environments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>environments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -194,7 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>environments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -231,7 +231,7 @@ storage_configurations,
 subnet_ids,
 tags
 FROM awscc.m2.environments
-WHERE region = 'us-east-1' AND data__Identifier = '<EnvironmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '<EnvironmentArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,7 +371,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.m2.environments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EngineVersion": engine_version,
     "HighAvailabilityConfig": high_availability_config,
     "InstanceType": instance_type,
@@ -379,7 +379,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EnvironmentArn>';
+AND Identifier = '<EnvironmentArn>';
 ```
 
 
@@ -388,7 +388,7 @@ AND data__Identifier = '<EnvironmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.environments
-WHERE data__Identifier = '<EnvironmentArn>'
+WHERE Identifier = '<EnvironmentArn>'
 AND region = 'us-east-1';
 ```
 

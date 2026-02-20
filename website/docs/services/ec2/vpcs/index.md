@@ -161,13 +161,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpcs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpcs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -179,7 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpcs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -212,7 +212,7 @@ default_security_group,
 enable_dns_hostnames,
 tags
 FROM awscc.ec2.vpcs
-WHERE region = 'us-east-1' AND data__Identifier = '<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '<VpcId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,14 +330,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpcs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InstanceTenancy": instance_tenancy,
     "EnableDnsSupport": enable_dns_support,
     "EnableDnsHostnames": enable_dns_hostnames,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VpcId>';
+AND Identifier = '<VpcId>';
 ```
 
 
@@ -346,7 +346,7 @@ AND data__Identifier = '<VpcId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpcs
-WHERE data__Identifier = '<VpcId>'
+WHERE Identifier = '<VpcId>'
 AND region = 'us-east-1';
 ```
 

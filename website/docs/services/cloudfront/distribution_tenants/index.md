@@ -270,13 +270,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>distribution_tenants</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>distribution_tenants</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -288,7 +288,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>distribution_tenants</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -325,7 +325,7 @@ e_tag,
 domains,
 managed_certificate_request
 FROM awscc.cloudfront.distribution_tenants
-WHERE data__Identifier = '<Id>';
+WHERE Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -458,7 +458,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.distribution_tenants
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DistributionId": distribution_id,
     "Tags": tags,
     "Customizations": customizations,
@@ -469,7 +469,7 @@ SET data__PatchDocument = string('{{ {
     "ManagedCertificateRequest": managed_certificate_request
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -478,7 +478,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.distribution_tenants
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

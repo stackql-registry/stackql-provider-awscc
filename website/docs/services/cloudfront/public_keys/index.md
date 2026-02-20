@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>public_keys</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>public_keys</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>public_keys</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -168,7 +168,7 @@ created_time,
 id,
 public_key_config
 FROM awscc.cloudfront.public_keys
-WHERE data__Identifier = '<Id>';
+WHERE Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,11 +252,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.public_keys
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PublicKeyConfig": public_key_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -265,7 +265,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.public_keys
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

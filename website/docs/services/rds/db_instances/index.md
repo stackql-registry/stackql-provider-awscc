@@ -668,13 +668,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>db_instances</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>db_instances</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -686,7 +686,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>db_instances</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -804,7 +804,7 @@ use_latest_restorable_time,
 vpc_security_groups,
 apply_immediately
 FROM awscc.rds.db_instances
-WHERE region = 'us-east-1' AND data__Identifier = '<DBInstanceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<DBInstanceIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1376,7 +1376,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rds.db_instances
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AllocatedStorage": allocated_storage,
     "AllowMajorVersionUpgrade": allow_major_version_upgrade,
     "AssociatedRoles": associated_roles,
@@ -1445,7 +1445,7 @@ SET data__PatchDocument = string('{{ {
     "ApplyImmediately": apply_immediately
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DBInstanceIdentifier>';
+AND Identifier = '<DBInstanceIdentifier>';
 ```
 
 
@@ -1454,7 +1454,7 @@ AND data__Identifier = '<DBInstanceIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_instances
-WHERE data__Identifier = '<DBInstanceIdentifier>'
+WHERE Identifier = '<DBInstanceIdentifier>'
 AND region = 'us-east-1';
 ```
 

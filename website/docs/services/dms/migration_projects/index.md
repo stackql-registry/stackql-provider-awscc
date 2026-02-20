@@ -205,13 +205,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>migration_projects</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>migration_projects</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -223,7 +223,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>migration_projects</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -257,7 +257,7 @@ source_data_provider_descriptors,
 target_data_provider_descriptors,
 tags
 FROM awscc.dms.migration_projects
-WHERE region = 'us-east-1' AND data__Identifier = '<MigrationProjectArn>';
+WHERE region = 'us-east-1' AND Identifier = '<MigrationProjectArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -413,7 +413,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.dms.migration_projects
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MigrationProjectName": migration_project_name,
     "MigrationProjectIdentifier": migration_project_identifier,
     "MigrationProjectCreationTime": migration_project_creation_time,
@@ -428,7 +428,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<MigrationProjectArn>';
+AND Identifier = '<MigrationProjectArn>';
 ```
 
 
@@ -437,7 +437,7 @@ AND data__Identifier = '<MigrationProjectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.migration_projects
-WHERE data__Identifier = '<MigrationProjectArn>'
+WHERE Identifier = '<MigrationProjectArn>'
 AND region = 'us-east-1';
 ```
 

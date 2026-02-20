@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mail_manager_address_lists</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mail_manager_address_lists</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mail_manager_address_lists</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ address_list_id,
 address_list_name,
 tags
 FROM awscc.ses.mail_manager_address_lists
-WHERE region = 'us-east-1' AND data__Identifier = '<AddressListId>';
+WHERE region = 'us-east-1' AND Identifier = '<AddressListId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,11 +252,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_address_lists
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AddressListId>';
+AND Identifier = '<AddressListId>';
 ```
 
 
@@ -265,7 +265,7 @@ AND data__Identifier = '<AddressListId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_address_lists
-WHERE data__Identifier = '<AddressListId>'
+WHERE Identifier = '<AddressListId>'
 AND region = 'us-east-1';
 ```
 

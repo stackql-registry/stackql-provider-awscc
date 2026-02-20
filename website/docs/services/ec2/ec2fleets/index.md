@@ -577,13 +577,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ec2fleets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ec2fleets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -595,7 +595,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ec2fleets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -629,7 +629,7 @@ terminate_instances_with_expiration,
 valid_until,
 context
 FROM awscc.ec2.ec2fleets
-WHERE region = 'us-east-1' AND data__Identifier = '<FleetId>';
+WHERE region = 'us-east-1' AND Identifier = '<FleetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -869,13 +869,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.ec2fleets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TargetCapacitySpecification": target_capacity_specification,
     "ExcessCapacityTerminationPolicy": excess_capacity_termination_policy,
     "Context": context
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FleetId>';
+AND Identifier = '<FleetId>';
 ```
 
 
@@ -884,7 +884,7 @@ AND data__Identifier = '<FleetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ec2fleets
-WHERE data__Identifier = '<FleetId>'
+WHERE Identifier = '<FleetId>'
 AND region = 'us-east-1';
 ```
 

@@ -159,13 +159,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>routes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>routes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -177,7 +177,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>routes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ request_parameters,
 target,
 authorizer_id
 FROM awscc.apigatewayv2.routes
-WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>|<RouteId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<RouteId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -339,7 +339,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.routes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RouteResponseSelectionExpression": route_response_selection_expression,
     "RequestModels": request_models,
     "OperationName": operation_name,
@@ -353,7 +353,7 @@ SET data__PatchDocument = string('{{ {
     "AuthorizerId": authorizer_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApiId>|<RouteId>';
+AND Identifier = '<ApiId>|<RouteId>';
 ```
 
 
@@ -362,7 +362,7 @@ AND data__Identifier = '<ApiId>|<RouteId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.routes
-WHERE data__Identifier = '<ApiId|RouteId>'
+WHERE Identifier = '<ApiId|RouteId>'
 AND region = 'us-east-1';
 ```
 

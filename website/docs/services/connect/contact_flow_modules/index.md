@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>contact_flow_modules</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>contact_flow_modules</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>contact_flow_modules</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ state,
 status,
 tags
 FROM awscc.connect.contact_flow_modules
-WHERE region = 'us-east-1' AND data__Identifier = '<ContactFlowModuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ContactFlowModuleArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,7 +294,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.contact_flow_modules
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InstanceArn": instance_arn,
     "Name": name,
     "Content": content,
@@ -303,7 +303,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ContactFlowModuleArn>';
+AND Identifier = '<ContactFlowModuleArn>';
 ```
 
 
@@ -312,7 +312,7 @@ AND data__Identifier = '<ContactFlowModuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flow_modules
-WHERE data__Identifier = '<ContactFlowModuleArn>'
+WHERE Identifier = '<ContactFlowModuleArn>'
 AND region = 'us-east-1';
 ```
 

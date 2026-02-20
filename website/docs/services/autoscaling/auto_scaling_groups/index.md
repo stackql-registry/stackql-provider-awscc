@@ -494,13 +494,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>auto_scaling_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>auto_scaling_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -512,7 +512,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>auto_scaling_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -569,7 +569,7 @@ capacity_reservation_specification,
 health_check_type,
 max_instance_lifetime
 FROM awscc.autoscaling.auto_scaling_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<AutoScalingGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -893,7 +893,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.autoscaling.auto_scaling_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "LifecycleHookSpecificationList": lifecycle_hook_specification_list,
     "LoadBalancerNames": load_balancer_names,
     "LaunchConfigurationName": launch_configuration_name,
@@ -929,7 +929,7 @@ SET data__PatchDocument = string('{{ {
     "MaxInstanceLifetime": max_instance_lifetime
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AutoScalingGroupName>';
+AND Identifier = '<AutoScalingGroupName>';
 ```
 
 
@@ -938,7 +938,7 @@ AND data__Identifier = '<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.auto_scaling_groups
-WHERE data__Identifier = '<AutoScalingGroupName>'
+WHERE Identifier = '<AutoScalingGroupName>'
 AND region = 'us-east-1';
 ```
 

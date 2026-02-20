@@ -202,13 +202,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_settings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_settings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -220,7 +220,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_settings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -256,7 +256,7 @@ upload_allowed,
 user_settings_arn,
 deep_link_allowed
 FROM awscc.workspacesweb.user_settings
-WHERE region = 'us-east-1' AND data__Identifier = '<UserSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '<UserSettingsArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -405,7 +405,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.user_settings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AdditionalEncryptionContext": additional_encryption_context,
     "CookieSynchronizationConfiguration": cookie_synchronization_configuration,
     "CopyAllowed": copy_allowed,
@@ -421,7 +421,7 @@ SET data__PatchDocument = string('{{ {
     "DeepLinkAllowed": deep_link_allowed
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserSettingsArn>';
+AND Identifier = '<UserSettingsArn>';
 ```
 
 
@@ -430,7 +430,7 @@ AND data__Identifier = '<UserSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.user_settings
-WHERE data__Identifier = '<UserSettingsArn>'
+WHERE Identifier = '<UserSettingsArn>'
 AND region = 'us-east-1';
 ```
 

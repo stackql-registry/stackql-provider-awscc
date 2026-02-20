@@ -138,13 +138,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>custom_permissions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>custom_permissions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -156,7 +156,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>custom_permissions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ capabilities,
 custom_permissions_name,
 tags
 FROM awscc.quicksight.custom_permissions
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<CustomPermissionsName>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<CustomPermissionsName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,12 +302,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.custom_permissions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Capabilities": capabilities,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>|<CustomPermissionsName>';
+AND Identifier = '<AwsAccountId>|<CustomPermissionsName>';
 ```
 
 
@@ -316,7 +316,7 @@ AND data__Identifier = '<AwsAccountId>|<CustomPermissionsName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.custom_permissions
-WHERE data__Identifier = '<AwsAccountId|CustomPermissionsName>'
+WHERE Identifier = '<AwsAccountId|CustomPermissionsName>'
 AND region = 'us-east-1';
 ```
 

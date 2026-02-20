@@ -97,17 +97,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -124,7 +124,7 @@ channel_name,
 origin_endpoint_name,
 policy
 FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
+WHERE region = 'us-east-1' AND Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
 ```
 
 ## `INSERT` example
@@ -216,12 +216,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediapackagev2.origin_endpoint_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CdnAuthConfiguration": cdn_auth_configuration,
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
+AND Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
 ```
 
 
@@ -230,7 +230,7 @@ AND data__Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE data__Identifier = '<ChannelGroupName|ChannelName|OriginEndpointName>'
+WHERE Identifier = '<ChannelGroupName|ChannelName|OriginEndpointName>'
 AND region = 'us-east-1';
 ```
 

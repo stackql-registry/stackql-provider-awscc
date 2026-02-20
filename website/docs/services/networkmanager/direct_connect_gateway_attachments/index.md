@@ -244,13 +244,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>direct_connect_gateway_attachments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>direct_connect_gateway_attachments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -262,7 +262,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>direct_connect_gateway_attachments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -300,7 +300,7 @@ tags,
 created_at,
 updated_at
 FROM awscc.networkmanager.direct_connect_gateway_attachments
-WHERE region = 'us-east-1' AND data__Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -415,14 +415,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.direct_connect_gateway_attachments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EdgeLocations": edge_locations,
     "ProposedSegmentChange": proposed_segment_change,
     "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AttachmentId>';
+AND Identifier = '<AttachmentId>';
 ```
 
 
@@ -431,7 +431,7 @@ AND data__Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.direct_connect_gateway_attachments
-WHERE data__Identifier = '<AttachmentId>'
+WHERE Identifier = '<AttachmentId>'
 AND region = 'us-east-1';
 ```
 

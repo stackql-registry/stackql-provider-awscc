@@ -89,13 +89,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>notification_channels</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>notification_channels</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -107,7 +107,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>notification_channels</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -130,7 +130,7 @@ region,
 sns_role_name,
 sns_topic_arn
 FROM awscc.fms.notification_channels
-WHERE region = 'us-east-1' AND data__Identifier = '<SnsTopicArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SnsTopicArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -216,12 +216,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.fms.notification_channels
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SnsRoleName": sns_role_name,
     "SnsTopicArn": sns_topic_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SnsTopicArn>';
+AND Identifier = '<SnsTopicArn>';
 ```
 
 
@@ -230,7 +230,7 @@ AND data__Identifier = '<SnsTopicArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.notification_channels
-WHERE data__Identifier = '<SnsTopicArn>'
+WHERE Identifier = '<SnsTopicArn>'
 AND region = 'us-east-1';
 ```
 

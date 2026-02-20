@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>security_group_vpc_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>security_group_vpc_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ vpc_owner_id,
 state,
 state_reason
 FROM awscc.ec2.security_group_vpc_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<GroupId>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '<GroupId>|<VpcId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_vpc_associations
-WHERE data__Identifier = '<GroupId|VpcId>'
+WHERE Identifier = '<GroupId|VpcId>'
 AND region = 'us-east-1';
 ```
 

@@ -116,13 +116,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>collections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>collections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -134,7 +134,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>collections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ arn,
 collection_id,
 tags
 FROM awscc.rekognition.collections
-WHERE region = 'us-east-1' AND data__Identifier = '<CollectionId>';
+WHERE region = 'us-east-1' AND Identifier = '<CollectionId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,11 +244,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rekognition.collections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CollectionId>';
+AND Identifier = '<CollectionId>';
 ```
 
 
@@ -257,7 +257,7 @@ AND data__Identifier = '<CollectionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.collections
-WHERE data__Identifier = '<CollectionId>'
+WHERE Identifier = '<CollectionId>'
 AND region = 'us-east-1';
 ```
 

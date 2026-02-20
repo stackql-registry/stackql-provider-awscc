@@ -155,13 +155,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>thing_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>thing_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -173,7 +173,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>thing_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -201,7 +201,7 @@ query_string,
 thing_group_properties,
 tags
 FROM awscc.iot.thing_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<ThingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<ThingGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,13 +310,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.thing_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "QueryString": query_string,
     "ThingGroupProperties": thing_group_properties,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ThingGroupName>';
+AND Identifier = '<ThingGroupName>';
 ```
 
 
@@ -325,7 +325,7 @@ AND data__Identifier = '<ThingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.thing_groups
-WHERE data__Identifier = '<ThingGroupName>'
+WHERE Identifier = '<ThingGroupName>'
 AND region = 'us-east-1';
 ```
 

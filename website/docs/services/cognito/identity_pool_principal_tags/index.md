@@ -124,13 +124,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>identity_pool_principal_tags</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>identity_pool_principal_tags</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -142,7 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>identity_pool_principal_tags</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -167,7 +167,7 @@ identity_provider_name,
 use_defaults,
 principal_tags
 FROM awscc.cognito.identity_pool_principal_tags
-WHERE region = 'us-east-1' AND data__Identifier = '<IdentityPoolId>|<IdentityProviderName>';
+WHERE region = 'us-east-1' AND Identifier = '<IdentityPoolId>|<IdentityProviderName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,12 +262,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.identity_pool_principal_tags
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "UseDefaults": use_defaults,
     "PrincipalTags": principal_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IdentityPoolId>|<IdentityProviderName>';
+AND Identifier = '<IdentityPoolId>|<IdentityProviderName>';
 ```
 
 
@@ -276,7 +276,7 @@ AND data__Identifier = '<IdentityPoolId>|<IdentityProviderName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.identity_pool_principal_tags
-WHERE data__Identifier = '<IdentityPoolId|IdentityProviderName>'
+WHERE Identifier = '<IdentityPoolId|IdentityProviderName>'
 AND region = 'us-east-1';
 ```
 

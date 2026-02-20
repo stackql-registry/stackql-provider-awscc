@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>stream_consumers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -143,7 +143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>stream_consumers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ consumer_status,
 stream_arn,
 tags
 FROM awscc.kinesis.stream_consumers
-WHERE region = 'us-east-1' AND data__Identifier = '<ConsumerARN>';
+WHERE region = 'us-east-1' AND Identifier = '<ConsumerARN>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.stream_consumers
-WHERE data__Identifier = '<ConsumerARN>'
+WHERE Identifier = '<ConsumerARN>'
 AND region = 'us-east-1';
 ```
 

@@ -119,12 +119,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -141,7 +141,7 @@ connection_string,
 connection_alias_state,
 tags
 FROM awscc.workspaces.connection_aliases
-WHERE region = 'us-east-1' AND data__Identifier = '<AliasId>';
+WHERE region = 'us-east-1' AND Identifier = '<AliasId>';
 ```
 
 ## `INSERT` example
@@ -215,7 +215,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.connection_aliases
-WHERE data__Identifier = '<AliasId>'
+WHERE Identifier = '<AliasId>'
 AND region = 'us-east-1';
 ```
 

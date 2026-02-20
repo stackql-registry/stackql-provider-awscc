@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ip_sets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ip_sets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ip_sets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -198,7 +198,7 @@ ip_address_version,
 addresses,
 tags
 FROM awscc.wafv2.ip_sets
-WHERE data__Identifier = '<Name>|<Id>|<Scope>';
+WHERE Identifier = '<Name>|<Id>|<Scope>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,14 +307,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.wafv2.ip_sets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "IPAddressVersion": ip_address_version,
     "Addresses": addresses,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Name>|<Id>|<Scope>';
+AND Identifier = '<Name>|<Id>|<Scope>';
 ```
 
 
@@ -323,7 +323,7 @@ AND data__Identifier = '<Name>|<Id>|<Scope>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.ip_sets
-WHERE data__Identifier = '<Name|Id|Scope>'
+WHERE Identifier = '<Name|Id|Scope>'
 AND region = 'us-east-1';
 ```
 

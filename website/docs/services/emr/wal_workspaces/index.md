@@ -111,13 +111,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>wal_workspaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>wal_workspaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -129,7 +129,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>wal_workspaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -152,7 +152,7 @@ region,
 wal_workspace_name,
 tags
 FROM awscc.emr.wal_workspaces
-WHERE region = 'us-east-1' AND data__Identifier = '<WALWorkspaceName>';
+WHERE region = 'us-east-1' AND Identifier = '<WALWorkspaceName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -240,11 +240,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.emr.wal_workspaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<WALWorkspaceName>';
+AND Identifier = '<WALWorkspaceName>';
 ```
 
 
@@ -253,7 +253,7 @@ AND data__Identifier = '<WALWorkspaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.wal_workspaces
-WHERE data__Identifier = '<WALWorkspaceName>'
+WHERE Identifier = '<WALWorkspaceName>'
 AND region = 'us-east-1';
 ```
 

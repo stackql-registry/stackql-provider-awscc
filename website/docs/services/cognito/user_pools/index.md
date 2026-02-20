@@ -653,13 +653,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_pools</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_pools</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -671,7 +671,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_pools</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -725,7 +725,7 @@ arn,
 user_pool_id,
 user_pool_tier
 FROM awscc.cognito.user_pools
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1050,7 +1050,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pools
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "UserPoolName": user_pool_name,
     "Policies": policies,
     "AccountRecoverySetting": account_recovery_setting,
@@ -1082,7 +1082,7 @@ SET data__PatchDocument = string('{{ {
     "UserPoolTier": user_pool_tier
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>';
+AND Identifier = '<UserPoolId>';
 ```
 
 
@@ -1091,7 +1091,7 @@ AND data__Identifier = '<UserPoolId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pools
-WHERE data__Identifier = '<UserPoolId>'
+WHERE Identifier = '<UserPoolId>'
 AND region = 'us-east-1';
 ```
 

@@ -133,13 +133,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>keyspaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>keyspaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -151,7 +151,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>keyspaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ tags,
 replication_specification,
 client_side_timestamps_enabled
 FROM awscc.cassandra.keyspaces
-WHERE region = 'us-east-1' AND data__Identifier = '<KeyspaceName>';
+WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,13 +273,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cassandra.keyspaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags,
     "ReplicationSpecification": replication_specification,
     "ClientSideTimestampsEnabled": client_side_timestamps_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<KeyspaceName>';
+AND Identifier = '<KeyspaceName>';
 ```
 
 
@@ -288,7 +288,7 @@ AND data__Identifier = '<KeyspaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.keyspaces
-WHERE data__Identifier = '<KeyspaceName>'
+WHERE Identifier = '<KeyspaceName>'
 AND region = 'us-east-1';
 ```
 

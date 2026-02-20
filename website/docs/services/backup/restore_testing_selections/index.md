@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>restore_testing_selections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>restore_testing_selections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>restore_testing_selections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -205,7 +205,7 @@ restore_testing_plan_name,
 restore_testing_selection_name,
 validation_window_hours
 FROM awscc.backup.restore_testing_selections
-WHERE region = 'us-east-1' AND data__Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
+WHERE region = 'us-east-1' AND Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,7 +326,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.backup.restore_testing_selections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IamRoleArn": iam_role_arn,
     "ProtectedResourceArns": protected_resource_arns,
     "ProtectedResourceConditions": protected_resource_conditions,
@@ -334,7 +334,7 @@ SET data__PatchDocument = string('{{ {
     "ValidationWindowHours": validation_window_hours
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
+AND Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
 ```
 
 
@@ -343,7 +343,7 @@ AND data__Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_selections
-WHERE data__Identifier = '<RestoreTestingPlanName|RestoreTestingSelectionName>'
+WHERE Identifier = '<RestoreTestingPlanName|RestoreTestingSelectionName>'
 AND region = 'us-east-1';
 ```
 

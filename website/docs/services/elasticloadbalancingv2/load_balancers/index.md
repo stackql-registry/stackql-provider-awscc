@@ -237,13 +237,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>load_balancers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>load_balancers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -255,7 +255,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>load_balancers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -294,7 +294,7 @@ subnet_mappings,
 enforce_security_group_inbound_rules_on_private_link_traffic,
 ipv4_ipam_pool_id
 FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE region = 'us-east-1' AND data__Identifier = '<LoadBalancerArn>';
+WHERE region = 'us-east-1' AND Identifier = '<LoadBalancerArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -458,7 +458,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.load_balancers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IpAddressType": ip_address_type,
     "EnablePrefixForIpv6SourceNat": enable_prefix_for_ipv6_source_nat,
     "SecurityGroups": security_groups,
@@ -471,7 +471,7 @@ SET data__PatchDocument = string('{{ {
     "Ipv4IpamPoolId": ipv4_ipam_pool_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<LoadBalancerArn>';
+AND Identifier = '<LoadBalancerArn>';
 ```
 
 
@@ -480,7 +480,7 @@ AND data__Identifier = '<LoadBalancerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.load_balancers
-WHERE data__Identifier = '<LoadBalancerArn>'
+WHERE Identifier = '<LoadBalancerArn>'
 AND region = 'us-east-1';
 ```
 

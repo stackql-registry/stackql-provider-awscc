@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>organization_conformance_packs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>organization_conformance_packs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>organization_conformance_packs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ delivery_s3_key_prefix,
 conformance_pack_input_parameters,
 excluded_accounts
 FROM awscc.config.organization_conformance_packs
-WHERE region = 'us-east-1' AND data__Identifier = '<OrganizationConformancePackName>';
+WHERE region = 'us-east-1' AND Identifier = '<OrganizationConformancePackName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -289,7 +289,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.config.organization_conformance_packs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TemplateS3Uri": template_s3_uri,
     "TemplateBody": template_body,
     "DeliveryS3Bucket": delivery_s3_bucket,
@@ -298,7 +298,7 @@ SET data__PatchDocument = string('{{ {
     "ExcludedAccounts": excluded_accounts
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<OrganizationConformancePackName>';
+AND Identifier = '<OrganizationConformancePackName>';
 ```
 
 
@@ -307,7 +307,7 @@ AND data__Identifier = '<OrganizationConformancePackName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.organization_conformance_packs
-WHERE data__Identifier = '<OrganizationConformancePackName>'
+WHERE Identifier = '<OrganizationConformancePackName>'
 AND region = 'us-east-1';
 ```
 

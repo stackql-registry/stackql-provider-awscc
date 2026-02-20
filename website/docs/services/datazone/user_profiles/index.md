@@ -134,13 +134,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -152,7 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ type,
 user_identifier,
 user_type
 FROM awscc.datazone.user_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,11 +276,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.datazone.user_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainId>|<Id>';
+AND Identifier = '<DomainId>|<Id>';
 ```
 
 
@@ -289,7 +289,7 @@ AND data__Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.user_profiles
-WHERE data__Identifier = '<DomainId|Id>'
+WHERE Identifier = '<DomainId|Id>'
 AND region = 'us-east-1';
 ```
 

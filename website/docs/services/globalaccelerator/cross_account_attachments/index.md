@@ -143,13 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>cross_account_attachments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>cross_account_attachments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -161,7 +161,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>cross_account_attachments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -187,7 +187,7 @@ principals,
 resources,
 tags
 FROM awscc.globalaccelerator.cross_account_attachments
-WHERE data__Identifier = '<AttachmentArn>';
+WHERE Identifier = '<AttachmentArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,14 +285,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.globalaccelerator.cross_account_attachments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "Principals": principals,
     "Resources": resources,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AttachmentArn>';
+AND Identifier = '<AttachmentArn>';
 ```
 
 
@@ -301,7 +301,7 @@ AND data__Identifier = '<AttachmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.cross_account_attachments
-WHERE data__Identifier = '<AttachmentArn>'
+WHERE Identifier = '<AttachmentArn>'
 AND region = 'us-east-1';
 ```
 

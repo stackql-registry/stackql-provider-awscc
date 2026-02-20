@@ -1125,13 +1125,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>job_definitions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>job_definitions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -1143,7 +1143,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>job_definitions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1179,7 +1179,7 @@ tags,
 eks_properties,
 consumable_resource_properties
 FROM awscc.batch.job_definitions
-WHERE region = 'us-east-1' AND data__Identifier = '<JobDefinitionName>';
+WHERE region = 'us-east-1' AND Identifier = '<JobDefinitionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1534,7 +1534,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.batch.job_definitions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ContainerProperties": container_properties,
     "EcsProperties": ecs_properties,
     "NodeProperties": node_properties,
@@ -1550,7 +1550,7 @@ SET data__PatchDocument = string('{{ {
     "ConsumableResourceProperties": consumable_resource_properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<JobDefinitionName>';
+AND Identifier = '<JobDefinitionName>';
 ```
 
 
@@ -1559,7 +1559,7 @@ AND data__Identifier = '<JobDefinitionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.job_definitions
-WHERE data__Identifier = '<JobDefinitionName>'
+WHERE Identifier = '<JobDefinitionName>'
 AND region = 'us-east-1';
 ```
 

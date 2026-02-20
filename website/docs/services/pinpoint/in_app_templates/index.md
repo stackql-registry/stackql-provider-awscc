@@ -241,13 +241,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>in_app_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>in_app_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -259,7 +259,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>in_app_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -287,7 +287,7 @@ tags,
 template_description,
 template_name
 FROM awscc.pinpoint.in_app_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<TemplateName>';
+WHERE region = 'us-east-1' AND Identifier = '<TemplateName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -411,7 +411,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.pinpoint.in_app_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Content": content,
     "CustomConfig": custom_config,
     "Layout": layout,
@@ -419,7 +419,7 @@ SET data__PatchDocument = string('{{ {
     "TemplateDescription": template_description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TemplateName>';
+AND Identifier = '<TemplateName>';
 ```
 
 
@@ -428,7 +428,7 @@ AND data__Identifier = '<TemplateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pinpoint.in_app_templates
-WHERE data__Identifier = '<TemplateName>'
+WHERE Identifier = '<TemplateName>'
 AND region = 'us-east-1';
 ```
 

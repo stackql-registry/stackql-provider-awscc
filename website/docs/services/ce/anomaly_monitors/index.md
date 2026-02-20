@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>anomaly_monitors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>anomaly_monitors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>anomaly_monitors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ monitor_specification,
 dimensional_value_count,
 resource_tags
 FROM awscc.ce.anomaly_monitors
-WHERE region = 'us-east-1' AND data__Identifier = '<MonitorArn>';
+WHERE region = 'us-east-1' AND Identifier = '<MonitorArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -300,11 +300,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ce.anomaly_monitors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MonitorName": monitor_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<MonitorArn>';
+AND Identifier = '<MonitorArn>';
 ```
 
 
@@ -313,7 +313,7 @@ AND data__Identifier = '<MonitorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_monitors
-WHERE data__Identifier = '<MonitorArn>'
+WHERE Identifier = '<MonitorArn>'
 AND region = 'us-east-1';
 ```
 

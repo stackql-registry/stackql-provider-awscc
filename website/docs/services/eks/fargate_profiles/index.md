@@ -165,13 +165,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>fargate_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>fargate_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -183,7 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>fargate_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ subnets,
 selectors,
 tags
 FROM awscc.eks.fargate_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>|<FargateProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '<ClusterName>|<FargateProfileName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,11 +323,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eks.fargate_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ClusterName>|<FargateProfileName>';
+AND Identifier = '<ClusterName>|<FargateProfileName>';
 ```
 
 
@@ -336,7 +336,7 @@ AND data__Identifier = '<ClusterName>|<FargateProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.fargate_profiles
-WHERE data__Identifier = '<ClusterName|FargateProfileName>'
+WHERE Identifier = '<ClusterName|FargateProfileName>'
 AND region = 'us-east-1';
 ```
 

@@ -296,13 +296,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_outputs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_outputs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -314,7 +314,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_outputs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -354,7 +354,7 @@ output_status,
 ndi_program_name,
 ndi_speed_hq_quality
 FROM awscc.mediaconnect.flow_outputs
-WHERE region = 'us-east-1' AND data__Identifier = '<OutputArn>';
+WHERE region = 'us-east-1' AND Identifier = '<OutputArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -525,7 +525,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flow_outputs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FlowArn": flow_arn,
     "CidrAllowList": cidr_allow_list,
     "Encryption": encryption,
@@ -545,7 +545,7 @@ SET data__PatchDocument = string('{{ {
     "NdiSpeedHqQuality": ndi_speed_hq_quality
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<OutputArn>';
+AND Identifier = '<OutputArn>';
 ```
 
 
@@ -554,7 +554,7 @@ AND data__Identifier = '<OutputArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_outputs
-WHERE data__Identifier = '<OutputArn>'
+WHERE Identifier = '<OutputArn>'
 AND region = 'us-east-1';
 ```
 

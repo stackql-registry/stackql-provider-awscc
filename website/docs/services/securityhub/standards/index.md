@@ -116,13 +116,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>standards</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>standards</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -134,7 +134,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>standards</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ standards_subscription_arn,
 standards_arn,
 disabled_standards_controls
 FROM awscc.securityhub.standards
-WHERE region = 'us-east-1' AND data__Identifier = '<StandardsSubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<StandardsSubscriptionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,11 +244,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.standards
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DisabledStandardsControls": disabled_standards_controls
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<StandardsSubscriptionArn>';
+AND Identifier = '<StandardsSubscriptionArn>';
 ```
 
 
@@ -257,7 +257,7 @@ AND data__Identifier = '<StandardsSubscriptionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.standards
-WHERE data__Identifier = '<StandardsSubscriptionArn>'
+WHERE Identifier = '<StandardsSubscriptionArn>'
 AND region = 'us-east-1';
 ```
 

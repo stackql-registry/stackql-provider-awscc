@@ -104,7 +104,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>log_streams</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -116,7 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>log_streams</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -139,7 +139,7 @@ region,
 log_stream_name,
 log_group_name
 FROM awscc.logs.log_streams
-WHERE region = 'us-east-1' AND data__Identifier = '<LogGroupName>|<LogStreamName>';
+WHERE region = 'us-east-1' AND Identifier = '<LogGroupName>|<LogStreamName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,7 +225,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_streams
-WHERE data__Identifier = '<LogGroupName|LogStreamName>'
+WHERE Identifier = '<LogGroupName|LogStreamName>'
 AND region = 'us-east-1';
 ```
 

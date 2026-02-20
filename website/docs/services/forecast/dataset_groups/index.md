@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>dataset_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>dataset_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>dataset_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ domain,
 tags,
 dataset_group_arn
 FROM awscc.forecast.dataset_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<DatasetGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '<DatasetGroupArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,13 +267,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.forecast.dataset_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DatasetArns": dataset_arns,
     "Domain": domain,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DatasetGroupArn>';
+AND Identifier = '<DatasetGroupArn>';
 ```
 
 
@@ -282,7 +282,7 @@ AND data__Identifier = '<DatasetGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.forecast.dataset_groups
-WHERE data__Identifier = '<DatasetGroupArn>'
+WHERE Identifier = '<DatasetGroupArn>'
 AND region = 'us-east-1';
 ```
 

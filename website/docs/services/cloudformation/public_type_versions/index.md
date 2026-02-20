@@ -145,7 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>public_type_versions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -174,7 +174,7 @@ type_name,
 log_delivery_bucket,
 type
 FROM awscc.cloudformation.public_type_versions
-WHERE region = 'us-east-1' AND data__Identifier = '<PublicTypeArn>';
+WHERE region = 'us-east-1' AND Identifier = '<PublicTypeArn>';
 ```
 </TabItem>
 <TabItem value="list">

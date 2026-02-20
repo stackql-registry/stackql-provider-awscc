@@ -195,13 +195,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>routes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>routes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -213,7 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>routes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -244,7 +244,7 @@ default_route,
 uri_path_route,
 tags
 FROM awscc.refactorspaces.routes
-WHERE region = 'us-east-1' AND data__Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -365,12 +365,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.refactorspaces.routes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DefaultRoute": default_route,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
+AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
 ```
 
 
@@ -379,7 +379,7 @@ AND data__Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteId
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.routes
-WHERE data__Identifier = '<EnvironmentIdentifier|ApplicationIdentifier|RouteIdentifier>'
+WHERE Identifier = '<EnvironmentIdentifier|ApplicationIdentifier|RouteIdentifier>'
 AND region = 'us-east-1';
 ```
 

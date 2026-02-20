@@ -114,7 +114,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>link_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>link_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -150,7 +150,7 @@ global_network_id,
 device_id,
 link_id
 FROM awscc.networkmanager.link_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>|<DeviceId>|<LinkId>';
+WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<DeviceId>|<LinkId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.link_associations
-WHERE data__Identifier = '<GlobalNetworkId|DeviceId|LinkId>'
+WHERE Identifier = '<GlobalNetworkId|DeviceId|LinkId>'
 AND region = 'us-east-1';
 ```
 

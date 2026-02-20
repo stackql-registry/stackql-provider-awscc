@@ -146,13 +146,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mlflow_tracking_servers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mlflow_tracking_servers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -164,7 +164,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mlflow_tracking_servers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ automatic_model_registration,
 weekly_maintenance_window_start,
 tags
 FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE region = 'us-east-1' AND data__Identifier = '<TrackingServerName>';
+WHERE region = 'us-east-1' AND Identifier = '<TrackingServerName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,7 +308,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.mlflow_tracking_servers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TrackingServerSize": tracking_server_size,
     "MlflowVersion": mlflow_version,
     "RoleArn": role_arn,
@@ -318,7 +318,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TrackingServerName>';
+AND Identifier = '<TrackingServerName>';
 ```
 
 
@@ -327,7 +327,7 @@ AND data__Identifier = '<TrackingServerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.mlflow_tracking_servers
-WHERE data__Identifier = '<TrackingServerName>'
+WHERE Identifier = '<TrackingServerName>'
 AND region = 'us-east-1';
 ```
 

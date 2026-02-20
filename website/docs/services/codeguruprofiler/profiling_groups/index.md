@@ -150,13 +150,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>profiling_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>profiling_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -168,7 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>profiling_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ anomaly_detection_notification_configuration,
 arn,
 tags
 FROM awscc.codeguruprofiler.profiling_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<ProfilingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<ProfilingGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,13 +297,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.codeguruprofiler.profiling_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AgentPermissions": agent_permissions,
     "AnomalyDetectionNotificationConfiguration": anomaly_detection_notification_configuration,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ProfilingGroupName>';
+AND Identifier = '<ProfilingGroupName>';
 ```
 
 
@@ -312,7 +312,7 @@ AND data__Identifier = '<ProfilingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeguruprofiler.profiling_groups
-WHERE data__Identifier = '<ProfilingGroupName>'
+WHERE Identifier = '<ProfilingGroupName>'
 AND region = 'us-east-1';
 ```
 

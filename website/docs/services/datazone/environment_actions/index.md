@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>environment_actions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>environment_actions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>environment_actions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -199,7 +199,7 @@ identifier,
 name,
 parameters
 FROM awscc.datazone.environment_actions
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,14 +302,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.datazone.environment_actions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Identifier": identifier,
     "Name": name,
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```
 
 
@@ -318,7 +318,7 @@ AND data__Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_actions
-WHERE data__Identifier = '<DomainId|EnvironmentId|Id>'
+WHERE Identifier = '<DomainId|EnvironmentId|Id>'
 AND region = 'us-east-1';
 ```
 

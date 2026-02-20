@@ -111,17 +111,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -136,7 +136,7 @@ device_fleet_name,
 device,
 tags
 FROM awscc.sagemaker.devices
-WHERE region = 'us-east-1' AND data__Identifier = '<Device/DeviceName>';
+WHERE region = 'us-east-1' AND Identifier = '<Device/DeviceName>';
 ```
 
 ## `INSERT` example
@@ -217,12 +217,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.devices
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DeviceFleetName": device_fleet_name,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Device/DeviceName>';
+AND Identifier = '<Device/DeviceName>';
 ```
 
 
@@ -231,7 +231,7 @@ AND data__Identifier = '<Device/DeviceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.devices
-WHERE data__Identifier = '<Device/DeviceName>'
+WHERE Identifier = '<Device/DeviceName>'
 AND region = 'us-east-1';
 ```
 

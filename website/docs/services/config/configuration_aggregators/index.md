@@ -160,13 +160,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>configuration_aggregators</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>configuration_aggregators</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -178,7 +178,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>configuration_aggregators</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -204,7 +204,7 @@ configuration_aggregator_arn,
 organization_aggregation_source,
 tags
 FROM awscc.config.configuration_aggregators
-WHERE region = 'us-east-1' AND data__Identifier = '<ConfigurationAggregatorName>';
+WHERE region = 'us-east-1' AND Identifier = '<ConfigurationAggregatorName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -313,13 +313,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.config.configuration_aggregators
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccountAggregationSources": account_aggregation_sources,
     "OrganizationAggregationSource": organization_aggregation_source,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConfigurationAggregatorName>';
+AND Identifier = '<ConfigurationAggregatorName>';
 ```
 
 
@@ -328,7 +328,7 @@ AND data__Identifier = '<ConfigurationAggregatorName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.configuration_aggregators
-WHERE data__Identifier = '<ConfigurationAggregatorName>'
+WHERE Identifier = '<ConfigurationAggregatorName>'
 AND region = 'us-east-1';
 ```
 

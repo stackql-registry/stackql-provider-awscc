@@ -210,13 +210,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>scalable_targets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>scalable_targets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -228,7 +228,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>scalable_targets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -258,7 +258,7 @@ min_capacity,
 role_arn,
 max_capacity
 FROM awscc.applicationautoscaling.scalable_targets
-WHERE region = 'us-east-1' AND data__Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
+WHERE region = 'us-east-1' AND Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -387,7 +387,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.applicationautoscaling.scalable_targets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ScheduledActions": scheduled_actions,
     "SuspendedState": suspended_state,
     "MinCapacity": min_capacity,
@@ -395,7 +395,7 @@ SET data__PatchDocument = string('{{ {
     "MaxCapacity": max_capacity
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
+AND Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
 ```
 
 
@@ -404,7 +404,7 @@ AND data__Identifier = '<ResourceId>|<ScalableDimension>|<ServiceNamespace>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.applicationautoscaling.scalable_targets
-WHERE data__Identifier = '<ResourceId|ScalableDimension|ServiceNamespace>'
+WHERE Identifier = '<ResourceId|ScalableDimension|ServiceNamespace>'
 AND region = 'us-east-1';
 ```
 

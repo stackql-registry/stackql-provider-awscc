@@ -173,13 +173,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>endpoint_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>endpoint_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -191,7 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>endpoint_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ threshold_count,
 endpoint_group_arn,
 port_overrides
 FROM awscc.globalaccelerator.endpoint_groups
-WHERE data__Identifier = '<EndpointGroupArn>';
+WHERE Identifier = '<EndpointGroupArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -347,7 +347,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.globalaccelerator.endpoint_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EndpointConfigurations": endpoint_configurations,
     "TrafficDialPercentage": traffic_dial_percentage,
     "HealthCheckPort": health_check_port,
@@ -358,7 +358,7 @@ SET data__PatchDocument = string('{{ {
     "PortOverrides": port_overrides
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EndpointGroupArn>';
+AND Identifier = '<EndpointGroupArn>';
 ```
 
 
@@ -367,7 +367,7 @@ AND data__Identifier = '<EndpointGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.endpoint_groups
-WHERE data__Identifier = '<EndpointGroupArn>'
+WHERE Identifier = '<EndpointGroupArn>'
 AND region = 'us-east-1';
 ```
 

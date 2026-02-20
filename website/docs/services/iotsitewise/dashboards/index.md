@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ dashboard_definition,
 dashboard_arn,
 tags
 FROM awscc.iotsitewise.dashboards
-WHERE region = 'us-east-1' AND data__Identifier = '<DashboardId>';
+WHERE region = 'us-east-1' AND Identifier = '<DashboardId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,14 +284,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.dashboards
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DashboardName": dashboard_name,
     "DashboardDescription": dashboard_description,
     "DashboardDefinition": dashboard_definition,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DashboardId>';
+AND Identifier = '<DashboardId>';
 ```
 
 
@@ -300,7 +300,7 @@ AND data__Identifier = '<DashboardId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.dashboards
-WHERE data__Identifier = '<DashboardId>'
+WHERE Identifier = '<DashboardId>'
 AND region = 'us-east-1';
 ```
 

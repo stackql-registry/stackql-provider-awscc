@@ -183,13 +183,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>portals</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>portals</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -201,7 +201,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>portals</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -236,7 +236,7 @@ notification_sender_email,
 alarms,
 tags
 FROM awscc.iotsitewise.portals
-WHERE region = 'us-east-1' AND data__Identifier = '<PortalId>';
+WHERE region = 'us-east-1' AND Identifier = '<PortalId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -360,7 +360,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.portals
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PortalContactEmail": portal_contact_email,
     "PortalDescription": portal_description,
     "PortalName": portal_name,
@@ -371,7 +371,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PortalId>';
+AND Identifier = '<PortalId>';
 ```
 
 
@@ -380,7 +380,7 @@ AND data__Identifier = '<PortalId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.portals
-WHERE data__Identifier = '<PortalId>'
+WHERE Identifier = '<PortalId>'
 AND region = 'us-east-1';
 ```
 

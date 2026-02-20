@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>aggregation_authorizations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>aggregation_authorizations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>aggregation_authorizations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -169,7 +169,7 @@ authorized_aws_region,
 aggregation_authorization_arn,
 tags
 FROM awscc.config.aggregation_authorizations
-WHERE region = 'us-east-1' AND data__Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
+WHERE region = 'us-east-1' AND Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,11 +262,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.config.aggregation_authorizations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
+AND Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
 ```
 
 
@@ -275,7 +275,7 @@ AND data__Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.aggregation_authorizations
-WHERE data__Identifier = '<AuthorizedAccountId|AuthorizedAwsRegion>'
+WHERE Identifier = '<AuthorizedAccountId|AuthorizedAwsRegion>'
 AND region = 'us-east-1';
 ```
 

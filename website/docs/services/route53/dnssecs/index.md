@@ -94,7 +94,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>dnssecs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -106,7 +106,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>dnssecs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -128,7 +128,7 @@ SELECT
 region,
 hosted_zone_id
 FROM awscc.route53.dnssecs
-WHERE data__Identifier = '<HostedZoneId>';
+WHERE Identifier = '<HostedZoneId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,7 +209,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.dnssecs
-WHERE data__Identifier = '<HostedZoneId>'
+WHERE Identifier = '<HostedZoneId>'
 AND region = 'us-east-1';
 ```
 

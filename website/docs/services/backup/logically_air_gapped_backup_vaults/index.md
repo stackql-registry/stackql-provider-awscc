@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>logically_air_gapped_backup_vaults</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>logically_air_gapped_backup_vaults</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>logically_air_gapped_backup_vaults</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ min_retention_days,
 notifications,
 access_policy
 FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE region = 'us-east-1' AND data__Identifier = '<BackupVaultName>';
+WHERE region = 'us-east-1' AND Identifier = '<BackupVaultName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,13 +307,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.backup.logically_air_gapped_backup_vaults
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BackupVaultTags": backup_vault_tags,
     "Notifications": notifications,
     "AccessPolicy": access_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BackupVaultName>';
+AND Identifier = '<BackupVaultName>';
 ```
 
 
@@ -322,7 +322,7 @@ AND data__Identifier = '<BackupVaultName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE data__Identifier = '<BackupVaultName>'
+WHERE Identifier = '<BackupVaultName>'
 AND region = 'us-east-1';
 ```
 

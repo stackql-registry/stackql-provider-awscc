@@ -134,13 +134,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>route_responses</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>route_responses</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -152,7 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>route_responses</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -180,7 +180,7 @@ api_id,
 response_models,
 route_response_id
 FROM awscc.apigatewayv2.route_responses
-WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,14 +286,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.route_responses
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RouteResponseKey": route_response_key,
     "ResponseParameters": response_parameters,
     "ModelSelectionExpression": model_selection_expression,
     "ResponseModels": response_models
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
+AND Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
 ```
 
 
@@ -302,7 +302,7 @@ AND data__Identifier = '<ApiId>|<RouteId>|<RouteResponseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.route_responses
-WHERE data__Identifier = '<ApiId|RouteId|RouteResponseId>'
+WHERE Identifier = '<ApiId|RouteId|RouteResponseId>'
 AND region = 'us-east-1';
 ```
 

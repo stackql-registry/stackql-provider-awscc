@@ -336,13 +336,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>compute_environments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>compute_environments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -354,7 +354,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>compute_environments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -387,7 +387,7 @@ unmanagedv_cpus,
 eks_configuration,
 context
 FROM awscc.batch.compute_environments
-WHERE region = 'us-east-1' AND data__Identifier = '<ComputeEnvironmentArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ComputeEnvironmentArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -546,7 +546,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.batch.compute_environments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ReplaceComputeEnvironment": replace_compute_environment,
     "ServiceRole": service_role,
     "State": state,
@@ -555,7 +555,7 @@ SET data__PatchDocument = string('{{ {
     "Context": context
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ComputeEnvironmentArn>';
+AND Identifier = '<ComputeEnvironmentArn>';
 ```
 
 
@@ -564,7 +564,7 @@ AND data__Identifier = '<ComputeEnvironmentArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.compute_environments
-WHERE data__Identifier = '<ComputeEnvironmentArn>'
+WHERE Identifier = '<ComputeEnvironmentArn>'
 AND region = 'us-east-1';
 ```
 

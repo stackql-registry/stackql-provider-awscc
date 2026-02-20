@@ -176,13 +176,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>transit_gateways</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>transit_gateways</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -194,7 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>transit_gateways</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -230,7 +230,7 @@ tags,
 association_default_route_table_id,
 propagation_default_route_table_id
 FROM awscc.ec2.transit_gateways
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -385,7 +385,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.transit_gateways
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DefaultRouteTablePropagation": default_route_table_propagation,
     "Description": description,
     "AutoAcceptSharedAttachments": auto_accept_shared_attachments,
@@ -399,7 +399,7 @@ SET data__PatchDocument = string('{{ {
     "PropagationDefaultRouteTableId": propagation_default_route_table_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -408,7 +408,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateways
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

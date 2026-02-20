@@ -70,12 +70,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -89,7 +89,7 @@ region,
 fleet_name,
 application_arn
 FROM awscc.appstream.application_fleet_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<FleetName>|<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<FleetName>|<ApplicationArn>';
 ```
 
 ## `INSERT` example
@@ -163,7 +163,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_fleet_associations
-WHERE data__Identifier = '<FleetName|ApplicationArn>'
+WHERE Identifier = '<FleetName|ApplicationArn>'
 AND region = 'us-east-1';
 ```
 

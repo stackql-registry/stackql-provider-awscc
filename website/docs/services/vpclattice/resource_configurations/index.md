@@ -156,13 +156,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>resource_configurations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>resource_configurations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -174,7 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>resource_configurations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -207,7 +207,7 @@ resource_configuration_group_id,
 tags,
 name
 FROM awscc.vpclattice.resource_configurations
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -328,7 +328,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.vpclattice.resource_configurations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AllowAssociationToSharableServiceNetwork": allow_association_to_sharable_service_network,
     "PortRanges": port_ranges,
     "ResourceConfigurationDefinition": resource_configuration_definition,
@@ -337,7 +337,7 @@ SET data__PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -346,7 +346,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.resource_configurations
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

@@ -134,13 +134,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>queue_environments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>queue_environments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -152,7 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>queue_environments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -180,7 +180,7 @@ queue_id,
 template,
 template_type
 FROM awscc.deadline.queue_environments
-WHERE region = 'us-east-1' AND data__Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
+WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,13 +286,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.deadline.queue_environments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Priority": priority,
     "Template": template,
     "TemplateType": template_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
+AND Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
 ```
 
 
@@ -301,7 +301,7 @@ AND data__Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_environments
-WHERE data__Identifier = '<FarmId|QueueId|QueueEnvironmentId>'
+WHERE Identifier = '<FarmId|QueueId|QueueEnvironmentId>'
 AND region = 'us-east-1';
 ```
 

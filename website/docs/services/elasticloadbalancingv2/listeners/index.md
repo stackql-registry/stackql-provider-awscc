@@ -411,13 +411,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>listeners</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>listeners</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -429,7 +429,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>listeners</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -460,7 +460,7 @@ port,
 certificates,
 protocol
 FROM awscc.elasticloadbalancingv2.listeners
-WHERE region = 'us-east-1' AND data__Identifier = '<ListenerArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ListenerArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -625,7 +625,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.listeners
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MutualAuthentication": mutual_authentication,
     "ListenerAttributes": listener_attributes,
     "AlpnPolicy": alpn_policy,
@@ -636,7 +636,7 @@ SET data__PatchDocument = string('{{ {
     "Protocol": protocol
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ListenerArn>';
+AND Identifier = '<ListenerArn>';
 ```
 
 
@@ -645,7 +645,7 @@ AND data__Identifier = '<ListenerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.listeners
-WHERE data__Identifier = '<ListenerArn>'
+WHERE Identifier = '<ListenerArn>'
 AND region = 'us-east-1';
 ```
 

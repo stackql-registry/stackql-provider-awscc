@@ -490,13 +490,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -508,7 +508,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -551,7 +551,7 @@ table_class,
 tags,
 time_to_live_specification
 FROM awscc.dynamodb.tables
-WHERE region = 'us-east-1' AND data__Identifier = '<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '<TableName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -758,7 +758,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.dynamodb.tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "OnDemandThroughput": on_demand_throughput,
     "SSESpecification": sse_specification,
     "KinesisStreamSpecification": kinesis_stream_specification,
@@ -779,7 +779,7 @@ SET data__PatchDocument = string('{{ {
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TableName>';
+AND Identifier = '<TableName>';
 ```
 
 
@@ -788,7 +788,7 @@ AND data__Identifier = '<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.tables
-WHERE data__Identifier = '<TableName>'
+WHERE Identifier = '<TableName>'
 AND region = 'us-east-1';
 ```
 

@@ -290,13 +290,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>app_monitors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>app_monitors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -308,7 +308,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>app_monitors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -339,7 +339,7 @@ custom_events,
 resource_policy,
 deobfuscation_configuration
 FROM awscc.rum.app_monitors
-WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -483,7 +483,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rum.app_monitors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Domain": domain,
     "DomainList": domain_list,
     "CwLogEnabled": cw_log_enabled,
@@ -494,7 +494,7 @@ SET data__PatchDocument = string('{{ {
     "DeobfuscationConfiguration": deobfuscation_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Name>';
+AND Identifier = '<Name>';
 ```
 
 
@@ -503,7 +503,7 @@ AND data__Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rum.app_monitors
-WHERE data__Identifier = '<Name>'
+WHERE Identifier = '<Name>'
 AND region = 'us-east-1';
 ```
 

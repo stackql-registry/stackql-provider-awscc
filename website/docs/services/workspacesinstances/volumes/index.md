@@ -163,7 +163,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>volumes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -175,7 +175,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>volumes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ throughput,
 volume_type,
 tag_specifications
 FROM awscc.workspacesinstances.volumes
-WHERE region = 'us-east-1' AND data__Identifier = '<VolumeId>';
+WHERE region = 'us-east-1' AND Identifier = '<VolumeId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,7 +323,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volumes
-WHERE data__Identifier = '<VolumeId>'
+WHERE Identifier = '<VolumeId>'
 AND region = 'us-east-1';
 ```
 

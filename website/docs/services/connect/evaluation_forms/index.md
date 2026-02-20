@@ -206,13 +206,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>evaluation_forms</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>evaluation_forms</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -224,7 +224,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>evaluation_forms</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -254,7 +254,7 @@ items,
 evaluation_form_arn,
 tags
 FROM awscc.connect.evaluation_forms
-WHERE region = 'us-east-1' AND data__Identifier = '<EvaluationFormArn>';
+WHERE region = 'us-east-1' AND Identifier = '<EvaluationFormArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -414,7 +414,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.evaluation_forms
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ScoringStrategy": scoring_strategy,
     "Status": status,
     "AutoEvaluationConfiguration": auto_evaluation_configuration,
@@ -425,7 +425,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EvaluationFormArn>';
+AND Identifier = '<EvaluationFormArn>';
 ```
 
 
@@ -434,7 +434,7 @@ AND data__Identifier = '<EvaluationFormArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.evaluation_forms
-WHERE data__Identifier = '<EvaluationFormArn>'
+WHERE Identifier = '<EvaluationFormArn>'
 AND region = 'us-east-1';
 ```
 

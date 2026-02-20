@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>policy_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>policy_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>policy_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ policy_store_id,
 policy_template_id,
 statement
 FROM awscc.verifiedpermissions.policy_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<PolicyStoreId>|<PolicyTemplateId>';
+WHERE region = 'us-east-1' AND Identifier = '<PolicyStoreId>|<PolicyTemplateId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,12 +248,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.verifiedpermissions.policy_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Statement": statement
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PolicyStoreId>|<PolicyTemplateId>';
+AND Identifier = '<PolicyStoreId>|<PolicyTemplateId>';
 ```
 
 
@@ -262,7 +262,7 @@ AND data__Identifier = '<PolicyStoreId>|<PolicyTemplateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policy_templates
-WHERE data__Identifier = '<PolicyStoreId|PolicyTemplateId>'
+WHERE Identifier = '<PolicyStoreId|PolicyTemplateId>'
 AND region = 'us-east-1';
 ```
 

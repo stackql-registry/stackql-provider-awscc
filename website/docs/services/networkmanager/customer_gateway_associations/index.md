@@ -114,7 +114,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>customer_gateway_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>customer_gateway_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -151,7 +151,7 @@ customer_gateway_arn,
 device_id,
 link_id
 FROM awscc.networkmanager.customer_gateway_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>|<CustomerGatewayArn>';
+WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<CustomerGatewayArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,7 +249,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.customer_gateway_associations
-WHERE data__Identifier = '<GlobalNetworkId|CustomerGatewayArn>'
+WHERE Identifier = '<GlobalNetworkId|CustomerGatewayArn>'
 AND region = 'us-east-1';
 ```
 

@@ -124,7 +124,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>attribute_group_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -136,7 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>attribute_group_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -161,7 +161,7 @@ attribute_group,
 application_arn,
 attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationArn>|<AttributeGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>|<AttributeGroupArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,7 +249,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE data__Identifier = '<ApplicationArn|AttributeGroupArn>'
+WHERE Identifier = '<ApplicationArn|AttributeGroupArn>'
 AND region = 'us-east-1';
 ```
 

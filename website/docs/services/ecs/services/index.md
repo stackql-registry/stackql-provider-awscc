@@ -684,13 +684,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>services</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>services</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -702,7 +702,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>services</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -751,7 +751,7 @@ task_definition,
 service_name,
 deployment_configuration
 FROM awscc.ecs.services
-WHERE region = 'us-east-1' AND data__Identifier = '<ServiceArn>|<Cluster>';
+WHERE region = 'us-east-1' AND Identifier = '<ServiceArn>|<Cluster>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1072,7 +1072,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ecs.services
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PlatformVersion": platform_version,
     "PropagateTags": propagate_tags,
     "PlacementStrategies": placement_strategies,
@@ -1096,7 +1096,7 @@ SET data__PatchDocument = string('{{ {
     "DeploymentConfiguration": deployment_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ServiceArn>|<Cluster>';
+AND Identifier = '<ServiceArn>|<Cluster>';
 ```
 
 
@@ -1105,7 +1105,7 @@ AND data__Identifier = '<ServiceArn>|<Cluster>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.services
-WHERE data__Identifier = '<ServiceArn|Cluster>'
+WHERE Identifier = '<ServiceArn|Cluster>'
 AND region = 'us-east-1';
 ```
 

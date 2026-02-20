@@ -215,13 +215,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mitigation_actions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mitigation_actions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -233,7 +233,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mitigation_actions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -260,7 +260,7 @@ action_params,
 mitigation_action_arn,
 mitigation_action_id
 FROM awscc.iot.mitigation_actions
-WHERE region = 'us-east-1' AND data__Identifier = '<ActionName>';
+WHERE region = 'us-east-1' AND Identifier = '<ActionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,13 +371,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.mitigation_actions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Tags": tags,
     "ActionParams": action_params
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ActionName>';
+AND Identifier = '<ActionName>';
 ```
 
 
@@ -386,7 +386,7 @@ AND data__Identifier = '<ActionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.mitigation_actions
-WHERE data__Identifier = '<ActionName>'
+WHERE Identifier = '<ActionName>'
 AND region = 'us-east-1';
 ```
 

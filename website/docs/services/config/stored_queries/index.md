@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>stored_queries</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>stored_queries</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>stored_queries</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ query_description,
 query_expression,
 tags
 FROM awscc.config.stored_queries
-WHERE region = 'us-east-1' AND data__Identifier = '<QueryName>';
+WHERE region = 'us-east-1' AND Identifier = '<QueryName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,13 +272,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.config.stored_queries
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "QueryDescription": query_description,
     "QueryExpression": query_expression,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<QueryName>';
+AND Identifier = '<QueryName>';
 ```
 
 
@@ -287,7 +287,7 @@ AND data__Identifier = '<QueryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.stored_queries
-WHERE data__Identifier = '<QueryName>'
+WHERE Identifier = '<QueryName>'
 AND region = 'us-east-1';
 ```
 

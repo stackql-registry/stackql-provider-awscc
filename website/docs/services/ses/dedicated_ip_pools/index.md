@@ -116,13 +116,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>dedicated_ip_pools</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>dedicated_ip_pools</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -134,7 +134,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>dedicated_ip_pools</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ pool_name,
 scaling_mode,
 tags
 FROM awscc.ses.dedicated_ip_pools
-WHERE region = 'us-east-1' AND data__Identifier = '<PoolName>';
+WHERE region = 'us-east-1' AND Identifier = '<PoolName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,12 +252,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.dedicated_ip_pools
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ScalingMode": scaling_mode,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PoolName>';
+AND Identifier = '<PoolName>';
 ```
 
 
@@ -266,7 +266,7 @@ AND data__Identifier = '<PoolName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.dedicated_ip_pools
-WHERE data__Identifier = '<PoolName>'
+WHERE Identifier = '<PoolName>'
 AND region = 'us-east-1';
 ```
 

@@ -200,13 +200,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>assets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>assets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -218,7 +218,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>assets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -248,7 +248,7 @@ asset_properties,
 asset_hierarchies,
 tags
 FROM awscc.iotsitewise.assets
-WHERE region = 'us-east-1' AND data__Identifier = '<AssetId>';
+WHERE region = 'us-east-1' AND Identifier = '<AssetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -366,7 +366,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.assets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AssetExternalId": asset_external_id,
     "AssetModelId": asset_model_id,
     "AssetName": asset_name,
@@ -374,7 +374,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AssetId>';
+AND Identifier = '<AssetId>';
 ```
 
 
@@ -383,7 +383,7 @@ AND data__Identifier = '<AssetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.assets
-WHERE data__Identifier = '<AssetId>'
+WHERE Identifier = '<AssetId>'
 AND region = 'us-east-1';
 ```
 

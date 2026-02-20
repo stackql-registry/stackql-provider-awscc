@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ managed_policy_arns,
 path,
 policies
 FROM awscc.iam.groups
-WHERE data__Identifier = '<GroupName>';
+WHERE Identifier = '<GroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,13 +271,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ManagedPolicyArns": managed_policy_arns,
     "Path": path,
     "Policies": policies
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<GroupName>';
+AND Identifier = '<GroupName>';
 ```
 
 
@@ -286,7 +286,7 @@ AND data__Identifier = '<GroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.groups
-WHERE data__Identifier = '<GroupName>'
+WHERE Identifier = '<GroupName>'
 AND region = 'us-east-1';
 ```
 

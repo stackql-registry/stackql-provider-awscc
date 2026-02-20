@@ -47,7 +47,7 @@ Describes the status of the StartReportCreation operation for generating a repor
   <tr>
     <td><CopyableCode code="describe_report_creation" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

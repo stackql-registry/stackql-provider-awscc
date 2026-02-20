@@ -278,13 +278,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flows</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flows</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -296,7 +296,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flows</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -334,7 +334,7 @@ version,
 tags,
 test_alias_tags
 FROM awscc.bedrock.flows
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -470,7 +470,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.flows
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Definition": definition,
     "DefinitionString": definition_string,
     "DefinitionS3Location": definition_s3_location,
@@ -483,7 +483,7 @@ SET data__PatchDocument = string('{{ {
     "TestAliasTags": test_alias_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -492,7 +492,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flows
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

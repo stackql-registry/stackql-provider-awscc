@@ -185,13 +185,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>repository_creation_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>repository_creation_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -203,7 +203,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>repository_creation_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -236,7 +236,7 @@ custom_role_arn,
 created_at,
 updated_at
 FROM awscc.ecr.repository_creation_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<Prefix>';
+WHERE region = 'us-east-1' AND Identifier = '<Prefix>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -361,7 +361,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ecr.repository_creation_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "ImageTagMutability": image_tag_mutability,
     "ImageTagMutabilityExclusionFilters": image_tag_mutability_exclusion_filters,
@@ -373,7 +373,7 @@ SET data__PatchDocument = string('{{ {
     "CustomRoleArn": custom_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Prefix>';
+AND Identifier = '<Prefix>';
 ```
 
 
@@ -382,7 +382,7 @@ AND data__Identifier = '<Prefix>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repository_creation_templates
-WHERE data__Identifier = '<Prefix>'
+WHERE Identifier = '<Prefix>'
 AND region = 'us-east-1';
 ```
 

@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_pool_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_pool_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_pool_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ precedence,
 role_arn,
 user_pool_id
 FROM awscc.cognito.user_pool_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<GroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,13 +260,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Precedence": precedence,
     "RoleArn": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>|<GroupName>';
+AND Identifier = '<UserPoolId>|<GroupName>';
 ```
 
 
@@ -275,7 +275,7 @@ AND data__Identifier = '<UserPoolId>|<GroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_groups
-WHERE data__Identifier = '<UserPoolId|GroupName>'
+WHERE Identifier = '<UserPoolId|GroupName>'
 AND region = 'us-east-1';
 ```
 

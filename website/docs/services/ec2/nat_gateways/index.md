@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>nat_gateways</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>nat_gateways</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>nat_gateways</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ nat_gateway_id,
 tags,
 max_drain_duration_seconds
 FROM awscc.ec2.nat_gateways
-WHERE region = 'us-east-1' AND data__Identifier = '<NatGatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '<NatGatewayId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,7 +332,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.nat_gateways
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SecondaryAllocationIds": secondary_allocation_ids,
     "SecondaryPrivateIpAddressCount": secondary_private_ip_address_count,
     "SecondaryPrivateIpAddresses": secondary_private_ip_addresses,
@@ -340,7 +340,7 @@ SET data__PatchDocument = string('{{ {
     "MaxDrainDurationSeconds": max_drain_duration_seconds
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<NatGatewayId>';
+AND Identifier = '<NatGatewayId>';
 ```
 
 
@@ -349,7 +349,7 @@ AND data__Identifier = '<NatGatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.nat_gateways
-WHERE data__Identifier = '<NatGatewayId>'
+WHERE Identifier = '<NatGatewayId>'
 AND region = 'us-east-1';
 ```
 

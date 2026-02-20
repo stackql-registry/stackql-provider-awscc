@@ -129,7 +129,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tag_sync_tasks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -141,7 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tag_sync_tasks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ tag_value,
 role_arn,
 status
 FROM awscc.resourcegroups.tag_sync_tasks
-WHERE region = 'us-east-1' AND data__Identifier = '<TaskArn>';
+WHERE region = 'us-east-1' AND Identifier = '<TaskArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,7 +269,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourcegroups.tag_sync_tasks
-WHERE data__Identifier = '<TaskArn>'
+WHERE Identifier = '<TaskArn>'
 AND region = 'us-east-1';
 ```
 

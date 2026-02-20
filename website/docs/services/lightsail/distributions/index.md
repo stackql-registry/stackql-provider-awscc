@@ -280,13 +280,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>distributions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>distributions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -298,7 +298,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>distributions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -332,7 +332,7 @@ is_enabled,
 certificate_name,
 tags
 FROM awscc.lightsail.distributions
-WHERE region = 'us-east-1' AND data__Identifier = '<DistributionName>';
+WHERE region = 'us-east-1' AND Identifier = '<DistributionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -479,7 +479,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.distributions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BundleId": bundle_id,
     "CacheBehaviors": cache_behaviors,
     "CacheBehaviorSettings": cache_behavior_settings,
@@ -490,7 +490,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DistributionName>';
+AND Identifier = '<DistributionName>';
 ```
 
 
@@ -499,7 +499,7 @@ AND data__Identifier = '<DistributionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.distributions
-WHERE data__Identifier = '<DistributionName>'
+WHERE Identifier = '<DistributionName>'
 AND region = 'us-east-1';
 ```
 

@@ -186,13 +186,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>studios</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>studios</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -204,7 +204,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>studios</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -245,7 +245,7 @@ idc_user_assignment,
 idc_instance_arn,
 encryption_key_arn
 FROM awscc.emr.studios
-WHERE region = 'us-east-1' AND data__Identifier = '<StudioId>';
+WHERE region = 'us-east-1' AND Identifier = '<StudioId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -406,7 +406,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.emr.studios
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DefaultS3Location": default_s3_location,
     "Description": description,
     "Name": name,
@@ -416,7 +416,7 @@ SET data__PatchDocument = string('{{ {
     "IdpRelayStateParameterName": idp_relay_state_parameter_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<StudioId>';
+AND Identifier = '<StudioId>';
 ```
 
 
@@ -425,7 +425,7 @@ AND data__Identifier = '<StudioId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.studios
-WHERE data__Identifier = '<StudioId>'
+WHERE Identifier = '<StudioId>'
 AND region = 'us-east-1';
 ```
 

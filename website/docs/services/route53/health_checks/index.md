@@ -215,13 +215,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>health_checks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>health_checks</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -233,7 +233,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>health_checks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -257,7 +257,7 @@ health_check_id,
 health_check_config,
 health_check_tags
 FROM awscc.route53.health_checks
-WHERE data__Identifier = '<HealthCheckId>';
+WHERE Identifier = '<HealthCheckId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -364,11 +364,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.route53.health_checks
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "HealthCheckTags": health_check_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HealthCheckId>';
+AND Identifier = '<HealthCheckId>';
 ```
 
 
@@ -377,7 +377,7 @@ AND data__Identifier = '<HealthCheckId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.health_checks
-WHERE data__Identifier = '<HealthCheckId>'
+WHERE Identifier = '<HealthCheckId>'
 AND region = 'us-east-1';
 ```
 

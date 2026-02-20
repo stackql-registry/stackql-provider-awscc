@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mail_manager_relays</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mail_manager_relays</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mail_manager_relays</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ server_name,
 server_port,
 tags
 FROM awscc.ses.mail_manager_relays
-WHERE region = 'us-east-1' AND data__Identifier = '<RelayId>';
+WHERE region = 'us-east-1' AND Identifier = '<RelayId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,7 +284,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_relays
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Authentication": authentication,
     "RelayName": relay_name,
     "ServerName": server_name,
@@ -292,7 +292,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RelayId>';
+AND Identifier = '<RelayId>';
 ```
 
 
@@ -301,7 +301,7 @@ AND data__Identifier = '<RelayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_relays
-WHERE data__Identifier = '<RelayId>'
+WHERE Identifier = '<RelayId>'
 AND region = 'us-east-1';
 ```
 

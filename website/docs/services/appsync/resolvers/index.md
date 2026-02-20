@@ -234,13 +234,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>resolvers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>resolvers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -252,7 +252,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>resolvers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -291,7 +291,7 @@ sync_config,
 type_name,
 metrics_config
 FROM awscc.appsync.resolvers
-WHERE region = 'us-east-1' AND data__Identifier = '<ResolverArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ResolverArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -450,7 +450,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appsync.resolvers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CachingConfig": caching_config,
     "Code": code,
     "CodeS3Location": code_s3_location,
@@ -467,7 +467,7 @@ SET data__PatchDocument = string('{{ {
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ResolverArn>';
+AND Identifier = '<ResolverArn>';
 ```
 
 
@@ -476,7 +476,7 @@ AND data__Identifier = '<ResolverArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.resolvers
-WHERE data__Identifier = '<ResolverArn>'
+WHERE Identifier = '<ResolverArn>'
 AND region = 'us-east-1';
 ```
 

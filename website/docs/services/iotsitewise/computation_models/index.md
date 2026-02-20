@@ -155,13 +155,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>computation_models</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>computation_models</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -173,7 +173,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>computation_models</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -201,7 +201,7 @@ computation_model_configuration,
 computation_model_data_binding,
 tags
 FROM awscc.iotsitewise.computation_models
-WHERE region = 'us-east-1' AND data__Identifier = '<ComputationModelId>';
+WHERE region = 'us-east-1' AND Identifier = '<ComputationModelId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,7 +306,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.computation_models
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ComputationModelName": computation_model_name,
     "ComputationModelDescription": computation_model_description,
     "ComputationModelConfiguration": computation_model_configuration,
@@ -314,7 +314,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ComputationModelId>';
+AND Identifier = '<ComputationModelId>';
 ```
 
 
@@ -323,7 +323,7 @@ AND data__Identifier = '<ComputationModelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.computation_models
-WHERE data__Identifier = '<ComputationModelId>'
+WHERE Identifier = '<ComputationModelId>'
 AND region = 'us-east-1';
 ```
 

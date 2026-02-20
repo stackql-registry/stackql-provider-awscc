@@ -114,7 +114,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>schemata</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>schemata</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -151,7 +151,7 @@ schema_arn,
 schema,
 domain
 FROM awscc.personalize.schemata
-WHERE region = 'us-east-1' AND data__Identifier = '<SchemaArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SchemaArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,7 +242,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.schemata
-WHERE data__Identifier = '<SchemaArn>'
+WHERE Identifier = '<SchemaArn>'
 AND region = 'us-east-1';
 ```
 

@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ user_ids,
 arn,
 tags
 FROM awscc.elasticache.user_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<UserGroupId>';
+WHERE region = 'us-east-1' AND Identifier = '<UserGroupId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,13 +275,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticache.user_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Engine": engine,
     "UserIds": user_ids,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserGroupId>';
+AND Identifier = '<UserGroupId>';
 ```
 
 
@@ -290,7 +290,7 @@ AND data__Identifier = '<UserGroupId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.user_groups
-WHERE data__Identifier = '<UserGroupId>'
+WHERE Identifier = '<UserGroupId>'
 AND region = 'us-east-1';
 ```
 

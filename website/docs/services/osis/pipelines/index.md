@@ -245,13 +245,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -263,7 +263,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -297,7 +297,7 @@ vpc_endpoint_service,
 pipeline_arn,
 ingest_endpoint_urls
 FROM awscc.osis.pipelines
-WHERE region = 'us-east-1' AND data__Identifier = '<PipelineArn>';
+WHERE region = 'us-east-1' AND Identifier = '<PipelineArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -430,7 +430,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.osis.pipelines
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BufferOptions": buffer_options,
     "EncryptionAtRestOptions": encryption_at_rest_options,
     "LogPublishingOptions": log_publishing_options,
@@ -441,7 +441,7 @@ SET data__PatchDocument = string('{{ {
     "VpcOptions": vpc_options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PipelineArn>';
+AND Identifier = '<PipelineArn>';
 ```
 
 
@@ -450,7 +450,7 @@ AND data__Identifier = '<PipelineArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.osis.pipelines
-WHERE data__Identifier = '<PipelineArn>'
+WHERE Identifier = '<PipelineArn>'
 AND region = 'us-east-1';
 ```
 

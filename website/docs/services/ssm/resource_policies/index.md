@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>resource_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>resource_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>resource_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -162,7 +162,7 @@ policy,
 policy_id,
 policy_hash
 FROM awscc.ssm.resource_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<PolicyId>|<ResourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '<PolicyId>|<ResourceArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,11 +249,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ssm.resource_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PolicyId>|<ResourceArn>';
+AND Identifier = '<PolicyId>|<ResourceArn>';
 ```
 
 
@@ -262,7 +262,7 @@ AND data__Identifier = '<PolicyId>|<ResourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_policies
-WHERE data__Identifier = '<PolicyId|ResourceArn>'
+WHERE Identifier = '<PolicyId|ResourceArn>'
 AND region = 'us-east-1';
 ```
 

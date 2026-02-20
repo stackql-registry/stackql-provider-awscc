@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>request_validators</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>request_validators</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>request_validators</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ rest_api_id,
 validate_request_body,
 validate_request_parameters
 FROM awscc.apigateway.request_validators
-WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
+WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<RequestValidatorId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,12 +256,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.request_validators
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ValidateRequestBody": validate_request_body,
     "ValidateRequestParameters": validate_request_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
+AND Identifier = '<RestApiId>|<RequestValidatorId>';
 ```
 
 
@@ -270,7 +270,7 @@ AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.request_validators
-WHERE data__Identifier = '<RestApiId|RequestValidatorId>'
+WHERE Identifier = '<RestApiId|RequestValidatorId>'
 AND region = 'us-east-1';
 ```
 

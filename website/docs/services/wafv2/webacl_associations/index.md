@@ -65,17 +65,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -89,7 +89,7 @@ region,
 resource_arn,
 web_acl_arn
 FROM awscc.wafv2.webacl_associations
-WHERE data__Identifier = '<ResourceArn>|<WebACLArn>';
+WHERE Identifier = '<ResourceArn>|<WebACLArn>';
 ```
 
 ## `INSERT` example
@@ -163,7 +163,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.webacl_associations
-WHERE data__Identifier = '<ResourceArn|WebACLArn>'
+WHERE Identifier = '<ResourceArn|WebACLArn>'
 AND region = 'us-east-1';
 ```
 

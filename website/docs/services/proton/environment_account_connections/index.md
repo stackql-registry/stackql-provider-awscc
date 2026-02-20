@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>environment_account_connections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>environment_account_connections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>environment_account_connections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ role_arn,
 status,
 tags
 FROM awscc.proton.environment_account_connections
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,7 +318,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.proton.environment_account_connections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CodebuildRoleArn": codebuild_role_arn,
     "ComponentRoleArn": component_role_arn,
     "EnvironmentAccountId": environment_account_id,
@@ -328,7 +328,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -337,7 +337,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.proton.environment_account_connections
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

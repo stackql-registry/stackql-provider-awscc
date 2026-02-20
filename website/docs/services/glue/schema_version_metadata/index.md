@@ -114,7 +114,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>schema_version_metadata</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>schema_version_metadata</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -150,7 +150,7 @@ schema_version_id,
 key,
 value
 FROM awscc.glue.schema_version_metadata
-WHERE region = 'us-east-1' AND data__Identifier = '<SchemaVersionId>|<Key>|<Value>';
+WHERE region = 'us-east-1' AND Identifier = '<SchemaVersionId>|<Key>|<Value>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.schema_version_metadata
-WHERE data__Identifier = '<SchemaVersionId|Key|Value>'
+WHERE Identifier = '<SchemaVersionId|Key|Value>'
 AND region = 'us-east-1';
 ```
 

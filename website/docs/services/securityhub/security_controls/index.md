@@ -104,13 +104,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>security_controls</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>security_controls</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -122,7 +122,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>security_controls</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -147,7 +147,7 @@ security_control_arn,
 last_update_reason,
 parameters
 FROM awscc.securityhub.security_controls
-WHERE region = 'us-east-1' AND data__Identifier = '<SecurityControlId>';
+WHERE region = 'us-east-1' AND Identifier = '<SecurityControlId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,13 +239,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.security_controls
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SecurityControlArn": security_control_arn,
     "LastUpdateReason": last_update_reason,
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SecurityControlId>';
+AND Identifier = '<SecurityControlId>';
 ```
 
 
@@ -254,7 +254,7 @@ AND data__Identifier = '<SecurityControlId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.security_controls
-WHERE data__Identifier = '<SecurityControlId>'
+WHERE Identifier = '<SecurityControlId>'
 AND region = 'us-east-1';
 ```
 

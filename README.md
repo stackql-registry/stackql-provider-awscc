@@ -35,8 +35,6 @@ npm run test-meta-routes -- awscc --ignore-no-methods
 npm run stop-server
 ```
 
-npm run test-meta-routes -- awscc --ignore-no-methods
-
 ### 6. Testing locally with `stackql`
 1. ensure the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables are set
 2. download the latest `stackql` binary, for example `curl -L https://bit.ly/stackql-zip -O && unzip stackql-zip` for Linux systems
@@ -52,7 +50,35 @@ REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}/openapi'", "localDocRoot
 
 ```sql
 select * from awscc.s3.buckets_list_only WHERE region = 'us-east-1';
-select bucket_name, region, bucket_encryption from awscc.s3.buckets WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
+
+select bucket_name, region, bucket_encryption from awscc.s3.buckets WHERE region = 'us-east-1' and Identifier = 'stackql-trial-bucket-01';
+
+select 
+ResourceARN as resource_arn,
+json_extract(json_each.value, '$.Key') as key,
+json_extract(json_each.value, '$.Value') as value
+from  awscc.tagging.tagged_resources, json_each(tags) 
+where region = 'us-east-1'
+and ResourceTypeFilters = '["s3:bucket"]';
+
+select resource_arn, key, value from 
+(  
+select 
+ResourceARN as resource_arn,
+json_extract(json_each.value, '$.Key') as key,
+json_extract(json_each.value, '$.Value') as value
+from  awscc.tagging.tagged_resources, json_each(tags) 
+where region = 'us-east-1'
+and ResourceTypeFilters = '["s3:bucket"]'
+and TagFilters = '[{"Key": "StackName", "Values": ["stackql-serverless"]}]'
+) t
+where key = 'StackName' and value = 'stackql-serverless';
+
+select 
+*
+from  awscc.tagging.tagged_resources
+where region = 'us-east-1';
+
 ```
 
 ### 6. Generate web docs:

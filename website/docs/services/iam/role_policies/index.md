@@ -75,17 +75,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -100,7 +100,7 @@ policy_document,
 policy_name,
 role_name
 FROM awscc.iam.role_policies
-WHERE data__Identifier = '<PolicyName>|<RoleName>';
+WHERE Identifier = '<PolicyName>|<RoleName>';
 ```
 
 ## `INSERT` example
@@ -177,11 +177,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.role_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PolicyName>|<RoleName>';
+AND Identifier = '<PolicyName>|<RoleName>';
 ```
 
 
@@ -190,7 +190,7 @@ AND data__Identifier = '<PolicyName>|<RoleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.role_policies
-WHERE data__Identifier = '<PolicyName|RoleName>'
+WHERE Identifier = '<PolicyName|RoleName>'
 AND region = 'us-east-1';
 ```
 

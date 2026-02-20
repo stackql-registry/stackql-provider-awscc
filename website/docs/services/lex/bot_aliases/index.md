@@ -263,13 +263,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>bot_aliases</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>bot_aliases</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -281,7 +281,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>bot_aliases</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -313,7 +313,7 @@ description,
 sentiment_analysis_settings,
 bot_alias_tags
 FROM awscc.lex.bot_aliases
-WHERE region = 'us-east-1' AND data__Identifier = '<BotAliasId>|<BotId>';
+WHERE region = 'us-east-1' AND Identifier = '<BotAliasId>|<BotId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -453,7 +453,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lex.bot_aliases
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BotAliasLocaleSettings": bot_alias_locale_settings,
     "BotAliasName": bot_alias_name,
     "BotVersion": bot_version,
@@ -463,7 +463,7 @@ SET data__PatchDocument = string('{{ {
     "BotAliasTags": bot_alias_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BotAliasId>|<BotId>';
+AND Identifier = '<BotAliasId>|<BotId>';
 ```
 
 
@@ -472,7 +472,7 @@ AND data__Identifier = '<BotAliasId>|<BotId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_aliases
-WHERE data__Identifier = '<BotAliasId|BotId>'
+WHERE Identifier = '<BotAliasId|BotId>'
 AND region = 'us-east-1';
 ```
 

@@ -215,13 +215,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>associations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -233,7 +233,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -272,7 +272,7 @@ document_version,
 association_id,
 automation_target_parameter_name
 FROM awscc.ssm.associations
-WHERE region = 'us-east-1' AND data__Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -424,7 +424,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ssm.associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AssociationName": association_name,
     "CalendarNames": calendar_names,
     "ScheduleExpression": schedule_expression,
@@ -444,7 +444,7 @@ SET data__PatchDocument = string('{{ {
     "AutomationTargetParameterName": automation_target_parameter_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AssociationId>';
+AND Identifier = '<AssociationId>';
 ```
 
 
@@ -453,7 +453,7 @@ AND data__Identifier = '<AssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.associations
-WHERE data__Identifier = '<AssociationId>'
+WHERE Identifier = '<AssociationId>'
 AND region = 'us-east-1';
 ```
 

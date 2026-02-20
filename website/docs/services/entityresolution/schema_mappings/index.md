@@ -163,13 +163,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>schema_mappings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>schema_mappings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -181,7 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>schema_mappings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -210,7 +210,7 @@ created_at,
 updated_at,
 has_workflows
 FROM awscc.entityresolution.schema_mappings
-WHERE region = 'us-east-1' AND data__Identifier = '<SchemaName>';
+WHERE region = 'us-east-1' AND Identifier = '<SchemaName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -312,13 +312,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.entityresolution.schema_mappings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "MappedInputFields": mapped_input_fields,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SchemaName>';
+AND Identifier = '<SchemaName>';
 ```
 
 
@@ -327,7 +327,7 @@ AND data__Identifier = '<SchemaName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.schema_mappings
-WHERE data__Identifier = '<SchemaName>'
+WHERE Identifier = '<SchemaName>'
 AND region = 'us-east-1';
 ```
 

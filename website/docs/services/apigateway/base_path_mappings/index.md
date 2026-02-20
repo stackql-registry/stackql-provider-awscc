@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>base_path_mappings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>base_path_mappings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>base_path_mappings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ domain_name,
 rest_api_id,
 stage
 FROM awscc.apigateway.base_path_mappings
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<BasePath>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<BasePath>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,12 +250,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.base_path_mappings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RestApiId": rest_api_id,
     "Stage": stage
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>|<BasePath>';
+AND Identifier = '<DomainName>|<BasePath>';
 ```
 
 
@@ -264,7 +264,7 @@ AND data__Identifier = '<DomainName>|<BasePath>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.base_path_mappings
-WHERE data__Identifier = '<DomainName|BasePath>'
+WHERE Identifier = '<DomainName|BasePath>'
 AND region = 'us-east-1';
 ```
 

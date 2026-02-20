@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>connections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>connections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>connections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ provider_type,
 host_arn,
 tags
 FROM awscc.codestarconnections.connections
-WHERE region = 'us-east-1' AND data__Identifier = '<ConnectionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ConnectionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,11 +276,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.codestarconnections.connections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConnectionArn>';
+AND Identifier = '<ConnectionArn>';
 ```
 
 
@@ -289,7 +289,7 @@ AND data__Identifier = '<ConnectionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.connections
-WHERE data__Identifier = '<ConnectionArn>'
+WHERE Identifier = '<ConnectionArn>'
 AND region = 'us-east-1';
 ```
 

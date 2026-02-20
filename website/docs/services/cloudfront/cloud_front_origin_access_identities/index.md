@@ -111,13 +111,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -129,7 +129,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -153,7 +153,7 @@ cloud_front_origin_access_identity_config,
 id,
 s3_canonical_user_id
 FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE data__Identifier = '<Id>';
+WHERE Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,11 +234,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.cloud_front_origin_access_identities
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CloudFrontOriginAccessIdentityConfig": cloud_front_origin_access_identity_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -247,7 +247,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

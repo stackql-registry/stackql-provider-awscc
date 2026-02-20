@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>hosts</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>hosts</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>hosts</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ host_maintenance,
 asset_id,
 tags
 FROM awscc.ec2.hosts
-WHERE region = 'us-east-1' AND data__Identifier = '<HostId>';
+WHERE region = 'us-east-1' AND Identifier = '<HostId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -314,14 +314,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.hosts
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AutoPlacement": auto_placement,
     "HostRecovery": host_recovery,
     "HostMaintenance": host_maintenance,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HostId>';
+AND Identifier = '<HostId>';
 ```
 
 
@@ -330,7 +330,7 @@ AND data__Identifier = '<HostId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.hosts
-WHERE data__Identifier = '<HostId>'
+WHERE Identifier = '<HostId>'
 AND region = 'us-east-1';
 ```
 

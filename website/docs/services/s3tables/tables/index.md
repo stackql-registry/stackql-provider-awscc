@@ -204,13 +204,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -222,7 +222,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -254,7 +254,7 @@ iceberg_metadata,
 warehouse_location,
 snapshot_management
 FROM awscc.s3tables.tables
-WHERE region = 'us-east-1' AND data__Identifier = '<TableARN>';
+WHERE region = 'us-east-1' AND Identifier = '<TableARN>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -378,14 +378,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.s3tables.tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Compaction": compaction,
     "Namespace": namespace,
     "TableName": table_name,
     "SnapshotManagement": snapshot_management
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TableARN>';
+AND Identifier = '<TableARN>';
 ```
 
 
@@ -394,7 +394,7 @@ AND data__Identifier = '<TableARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.tables
-WHERE data__Identifier = '<TableARN>'
+WHERE Identifier = '<TableARN>'
 AND region = 'us-east-1';
 ```
 

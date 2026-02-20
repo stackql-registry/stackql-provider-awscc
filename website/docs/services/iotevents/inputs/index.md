@@ -135,13 +135,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>inputs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>inputs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -153,7 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>inputs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -178,7 +178,7 @@ input_description,
 input_name,
 tags
 FROM awscc.iotevents.inputs
-WHERE region = 'us-east-1' AND data__Identifier = '<InputName>';
+WHERE region = 'us-east-1' AND Identifier = '<InputName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,13 +274,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotevents.inputs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InputDefinition": input_definition,
     "InputDescription": input_description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InputName>';
+AND Identifier = '<InputName>';
 ```
 
 
@@ -289,7 +289,7 @@ AND data__Identifier = '<InputName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.inputs
-WHERE data__Identifier = '<InputName>'
+WHERE Identifier = '<InputName>'
 AND region = 'us-east-1';
 ```
 

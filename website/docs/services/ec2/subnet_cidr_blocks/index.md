@@ -124,7 +124,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>subnet_cidr_blocks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -136,7 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>subnet_cidr_blocks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ subnet_id,
 ipv6_address_attribute,
 ip_source
 FROM awscc.ec2.subnet_cidr_blocks
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,7 +257,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_cidr_blocks
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

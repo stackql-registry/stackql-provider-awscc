@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>target_account_configurations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>target_account_configurations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>target_account_configurations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ account_id,
 role_arn,
 description
 FROM awscc.fis.target_account_configurations
-WHERE region = 'us-east-1' AND data__Identifier = '<ExperimentTemplateId>|<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '<ExperimentTemplateId>|<AccountId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,12 +254,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.fis.target_account_configurations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ExperimentTemplateId>|<AccountId>';
+AND Identifier = '<ExperimentTemplateId>|<AccountId>';
 ```
 
 
@@ -268,7 +268,7 @@ AND data__Identifier = '<ExperimentTemplateId>|<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fis.target_account_configurations
-WHERE data__Identifier = '<ExperimentTemplateId|AccountId>'
+WHERE Identifier = '<ExperimentTemplateId|AccountId>'
 AND region = 'us-east-1';
 ```
 

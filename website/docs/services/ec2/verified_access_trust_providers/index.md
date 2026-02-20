@@ -269,13 +269,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>verified_access_trust_providers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>verified_access_trust_providers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -287,7 +287,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>verified_access_trust_providers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -321,7 +321,7 @@ tags,
 sse_specification,
 native_application_oidc_options
 FROM awscc.ec2.verified_access_trust_providers
-WHERE region = 'us-east-1' AND data__Identifier = '<VerifiedAccessTrustProviderId>';
+WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessTrustProviderId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -460,7 +460,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.verified_access_trust_providers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "OidcOptions": oidc_options,
     "Description": description,
     "Tags": tags,
@@ -468,7 +468,7 @@ SET data__PatchDocument = string('{{ {
     "NativeApplicationOidcOptions": native_application_oidc_options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VerifiedAccessTrustProviderId>';
+AND Identifier = '<VerifiedAccessTrustProviderId>';
 ```
 
 
@@ -477,7 +477,7 @@ AND data__Identifier = '<VerifiedAccessTrustProviderId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_trust_providers
-WHERE data__Identifier = '<VerifiedAccessTrustProviderId>'
+WHERE Identifier = '<VerifiedAccessTrustProviderId>'
 AND region = 'us-east-1';
 ```
 

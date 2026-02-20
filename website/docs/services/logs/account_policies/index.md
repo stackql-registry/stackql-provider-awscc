@@ -129,13 +129,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>account_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>account_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -147,7 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>account_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -174,7 +174,7 @@ policy_type,
 scope,
 selection_criteria
 FROM awscc.logs.account_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
+WHERE region = 'us-east-1' AND Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,13 +276,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.account_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document,
     "Scope": scope,
     "SelectionCriteria": selection_criteria
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
+AND Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
 ```
 
 
@@ -291,7 +291,7 @@ AND data__Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.account_policies
-WHERE data__Identifier = '<AccountId|PolicyType|PolicyName>'
+WHERE Identifier = '<AccountId|PolicyType|PolicyName>'
 AND region = 'us-east-1';
 ```
 

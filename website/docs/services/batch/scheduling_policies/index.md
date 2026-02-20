@@ -138,13 +138,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>scheduling_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>scheduling_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -156,7 +156,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>scheduling_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ arn,
 fairshare_policy,
 tags
 FROM awscc.batch.scheduling_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,11 +278,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.batch.scheduling_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FairsharePolicy": fairshare_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -291,7 +291,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.scheduling_policies
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

@@ -488,13 +488,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>data_providers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>data_providers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -506,7 +506,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>data_providers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -536,7 +536,7 @@ exact_settings,
 settings,
 tags
 FROM awscc.dms.data_providers
-WHERE region = 'us-east-1' AND data__Identifier = '<DataProviderArn>';
+WHERE region = 'us-east-1' AND Identifier = '<DataProviderArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -706,7 +706,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.dms.data_providers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DataProviderName": data_provider_name,
     "DataProviderIdentifier": data_provider_identifier,
     "Description": description,
@@ -716,7 +716,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DataProviderArn>';
+AND Identifier = '<DataProviderArn>';
 ```
 
 
@@ -725,7 +725,7 @@ AND data__Identifier = '<DataProviderArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.data_providers
-WHERE data__Identifier = '<DataProviderArn>'
+WHERE Identifier = '<DataProviderArn>'
 AND region = 'us-east-1';
 ```
 

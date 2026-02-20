@@ -398,13 +398,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>themes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>themes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -416,7 +416,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>themes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -450,7 +450,7 @@ type,
 version,
 version_description
 FROM awscc.quicksight.themes
-WHERE region = 'us-east-1' AND data__Identifier = '<ThemeId>|<AwsAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '<ThemeId>|<AwsAccountId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -607,7 +607,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.themes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BaseThemeId": base_theme_id,
     "Configuration": configuration,
     "Name": name,
@@ -616,7 +616,7 @@ SET data__PatchDocument = string('{{ {
     "VersionDescription": version_description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ThemeId>|<AwsAccountId>';
+AND Identifier = '<ThemeId>|<AwsAccountId>';
 ```
 
 
@@ -625,7 +625,7 @@ AND data__Identifier = '<ThemeId>|<AwsAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.themes
-WHERE data__Identifier = '<ThemeId|AwsAccountId>'
+WHERE Identifier = '<ThemeId|AwsAccountId>'
 AND region = 'us-east-1';
 ```
 

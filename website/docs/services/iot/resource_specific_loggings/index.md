@@ -109,13 +109,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>resource_specific_loggings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>resource_specific_loggings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -127,7 +127,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>resource_specific_loggings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -152,7 +152,7 @@ target_name,
 log_level,
 target_id
 FROM awscc.iot.resource_specific_loggings
-WHERE region = 'us-east-1' AND data__Identifier = '<TargetId>';
+WHERE region = 'us-east-1' AND Identifier = '<TargetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,11 +244,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.resource_specific_loggings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "LogLevel": log_level
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TargetId>';
+AND Identifier = '<TargetId>';
 ```
 
 
@@ -257,7 +257,7 @@ AND data__Identifier = '<TargetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.resource_specific_loggings
-WHERE data__Identifier = '<TargetId>'
+WHERE Identifier = '<TargetId>'
 AND region = 'us-east-1';
 ```
 

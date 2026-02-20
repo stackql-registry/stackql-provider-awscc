@@ -231,13 +231,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>config_rules</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>config_rules</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -249,7 +249,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>config_rules</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -280,7 +280,7 @@ source,
 input_parameters,
 evaluation_modes
 FROM awscc.config.config_rules
-WHERE region = 'us-east-1' AND data__Identifier = '<ConfigRuleName>';
+WHERE region = 'us-east-1' AND Identifier = '<ConfigRuleName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -405,7 +405,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.config.config_rules
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Scope": scope,
     "MaximumExecutionFrequency": maximum_execution_frequency,
@@ -414,7 +414,7 @@ SET data__PatchDocument = string('{{ {
     "EvaluationModes": evaluation_modes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConfigRuleName>';
+AND Identifier = '<ConfigRuleName>';
 ```
 
 
@@ -423,7 +423,7 @@ AND data__Identifier = '<ConfigRuleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.config_rules
-WHERE data__Identifier = '<ConfigRuleName>'
+WHERE Identifier = '<ConfigRuleName>'
 AND region = 'us-east-1';
 ```
 

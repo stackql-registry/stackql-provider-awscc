@@ -196,13 +196,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>integrations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>integrations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -214,7 +214,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>integrations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -254,7 +254,7 @@ template_selection_expression,
 timeout_in_millis,
 tls_config
 FROM awscc.apigatewayv2.integrations
-WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>|<IntegrationId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<IntegrationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -406,7 +406,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigatewayv2.integrations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ConnectionId": connection_id,
     "ConnectionType": connection_type,
     "ContentHandlingStrategy": content_handling_strategy,
@@ -426,7 +426,7 @@ SET data__PatchDocument = string('{{ {
     "TlsConfig": tls_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApiId>|<IntegrationId>';
+AND Identifier = '<ApiId>|<IntegrationId>';
 ```
 
 
@@ -435,7 +435,7 @@ AND data__Identifier = '<ApiId>|<IntegrationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.integrations
-WHERE data__Identifier = '<ApiId|IntegrationId>'
+WHERE Identifier = '<ApiId|IntegrationId>'
 AND region = 'us-east-1';
 ```
 

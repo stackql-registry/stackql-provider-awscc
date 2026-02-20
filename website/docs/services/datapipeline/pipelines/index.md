@@ -211,13 +211,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -229,7 +229,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -258,7 +258,7 @@ pipeline_objects,
 pipeline_tags,
 pipeline_id
 FROM awscc.datapipeline.pipelines
-WHERE region = 'us-east-1' AND data__Identifier = '<PipelineId>';
+WHERE region = 'us-east-1' AND Identifier = '<PipelineId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -376,7 +376,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.datapipeline.pipelines
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Activate": activate,
     "ParameterObjects": parameter_objects,
     "ParameterValues": parameter_values,
@@ -384,7 +384,7 @@ SET data__PatchDocument = string('{{ {
     "PipelineTags": pipeline_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PipelineId>';
+AND Identifier = '<PipelineId>';
 ```
 
 
@@ -393,7 +393,7 @@ AND data__Identifier = '<PipelineId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datapipeline.pipelines
-WHERE data__Identifier = '<PipelineId>'
+WHERE Identifier = '<PipelineId>'
 AND region = 'us-east-1';
 ```
 

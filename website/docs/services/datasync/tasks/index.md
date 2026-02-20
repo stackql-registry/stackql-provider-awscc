@@ -429,13 +429,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tasks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tasks</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -447,7 +447,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tasks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -484,7 +484,7 @@ status,
 source_network_interface_arns,
 destination_network_interface_arns
 FROM awscc.datasync.tasks
-WHERE region = 'us-east-1' AND data__Identifier = '<TaskArn>';
+WHERE region = 'us-east-1' AND Identifier = '<TaskArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -657,7 +657,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.datasync.tasks
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Excludes": excludes,
     "Includes": includes,
     "Tags": tags,
@@ -669,7 +669,7 @@ SET data__PatchDocument = string('{{ {
     "Schedule": schedule
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TaskArn>';
+AND Identifier = '<TaskArn>';
 ```
 
 
@@ -678,7 +678,7 @@ AND data__Identifier = '<TaskArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.tasks
-WHERE data__Identifier = '<TaskArn>'
+WHERE Identifier = '<TaskArn>'
 AND region = 'us-east-1';
 ```
 

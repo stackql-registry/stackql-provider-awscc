@@ -316,13 +316,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>workspaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>workspaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -334,7 +334,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>workspaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -379,7 +379,7 @@ organizational_units,
 role_arn,
 plugin_admin_enabled
 FROM awscc.grafana.workspaces
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -557,7 +557,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.grafana.workspaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AuthenticationProviders": authentication_providers,
     "SamlConfiguration": saml_configuration,
     "NetworkAccessControl": network_access_control,
@@ -576,7 +576,7 @@ SET data__PatchDocument = string('{{ {
     "PluginAdminEnabled": plugin_admin_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -585,7 +585,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.grafana.workspaces
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

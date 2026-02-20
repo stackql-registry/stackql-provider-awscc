@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_gateway_attachments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_gateway_attachments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_gateway_attachments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ internet_gateway_id,
 vpc_id,
 vpn_gateway_id
 FROM awscc.ec2.vpc_gateway_attachments
-WHERE region = 'us-east-1' AND data__Identifier = '<AttachmentType>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '<AttachmentType>|<VpcId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,12 +246,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpc_gateway_attachments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InternetGatewayId": internet_gateway_id,
     "VpnGatewayId": vpn_gateway_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AttachmentType>|<VpcId>';
+AND Identifier = '<AttachmentType>|<VpcId>';
 ```
 
 
@@ -260,7 +260,7 @@ AND data__Identifier = '<AttachmentType>|<VpcId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_gateway_attachments
-WHERE data__Identifier = '<AttachmentType|VpcId>'
+WHERE Identifier = '<AttachmentType|VpcId>'
 AND region = 'us-east-1';
 ```
 

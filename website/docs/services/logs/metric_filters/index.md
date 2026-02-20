@@ -163,13 +163,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>metric_filters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>metric_filters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -181,7 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>metric_filters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -207,7 +207,7 @@ log_group_name,
 apply_on_transformed_logs,
 filter_name
 FROM awscc.logs.metric_filters
-WHERE region = 'us-east-1' AND data__Identifier = '<LogGroupName>|<FilterName>';
+WHERE region = 'us-east-1' AND Identifier = '<LogGroupName>|<FilterName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -316,13 +316,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.metric_filters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MetricTransformations": metric_transformations,
     "FilterPattern": filter_pattern,
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<LogGroupName>|<FilterName>';
+AND Identifier = '<LogGroupName>|<FilterName>';
 ```
 
 
@@ -331,7 +331,7 @@ AND data__Identifier = '<LogGroupName>|<FilterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.metric_filters
-WHERE data__Identifier = '<LogGroupName|FilterName>'
+WHERE Identifier = '<LogGroupName|FilterName>'
 AND region = 'us-east-1';
 ```
 

@@ -153,13 +153,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>place_indices</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>place_indices</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -171,7 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>place_indices</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -202,7 +202,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.place_indices
-WHERE region = 'us-east-1' AND data__Identifier = '<IndexName>';
+WHERE region = 'us-east-1' AND Identifier = '<IndexName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,14 +307,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.location.place_indices
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DataSourceConfiguration": data_source_configuration,
     "Description": description,
     "PricingPlan": pricing_plan,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IndexName>';
+AND Identifier = '<IndexName>';
 ```
 
 
@@ -323,7 +323,7 @@ AND data__Identifier = '<IndexName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.place_indices
-WHERE data__Identifier = '<IndexName>'
+WHERE Identifier = '<IndexName>'
 AND region = 'us-east-1';
 ```
 

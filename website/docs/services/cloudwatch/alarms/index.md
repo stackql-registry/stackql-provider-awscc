@@ -304,13 +304,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -322,7 +322,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -366,7 +366,7 @@ datapoints_to_alarm,
 threshold,
 tags
 FROM awscc.cloudwatch.alarms
-WHERE region = 'us-east-1' AND data__Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -554,7 +554,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudwatch.alarms
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ThresholdMetricId": threshold_metric_id,
     "EvaluateLowSampleCountPercentile": evaluate_low_sample_count_percentile,
     "ExtendedStatistic": extended_statistic,
@@ -578,7 +578,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AlarmName>';
+AND Identifier = '<AlarmName>';
 ```
 
 
@@ -587,7 +587,7 @@ AND data__Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.alarms
-WHERE data__Identifier = '<AlarmName>'
+WHERE Identifier = '<AlarmName>'
 AND region = 'us-east-1';
 ```
 

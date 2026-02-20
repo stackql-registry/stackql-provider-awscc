@@ -134,13 +134,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>load_balancer_tls_certificates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>load_balancer_tls_certificates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -152,7 +152,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>load_balancer_tls_certificates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ is_attached,
 https_redirection_enabled,
 status
 FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE region = 'us-east-1' AND data__Identifier = '<CertificateName>|<LoadBalancerName>';
+WHERE region = 'us-east-1' AND Identifier = '<CertificateName>|<LoadBalancerName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,12 +287,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.load_balancer_tls_certificates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IsAttached": is_attached,
     "HttpsRedirectionEnabled": https_redirection_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CertificateName>|<LoadBalancerName>';
+AND Identifier = '<CertificateName>|<LoadBalancerName>';
 ```
 
 
@@ -301,7 +301,7 @@ AND data__Identifier = '<CertificateName>|<LoadBalancerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.load_balancer_tls_certificates
-WHERE data__Identifier = '<CertificateName|LoadBalancerName>'
+WHERE Identifier = '<CertificateName|LoadBalancerName>'
 AND region = 'us-east-1';
 ```
 

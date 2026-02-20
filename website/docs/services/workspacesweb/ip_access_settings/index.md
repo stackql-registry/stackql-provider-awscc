@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ip_access_settings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ip_access_settings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ip_access_settings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ ip_access_settings_arn,
 ip_rules,
 tags
 FROM awscc.workspacesweb.ip_access_settings
-WHERE region = 'us-east-1' AND data__Identifier = '<IpAccessSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '<IpAccessSettingsArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,14 +310,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.ip_access_settings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "DisplayName": display_name,
     "IpRules": ip_rules,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IpAccessSettingsArn>';
+AND Identifier = '<IpAccessSettingsArn>';
 ```
 
 
@@ -326,7 +326,7 @@ AND data__Identifier = '<IpAccessSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.ip_access_settings
-WHERE data__Identifier = '<IpAccessSettingsArn>'
+WHERE Identifier = '<IpAccessSettingsArn>'
 AND region = 'us-east-1';
 ```
 

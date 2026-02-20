@@ -158,7 +158,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>trust_store_revocations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -170,7 +170,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>trust_store_revocations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ trust_store_arn,
 revocation_id,
 trust_store_revocations
 FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE region = 'us-east-1' AND data__Identifier = '<RevocationId>|<TrustStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '<RevocationId>|<TrustStoreArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,7 +287,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE data__Identifier = '<RevocationId|TrustStoreArn>'
+WHERE Identifier = '<RevocationId|TrustStoreArn>'
 AND region = 'us-east-1';
 ```
 

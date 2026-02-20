@@ -138,13 +138,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>realtime_log_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>realtime_log_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -156,7 +156,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>realtime_log_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ fields,
 name,
 sampling_rate
 FROM awscc.cloudfront.realtime_log_configs
-WHERE data__Identifier = '<Arn>';
+WHERE Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,13 +285,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.realtime_log_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EndPoints": end_points,
     "Fields": fields,
     "SamplingRate": sampling_rate
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -300,7 +300,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.realtime_log_configs
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

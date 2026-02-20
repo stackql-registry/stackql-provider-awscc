@@ -148,13 +148,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>predefined_attributes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>predefined_attributes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -166,7 +166,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>predefined_attributes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ attribute_configuration,
 last_modified_region,
 last_modified_time
 FROM awscc.connect.predefined_attributes
-WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -298,13 +298,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.predefined_attributes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Values": values,
     "Purposes": purposes,
     "AttributeConfiguration": attribute_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InstanceArn>|<Name>';
+AND Identifier = '<InstanceArn>|<Name>';
 ```
 
 
@@ -313,7 +313,7 @@ AND data__Identifier = '<InstanceArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.predefined_attributes
-WHERE data__Identifier = '<InstanceArn|Name>'
+WHERE Identifier = '<InstanceArn|Name>'
 AND region = 'us-east-1';
 ```
 

@@ -189,13 +189,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -207,7 +207,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -247,7 +247,7 @@ target_resource_type,
 threshold,
 treat_missing_data
 FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,7 +391,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.medialive.cloud_watch_alarm_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ComparisonOperator": comparison_operator,
     "DatapointsToAlarm": datapoints_to_alarm,
     "Description": description,
@@ -406,7 +406,7 @@ SET data__PatchDocument = string('{{ {
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Identifier>';
+AND Identifier = '<Identifier>';
 ```
 
 
@@ -415,7 +415,7 @@ AND data__Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE data__Identifier = '<Identifier>'
+WHERE Identifier = '<Identifier>'
 AND region = 'us-east-1';
 ```
 

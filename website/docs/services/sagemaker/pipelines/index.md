@@ -143,13 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -161,7 +161,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>pipelines</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -189,7 +189,7 @@ role_arn,
 tags,
 parallelism_configuration
 FROM awscc.sagemaker.pipelines
-WHERE region = 'us-east-1' AND data__Identifier = '<PipelineName>';
+WHERE region = 'us-east-1' AND Identifier = '<PipelineName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -300,7 +300,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.pipelines
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PipelineDisplayName": pipeline_display_name,
     "PipelineDescription": pipeline_description,
     "PipelineDefinition": pipeline_definition,
@@ -309,7 +309,7 @@ SET data__PatchDocument = string('{{ {
     "ParallelismConfiguration": parallelism_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PipelineName>';
+AND Identifier = '<PipelineName>';
 ```
 
 
@@ -318,7 +318,7 @@ AND data__Identifier = '<PipelineName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.pipelines
-WHERE data__Identifier = '<PipelineName>'
+WHERE Identifier = '<PipelineName>'
 AND region = 'us-east-1';
 ```
 

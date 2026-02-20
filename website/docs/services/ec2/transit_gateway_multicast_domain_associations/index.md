@@ -129,7 +129,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>transit_gateway_multicast_domain_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -141,7 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>transit_gateway_multicast_domain_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -168,7 +168,7 @@ resource_type,
 state,
 subnet_id
 FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayMulticastDomainId>|<TransitGatewayAttachmentId>|<SubnetId>';
+WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayMulticastDomainId>|<TransitGatewayAttachmentId>|<SubnetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_domain_associations
-WHERE data__Identifier = '<TransitGatewayMulticastDomainId|TransitGatewayAttachmentId|SubnetId>'
+WHERE Identifier = '<TransitGatewayMulticastDomainId|TransitGatewayAttachmentId|SubnetId>'
 AND region = 'us-east-1';
 ```
 

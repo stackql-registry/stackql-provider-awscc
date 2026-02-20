@@ -221,13 +221,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>hours_of_operations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>hours_of_operations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -239,7 +239,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>hours_of_operations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -268,7 +268,7 @@ hours_of_operation_arn,
 tags,
 hours_of_operation_overrides
 FROM awscc.connect.hours_of_operations
-WHERE region = 'us-east-1' AND data__Identifier = '<HoursOfOperationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<HoursOfOperationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -396,7 +396,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.hours_of_operations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InstanceArn": instance_arn,
     "Name": name,
     "Description": description,
@@ -406,7 +406,7 @@ SET data__PatchDocument = string('{{ {
     "HoursOfOperationOverrides": hours_of_operation_overrides
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HoursOfOperationArn>';
+AND Identifier = '<HoursOfOperationArn>';
 ```
 
 
@@ -415,7 +415,7 @@ AND data__Identifier = '<HoursOfOperationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.hours_of_operations
-WHERE data__Identifier = '<HoursOfOperationArn>'
+WHERE Identifier = '<HoursOfOperationArn>'
 AND region = 'us-east-1';
 ```
 

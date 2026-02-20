@@ -276,13 +276,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_attachments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_attachments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -294,7 +294,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_attachments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -334,7 +334,7 @@ updated_at,
 subnet_arns,
 options
 FROM awscc.networkmanager.vpc_attachments
-WHERE region = 'us-east-1' AND data__Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -457,7 +457,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.vpc_attachments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ProposedSegmentChange": proposed_segment_change,
     "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
     "Tags": tags,
@@ -465,7 +465,7 @@ SET data__PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AttachmentId>';
+AND Identifier = '<AttachmentId>';
 ```
 
 
@@ -474,7 +474,7 @@ AND data__Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.vpc_attachments
-WHERE data__Identifier = '<AttachmentId>'
+WHERE Identifier = '<AttachmentId>'
 AND region = 'us-east-1';
 ```
 

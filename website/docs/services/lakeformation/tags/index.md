@@ -104,13 +104,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tags</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tags</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -122,7 +122,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tags</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -146,7 +146,7 @@ catalog_id,
 tag_key,
 tag_values
 FROM awscc.lakeformation.tags
-WHERE region = 'us-east-1' AND data__Identifier = '<TagKey>';
+WHERE region = 'us-east-1' AND Identifier = '<TagKey>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,11 +237,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lakeformation.tags
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TagValues": tag_values
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TagKey>';
+AND Identifier = '<TagKey>';
 ```
 
 
@@ -250,7 +250,7 @@ AND data__Identifier = '<TagKey>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tags
-WHERE data__Identifier = '<TagKey>'
+WHERE Identifier = '<TagKey>'
 AND region = 'us-east-1';
 ```
 

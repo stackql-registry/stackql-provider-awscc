@@ -184,13 +184,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>channel_namespaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>channel_namespaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -202,7 +202,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>channel_namespaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -232,7 +232,7 @@ channel_namespace_arn,
 tags,
 handler_configs
 FROM awscc.appsync.channel_namespaces
-WHERE region = 'us-east-1' AND data__Identifier = '<ChannelNamespaceArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ChannelNamespaceArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,7 +352,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appsync.channel_namespaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SubscribeAuthModes": subscribe_auth_modes,
     "PublishAuthModes": publish_auth_modes,
     "CodeHandlers": code_handlers,
@@ -361,7 +361,7 @@ SET data__PatchDocument = string('{{ {
     "HandlerConfigs": handler_configs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ChannelNamespaceArn>';
+AND Identifier = '<ChannelNamespaceArn>';
 ```
 
 
@@ -370,7 +370,7 @@ AND data__Identifier = '<ChannelNamespaceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.channel_namespaces
-WHERE data__Identifier = '<ChannelNamespaceArn>'
+WHERE Identifier = '<ChannelNamespaceArn>'
 AND region = 'us-east-1';
 ```
 

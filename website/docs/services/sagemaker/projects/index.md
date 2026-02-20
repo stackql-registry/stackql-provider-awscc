@@ -238,13 +238,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>projects</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>projects</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -256,7 +256,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>projects</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -287,7 +287,7 @@ service_catalog_provisioned_product_details,
 template_provider_details,
 project_status
 FROM awscc.sagemaker.projects
-WHERE region = 'us-east-1' AND data__Identifier = '<ProjectArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ProjectArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -404,11 +404,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.projects
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ServiceCatalogProvisionedProductDetails": service_catalog_provisioned_product_details
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ProjectArn>';
+AND Identifier = '<ProjectArn>';
 ```
 
 
@@ -417,7 +417,7 @@ AND data__Identifier = '<ProjectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.projects
-WHERE data__Identifier = '<ProjectArn>'
+WHERE Identifier = '<ProjectArn>'
 AND region = 'us-east-1';
 ```
 

@@ -195,13 +195,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>firewalls</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>firewalls</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -213,7 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>firewalls</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -250,7 +250,7 @@ endpoint_ids,
 enabled_analysis_types,
 tags
 FROM awscc.networkfirewall.firewalls
-WHERE region = 'us-east-1' AND data__Identifier = '<FirewallArn>';
+WHERE region = 'us-east-1' AND Identifier = '<FirewallArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -386,7 +386,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.networkfirewall.firewalls
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FirewallPolicyArn": firewall_policy_arn,
     "SubnetMappings": subnet_mappings,
     "AvailabilityZoneMappings": availability_zone_mappings,
@@ -400,7 +400,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FirewallArn>';
+AND Identifier = '<FirewallArn>';
 ```
 
 
@@ -409,7 +409,7 @@ AND data__Identifier = '<FirewallArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.firewalls
-WHERE data__Identifier = '<FirewallArn>'
+WHERE Identifier = '<FirewallArn>'
 AND region = 'us-east-1';
 ```
 

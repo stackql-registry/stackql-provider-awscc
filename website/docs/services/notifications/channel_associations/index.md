@@ -104,7 +104,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>channel_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -116,7 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>channel_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -139,7 +139,7 @@ region,
 arn,
 notification_configuration_arn
 FROM awscc.notifications.channel_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>|<NotificationConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>|<NotificationConfigurationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,7 +227,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.channel_associations
-WHERE data__Identifier = '<Arn|NotificationConfigurationArn>'
+WHERE Identifier = '<Arn|NotificationConfigurationArn>'
 AND region = 'us-east-1';
 ```
 

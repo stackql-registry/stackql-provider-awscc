@@ -104,7 +104,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>subnet_network_acl_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -116,7 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>subnet_network_acl_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -140,7 +140,7 @@ subnet_id,
 network_acl_id,
 association_id
 FROM awscc.ec2.subnet_network_acl_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,7 +227,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_network_acl_associations
-WHERE data__Identifier = '<AssociationId>'
+WHERE Identifier = '<AssociationId>'
 AND region = 'us-east-1';
 ```
 

@@ -262,13 +262,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>stages</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>stages</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -280,7 +280,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>stages</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -315,7 +315,7 @@ tags,
 tracing_enabled,
 variables
 FROM awscc.apigateway.stages
-WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<StageName>';
+WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<StageName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -466,7 +466,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.stages
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccessLogSetting": access_log_setting,
     "CacheClusterEnabled": cache_cluster_enabled,
     "CacheClusterSize": cache_cluster_size,
@@ -481,7 +481,7 @@ SET data__PatchDocument = string('{{ {
     "Variables": variables
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RestApiId>|<StageName>';
+AND Identifier = '<RestApiId>|<StageName>';
 ```
 
 
@@ -490,7 +490,7 @@ AND data__Identifier = '<RestApiId>|<StageName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.stages
-WHERE data__Identifier = '<RestApiId|StageName>'
+WHERE Identifier = '<RestApiId|StageName>'
 AND region = 'us-east-1';
 ```
 

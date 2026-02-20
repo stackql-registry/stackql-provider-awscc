@@ -251,13 +251,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>file_systems</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>file_systems</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -269,7 +269,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>file_systems</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -305,7 +305,7 @@ backup_policy,
 availability_zone_name,
 replication_configuration
 FROM awscc.efs.file_systems
-WHERE region = 'us-east-1' AND data__Identifier = '<FileSystemId>';
+WHERE region = 'us-east-1' AND Identifier = '<FileSystemId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -472,7 +472,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.efs.file_systems
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FileSystemTags": file_system_tags,
     "LifecyclePolicies": lifecycle_policies,
     "FileSystemProtection": file_system_protection,
@@ -483,7 +483,7 @@ SET data__PatchDocument = string('{{ {
     "BackupPolicy": backup_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FileSystemId>';
+AND Identifier = '<FileSystemId>';
 ```
 
 
@@ -492,7 +492,7 @@ AND data__Identifier = '<FileSystemId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.file_systems
-WHERE data__Identifier = '<FileSystemId>'
+WHERE Identifier = '<FileSystemId>'
 AND region = 'us-east-1';
 ```
 

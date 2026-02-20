@@ -211,13 +211,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>instance_storage_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>instance_storage_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -229,7 +229,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>instance_storage_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -258,7 +258,7 @@ kinesis_video_stream_config,
 kinesis_stream_config,
 kinesis_firehose_config
 FROM awscc.connect.instance_storage_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
+WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -378,7 +378,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.instance_storage_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "StorageType": storage_type,
     "S3Config": s3_config,
     "KinesisVideoStreamConfig": kinesis_video_stream_config,
@@ -386,7 +386,7 @@ SET data__PatchDocument = string('{{ {
     "KinesisFirehoseConfig": kinesis_firehose_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
+AND Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
 ```
 
 
@@ -395,7 +395,7 @@ AND data__Identifier = '<InstanceArn>|<AssociationId>|<ResourceType>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.instance_storage_configs
-WHERE data__Identifier = '<InstanceArn|AssociationId|ResourceType>'
+WHERE Identifier = '<InstanceArn|AssociationId|ResourceType>'
 AND region = 'us-east-1';
 ```
 

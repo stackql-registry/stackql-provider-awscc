@@ -220,13 +220,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>web_experiences</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>web_experiences</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -238,7 +238,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>web_experiences</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -276,7 +276,7 @@ origins,
 customization_configuration,
 browser_extension_configuration
 FROM awscc.qbusiness.web_experiences
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationId>|<WebExperienceId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<WebExperienceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -406,7 +406,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.qbusiness.web_experiences
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IdentityProviderConfiguration": identity_provider_configuration,
     "RoleArn": role_arn,
     "SamplePromptsControlMode": sample_prompts_control_mode,
@@ -419,7 +419,7 @@ SET data__PatchDocument = string('{{ {
     "BrowserExtensionConfiguration": browser_extension_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationId>|<WebExperienceId>';
+AND Identifier = '<ApplicationId>|<WebExperienceId>';
 ```
 
 
@@ -428,7 +428,7 @@ AND data__Identifier = '<ApplicationId>|<WebExperienceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.web_experiences
-WHERE data__Identifier = '<ApplicationId|WebExperienceId>'
+WHERE Identifier = '<ApplicationId|WebExperienceId>'
 AND region = 'us-east-1';
 ```
 

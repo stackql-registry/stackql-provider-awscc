@@ -190,13 +190,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>identity_provider_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>identity_provider_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -208,7 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>identity_provider_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -235,7 +235,7 @@ oidc,
 tags,
 identity_provider_config_arn
 FROM awscc.eks.identity_provider_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
+WHERE region = 'us-east-1' AND Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,11 +346,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eks.identity_provider_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
+AND Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
 ```
 
 
@@ -359,7 +359,7 @@ AND data__Identifier = '<IdentityProviderConfigName>|<ClusterName>|<Type>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.identity_provider_configs
-WHERE data__Identifier = '<IdentityProviderConfigName|ClusterName|Type>'
+WHERE Identifier = '<IdentityProviderConfigName|ClusterName|Type>'
 AND region = 'us-east-1';
 ```
 

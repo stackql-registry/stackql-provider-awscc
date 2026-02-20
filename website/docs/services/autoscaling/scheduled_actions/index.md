@@ -139,13 +139,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -157,7 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -187,7 +187,7 @@ start_time,
 desired_capacity,
 max_size
 FROM awscc.autoscaling.scheduled_actions
-WHERE region = 'us-east-1' AND data__Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,7 +296,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.autoscaling.scheduled_actions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MinSize": min_size,
     "Recurrence": recurrence,
     "TimeZone": time_zone,
@@ -306,7 +306,7 @@ SET data__PatchDocument = string('{{ {
     "MaxSize": max_size
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
+AND Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
 ```
 
 
@@ -315,7 +315,7 @@ AND data__Identifier = '<ScheduledActionName>|<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.scheduled_actions
-WHERE data__Identifier = '<ScheduledActionName|AutoScalingGroupName>'
+WHERE Identifier = '<ScheduledActionName|AutoScalingGroupName>'
 AND region = 'us-east-1';
 ```
 

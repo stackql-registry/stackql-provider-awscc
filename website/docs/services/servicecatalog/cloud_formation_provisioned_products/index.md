@@ -201,17 +201,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -239,7 +239,7 @@ record_id,
 cloudformation_stack_arn,
 outputs
 FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE region = 'us-east-1' AND data__Identifier = '<ProvisionedProductId>';
+WHERE region = 'us-east-1' AND Identifier = '<ProvisionedProductId>';
 ```
 
 ## `INSERT` example
@@ -386,7 +386,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.servicecatalog.cloud_formation_provisioned_products
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AcceptLanguage": accept_language,
     "PathId": path_id,
     "PathName": path_name,
@@ -399,7 +399,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ProvisionedProductId>';
+AND Identifier = '<ProvisionedProductId>';
 ```
 
 
@@ -408,7 +408,7 @@ AND data__Identifier = '<ProvisionedProductId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.cloud_formation_provisioned_products
-WHERE data__Identifier = '<ProvisionedProductId>'
+WHERE Identifier = '<ProvisionedProductId>'
 AND region = 'us-east-1';
 ```
 

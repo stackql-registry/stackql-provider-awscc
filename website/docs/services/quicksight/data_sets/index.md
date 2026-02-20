@@ -588,13 +588,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>data_sets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>data_sets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -606,7 +606,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>data_sets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -652,7 +652,7 @@ data_set_usage_configuration,
 output_columns,
 arn
 FROM awscc.quicksight.data_sets
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<DataSetId>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<DataSetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -920,7 +920,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.data_sets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FolderArns": folder_arns,
     "RowLevelPermissionDataSet": row_level_permission_data_set,
     "IngestionWaitPolicy": ingestion_wait_policy,
@@ -941,7 +941,7 @@ SET data__PatchDocument = string('{{ {
     "DataSetUsageConfiguration": data_set_usage_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>|<DataSetId>';
+AND Identifier = '<AwsAccountId>|<DataSetId>';
 ```
 
 
@@ -950,7 +950,7 @@ AND data__Identifier = '<AwsAccountId>|<DataSetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.data_sets
-WHERE data__Identifier = '<AwsAccountId|DataSetId>'
+WHERE Identifier = '<AwsAccountId|DataSetId>'
 AND region = 'us-east-1';
 ```
 

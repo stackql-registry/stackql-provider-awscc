@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>query_definitions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>query_definitions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>query_definitions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ log_group_names,
 query_definition_id,
 query_language
 FROM awscc.logs.query_definitions
-WHERE region = 'us-east-1' AND data__Identifier = '<QueryDefinitionId>';
+WHERE region = 'us-east-1' AND Identifier = '<QueryDefinitionId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -253,14 +253,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.query_definitions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "QueryString": query_string,
     "LogGroupNames": log_group_names,
     "QueryLanguage": query_language
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<QueryDefinitionId>';
+AND Identifier = '<QueryDefinitionId>';
 ```
 
 
@@ -269,7 +269,7 @@ AND data__Identifier = '<QueryDefinitionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.query_definitions
-WHERE data__Identifier = '<QueryDefinitionId>'
+WHERE Identifier = '<QueryDefinitionId>'
 AND region = 'us-east-1';
 ```
 

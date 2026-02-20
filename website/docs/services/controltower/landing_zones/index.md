@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>landing_zones</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>landing_zones</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>landing_zones</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ manifest,
 landing_zone_identifier,
 tags
 FROM awscc.controltower.landing_zones
-WHERE region = 'us-east-1' AND data__Identifier = '<LandingZoneIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<LandingZoneIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,13 +280,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.controltower.landing_zones
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Version": version,
     "Manifest": manifest,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<LandingZoneIdentifier>';
+AND Identifier = '<LandingZoneIdentifier>';
 ```
 
 
@@ -295,7 +295,7 @@ AND data__Identifier = '<LandingZoneIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.landing_zones
-WHERE data__Identifier = '<LandingZoneIdentifier>'
+WHERE Identifier = '<LandingZoneIdentifier>'
 AND region = 'us-east-1';
 ```
 

@@ -232,13 +232,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>apps</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>apps</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -250,7 +250,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>apps</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -282,7 +282,7 @@ permission_model,
 event_subscriptions,
 drift_status
 FROM awscc.resiliencehub.apps
-WHERE region = 'us-east-1' AND data__Identifier = '<AppArn>';
+WHERE region = 'us-east-1' AND Identifier = '<AppArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -415,7 +415,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.resiliencehub.apps
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "ResiliencyPolicyArn": resiliency_policy_arn,
     "Tags": tags,
@@ -426,7 +426,7 @@ SET data__PatchDocument = string('{{ {
     "EventSubscriptions": event_subscriptions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AppArn>';
+AND Identifier = '<AppArn>';
 ```
 
 
@@ -435,7 +435,7 @@ AND data__Identifier = '<AppArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resiliencehub.apps
-WHERE data__Identifier = '<AppArn>'
+WHERE Identifier = '<AppArn>'
 AND region = 'us-east-1';
 ```
 

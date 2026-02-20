@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>images</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>images</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>images</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ image_display_name,
 image_description,
 tags
 FROM awscc.sagemaker.images
-WHERE region = 'us-east-1' AND data__Identifier = '<ImageArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ImageArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,14 +276,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.images
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ImageRoleArn": image_role_arn,
     "ImageDisplayName": image_display_name,
     "ImageDescription": image_description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ImageArn>';
+AND Identifier = '<ImageArn>';
 ```
 
 
@@ -292,7 +292,7 @@ AND data__Identifier = '<ImageArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.images
-WHERE data__Identifier = '<ImageArn>'
+WHERE Identifier = '<ImageArn>'
 AND region = 'us-east-1';
 ```
 

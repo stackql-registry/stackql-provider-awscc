@@ -125,7 +125,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>publishers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -152,7 +152,7 @@ publisher_status,
 publisher_profile,
 identity_provider
 FROM awscc.cloudformation.publishers
-WHERE region = 'us-east-1' AND data__Identifier = '<PublisherId>';
+WHERE region = 'us-east-1' AND Identifier = '<PublisherId>';
 ```
 </TabItem>
 <TabItem value="list">

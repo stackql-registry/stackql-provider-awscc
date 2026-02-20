@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>blueprints</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>blueprints</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>blueprints</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ kms_key_id,
 kms_encryption_context,
 tags
 FROM awscc.bedrock.blueprints
-WHERE region = 'us-east-1' AND data__Identifier = '<BlueprintArn>';
+WHERE region = 'us-east-1' AND Identifier = '<BlueprintArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,14 +306,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.blueprints
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Schema": schema,
     "KmsKeyId": kms_key_id,
     "KmsEncryptionContext": kms_encryption_context,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BlueprintArn>';
+AND Identifier = '<BlueprintArn>';
 ```
 
 
@@ -322,7 +322,7 @@ AND data__Identifier = '<BlueprintArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.blueprints
-WHERE data__Identifier = '<BlueprintArn>'
+WHERE Identifier = '<BlueprintArn>'
 AND region = 'us-east-1';
 ```
 

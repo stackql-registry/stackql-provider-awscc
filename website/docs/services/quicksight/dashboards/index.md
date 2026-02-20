@@ -1312,13 +1312,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -1330,7 +1330,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>dashboards</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1371,7 +1371,7 @@ link_entities,
 arn,
 tags
 FROM awscc.quicksight.dashboards
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<DashboardId>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<DashboardId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -3450,7 +3450,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.dashboards
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "VersionDescription": version_description,
     "SourceEntity": source_entity,
@@ -3466,7 +3466,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>|<DashboardId>';
+AND Identifier = '<AwsAccountId>|<DashboardId>';
 ```
 
 
@@ -3475,7 +3475,7 @@ AND data__Identifier = '<AwsAccountId>|<DashboardId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.dashboards
-WHERE data__Identifier = '<AwsAccountId|DashboardId>'
+WHERE Identifier = '<AwsAccountId|DashboardId>'
 AND region = 'us-east-1';
 ```
 

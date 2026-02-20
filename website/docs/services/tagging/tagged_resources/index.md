@@ -47,7 +47,7 @@ Returns all the tagged or previously tagged resources that are located in the sp
   <tr>
     <td><CopyableCode code="get_resources" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

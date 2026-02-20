@@ -173,13 +173,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>application_inference_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>application_inference_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -191,7 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>application_inference_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -224,7 +224,7 @@ tags,
 type,
 updated_at
 FROM awscc.bedrock.application_inference_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<InferenceProfileIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<InferenceProfileIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,11 +318,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.application_inference_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InferenceProfileIdentifier>';
+AND Identifier = '<InferenceProfileIdentifier>';
 ```
 
 
@@ -331,7 +331,7 @@ AND data__Identifier = '<InferenceProfileIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.application_inference_profiles
-WHERE data__Identifier = '<InferenceProfileIdentifier>'
+WHERE Identifier = '<InferenceProfileIdentifier>'
 AND region = 'us-east-1';
 ```
 

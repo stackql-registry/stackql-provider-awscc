@@ -834,13 +834,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>connector_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>connector_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -852,7 +852,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>connector_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -881,7 +881,7 @@ connection_mode,
 connector_profile_config,
 credentials_arn
 FROM awscc.appflow.connector_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '<ConnectorProfileName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1138,13 +1138,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appflow.connector_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "KMSArn": kms_arn,
     "ConnectionMode": connection_mode,
     "ConnectorProfileConfig": connector_profile_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConnectorProfileName>';
+AND Identifier = '<ConnectorProfileName>';
 ```
 
 
@@ -1153,7 +1153,7 @@ AND data__Identifier = '<ConnectorProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connector_profiles
-WHERE data__Identifier = '<ConnectorProfileName>'
+WHERE Identifier = '<ConnectorProfileName>'
 AND region = 'us-east-1';
 ```
 

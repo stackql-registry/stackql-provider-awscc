@@ -197,13 +197,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>workspaces_pools</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>workspaces_pools</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -215,7 +215,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>workspaces_pools</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -248,7 +248,7 @@ timeout_settings,
 running_mode,
 tags
 FROM awscc.workspaces.workspaces_pools
-WHERE region = 'us-east-1' AND data__Identifier = '<PoolId>';
+WHERE region = 'us-east-1' AND Identifier = '<PoolId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -374,7 +374,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.workspaces.workspaces_pools
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Capacity": capacity,
     "Description": description,
     "BundleId": bundle_id,
@@ -385,7 +385,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PoolId>';
+AND Identifier = '<PoolId>';
 ```
 
 
@@ -394,7 +394,7 @@ AND data__Identifier = '<PoolId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.workspaces_pools
-WHERE data__Identifier = '<PoolId>'
+WHERE Identifier = '<PoolId>'
 AND region = 'us-east-1';
 ```
 

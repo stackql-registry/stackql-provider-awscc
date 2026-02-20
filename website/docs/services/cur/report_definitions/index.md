@@ -149,13 +149,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>report_definitions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>report_definitions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -167,7 +167,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>report_definitions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ refresh_closed_reports,
 report_versioning,
 billing_view_arn
 FROM awscc.cur.report_definitions
-WHERE region = 'us-east-1' AND data__Identifier = '<ReportName>';
+WHERE region = 'us-east-1' AND Identifier = '<ReportName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,7 +342,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cur.report_definitions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Format": format,
     "Compression": compression,
     "S3Bucket": s3_bucket,
@@ -352,7 +352,7 @@ SET data__PatchDocument = string('{{ {
     "RefreshClosedReports": refresh_closed_reports
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ReportName>';
+AND Identifier = '<ReportName>';
 ```
 
 
@@ -361,7 +361,7 @@ AND data__Identifier = '<ReportName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cur.report_definitions
-WHERE data__Identifier = '<ReportName>'
+WHERE Identifier = '<ReportName>'
 AND region = 'us-east-1';
 ```
 

@@ -300,13 +300,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>stack_sets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>stack_sets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -318,7 +318,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>stack_sets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -355,7 +355,7 @@ template_url,
 call_as,
 managed_execution
 FROM awscc.cloudformation.stack_sets
-WHERE region = 'us-east-1' AND data__Identifier = '<StackSetId>';
+WHERE region = 'us-east-1' AND Identifier = '<StackSetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -520,7 +520,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.stack_sets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AdministrationRoleARN": administration_role_arn,
     "AutoDeployment": auto_deployment,
     "Capabilities": capabilities,
@@ -536,7 +536,7 @@ SET data__PatchDocument = string('{{ {
     "ManagedExecution": managed_execution
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<StackSetId>';
+AND Identifier = '<StackSetId>';
 ```
 
 
@@ -545,7 +545,7 @@ AND data__Identifier = '<StackSetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.stack_sets
-WHERE data__Identifier = '<StackSetId>'
+WHERE Identifier = '<StackSetId>'
 AND region = 'us-east-1';
 ```
 
