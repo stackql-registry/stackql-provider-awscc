@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "on_demand_throughput",
@@ -441,6 +450,23 @@ Creates, updates, deletes or gets a <code>table</code> resource or lists <code>t
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "table_name",
+    "type": "string",
+    "description": "A name for the table. If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the table name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html"><code>AWS::DynamoDB::Table</code></a>.
 
@@ -450,31 +476,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>tables</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="KeySchema, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>tables</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>tables</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>tables_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>tables</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -482,6 +514,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>table</code>.
 ```sql
@@ -512,6 +553,19 @@ time_to_live_specification
 FROM awscc.dynamodb.tables
 WHERE region = 'us-east-1' AND data__Identifier = '<TableName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>tables</code> in a region.
+```sql
+SELECT
+region,
+table_name
+FROM awscc.dynamodb.tables_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -698,6 +752,36 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.dynamodb.tables
+SET data__PatchDocument = string('{{ {
+    "OnDemandThroughput": on_demand_throughput,
+    "SSESpecification": sse_specification,
+    "KinesisStreamSpecification": kinesis_stream_specification,
+    "StreamSpecification": stream_specification,
+    "ContributorInsightsSpecification": contributor_insights_specification,
+    "PointInTimeRecoverySpecification": point_in_time_recovery_specification,
+    "ProvisionedThroughput": provisioned_throughput,
+    "WarmThroughput": warm_throughput,
+    "AttributeDefinitions": attribute_definitions,
+    "BillingMode": billing_mode,
+    "GlobalSecondaryIndexes": global_secondary_indexes,
+    "ResourcePolicy": resource_policy,
+    "KeySchema": key_schema,
+    "LocalSecondaryIndexes": local_secondary_indexes,
+    "DeletionProtectionEnabled": deletion_protection_enabled,
+    "TableClass": table_class,
+    "Tags": tags,
+    "TimeToLiveSpecification": time_to_live_specification
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TableName>';
+```
+
 
 ## `DELETE` example
 

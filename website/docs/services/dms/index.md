@@ -20,7 +20,7 @@ The dms service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,11 @@ The dms service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/dms/data_migrations/">data_migrations</a><br />
-<a href="/services/dms/data_migrations_list_only/">data_migrations_list_only</a><br />
 <a href="/services/dms/data_providers/">data_providers</a><br />
-<a href="/services/dms/data_providers_list_only/">data_providers_list_only</a><br />
 <a href="/services/dms/instance_profiles/">instance_profiles</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/dms/instance_profiles_list_only/">instance_profiles_list_only</a><br />
 <a href="/services/dms/migration_projects/">migration_projects</a><br />
-<a href="/services/dms/migration_projects_list_only/">migration_projects_list_only</a><br />
-<a href="/services/dms/replication_configs/">replication_configs</a><br />
-<a href="/services/dms/replication_configs_list_only/">replication_configs_list_only</a>
+<a href="/services/dms/replication_configs/">replication_configs</a>
 </div>
 </div>

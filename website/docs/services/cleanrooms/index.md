@@ -20,7 +20,7 @@ The cleanrooms service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>16</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -30,22 +30,14 @@ The cleanrooms service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/cleanrooms/analysis_templates/">analysis_templates</a><br />
-<a href="/services/cleanrooms/analysis_templates_list_only/">analysis_templates_list_only</a><br />
 <a href="/services/cleanrooms/collaborations/">collaborations</a><br />
-<a href="/services/cleanrooms/collaborations_list_only/">collaborations_list_only</a><br />
 <a href="/services/cleanrooms/configured_table_associations/">configured_table_associations</a><br />
-<a href="/services/cleanrooms/configured_table_associations_list_only/">configured_table_associations_list_only</a><br />
-<a href="/services/cleanrooms/configured_tables/">configured_tables</a><br />
-<a href="/services/cleanrooms/configured_tables_list_only/">configured_tables_list_only</a>
+<a href="/services/cleanrooms/configured_tables/">configured_tables</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/cleanrooms/id_mapping_tables/">id_mapping_tables</a><br />
-<a href="/services/cleanrooms/id_mapping_tables_list_only/">id_mapping_tables_list_only</a><br />
 <a href="/services/cleanrooms/id_namespace_associations/">id_namespace_associations</a><br />
-<a href="/services/cleanrooms/id_namespace_associations_list_only/">id_namespace_associations_list_only</a><br />
 <a href="/services/cleanrooms/memberships/">memberships</a><br />
-<a href="/services/cleanrooms/memberships_list_only/">memberships_list_only</a><br />
-<a href="/services/cleanrooms/privacy_budget_templates/">privacy_budget_templates</a><br />
-<a href="/services/cleanrooms/privacy_budget_templates_list_only/">privacy_budget_templates_list_only</a>
+<a href="/services/cleanrooms/privacy_budget_templates/">privacy_budget_templates</a>
 </div>
 </div>

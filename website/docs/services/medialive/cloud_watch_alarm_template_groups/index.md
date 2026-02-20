@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template_group</code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -80,6 +89,28 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template_group</code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "A cloudwatch alarm template group's id. AWS provided template groups have ids that start with &#96;aws-&#96;"
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-cloudwatchalarmtemplategroup.html"><code>AWS::MediaLive::CloudWatchAlarmTemplateGroup</code></a>.
 
@@ -89,31 +120,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>cloud_watch_alarm_template_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>cloud_watch_alarm_template_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>cloud_watch_alarm_template_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>cloud_watch_alarm_template_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>cloud_watch_alarm_template_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -121,6 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>cloud_watch_alarm_template_group</code>.
 ```sql
@@ -137,6 +183,19 @@ tags
 FROM awscc.medialive.cloud_watch_alarm_template_groups
 WHERE region = 'us-east-1' AND data__Identifier = '<Identifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>cloud_watch_alarm_template_groups</code> in a region.
+```sql
+SELECT
+region,
+identifier
+FROM awscc.medialive.cloud_watch_alarm_template_groups_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -204,6 +263,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.medialive.cloud_watch_alarm_template_groups
+SET data__PatchDocument = string('{{ {
+    "Description": description
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Identifier>';
+```
+
 
 ## `DELETE` example
 

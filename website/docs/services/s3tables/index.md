@@ -20,7 +20,7 @@ The s3tables service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The s3tables service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/s3tables/table_bucket_policies/">table_bucket_policies</a><br />
-<a href="/services/s3tables/table_bucket_policies_list_only/">table_bucket_policies_list_only</a><br />
-<a href="/services/s3tables/table_buckets/">table_buckets</a><br />
-<a href="/services/s3tables/table_buckets_list_only/">table_buckets_list_only</a>
+<a href="/services/s3tables/table_buckets/">table_buckets</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/s3tables/table_policies/">table_policies</a><br />
-<a href="/services/s3tables/table_policies_list_only/">table_policies_list_only</a><br />
-<a href="/services/s3tables/tables/">tables</a><br />
-<a href="/services/s3tables/tables_list_only/">tables_list_only</a>
+<a href="/services/s3tables/tables/">tables</a>
 </div>
 </div>

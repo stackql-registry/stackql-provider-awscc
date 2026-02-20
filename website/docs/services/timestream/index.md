@@ -20,7 +20,7 @@ The timestream service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The timestream service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/timestream/databases/">databases</a><br />
-<a href="/services/timestream/databases_list_only/">databases_list_only</a><br />
-<a href="/services/timestream/influxdb_instances/">influxdb_instances</a><br />
-<a href="/services/timestream/influxdb_instances_list_only/">influxdb_instances_list_only</a>
+<a href="/services/timestream/influxdb_instances/">influxdb_instances</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/timestream/scheduled_queries/">scheduled_queries</a><br />
-<a href="/services/timestream/scheduled_queries_list_only/">scheduled_queries_list_only</a><br />
-<a href="/services/timestream/tables/">tables</a><br />
-<a href="/services/timestream/tables_list_only/">tables_list_only</a>
+<a href="/services/timestream/tables/">tables</a>
 </div>
 </div>

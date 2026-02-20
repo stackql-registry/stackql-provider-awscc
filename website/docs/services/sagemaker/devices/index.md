@@ -212,6 +212,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.sagemaker.devices
+SET data__PatchDocument = string('{{ {
+    "DeviceFleetName": device_fleet_name,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Device/DeviceName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

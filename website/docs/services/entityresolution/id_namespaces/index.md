@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>id_namespace</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "id_namespace_name",
@@ -172,6 +181,23 @@ Creates, updates, deletes or gets an <code>id_namespace</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id_namespace_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-entityresolution-idnamespace.html"><code>AWS::EntityResolution::IdNamespace</code></a>.
 
@@ -181,31 +207,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>id_namespaces</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="IdNamespaceName, Type, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>id_namespaces</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>id_namespaces</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>id_namespaces_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>id_namespaces</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -213,6 +245,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>id_namespace</code>.
 ```sql
@@ -231,6 +272,19 @@ tags
 FROM awscc.entityresolution.id_namespaces
 WHERE region = 'us-east-1' AND data__Identifier = '<IdNamespaceName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>id_namespaces</code> in a region.
+```sql
+SELECT
+region,
+id_namespace_name
+FROM awscc.entityresolution.id_namespaces_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -334,6 +388,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.entityresolution.id_namespaces
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "InputSourceConfig": input_source_config,
+    "IdMappingWorkflowProperties": id_mapping_workflow_properties,
+    "Type": type,
+    "RoleArn": role_arn,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<IdNamespaceName>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "rule_group_name",
@@ -160,6 +169,84 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "rule_group_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "rule_group",
+    "type": "object",
+    "description": "Resource type definition for AWS::NetworkFirewall::RuleGroup",
+    "children": [
+      {
+        "name": "rule_group_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "rule_group_id",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "capacity",
+        "type": "integer",
+        "description": ""
+      },
+      {
+        "name": "summary_configuration",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_options",
+            "type": "array",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-rulegroup.html"><code>AWS::NetworkFirewall::RuleGroup</code></a>.
 
@@ -169,31 +256,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Type, Capacity, RuleGroupName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>rule_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -201,6 +294,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>rule_group</code>.
 ```sql
@@ -218,6 +320,19 @@ tags
 FROM awscc.networkfirewall.rule_groups
 WHERE region = 'us-east-1' AND data__Identifier = '<RuleGroupArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>rule_groups</code> in a region.
+```sql
+SELECT
+region,
+rule_group_arn
+FROM awscc.networkfirewall.rule_groups_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -319,6 +434,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.networkfirewall.rule_groups
+SET data__PatchDocument = string('{{ {
+    "RuleGroup": rule_group,
+    "SummaryConfiguration": summary_configuration,
+    "Description": description,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RuleGroupArn>';
+```
+
 
 ## `DELETE` example
 

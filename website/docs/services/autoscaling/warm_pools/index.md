@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>warm_pool</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "auto_scaling_group_name",
@@ -72,6 +81,23 @@ Creates, updates, deletes or gets a <code>warm_pool</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-warmpool.html"><code>AWS::AutoScaling::WarmPool</code></a>.
 
@@ -81,31 +107,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>warm_pools</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AutoScalingGroupName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>warm_pools</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>warm_pools</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>warm_pools_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>warm_pools</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -113,6 +145,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>warm_pool</code>.
 ```sql
@@ -126,6 +167,19 @@ instance_reuse_policy
 FROM awscc.autoscaling.warm_pools
 WHERE region = 'us-east-1' AND data__Identifier = '<AutoScalingGroupName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>warm_pools</code> in a region.
+```sql
+SELECT
+region,
+auto_scaling_group_name
+FROM awscc.autoscaling.warm_pools_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -202,6 +256,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.autoscaling.warm_pools
+SET data__PatchDocument = string('{{ {
+    "MaxGroupPreparedCapacity": max_group_prepared_capacity,
+    "MinSize": min_size,
+    "PoolState": pool_state,
+    "InstanceReusePolicy": instance_reuse_policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AutoScalingGroupName>';
+```
+
 
 ## `DELETE` example
 

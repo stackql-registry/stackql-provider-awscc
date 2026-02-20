@@ -317,6 +317,21 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.user_pool_risk_configuration_attachments
+SET data__PatchDocument = string('{{ {
+    "RiskExceptionConfiguration": risk_exception_configuration,
+    "CompromisedCredentialsRiskConfiguration": compromised_credentials_risk_configuration,
+    "AccountTakeoverRiskConfiguration": account_takeover_risk_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserPoolId>|<ClientId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

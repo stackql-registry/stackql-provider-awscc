@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>volume_association</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "workspace_instance_id",
@@ -60,6 +69,33 @@ Creates, updates, deletes or gets a <code>volume_association</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "workspace_instance_id",
+    "type": "string",
+    "description": "ID of the workspace instance to associate with the volume"
+  },
+  {
+    "name": "volume_id",
+    "type": "string",
+    "description": "ID of the volume to attach to the workspace instance"
+  },
+  {
+    "name": "device",
+    "type": "string",
+    "description": "The device name for the volume attachment"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesinstances-volumeassociation.html"><code>AWS::WorkspacesInstances::VolumeAssociation</code></a>.
 
@@ -69,26 +105,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>volume_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="WorkspaceInstanceId, VolumeId, Device, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>volume_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>volume_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>volume_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -96,6 +137,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>volume_association</code>.
 ```sql
@@ -108,6 +158,21 @@ disassociate_mode
 FROM awscc.workspacesinstances.volume_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<WorkspaceInstanceId>|<VolumeId>|<Device>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>volume_associations</code> in a region.
+```sql
+SELECT
+region,
+workspace_instance_id,
+volume_id,
+device
+FROM awscc.workspacesinstances.volume_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -183,6 +248,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

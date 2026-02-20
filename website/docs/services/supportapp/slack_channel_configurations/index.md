@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "team_id",
@@ -80,6 +89,28 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "team_id",
+    "type": "string",
+    "description": "The team ID in Slack, which uniquely identifies a workspace."
+  },
+  {
+    "name": "channel_id",
+    "type": "string",
+    "description": "The channel ID in Slack, which identifies a channel within a workspace."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-supportapp-slackchannelconfiguration.html"><code>AWS::SupportApp::SlackChannelConfiguration</code></a>.
 
@@ -89,31 +120,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="TeamId, ChannelId, NotifyOnCaseSeverity, ChannelRoleArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>slack_channel_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -121,6 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
@@ -137,6 +183,20 @@ channel_role_arn
 FROM awscc.supportapp.slack_channel_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<TeamId>|<ChannelId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>slack_channel_configurations</code> in a region.
+```sql
+SELECT
+region,
+team_id,
+channel_id
+FROM awscc.supportapp.slack_channel_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -230,6 +290,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.supportapp.slack_channel_configurations
+SET data__PatchDocument = string('{{ {
+    "ChannelName": channel_name,
+    "NotifyOnCreateOrReopenCase": notify_on_create_or_reopen_case,
+    "NotifyOnAddCorrespondenceToCase": notify_on_add_correspondence_to_case,
+    "NotifyOnResolveCase": notify_on_resolve_case,
+    "NotifyOnCaseSeverity": notify_on_case_severity,
+    "ChannelRoleArn": channel_role_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TeamId>|<ChannelId>';
+```
+
 
 ## `DELETE` example
 

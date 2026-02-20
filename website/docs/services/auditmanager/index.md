@@ -20,7 +20,7 @@ The auditmanager service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The auditmanager service documentation.
 <a href="/services/auditmanager/assessments/">assessments</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/auditmanager/assessments_list_only/">assessments_list_only</a>
+
 </div>
 </div>

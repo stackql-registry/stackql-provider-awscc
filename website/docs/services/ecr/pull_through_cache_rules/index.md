@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>pull_through_cache_rule</code> resourc
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "ecr_repository_prefix",
@@ -70,6 +79,23 @@ Creates, updates, deletes or gets a <code>pull_through_cache_rule</code> resourc
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "ecr_repository_prefix",
+    "type": "string",
+    "description": "The Amazon ECR repository prefix associated with the pull through cache rule."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-pullthroughcacherule.html"><code>AWS::ECR::PullThroughCacheRule</code></a>.
 
@@ -79,31 +105,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>pull_through_cache_rules</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>pull_through_cache_rules</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>pull_through_cache_rules</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>pull_through_cache_rules_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>pull_through_cache_rules</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -111,6 +143,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>pull_through_cache_rule</code>.
 ```sql
@@ -125,6 +166,19 @@ upstream_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
 WHERE region = 'us-east-1' AND data__Identifier = '<EcrRepositoryPrefix>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>pull_through_cache_rules</code> in a region.
+```sql
+SELECT
+region,
+ecr_repository_prefix
+FROM awscc.ecr.pull_through_cache_rules_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -214,6 +268,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

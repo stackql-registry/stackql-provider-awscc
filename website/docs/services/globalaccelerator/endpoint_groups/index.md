@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>endpoint_group</code> resource or lis
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "listener_arn",
@@ -124,6 +133,23 @@ Creates, updates, deletes or gets an <code>endpoint_group</code> resource or lis
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "endpoint_group_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the endpoint group"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-globalaccelerator-endpointgroup.html"><code>AWS::GlobalAccelerator::EndpointGroup</code></a>.
 
@@ -133,31 +159,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>endpoint_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ListenerArn, EndpointGroupRegion, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>endpoint_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>endpoint_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>endpoint_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>endpoint_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -165,6 +197,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>endpoint_group</code>.
 ```sql
@@ -184,6 +225,19 @@ port_overrides
 FROM awscc.globalaccelerator.endpoint_groups
 WHERE data__Identifier = '<EndpointGroupArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>endpoint_groups</code> in a region.
+```sql
+SELECT
+region,
+endpoint_group_arn
+FROM awscc.globalaccelerator.endpoint_groups_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -287,6 +341,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.globalaccelerator.endpoint_groups
+SET data__PatchDocument = string('{{ {
+    "EndpointConfigurations": endpoint_configurations,
+    "TrafficDialPercentage": traffic_dial_percentage,
+    "HealthCheckPort": health_check_port,
+    "HealthCheckProtocol": health_check_protocol,
+    "HealthCheckPath": health_check_path,
+    "HealthCheckIntervalSeconds": health_check_interval_seconds,
+    "ThresholdCount": threshold_count,
+    "PortOverrides": port_overrides
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<EndpointGroupArn>';
+```
+
 
 ## `DELETE` example
 

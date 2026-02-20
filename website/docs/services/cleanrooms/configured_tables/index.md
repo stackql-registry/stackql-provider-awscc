@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>configured_table</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -121,6 +130,23 @@ Creates, updates, deletes or gets a <code>configured_table</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "configured_table_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-configuredtable.html"><code>AWS::CleanRooms::ConfiguredTable</code></a>.
 
@@ -130,31 +156,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>configured_tables</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AllowedColumns, AnalysisMethod, Name, TableReference, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>configured_tables</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>configured_tables</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>configured_tables_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>configured_tables</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -162,6 +194,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>configured_table</code>.
 ```sql
@@ -180,6 +221,19 @@ table_reference
 FROM awscc.cleanrooms.configured_tables
 WHERE region = 'us-east-1' AND data__Identifier = '<ConfiguredTableIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>configured_tables</code> in a region.
+```sql
+SELECT
+region,
+configured_table_identifier
+FROM awscc.cleanrooms.configured_tables_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -280,6 +334,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cleanrooms.configured_tables
+SET data__PatchDocument = string('{{ {
+    "Tags": tags,
+    "AllowedColumns": allowed_columns,
+    "AnalysisMethod": analysis_method,
+    "SelectedAnalysisMethods": selected_analysis_methods,
+    "Description": description,
+    "Name": name,
+    "AnalysisRules": analysis_rules,
+    "TableReference": table_reference
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ConfiguredTableIdentifier>';
+```
+
 
 ## `DELETE` example
 

@@ -998,6 +998,35 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.opensearchservice.domains
+SET data__PatchDocument = string('{{ {
+    "ClusterConfig": cluster_config,
+    "AccessPolicies": access_policies,
+    "IPAddressType": ip_address_type,
+    "EngineVersion": engine_version,
+    "AdvancedOptions": advanced_options,
+    "LogPublishingOptions": log_publishing_options,
+    "SnapshotOptions": snapshot_options,
+    "VPCOptions": vpc_options,
+    "NodeToNodeEncryptionOptions": node_to_node_encryption_options,
+    "DomainEndpointOptions": domain_endpoint_options,
+    "CognitoOptions": cognito_options,
+    "EBSOptions": ebs_options,
+    "EncryptionAtRestOptions": encryption_at_rest_options,
+    "Tags": tags,
+    "OffPeakWindowOptions": off_peak_window_options,
+    "SoftwareUpdateOptions": software_update_options,
+    "SkipShardMigrationWait": skip_shard_migration_wait
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

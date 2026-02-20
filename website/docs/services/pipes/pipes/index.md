@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>pipe</code> resource or lists <code>pi
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -1087,6 +1096,23 @@ Creates, updates, deletes or gets a <code>pipe</code> resource or lists <code>pi
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pipes-pipe.html"><code>AWS::Pipes::Pipe</code></a>.
 
@@ -1096,31 +1122,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>pipes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RoleArn, Source, Target, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>pipes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>pipes</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>pipes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>pipes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -1128,6 +1160,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>pipe</code>.
 ```sql
@@ -1154,6 +1195,19 @@ target_parameters
 FROM awscc.pipes.pipes
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>pipes</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.pipes.pipes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1476,6 +1530,28 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.pipes.pipes
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "DesiredState": desired_state,
+    "Enrichment": enrichment,
+    "EnrichmentParameters": enrichment_parameters,
+    "KmsKeyIdentifier": kms_key_identifier,
+    "LogConfiguration": log_configuration,
+    "RoleArn": role_arn,
+    "Tags": tags,
+    "Target": target,
+    "TargetParameters": target_parameters
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

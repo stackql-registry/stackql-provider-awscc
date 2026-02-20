@@ -237,6 +237,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ssmcontacts.plans
+SET data__PatchDocument = string('{{ {
+    "Stages": stages,
+    "RotationIds": rotation_ids
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

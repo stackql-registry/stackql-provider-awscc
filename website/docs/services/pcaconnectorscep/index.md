@@ -20,7 +20,7 @@ The pcaconnectorscep service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The pcaconnectorscep service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/pcaconnectorscep/challenges/">challenges</a><br />
-<a href="/services/pcaconnectorscep/challenges_list_only/">challenges_list_only</a>
+<a href="/services/pcaconnectorscep/challenges/">challenges</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/pcaconnectorscep/connectors/">connectors</a><br />
-<a href="/services/pcaconnectorscep/connectors_list_only/">connectors_list_only</a>
+<a href="/services/pcaconnectorscep/connectors/">connectors</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The databrew service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,18 +30,12 @@ The databrew service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/databrew/datasets/">datasets</a><br />
-<a href="/services/databrew/datasets_list_only/">datasets_list_only</a><br />
 <a href="/services/databrew/jobs/">jobs</a><br />
-<a href="/services/databrew/jobs_list_only/">jobs_list_only</a><br />
-<a href="/services/databrew/projects/">projects</a><br />
-<a href="/services/databrew/projects_list_only/">projects_list_only</a>
+<a href="/services/databrew/projects/">projects</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/databrew/recipes/">recipes</a><br />
-<a href="/services/databrew/recipes_list_only/">recipes_list_only</a><br />
 <a href="/services/databrew/rulesets/">rulesets</a><br />
-<a href="/services/databrew/rulesets_list_only/">rulesets_list_only</a><br />
-<a href="/services/databrew/schedules/">schedules</a><br />
-<a href="/services/databrew/schedules_list_only/">schedules_list_only</a>
+<a href="/services/databrew/schedules/">schedules</a>
 </div>
 </div>

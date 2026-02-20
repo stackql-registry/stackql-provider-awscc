@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>security_profile</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "allowed_access_control_tags",
@@ -129,6 +138,23 @@ Creates, updates, deletes or gets a <code>security_profile</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "security_profile_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the security profile."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-securityprofile.html"><code>AWS::Connect::SecurityProfile</code></a>.
 
@@ -138,31 +164,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>security_profiles</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InstanceArn, SecurityProfileName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>security_profiles</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>security_profiles</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>security_profiles_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>security_profiles</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -170,6 +202,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>security_profile</code>.
 ```sql
@@ -191,6 +232,19 @@ last_modified_time
 FROM awscc.connect.security_profiles
 WHERE region = 'us-east-1' AND data__Identifier = '<SecurityProfileArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>security_profiles</code> in a region.
+```sql
+SELECT
+region,
+security_profile_arn
+FROM awscc.connect.security_profiles_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -297,6 +351,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.security_profiles
+SET data__PatchDocument = string('{{ {
+    "AllowedAccessControlTags": allowed_access_control_tags,
+    "Description": description,
+    "Permissions": permissions,
+    "TagRestrictedResources": tag_restricted_resources,
+    "HierarchyRestrictedResources": hierarchy_restricted_resources,
+    "AllowedAccessControlHierarchyGroupId": allowed_access_control_hierarchy_group_id,
+    "Applications": applications,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<SecurityProfileArn>';
+```
+
 
 ## `DELETE` example
 

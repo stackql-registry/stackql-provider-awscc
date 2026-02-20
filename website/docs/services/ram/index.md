@@ -20,7 +20,7 @@ The ram service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The ram service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/ram/permissions/">permissions</a><br />
-<a href="/services/ram/permissions_list_only/">permissions_list_only</a>
+<a href="/services/ram/permissions/">permissions</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/ram/resource_shares/">resource_shares</a><br />
-<a href="/services/ram/resource_shares_list_only/">resource_shares_list_only</a>
+<a href="/services/ram/resource_shares/">resource_shares</a>
 </div>
 </div>

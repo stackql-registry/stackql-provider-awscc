@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>db_proxy_endpoint</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "db_proxy_endpoint_name",
@@ -102,6 +111,28 @@ Creates, updates, deletes or gets a <code>db_proxy_endpoint</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "db_proxy_endpoint_name",
+    "type": "string",
+    "description": "The identifier for the DB proxy endpoint. This name must be unique for all DB proxy endpoints owned by your AWS account in the specified AWS Region."
+  },
+  {
+    "name": "endpoint",
+    "type": "string",
+    "description": "The endpoint that you can use to connect to the DB proxy. You include the endpoint value in the connection string for a database client application."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbproxyendpoint.html"><code>AWS::RDS::DBProxyEndpoint</code></a>.
 
@@ -111,31 +142,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>db_proxy_endpoints</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DBProxyName, DBProxyEndpointName, VpcSubnetIds, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>db_proxy_endpoints</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>db_proxy_endpoints</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>db_proxy_endpoints_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>db_proxy_endpoints</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -143,6 +180,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>db_proxy_endpoint</code>.
 ```sql
@@ -161,6 +207,19 @@ tags
 FROM awscc.rds.db_proxy_endpoints
 WHERE region = 'us-east-1' AND data__Identifier = '<DBProxyEndpointName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>db_proxy_endpoints</code> in a region.
+```sql
+SELECT
+region,
+db_proxy_endpoint_name
+FROM awscc.rds.db_proxy_endpoints_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -248,6 +307,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.rds.db_proxy_endpoints
+SET data__PatchDocument = string('{{ {
+    "VpcSecurityGroupIds": vpc_security_group_ids,
+    "TargetRole": target_role,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DBProxyEndpointName>';
+```
+
 
 ## `DELETE` example
 

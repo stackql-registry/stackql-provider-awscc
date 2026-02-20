@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>directory_config</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "organizational_unit_distinguished_names",
@@ -84,6 +93,23 @@ Creates, updates, deletes or gets a <code>directory_config</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "directory_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html"><code>AWS::AppStream::DirectoryConfig</code></a>.
 
@@ -93,31 +119,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>directory_configs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DirectoryName, OrganizationalUnitDistinguishedNames, ServiceAccountCredentials, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>directory_configs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>directory_configs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>directory_configs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>directory_configs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -125,6 +157,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>directory_config</code>.
 ```sql
@@ -137,6 +178,19 @@ certificate_based_auth_properties
 FROM awscc.appstream.directory_configs
 WHERE region = 'us-east-1' AND data__Identifier = '<DirectoryName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>directory_configs</code> in a region.
+```sql
+SELECT
+region,
+directory_name
+FROM awscc.appstream.directory_configs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -217,6 +271,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appstream.directory_configs
+SET data__PatchDocument = string('{{ {
+    "OrganizationalUnitDistinguishedNames": organizational_unit_distinguished_names,
+    "ServiceAccountCredentials": service_account_credentials,
+    "CertificateBasedAuthProperties": certificate_based_auth_properties
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DirectoryName>';
+```
+
 
 ## `DELETE` example
 

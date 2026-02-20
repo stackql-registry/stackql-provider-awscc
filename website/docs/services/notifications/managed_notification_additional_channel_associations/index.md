@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>managed_notification_additional_channe
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "channel_arn",
@@ -50,6 +59,28 @@ Creates, updates, deletes or gets a <code>managed_notification_additional_channe
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "channel_arn",
+    "type": "string",
+    "description": "ARN identifier of the channel.<br />Example: arn:aws:chatbot::123456789012:chat-configuration/slack-channel/security-ops"
+  },
+  {
+    "name": "managed_notification_configuration_arn",
+    "type": "string",
+    "description": "ARN identifier of the Managed Notification.<br />Example: arn:aws:notifications::381491923782:managed-notification-configuration/category/AWS-Health/sub-category/Billing"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-notifications-managednotificationadditionalchannelassociation.html"><code>AWS::Notifications::ManagedNotificationAdditionalChannelAssociation</code></a>.
 
@@ -59,26 +90,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>managed_notification_additional_channel_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ChannelArn, ManagedNotificationConfigurationArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>managed_notification_additional_channel_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>managed_notification_additional_channel_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>managed_notification_additional_channel_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -86,6 +122,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>managed_notification_additional_channel_association</code>.
 ```sql
@@ -96,6 +141,20 @@ managed_notification_configuration_arn
 FROM awscc.notifications.managed_notification_additional_channel_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<ChannelArn>|<ManagedNotificationConfigurationArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>managed_notification_additional_channel_associations</code> in a region.
+```sql
+SELECT
+region,
+channel_arn,
+managed_notification_configuration_arn
+FROM awscc.notifications.managed_notification_additional_channel_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -161,6 +220,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

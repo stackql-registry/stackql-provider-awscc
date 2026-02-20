@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>access_entry</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "cluster_name",
@@ -116,6 +125,28 @@ Creates, updates, deletes or gets an <code>access_entry</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The cluster that the access entry is created for."
+  },
+  {
+    "name": "principal_arn",
+    "type": "string",
+    "description": "The principal ARN that the access entry is created for."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-accessentry.html"><code>AWS::EKS::AccessEntry</code></a>.
 
@@ -125,31 +156,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>access_entries</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="PrincipalArn, ClusterName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>access_entries</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>access_entries</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>access_entries_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>access_entries</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -157,6 +194,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>access_entry</code>.
 ```sql
@@ -173,6 +219,20 @@ type
 FROM awscc.eks.access_entries
 WHERE region = 'us-east-1' AND data__Identifier = '<PrincipalArn>|<ClusterName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>access_entries</code> in a region.
+```sql
+SELECT
+region,
+principal_arn,
+cluster_name
+FROM awscc.eks.access_entries_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -266,6 +326,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.eks.access_entries
+SET data__PatchDocument = string('{{ {
+    "Username": username,
+    "Tags": tags,
+    "KubernetesGroups": kubernetes_groups,
+    "AccessPolicies": access_policies
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<PrincipalArn>|<ClusterName>';
+```
+
 
 ## `DELETE` example
 

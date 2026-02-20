@@ -20,7 +20,7 @@ The fms service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The fms service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/fms/notification_channels/">notification_channels</a><br />
-<a href="/services/fms/notification_channels_list_only/">notification_channels_list_only</a><br />
 <a href="/services/fms/policies/">policies</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/fms/policies_list_only/">policies_list_only</a><br />
-<a href="/services/fms/resource_sets/">resource_sets</a><br />
-<a href="/services/fms/resource_sets_list_only/">resource_sets_list_only</a>
+<a href="/services/fms/resource_sets/">resource_sets</a>
 </div>
 </div>

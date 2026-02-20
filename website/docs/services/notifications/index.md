@@ -20,7 +20,7 @@ The notifications service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>14</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -30,20 +30,13 @@ The notifications service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/notifications/channel_associations/">channel_associations</a><br />
-<a href="/services/notifications/channel_associations_list_only/">channel_associations_list_only</a><br />
 <a href="/services/notifications/event_rules/">event_rules</a><br />
-<a href="/services/notifications/event_rules_list_only/">event_rules_list_only</a><br />
 <a href="/services/notifications/managed_notification_account_contact_associations/">managed_notification_account_contact_associations</a><br />
-<a href="/services/notifications/managed_notification_account_contact_associations_list_only/">managed_notification_account_contact_associations_list_only</a><br />
 <a href="/services/notifications/managed_notification_additional_channel_associations/">managed_notification_additional_channel_associations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/notifications/managed_notification_additional_channel_associations_list_only/">managed_notification_additional_channel_associations_list_only</a><br />
 <a href="/services/notifications/notification_configurations/">notification_configurations</a><br />
-<a href="/services/notifications/notification_configurations_list_only/">notification_configurations_list_only</a><br />
 <a href="/services/notifications/notification_hubs/">notification_hubs</a><br />
-<a href="/services/notifications/notification_hubs_list_only/">notification_hubs_list_only</a><br />
-<a href="/services/notifications/organizational_unit_associations/">organizational_unit_associations</a><br />
-<a href="/services/notifications/organizational_unit_associations_list_only/">organizational_unit_associations_list_only</a>
+<a href="/services/notifications/organizational_unit_associations/">organizational_unit_associations</a>
 </div>
 </div>

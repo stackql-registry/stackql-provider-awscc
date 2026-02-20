@@ -20,7 +20,7 @@ The lex service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The lex service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/lex/bot_aliases/">bot_aliases</a><br />
-<a href="/services/lex/bot_aliases_list_only/">bot_aliases_list_only</a><br />
-<a href="/services/lex/bot_versions/">bot_versions</a><br />
-<a href="/services/lex/bot_versions_list_only/">bot_versions_list_only</a>
+<a href="/services/lex/bot_versions/">bot_versions</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/lex/bots/">bots</a><br />
-<a href="/services/lex/bots_list_only/">bots_list_only</a><br />
-<a href="/services/lex/resource_policies/">resource_policies</a><br />
-<a href="/services/lex/resource_policies_list_only/">resource_policies_list_only</a>
+<a href="/services/lex/resource_policies/">resource_policies</a>
 </div>
 </div>

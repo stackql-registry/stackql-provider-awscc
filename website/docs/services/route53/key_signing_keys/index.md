@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>key_signing_key</code> resource or lis
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "hosted_zone_id",
@@ -60,6 +69,28 @@ Creates, updates, deletes or gets a <code>key_signing_key</code> resource or lis
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "hosted_zone_id",
+    "type": "string",
+    "description": "The unique string (ID) used to identify a hosted zone."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "An alphanumeric string used to identify a key signing key (KSK). Name must be unique for each key signing key in the same hosted zone."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-keysigningkey.html"><code>AWS::Route53::KeySigningKey</code></a>.
 
@@ -69,31 +100,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>key_signing_keys</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Status, HostedZoneId, Name, KeyManagementServiceArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>key_signing_keys</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>key_signing_keys</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>key_signing_keys_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>key_signing_keys</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +138,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>key_signing_key</code>.
 ```sql
@@ -113,6 +159,20 @@ key_management_service_arn
 FROM awscc.route53.key_signing_keys
 WHERE data__Identifier = '<HostedZoneId>|<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>key_signing_keys</code> in a region.
+```sql
+SELECT
+region,
+hosted_zone_id,
+name
+FROM awscc.route53.key_signing_keys_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -190,6 +250,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.route53.key_signing_keys
+SET data__PatchDocument = string('{{ {
+    "Status": status
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<HostedZoneId>|<Name>';
+```
+
 
 ## `DELETE` example
 

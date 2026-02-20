@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>master</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "master_id",
@@ -55,6 +64,28 @@ Creates, updates, deletes or gets a <code>master</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "master_id",
+    "type": "string",
+    "description": "ID of the account used as the master account."
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": "Unique ID of the detector of the GuardDuty member account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html"><code>AWS::GuardDuty::Master</code></a>.
 
@@ -64,26 +95,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>masters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="MasterId, DetectorId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>masters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>masters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>masters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -91,6 +127,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>master</code>.
 ```sql
@@ -102,6 +147,20 @@ detector_id
 FROM awscc.guardduty.masters
 WHERE region = 'us-east-1' AND data__Identifier = '<DetectorId>|<MasterId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>masters</code> in a region.
+```sql
+SELECT
+region,
+detector_id,
+master_id
+FROM awscc.guardduty.masters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -171,6 +230,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

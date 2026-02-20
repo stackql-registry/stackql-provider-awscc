@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>environment_blueprint_configuration</
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "created_at",
@@ -112,6 +121,28 @@ Creates, updates, deletes or gets an <code>environment_blueprint_configuration</
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "environment_blueprint_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-environmentblueprintconfiguration.html"><code>AWS::DataZone::EnvironmentBlueprintConfiguration</code></a>.
 
@@ -121,31 +152,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>environment_blueprint_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainIdentifier, EnvironmentBlueprintIdentifier, EnabledRegions, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>environment_blueprint_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>environment_blueprint_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>environment_blueprint_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>environment_blueprint_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -153,6 +190,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>environment_blueprint_configuration</code>.
 ```sql
@@ -173,6 +219,20 @@ manage_access_role_arn
 FROM awscc.datazone.environment_blueprint_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainId>|<EnvironmentBlueprintId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>environment_blueprint_configurations</code> in a region.
+```sql
+SELECT
+region,
+domain_id,
+environment_blueprint_id
+FROM awscc.datazone.environment_blueprint_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -268,6 +328,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.datazone.environment_blueprint_configurations
+SET data__PatchDocument = string('{{ {
+    "EnabledRegions": enabled_regions,
+    "RegionalParameters": regional_parameters,
+    "ProvisioningRoleArn": provisioning_role_arn,
+    "ProvisioningConfigurations": provisioning_configurations,
+    "EnvironmentRolePermissionBoundary": environment_role_permission_boundary,
+    "ManageAccessRoleArn": manage_access_role_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainId>|<EnvironmentBlueprintId>';
+```
+
 
 ## `DELETE` example
 

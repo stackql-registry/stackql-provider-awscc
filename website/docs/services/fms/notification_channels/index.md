@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>notification_channel</code> resource o
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "sns_role_name",
@@ -45,6 +54,18 @@ Creates, updates, deletes or gets a <code>notification_channel</code> resource o
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-notificationchannel.html"><code>AWS::FMS::NotificationChannel</code></a>.
 
@@ -54,31 +75,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>notification_channels</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="SnsRoleName, SnsTopicArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>notification_channels</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>notification_channels</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>notification_channels_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>notification_channels</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -86,6 +113,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>notification_channel</code>.
 ```sql
@@ -96,6 +132,19 @@ sns_topic_arn
 FROM awscc.fms.notification_channels
 WHERE region = 'us-east-1' AND data__Identifier = '<SnsTopicArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>notification_channels</code> in a region.
+```sql
+SELECT
+region,
+sns_topic_arn
+FROM awscc.fms.notification_channels_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -161,6 +210,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.fms.notification_channels
+SET data__PatchDocument = string('{{ {
+    "SnsRoleName": sns_role_name,
+    "SnsTopicArn": sns_topic_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<SnsTopicArn>';
+```
+
 
 ## `DELETE` example
 

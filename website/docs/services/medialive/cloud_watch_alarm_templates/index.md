@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template</code> reso
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -135,6 +144,28 @@ Creates, updates, deletes or gets a <code>cloud_watch_alarm_template</code> reso
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "A cloudwatch alarm template's id. AWS provided templates have ids that start with &#96;aws-&#96;"
+  },
+  {
+    "name": "identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-medialive-cloudwatchalarmtemplate.html"><code>AWS::MediaLive::CloudWatchAlarmTemplate</code></a>.
 
@@ -144,31 +175,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ComparisonOperator, EvaluationPeriods, MetricName, Name, Period, Statistic, TargetResourceType, Threshold, TreatMissingData, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>cloud_watch_alarm_templates_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>cloud_watch_alarm_templates</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -176,6 +213,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>cloud_watch_alarm_template</code>.
 ```sql
@@ -203,6 +249,19 @@ treat_missing_data
 FROM awscc.medialive.cloud_watch_alarm_templates
 WHERE region = 'us-east-1' AND data__Identifier = '<Identifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>cloud_watch_alarm_templates</code> in a region.
+```sql
+SELECT
+region,
+identifier
+FROM awscc.medialive.cloud_watch_alarm_templates_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -326,6 +385,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.medialive.cloud_watch_alarm_templates
+SET data__PatchDocument = string('{{ {
+    "ComparisonOperator": comparison_operator,
+    "DatapointsToAlarm": datapoints_to_alarm,
+    "Description": description,
+    "EvaluationPeriods": evaluation_periods,
+    "GroupIdentifier": group_identifier,
+    "MetricName": metric_name,
+    "Name": name,
+    "Period": period,
+    "Statistic": statistic,
+    "TargetResourceType": target_resource_type,
+    "Threshold": threshold,
+    "TreatMissingData": treat_missing_data
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Identifier>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The secretsmanager service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The secretsmanager service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/secretsmanager/resource_policies/">resource_policies</a><br />
-<a href="/services/secretsmanager/resource_policies_list_only/">resource_policies_list_only</a><br />
-<a href="/services/secretsmanager/rotation_schedules/">rotation_schedules</a><br />
-<a href="/services/secretsmanager/rotation_schedules_list_only/">rotation_schedules_list_only</a>
+<a href="/services/secretsmanager/rotation_schedules/">rotation_schedules</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/secretsmanager/secret_target_attachments/">secret_target_attachments</a><br />
-<a href="/services/secretsmanager/secret_target_attachments_list_only/">secret_target_attachments_list_only</a><br />
-<a href="/services/secretsmanager/secrets/">secrets</a><br />
-<a href="/services/secretsmanager/secrets_list_only/">secrets_list_only</a>
+<a href="/services/secretsmanager/secrets/">secrets</a>
 </div>
 </div>

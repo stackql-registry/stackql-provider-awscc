@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "dataset_name",
@@ -526,6 +535,23 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Job name"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-databrew-job.html"><code>AWS::DataBrew::Job</code></a>.
 
@@ -535,31 +561,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, RoleArn, Type, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>jobs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -567,6 +599,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>job</code>.
 ```sql
@@ -595,6 +636,19 @@ validation_configurations
 FROM awscc.databrew.jobs
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>jobs</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.databrew.jobs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -798,6 +852,36 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.databrew.jobs
+SET data__PatchDocument = string('{{ {
+    "DatasetName": dataset_name,
+    "EncryptionKeyArn": encryption_key_arn,
+    "EncryptionMode": encryption_mode,
+    "LogSubscription": log_subscription,
+    "MaxCapacity": max_capacity,
+    "MaxRetries": max_retries,
+    "Outputs": outputs,
+    "DataCatalogOutputs": data_catalog_outputs,
+    "DatabaseOutputs": database_outputs,
+    "OutputLocation": output_location,
+    "ProjectName": project_name,
+    "Recipe": recipe,
+    "RoleArn": role_arn,
+    "Tags": tags,
+    "Timeout": timeout,
+    "JobSample": job_sample,
+    "ProfileConfiguration": profile_configuration,
+    "ValidationConfigurations": validation_configurations
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

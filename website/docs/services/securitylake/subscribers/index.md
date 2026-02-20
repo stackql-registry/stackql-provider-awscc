@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>subscriber</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "access_types",
@@ -160,6 +169,23 @@ Creates, updates, deletes or gets a <code>subscriber</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "subscriber_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securitylake-subscriber.html"><code>AWS::SecurityLake::Subscriber</code></a>.
 
@@ -169,31 +195,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>subscribers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AccessTypes, DataLakeArn, Sources, SubscriberIdentity, SubscriberName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>subscribers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>subscribers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>subscribers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>subscribers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -201,6 +233,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>subscriber</code>.
 ```sql
@@ -221,6 +262,19 @@ subscriber_arn
 FROM awscc.securitylake.subscribers
 WHERE region = 'us-east-1' AND data__Identifier = '<SubscriberArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>subscribers</code> in a region.
+```sql
+SELECT
+region,
+subscriber_arn
+FROM awscc.securitylake.subscribers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -318,6 +372,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.securitylake.subscribers
+SET data__PatchDocument = string('{{ {
+    "AccessTypes": access_types,
+    "SubscriberIdentity": subscriber_identity,
+    "SubscriberName": subscriber_name,
+    "SubscriberDescription": subscriber_description,
+    "Tags": tags,
+    "Sources": sources
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<SubscriberArn>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The resourcegroups service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The resourcegroups service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/resourcegroups/groups/">groups</a><br />
-<a href="/services/resourcegroups/groups_list_only/">groups_list_only</a>
+<a href="/services/resourcegroups/groups/">groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/resourcegroups/tag_sync_tasks/">tag_sync_tasks</a><br />
-<a href="/services/resourcegroups/tag_sync_tasks_list_only/">tag_sync_tasks_list_only</a>
+<a href="/services/resourcegroups/tag_sync_tasks/">tag_sync_tasks</a>
 </div>
 </div>

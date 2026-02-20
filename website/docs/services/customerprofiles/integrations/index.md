@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "domain_name",
@@ -282,6 +291,28 @@ Creates, updates, deletes or gets an <code>integration</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "uri",
+    "type": "string",
+    "description": "The URI of the S3 bucket or any other type of data source."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-integration.html"><code>AWS::CustomerProfiles::Integration</code></a>.
 
@@ -291,31 +322,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>integrations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>integrations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>integrations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>integrations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>integrations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -323,6 +360,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>integration</code>.
 ```sql
@@ -340,6 +386,20 @@ event_trigger_names
 FROM awscc.customerprofiles.integrations
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<Uri>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>integrations</code> in a region.
+```sql
+SELECT
+region,
+domain_name,
+uri
+FROM awscc.customerprofiles.integrations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -475,6 +535,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.customerprofiles.integrations
+SET data__PatchDocument = string('{{ {
+    "FlowDefinition": flow_definition,
+    "ObjectTypeName": object_type_name,
+    "Tags": tags,
+    "ObjectTypeNames": object_type_names,
+    "EventTriggerNames": event_trigger_names
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainName>|<Uri>';
+```
+
 
 ## `DELETE` example
 

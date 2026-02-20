@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>dnssec</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "hosted_zone_id",
@@ -45,6 +54,23 @@ Creates, updates, deletes or gets a <code>dnssec</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "hosted_zone_id",
+    "type": "string",
+    "description": "The unique string (ID) used to identify a hosted zone."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-dnssec.html"><code>AWS::Route53::DNSSEC</code></a>.
 
@@ -54,26 +80,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>dnssecs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="HostedZoneId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>dnssecs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>dnssecs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>dnssecs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -81,6 +112,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>dnssec</code>.
 ```sql
@@ -90,6 +130,19 @@ hosted_zone_id
 FROM awscc.route53.dnssecs
 WHERE data__Identifier = '<HostedZoneId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>dnssecs</code> in a region.
+```sql
+SELECT
+region,
+hosted_zone_id
+FROM awscc.route53.dnssecs_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -149,6 +202,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

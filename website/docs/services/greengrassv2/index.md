@@ -20,7 +20,7 @@ The greengrassv2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The greengrassv2 service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/greengrassv2/component_versions/">component_versions</a><br />
-<a href="/services/greengrassv2/component_versions_list_only/">component_versions_list_only</a>
+<a href="/services/greengrassv2/component_versions/">component_versions</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/greengrassv2/deployments/">deployments</a><br />
-<a href="/services/greengrassv2/deployments_list_only/">deployments_list_only</a>
+<a href="/services/greengrassv2/deployments/">deployments</a>
 </div>
 </div>

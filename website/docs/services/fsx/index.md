@@ -20,7 +20,7 @@ The fsx service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The fsx service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/fsx/data_repository_associations/">data_repository_associations</a><br />
-<a href="/services/fsx/data_repository_associations_list_only/">data_repository_associations_list_only</a>
+<a href="/services/fsx/data_repository_associations/">data_repository_associations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/fsx/s3access_point_attachments/">s3access_point_attachments</a><br />
-<a href="/services/fsx/s3access_point_attachments_list_only/">s3access_point_attachments_list_only</a>
+<a href="/services/fsx/s3access_point_attachments/">s3access_point_attachments</a>
 </div>
 </div>

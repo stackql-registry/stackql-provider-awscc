@@ -278,6 +278,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appstream.app_blocks
+SET data__PatchDocument = string('{{ {
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

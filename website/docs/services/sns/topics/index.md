@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>t
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "display_name",
@@ -156,6 +165,23 @@ Creates, updates, deletes or gets a <code>topic</code> resource or lists <code>t
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "topic_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html"><code>AWS::SNS::Topic</code></a>.
 
@@ -165,31 +191,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>topics</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>topics</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>topics</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>topics_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>topics</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -197,6 +229,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>topic</code>.
 ```sql
@@ -219,6 +260,19 @@ delivery_status_logging
 FROM awscc.sns.topics
 WHERE region = 'us-east-1' AND data__Identifier = '<TopicArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>topics</code> in a region.
+```sql
+SELECT
+region,
+topic_arn
+FROM awscc.sns.topics_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -358,6 +412,29 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.sns.topics
+SET data__PatchDocument = string('{{ {
+    "DisplayName": display_name,
+    "KmsMasterKeyId": kms_master_key_id,
+    "DataProtectionPolicy": data_protection_policy,
+    "Subscription": subscription,
+    "ContentBasedDeduplication": content_based_deduplication,
+    "ArchivePolicy": archive_policy,
+    "FifoThroughputScope": fifo_throughput_scope,
+    "Tags": tags,
+    "SignatureVersion": signature_version,
+    "TracingConfig": tracing_config,
+    "DeliveryStatusLogging": delivery_status_logging
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TopicArn>';
+```
+
 
 ## `DELETE` example
 

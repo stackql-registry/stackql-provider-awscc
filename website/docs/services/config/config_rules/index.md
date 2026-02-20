@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>config_rule</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "config_rule_id",
@@ -182,6 +191,23 @@ Creates, updates, deletes or gets a <code>config_rule</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "config_rule_name",
+    "type": "string",
+    "description": "A name for the CC rule. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the rule name. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html)."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configrule.html"><code>AWS::Config::ConfigRule</code></a>.
 
@@ -191,31 +217,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>config_rules</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Source, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>config_rules</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>config_rules</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>config_rules_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>config_rules</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -223,6 +255,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>config_rule</code>.
 ```sql
@@ -241,6 +282,19 @@ evaluation_modes
 FROM awscc.config.config_rules
 WHERE region = 'us-east-1' AND data__Identifier = '<ConfigRuleName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>config_rules</code> in a region.
+```sql
+SELECT
+region,
+config_rule_name
+FROM awscc.config.config_rules_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -345,6 +399,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.config.config_rules
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "Scope": scope,
+    "MaximumExecutionFrequency": maximum_execution_frequency,
+    "Source": source,
+    "InputParameters": input_parameters,
+    "EvaluationModes": evaluation_modes
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ConfigRuleName>';
+```
+
 
 ## `DELETE` example
 

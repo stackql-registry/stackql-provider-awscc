@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>api_mapping</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "api_mapping_id",
@@ -65,6 +74,28 @@ Creates, updates, deletes or gets an <code>api_mapping</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "api_mapping_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The domain name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-apimapping.html"><code>AWS::ApiGatewayV2::ApiMapping</code></a>.
 
@@ -74,31 +105,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>api_mappings</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainName, Stage, ApiId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>api_mappings</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>api_mappings</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>api_mappings_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>api_mappings</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -106,6 +143,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>api_mapping</code>.
 ```sql
@@ -119,6 +165,20 @@ api_id
 FROM awscc.apigatewayv2.api_mappings
 WHERE region = 'us-east-1' AND data__Identifier = '<ApiMappingId>|<DomainName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>api_mappings</code> in a region.
+```sql
+SELECT
+region,
+api_mapping_id,
+domain_name
+FROM awscc.apigatewayv2.api_mappings_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -194,6 +254,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigatewayv2.api_mappings
+SET data__PatchDocument = string('{{ {
+    "Stage": stage,
+    "ApiMappingKey": api_mapping_key,
+    "ApiId": api_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ApiMappingId>|<DomainName>';
+```
+
 
 ## `DELETE` example
 

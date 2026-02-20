@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>auto_scaling_group</code> resource or
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "lifecycle_hook_specification_list",
@@ -445,6 +454,23 @@ Creates, updates, deletes or gets an <code>auto_scaling_group</code> resource or
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "auto_scaling_group_name",
+    "type": "string",
+    "description": "The name of the Auto Scaling group. This name must be unique per Region per account.<br />The name can contain any ASCII character 33 to 126 including most punctuation characters, digits, and upper and lowercased letters.<br />You cannot use a colon (:) in the name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html"><code>AWS::AutoScaling::AutoScalingGroup</code></a>.
 
@@ -454,31 +480,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>auto_scaling_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="MinSize, MaxSize, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>auto_scaling_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>auto_scaling_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>auto_scaling_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>auto_scaling_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -486,6 +518,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>auto_scaling_group</code>.
 ```sql
@@ -530,6 +571,19 @@ max_instance_lifetime
 FROM awscc.autoscaling.auto_scaling_groups
 WHERE region = 'us-east-1' AND data__Identifier = '<AutoScalingGroupName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>auto_scaling_groups</code> in a region.
+```sql
+SELECT
+region,
+auto_scaling_group_name
+FROM awscc.autoscaling.auto_scaling_groups_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -833,6 +887,51 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.autoscaling.auto_scaling_groups
+SET data__PatchDocument = string('{{ {
+    "LifecycleHookSpecificationList": lifecycle_hook_specification_list,
+    "LoadBalancerNames": load_balancer_names,
+    "LaunchConfigurationName": launch_configuration_name,
+    "ServiceLinkedRoleARN": service_linked_role_arn,
+    "AvailabilityZoneImpairmentPolicy": availability_zone_impairment_policy,
+    "TargetGroupARNs": target_group_arns,
+    "Cooldown": cooldown,
+    "NotificationConfigurations": notification_configurations,
+    "DesiredCapacity": desired_capacity,
+    "HealthCheckGracePeriod": health_check_grace_period,
+    "DefaultInstanceWarmup": default_instance_warmup,
+    "SkipZonalShiftValidation": skip_zonal_shift_validation,
+    "NewInstancesProtectedFromScaleIn": new_instances_protected_from_scale_in,
+    "LaunchTemplate": launch_template,
+    "MixedInstancesPolicy": mixed_instances_policy,
+    "VPCZoneIdentifier": vpc_zone_identifier,
+    "Tags": tags,
+    "Context": context,
+    "CapacityRebalance": capacity_rebalance,
+    "AvailabilityZones": availability_zones,
+    "NotificationConfiguration": notification_configuration,
+    "AvailabilityZoneDistribution": availability_zone_distribution,
+    "MetricsCollection": metrics_collection,
+    "InstanceMaintenancePolicy": instance_maintenance_policy,
+    "MaxSize": max_size,
+    "MinSize": min_size,
+    "TerminationPolicies": termination_policies,
+    "TrafficSources": traffic_sources,
+    "DesiredCapacityType": desired_capacity_type,
+    "PlacementGroup": placement_group,
+    "CapacityReservationSpecification": capacity_reservation_specification,
+    "HealthCheckType": health_check_type,
+    "MaxInstanceLifetime": max_instance_lifetime
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AutoScalingGroupName>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>state_template</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -107,6 +116,23 @@ Creates, updates, deletes or gets a <code>state_template</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotfleetwise-statetemplate.html"><code>AWS::IoTFleetWise::StateTemplate</code></a>.
 
@@ -116,31 +142,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>state_templates</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, SignalCatalogArn, StateTemplateProperties, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>state_templates</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>state_templates</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>state_templates_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>state_templates</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -148,6 +180,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>state_template</code>.
 ```sql
@@ -167,6 +208,19 @@ tags
 FROM awscc.iotfleetwise.state_templates
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>state_templates</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.iotfleetwise.state_templates_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -259,6 +313,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iotfleetwise.state_templates
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "StateTemplateProperties": state_template_properties,
+    "DataExtraDimensions": data_extra_dimensions,
+    "MetadataExtraDimensions": metadata_extra_dimensions,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

@@ -198,6 +198,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.networkfirewall.logging_configurations
+SET data__PatchDocument = string('{{ {
+    "LoggingConfiguration": logging_configuration,
+    "EnableMonitoringDashboard": enable_monitoring_dashboard
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FirewallArn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

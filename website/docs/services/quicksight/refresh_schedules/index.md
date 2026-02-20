@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>refresh_schedule</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -116,6 +125,89 @@ Creates, updates, deletes or gets a <code>refresh_schedule</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "aws_account_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "data_set_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "schedule",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "schedule_id",
+        "type": "string",
+        "description": "<p>An unique identifier for the refresh schedule.</p>"
+      },
+      {
+        "name": "schedule_frequency",
+        "type": "object",
+        "description": "<p>Information about the schedule frequency.</p>",
+        "children": [
+          {
+            "name": "interval",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "refresh_on_day",
+            "type": "object",
+            "description": "<p>The day scheduled for refresh.</p>",
+            "children": [
+              {
+                "name": "day_of_week",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "day_of_month",
+                "type": "string",
+                "description": "<p>The Day Of Month for scheduled refresh.</p>"
+              }
+            ]
+          },
+          {
+            "name": "time_zone",
+            "type": "string",
+            "description": "<p>The timezone for scheduled refresh.</p>"
+          },
+          {
+            "name": "time_of_the_day",
+            "type": "string",
+            "description": "<p>The time of the day for scheduled refresh.</p>"
+          }
+        ]
+      },
+      {
+        "name": "start_after_date_time",
+        "type": "string",
+        "description": "<p>The date time after which refresh is to be scheduled</p>"
+      },
+      {
+        "name": "refresh_type",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-quicksight-refreshschedule.html"><code>AWS::QuickSight::RefreshSchedule</code></a>.
 
@@ -125,31 +217,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>refresh_schedules</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code=", region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>refresh_schedules</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>refresh_schedules</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>refresh_schedules_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>refresh_schedules</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -157,6 +255,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>refresh_schedule</code>.
 ```sql
@@ -169,6 +276,21 @@ schedule
 FROM awscc.quicksight.refresh_schedules
 WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<DataSetId>|<Schedule/ScheduleId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>refresh_schedules</code> in a region.
+```sql
+SELECT
+region,
+aws_account_id,
+data_set_id,
+schedule/schedule_id
+FROM awscc.quicksight.refresh_schedules_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -246,6 +368,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

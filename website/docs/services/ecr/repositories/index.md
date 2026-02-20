@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>repository</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "empty_on_delete",
@@ -150,6 +159,23 @@ Creates, updates, deletes or gets a <code>repository</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "repository_name",
+    "type": "string",
+    "description": "The name to use for the repository. The repository name may be specified on its own (such as &#96;&#96;nginx-web-app&#96;&#96;) or it can be prepended with a namespace to group the repository into a category (such as &#96;&#96;project-a/nginx-web-app&#96;&#96;). If you don't specify a name, CFNlong generates a unique physical ID and uses that ID for the repository name. For more information, see &#91;Name type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes.<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html"><code>AWS::ECR::Repository</code></a>.
 
@@ -159,31 +185,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>repositories</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>repositories</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>repositories</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>repositories_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>repositories</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -191,6 +223,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>repository</code>.
 ```sql
@@ -210,6 +251,19 @@ encryption_configuration
 FROM awscc.ecr.repositories
 WHERE region = 'us-east-1' AND data__Identifier = '<RepositoryName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>repositories</code> in a region.
+```sql
+SELECT
+region,
+repository_name
+FROM awscc.ecr.repositories_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -326,6 +380,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecr.repositories
+SET data__PatchDocument = string('{{ {
+    "EmptyOnDelete": empty_on_delete,
+    "LifecyclePolicy": lifecycle_policy,
+    "RepositoryPolicyText": repository_policy_text,
+    "Tags": tags,
+    "ImageTagMutability": image_tag_mutability,
+    "ImageTagMutabilityExclusionFilters": image_tag_mutability_exclusion_filters,
+    "ImageScanningConfiguration": image_scanning_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RepositoryName>';
+```
+
 
 ## `DELETE` example
 

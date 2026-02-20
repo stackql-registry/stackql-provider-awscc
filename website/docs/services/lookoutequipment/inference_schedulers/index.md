@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>inference_scheduler</code> resource o
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "data_delay_offset_in_minutes",
@@ -167,6 +176,23 @@ Creates, updates, deletes or gets an <code>inference_scheduler</code> resource o
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "inference_scheduler_name",
+    "type": "string",
+    "description": "The name of the inference scheduler being created."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lookoutequipment-inferencescheduler.html"><code>AWS::LookoutEquipment::InferenceScheduler</code></a>.
 
@@ -176,31 +202,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>inference_schedulers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DataInputConfiguration, DataOutputConfiguration, DataUploadFrequency, ModelName, RoleArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>inference_schedulers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>inference_schedulers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>inference_schedulers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>inference_schedulers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -208,6 +240,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>inference_scheduler</code>.
 ```sql
@@ -226,6 +267,19 @@ inference_scheduler_arn
 FROM awscc.lookoutequipment.inference_schedulers
 WHERE region = 'us-east-1' AND data__Identifier = '<InferenceSchedulerName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>inference_schedulers</code> in a region.
+```sql
+SELECT
+region,
+inference_scheduler_name
+FROM awscc.lookoutequipment.inference_schedulers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -338,6 +392,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.lookoutequipment.inference_schedulers
+SET data__PatchDocument = string('{{ {
+    "DataDelayOffsetInMinutes": data_delay_offset_in_minutes,
+    "DataInputConfiguration": data_input_configuration,
+    "DataOutputConfiguration": data_output_configuration,
+    "DataUploadFrequency": data_upload_frequency,
+    "RoleArn": role_arn,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<InferenceSchedulerName>';
+```
+
 
 ## `DELETE` example
 

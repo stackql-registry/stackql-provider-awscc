@@ -20,7 +20,7 @@ The lakeformation service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,10 @@ The lakeformation service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/lakeformation/data_cells_filters/">data_cells_filters</a><br />
-<a href="/services/lakeformation/data_cells_filters_list_only/">data_cells_filters_list_only</a><br />
 <a href="/services/lakeformation/principal_permissions/">principal_permissions</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/lakeformation/tag_associations/">tag_associations</a><br />
-<a href="/services/lakeformation/tags/">tags</a><br />
-<a href="/services/lakeformation/tags_list_only/">tags_list_only</a>
+<a href="/services/lakeformation/tags/">tags</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The groundstation service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The groundstation service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/groundstation/configs/">configs</a><br />
-<a href="/services/groundstation/configs_list_only/">configs_list_only</a><br />
 <a href="/services/groundstation/dataflow_endpoint_groups/">dataflow_endpoint_groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/groundstation/dataflow_endpoint_groups_list_only/">dataflow_endpoint_groups_list_only</a><br />
-<a href="/services/groundstation/mission_profiles/">mission_profiles</a><br />
-<a href="/services/groundstation/mission_profiles_list_only/">mission_profiles_list_only</a>
+<a href="/services/groundstation/mission_profiles/">mission_profiles</a>
 </div>
 </div>

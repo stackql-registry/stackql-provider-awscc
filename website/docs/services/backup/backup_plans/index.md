@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>backup_plan</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "backup_plan",
@@ -187,6 +196,150 @@ Creates, updates, deletes or gets a <code>backup_plan</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "backup_plan",
+    "type": "object",
+    "description": "",
+    "children": [
+      {
+        "name": "backup_plan_name",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "advanced_backup_settings",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "backup_options",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "resource_type",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "backup_plan_rule",
+        "type": "array",
+        "description": "",
+        "children": [
+          {
+            "name": "rule_name",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "target_backup_vault",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "start_window_minutes",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "completion_window_minutes",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "schedule_expression",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "schedule_expression_timezone",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "index_actions",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "resource_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "recovery_point_tags",
+            "type": "object",
+            "description": ""
+          },
+          {
+            "name": "copy_actions",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "lifecycle",
+                "type": "object",
+                "description": ""
+              },
+              {
+                "name": "destination_backup_vault_arn",
+                "type": "string",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "lifecycle",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "move_to_cold_storage_after_days",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "delete_after_days",
+                "type": "number",
+                "description": ""
+              },
+              {
+                "name": "opt_in_to_archive_for_supported_resources",
+                "type": "boolean",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "enable_continuous_backup",
+            "type": "boolean",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "backup_plan_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-backupplan.html"><code>AWS::Backup::BackupPlan</code></a>.
 
@@ -196,31 +349,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>backup_plans</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="BackupPlan, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>backup_plans</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>backup_plans</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>backup_plans_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>backup_plans</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -228,6 +387,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>backup_plan</code>.
 ```sql
@@ -241,6 +409,19 @@ version_id
 FROM awscc.backup.backup_plans
 WHERE region = 'us-east-1' AND data__Identifier = '<BackupPlanId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>backup_plans</code> in a region.
+```sql
+SELECT
+region,
+backup_plan_id
+FROM awscc.backup.backup_plans_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -327,6 +508,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.backup.backup_plans
+SET data__PatchDocument = string('{{ {
+    "BackupPlan": backup_plan,
+    "BackupPlanTags": backup_plan_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<BackupPlanId>';
+```
+
 
 ## `DELETE` example
 

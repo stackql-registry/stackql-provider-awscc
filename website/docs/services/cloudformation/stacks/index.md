@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>stack</code> resource or lists <code>s
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "capabilities",
@@ -189,6 +198,23 @@ Creates, updates, deletes or gets a <code>stack</code> resource or lists <code>s
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "stack_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-stack.html"><code>AWS::CloudFormation::Stack</code></a>.
 
@@ -198,31 +224,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>stacks</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="StackName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>stacks</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>stacks</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>stacks_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>stacks</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -230,6 +262,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>stack</code>.
 ```sql
@@ -261,6 +302,19 @@ creation_time
 FROM awscc.cloudformation.stacks
 WHERE region = 'us-east-1' AND data__Identifier = '<StackId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>stacks</code> in a region.
+```sql
+SELECT
+region,
+stack_id
+FROM awscc.cloudformation.stacks_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -380,6 +434,32 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudformation.stacks
+SET data__PatchDocument = string('{{ {
+    "Capabilities": capabilities,
+    "RoleARN": role_arn,
+    "Description": description,
+    "DisableRollback": disable_rollback,
+    "EnableTerminationProtection": enable_termination_protection,
+    "NotificationARNs": notification_arns,
+    "Parameters": parameters,
+    "StackPolicyBody": stack_policy_body,
+    "StackPolicyURL": stack_policy_url,
+    "StackStatusReason": stack_status_reason,
+    "Tags": tags,
+    "TemplateBody": template_body,
+    "TemplateURL": template_url,
+    "TimeoutInMinutes": timeout_in_minutes
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<StackId>';
+```
+
 
 ## `DELETE` example
 

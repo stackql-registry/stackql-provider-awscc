@@ -24,7 +24,7 @@ AWS Cloud Control API provider for StackQL.
 <div class="row">
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>237</b></span><br />
-<span>total resources:&nbsp;<b>2371</b></span><br />
+<span>total resources:&nbsp;<b>1233</b></span><br />
 </div>
 </div>
 

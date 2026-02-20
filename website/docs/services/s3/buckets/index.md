@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "accelerate_configuration",
@@ -1167,6 +1176,23 @@ Creates, updates, deletes or gets a <code>bucket</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "bucket_name",
+    "type": "string",
+    "description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow &#91;Amazon S3 bucket restrictions and limitations&#93;(https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html). For more information, see &#91;Rules for naming Amazon S3 buckets&#93;(https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) in the &#42;Amazon S3 User Guide&#42;. <br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you need to replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html"><code>AWS::S3::Bucket</code></a>.
 
@@ -1176,31 +1202,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>buckets</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="BucketName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>buckets</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>buckets</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>buckets_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>buckets</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -1208,6 +1240,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>bucket</code>.
 ```sql
@@ -1243,6 +1284,19 @@ website_url
 FROM awscc.s3.buckets
 WHERE region = 'us-east-1' AND data__Identifier = '<BucketName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>buckets</code> in a region.
+```sql
+SELECT
+region,
+bucket_name
+FROM awscc.s3.buckets_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1583,6 +1637,37 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.s3.buckets
+SET data__PatchDocument = string('{{ {
+    "AccelerateConfiguration": accelerate_configuration,
+    "AccessControl": access_control,
+    "AnalyticsConfigurations": analytics_configurations,
+    "BucketEncryption": bucket_encryption,
+    "CorsConfiguration": cors_configuration,
+    "IntelligentTieringConfigurations": intelligent_tiering_configurations,
+    "InventoryConfigurations": inventory_configurations,
+    "LifecycleConfiguration": lifecycle_configuration,
+    "LoggingConfiguration": logging_configuration,
+    "MetricsConfigurations": metrics_configurations,
+    "NotificationConfiguration": notification_configuration,
+    "ObjectLockConfiguration": object_lock_configuration,
+    "ObjectLockEnabled": object_lock_enabled,
+    "OwnershipControls": ownership_controls,
+    "PublicAccessBlockConfiguration": public_access_block_configuration,
+    "ReplicationConfiguration": replication_configuration,
+    "Tags": tags,
+    "VersioningConfiguration": versioning_configuration,
+    "WebsiteConfiguration": website_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<BucketName>';
+```
+
 
 ## `DELETE` example
 

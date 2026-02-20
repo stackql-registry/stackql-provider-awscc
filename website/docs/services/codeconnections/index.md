@@ -20,7 +20,7 @@ The codeconnections service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The codeconnections service documentation.
 <a href="/services/codeconnections/connections/">connections</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/codeconnections/connections_list_only/">connections_list_only</a>
+
 </div>
 </div>

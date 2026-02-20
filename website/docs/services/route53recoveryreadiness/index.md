@@ -20,7 +20,7 @@ The route53recoveryreadiness service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The route53recoveryreadiness service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/route53recoveryreadiness/cells/">cells</a><br />
-<a href="/services/route53recoveryreadiness/cells_list_only/">cells_list_only</a><br />
-<a href="/services/route53recoveryreadiness/readiness_checks/">readiness_checks</a><br />
-<a href="/services/route53recoveryreadiness/readiness_checks_list_only/">readiness_checks_list_only</a>
+<a href="/services/route53recoveryreadiness/readiness_checks/">readiness_checks</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/route53recoveryreadiness/recovery_groups/">recovery_groups</a><br />
-<a href="/services/route53recoveryreadiness/recovery_groups_list_only/">recovery_groups_list_only</a><br />
-<a href="/services/route53recoveryreadiness/resource_sets/">resource_sets</a><br />
-<a href="/services/route53recoveryreadiness/resource_sets_list_only/">resource_sets_list_only</a>
+<a href="/services/route53recoveryreadiness/resource_sets/">resource_sets</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>resolver_rule</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "resolver_endpoint_id",
@@ -124,6 +133,23 @@ Creates, updates, deletes or gets a <code>resolver_rule</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "resolver_rule_id",
+    "type": "string",
+    "description": "The ID of the endpoint that the rule is associated with."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-resolverrule.html"><code>AWS::Route53Resolver::ResolverRule</code></a>.
 
@@ -133,31 +159,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>resolver_rules</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RuleType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>resolver_rules</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>resolver_rules</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>resolver_rules_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>resolver_rules</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -165,6 +197,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>resolver_rule</code>.
 ```sql
@@ -182,6 +223,19 @@ resolver_rule_id
 FROM awscc.route53resolver.resolver_rules
 WHERE region = 'us-east-1' AND data__Identifier = '<ResolverRuleId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>resolver_rules</code> in a region.
+```sql
+SELECT
+region,
+resolver_rule_id
+FROM awscc.route53resolver.resolver_rules_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -272,6 +326,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.route53resolver.resolver_rules
+SET data__PatchDocument = string('{{ {
+    "ResolverEndpointId": resolver_endpoint_id,
+    "DomainName": domain_name,
+    "Name": name,
+    "DelegationRecord": delegation_record,
+    "Tags": tags,
+    "TargetIps": target_ips
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ResolverRuleId>';
+```
+
 
 ## `DELETE` example
 

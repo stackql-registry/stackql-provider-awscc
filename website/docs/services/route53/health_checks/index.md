@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>health_check</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "health_check_id",
@@ -166,6 +175,23 @@ Creates, updates, deletes or gets a <code>health_check</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "health_check_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-healthcheck.html"><code>AWS::Route53::HealthCheck</code></a>.
 
@@ -175,31 +201,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>health_checks</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="HealthCheckConfig, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>health_checks</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>health_checks</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>health_checks_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>health_checks</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -207,6 +239,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>health_check</code>.
 ```sql
@@ -218,6 +259,19 @@ health_check_tags
 FROM awscc.route53.health_checks
 WHERE data__Identifier = '<HealthCheckId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>health_checks</code> in a region.
+```sql
+SELECT
+region,
+health_check_id
+FROM awscc.route53.health_checks_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -304,6 +358,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.route53.health_checks
+SET data__PatchDocument = string('{{ {
+    "HealthCheckTags": health_check_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<HealthCheckId>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The forecast service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The forecast service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/forecast/dataset_groups/">dataset_groups</a><br />
-<a href="/services/forecast/dataset_groups_list_only/">dataset_groups_list_only</a>
+<a href="/services/forecast/dataset_groups/">dataset_groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/forecast/datasets/">datasets</a><br />
-<a href="/services/forecast/datasets_list_only/">datasets_list_only</a>
+<a href="/services/forecast/datasets/">datasets</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>function</code> resource or lists <cod
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "auto_publish",
@@ -106,6 +115,23 @@ Creates, updates, deletes or gets a <code>function</code> resource or lists <cod
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "function_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-function.html"><code>AWS::CloudFront::Function</code></a>.
 
@@ -115,31 +141,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, FunctionConfig, FunctionCode, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>functions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -147,6 +179,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>function</code>.
 ```sql
@@ -162,6 +203,19 @@ stage
 FROM awscc.cloudfront.functions
 WHERE data__Identifier = '<FunctionARN>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>functions</code> in a region.
+```sql
+SELECT
+region,
+function_arn
+FROM awscc.cloudfront.functions_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -246,6 +300,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudfront.functions
+SET data__PatchDocument = string('{{ {
+    "AutoPublish": auto_publish,
+    "FunctionCode": function_code,
+    "FunctionConfig": function_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FunctionARN>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "id",
@@ -400,6 +409,23 @@ Creates, updates, deletes or gets an <code>event_source_mapping</code> resource 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-eventsourcemapping.html"><code>AWS::Lambda::EventSourceMapping</code></a>.
 
@@ -409,31 +435,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>event_source_mappings</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="FunctionName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>event_source_mappings</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>event_source_mappings</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>event_source_mappings_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>event_source_mappings</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -441,6 +473,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>event_source_mapping</code>.
 ```sql
@@ -478,6 +519,19 @@ metrics_config
 FROM awscc.lambda.event_source_mappings
 WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>event_source_mappings</code> in a region.
+```sql
+SELECT
+region,
+id
+FROM awscc.lambda.event_source_mappings_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -674,6 +728,41 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.lambda.event_source_mappings
+SET data__PatchDocument = string('{{ {
+    "BatchSize": batch_size,
+    "BisectBatchOnFunctionError": bisect_batch_on_function_error,
+    "DestinationConfig": destination_config,
+    "Enabled": enabled,
+    "FilterCriteria": filter_criteria,
+    "KmsKeyArn": kms_key_arn,
+    "FunctionName": function_name,
+    "MaximumBatchingWindowInSeconds": maximum_batching_window_in_seconds,
+    "MaximumRecordAgeInSeconds": maximum_record_age_in_seconds,
+    "MaximumRetryAttempts": maximum_retry_attempts,
+    "ParallelizationFactor": parallelization_factor,
+    "Tags": tags,
+    "Topics": topics,
+    "Queues": queues,
+    "SourceAccessConfigurations": source_access_configurations,
+    "TumblingWindowInSeconds": tumbling_window_in_seconds,
+    "FunctionResponseTypes": function_response_types,
+    "AmazonManagedKafkaEventSourceConfig": amazon_managed_kafka_event_source_config,
+    "SelfManagedKafkaEventSourceConfig": self_managed_kafka_event_source_config,
+    "ScalingConfig": scaling_config,
+    "DocumentDBEventSourceConfig": document_db_event_source_config,
+    "ProvisionedPollerConfig": provisioned_poller_config,
+    "MetricsConfig": metrics_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
 
 ## `DELETE` example
 

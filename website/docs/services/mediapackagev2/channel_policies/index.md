@@ -174,6 +174,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediapackagev2.channel_policies
+SET data__PatchDocument = string('{{ {
+    "Policy": policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ChannelGroupName>|<ChannelName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

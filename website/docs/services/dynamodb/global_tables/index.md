@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "multi_region_consistency",
@@ -620,6 +629,23 @@ Creates, updates, deletes or gets a <code>global_table</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "table_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-globaltable.html"><code>AWS::DynamoDB::GlobalTable</code></a>.
 
@@ -629,31 +655,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>global_tables</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="KeySchema, AttributeDefinitions, Replicas, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>global_tables</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>global_tables</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>global_tables_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>global_tables</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -661,6 +693,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>global_table</code>.
 ```sql
@@ -687,6 +728,19 @@ time_to_live_specification
 FROM awscc.dynamodb.global_tables
 WHERE region = 'us-east-1' AND data__Identifier = '<TableName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>global_tables</code> in a region.
+```sql
+SELECT
+region,
+table_name
+FROM awscc.dynamodb.global_tables_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -880,6 +934,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.dynamodb.global_tables
+SET data__PatchDocument = string('{{ {
+    "MultiRegionConsistency": multi_region_consistency,
+    "SSESpecification": sse_specification,
+    "StreamSpecification": stream_specification,
+    "WarmThroughput": warm_throughput,
+    "Replicas": replicas,
+    "WriteProvisionedThroughputSettings": write_provisioned_throughput_settings,
+    "WriteOnDemandThroughputSettings": write_on_demand_throughput_settings,
+    "GlobalTableWitnesses": global_table_witnesses,
+    "AttributeDefinitions": attribute_definitions,
+    "BillingMode": billing_mode,
+    "GlobalSecondaryIndexes": global_secondary_indexes,
+    "TimeToLiveSpecification": time_to_live_specification
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TableName>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>owner</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "entity_type",
@@ -60,6 +69,38 @@ Creates, updates, deletes or gets an <code>owner</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "entity_type",
+    "type": "string",
+    "description": "The type of an entity."
+  },
+  {
+    "name": "owner",
+    "type": "object",
+    "description": "The owner that you want to add to the entity."
+  },
+  {
+    "name": "entity_identifier",
+    "type": "string",
+    "description": "The ID of the entity to which you want to add an owner."
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": "The ID of the domain in which you want to add the entity owner."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-owner.html"><code>AWS::DataZone::Owner</code></a>.
 
@@ -69,26 +110,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>owners</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainIdentifier, EntityIdentifier, EntityType, Owner, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>owners</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>owners_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>owners</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -96,6 +142,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>owner</code>.
 ```sql
@@ -108,6 +163,23 @@ domain_identifier
 FROM awscc.datazone.owners
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainIdentifier>|<EntityType>|<EntityIdentifier>|<OwnerType>|<OwnerIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>owners</code> in a region.
+```sql
+SELECT
+region,
+domain_identifier,
+entity_type,
+entity_identifier,
+owner_type,
+owner_identifier
+FROM awscc.datazone.owners_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -185,6 +257,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

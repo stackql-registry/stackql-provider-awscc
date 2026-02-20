@@ -162,6 +162,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediatailor.channel_policies
+SET data__PatchDocument = string('{{ {
+    "Policy": policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ChannelName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

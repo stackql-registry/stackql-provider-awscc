@@ -20,7 +20,7 @@ The codedeploy service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The codedeploy service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/codedeploy/applications/">applications</a><br />
-<a href="/services/codedeploy/applications_list_only/">applications_list_only</a>
+<a href="/services/codedeploy/applications/">applications</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/codedeploy/deployment_configs/">deployment_configs</a><br />
-<a href="/services/codedeploy/deployment_configs_list_only/">deployment_configs_list_only</a>
+<a href="/services/codedeploy/deployment_configs/">deployment_configs</a>
 </div>
 </div>

@@ -238,6 +238,22 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.managed_login_brandings
+SET data__PatchDocument = string('{{ {
+    "UseCognitoProvidedValues": use_cognito_provided_values,
+    "Settings": settings,
+    "Assets": assets,
+    "ReturnMergedResources": return_merged_resources
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

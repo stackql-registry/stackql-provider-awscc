@@ -168,6 +168,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appsync.domain_name_api_associations
+SET data__PatchDocument = string('{{ {
+    "ApiId": api_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ApiAssociationIdentifier>';
+```
+
+
 ## `DELETE` example
 
 ```sql

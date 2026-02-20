@@ -20,7 +20,7 @@ The neptune service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>11</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,17 +30,12 @@ The neptune service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/neptune/db_cluster_parameter_groups/">db_cluster_parameter_groups</a><br />
-<a href="/services/neptune/db_cluster_parameter_groups_list_only/">db_cluster_parameter_groups_list_only</a><br />
 <a href="/services/neptune/db_clusters/">db_clusters</a><br />
-<a href="/services/neptune/db_clusters_list_only/">db_clusters_list_only</a><br />
-<a href="/services/neptune/db_instances/">db_instances</a><br />
-<a href="/services/neptune/db_instances_list_only/">db_instances_list_only</a>
+<a href="/services/neptune/db_instances/">db_instances</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/neptune/db_parameter_groups/">db_parameter_groups</a><br />
-<a href="/services/neptune/db_parameter_groups_list_only/">db_parameter_groups_list_only</a><br />
 <a href="/services/neptune/db_subnet_groups/">db_subnet_groups</a><br />
-<a href="/services/neptune/db_subnet_groups_list_only/">db_subnet_groups_list_only</a><br />
 <a href="/services/neptune/event_subscriptions/">event_subscriptions</a>
 </div>
 </div>

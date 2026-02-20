@@ -20,7 +20,7 @@ The s3objectlambda service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,10 +29,9 @@ The s3objectlambda service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/s3objectlambda/access_point_policies/">access_point_policies</a><br />
-<a href="/services/s3objectlambda/access_points/">access_points</a>
+<a href="/services/s3objectlambda/access_point_policies/">access_point_policies</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/s3objectlambda/access_points_list_only/">access_points_list_only</a>
+<a href="/services/s3objectlambda/access_points/">access_points</a>
 </div>
 </div>

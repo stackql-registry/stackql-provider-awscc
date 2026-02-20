@@ -71,16 +71,28 @@ async function createDocsForService(yamlFilePath) {
 
         resources.push({ name: resourceName, type: methodType, identifiers: identifiers, schemaName, schema, componentsSchemas, resourceData, schemaTypeName });
     }
-	
+
+    // Build map of _list_only resources to their base resources
+    const listOnlyMap = {};
+    for (const resource of resources) {
+        if (resource.name.endsWith('_list_only')) {
+            const baseName = resource.name.replace('_list_only', '');
+            listOnlyMap[baseName] = resource;
+        }
+    }
+
+    // Filter out _list_only resources - they will be collapsed into base resource docs
+    const filteredResources = resources.filter(r => !r.name.endsWith('_list_only'));
+
     // Create index.md for the service
     const serviceIndexPath = path.join(serviceFolder, 'index.md');
-    const serviceIndexContent = await createServiceIndexContent(serviceName, resources);
+    const serviceIndexContent = await createServiceIndexContent(serviceName, filteredResources);
     fs.writeFileSync(serviceIndexPath, serviceIndexContent);
 
     // Divide resources into two columns
-    const halfLength = Math.ceil(resources.length / 2);
-    const firstColumn = resources.slice(0, halfLength);
-    const secondColumn = resources.slice(halfLength);
+    const halfLength = Math.ceil(filteredResources.length / 2);
+    const firstColumn = filteredResources.slice(0, halfLength);
+    const secondColumn = filteredResources.slice(halfLength);
 
     // Create resource subfolders and index.md for each resource
     firstColumn.forEach((resource) => {
@@ -90,7 +102,7 @@ async function createDocsForService(yamlFilePath) {
         }
 
         const resourceIndexPath = path.join(resourceFolder, 'index.md');
-        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName);
+        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
         fs.writeFileSync(resourceIndexPath, resourceIndexContent);
     });
 
@@ -101,7 +113,7 @@ async function createDocsForService(yamlFilePath) {
         }
 
         const resourceIndexPath = path.join(resourceFolder, 'index.md');
-        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName);
+        const resourceIndexContent = createResourceIndexContent(serviceName, resource.name, resource.type, resource.identifiers, resource.schemaName, resource.schema, resource.componentsSchemas, resource.resourceData, resource.schemaTypeName, listOnlyMap[resource.name]);
 
         try {
             fs.writeFileSync(resourceIndexPath, resourceIndexContent);
@@ -197,6 +209,39 @@ ${sqlCodeBlockStart}
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
 WHERE data__Identifier = '<${resourceData['x-identifiers'].join('|')}>'
 AND region = 'us-east-1';
+${codeBlockEnd}
+`;
+}
+
+function createUpdateExample(serviceName, resourceName, resourceData, thisSchema, allSchemas) {
+    const updateOperation = resourceData.methods?.update_resource;
+    if (!updateOperation) {
+        return '';
+    }
+
+    const readOnlyProps = (thisSchema['x-read-only-properties'] || []).map(p => p.split('/')[0]);
+    const createOnlyProps = (thisSchema['x-create-only-properties'] || []).map(p => p.split('/')[0]);
+    const excludeProps = new Set([...readOnlyProps, ...createOnlyProps]);
+
+    const updatableProps = Object.keys(thisSchema.properties || {}).filter(p => !excludeProps.has(p));
+
+    if (updatableProps.length === 0) {
+        return '';
+    }
+
+    const patchFields = updatableProps.map(p => `    "${p}": ${toSnakeCase(fixCamelCaseIssues(p))}`).join(',\n');
+    const identifierValues = (resourceData['x-identifiers'] || []).map(id => `<${id}>`).join('|');
+
+    return `\n## ${mdCodeAnchor}UPDATE${mdCodeAnchor} example
+
+${sqlCodeBlockStart}
+/*+ update */
+UPDATE ${providerName}.${serviceName}.${resourceName}
+SET data__PatchDocument = string('{{ {
+${patchFields}
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '${identifierValues}';
 ${codeBlockEnd}
 `;
 }
@@ -378,7 +423,7 @@ ${codeBlockEnd}
 </Tabs>`;
 }
 
-function createResourceIndexContent(serviceName, resourceName, resourceType, resourceIdentifiers, schemaName, schema, componentsSchemas, resourceData, schemaTypeName) {
+function createResourceIndexContent(serviceName, resourceName, resourceType, resourceIdentifiers, schemaName, schema, componentsSchemas, resourceData, schemaTypeName, listOnlyResource) {
     // Create the markdown content for each resource index
     // resourceType is x-type, one of 'cloud_control' (cloud control), 'native' (native resource), 'view' (SQL view)
 
@@ -394,6 +439,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
     let sqlVerbsList = [];
 
     const singularResourceName = pluralize.singular(resourceName);
+    const listOnlyResourceName = listOnlyResource ? listOnlyResource.name : null;
 
     const moreInfoCaption = `For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-${serviceName}-${singularResourceName.replace(/_/g, '')}.html"><code>${schemaTypeName}</code></a>.`;
 
@@ -622,6 +668,41 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
     const sqlExampleGetCols = getColumns(schema.properties, false, resourceType === 'native', false);
     const sqlExampleGetTagsCols = getColumns(schema.properties, false, resourceType === 'native', true);
 
+    // Compute list_only fields for tabbed display
+    const listOnlyFields = listOnlyResource
+        ? generateSchemaJsonForResource(serviceName, listOnlyResourceName, 'cloud_control_view', schema, componentsSchemas, sqlExampleListCols)
+        : null;
+    const listOnlyFrom = listOnlyResourceName
+        ? `FROM ${providerName}.${serviceName}.${listOnlyResourceName}`
+        : null;
+
+    // Build the Fields section
+    let fieldsSection;
+    if (!(isSelectable || hasList || hasGet)) {
+        fieldsSection = '<code>SELECT</code> operation not supported for this resource.';
+    } else if (listOnlyResource && hasGet) {
+        const getFields = JSON.stringify(generateSchemaJsonForResource(serviceName, resourceName, resourceType, schema, componentsSchemas, sqlExampleListCols), null, 2);
+        const listFields = JSON.stringify(listOnlyFields, null, 2);
+        fieldsSection = `<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+<SchemaTable fields={${getFields}} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={${listFields}} />
+</TabItem>
+</Tabs>`;
+    } else {
+        fieldsSection = `<SchemaTable fields={${JSON.stringify(generateSchemaJsonForResource(serviceName, resourceName, resourceType, schema, componentsSchemas, sqlExampleListCols), null, 2)}} />`;
+    }
+
     return `---
 title: ${resourceName}
 hide_title: false
@@ -657,13 +738,14 @@ ${schema.description ? `<tr><td><b>Description</b></td><td>${cleanDescription(sc
 </table>
 
 ## Fields
-${isSelectable || hasList || hasGet ? `<SchemaTable fields={${JSON.stringify(generateSchemaJsonForResource(serviceName, resourceName, resourceType, schema, componentsSchemas, sqlExampleListCols), null, 2)}} />` : '<code>SELECT</code> operation not supported for this resource.'}
+${fieldsSection}
 ${schemaName && resourceType === 'cloud_control' ? `\n${moreInfoCaption}\n` : ''}
 ## Methods
-${generateMethodsTable(serviceName, resourceName, sqlVerbsList)}
+${generateMethodsTable(serviceName, resourceName, sqlVerbsList, listOnlyResourceName)}
 
-${serviceName != 'cloud_control' ? generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere): ''}
+${serviceName != 'cloud_control' ? generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere, listOnlyResourceName, listOnlyFrom): ''}
 ${serviceName != 'cloud_control' ? createInsertExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
+${serviceName != 'cloud_control' ? createUpdateExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
 ${serviceName != 'cloud_control' ? createDeleteExample(serviceName, resourceName, resourceData, schema, componentsSchemas): ''}
 ${permissionsHeadingMarkdown}
 ${permissionsBylineMarkdown}
@@ -1094,11 +1176,49 @@ function getColumns(properties, isList, isCustom = false, is_tags = false){
 //     return fieldsTable;
 // }
 
-function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere){
+function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect, sqlExampleListCols, sqlExampleFrom, sqlExampleListWhere, sqlExampleGetCols, sqlExampleGetTagsCols, sqlExampleGetWhere, listOnlyResourceName, listOnlyFrom){
     let returnString = '';
     if(hasList || hasGet){
         returnString = `## ${mdCodeAnchor}SELECT${mdCodeAnchor} examples\n`;
     } else {
+        return returnString;
+    }
+
+    // Tabbed select for cloud_control resources with both get and list_only
+    if(listOnlyResourceName && hasGet && hasList){
+        const singularResourceName = pluralize.singular(resourceName);
+        const getDesc = `Gets all properties from an individual <code>${singularResourceName}</code>.`;
+        const listDesc = `Lists all <code>${resourceName}</code> in a region.`;
+        const listFromClause = listOnlyFrom || sqlExampleFrom;
+
+        returnString += `\n<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+${getDesc}
+${sqlCodeBlockStart}
+${sqlExampleSelect}
+${sqlExampleGetCols}
+${sqlExampleFrom}
+${sqlExampleGetWhere}
+${codeBlockEnd}
+</TabItem>
+<TabItem value="list">
+
+${listDesc}
+${sqlCodeBlockStart}
+${sqlExampleSelect}
+${sqlExampleListCols}
+${listFromClause}
+${sqlExampleListWhere}
+${codeBlockEnd}
+</TabItem>
+</Tabs>`;
         return returnString;
     }
 
@@ -1111,11 +1231,10 @@ function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect,
             listDesc = `Expands tags for all <code>${pluralize.plural(resourceName.replace('_tags',''))}</code> in a region.`;
             returnString += `${listDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleGetTagsCols}\n${sqlExampleFrom}\n${sqlExampleListWhere}\n${codeBlockEnd}`;
         }
-    } 
+    }
 
     if(hasGet){
         const singularResourceName = pluralize.singular(resourceName);
-        // const getDesc = `Gets all properties from ${indefinite(singularResourceName, { articleOnly: true })} <code>${singularResourceName}</code>.`;
         const getDesc = `Gets all properties from an individual <code>${singularResourceName}</code>.`;
         returnString += `\n${getDesc}\n${sqlCodeBlockStart}\n${sqlExampleSelect}\n${sqlExampleGetCols}\n${sqlExampleFrom}\n${sqlExampleGetWhere}\n${codeBlockEnd}`;
     }
@@ -1123,21 +1242,25 @@ function generateSelectExamples(resourceName, hasList, hasGet, sqlExampleSelect,
     return returnString;
 }
 
-function generateMethodsTable(serviceName, resourceName, sqlVerbsList) {
-    
+function generateMethodsTable(serviceName, resourceName, sqlVerbsList, listOnlyResourceName) {
+    const hasResourceCol = !!listOnlyResourceName;
+
     let html = `
 <table>
 <tbody>
   <tr>
-    <th>Name</th>
+    <th>Name</th>${hasResourceCol ? '\n    <th>Resource</th>' : ''}
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>`;
 
     sqlVerbsList.forEach(item => {
+        const itemResource = (item.methodName === 'list_resources' && listOnlyResourceName)
+            ? listOnlyResourceName
+            : resourceName;
         html += `
   <tr>
-    <td><CopyableCode code="${item.methodName}" /></td>
+    <td><CopyableCode code="${item.methodName}" /></td>${hasResourceCol ? `\n    <td><code>${itemResource}</code></td>` : ''}
     <td><code>${item.sqlVerbName.toUpperCase()}</code></td>
     <td><CopyableCode code="${item.requiredParams}" /></td>
   </tr>`;

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "framework_name",
@@ -150,6 +159,23 @@ Creates, updates, deletes or gets a <code>framework</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "framework_arn",
+    "type": "string",
+    "description": "An Amazon Resource Name (ARN) that uniquely identifies Framework as a resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-framework.html"><code>AWS::Backup::Framework</code></a>.
 
@@ -159,31 +185,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>frameworks</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="FrameworkControls, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>frameworks</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>frameworks</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>frameworks_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>frameworks</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -191,6 +223,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>framework</code>.
 ```sql
@@ -207,6 +248,19 @@ framework_tags
 FROM awscc.backup.frameworks
 WHERE region = 'us-east-1' AND data__Identifier = '<FrameworkArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>frameworks</code> in a region.
+```sql
+SELECT
+region,
+framework_arn
+FROM awscc.backup.frameworks_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -291,6 +345,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.backup.frameworks
+SET data__PatchDocument = string('{{ {
+    "FrameworkDescription": framework_description,
+    "FrameworkControls": framework_controls,
+    "FrameworkTags": framework_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FrameworkArn>';
+```
+
 
 ## `DELETE` example
 

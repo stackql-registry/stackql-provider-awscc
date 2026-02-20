@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>base_path_mapping_v2</code> resource o
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "base_path",
@@ -65,6 +74,28 @@ Creates, updates, deletes or gets a <code>base_path_mapping_v2</code> resource o
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "base_path",
+    "type": "string",
+    "description": "The base path name that callers of the API must provide in the URL after the domain name."
+  },
+  {
+    "name": "base_path_mapping_arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-basepathmappingv2.html"><code>AWS::ApiGateway::BasePathMappingV2</code></a>.
 
@@ -74,31 +105,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>base_path_mapping_v2s</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainNameArn, RestApiId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>base_path_mapping_v2s</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>base_path_mapping_v2s</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>base_path_mapping_v2s_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>base_path_mapping_v2s</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -106,6 +143,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>base_path_mapping_v2</code>.
 ```sql
@@ -119,6 +165,19 @@ base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s
 WHERE region = 'us-east-1' AND data__Identifier = '<BasePathMappingArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>base_path_mapping_v2s</code> in a region.
+```sql
+SELECT
+region,
+base_path_mapping_arn
+FROM awscc.apigateway.base_path_mapping_v2s_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -192,6 +251,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigateway.base_path_mapping_v2s
+SET data__PatchDocument = string('{{ {
+    "RestApiId": rest_api_id,
+    "Stage": stage
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<BasePathMappingArn>';
+```
+
 
 ## `DELETE` example
 

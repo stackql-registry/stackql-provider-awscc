@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>subscription_filter</code> resource or
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "filter_name",
@@ -75,6 +84,28 @@ Creates, updates, deletes or gets a <code>subscription_filter</code> resource or
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "filter_name",
+    "type": "string",
+    "description": "The name of the subscription filter."
+  },
+  {
+    "name": "log_group_name",
+    "type": "string",
+    "description": "The log group to associate with the subscription filter. All log events that are uploaded to this log group are filtered and delivered to the specified AWS resource if the filter pattern matches the log events."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html"><code>AWS::Logs::SubscriptionFilter</code></a>.
 
@@ -84,31 +115,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>subscription_filters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DestinationArn, FilterPattern, LogGroupName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>subscription_filters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>subscription_filters</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>subscription_filters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>subscription_filters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -116,6 +153,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>subscription_filter</code>.
 ```sql
@@ -131,6 +177,20 @@ apply_on_transformed_logs
 FROM awscc.logs.subscription_filters
 WHERE region = 'us-east-1' AND data__Identifier = '<FilterName>|<LogGroupName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>subscription_filters</code> in a region.
+```sql
+SELECT
+region,
+filter_name,
+log_group_name
+FROM awscc.logs.subscription_filters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -218,6 +278,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.logs.subscription_filters
+SET data__PatchDocument = string('{{ {
+    "DestinationArn": destination_arn,
+    "FilterPattern": filter_pattern,
+    "RoleArn": role_arn,
+    "Distribution": distribution,
+    "ApplyOnTransformedLogs": apply_on_transformed_logs
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FilterName>|<LogGroupName>';
+```
+
 
 ## `DELETE` example
 

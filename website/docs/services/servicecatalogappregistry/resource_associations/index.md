@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>resource_association</code> resource o
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "application",
@@ -65,6 +74,43 @@ Creates, updates, deletes or gets a <code>resource_association</code> resource o
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "application",
+    "type": "string",
+    "description": "The name or the Id of the Application."
+  },
+  {
+    "name": "resource",
+    "type": "string",
+    "description": "The name or the Id of the Resource."
+  },
+  {
+    "name": "resource_type",
+    "type": "string",
+    "description": "The type of the CFN Resource for now it's enum CFN&#95;STACK."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "resource_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalogappregistry-resourceassociation.html"><code>AWS::ServiceCatalogAppRegistry::ResourceAssociation</code></a>.
 
@@ -74,26 +120,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>resource_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Application, Resource, ResourceType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>resource_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>resource_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>resource_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +152,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>resource_association</code>.
 ```sql
@@ -114,6 +174,21 @@ resource_arn
 FROM awscc.servicecatalogappregistry.resource_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationArn>|<ResourceArn>|<ResourceType>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>resource_associations</code> in a region.
+```sql
+SELECT
+region,
+application_arn,
+resource_arn,
+resource_type
+FROM awscc.servicecatalogappregistry.resource_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -185,6 +260,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

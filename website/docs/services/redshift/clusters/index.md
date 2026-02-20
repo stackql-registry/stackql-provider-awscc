@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "revision_target",
@@ -361,6 +370,23 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "cluster_identifier",
+    "type": "string",
+    "description": "A unique identifier for the cluster. You use this identifier to refer to the cluster for any subsequent cluster operations such as deleting or modifying. All alphabetical characters must be lower case, no hypens at the end, no two consecutive hyphens. Cluster name should be unique for all clusters within an AWS account"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html"><code>AWS::Redshift::Cluster</code></a>.
 
@@ -370,31 +396,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="NodeType, MasterUsername, DBName, ClusterType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>clusters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -402,6 +434,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>cluster</code>.
 ```sql
@@ -465,6 +506,19 @@ snapshot_copy_retention_period
 FROM awscc.redshift.clusters
 WHERE region = 'us-east-1' AND data__Identifier = '<ClusterIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+cluster_identifier
+FROM awscc.redshift.clusters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -746,6 +800,62 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.redshift.clusters
+SET data__PatchDocument = string('{{ {
+    "RevisionTarget": revision_target,
+    "AutomatedSnapshotRetentionPeriod": automated_snapshot_retention_period,
+    "Encrypted": encrypted,
+    "Port": port,
+    "NumberOfNodes": number_of_nodes,
+    "DestinationRegion": destination_region,
+    "AllowVersionUpgrade": allow_version_upgrade,
+    "NamespaceResourcePolicy": namespace_resource_policy,
+    "MaintenanceTrackName": maintenance_track_name,
+    "MultiAZ": multi_az,
+    "Tags": tags,
+    "IamRoles": iam_roles,
+    "KmsKeyId": kms_key_id,
+    "SnapshotCopyManual": snapshot_copy_manual,
+    "ManageMasterPassword": manage_master_password,
+    "AvailabilityZone": availability_zone,
+    "ClusterSecurityGroups": cluster_security_groups,
+    "MasterUserPassword": master_user_password,
+    "LoggingProperties": logging_properties,
+    "DeferMaintenance": defer_maintenance,
+    "NodeType": node_type,
+    "PubliclyAccessible": publicly_accessible,
+    "ManualSnapshotRetentionPeriod": manual_snapshot_retention_period,
+    "ResourceAction": resource_action,
+    "HsmClientCertificateIdentifier": hsm_client_certificate_identifier,
+    "ElasticIp": elastic_ip,
+    "AvailabilityZoneRelocationStatus": availability_zone_relocation_status,
+    "AquaConfigurationStatus": aqua_configuration_status,
+    "AvailabilityZoneRelocation": availability_zone_relocation,
+    "SnapshotCopyGrantName": snapshot_copy_grant_name,
+    "EnhancedVpcRouting": enhanced_vpc_routing,
+    "ClusterParameterGroupName": cluster_parameter_group_name,
+    "DeferMaintenanceEndTime": defer_maintenance_end_time,
+    "RotateEncryptionKey": rotate_encryption_key,
+    "VpcSecurityGroupIds": vpc_security_group_ids,
+    "ClusterVersion": cluster_version,
+    "HsmConfigurationIdentifier": hsm_configuration_identifier,
+    "PreferredMaintenanceWindow": preferred_maintenance_window,
+    "DeferMaintenanceStartTime": defer_maintenance_start_time,
+    "ClusterType": cluster_type,
+    "Classic": classic,
+    "MasterPasswordSecretKmsKeyId": master_password_secret_kms_key_id,
+    "DeferMaintenanceDuration": defer_maintenance_duration,
+    "SnapshotCopyRetentionPeriod": snapshot_copy_retention_period
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ClusterIdentifier>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>user_pool</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "user_pool_name",
@@ -604,6 +613,23 @@ Creates, updates, deletes or gets an <code>user_pool</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "user_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html"><code>AWS::Cognito::UserPool</code></a>.
 
@@ -613,31 +639,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>user_pools</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>user_pools</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>user_pools</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>user_pools_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>user_pools</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -645,6 +677,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>user_pool</code>.
 ```sql
@@ -686,6 +727,19 @@ user_pool_tier
 FROM awscc.cognito.user_pools
 WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>user_pools</code> in a region.
+```sql
+SELECT
+region,
+user_pool_id
+FROM awscc.cognito.user_pools_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -990,6 +1044,47 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.user_pools
+SET data__PatchDocument = string('{{ {
+    "UserPoolName": user_pool_name,
+    "Policies": policies,
+    "AccountRecoverySetting": account_recovery_setting,
+    "AdminCreateUserConfig": admin_create_user_config,
+    "AliasAttributes": alias_attributes,
+    "UsernameAttributes": username_attributes,
+    "AutoVerifiedAttributes": auto_verified_attributes,
+    "DeviceConfiguration": device_configuration,
+    "EmailConfiguration": email_configuration,
+    "EmailVerificationMessage": email_verification_message,
+    "EmailVerificationSubject": email_verification_subject,
+    "DeletionProtection": deletion_protection,
+    "LambdaConfig": lambda_config,
+    "MfaConfiguration": mfa_configuration,
+    "EnabledMfas": enabled_mfas,
+    "SmsAuthenticationMessage": sms_authentication_message,
+    "EmailAuthenticationMessage": email_authentication_message,
+    "EmailAuthenticationSubject": email_authentication_subject,
+    "SmsConfiguration": sms_configuration,
+    "SmsVerificationMessage": sms_verification_message,
+    "WebAuthnRelyingPartyID": web_authn_relying_party_id,
+    "WebAuthnUserVerification": web_authn_user_verification,
+    "Schema": schema,
+    "UsernameConfiguration": username_configuration,
+    "UserAttributeUpdateSettings": user_attribute_update_settings,
+    "UserPoolTags": user_pool_tags,
+    "VerificationMessageTemplate": verification_message_template,
+    "UserPoolAddOns": user_pool_add_ons,
+    "UserPoolTier": user_pool_tier
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserPoolId>';
+```
+
 
 ## `DELETE` example
 

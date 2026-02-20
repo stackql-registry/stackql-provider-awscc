@@ -20,7 +20,7 @@ The opensearchserverless service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>14</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -30,20 +30,13 @@ The opensearchserverless service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/opensearchserverless/access_policies/">access_policies</a><br />
-<a href="/services/opensearchserverless/access_policies_list_only/">access_policies_list_only</a><br />
 <a href="/services/opensearchserverless/collections/">collections</a><br />
-<a href="/services/opensearchserverless/collections_list_only/">collections_list_only</a><br />
 <a href="/services/opensearchserverless/indices/">indices</a><br />
-<a href="/services/opensearchserverless/indices_list_only/">indices_list_only</a><br />
 <a href="/services/opensearchserverless/lifecycle_policies/">lifecycle_policies</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/opensearchserverless/lifecycle_policies_list_only/">lifecycle_policies_list_only</a><br />
 <a href="/services/opensearchserverless/security_configs/">security_configs</a><br />
-<a href="/services/opensearchserverless/security_configs_list_only/">security_configs_list_only</a><br />
 <a href="/services/opensearchserverless/security_policies/">security_policies</a><br />
-<a href="/services/opensearchserverless/security_policies_list_only/">security_policies_list_only</a><br />
-<a href="/services/opensearchserverless/vpc_endpoints/">vpc_endpoints</a><br />
-<a href="/services/opensearchserverless/vpc_endpoints_list_only/">vpc_endpoints_list_only</a>
+<a href="/services/opensearchserverless/vpc_endpoints/">vpc_endpoints</a>
 </div>
 </div>

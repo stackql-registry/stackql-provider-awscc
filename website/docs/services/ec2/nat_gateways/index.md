@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "secondary_allocation_ids",
@@ -102,6 +111,23 @@ Creates, updates, deletes or gets a <code>nat_gateway</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "nat_gateway_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-natgateway.html"><code>AWS::EC2::NatGateway</code></a>.
 
@@ -111,31 +137,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>nat_gateways</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>nat_gateways</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>nat_gateways</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>nat_gateways_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>nat_gateways</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -143,6 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>nat_gateway</code>.
 ```sql
@@ -161,6 +202,19 @@ max_drain_duration_seconds
 FROM awscc.ec2.nat_gateways
 WHERE region = 'us-east-1' AND data__Identifier = '<NatGatewayId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>nat_gateways</code> in a region.
+```sql
+SELECT
+region,
+nat_gateway_id
+FROM awscc.ec2.nat_gateways_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -272,6 +326,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.nat_gateways
+SET data__PatchDocument = string('{{ {
+    "SecondaryAllocationIds": secondary_allocation_ids,
+    "SecondaryPrivateIpAddressCount": secondary_private_ip_address_count,
+    "SecondaryPrivateIpAddresses": secondary_private_ip_addresses,
+    "Tags": tags,
+    "MaxDrainDurationSeconds": max_drain_duration_seconds
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<NatGatewayId>';
+```
+
 
 ## `DELETE` example
 

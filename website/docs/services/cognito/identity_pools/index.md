@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>identity_pool</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "push_sync",
@@ -168,6 +177,23 @@ Creates, updates, deletes or gets an <code>identity_pool</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypool.html"><code>AWS::Cognito::IdentityPool</code></a>.
 
@@ -177,31 +203,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>identity_pools</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AllowUnauthenticatedIdentities, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>identity_pools</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>identity_pools</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>identity_pools_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>identity_pools</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -209,6 +241,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>identity_pool</code>.
 ```sql
@@ -231,6 +272,19 @@ identity_pool_tags
 FROM awscc.cognito.identity_pools
 WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>identity_pools</code> in a region.
+```sql
+SELECT
+region,
+id
+FROM awscc.cognito.identity_pools_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -347,6 +401,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.identity_pools
+SET data__PatchDocument = string('{{ {
+    "PushSync": push_sync,
+    "CognitoIdentityProviders": cognito_identity_providers,
+    "DeveloperProviderName": developer_provider_name,
+    "CognitoStreams": cognito_streams,
+    "SupportedLoginProviders": supported_login_providers,
+    "CognitoEvents": cognito_events,
+    "IdentityPoolName": identity_pool_name,
+    "AllowUnauthenticatedIdentities": allow_unauthenticated_identities,
+    "SamlProviderARNs": saml_provider_arns,
+    "OpenIdConnectProviderARNs": open_id_connect_provider_arns,
+    "AllowClassicFlow": allow_classic_flow,
+    "IdentityPoolTags": identity_pool_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
 
 ## `DELETE` example
 

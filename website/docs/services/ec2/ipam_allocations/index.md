@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>ipam_allocation</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "ipam_pool_allocation_id",
@@ -65,6 +74,33 @@ Creates, updates, deletes or gets an <code>ipam_allocation</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "ipam_pool_allocation_id",
+    "type": "string",
+    "description": "Id of the allocation."
+  },
+  {
+    "name": "ipam_pool_id",
+    "type": "string",
+    "description": "Id of the IPAM Pool."
+  },
+  {
+    "name": "cidr",
+    "type": "string",
+    "description": "Represents a single IPv4 or IPv6 CIDR"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ipamallocation.html"><code>AWS::EC2::IPAMAllocation</code></a>.
 
@@ -74,26 +110,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>ipam_allocations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="IpamPoolId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>ipam_allocations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>ipam_allocations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>ipam_allocations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +142,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>ipam_allocation</code>.
 ```sql
@@ -114,6 +164,21 @@ description
 FROM awscc.ec2.ipam_allocations
 WHERE region = 'us-east-1' AND data__Identifier = '<IpamPoolId>|<IpamPoolAllocationId>|<Cidr>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>ipam_allocations</code> in a region.
+```sql
+SELECT
+region,
+ipam_pool_id,
+ipam_pool_allocation_id,
+cidr
+FROM awscc.ec2.ipam_allocations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -185,6 +250,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

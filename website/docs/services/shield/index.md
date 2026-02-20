@@ -20,7 +20,7 @@ The shield service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The shield service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/shield/drt_accesses/">drt_accesses</a><br />
-<a href="/services/shield/drt_accesses_list_only/">drt_accesses_list_only</a><br />
-<a href="/services/shield/proactive_engagements/">proactive_engagements</a><br />
-<a href="/services/shield/proactive_engagements_list_only/">proactive_engagements_list_only</a>
+<a href="/services/shield/proactive_engagements/">proactive_engagements</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/shield/protection_groups/">protection_groups</a><br />
-<a href="/services/shield/protection_groups_list_only/">protection_groups_list_only</a><br />
-<a href="/services/shield/protections/">protections</a><br />
-<a href="/services/shield/protections_list_only/">protections_list_only</a>
+<a href="/services/shield/protections/">protections</a>
 </div>
 </div>

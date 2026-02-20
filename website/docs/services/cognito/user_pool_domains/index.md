@@ -196,6 +196,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.user_pool_domains
+SET data__PatchDocument = string('{{ {
+    "CustomDomainConfig": custom_domain_config,
+    "ManagedLoginVersion": managed_login_version
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserPoolId>|<Domain>';
+```
+
+
 ## `DELETE` example
 
 ```sql

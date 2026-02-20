@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>domain_name_access_association</code> 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "domain_name_access_association_arn",
@@ -77,6 +86,23 @@ Creates, updates, deletes or gets a <code>domain_name_access_association</code> 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "domain_name_access_association_arn",
+    "type": "string",
+    "description": "The amazon resource name (ARN) of the domain name access association resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-domainnameaccessassociation.html"><code>AWS::ApiGateway::DomainNameAccessAssociation</code></a>.
 
@@ -86,26 +112,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>domain_name_access_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainNameArn, AccessAssociationSource, AccessAssociationSourceType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>domain_name_access_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>domain_name_access_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>domain_name_access_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -113,6 +144,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>domain_name_access_association</code>.
 ```sql
@@ -126,6 +166,19 @@ tags
 FROM awscc.apigateway.domain_name_access_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainNameAccessAssociationArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>domain_name_access_associations</code> in a region.
+```sql
+SELECT
+region,
+domain_name_access_association_arn
+FROM awscc.apigateway.domain_name_access_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -203,6 +256,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

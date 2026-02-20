@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>policy_grant</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "entity_type",
@@ -85,6 +94,43 @@ Creates, updates, deletes or gets a <code>policy_grant</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "entity_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_type",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "grant_id",
+    "type": "string",
+    "description": "The unique identifier of the policy grant returned by the AddPolicyGrant API"
+  },
+  {
+    "name": "entity_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "domain_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-policygrant.html"><code>AWS::DataZone::PolicyGrant</code></a>.
 
@@ -94,26 +140,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>policy_grants</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainIdentifier, EntityIdentifier, EntityType, PolicyType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>policy_grants</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>policy_grants_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>policy_grants</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -121,6 +172,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>policy_grant</code>.
 ```sql
@@ -138,6 +198,23 @@ domain_identifier
 FROM awscc.datazone.policy_grants
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainIdentifier>|<GrantId>|<EntityIdentifier>|<EntityType>|<PolicyType>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>policy_grants</code> in a region.
+```sql
+SELECT
+region,
+domain_identifier,
+grant_id,
+entity_identifier,
+entity_type,
+policy_type
+FROM awscc.datazone.policy_grants_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -223,6 +300,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

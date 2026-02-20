@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>training_dataset</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "description",
@@ -130,6 +139,71 @@ Creates, updates, deletes or gets a <code>training_dataset</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "training_data",
+    "type": "array",
+    "description": "",
+    "children": [
+      {
+        "name": "type",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "input_config",
+        "type": "object",
+        "description": "",
+        "children": [
+          {
+            "name": "schema",
+            "type": "array",
+            "description": "",
+            "children": [
+              {
+                "name": "column_name",
+                "type": "string",
+                "description": ""
+              },
+              {
+                "name": "column_types",
+                "type": "array",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "data_source",
+            "type": "object",
+            "description": "",
+            "children": [
+              {
+                "name": "glue_data_source",
+                "type": "object",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "training_dataset_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanroomsml-trainingdataset.html"><code>AWS::CleanRoomsML::TrainingDataset</code></a>.
 
@@ -139,31 +213,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>training_datasets</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, RoleArn, TrainingData, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>training_datasets</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>training_datasets</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>training_datasets_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>training_datasets</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -171,6 +251,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>training_dataset</code>.
 ```sql
@@ -186,6 +275,19 @@ status
 FROM awscc.cleanroomsml.training_datasets
 WHERE region = 'us-east-1' AND data__Identifier = '<TrainingDatasetArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>training_datasets</code> in a region.
+```sql
+SELECT
+region,
+training_dataset_arn
+FROM awscc.cleanroomsml.training_datasets_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -278,6 +380,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cleanroomsml.training_datasets
+SET data__PatchDocument = string('{{ {
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TrainingDatasetArn>';
+```
+
 
 ## `DELETE` example
 

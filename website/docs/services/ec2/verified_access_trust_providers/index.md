@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>verified_access_trust_provider</code> 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "trust_provider_type",
@@ -220,6 +229,23 @@ Creates, updates, deletes or gets a <code>verified_access_trust_provider</code> 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "verified_access_trust_provider_id",
+    "type": "string",
+    "description": "The ID of the Amazon Web Services Verified Access trust provider."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-verifiedaccesstrustprovider.html"><code>AWS::EC2::VerifiedAccessTrustProvider</code></a>.
 
@@ -229,31 +255,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>verified_access_trust_providers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="TrustProviderType, PolicyReferenceName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>verified_access_trust_providers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>verified_access_trust_providers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>verified_access_trust_providers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>verified_access_trust_providers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -261,6 +293,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>verified_access_trust_provider</code>.
 ```sql
@@ -282,6 +323,19 @@ native_application_oidc_options
 FROM awscc.ec2.verified_access_trust_providers
 WHERE region = 'us-east-1' AND data__Identifier = '<VerifiedAccessTrustProviderId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>verified_access_trust_providers</code> in a region.
+```sql
+SELECT
+region,
+verified_access_trust_provider_id
+FROM awscc.ec2.verified_access_trust_providers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -400,6 +454,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.verified_access_trust_providers
+SET data__PatchDocument = string('{{ {
+    "OidcOptions": oidc_options,
+    "Description": description,
+    "Tags": tags,
+    "SseSpecification": sse_specification,
+    "NativeApplicationOidcOptions": native_application_oidc_options
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<VerifiedAccessTrustProviderId>';
+```
+
 
 ## `DELETE` example
 

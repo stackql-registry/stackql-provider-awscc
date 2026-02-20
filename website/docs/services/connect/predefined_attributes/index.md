@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>predefined_attribute</code> resource o
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "instance_arn",
@@ -94,6 +103,28 @@ Creates, updates, deletes or gets a <code>predefined_attribute</code> resource o
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The identifier of the Amazon Connect instance."
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the predefined attribute."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-predefinedattribute.html"><code>AWS::Connect::PredefinedAttribute</code></a>.
 
@@ -103,31 +134,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>predefined_attributes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InstanceArn, Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>predefined_attributes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>predefined_attributes</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>predefined_attributes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>predefined_attributes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -135,6 +172,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>predefined_attribute</code>.
 ```sql
@@ -150,6 +196,20 @@ last_modified_time
 FROM awscc.connect.predefined_attributes
 WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>|<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>predefined_attributes</code> in a region.
+```sql
+SELECT
+region,
+instance_arn,
+name
+FROM awscc.connect.predefined_attributes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -232,6 +292,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.predefined_attributes
+SET data__PatchDocument = string('{{ {
+    "Values": values,
+    "Purposes": purposes,
+    "AttributeConfiguration": attribute_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<InstanceArn>|<Name>';
+```
+
 
 ## `DELETE` example
 

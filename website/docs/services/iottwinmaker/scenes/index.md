@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>scene</code> resource or lists <code>s
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "scene_id",
@@ -90,6 +99,28 @@ Creates, updates, deletes or gets a <code>scene</code> resource or lists <code>s
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "scene_id",
+    "type": "string",
+    "description": "The ID of the scene."
+  },
+  {
+    "name": "workspace_id",
+    "type": "string",
+    "description": "The ID of the scene."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iottwinmaker-scene.html"><code>AWS::IoTTwinMaker::Scene</code></a>.
 
@@ -99,31 +130,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>scenes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="WorkspaceId, SceneId, ContentLocation, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>scenes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>scenes</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>scenes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>scenes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -131,6 +168,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>scene</code>.
 ```sql
@@ -150,6 +196,20 @@ generated_scene_metadata
 FROM awscc.iottwinmaker.scenes
 WHERE region = 'us-east-1' AND data__Identifier = '<WorkspaceId>|<SceneId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>scenes</code> in a region.
+```sql
+SELECT
+region,
+workspace_id,
+scene_id
+FROM awscc.iottwinmaker.scenes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -238,6 +298,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iottwinmaker.scenes
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "ContentLocation": content_location,
+    "Tags": tags,
+    "Capabilities": capabilities,
+    "SceneMetadata": scene_metadata
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<WorkspaceId>|<SceneId>';
+```
+
 
 ## `DELETE` example
 

@@ -169,6 +169,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecs.primary_task_sets
+SET data__PatchDocument = string('{{ {
+    "TaskSetId": task_set_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Cluster>|<Service>';
+```
+
+
 ## Permissions
 
 To operate on the <code>primary_task_sets</code> resource, the following permissions are required:

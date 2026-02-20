@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "flow_arn",
@@ -247,6 +256,23 @@ Creates, updates, deletes or gets a <code>flow_output</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "output_arn",
+    "type": "string",
+    "description": "The ARN of the output."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-flowoutput.html"><code>AWS::MediaConnect::FlowOutput</code></a>.
 
@@ -256,31 +282,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>flow_outputs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="FlowArn, Protocol, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>flow_outputs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>flow_outputs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>flow_outputs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>flow_outputs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -288,6 +320,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>flow_output</code>.
 ```sql
@@ -315,6 +356,19 @@ ndi_speed_hq_quality
 FROM awscc.mediaconnect.flow_outputs
 WHERE region = 'us-east-1' AND data__Identifier = '<OutputArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>flow_outputs</code> in a region.
+```sql
+SELECT
+region,
+output_arn
+FROM awscc.mediaconnect.flow_outputs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -465,6 +519,35 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediaconnect.flow_outputs
+SET data__PatchDocument = string('{{ {
+    "FlowArn": flow_arn,
+    "CidrAllowList": cidr_allow_list,
+    "Encryption": encryption,
+    "Description": description,
+    "Destination": destination,
+    "MaxLatency": max_latency,
+    "MinLatency": min_latency,
+    "Port": port,
+    "Protocol": protocol,
+    "RemoteId": remote_id,
+    "SmoothingLatency": smoothing_latency,
+    "StreamId": stream_id,
+    "VpcInterfaceAttachment": vpc_interface_attachment,
+    "MediaStreamOutputConfigurations": media_stream_output_configurations,
+    "OutputStatus": output_status,
+    "NdiProgramName": ndi_program_name,
+    "NdiSpeedHqQuality": ndi_speed_hq_quality
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<OutputArn>';
+```
+
 
 ## `DELETE` example
 

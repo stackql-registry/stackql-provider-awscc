@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "additional_authentication_providers",
@@ -350,6 +359,23 @@ Creates, updates, deletes or gets a <code>graphql_api</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "Unique AWS AppSync GraphQL API identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html"><code>AWS::AppSync::GraphQLApi</code></a>.
 
@@ -359,31 +385,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>graphql_apis</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, AuthenticationType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>graphql_apis</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>graphql_apis</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>graphql_apis_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>graphql_apis</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -391,6 +423,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>graphql_api</code>.
 ```sql
@@ -424,6 +465,19 @@ xray_enabled
 FROM awscc.appsync.graphql_apis
 WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>graphql_apis</code> in a region.
+```sql
+SELECT
+region,
+api_id
+FROM awscc.appsync.graphql_apis_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -579,6 +633,36 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appsync.graphql_apis
+SET data__PatchDocument = string('{{ {
+    "AdditionalAuthenticationProviders": additional_authentication_providers,
+    "ApiType": api_type,
+    "AuthenticationType": authentication_type,
+    "EnhancedMetricsConfig": enhanced_metrics_config,
+    "EnvironmentVariables": environment_variables,
+    "IntrospectionConfig": introspection_config,
+    "LambdaAuthorizerConfig": lambda_authorizer_config,
+    "LogConfig": log_config,
+    "MergedApiExecutionRoleArn": merged_api_execution_role_arn,
+    "Name": name,
+    "OpenIDConnectConfig": open_id_connect_config,
+    "OwnerContact": owner_contact,
+    "QueryDepthLimit": query_depth_limit,
+    "ResolverCountLimit": resolver_count_limit,
+    "Tags": tags,
+    "UserPoolConfig": user_pool_config,
+    "Visibility": visibility,
+    "XrayEnabled": xray_enabled
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ApiId>';
+```
+
 
 ## `DELETE` example
 

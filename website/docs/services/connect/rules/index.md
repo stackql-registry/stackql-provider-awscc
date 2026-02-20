@@ -467,6 +467,23 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.rules
+SET data__PatchDocument = string('{{ {
+    "Name": name,
+    "Function": function,
+    "Actions": actions,
+    "PublishStatus": publish_status,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RuleArn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

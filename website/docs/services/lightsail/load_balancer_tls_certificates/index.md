@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>load_balancer_tls_certificate</code> r
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "load_balancer_name",
@@ -80,6 +89,28 @@ Creates, updates, deletes or gets a <code>load_balancer_tls_certificate</code> r
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "load_balancer_name",
+    "type": "string",
+    "description": "The name of your load balancer."
+  },
+  {
+    "name": "certificate_name",
+    "type": "string",
+    "description": "The SSL/TLS certificate name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-loadbalancertlscertificate.html"><code>AWS::Lightsail::LoadBalancerTlsCertificate</code></a>.
 
@@ -89,31 +120,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>load_balancer_tls_certificates</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="LoadBalancerName, CertificateName, CertificateDomainName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>load_balancer_tls_certificates</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>load_balancer_tls_certificates</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>load_balancer_tls_certificates_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>load_balancer_tls_certificates</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -121,6 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>load_balancer_tls_certificate</code>.
 ```sql
@@ -137,6 +183,20 @@ status
 FROM awscc.lightsail.load_balancer_tls_certificates
 WHERE region = 'us-east-1' AND data__Identifier = '<CertificateName>|<LoadBalancerName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>load_balancer_tls_certificates</code> in a region.
+```sql
+SELECT
+region,
+certificate_name,
+load_balancer_name
+FROM awscc.lightsail.load_balancer_tls_certificates_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -221,6 +281,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.lightsail.load_balancer_tls_certificates
+SET data__PatchDocument = string('{{ {
+    "IsAttached": is_attached,
+    "HttpsRedirectionEnabled": https_redirection_enabled
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<CertificateName>|<LoadBalancerName>';
+```
+
 
 ## `DELETE` example
 

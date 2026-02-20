@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "project_id",
@@ -87,6 +96,23 @@ Creates, updates, deletes or gets a <code>dashboard</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "dashboard_id",
+    "type": "string",
+    "description": "The ID of the dashboard."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotsitewise-dashboard.html"><code>AWS::IoTSiteWise::Dashboard</code></a>.
 
@@ -96,31 +122,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>dashboards</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DashboardDefinition, DashboardDescription, DashboardName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>dashboards</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>dashboards</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>dashboards_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>dashboards</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -128,6 +160,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>dashboard</code>.
 ```sql
@@ -143,6 +184,19 @@ tags
 FROM awscc.iotsitewise.dashboards
 WHERE region = 'us-east-1' AND data__Identifier = '<DashboardId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>dashboards</code> in a region.
+```sql
+SELECT
+region,
+dashboard_id
+FROM awscc.iotsitewise.dashboards_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -224,6 +278,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iotsitewise.dashboards
+SET data__PatchDocument = string('{{ {
+    "DashboardName": dashboard_name,
+    "DashboardDescription": dashboard_description,
+    "DashboardDefinition": dashboard_definition,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DashboardId>';
+```
+
 
 ## `DELETE` example
 

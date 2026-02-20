@@ -252,6 +252,22 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.evidently.projects
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "DataDelivery": data_delivery,
+    "AppConfigResource": app_config_resource,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

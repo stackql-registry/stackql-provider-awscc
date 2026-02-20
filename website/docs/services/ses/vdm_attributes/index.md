@@ -184,6 +184,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ses.vdm_attributes
+SET data__PatchDocument = string('{{ {
+    "DashboardAttributes": dashboard_attributes,
+    "GuardianAttributes": guardian_attributes
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<VdmAttributesResourceId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

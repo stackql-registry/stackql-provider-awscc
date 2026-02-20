@@ -20,7 +20,7 @@ The robomaker service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,12 @@ The robomaker service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/robomaker/fleets/">fleets</a><br />
-<a href="/services/robomaker/fleets_list_only/">fleets_list_only</a><br />
 <a href="/services/robomaker/robot_application_versions/">robot_application_versions</a><br />
-<a href="/services/robomaker/robot_applications/">robot_applications</a><br />
-<a href="/services/robomaker/robot_applications_list_only/">robot_applications_list_only</a>
+<a href="/services/robomaker/robot_applications/">robot_applications</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/robomaker/robots/">robots</a><br />
-<a href="/services/robomaker/robots_list_only/">robots_list_only</a><br />
 <a href="/services/robomaker/simulation_application_versions/">simulation_application_versions</a><br />
-<a href="/services/robomaker/simulation_applications/">simulation_applications</a><br />
-<a href="/services/robomaker/simulation_applications_list_only/">simulation_applications_list_only</a>
+<a href="/services/robomaker/simulation_applications/">simulation_applications</a>
 </div>
 </div>

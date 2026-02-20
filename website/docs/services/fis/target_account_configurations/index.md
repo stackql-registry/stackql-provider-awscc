@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>target_account_configuration</code> re
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "experiment_template_id",
@@ -60,6 +69,28 @@ Creates, updates, deletes or gets a <code>target_account_configuration</code> re
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "experiment_template_id",
+    "type": "string",
+    "description": "The ID of the experiment template."
+  },
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The AWS account ID of the target account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fis-targetaccountconfiguration.html"><code>AWS::FIS::TargetAccountConfiguration</code></a>.
 
@@ -69,31 +100,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>target_account_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ExperimentTemplateId, AccountId, RoleArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>target_account_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>target_account_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>target_account_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>target_account_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +138,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>target_account_configuration</code>.
 ```sql
@@ -113,6 +159,20 @@ description
 FROM awscc.fis.target_account_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<ExperimentTemplateId>|<AccountId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>target_account_configurations</code> in a region.
+```sql
+SELECT
+region,
+experiment_template_id,
+account_id
+FROM awscc.fis.target_account_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -188,6 +248,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.fis.target_account_configurations
+SET data__PatchDocument = string('{{ {
+    "RoleArn": role_arn,
+    "Description": description
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ExperimentTemplateId>|<AccountId>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "platform_version",
@@ -630,6 +639,28 @@ Creates, updates, deletes or gets a <code>service</code> resource or lists <code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "service_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "cluster",
+    "type": "string",
+    "description": "The short name or full Amazon Resource Name (ARN) of the cluster that you run your service on. If you do not specify a cluster, the default cluster is assumed."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html"><code>AWS::ECS::Service</code></a>.
 
@@ -639,31 +670,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>services</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>services</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>services</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>services_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>services</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -671,6 +708,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>service</code>.
 ```sql
@@ -707,6 +753,20 @@ deployment_configuration
 FROM awscc.ecs.services
 WHERE region = 'us-east-1' AND data__Identifier = '<ServiceArn>|<Cluster>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>services</code> in a region.
+```sql
+SELECT
+region,
+service_arn,
+cluster
+FROM awscc.ecs.services_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1006,6 +1066,39 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecs.services
+SET data__PatchDocument = string('{{ {
+    "PlatformVersion": platform_version,
+    "PropagateTags": propagate_tags,
+    "PlacementStrategies": placement_strategies,
+    "ServiceRegistries": service_registries,
+    "VolumeConfigurations": volume_configurations,
+    "CapacityProviderStrategy": capacity_provider_strategy,
+    "AvailabilityZoneRebalancing": availability_zone_rebalancing,
+    "NetworkConfiguration": network_configuration,
+    "Tags": tags,
+    "ForceNewDeployment": force_new_deployment,
+    "HealthCheckGracePeriodSeconds": health_check_grace_period_seconds,
+    "EnableECSManagedTags": enable_ecs_managed_tags,
+    "EnableExecuteCommand": enable_execute_command,
+    "PlacementConstraints": placement_constraints,
+    "LoadBalancers": load_balancers,
+    "ServiceConnectConfiguration": service_connect_configuration,
+    "DesiredCount": desired_count,
+    "VpcLatticeConfigurations": vpc_lattice_configurations,
+    "DeploymentController": deployment_controller,
+    "TaskDefinition": task_definition,
+    "DeploymentConfiguration": deployment_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ServiceArn>|<Cluster>';
+```
+
 
 ## `DELETE` example
 

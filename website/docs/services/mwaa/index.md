@@ -20,7 +20,7 @@ The mwaa service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The mwaa service documentation.
 <a href="/services/mwaa/environments/">environments</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/mwaa/environments_list_only/">environments_list_only</a>
+
 </div>
 </div>

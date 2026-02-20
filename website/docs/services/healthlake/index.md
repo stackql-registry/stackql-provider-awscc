@@ -20,7 +20,7 @@ The healthlake service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The healthlake service documentation.
 <a href="/services/healthlake/fhir_datastores/">fhir_datastores</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/healthlake/fhir_datastores_list_only/">fhir_datastores_list_only</a>
+
 </div>
 </div>

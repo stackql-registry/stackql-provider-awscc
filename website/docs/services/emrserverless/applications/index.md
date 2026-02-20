@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "architecture",
@@ -388,6 +397,23 @@ Creates, updates, deletes or gets an <code>application</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "application_id",
+    "type": "string",
+    "description": "The ID of the EMR Serverless Application."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html"><code>AWS::EMRServerless::Application</code></a>.
 
@@ -397,31 +423,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>applications</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ReleaseLabel, Type, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>applications</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>applications</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>applications_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>applications</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -429,6 +461,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>application</code>.
 ```sql
@@ -456,6 +497,19 @@ identity_center_configuration
 FROM awscc.emrserverless.applications
 WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>applications</code> in a region.
+```sql
+SELECT
+region,
+application_id
+FROM awscc.emrserverless.applications_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -615,6 +669,33 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.emrserverless.applications
+SET data__PatchDocument = string('{{ {
+    "Architecture": architecture,
+    "ReleaseLabel": release_label,
+    "InitialCapacity": initial_capacity,
+    "MaximumCapacity": maximum_capacity,
+    "Tags": tags,
+    "AutoStartConfiguration": auto_start_configuration,
+    "AutoStopConfiguration": auto_stop_configuration,
+    "ImageConfiguration": image_configuration,
+    "MonitoringConfiguration": monitoring_configuration,
+    "RuntimeConfiguration": runtime_configuration,
+    "InteractiveConfiguration": interactive_configuration,
+    "NetworkConfiguration": network_configuration,
+    "WorkerTypeSpecifications": worker_type_specifications,
+    "SchedulerConfiguration": scheduler_configuration,
+    "IdentityCenterConfiguration": identity_center_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ApplicationId>';
+```
+
 
 ## `DELETE` example
 

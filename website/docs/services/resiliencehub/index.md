@@ -20,7 +20,7 @@ The resiliencehub service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The resiliencehub service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/resiliencehub/apps/">apps</a><br />
-<a href="/services/resiliencehub/apps_list_only/">apps_list_only</a>
+<a href="/services/resiliencehub/apps/">apps</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/resiliencehub/resiliency_policies/">resiliency_policies</a><br />
-<a href="/services/resiliencehub/resiliency_policies_list_only/">resiliency_policies_list_only</a>
+<a href="/services/resiliencehub/resiliency_policies/">resiliency_policies</a>
 </div>
 </div>

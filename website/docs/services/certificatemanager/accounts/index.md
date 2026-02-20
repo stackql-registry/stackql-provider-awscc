@@ -164,6 +164,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.certificatemanager.accounts
+SET data__PatchDocument = string('{{ {
+    "ExpiryEventsConfiguration": expiry_events_configuration
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AccountId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

@@ -298,6 +298,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.user_hierarchy_structures
+SET data__PatchDocument = string('{{ {
+    "UserHierarchyStructure": user_hierarchy_structure
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserHierarchyStructureArn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

@@ -20,7 +20,7 @@ The kinesisvideo service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The kinesisvideo service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/kinesisvideo/signaling_channels/">signaling_channels</a><br />
-<a href="/services/kinesisvideo/signaling_channels_list_only/">signaling_channels_list_only</a>
+<a href="/services/kinesisvideo/signaling_channels/">signaling_channels</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/kinesisvideo/streams/">streams</a><br />
-<a href="/services/kinesisvideo/streams_list_only/">streams_list_only</a>
+<a href="/services/kinesisvideo/streams/">streams</a>
 </div>
 </div>

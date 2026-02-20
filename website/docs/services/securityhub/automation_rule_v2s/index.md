@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "rule_name",
@@ -182,6 +191,23 @@ Creates, updates, deletes or gets an <code>automation_rule_v2</code> resource or
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "rule_arn",
+    "type": "string",
+    "description": "The ARN of the automation rule"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-automationrulev2.html"><code>AWS::SecurityHub::AutomationRuleV2</code></a>.
 
@@ -191,31 +217,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>automation_rule_v2s</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RuleName, Description, RuleOrder, Criteria, Actions, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>automation_rule_v2s</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>automation_rule_v2s</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>automation_rule_v2s_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>automation_rule_v2s</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -223,6 +255,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>automation_rule_v2</code>.
 ```sql
@@ -242,6 +283,19 @@ updated_at
 FROM awscc.securityhub.automation_rule_v2s
 WHERE region = 'us-east-1' AND data__Identifier = '<RuleArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>automation_rule_v2s</code> in a region.
+```sql
+SELECT
+region,
+rule_arn
+FROM awscc.securityhub.automation_rule_v2s_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -373,6 +427,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.securityhub.automation_rule_v2s
+SET data__PatchDocument = string('{{ {
+    "RuleName": rule_name,
+    "RuleStatus": rule_status,
+    "Description": description,
+    "RuleOrder": rule_order,
+    "Criteria": criteria,
+    "Actions": actions,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RuleArn>';
+```
+
 
 ## `DELETE` example
 

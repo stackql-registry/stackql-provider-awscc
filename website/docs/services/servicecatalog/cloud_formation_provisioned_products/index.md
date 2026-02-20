@@ -381,6 +381,28 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.servicecatalog.cloud_formation_provisioned_products
+SET data__PatchDocument = string('{{ {
+    "AcceptLanguage": accept_language,
+    "PathId": path_id,
+    "PathName": path_name,
+    "ProductId": product_id,
+    "ProductName": product_name,
+    "ProvisioningArtifactId": provisioning_artifact_id,
+    "ProvisioningArtifactName": provisioning_artifact_name,
+    "ProvisioningParameters": provisioning_parameters,
+    "ProvisioningPreferences": provisioning_preferences,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ProvisionedProductId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

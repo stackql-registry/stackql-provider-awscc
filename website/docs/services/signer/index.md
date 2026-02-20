@@ -20,7 +20,7 @@ The signer service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The signer service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/signer/profile_permissions/">profile_permissions</a><br />
-<a href="/services/signer/profile_permissions_list_only/">profile_permissions_list_only</a>
+<a href="/services/signer/profile_permissions/">profile_permissions</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/signer/signing_profiles/">signing_profiles</a><br />
-<a href="/services/signer/signing_profiles_list_only/">signing_profiles_list_only</a>
+<a href="/services/signer/signing_profiles/">signing_profiles</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>id_namespace_association</code> resou
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "id_namespace_association_identifier",
@@ -133,6 +142,28 @@ Creates, updates, deletes or gets an <code>id_namespace_association</code> resou
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id_namespace_association_identifier",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cleanrooms-idnamespaceassociation.html"><code>AWS::CleanRooms::IdNamespaceAssociation</code></a>.
 
@@ -142,31 +173,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>id_namespace_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="MembershipIdentifier, InputReferenceConfig, Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>id_namespace_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>id_namespace_associations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>id_namespace_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>id_namespace_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -174,6 +211,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>id_namespace_association</code>.
 ```sql
@@ -194,6 +240,20 @@ input_reference_properties
 FROM awscc.cleanrooms.id_namespace_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>id_namespace_associations</code> in a region.
+```sql
+SELECT
+region,
+id_namespace_association_identifier,
+membership_identifier
+FROM awscc.cleanrooms.id_namespace_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -282,6 +342,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cleanrooms.id_namespace_associations
+SET data__PatchDocument = string('{{ {
+    "Tags": tags,
+    "Name": name,
+    "Description": description,
+    "IdMappingConfig": id_mapping_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
+```
+
 
 ## `DELETE` example
 

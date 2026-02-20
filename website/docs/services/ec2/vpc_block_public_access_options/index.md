@@ -162,6 +162,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.vpc_block_public_access_options
+SET data__PatchDocument = string('{{ {
+    "InternetGatewayBlockMode": internet_gateway_block_mode
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AccountId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

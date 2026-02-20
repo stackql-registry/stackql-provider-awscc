@@ -156,6 +156,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigateway.accounts
+SET data__PatchDocument = string('{{ {
+    "CloudWatchRoleArn": cloud_watch_role_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
+
 ## `DELETE` example
 
 ```sql

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>snapshot_block_public_access</code> re
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "state",
@@ -50,6 +59,23 @@ Creates, updates, deletes or gets a <code>snapshot_block_public_access</code> re
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "The identifier for the specified AWS account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-snapshotblockpublicaccess.html"><code>AWS::EC2::SnapshotBlockPublicAccess</code></a>.
 
@@ -59,31 +85,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>snapshot_block_public_accesses</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="State, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>snapshot_block_public_accesses</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>snapshot_block_public_accesses</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>snapshot_block_public_accesses_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>snapshot_block_public_accesses</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -91,6 +123,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>snapshot_block_public_access</code>.
 ```sql
@@ -101,6 +142,19 @@ account_id
 FROM awscc.ec2.snapshot_block_public_accesses
 WHERE region = 'us-east-1' AND data__Identifier = '<AccountId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>snapshot_block_public_accesses</code> in a region.
+```sql
+SELECT
+region,
+account_id
+FROM awscc.ec2.snapshot_block_public_accesses_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -160,6 +214,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.snapshot_block_public_accesses
+SET data__PatchDocument = string('{{ {
+    "State": state
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AccountId>';
+```
+
 
 ## `DELETE` example
 

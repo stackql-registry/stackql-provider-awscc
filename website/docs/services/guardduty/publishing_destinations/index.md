@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>publishing_destination</code> resource
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "id",
@@ -99,6 +108,28 @@ Creates, updates, deletes or gets a <code>publishing_destination</code> resource
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the publishing destination."
+  },
+  {
+    "name": "detector_id",
+    "type": "string",
+    "description": "The ID of the GuardDuty detector associated with the publishing destination."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-publishingdestination.html"><code>AWS::GuardDuty::PublishingDestination</code></a>.
 
@@ -108,31 +139,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>publishing_destinations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DetectorId, DestinationType, DestinationProperties, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>publishing_destinations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>publishing_destinations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>publishing_destinations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>publishing_destinations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -140,6 +177,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>publishing_destination</code>.
 ```sql
@@ -155,6 +201,20 @@ tags
 FROM awscc.guardduty.publishing_destinations
 WHERE region = 'us-east-1' AND data__Identifier = '<DetectorId>|<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>publishing_destinations</code> in a region.
+```sql
+SELECT
+region,
+detector_id,
+id
+FROM awscc.guardduty.publishing_destinations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -234,6 +294,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.guardduty.publishing_destinations
+SET data__PatchDocument = string('{{ {
+    "DestinationType": destination_type,
+    "DestinationProperties": destination_properties,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DetectorId>|<Id>';
+```
+
 
 ## `DELETE` example
 

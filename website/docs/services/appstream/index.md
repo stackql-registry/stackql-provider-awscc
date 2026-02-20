@@ -20,7 +20,7 @@ The appstream service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>11</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -30,17 +30,14 @@ The appstream service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/appstream/app_block_builders/">app_block_builders</a><br />
-<a href="/services/appstream/app_block_builders_list_only/">app_block_builders_list_only</a><br />
 <a href="/services/appstream/app_blocks/">app_blocks</a><br />
 <a href="/services/appstream/application_entitlement_associations/">application_entitlement_associations</a><br />
-<a href="/services/appstream/application_fleet_associations/">application_fleet_associations</a><br />
-<a href="/services/appstream/applications/">applications</a>
+<a href="/services/appstream/application_fleet_associations/">application_fleet_associations</a>
 </div>
 <div class="providerDocColumn">
+<a href="/services/appstream/applications/">applications</a><br />
 <a href="/services/appstream/directory_configs/">directory_configs</a><br />
-<a href="/services/appstream/directory_configs_list_only/">directory_configs_list_only</a><br />
 <a href="/services/appstream/entitlements/">entitlements</a><br />
-<a href="/services/appstream/image_builders/">image_builders</a><br />
-<a href="/services/appstream/image_builders_list_only/">image_builders_list_only</a>
+<a href="/services/appstream/image_builders/">image_builders</a>
 </div>
 </div>

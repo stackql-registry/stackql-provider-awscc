@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>access_grants_location</code> resourc
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "access_grants_location_arn",
@@ -77,6 +86,23 @@ Creates, updates, deletes or gets an <code>access_grants_location</code> resourc
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "access_grants_location_id",
+    "type": "string",
+    "description": "The unique identifier for the specified Access Grants location."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-accessgrantslocation.html"><code>AWS::S3::AccessGrantsLocation</code></a>.
 
@@ -86,31 +112,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>access_grants_locations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code=", region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>access_grants_locations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>access_grants_locations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>access_grants_locations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>access_grants_locations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -118,6 +150,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>access_grants_location</code>.
 ```sql
@@ -131,6 +172,19 @@ tags
 FROM awscc.s3.access_grants_locations
 WHERE region = 'us-east-1' AND data__Identifier = '<AccessGrantsLocationId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>access_grants_locations</code> in a region.
+```sql
+SELECT
+region,
+access_grants_location_id
+FROM awscc.s3.access_grants_locations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -200,6 +254,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.s3.access_grants_locations
+SET data__PatchDocument = string('{{ {
+    "IamRoleArn": iam_role_arn,
+    "LocationScope": location_scope
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AccessGrantsLocationId>';
+```
+
 
 ## `DELETE` example
 

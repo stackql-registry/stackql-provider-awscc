@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "connections",
@@ -198,6 +207,23 @@ Creates, updates, deletes or gets a <code>job</code> resource or lists <code>job
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name you assign to the job definition"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html"><code>AWS::Glue::Job</code></a>.
 
@@ -207,31 +233,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Role, Command, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>jobs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>jobs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -239,6 +271,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>job</code>.
 ```sql
@@ -270,6 +311,19 @@ job_run_queuing_enabled
 FROM awscc.glue.jobs
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>jobs</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.glue.jobs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -427,6 +481,40 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.glue.jobs
+SET data__PatchDocument = string('{{ {
+    "Connections": connections,
+    "MaxRetries": max_retries,
+    "Description": description,
+    "Timeout": timeout,
+    "AllocatedCapacity": allocated_capacity,
+    "Role": role,
+    "DefaultArguments": default_arguments,
+    "NotificationProperty": notification_property,
+    "WorkerType": worker_type,
+    "ExecutionClass": execution_class,
+    "LogUri": log_uri,
+    "Command": command,
+    "GlueVersion": glue_version,
+    "ExecutionProperty": execution_property,
+    "SecurityConfiguration": security_configuration,
+    "NumberOfWorkers": number_of_workers,
+    "Tags": tags,
+    "MaxCapacity": max_capacity,
+    "NonOverridableArguments": non_overridable_arguments,
+    "MaintenanceWindow": maintenance_window,
+    "JobMode": job_mode,
+    "JobRunQueuingEnabled": job_run_queuing_enabled
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

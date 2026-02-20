@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>aggregation_authorization</code> reso
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "authorized_account_id",
@@ -72,6 +81,28 @@ Creates, updates, deletes or gets an <code>aggregation_authorization</code> reso
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "authorized_account_id",
+    "type": "string",
+    "description": "The 12-digit account ID of the account authorized to aggregate data."
+  },
+  {
+    "name": "authorized_aws_region",
+    "type": "string",
+    "description": "The region authorized to collect aggregated data."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-aggregationauthorization.html"><code>AWS::Config::AggregationAuthorization</code></a>.
 
@@ -81,31 +112,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>aggregation_authorizations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AuthorizedAccountId, AuthorizedAwsRegion, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>aggregation_authorizations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>aggregation_authorizations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>aggregation_authorizations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>aggregation_authorizations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -113,6 +150,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>aggregation_authorization</code>.
 ```sql
@@ -125,6 +171,20 @@ tags
 FROM awscc.config.aggregation_authorizations
 WHERE region = 'us-east-1' AND data__Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>aggregation_authorizations</code> in a region.
+```sql
+SELECT
+region,
+authorized_account_id,
+authorized_aws_region
+FROM awscc.config.aggregation_authorizations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -196,6 +256,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.config.aggregation_authorizations
+SET data__PatchDocument = string('{{ {
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AuthorizedAccountId>|<AuthorizedAwsRegion>';
+```
+
 
 ## `DELETE` example
 

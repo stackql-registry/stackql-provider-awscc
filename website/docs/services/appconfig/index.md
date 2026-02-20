@@ -20,7 +20,7 @@ The appconfig service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>16</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -30,22 +30,14 @@ The appconfig service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/appconfig/applications/">applications</a><br />
-<a href="/services/appconfig/applications_list_only/">applications_list_only</a><br />
 <a href="/services/appconfig/configuration_profiles/">configuration_profiles</a><br />
-<a href="/services/appconfig/configuration_profiles_list_only/">configuration_profiles_list_only</a><br />
 <a href="/services/appconfig/deployment_strategies/">deployment_strategies</a><br />
-<a href="/services/appconfig/deployment_strategies_list_only/">deployment_strategies_list_only</a><br />
-<a href="/services/appconfig/deployments/">deployments</a><br />
-<a href="/services/appconfig/deployments_list_only/">deployments_list_only</a>
+<a href="/services/appconfig/deployments/">deployments</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/appconfig/environments/">environments</a><br />
-<a href="/services/appconfig/environments_list_only/">environments_list_only</a><br />
 <a href="/services/appconfig/extension_associations/">extension_associations</a><br />
-<a href="/services/appconfig/extension_associations_list_only/">extension_associations_list_only</a><br />
 <a href="/services/appconfig/extensions/">extensions</a><br />
-<a href="/services/appconfig/extensions_list_only/">extensions_list_only</a><br />
-<a href="/services/appconfig/hosted_configuration_versions/">hosted_configuration_versions</a><br />
-<a href="/services/appconfig/hosted_configuration_versions_list_only/">hosted_configuration_versions_list_only</a>
+<a href="/services/appconfig/hosted_configuration_versions/">hosted_configuration_versions</a>
 </div>
 </div>

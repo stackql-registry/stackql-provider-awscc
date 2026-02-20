@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>log_stream</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "log_stream_name",
@@ -50,6 +59,28 @@ Creates, updates, deletes or gets a <code>log_stream</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "log_stream_name",
+    "type": "string",
+    "description": "The name of the log stream. The name must be unique wihtin the log group."
+  },
+  {
+    "name": "log_group_name",
+    "type": "string",
+    "description": "The name of the log group where the log stream is created."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-logstream.html"><code>AWS::Logs::LogStream</code></a>.
 
@@ -59,26 +90,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>log_streams</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="LogGroupName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>log_streams</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>log_streams_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>log_streams</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -86,6 +122,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>log_stream</code>.
 ```sql
@@ -96,6 +141,20 @@ log_group_name
 FROM awscc.logs.log_streams
 WHERE region = 'us-east-1' AND data__Identifier = '<LogGroupName>|<LogStreamName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>log_streams</code> in a region.
+```sql
+SELECT
+region,
+log_group_name,
+log_stream_name
+FROM awscc.logs.log_streams_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -159,6 +218,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

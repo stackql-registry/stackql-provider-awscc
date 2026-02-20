@@ -20,7 +20,7 @@ The backup service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>16</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -30,22 +30,14 @@ The backup service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/backup/backup_plans/">backup_plans</a><br />
-<a href="/services/backup/backup_plans_list_only/">backup_plans_list_only</a><br />
 <a href="/services/backup/backup_selections/">backup_selections</a><br />
-<a href="/services/backup/backup_selections_list_only/">backup_selections_list_only</a><br />
 <a href="/services/backup/backup_vaults/">backup_vaults</a><br />
-<a href="/services/backup/backup_vaults_list_only/">backup_vaults_list_only</a><br />
-<a href="/services/backup/frameworks/">frameworks</a><br />
-<a href="/services/backup/frameworks_list_only/">frameworks_list_only</a>
+<a href="/services/backup/frameworks/">frameworks</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/backup/logically_air_gapped_backup_vaults/">logically_air_gapped_backup_vaults</a><br />
-<a href="/services/backup/logically_air_gapped_backup_vaults_list_only/">logically_air_gapped_backup_vaults_list_only</a><br />
 <a href="/services/backup/report_plans/">report_plans</a><br />
-<a href="/services/backup/report_plans_list_only/">report_plans_list_only</a><br />
 <a href="/services/backup/restore_testing_plans/">restore_testing_plans</a><br />
-<a href="/services/backup/restore_testing_plans_list_only/">restore_testing_plans_list_only</a><br />
-<a href="/services/backup/restore_testing_selections/">restore_testing_selections</a><br />
-<a href="/services/backup/restore_testing_selections_list_only/">restore_testing_selections_list_only</a>
+<a href="/services/backup/restore_testing_selections/">restore_testing_selections</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -614,6 +623,33 @@ Creates, updates, deletes or gets a <code>rule_group</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the WebACL."
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Id of the WebACL"
+  },
+  {
+    "name": "scope",
+    "type": "string",
+    "description": "Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-rulegroup.html"><code>AWS::WAFv2::RuleGroup</code></a>.
 
@@ -623,31 +659,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Capacity, Scope, VisibilityConfig, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>rule_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>rule_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -655,6 +697,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>rule_group</code>.
 ```sql
@@ -676,6 +727,21 @@ consumed_labels
 FROM awscc.wafv2.rule_groups
 WHERE data__Identifier = '<Name>|<Id>|<Scope>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>rule_groups</code> in a region.
+```sql
+SELECT
+region,
+name,
+id,
+scope
+FROM awscc.wafv2.rule_groups_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1028,6 +1094,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.wafv2.rule_groups
+SET data__PatchDocument = string('{{ {
+    "Capacity": capacity,
+    "Description": description,
+    "Rules": rules,
+    "VisibilityConfig": visibility_config,
+    "Tags": tags,
+    "CustomResponseBodies": custom_response_bodies
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>|<Id>|<Scope>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The resourceexplorer2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,11 +30,9 @@ The resourceexplorer2 service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/resourceexplorer2/default_view_associations/">default_view_associations</a><br />
-<a href="/services/resourceexplorer2/indices/">indices</a><br />
-<a href="/services/resourceexplorer2/indices_list_only/">indices_list_only</a>
+<a href="/services/resourceexplorer2/indices/">indices</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/resourceexplorer2/views/">views</a><br />
-<a href="/services/resourceexplorer2/views_list_only/">views_list_only</a>
+<a href="/services/resourceexplorer2/views/">views</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The chatbot service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The chatbot service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/chatbot/custom_actions/">custom_actions</a><br />
-<a href="/services/chatbot/custom_actions_list_only/">custom_actions_list_only</a><br />
 <a href="/services/chatbot/microsoft_teams_channel_configurations/">microsoft_teams_channel_configurations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/chatbot/microsoft_teams_channel_configurations_list_only/">microsoft_teams_channel_configurations_list_only</a><br />
-<a href="/services/chatbot/slack_channel_configurations/">slack_channel_configurations</a><br />
-<a href="/services/chatbot/slack_channel_configurations_list_only/">slack_channel_configurations_list_only</a>
+<a href="/services/chatbot/slack_channel_configurations/">slack_channel_configurations</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The proton service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The proton service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/proton/environment_account_connections/">environment_account_connections</a><br />
-<a href="/services/proton/environment_account_connections_list_only/">environment_account_connections_list_only</a><br />
 <a href="/services/proton/environment_templates/">environment_templates</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/proton/environment_templates_list_only/">environment_templates_list_only</a><br />
-<a href="/services/proton/service_templates/">service_templates</a><br />
-<a href="/services/proton/service_templates_list_only/">service_templates_list_only</a>
+<a href="/services/proton/service_templates/">service_templates</a>
 </div>
 </div>

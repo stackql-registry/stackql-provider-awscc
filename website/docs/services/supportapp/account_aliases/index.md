@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>account_alias</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "account_alias",
@@ -50,6 +59,28 @@ Creates, updates, deletes or gets an <code>account_alias</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "account_alias",
+    "type": "string",
+    "description": "An account alias associated with a customer's account."
+  },
+  {
+    "name": "account_alias_resource_id",
+    "type": "string",
+    "description": "Unique identifier representing an alias tied to an account"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-supportapp-accountalias.html"><code>AWS::SupportApp::AccountAlias</code></a>.
 
@@ -59,31 +90,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>account_aliases</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AccountAlias, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>account_aliases</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>account_aliases</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>account_aliases_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>account_aliases</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -91,6 +128,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>account_alias</code>.
 ```sql
@@ -101,6 +147,19 @@ account_alias_resource_id
 FROM awscc.supportapp.account_aliases
 WHERE region = 'us-east-1' AND data__Identifier = '<AccountAliasResourceId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>account_aliases</code> in a region.
+```sql
+SELECT
+region,
+account_alias_resource_id
+FROM awscc.supportapp.account_aliases_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -160,6 +219,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.supportapp.account_aliases
+SET data__PatchDocument = string('{{ {
+    "AccountAlias": account_alias
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AccountAliasResourceId>';
+```
+
 
 ## `DELETE` example
 

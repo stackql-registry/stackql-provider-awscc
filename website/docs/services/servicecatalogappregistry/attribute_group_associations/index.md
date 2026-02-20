@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>attribute_group_association</code> re
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "application",
@@ -60,6 +69,38 @@ Creates, updates, deletes or gets an <code>attribute_group_association</code> re
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "application",
+    "type": "string",
+    "description": "The name or the Id of the Application."
+  },
+  {
+    "name": "attribute_group",
+    "type": "string",
+    "description": "The name or the Id of the AttributeGroup."
+  },
+  {
+    "name": "application_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "attribute_group_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalogappregistry-attributegroupassociation.html"><code>AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation</code></a>.
 
@@ -69,26 +110,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>attribute_group_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Application, AttributeGroup, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>attribute_group_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>attribute_group_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>attribute_group_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -96,6 +142,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>attribute_group_association</code>.
 ```sql
@@ -108,6 +163,20 @@ attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationArn>|<AttributeGroupArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>attribute_group_associations</code> in a region.
+```sql
+SELECT
+region,
+application_arn,
+attribute_group_arn
+FROM awscc.servicecatalogappregistry.attribute_group_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -173,6 +242,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

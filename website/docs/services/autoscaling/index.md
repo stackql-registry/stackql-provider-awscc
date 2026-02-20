@@ -20,7 +20,7 @@ The autoscaling service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,18 +30,12 @@ The autoscaling service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/autoscaling/auto_scaling_groups/">auto_scaling_groups</a><br />
-<a href="/services/autoscaling/auto_scaling_groups_list_only/">auto_scaling_groups_list_only</a><br />
 <a href="/services/autoscaling/launch_configurations/">launch_configurations</a><br />
-<a href="/services/autoscaling/launch_configurations_list_only/">launch_configurations_list_only</a><br />
-<a href="/services/autoscaling/lifecycle_hooks/">lifecycle_hooks</a><br />
-<a href="/services/autoscaling/lifecycle_hooks_list_only/">lifecycle_hooks_list_only</a>
+<a href="/services/autoscaling/lifecycle_hooks/">lifecycle_hooks</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/autoscaling/scaling_policies/">scaling_policies</a><br />
-<a href="/services/autoscaling/scaling_policies_list_only/">scaling_policies_list_only</a><br />
 <a href="/services/autoscaling/scheduled_actions/">scheduled_actions</a><br />
-<a href="/services/autoscaling/scheduled_actions_list_only/">scheduled_actions_list_only</a><br />
-<a href="/services/autoscaling/warm_pools/">warm_pools</a><br />
-<a href="/services/autoscaling/warm_pools_list_only/">warm_pools_list_only</a>
+<a href="/services/autoscaling/warm_pools/">warm_pools</a>
 </div>
 </div>

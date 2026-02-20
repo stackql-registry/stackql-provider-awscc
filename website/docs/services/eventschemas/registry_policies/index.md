@@ -178,6 +178,21 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.eventschemas.registry_policies
+SET data__PatchDocument = string('{{ {
+    "Policy": policy,
+    "RegistryName": registry_name,
+    "RevisionId": revision_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
+
 ## `DELETE` example
 
 ```sql

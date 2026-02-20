@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>stack_set</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "stack_set_name",
@@ -251,6 +260,23 @@ Creates, updates, deletes or gets a <code>stack_set</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "stack_set_id",
+    "type": "string",
+    "description": "The ID of the stack set that you're creating."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-stackset.html"><code>AWS::CloudFormation::StackSet</code></a>.
 
@@ -260,31 +286,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>stack_sets</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="StackSetName, PermissionModel, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>stack_sets</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>stack_sets</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>stack_sets_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>stack_sets</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -292,6 +324,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>stack_set</code>.
 ```sql
@@ -316,6 +357,19 @@ managed_execution
 FROM awscc.cloudformation.stack_sets
 WHERE region = 'us-east-1' AND data__Identifier = '<StackSetId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>stack_sets</code> in a region.
+```sql
+SELECT
+region,
+stack_set_id
+FROM awscc.cloudformation.stack_sets_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -460,6 +514,31 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudformation.stack_sets
+SET data__PatchDocument = string('{{ {
+    "AdministrationRoleARN": administration_role_arn,
+    "AutoDeployment": auto_deployment,
+    "Capabilities": capabilities,
+    "Description": description,
+    "ExecutionRoleName": execution_role_name,
+    "OperationPreferences": operation_preferences,
+    "StackInstancesGroup": stack_instances_group,
+    "Parameters": parameters,
+    "Tags": tags,
+    "TemplateBody": template_body,
+    "TemplateURL": template_url,
+    "CallAs": call_as,
+    "ManagedExecution": managed_execution
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<StackSetId>';
+```
+
 
 ## `DELETE` example
 

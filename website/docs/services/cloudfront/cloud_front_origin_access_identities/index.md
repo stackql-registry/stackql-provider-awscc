@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>cloud_front_origin_access_identity</co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "cloud_front_origin_access_identity_config",
@@ -62,6 +71,23 @@ Creates, updates, deletes or gets a <code>cloud_front_origin_access_identity</co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-cloudfrontoriginaccessidentity.html"><code>AWS::CloudFront::CloudFrontOriginAccessIdentity</code></a>.
 
@@ -71,31 +97,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="CloudFrontOriginAccessIdentityConfig, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>cloud_front_origin_access_identities_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>cloud_front_origin_access_identities</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -103,6 +135,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>cloud_front_origin_access_identity</code>.
 ```sql
@@ -114,6 +155,19 @@ s3_canonical_user_id
 FROM awscc.cloudfront.cloud_front_origin_access_identities
 WHERE data__Identifier = '<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>cloud_front_origin_access_identities</code> in a region.
+```sql
+SELECT
+region,
+id
+FROM awscc.cloudfront.cloud_front_origin_access_identities_list_only
+;
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -174,6 +228,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudfront.cloud_front_origin_access_identities
+SET data__PatchDocument = string('{{ {
+    "CloudFrontOriginAccessIdentityConfig": cloud_front_origin_access_identity_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
 
 ## `DELETE` example
 

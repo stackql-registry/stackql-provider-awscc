@@ -162,6 +162,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.s3outposts.bucket_policies
+SET data__PatchDocument = string('{{ {
+    "PolicyDocument": policy_document
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Bucket>';
+```
+
+
 ## `DELETE` example
 
 ```sql

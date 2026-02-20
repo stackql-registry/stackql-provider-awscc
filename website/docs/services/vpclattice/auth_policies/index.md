@@ -168,6 +168,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.vpclattice.auth_policies
+SET data__PatchDocument = string('{{ {
+    "Policy": policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ResourceIdentifier>';
+```
+
+
 ## `DELETE` example
 
 ```sql

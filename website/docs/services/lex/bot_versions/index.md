@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>bot_version</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "bot_id",
@@ -96,6 +105,52 @@ Creates, updates, deletes or gets a <code>bot_version</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "bot_id",
+    "type": "string",
+    "description": "Unique ID of resource"
+  },
+  {
+    "name": "bot_version",
+    "type": "object",
+    "description": "A version is a numbered snapshot of your work that you can publish for use in different parts of your workflow, such as development, beta deployment, and production.",
+    "children": [
+      {
+        "name": "description",
+        "type": "string",
+        "description": "A description of the version. Use the description to help identify the version in lists."
+      },
+      {
+        "name": "bot_version_locale_specification",
+        "type": "array",
+        "description": "Specifies the locales that Amazon Lex adds to this version. You can choose the Draft version or any other previously published version for each locale.",
+        "children": [
+          {
+            "name": "locale_id",
+            "type": "string",
+            "description": "The identifier of the language and locale that the bot will be used in."
+          },
+          {
+            "name": "bot_version_locale_details",
+            "type": "object",
+            "description": "The version of a bot used for a bot locale."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lex-botversion.html"><code>AWS::Lex::BotVersion</code></a>.
 
@@ -105,26 +160,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>bot_versions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="BotId, BotVersionLocaleSpecification, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>bot_versions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>bot_versions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>bot_versions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -132,6 +192,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>bot_version</code>.
 ```sql
@@ -144,6 +213,20 @@ bot_version_locale_specification
 FROM awscc.lex.bot_versions
 WHERE region = 'us-east-1' AND data__Identifier = '<BotId>|<BotVersion>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>bot_versions</code> in a region.
+```sql
+SELECT
+region,
+bot_id,
+bot_version
+FROM awscc.lex.bot_versions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -219,6 +302,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

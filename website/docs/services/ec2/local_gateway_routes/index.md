@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>local_gateway_route</code> resource or
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "destination_cidr_block",
@@ -70,6 +79,28 @@ Creates, updates, deletes or gets a <code>local_gateway_route</code> resource or
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The CIDR block used for destination matches."
+  },
+  {
+    "name": "local_gateway_route_table_id",
+    "type": "string",
+    "description": "The ID of the local gateway route table."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-localgatewayroute.html"><code>AWS::EC2::LocalGatewayRoute</code></a>.
 
@@ -79,31 +110,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>local_gateway_routes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>local_gateway_routes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>local_gateway_routes</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>local_gateway_routes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>local_gateway_routes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -111,6 +148,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>local_gateway_route</code>.
 ```sql
@@ -125,6 +171,20 @@ type
 FROM awscc.ec2.local_gateway_routes
 WHERE region = 'us-east-1' AND data__Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>local_gateway_routes</code> in a region.
+```sql
+SELECT
+region,
+destination_cidr_block,
+local_gateway_route_table_id
+FROM awscc.ec2.local_gateway_routes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -202,6 +262,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.local_gateway_routes
+SET data__PatchDocument = string('{{ {
+    "LocalGatewayVirtualInterfaceGroupId": local_gateway_virtual_interface_group_id,
+    "NetworkInterfaceId": network_interface_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
+```
+
 
 ## `DELETE` example
 

@@ -211,6 +211,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediapackagev2.origin_endpoint_policies
+SET data__PatchDocument = string('{{ {
+    "CdnAuthConfiguration": cdn_auth_configuration,
+    "Policy": policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

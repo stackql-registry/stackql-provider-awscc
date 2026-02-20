@@ -20,7 +20,7 @@ The lookoutequipment service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The lookoutequipment service documentation.
 <a href="/services/lookoutequipment/inference_schedulers/">inference_schedulers</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/lookoutequipment/inference_schedulers_list_only/">inference_schedulers_list_only</a>
+
 </div>
 </div>

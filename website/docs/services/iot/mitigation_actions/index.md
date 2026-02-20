@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>mitigation_action</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "action_name",
@@ -166,6 +175,23 @@ Creates, updates, deletes or gets a <code>mitigation_action</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "action_name",
+    "type": "string",
+    "description": "A unique identifier for the mitigation action."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-mitigationaction.html"><code>AWS::IoT::MitigationAction</code></a>.
 
@@ -175,31 +201,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>mitigation_actions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RoleArn, ActionParams, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>mitigation_actions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>mitigation_actions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>mitigation_actions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>mitigation_actions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -207,6 +239,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>mitigation_action</code>.
 ```sql
@@ -221,6 +262,19 @@ mitigation_action_id
 FROM awscc.iot.mitigation_actions
 WHERE region = 'us-east-1' AND data__Identifier = '<ActionName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>mitigation_actions</code> in a region.
+```sql
+SELECT
+region,
+action_name
+FROM awscc.iot.mitigation_actions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -311,6 +365,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iot.mitigation_actions
+SET data__PatchDocument = string('{{ {
+    "RoleArn": role_arn,
+    "Tags": tags,
+    "ActionParams": action_params
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ActionName>';
+```
+
 
 ## `DELETE` example
 

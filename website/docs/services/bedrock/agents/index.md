@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "action_groups",
@@ -418,6 +427,23 @@ Creates, updates, deletes or gets an <code>agent</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "agent_id",
+    "type": "string",
+    "description": "Identifier for a resource."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-agent.html"><code>AWS::Bedrock::Agent</code></a>.
 
@@ -427,31 +453,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>agents</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AgentName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>agents</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>agents</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>agents_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>agents</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -459,6 +491,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>agent</code>.
 ```sql
@@ -496,6 +537,19 @@ updated_at
 FROM awscc.bedrock.agents
 WHERE region = 'us-east-1' AND data__Identifier = '<AgentId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>agents</code> in a region.
+```sql
+SELECT
+region,
+agent_id
+FROM awscc.bedrock.agents_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -677,6 +731,38 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.bedrock.agents
+SET data__PatchDocument = string('{{ {
+    "ActionGroups": action_groups,
+    "AgentName": agent_name,
+    "AgentResourceRoleArn": agent_resource_role_arn,
+    "AutoPrepare": auto_prepare,
+    "CustomOrchestration": custom_orchestration,
+    "CustomerEncryptionKeyArn": customer_encryption_key_arn,
+    "SkipResourceInUseCheckOnDelete": skip_resource_in_use_check_on_delete,
+    "Description": description,
+    "FoundationModel": foundation_model,
+    "GuardrailConfiguration": guardrail_configuration,
+    "MemoryConfiguration": memory_configuration,
+    "IdleSessionTTLInSeconds": idle_session_ttl_in_seconds,
+    "AgentCollaboration": agent_collaboration,
+    "Instruction": instruction,
+    "KnowledgeBases": knowledge_bases,
+    "AgentCollaborators": agent_collaborators,
+    "OrchestrationType": orchestration_type,
+    "PromptOverrideConfiguration": prompt_override_configuration,
+    "Tags": tags,
+    "TestAliasTags": test_alias_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AgentId>';
+```
+
 
 ## `DELETE` example
 

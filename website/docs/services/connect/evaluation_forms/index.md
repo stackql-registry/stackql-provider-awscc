@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "scoring_strategy",
@@ -157,6 +166,23 @@ Creates, updates, deletes or gets an <code>evaluation_form</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "evaluation_form_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-evaluationform.html"><code>AWS::Connect::EvaluationForm</code></a>.
 
@@ -166,31 +192,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>evaluation_forms</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Title, InstanceArn, Items, Status, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>evaluation_forms</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>evaluation_forms</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>evaluation_forms_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>evaluation_forms</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -198,6 +230,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>evaluation_form</code>.
 ```sql
@@ -215,6 +256,19 @@ tags
 FROM awscc.connect.evaluation_forms
 WHERE region = 'us-east-1' AND data__Identifier = '<EvaluationFormArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>evaluation_forms</code> in a region.
+```sql
+SELECT
+region,
+evaluation_form_arn
+FROM awscc.connect.evaluation_forms_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -354,6 +408,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.evaluation_forms
+SET data__PatchDocument = string('{{ {
+    "ScoringStrategy": scoring_strategy,
+    "Status": status,
+    "AutoEvaluationConfiguration": auto_evaluation_configuration,
+    "Description": description,
+    "InstanceArn": instance_arn,
+    "Title": title,
+    "Items": items,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<EvaluationFormArn>';
+```
+
 
 ## `DELETE` example
 

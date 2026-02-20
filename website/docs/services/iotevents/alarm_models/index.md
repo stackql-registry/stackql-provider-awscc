@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "alarm_model_name",
@@ -374,6 +383,23 @@ Creates, updates, deletes or gets an <code>alarm_model</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "alarm_model_name",
+    "type": "string",
+    "description": "The name of the alarm model."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotevents-alarmmodel.html"><code>AWS::IoTEvents::AlarmModel</code></a>.
 
@@ -383,31 +409,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>alarm_models</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RoleArn, AlarmRule, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>alarm_models</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>alarm_models</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>alarm_models_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>alarm_models</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -415,6 +447,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>alarm_model</code>.
 ```sql
@@ -432,6 +473,19 @@ tags
 FROM awscc.iotevents.alarm_models
 WHERE region = 'us-east-1' AND data__Identifier = '<AlarmModelName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>alarm_models</code> in a region.
+```sql
+SELECT
+region,
+alarm_model_name
+FROM awscc.iotevents.alarm_models_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -587,6 +641,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iotevents.alarm_models
+SET data__PatchDocument = string('{{ {
+    "AlarmModelDescription": alarm_model_description,
+    "RoleArn": role_arn,
+    "Severity": severity,
+    "AlarmRule": alarm_rule,
+    "AlarmEventActions": alarm_event_actions,
+    "AlarmCapabilities": alarm_capabilities,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AlarmModelName>';
+```
+
 
 ## `DELETE` example
 

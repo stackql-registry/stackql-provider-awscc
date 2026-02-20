@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "db_parameter_group_name",
@@ -77,6 +86,23 @@ Creates, updates, deletes or gets a <code>db_parameter_group</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "db_parameter_group_name",
+    "type": "string",
+    "description": "The name of the DB parameter group.<br />Constraints:<br />+ Must be 1 to 255 letters, numbers, or hyphens.<br />+ First character must be a letter<br />+ Can't end with a hyphen or contain two consecutive hyphens<br /><br />If you don't specify a value for &#96;&#96;DBParameterGroupName&#96;&#96; property, a name is automatically created for the DB parameter group.<br />This value is stored as a lowercase string."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html"><code>AWS::RDS::DBParameterGroup</code></a>.
 
@@ -86,31 +112,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>db_parameter_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Family, Description, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>db_parameter_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>db_parameter_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>db_parameter_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>db_parameter_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -118,6 +150,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>db_parameter_group</code>.
 ```sql
@@ -131,6 +172,19 @@ tags
 FROM awscc.rds.db_parameter_groups
 WHERE region = 'us-east-1' AND data__Identifier = '<DBParameterGroupName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>db_parameter_groups</code> in a region.
+```sql
+SELECT
+region,
+db_parameter_group_name
+FROM awscc.rds.db_parameter_groups_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -210,6 +264,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.rds.db_parameter_groups
+SET data__PatchDocument = string('{{ {
+    "Parameters": parameters,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DBParameterGroupName>';
+```
+
 
 ## `DELETE` example
 
