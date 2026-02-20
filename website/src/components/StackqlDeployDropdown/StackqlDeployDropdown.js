@@ -212,11 +212,11 @@ function buildTemplate(sections) {
   }
 
   if (sections.insert) {
-    parts.push(`/*+ createorupdate */\n${sections.insert}`);
+    parts.push(sections.insert);
   } else if (sections.update) {
-    parts.push(`/*+ createorupdate */\n${sections.update}`);
+    parts.push(sections.update);
   } else if (sections.replace) {
-    parts.push(`/*+ createorupdate */\n${sections.replace}`);
+    parts.push(sections.replace);
   }
 
   if (parsed) {
@@ -242,7 +242,7 @@ function buildTemplate(sections) {
   }
 
   if (sections.delete) {
-    parts.push(`/*+ delete */\n${sections.delete}`);
+    parts.push(sections.delete);
   }
 
   return parts.join('\n\n');
