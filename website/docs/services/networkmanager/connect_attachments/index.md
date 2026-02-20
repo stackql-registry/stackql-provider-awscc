@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>connect_attachment</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "core_network_id",
@@ -207,6 +216,23 @@ Creates, updates, deletes or gets a <code>connect_attachment</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "attachment_id",
+    "type": "string",
+    "description": "The ID of the attachment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html"><code>AWS::NetworkManager::ConnectAttachment</code></a>.
 
@@ -216,31 +242,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>connect_attachments</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="CoreNetworkId, EdgeLocation, TransportAttachmentId, Options, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>connect_attachments</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>connect_attachments</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>connect_attachments_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>connect_attachments</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -248,6 +280,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>connect_attachment</code>.
 ```sql
@@ -274,6 +315,19 @@ options
 FROM awscc.networkmanager.connect_attachments
 WHERE region = 'us-east-1' AND data__Identifier = '<AttachmentId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>connect_attachments</code> in a region.
+```sql
+SELECT
+region,
+attachment_id
+FROM awscc.networkmanager.connect_attachments_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -378,6 +432,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.networkmanager.connect_attachments
+SET data__PatchDocument = string('{{ {
+    "ProposedSegmentChange": proposed_segment_change,
+    "NetworkFunctionGroupName": network_function_group_name,
+    "ProposedNetworkFunctionGroupChange": proposed_network_function_group_change,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AttachmentId>';
+```
+
 
 ## `DELETE` example
 

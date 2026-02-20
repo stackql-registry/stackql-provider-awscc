@@ -20,7 +20,7 @@ The ssmcontacts service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,13 +30,10 @@ The ssmcontacts service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/ssmcontacts/contact_channels/">contact_channels</a><br />
-<a href="/services/ssmcontacts/contact_channels_list_only/">contact_channels_list_only</a><br />
-<a href="/services/ssmcontacts/contacts/">contacts</a><br />
-<a href="/services/ssmcontacts/contacts_list_only/">contacts_list_only</a>
+<a href="/services/ssmcontacts/contacts/">contacts</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/ssmcontacts/plans/">plans</a><br />
-<a href="/services/ssmcontacts/rotations/">rotations</a><br />
-<a href="/services/ssmcontacts/rotations_list_only/">rotations_list_only</a>
+<a href="/services/ssmcontacts/rotations/">rotations</a>
 </div>
 </div>

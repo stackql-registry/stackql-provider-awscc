@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "endpoint",
@@ -221,6 +230,23 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "db_cluster_identifier",
+    "type": "string",
+    "description": "The DB cluster identifier. Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster stored as a lowercase string."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-neptune-dbcluster.html"><code>AWS::Neptune::DBCluster</code></a>.
 
@@ -230,31 +256,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>db_clusters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -262,6 +294,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>db_cluster</code>.
 ```sql
@@ -299,6 +340,19 @@ vpc_security_group_ids
 FROM awscc.neptune.db_clusters
 WHERE region = 'us-east-1' AND data__Identifier = '<DBClusterIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>db_clusters</code> in a region.
+```sql
+SELECT
+region,
+db_cluster_identifier
+FROM awscc.neptune.db_clusters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -511,6 +565,33 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.neptune.db_clusters
+SET data__PatchDocument = string('{{ {
+    "AssociatedRoles": associated_roles,
+    "BackupRetentionPeriod": backup_retention_period,
+    "CopyTagsToSnapshot": copy_tags_to_snapshot,
+    "DBClusterParameterGroupName": db_cluster_parameter_group_name,
+    "DBInstanceParameterGroupName": db_instance_parameter_group_name,
+    "DBPort": db_port,
+    "DeletionProtection": deletion_protection,
+    "EnableCloudwatchLogsExports": enable_cloudwatch_logs_exports,
+    "EngineVersion": engine_version,
+    "IamAuthEnabled": iam_auth_enabled,
+    "PreferredBackupWindow": preferred_backup_window,
+    "PreferredMaintenanceWindow": preferred_maintenance_window,
+    "ServerlessScalingConfiguration": serverless_scaling_configuration,
+    "Tags": tags,
+    "VpcSecurityGroupIds": vpc_security_group_ids
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DBClusterIdentifier>';
+```
+
 
 ## `DELETE` example
 

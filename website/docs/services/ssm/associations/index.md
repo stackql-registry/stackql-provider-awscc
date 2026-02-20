@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>association</code> resource or lists 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "association_name",
@@ -166,6 +175,23 @@ Creates, updates, deletes or gets an <code>association</code> resource or lists 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "association_id",
+    "type": "string",
+    "description": "Unique identifier of the association."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html"><code>AWS::SSM::Association</code></a>.
 
@@ -175,31 +201,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>associations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -207,6 +239,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>association</code>.
 ```sql
@@ -233,6 +274,19 @@ automation_target_parameter_name
 FROM awscc.ssm.associations
 WHERE region = 'us-east-1' AND data__Identifier = '<AssociationId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>associations</code> in a region.
+```sql
+SELECT
+region,
+association_id
+FROM awscc.ssm.associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -364,6 +418,35 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ssm.associations
+SET data__PatchDocument = string('{{ {
+    "AssociationName": association_name,
+    "CalendarNames": calendar_names,
+    "ScheduleExpression": schedule_expression,
+    "MaxErrors": max_errors,
+    "Parameters": parameters,
+    "InstanceId": instance_id,
+    "WaitForSuccessTimeoutSeconds": wait_for_success_timeout_seconds,
+    "MaxConcurrency": max_concurrency,
+    "ComplianceSeverity": compliance_severity,
+    "Targets": targets,
+    "SyncCompliance": sync_compliance,
+    "OutputLocation": output_location,
+    "ScheduleOffset": schedule_offset,
+    "Name": name,
+    "ApplyOnlyAtCronInterval": apply_only_at_cron_interval,
+    "DocumentVersion": document_version,
+    "AutomationTargetParameterName": automation_target_parameter_name
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AssociationId>';
+```
+
 
 ## `DELETE` example
 

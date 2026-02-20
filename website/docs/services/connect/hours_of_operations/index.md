@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>hours_of_operation</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "instance_arn",
@@ -172,6 +181,23 @@ Creates, updates, deletes or gets a <code>hours_of_operation</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "hours_of_operation_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) for the hours of operation."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-hoursofoperation.html"><code>AWS::Connect::HoursOfOperation</code></a>.
 
@@ -181,31 +207,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>hours_of_operations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InstanceArn, Name, TimeZone, Config, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>hours_of_operations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>hours_of_operations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>hours_of_operations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>hours_of_operations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -213,6 +245,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>hours_of_operation</code>.
 ```sql
@@ -229,6 +270,19 @@ hours_of_operation_overrides
 FROM awscc.connect.hours_of_operations
 WHERE region = 'us-east-1' AND data__Identifier = '<HoursOfOperationArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>hours_of_operations</code> in a region.
+```sql
+SELECT
+region,
+hours_of_operation_arn
+FROM awscc.connect.hours_of_operations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -336,6 +390,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.connect.hours_of_operations
+SET data__PatchDocument = string('{{ {
+    "InstanceArn": instance_arn,
+    "Name": name,
+    "Description": description,
+    "TimeZone": time_zone,
+    "Config": config,
+    "Tags": tags,
+    "HoursOfOperationOverrides": hours_of_operation_overrides
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<HoursOfOperationArn>';
+```
+
 
 ## `DELETE` example
 

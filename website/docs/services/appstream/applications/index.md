@@ -308,6 +308,27 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appstream.applications
+SET data__PatchDocument = string('{{ {
+    "DisplayName": display_name,
+    "Description": description,
+    "LaunchPath": launch_path,
+    "LaunchParameters": launch_parameters,
+    "WorkingDirectory": working_directory,
+    "IconS3Location": icon_s3_location,
+    "AppBlockArn": app_block_arn,
+    "Tags": tags,
+    "AttributesToDelete": attributes_to_delete
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

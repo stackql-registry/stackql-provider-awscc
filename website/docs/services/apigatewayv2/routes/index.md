@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>route</code> resource or lists <code>r
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "route_id",
@@ -105,6 +114,28 @@ Creates, updates, deletes or gets a <code>route</code> resource or lists <code>r
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "route_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "api_id",
+    "type": "string",
+    "description": "The API identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-route.html"><code>AWS::ApiGatewayV2::Route</code></a>.
 
@@ -114,31 +145,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>routes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RouteKey, ApiId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>routes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>routes</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>routes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>routes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -146,6 +183,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>route</code>.
 ```sql
@@ -167,6 +213,20 @@ authorizer_id
 FROM awscc.apigatewayv2.routes
 WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>|<RouteId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>routes</code> in a region.
+```sql
+SELECT
+region,
+api_id,
+route_id
+FROM awscc.apigatewayv2.routes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -273,6 +333,29 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigatewayv2.routes
+SET data__PatchDocument = string('{{ {
+    "RouteResponseSelectionExpression": route_response_selection_expression,
+    "RequestModels": request_models,
+    "OperationName": operation_name,
+    "AuthorizationScopes": authorization_scopes,
+    "ApiKeyRequired": api_key_required,
+    "RouteKey": route_key,
+    "AuthorizationType": authorization_type,
+    "ModelSelectionExpression": model_selection_expression,
+    "RequestParameters": request_parameters,
+    "Target": target,
+    "AuthorizerId": authorizer_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ApiId>|<RouteId>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The codeartifact service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The codeartifact service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/codeartifact/domains/">domains</a><br />
-<a href="/services/codeartifact/domains_list_only/">domains_list_only</a><br />
 <a href="/services/codeartifact/package_groups/">package_groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/codeartifact/package_groups_list_only/">package_groups_list_only</a><br />
-<a href="/services/codeartifact/repositories/">repositories</a><br />
-<a href="/services/codeartifact/repositories_list_only/">repositories_list_only</a>
+<a href="/services/codeartifact/repositories/">repositories</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The macie service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The macie service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/macie/allow_lists/">allow_lists</a><br />
-<a href="/services/macie/allow_lists_list_only/">allow_lists_list_only</a><br />
-<a href="/services/macie/custom_data_identifiers/">custom_data_identifiers</a><br />
-<a href="/services/macie/custom_data_identifiers_list_only/">custom_data_identifiers_list_only</a>
+<a href="/services/macie/custom_data_identifiers/">custom_data_identifiers</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/macie/findings_filters/">findings_filters</a><br />
-<a href="/services/macie/findings_filters_list_only/">findings_filters_list_only</a><br />
-<a href="/services/macie/sessions/">sessions</a><br />
-<a href="/services/macie/sessions_list_only/">sessions_list_only</a>
+<a href="/services/macie/sessions/">sessions</a>
 </div>
 </div>

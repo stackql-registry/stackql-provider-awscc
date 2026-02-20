@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>mail_manager_addon_subscription</code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "addon_name",
@@ -72,6 +81,23 @@ Creates, updates, deletes or gets a <code>mail_manager_addon_subscription</code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "addon_subscription_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-mailmanageraddonsubscription.html"><code>AWS::SES::MailManagerAddonSubscription</code></a>.
 
@@ -81,31 +107,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>mail_manager_addon_subscriptions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AddonName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>mail_manager_addon_subscriptions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>mail_manager_addon_subscriptions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>mail_manager_addon_subscriptions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>mail_manager_addon_subscriptions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -113,6 +145,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>mail_manager_addon_subscription</code>.
 ```sql
@@ -125,6 +166,19 @@ tags
 FROM awscc.ses.mail_manager_addon_subscriptions
 WHERE region = 'us-east-1' AND data__Identifier = '<AddonSubscriptionId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>mail_manager_addon_subscriptions</code> in a region.
+```sql
+SELECT
+region,
+addon_subscription_id
+FROM awscc.ses.mail_manager_addon_subscriptions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -190,6 +244,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ses.mail_manager_addon_subscriptions
+SET data__PatchDocument = string('{{ {
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AddonSubscriptionId>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>function</code> resource or lists <cod
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "description",
@@ -351,6 +360,23 @@ Creates, updates, deletes or gets a <code>function</code> resource or lists <cod
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "function_name",
+    "type": "string",
+    "description": "The name of the Lambda function, up to 64 characters in length. If you don't specify a name, CFN generates one.<br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html"><code>AWS::Lambda::Function</code></a>.
 
@@ -360,31 +386,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Code, Role, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>functions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>functions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -392,6 +424,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>function</code>.
 ```sql
@@ -428,6 +469,19 @@ architectures
 FROM awscc.lambda.functions
 WHERE region = 'us-east-1' AND data__Identifier = '<FunctionName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>functions</code> in a region.
+```sql
+SELECT
+region,
+function_name
+FROM awscc.lambda.functions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -622,6 +676,42 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.lambda.functions
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "TracingConfig": tracing_config,
+    "VpcConfig": vpc_config,
+    "RuntimeManagementConfig": runtime_management_config,
+    "ReservedConcurrentExecutions": reserved_concurrent_executions,
+    "SnapStart": snap_start,
+    "FileSystemConfigs": file_system_configs,
+    "Runtime": runtime,
+    "KmsKeyArn": kms_key_arn,
+    "CodeSigningConfigArn": code_signing_config_arn,
+    "Layers": layers,
+    "Tags": tags,
+    "ImageConfig": image_config,
+    "MemorySize": memory_size,
+    "DeadLetterConfig": dead_letter_config,
+    "Timeout": timeout,
+    "Handler": handler,
+    "Code": code,
+    "Role": role,
+    "LoggingConfig": logging_config,
+    "RecursiveLoop": recursive_loop,
+    "Environment": environment,
+    "EphemeralStorage": ephemeral_storage,
+    "Architectures": architectures
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FunctionName>';
+```
+
 
 ## `DELETE` example
 

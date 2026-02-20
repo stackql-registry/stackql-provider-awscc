@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "slack_workspace_id",
@@ -107,6 +116,23 @@ Creates, updates, deletes or gets a <code>slack_channel_configuration</code> res
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Amazon Resource Name (ARN) of the configuration"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-chatbot-slackchannelconfiguration.html"><code>AWS::Chatbot::SlackChannelConfiguration</code></a>.
 
@@ -116,31 +142,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="SlackWorkspaceId, SlackChannelId, ConfigurationName, IamRoleArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>slack_channel_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>slack_channel_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -148,6 +180,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>slack_channel_configuration</code>.
 ```sql
@@ -167,6 +208,19 @@ customization_resource_arns
 FROM awscc.chatbot.slack_channel_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>slack_channel_configurations</code> in a region.
+```sql
+SELECT
+region,
+arn
+FROM awscc.chatbot.slack_channel_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -273,6 +327,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.chatbot.slack_channel_configurations
+SET data__PatchDocument = string('{{ {
+    "SlackChannelId": slack_channel_id,
+    "IamRoleArn": iam_role_arn,
+    "SnsTopicArns": sns_topic_arns,
+    "LoggingLevel": logging_level,
+    "GuardrailPolicies": guardrail_policies,
+    "Tags": tags,
+    "UserRoleRequired": user_role_required,
+    "CustomizationResourceArns": customization_resource_arns
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
 
 ## `DELETE` example
 

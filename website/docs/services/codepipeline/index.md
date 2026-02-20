@@ -20,7 +20,7 @@ The codepipeline service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The codepipeline service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/codepipeline/custom_action_types/">custom_action_types</a><br />
-<a href="/services/codepipeline/custom_action_types_list_only/">custom_action_types_list_only</a><br />
 <a href="/services/codepipeline/pipelines/">pipelines</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/codepipeline/pipelines_list_only/">pipelines_list_only</a><br />
-<a href="/services/codepipeline/webhooks/">webhooks</a><br />
-<a href="/services/codepipeline/webhooks_list_only/">webhooks_list_only</a>
+<a href="/services/codepipeline/webhooks/">webhooks</a>
 </div>
 </div>

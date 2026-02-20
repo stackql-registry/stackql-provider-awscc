@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>enclave_certificate_iam_role_associat
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "certificate_arn",
@@ -65,6 +74,28 @@ Creates, updates, deletes or gets an <code>enclave_certificate_iam_role_associat
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "certificate_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the ACM certificate with which to associate the IAM role."
+  },
+  {
+    "name": "role_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the IAM role to associate with the ACM certificate. You can associate up to 16 IAM roles with an ACM certificate."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-enclavecertificateiamroleassociation.html"><code>AWS::EC2::EnclaveCertificateIamRoleAssociation</code></a>.
 
@@ -74,26 +105,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>enclave_certificate_iam_role_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="CertificateArn, RoleArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>enclave_certificate_iam_role_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>enclave_certificate_iam_role_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>enclave_certificate_iam_role_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +137,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>enclave_certificate_iam_role_association</code>.
 ```sql
@@ -114,6 +159,20 @@ encryption_kms_key_id
 FROM awscc.ec2.enclave_certificate_iam_role_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<CertificateArn>|<RoleArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>enclave_certificate_iam_role_associations</code> in a region.
+```sql
+SELECT
+region,
+certificate_arn,
+role_arn
+FROM awscc.ec2.enclave_certificate_iam_role_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -179,6 +238,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

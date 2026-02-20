@@ -20,7 +20,7 @@ The cloudtrail service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>9</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,15 +30,11 @@ The cloudtrail service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/cloudtrail/channels/">channels</a><br />
-<a href="/services/cloudtrail/channels_list_only/">channels_list_only</a><br />
 <a href="/services/cloudtrail/dashboards/">dashboards</a><br />
-<a href="/services/cloudtrail/dashboards_list_only/">dashboards_list_only</a><br />
 <a href="/services/cloudtrail/event_data_stores/">event_data_stores</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/cloudtrail/event_data_stores_list_only/">event_data_stores_list_only</a><br />
 <a href="/services/cloudtrail/resource_policies/">resource_policies</a><br />
-<a href="/services/cloudtrail/trails/">trails</a><br />
-<a href="/services/cloudtrail/trails_list_only/">trails_list_only</a>
+<a href="/services/cloudtrail/trails/">trails</a>
 </div>
 </div>

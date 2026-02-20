@@ -20,7 +20,7 @@ The amplifyuibuilder service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The amplifyuibuilder service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/amplifyuibuilder/components/">components</a><br />
-<a href="/services/amplifyuibuilder/components_list_only/">components_list_only</a><br />
 <a href="/services/amplifyuibuilder/forms/">forms</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/amplifyuibuilder/forms_list_only/">forms_list_only</a><br />
-<a href="/services/amplifyuibuilder/themes/">themes</a><br />
-<a href="/services/amplifyuibuilder/themes_list_only/">themes_list_only</a>
+<a href="/services/amplifyuibuilder/themes/">themes</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The inspector service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,11 +30,9 @@ The inspector service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/inspector/assessment_targets/">assessment_targets</a><br />
-<a href="/services/inspector/assessment_targets_list_only/">assessment_targets_list_only</a><br />
 <a href="/services/inspector/assessment_templates/">assessment_templates</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/inspector/assessment_templates_list_only/">assessment_templates_list_only</a><br />
 <a href="/services/inspector/resource_groups/">resource_groups</a>
 </div>
 </div>

@@ -394,6 +394,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecs.task_sets
+SET data__PatchDocument = string('{{ {
+    "Scale": scale,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Cluster>|<Service>|<Id>';
+```
+
+
 ## `DELETE` example
 
 ```sql

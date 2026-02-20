@@ -188,6 +188,21 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.acmpca.certificate_authority_activations
+SET data__PatchDocument = string('{{ {
+    "Certificate": certificate,
+    "CertificateChain": certificate_chain,
+    "Status": status
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<CertificateAuthorityArn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

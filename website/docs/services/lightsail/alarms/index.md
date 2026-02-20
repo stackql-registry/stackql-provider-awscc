@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>alarm</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "alarm_name",
@@ -105,6 +114,23 @@ Creates, updates, deletes or gets an <code>alarm</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "alarm_name",
+    "type": "string",
+    "description": "The name for the alarm. Specify the name of an existing alarm to update, and overwrite the previous configuration of the alarm."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lightsail-alarm.html"><code>AWS::Lightsail::Alarm</code></a>.
 
@@ -114,31 +140,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AlarmName, MonitoredResourceName, MetricName, ComparisonOperator, EvaluationPeriods, Threshold, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>alarms_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -146,6 +178,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>alarm</code>.
 ```sql
@@ -167,6 +208,19 @@ state
 FROM awscc.lightsail.alarms
 WHERE region = 'us-east-1' AND data__Identifier = '<AlarmName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>alarms</code> in a region.
+```sql
+SELECT
+region,
+alarm_name
+FROM awscc.lightsail.alarms_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -278,6 +332,26 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.lightsail.alarms
+SET data__PatchDocument = string('{{ {
+    "ComparisonOperator": comparison_operator,
+    "ContactProtocols": contact_protocols,
+    "DatapointsToAlarm": datapoints_to_alarm,
+    "EvaluationPeriods": evaluation_periods,
+    "NotificationEnabled": notification_enabled,
+    "NotificationTriggers": notification_triggers,
+    "Threshold": threshold,
+    "TreatMissingData": treat_missing_data
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AlarmName>';
+```
+
 
 ## `DELETE` example
 

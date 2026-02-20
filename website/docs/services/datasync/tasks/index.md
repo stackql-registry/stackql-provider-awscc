@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>task</code> resource or lists <code>ta
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "excludes",
@@ -380,6 +389,23 @@ Creates, updates, deletes or gets a <code>task</code> resource or lists <code>ta
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "task_arn",
+    "type": "string",
+    "description": "The ARN of the task."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datasync-task.html"><code>AWS::DataSync::Task</code></a>.
 
@@ -389,31 +415,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>tasks</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DestinationLocationArn, SourceLocationArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>tasks</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>tasks</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>tasks_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>tasks</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -421,6 +453,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>task</code>.
 ```sql
@@ -445,6 +486,19 @@ destination_network_interface_arns
 FROM awscc.datasync.tasks
 WHERE region = 'us-east-1' AND data__Identifier = '<TaskArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>tasks</code> in a region.
+```sql
+SELECT
+region,
+task_arn
+FROM awscc.datasync.tasks_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -597,6 +651,27 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.datasync.tasks
+SET data__PatchDocument = string('{{ {
+    "Excludes": excludes,
+    "Includes": includes,
+    "Tags": tags,
+    "CloudWatchLogGroupArn": cloud_watch_log_group_arn,
+    "Name": name,
+    "Options": options,
+    "TaskReportConfig": task_report_config,
+    "ManifestConfig": manifest_config,
+    "Schedule": schedule
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TaskArn>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "access_log_setting",
@@ -208,6 +217,28 @@ Creates, updates, deletes or gets a <code>stage</code> resource or lists <code>s
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "stage_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html"><code>AWS::ApiGateway::Stage</code></a>.
 
@@ -217,31 +248,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>stages</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RestApiId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>stages</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>stages</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>stages_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>stages</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -249,6 +286,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>stage</code>.
 ```sql
@@ -271,6 +317,20 @@ variables
 FROM awscc.apigateway.stages
 WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<StageName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>stages</code> in a region.
+```sql
+SELECT
+region,
+rest_api_id,
+stage_name
+FROM awscc.apigateway.stages_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -400,6 +460,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigateway.stages
+SET data__PatchDocument = string('{{ {
+    "AccessLogSetting": access_log_setting,
+    "CacheClusterEnabled": cache_cluster_enabled,
+    "CacheClusterSize": cache_cluster_size,
+    "CanarySetting": canary_setting,
+    "ClientCertificateId": client_certificate_id,
+    "DeploymentId": deployment_id,
+    "Description": description,
+    "DocumentationVersion": documentation_version,
+    "MethodSettings": method_settings,
+    "Tags": tags,
+    "TracingEnabled": tracing_enabled,
+    "Variables": variables
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RestApiId>|<StageName>';
+```
+
 
 ## `DELETE` example
 

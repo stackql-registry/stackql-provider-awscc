@@ -20,7 +20,7 @@ The ivschat service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The ivschat service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/ivschat/logging_configurations/">logging_configurations</a><br />
-<a href="/services/ivschat/logging_configurations_list_only/">logging_configurations_list_only</a>
+<a href="/services/ivschat/logging_configurations/">logging_configurations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/ivschat/rooms/">rooms</a><br />
-<a href="/services/ivschat/rooms_list_only/">rooms_list_only</a>
+<a href="/services/ivschat/rooms/">rooms</a>
 </div>
 </div>

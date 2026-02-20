@@ -162,6 +162,7 @@ resources:
 </TabItem>
 </Tabs>
 
+
 ## `DELETE` example
 
 ```sql

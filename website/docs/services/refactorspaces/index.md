@@ -20,7 +20,7 @@ The refactorspaces service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The refactorspaces service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/refactorspaces/applications/">applications</a><br />
-<a href="/services/refactorspaces/applications_list_only/">applications_list_only</a><br />
-<a href="/services/refactorspaces/environments/">environments</a><br />
-<a href="/services/refactorspaces/environments_list_only/">environments_list_only</a>
+<a href="/services/refactorspaces/environments/">environments</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/refactorspaces/routes/">routes</a><br />
-<a href="/services/refactorspaces/routes_list_only/">routes_list_only</a><br />
-<a href="/services/refactorspaces/services/">services</a><br />
-<a href="/services/refactorspaces/services_list_only/">services_list_only</a>
+<a href="/services/refactorspaces/services/">services</a>
 </div>
 </div>

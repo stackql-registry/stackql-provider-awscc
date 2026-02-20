@@ -20,7 +20,7 @@ The observabilityadmin service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The observabilityadmin service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/observabilityadmin/organization_telemetry_rules/">organization_telemetry_rules</a><br />
-<a href="/services/observabilityadmin/organization_telemetry_rules_list_only/">organization_telemetry_rules_list_only</a>
+<a href="/services/observabilityadmin/organization_telemetry_rules/">organization_telemetry_rules</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/observabilityadmin/telemetry_rules/">telemetry_rules</a><br />
-<a href="/services/observabilityadmin/telemetry_rules_list_only/">telemetry_rules_list_only</a>
+<a href="/services/observabilityadmin/telemetry_rules/">telemetry_rules</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The identitystore service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The identitystore service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/identitystore/group_memberships/">group_memberships</a><br />
-<a href="/services/identitystore/group_memberships_list_only/">group_memberships_list_only</a>
+<a href="/services/identitystore/group_memberships/">group_memberships</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/identitystore/groups/">groups</a><br />
-<a href="/services/identitystore/groups_list_only/">groups_list_only</a>
+<a href="/services/identitystore/groups/">groups</a>
 </div>
 </div>

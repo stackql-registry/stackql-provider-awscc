@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>connector_profile</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "connector_profile_arn",
@@ -785,6 +794,23 @@ Creates, updates, deletes or gets a <code>connector_profile</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "connector_profile_name",
+    "type": "string",
+    "description": "The maximum number of items to retrieve in a single batch."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appflow-connectorprofile.html"><code>AWS::AppFlow::ConnectorProfile</code></a>.
 
@@ -794,31 +820,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>connector_profiles</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ConnectorProfileName, ConnectionMode, ConnectorType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>connector_profiles</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>connector_profiles</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>connector_profiles_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>connector_profiles</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -826,6 +858,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>connector_profile</code>.
 ```sql
@@ -842,6 +883,19 @@ credentials_arn
 FROM awscc.appflow.connector_profiles
 WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorProfileName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>connector_profiles</code> in a region.
+```sql
+SELECT
+region,
+connector_profile_name
+FROM awscc.appflow.connector_profiles_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1078,6 +1132,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appflow.connector_profiles
+SET data__PatchDocument = string('{{ {
+    "KMSArn": kms_arn,
+    "ConnectionMode": connection_mode,
+    "ConnectorProfileConfig": connector_profile_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ConnectorProfileName>';
+```
+
 
 ## `DELETE` example
 

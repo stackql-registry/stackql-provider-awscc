@@ -20,7 +20,7 @@ The billingconductor service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The billingconductor service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/billingconductor/billing_groups/">billing_groups</a><br />
-<a href="/services/billingconductor/billing_groups_list_only/">billing_groups_list_only</a><br />
-<a href="/services/billingconductor/custom_line_items/">custom_line_items</a><br />
-<a href="/services/billingconductor/custom_line_items_list_only/">custom_line_items_list_only</a>
+<a href="/services/billingconductor/custom_line_items/">custom_line_items</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/billingconductor/pricing_plans/">pricing_plans</a><br />
-<a href="/services/billingconductor/pricing_plans_list_only/">pricing_plans_list_only</a><br />
-<a href="/services/billingconductor/pricing_rules/">pricing_rules</a><br />
-<a href="/services/billingconductor/pricing_rules_list_only/">pricing_rules_list_only</a>
+<a href="/services/billingconductor/pricing_rules/">pricing_rules</a>
 </div>
 </div>

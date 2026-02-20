@@ -20,7 +20,7 @@ The oam service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The oam service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/oam/links/">links</a><br />
-<a href="/services/oam/links_list_only/">links_list_only</a>
+<a href="/services/oam/links/">links</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/oam/sinks/">sinks</a><br />
-<a href="/services/oam/sinks_list_only/">sinks_list_only</a>
+<a href="/services/oam/sinks/">sinks</a>
 </div>
 </div>

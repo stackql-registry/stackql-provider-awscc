@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "cluster_name",
@@ -224,6 +233,23 @@ Creates, updates, deletes or gets a <code>cluster</code> resource or lists <code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "The name of the cluster. This value must be unique as it also serves as the cluster identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-memorydb-cluster.html"><code>AWS::MemoryDB::Cluster</code></a>.
 
@@ -233,31 +259,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ClusterName, NodeType, ACLName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>clusters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>clusters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -265,6 +297,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>cluster</code>.
 ```sql
@@ -305,6 +346,19 @@ tags
 FROM awscc.memorydb.clusters
 WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+cluster_name
+FROM awscc.memorydb.clusters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -486,6 +540,36 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.memorydb.clusters
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "NodeType": node_type,
+    "NumShards": num_shards,
+    "NumReplicasPerShard": num_replicas_per_shard,
+    "SecurityGroupIds": security_group_ids,
+    "MaintenanceWindow": maintenance_window,
+    "ParameterGroupName": parameter_group_name,
+    "SnapshotRetentionLimit": snapshot_retention_limit,
+    "SnapshotWindow": snapshot_window,
+    "ACLName": acl_name,
+    "SnsTopicArn": sns_topic_arn,
+    "SnsTopicStatus": sns_topic_status,
+    "IpDiscovery": ip_discovery,
+    "FinalSnapshotName": final_snapshot_name,
+    "Engine": engine,
+    "EngineVersion": engine_version,
+    "AutoMinorVersionUpgrade": auto_minor_version_upgrade,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ClusterName>';
+```
+
 
 ## `DELETE` example
 

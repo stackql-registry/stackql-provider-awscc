@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "prefix",
@@ -136,6 +145,23 @@ Creates, updates, deletes or gets a <code>repository_creation_template</code> re
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "prefix",
+    "type": "string",
+    "description": "The repository namespace prefix associated with the repository creation template."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repositorycreationtemplate.html"><code>AWS::ECR::RepositoryCreationTemplate</code></a>.
 
@@ -145,31 +171,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>repository_creation_templates</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Prefix, AppliedFor, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>repository_creation_templates</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>repository_creation_templates</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>repository_creation_templates_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>repository_creation_templates</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -177,6 +209,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>repository_creation_template</code>.
 ```sql
@@ -197,6 +238,19 @@ updated_at
 FROM awscc.ecr.repository_creation_templates
 WHERE region = 'us-east-1' AND data__Identifier = '<Prefix>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>repository_creation_templates</code> in a region.
+```sql
+SELECT
+region,
+prefix
+FROM awscc.ecr.repository_creation_templates_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -301,6 +355,27 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecr.repository_creation_templates
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "ImageTagMutability": image_tag_mutability,
+    "ImageTagMutabilityExclusionFilters": image_tag_mutability_exclusion_filters,
+    "RepositoryPolicy": repository_policy,
+    "LifecyclePolicy": lifecycle_policy,
+    "EncryptionConfiguration": encryption_configuration,
+    "ResourceTags": resource_tags,
+    "AppliedFor": applied_for,
+    "CustomRoleArn": custom_role_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Prefix>';
+```
+
 
 ## `DELETE` example
 

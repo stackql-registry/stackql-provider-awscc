@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>restore_testing_selection</code> resou
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "iam_role_arn",
@@ -104,6 +113,28 @@ Creates, updates, deletes or gets a <code>restore_testing_selection</code> resou
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "restore_testing_plan_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "restore_testing_selection_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-restoretestingselection.html"><code>AWS::Backup::RestoreTestingSelection</code></a>.
 
@@ -113,31 +144,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>restore_testing_selections</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="IamRoleArn, ProtectedResourceType, RestoreTestingPlanName, RestoreTestingSelectionName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>restore_testing_selections</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>restore_testing_selections</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>restore_testing_selections_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>restore_testing_selections</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -145,6 +182,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>restore_testing_selection</code>.
 ```sql
@@ -161,6 +207,20 @@ validation_window_hours
 FROM awscc.backup.restore_testing_selections
 WHERE region = 'us-east-1' AND data__Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>restore_testing_selections</code> in a region.
+```sql
+SELECT
+region,
+restore_testing_plan_name,
+restore_testing_selection_name
+FROM awscc.backup.restore_testing_selections_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -260,6 +320,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.backup.restore_testing_selections
+SET data__PatchDocument = string('{{ {
+    "IamRoleArn": iam_role_arn,
+    "ProtectedResourceArns": protected_resource_arns,
+    "ProtectedResourceConditions": protected_resource_conditions,
+    "RestoreMetadataOverrides": restore_metadata_overrides,
+    "ValidationWindowHours": validation_window_hours
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
+```
+
 
 ## `DELETE` example
 

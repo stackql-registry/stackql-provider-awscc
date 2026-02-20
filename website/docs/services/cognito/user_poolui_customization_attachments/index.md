@@ -172,6 +172,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.user_poolui_customization_attachments
+SET data__PatchDocument = string('{{ {
+    "CSS": c_ss
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserPoolId>|<ClientId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

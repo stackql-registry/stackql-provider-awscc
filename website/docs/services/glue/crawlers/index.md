@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "classifiers",
@@ -366,6 +375,23 @@ Creates, updates, deletes or gets a <code>crawler</code> resource or lists <code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "The name of the crawler."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html"><code>AWS::Glue::Crawler</code></a>.
 
@@ -375,31 +401,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>crawlers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Role, Targets, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>crawlers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>crawlers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>crawlers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>crawlers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -407,6 +439,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>crawler</code>.
 ```sql
@@ -429,6 +470,19 @@ tags
 FROM awscc.glue.crawlers
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>crawlers</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.glue.crawlers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -598,6 +652,31 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.glue.crawlers
+SET data__PatchDocument = string('{{ {
+    "Classifiers": classifiers,
+    "Description": description,
+    "SchemaChangePolicy": schema_change_policy,
+    "Configuration": configuration,
+    "RecrawlPolicy": recrawl_policy,
+    "DatabaseName": database_name,
+    "Targets": targets,
+    "CrawlerSecurityConfiguration": crawler_security_configuration,
+    "Role": role,
+    "LakeFormationConfiguration": lake_formation_configuration,
+    "Schedule": schedule,
+    "TablePrefix": table_prefix,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

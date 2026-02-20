@@ -20,7 +20,7 @@ The rbin service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The rbin service documentation.
 <a href="/services/rbin/rules/">rules</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/rbin/rules_list_only/">rules_list_only</a>
+
 </div>
 </div>

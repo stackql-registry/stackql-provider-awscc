@@ -20,7 +20,7 @@ The globalaccelerator service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The globalaccelerator service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/globalaccelerator/accelerators/">accelerators</a><br />
-<a href="/services/globalaccelerator/accelerators_list_only/">accelerators_list_only</a><br />
-<a href="/services/globalaccelerator/cross_account_attachments/">cross_account_attachments</a><br />
-<a href="/services/globalaccelerator/cross_account_attachments_list_only/">cross_account_attachments_list_only</a>
+<a href="/services/globalaccelerator/cross_account_attachments/">cross_account_attachments</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/globalaccelerator/endpoint_groups/">endpoint_groups</a><br />
-<a href="/services/globalaccelerator/endpoint_groups_list_only/">endpoint_groups_list_only</a><br />
-<a href="/services/globalaccelerator/listeners/">listeners</a><br />
-<a href="/services/globalaccelerator/listeners_list_only/">listeners_list_only</a>
+<a href="/services/globalaccelerator/listeners/">listeners</a>
 </div>
 </div>

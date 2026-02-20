@@ -20,7 +20,7 @@ The iotevents service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The iotevents service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/iotevents/alarm_models/">alarm_models</a><br />
-<a href="/services/iotevents/alarm_models_list_only/">alarm_models_list_only</a><br />
 <a href="/services/iotevents/detector_models/">detector_models</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/iotevents/detector_models_list_only/">detector_models_list_only</a><br />
-<a href="/services/iotevents/inputs/">inputs</a><br />
-<a href="/services/iotevents/inputs_list_only/">inputs_list_only</a>
+<a href="/services/iotevents/inputs/">inputs</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The s3 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>19</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -31,24 +31,15 @@ The s3 service documentation.
 <div class="providerDocColumn">
 <a href="/services/s3/access_grants/">access_grants</a><br />
 <a href="/services/s3/access_grants_instances/">access_grants_instances</a><br />
-<a href="/services/s3/access_grants_instances_list_only/">access_grants_instances_list_only</a><br />
-<a href="/services/s3/access_grants_list_only/">access_grants_list_only</a><br />
 <a href="/services/s3/access_grants_locations/">access_grants_locations</a><br />
-<a href="/services/s3/access_grants_locations_list_only/">access_grants_locations_list_only</a><br />
 <a href="/services/s3/access_points/">access_points</a><br />
-<a href="/services/s3/access_points_list_only/">access_points_list_only</a><br />
-<a href="/services/s3/bucket_policies/">bucket_policies</a><br />
-<a href="/services/s3/bucket_policies_list_only/">bucket_policies_list_only</a>
+<a href="/services/s3/bucket_policies/">bucket_policies</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/s3/buckets/">buckets</a><br />
-<a href="/services/s3/buckets_list_only/">buckets_list_only</a><br />
 <a href="/services/s3/multi_region_access_point_policies/">multi_region_access_point_policies</a><br />
 <a href="/services/s3/multi_region_access_points/">multi_region_access_points</a><br />
-<a href="/services/s3/multi_region_access_points_list_only/">multi_region_access_points_list_only</a><br />
 <a href="/services/s3/storage_lens/">storage_lens</a><br />
-<a href="/services/s3/storage_lens_groups/">storage_lens_groups</a><br />
-<a href="/services/s3/storage_lens_groups_list_only/">storage_lens_groups_list_only</a><br />
-<a href="/services/s3/storage_lens_list_only/">storage_lens_list_only</a>
+<a href="/services/s3/storage_lens_groups/">storage_lens_groups</a>
 </div>
 </div>

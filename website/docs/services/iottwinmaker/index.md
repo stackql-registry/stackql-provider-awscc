@@ -20,7 +20,7 @@ The iottwinmaker service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,11 @@ The iottwinmaker service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/iottwinmaker/component_types/">component_types</a><br />
-<a href="/services/iottwinmaker/component_types_list_only/">component_types_list_only</a><br />
 <a href="/services/iottwinmaker/entities/">entities</a><br />
-<a href="/services/iottwinmaker/entities_list_only/">entities_list_only</a><br />
 <a href="/services/iottwinmaker/scenes/">scenes</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/iottwinmaker/scenes_list_only/">scenes_list_only</a><br />
 <a href="/services/iottwinmaker/sync_jobs/">sync_jobs</a><br />
-<a href="/services/iottwinmaker/sync_jobs_list_only/">sync_jobs_list_only</a><br />
-<a href="/services/iottwinmaker/workspaces/">workspaces</a><br />
-<a href="/services/iottwinmaker/workspaces_list_only/">workspaces_list_only</a>
+<a href="/services/iottwinmaker/workspaces/">workspaces</a>
 </div>
 </div>

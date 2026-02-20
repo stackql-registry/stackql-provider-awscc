@@ -20,7 +20,7 @@ The workspacesweb service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>20</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -30,26 +30,16 @@ The workspacesweb service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/workspacesweb/browser_settings/">browser_settings</a><br />
-<a href="/services/workspacesweb/browser_settings_list_only/">browser_settings_list_only</a><br />
 <a href="/services/workspacesweb/data_protection_settings/">data_protection_settings</a><br />
-<a href="/services/workspacesweb/data_protection_settings_list_only/">data_protection_settings_list_only</a><br />
 <a href="/services/workspacesweb/identity_providers/">identity_providers</a><br />
-<a href="/services/workspacesweb/identity_providers_list_only/">identity_providers_list_only</a><br />
 <a href="/services/workspacesweb/ip_access_settings/">ip_access_settings</a><br />
-<a href="/services/workspacesweb/ip_access_settings_list_only/">ip_access_settings_list_only</a><br />
-<a href="/services/workspacesweb/network_settings/">network_settings</a><br />
-<a href="/services/workspacesweb/network_settings_list_only/">network_settings_list_only</a>
+<a href="/services/workspacesweb/network_settings/">network_settings</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/workspacesweb/portals/">portals</a><br />
-<a href="/services/workspacesweb/portals_list_only/">portals_list_only</a><br />
 <a href="/services/workspacesweb/session_loggers/">session_loggers</a><br />
-<a href="/services/workspacesweb/session_loggers_list_only/">session_loggers_list_only</a><br />
 <a href="/services/workspacesweb/trust_stores/">trust_stores</a><br />
-<a href="/services/workspacesweb/trust_stores_list_only/">trust_stores_list_only</a><br />
 <a href="/services/workspacesweb/user_access_logging_settings/">user_access_logging_settings</a><br />
-<a href="/services/workspacesweb/user_access_logging_settings_list_only/">user_access_logging_settings_list_only</a><br />
-<a href="/services/workspacesweb/user_settings/">user_settings</a><br />
-<a href="/services/workspacesweb/user_settings_list_only/">user_settings_list_only</a>
+<a href="/services/workspacesweb/user_settings/">user_settings</a>
 </div>
 </div>

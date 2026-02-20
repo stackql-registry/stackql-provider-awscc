@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>scheduled_audit</code> resource or lis
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "scheduled_audit_name",
@@ -87,6 +96,23 @@ Creates, updates, deletes or gets a <code>scheduled_audit</code> resource or lis
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "scheduled_audit_name",
+    "type": "string",
+    "description": "The name you want to give to the scheduled audit."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-scheduledaudit.html"><code>AWS::IoT::ScheduledAudit</code></a>.
 
@@ -96,31 +122,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>scheduled_audits</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Frequency, TargetCheckNames, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>scheduled_audits</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>scheduled_audits</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>scheduled_audits_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>scheduled_audits</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -128,6 +160,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>scheduled_audit</code>.
 ```sql
@@ -143,6 +184,19 @@ tags
 FROM awscc.iot.scheduled_audits
 WHERE region = 'us-east-1' AND data__Identifier = '<ScheduledAuditName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>scheduled_audits</code> in a region.
+```sql
+SELECT
+region,
+scheduled_audit_name
+FROM awscc.iot.scheduled_audits_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -227,6 +281,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iot.scheduled_audits
+SET data__PatchDocument = string('{{ {
+    "Frequency": frequency,
+    "DayOfMonth": day_of_month,
+    "DayOfWeek": day_of_week,
+    "TargetCheckNames": target_check_names,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ScheduledAuditName>';
+```
+
 
 ## `DELETE` example
 

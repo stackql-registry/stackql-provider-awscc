@@ -20,7 +20,7 @@ The elasticbeanstalk service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The elasticbeanstalk service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/elasticbeanstalk/application_versions/">application_versions</a><br />
-<a href="/services/elasticbeanstalk/application_versions_list_only/">application_versions_list_only</a><br />
-<a href="/services/elasticbeanstalk/applications/">applications</a><br />
-<a href="/services/elasticbeanstalk/applications_list_only/">applications_list_only</a>
+<a href="/services/elasticbeanstalk/applications/">applications</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/elasticbeanstalk/configuration_templates/">configuration_templates</a><br />
-<a href="/services/elasticbeanstalk/configuration_templates_list_only/">configuration_templates_list_only</a><br />
-<a href="/services/elasticbeanstalk/environments/">environments</a><br />
-<a href="/services/elasticbeanstalk/environments_list_only/">environments_list_only</a>
+<a href="/services/elasticbeanstalk/environments/">environments</a>
 </div>
 </div>

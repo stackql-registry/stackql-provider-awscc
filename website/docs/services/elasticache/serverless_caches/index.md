@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>serverless_cach</code> resource or lis
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "serverless_cache_name",
@@ -200,6 +209,23 @@ Creates, updates, deletes or gets a <code>serverless_cach</code> resource or lis
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "serverless_cache_name",
+    "type": "string",
+    "description": "The name of the Serverless Cache. This value must be unique."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-serverlesscach.html"><code>AWS::ElastiCache::ServerlessCache</code></a>.
 
@@ -209,31 +235,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>serverless_caches</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ServerlessCacheName, Engine, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>serverless_caches</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>serverless_caches</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>serverless_caches_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>serverless_caches</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -241,6 +273,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>serverless_cach</code>.
 ```sql
@@ -269,6 +310,19 @@ final_snapshot_name
 FROM awscc.elasticache.serverless_caches
 WHERE region = 'us-east-1' AND data__Identifier = '<ServerlessCacheName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>serverless_caches</code> in a region.
+```sql
+SELECT
+region,
+serverless_cache_name
+FROM awscc.elasticache.serverless_caches_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -404,6 +458,28 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.elasticache.serverless_caches
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "Engine": engine,
+    "MajorEngineVersion": major_engine_version,
+    "CacheUsageLimits": cache_usage_limits,
+    "SecurityGroupIds": security_group_ids,
+    "Tags": tags,
+    "UserGroupId": user_group_id,
+    "SnapshotRetentionLimit": snapshot_retention_limit,
+    "DailySnapshotTime": daily_snapshot_time,
+    "FinalSnapshotName": final_snapshot_name
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ServerlessCacheName>';
+```
+
 
 ## `DELETE` example
 

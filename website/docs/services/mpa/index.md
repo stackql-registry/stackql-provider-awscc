@@ -20,7 +20,7 @@ The mpa service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The mpa service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/mpa/approval_teams/">approval_teams</a><br />
-<a href="/services/mpa/approval_teams_list_only/">approval_teams_list_only</a>
+<a href="/services/mpa/approval_teams/">approval_teams</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/mpa/identity_sources/">identity_sources</a><br />
-<a href="/services/mpa/identity_sources_list_only/">identity_sources_list_only</a>
+<a href="/services/mpa/identity_sources/">identity_sources</a>
 </div>
 </div>

@@ -20,7 +20,7 @@ The route53resolver service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>22</b></span><br />
+<span>total resources:&nbsp;<b>11</b></span><br />
 </div>
 </div>
 
@@ -30,28 +30,17 @@ The route53resolver service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/route53resolver/firewall_domain_lists/">firewall_domain_lists</a><br />
-<a href="/services/route53resolver/firewall_domain_lists_list_only/">firewall_domain_lists_list_only</a><br />
 <a href="/services/route53resolver/firewall_rule_group_associations/">firewall_rule_group_associations</a><br />
-<a href="/services/route53resolver/firewall_rule_group_associations_list_only/">firewall_rule_group_associations_list_only</a><br />
 <a href="/services/route53resolver/firewall_rule_groups/">firewall_rule_groups</a><br />
-<a href="/services/route53resolver/firewall_rule_groups_list_only/">firewall_rule_groups_list_only</a><br />
 <a href="/services/route53resolver/outpost_resolvers/">outpost_resolvers</a><br />
-<a href="/services/route53resolver/outpost_resolvers_list_only/">outpost_resolvers_list_only</a><br />
 <a href="/services/route53resolver/resolver_configs/">resolver_configs</a><br />
-<a href="/services/route53resolver/resolver_configs_list_only/">resolver_configs_list_only</a><br />
 <a href="/services/route53resolver/resolver_endpoints/">resolver_endpoints</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/route53resolver/resolver_endpoints_list_only/">resolver_endpoints_list_only</a><br />
 <a href="/services/route53resolver/resolver_query_logging_config_associations/">resolver_query_logging_config_associations</a><br />
-<a href="/services/route53resolver/resolver_query_logging_config_associations_list_only/">resolver_query_logging_config_associations_list_only</a><br />
 <a href="/services/route53resolver/resolver_query_logging_configs/">resolver_query_logging_configs</a><br />
-<a href="/services/route53resolver/resolver_query_logging_configs_list_only/">resolver_query_logging_configs_list_only</a><br />
 <a href="/services/route53resolver/resolver_rule_associations/">resolver_rule_associations</a><br />
-<a href="/services/route53resolver/resolver_rule_associations_list_only/">resolver_rule_associations_list_only</a><br />
 <a href="/services/route53resolver/resolver_rules/">resolver_rules</a><br />
-<a href="/services/route53resolver/resolver_rules_list_only/">resolver_rules_list_only</a><br />
-<a href="/services/route53resolver/resolverdnssec_configs/">resolverdnssec_configs</a><br />
-<a href="/services/route53resolver/resolverdnssec_configs_list_only/">resolverdnssec_configs_list_only</a>
+<a href="/services/route53resolver/resolverdnssec_configs/">resolverdnssec_configs</a>
 </div>
 </div>

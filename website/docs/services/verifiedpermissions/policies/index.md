@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "definition",
@@ -60,6 +69,28 @@ Creates, updates, deletes or gets a <code>policy</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "policy_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "policy_store_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-verifiedpermissions-policy.html"><code>AWS::VerifiedPermissions::Policy</code></a>.
 
@@ -69,31 +100,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>policies</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Definition, PolicyStoreId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>policies</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>policies</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>policies_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>policies</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +138,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>policy</code>.
 ```sql
@@ -113,6 +159,20 @@ policy_type
 FROM awscc.verifiedpermissions.policies
 WHERE region = 'us-east-1' AND data__Identifier = '<PolicyId>|<PolicyStoreId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>policies</code> in a region.
+```sql
+SELECT
+region,
+policy_id,
+policy_store_id
+FROM awscc.verifiedpermissions.policies_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -178,6 +238,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.verifiedpermissions.policies
+SET data__PatchDocument = string('{{ {
+    "Definition": definition
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<PolicyId>|<PolicyStoreId>';
+```
+
 
 ## `DELETE` example
 

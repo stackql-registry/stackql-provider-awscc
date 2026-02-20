@@ -20,7 +20,7 @@ The personalize service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The personalize service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/personalize/dataset_groups/">dataset_groups</a><br />
-<a href="/services/personalize/dataset_groups_list_only/">dataset_groups_list_only</a><br />
-<a href="/services/personalize/datasets/">datasets</a><br />
-<a href="/services/personalize/datasets_list_only/">datasets_list_only</a>
+<a href="/services/personalize/datasets/">datasets</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/personalize/schemata/">schemata</a><br />
-<a href="/services/personalize/schemata_list_only/">schemata_list_only</a><br />
-<a href="/services/personalize/solutions/">solutions</a><br />
-<a href="/services/personalize/solutions_list_only/">solutions_list_only</a>
+<a href="/services/personalize/solutions/">solutions</a>
 </div>
 </div>

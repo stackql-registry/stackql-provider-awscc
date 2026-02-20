@@ -156,6 +156,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.resourceexplorer2.default_view_associations
+SET data__PatchDocument = string('{{ {
+    "ViewArn": view_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AssociatedAwsPrincipal>';
+```
+
+
 ## `DELETE` example
 
 ```sql

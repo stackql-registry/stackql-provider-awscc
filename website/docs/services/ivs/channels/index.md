@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "arn",
@@ -134,6 +143,23 @@ Creates, updates, deletes or gets a <code>channel</code> resource or lists <code
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "Channel ARN is automatically generated on creation and assigned as the unique identifier."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ivs-channel.html"><code>AWS::IVS::Channel</code></a>.
 
@@ -143,31 +169,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>channels</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code=", region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>channels</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>channels</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>channels_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>channels</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -175,6 +207,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>channel</code>.
 ```sql
@@ -196,6 +237,19 @@ container_format
 FROM awscc.ivs.channels
 WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>channels</code> in a region.
+```sql
+SELECT
+region,
+arn
+FROM awscc.ivs.channels_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -296,6 +350,28 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ivs.channels
+SET data__PatchDocument = string('{{ {
+    "Name": name,
+    "Authorized": authorized,
+    "InsecureIngest": insecure_ingest,
+    "LatencyMode": latency_mode,
+    "Type": type,
+    "Tags": tags,
+    "RecordingConfigurationArn": recording_configuration_arn,
+    "Preset": preset,
+    "MultitrackInputConfiguration": multitrack_input_configuration,
+    "ContainerFormat": container_format
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
 
 ## `DELETE` example
 

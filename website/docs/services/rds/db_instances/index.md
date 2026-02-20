@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "allocated_storage",
@@ -619,6 +628,23 @@ Creates, updates, deletes or gets a <code>db_instance</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "db_instance_identifier",
+    "type": "string",
+    "description": "A name for the DB instance. If you specify a name, AWS CloudFormation converts it to lowercase. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the DB instance. For more information, see &#91;Name Type&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).<br />For information about constraints that apply to DB instance identifiers, see &#91;Naming constraints in Amazon RDS&#93;(https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP&#95;Limits.html#RDS&#95;Limits.Constraints) in the &#42;Amazon RDS User Guide&#42;.<br />If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html"><code>AWS::RDS::DBInstance</code></a>.
 
@@ -628,31 +654,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>db_instances</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>db_instances</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>db_instances</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>db_instances_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>db_instances</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -660,6 +692,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>db_instance</code>.
 ```sql
@@ -765,6 +806,19 @@ apply_immediately
 FROM awscc.rds.db_instances
 WHERE region = 'us-east-1' AND data__Identifier = '<DBInstanceIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>db_instances</code> in a region.
+```sql
+SELECT
+region,
+db_instance_identifier
+FROM awscc.rds.db_instances_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1316,6 +1370,84 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.rds.db_instances
+SET data__PatchDocument = string('{{ {
+    "AllocatedStorage": allocated_storage,
+    "AllowMajorVersionUpgrade": allow_major_version_upgrade,
+    "AssociatedRoles": associated_roles,
+    "AutoMinorVersionUpgrade": auto_minor_version_upgrade,
+    "AutomaticBackupReplicationRegion": automatic_backup_replication_region,
+    "AutomaticBackupReplicationKmsKeyId": automatic_backup_replication_kms_key_id,
+    "AutomaticBackupReplicationRetentionPeriod": automatic_backup_replication_retention_period,
+    "AvailabilityZone": availability_zone,
+    "BackupRetentionPeriod": backup_retention_period,
+    "CACertificateIdentifier": ca_certificate_identifier,
+    "CertificateRotationRestart": certificate_rotation_restart,
+    "CopyTagsToSnapshot": copy_tags_to_snapshot,
+    "DatabaseInsightsMode": database_insights_mode,
+    "DBClusterSnapshotIdentifier": db_cluster_snapshot_identifier,
+    "DBInstanceClass": db_instance_class,
+    "DBParameterGroupName": db_parameter_group_name,
+    "DBSecurityGroups": db_security_groups,
+    "DBSnapshotIdentifier": db_snapshot_identifier,
+    "DedicatedLogVolume": dedicated_log_volume,
+    "DeleteAutomatedBackups": delete_automated_backups,
+    "DeletionProtection": deletion_protection,
+    "Domain": domain,
+    "DomainAuthSecretArn": domain_auth_secret_arn,
+    "DomainDnsIps": domain_dns_ips,
+    "DomainFqdn": domain_fqdn,
+    "DomainIAMRoleName": domain_iam_role_name,
+    "DomainOu": domain_ou,
+    "EnableCloudwatchLogsExports": enable_cloudwatch_logs_exports,
+    "EnableIAMDatabaseAuthentication": enable_iam_database_authentication,
+    "EnablePerformanceInsights": enable_performance_insights,
+    "Engine": engine,
+    "EngineLifecycleSupport": engine_lifecycle_support,
+    "EngineVersion": engine_version,
+    "ManageMasterUserPassword": manage_master_user_password,
+    "Iops": iops,
+    "LicenseModel": license_model,
+    "MasterUserPassword": master_user_password,
+    "MaxAllocatedStorage": max_allocated_storage,
+    "MonitoringInterval": monitoring_interval,
+    "MonitoringRoleArn": monitoring_role_arn,
+    "MultiAZ": multi_az,
+    "NetworkType": network_type,
+    "OptionGroupName": option_group_name,
+    "PerformanceInsightsKMSKeyId": performance_insights_kms_key_id,
+    "PerformanceInsightsRetentionPeriod": performance_insights_retention_period,
+    "Port": port,
+    "PreferredBackupWindow": preferred_backup_window,
+    "PreferredMaintenanceWindow": preferred_maintenance_window,
+    "ProcessorFeatures": processor_features,
+    "PromotionTier": promotion_tier,
+    "PubliclyAccessible": publicly_accessible,
+    "ReplicaMode": replica_mode,
+    "RestoreTime": restore_time,
+    "SourceDBClusterIdentifier": source_db_cluster_identifier,
+    "SourceDbiResourceId": source_dbi_resource_id,
+    "SourceDBInstanceAutomatedBackupsArn": source_db_instance_automated_backups_arn,
+    "SourceDBInstanceIdentifier": source_db_instance_identifier,
+    "StorageType": storage_type,
+    "StorageThroughput": storage_throughput,
+    "Tags": tags,
+    "TdeCredentialArn": tde_credential_arn,
+    "TdeCredentialPassword": tde_credential_password,
+    "UseDefaultProcessorFeatures": use_default_processor_features,
+    "UseLatestRestorableTime": use_latest_restorable_time,
+    "VPCSecurityGroups": vpc_security_groups,
+    "ApplyImmediately": apply_immediately
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DBInstanceIdentifier>';
+```
+
 
 ## `DELETE` example
 

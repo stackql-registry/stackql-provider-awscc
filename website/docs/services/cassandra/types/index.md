@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>type</code> resource or lists <code>ty
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "keyspace_name",
@@ -92,6 +101,28 @@ Creates, updates, deletes or gets a <code>type</code> resource or lists <code>ty
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "keyspace_name",
+    "type": "string",
+    "description": "Name of the Keyspace which contains the User-Defined Type."
+  },
+  {
+    "name": "type_name",
+    "type": "string",
+    "description": "Name of the User-Defined Type."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cassandra-type.html"><code>AWS::Cassandra::Type</code></a>.
 
@@ -101,26 +132,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>types</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="KeyspaceName, TypeName, Fields, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>types</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>types_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>types</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -128,6 +164,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>type</code>.
 ```sql
@@ -144,6 +189,20 @@ keyspace_arn
 FROM awscc.cassandra.types
 WHERE region = 'us-east-1' AND data__Identifier = '<KeyspaceName>|<TypeName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>types</code> in a region.
+```sql
+SELECT
+region,
+keyspace_name,
+type_name
+FROM awscc.cassandra.types_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -217,6 +276,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

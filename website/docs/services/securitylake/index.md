@@ -20,7 +20,7 @@ The securitylake service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The securitylake service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/securitylake/data_lakes/">data_lakes</a><br />
-<a href="/services/securitylake/data_lakes_list_only/">data_lakes_list_only</a><br />
 <a href="/services/securitylake/subscriber_notifications/">subscriber_notifications</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/securitylake/subscriber_notifications_list_only/">subscriber_notifications_list_only</a><br />
-<a href="/services/securitylake/subscribers/">subscribers</a><br />
-<a href="/services/securitylake/subscribers_list_only/">subscribers_list_only</a>
+<a href="/services/securitylake/subscribers/">subscribers</a>
 </div>
 </div>

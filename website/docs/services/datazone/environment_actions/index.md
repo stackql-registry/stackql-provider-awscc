@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>environment_action</code> resource or
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "description",
@@ -92,6 +101,33 @@ Creates, updates, deletes or gets an <code>environment_action</code> resource or
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "domain_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone domain in which the environment is created."
+  },
+  {
+    "name": "environment_id",
+    "type": "string",
+    "description": "The identifier of the Amazon DataZone environment in which the action is taking place"
+  },
+  {
+    "name": "id",
+    "type": "string",
+    "description": "The ID of the Amazon DataZone environment action."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-datazone-environmentaction.html"><code>AWS::DataZone::EnvironmentActions</code></a>.
 
@@ -101,31 +137,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>environment_actions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>environment_actions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>environment_actions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>environment_actions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>environment_actions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -133,6 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>environment_action</code>.
 ```sql
@@ -150,6 +201,21 @@ parameters
 FROM awscc.datazone.environment_actions
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>environment_actions</code> in a region.
+```sql
+SELECT
+region,
+domain_id,
+environment_id,
+id
+FROM awscc.datazone.environment_actions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -230,6 +296,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.datazone.environment_actions
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "Identifier": identifier,
+    "Name": name,
+    "Parameters": parameters
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+```
+
 
 ## `DELETE` example
 

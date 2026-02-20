@@ -20,7 +20,7 @@ The pcs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The pcs service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/pcs/clusters/">clusters</a><br />
-<a href="/services/pcs/clusters_list_only/">clusters_list_only</a><br />
 <a href="/services/pcs/compute_node_groups/">compute_node_groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/pcs/compute_node_groups_list_only/">compute_node_groups_list_only</a><br />
-<a href="/services/pcs/queues/">queues</a><br />
-<a href="/services/pcs/queues_list_only/">queues_list_only</a>
+<a href="/services/pcs/queues/">queues</a>
 </div>
 </div>

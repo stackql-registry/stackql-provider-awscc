@@ -406,6 +406,28 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.evidently.experiments
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "RunningStatus": running_status,
+    "RandomizationSalt": randomization_salt,
+    "Treatments": treatments,
+    "MetricGoals": metric_goals,
+    "SamplingRate": sampling_rate,
+    "OnlineAbConfig": online_ab_config,
+    "Segment": segment,
+    "RemoveSegment": remove_segment,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>network_interface</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "description",
@@ -212,6 +221,23 @@ Creates, updates, deletes or gets a <code>network_interface</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "id",
+    "type": "string",
+    "description": "Network interface id."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkinterface.html"><code>AWS::EC2::NetworkInterface</code></a>.
 
@@ -221,31 +247,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>network_interfaces</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="SubnetId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>network_interfaces</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>network_interfaces</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>network_interfaces_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>network_interfaces</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -253,6 +285,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>network_interface</code>.
 ```sql
@@ -283,6 +324,19 @@ connection_tracking_specification
 FROM awscc.ec2.network_interfaces
 WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>network_interfaces</code> in a region.
+```sql
+SELECT
+region,
+id
+FROM awscc.ec2.network_interfaces_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -417,6 +471,32 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.network_interfaces
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "PrivateIpAddresses": private_ip_addresses,
+    "SecondaryPrivateIpAddressCount": secondary_private_ip_address_count,
+    "Ipv6PrefixCount": ipv6_prefix_count,
+    "Ipv4Prefixes": ipv4_prefixes,
+    "Ipv4PrefixCount": ipv4_prefix_count,
+    "EnablePrimaryIpv6": enable_primary_ipv6,
+    "GroupSet": group_set,
+    "Ipv6Addresses": ipv6_addresses,
+    "Ipv6Prefixes": ipv6_prefixes,
+    "SourceDestCheck": source_dest_check,
+    "Ipv6AddressCount": ipv6_address_count,
+    "Tags": tags,
+    "ConnectionTrackingSpecification": connection_tracking_specification
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
 
 ## `DELETE` example
 

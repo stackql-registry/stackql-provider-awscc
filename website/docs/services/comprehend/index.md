@@ -20,7 +20,7 @@ The comprehend service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The comprehend service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/comprehend/document_classifiers/">document_classifiers</a><br />
-<a href="/services/comprehend/document_classifiers_list_only/">document_classifiers_list_only</a>
+<a href="/services/comprehend/document_classifiers/">document_classifiers</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/comprehend/flywheels/">flywheels</a><br />
-<a href="/services/comprehend/flywheels_list_only/">flywheels_list_only</a>
+<a href="/services/comprehend/flywheels/">flywheels</a>
 </div>
 </div>

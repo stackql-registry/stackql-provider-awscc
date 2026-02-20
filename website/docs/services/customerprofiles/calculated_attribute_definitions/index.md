@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "domain_name",
@@ -216,6 +225,28 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition</code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "calculated_attribute_name",
+    "type": "string",
+    "description": "The unique name of the calculated attribute."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-calculatedattributedefinition.html"><code>AWS::CustomerProfiles::CalculatedAttributeDefinition</code></a>.
 
@@ -225,31 +256,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>calculated_attribute_definitions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainName, CalculatedAttributeName, AttributeDetails, Statistic, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>calculated_attribute_definitions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>calculated_attribute_definitions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>calculated_attribute_definitions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>calculated_attribute_definitions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -257,6 +294,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>calculated_attribute_definition</code>.
 ```sql
@@ -278,6 +324,20 @@ tags
 FROM awscc.customerprofiles.calculated_attribute_definitions
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<CalculatedAttributeName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>calculated_attribute_definitions</code> in a region.
+```sql
+SELECT
+region,
+domain_name,
+calculated_attribute_name
+FROM awscc.customerprofiles.calculated_attribute_definitions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -392,6 +452,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.customerprofiles.calculated_attribute_definitions
+SET data__PatchDocument = string('{{ {
+    "DisplayName": display_name,
+    "Description": description,
+    "AttributeDetails": attribute_details,
+    "Statistic": statistic,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainName>|<CalculatedAttributeName>';
+```
+
 
 ## `DELETE` example
 

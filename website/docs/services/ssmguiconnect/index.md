@@ -20,7 +20,7 @@ The ssmguiconnect service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The ssmguiconnect service documentation.
 <a href="/services/ssmguiconnect/preferences/">preferences</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/ssmguiconnect/preferences_list_only/">preferences_list_only</a>
+
 </div>
 </div>

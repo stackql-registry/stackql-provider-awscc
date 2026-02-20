@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>matchmaking_configuration</code> resou
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "acceptance_required",
@@ -154,6 +163,23 @@ Creates, updates, deletes or gets a <code>matchmaking_configuration</code> resou
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "A unique identifier for the matchmaking configuration."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-gamelift-matchmakingconfiguration.html"><code>AWS::GameLift::MatchmakingConfiguration</code></a>.
 
@@ -163,31 +189,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>matchmaking_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AcceptanceRequired, Name, RequestTimeoutSeconds, RuleSetName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>matchmaking_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>matchmaking_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>matchmaking_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>matchmaking_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -195,6 +227,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>matchmaking_configuration</code>.
 ```sql
@@ -221,6 +262,19 @@ tags
 FROM awscc.gamelift.matchmaking_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>matchmaking_configurations</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.gamelift.matchmaking_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -355,6 +409,34 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.gamelift.matchmaking_configurations
+SET data__PatchDocument = string('{{ {
+    "AcceptanceRequired": acceptance_required,
+    "AcceptanceTimeoutSeconds": acceptance_timeout_seconds,
+    "AdditionalPlayerCount": additional_player_count,
+    "BackfillMode": backfill_mode,
+    "CreationTime": creation_time,
+    "CustomEventData": custom_event_data,
+    "Description": description,
+    "FlexMatchMode": flex_match_mode,
+    "GameProperties": game_properties,
+    "GameSessionData": game_session_data,
+    "GameSessionQueueArns": game_session_queue_arns,
+    "NotificationTarget": notification_target,
+    "RequestTimeoutSeconds": request_timeout_seconds,
+    "RuleSetArn": rule_set_arn,
+    "RuleSetName": rule_set_name,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

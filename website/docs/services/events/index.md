@@ -20,7 +20,7 @@ The events service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>13</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -30,19 +30,13 @@ The events service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/events/api_destinations/">api_destinations</a><br />
-<a href="/services/events/api_destinations_list_only/">api_destinations_list_only</a><br />
 <a href="/services/events/archives/">archives</a><br />
-<a href="/services/events/archives_list_only/">archives_list_only</a><br />
 <a href="/services/events/connections/">connections</a><br />
-<a href="/services/events/connections_list_only/">connections_list_only</a><br />
 <a href="/services/events/endpoints/">endpoints</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/events/endpoints_list_only/">endpoints_list_only</a><br />
 <a href="/services/events/event_bus_policies/">event_bus_policies</a><br />
 <a href="/services/events/event_buses/">event_buses</a><br />
-<a href="/services/events/event_buses_list_only/">event_buses_list_only</a><br />
-<a href="/services/events/rules/">rules</a><br />
-<a href="/services/events/rules_list_only/">rules_list_only</a>
+<a href="/services/events/rules/">rules</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>budgets_action</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "action_id",
@@ -194,6 +203,28 @@ Creates, updates, deletes or gets a <code>budgets_action</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "action_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "budget_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-budgets-budgetsaction.html"><code>AWS::Budgets::BudgetsAction</code></a>.
 
@@ -203,31 +234,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>budgets_actions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="BudgetName, NotificationType, ActionType, ActionThreshold, ExecutionRoleArn, Definition, Subscribers, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>budgets_actions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>budgets_actions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>budgets_actions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>budgets_actions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -235,6 +272,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>budgets_action</code>.
 ```sql
@@ -253,6 +299,20 @@ resource_tags
 FROM awscc.budgets.budgets_actions
 WHERE region = 'us-east-1' AND data__Identifier = '<ActionId>|<BudgetName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>budgets_actions</code> in a region.
+```sql
+SELECT
+region,
+action_id,
+budget_name
+FROM awscc.budgets.budgets_actions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -379,6 +439,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.budgets.budgets_actions
+SET data__PatchDocument = string('{{ {
+    "NotificationType": notification_type,
+    "ActionThreshold": action_threshold,
+    "ExecutionRoleArn": execution_role_arn,
+    "ApprovalModel": approval_model,
+    "Subscribers": subscribers,
+    "Definition": definition,
+    "ResourceTags": resource_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ActionId>|<BudgetName>';
+```
+
 
 ## `DELETE` example
 

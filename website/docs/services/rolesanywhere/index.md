@@ -20,7 +20,7 @@ The rolesanywhere service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The rolesanywhere service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/rolesanywhere/crls/">crls</a><br />
-<a href="/services/rolesanywhere/crls_list_only/">crls_list_only</a><br />
 <a href="/services/rolesanywhere/profiles/">profiles</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/rolesanywhere/profiles_list_only/">profiles_list_only</a><br />
-<a href="/services/rolesanywhere/trust_anchors/">trust_anchors</a><br />
-<a href="/services/rolesanywhere/trust_anchors_list_only/">trust_anchors_list_only</a>
+<a href="/services/rolesanywhere/trust_anchors/">trust_anchors</a>
 </div>
 </div>

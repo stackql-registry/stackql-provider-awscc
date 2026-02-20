@@ -20,7 +20,7 @@ The emrserverless service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The emrserverless service documentation.
 <a href="/services/emrserverless/applications/">applications</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/emrserverless/applications_list_only/">applications_list_only</a>
+
 </div>
 </div>

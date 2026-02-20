@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>transit_gateway_route</code> resource 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "transit_gateway_route_table_id",
@@ -60,6 +69,28 @@ Creates, updates, deletes or gets a <code>transit_gateway_route</code> resource 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "transit_gateway_route_table_id",
+    "type": "string",
+    "description": "The ID of transit gateway route table."
+  },
+  {
+    "name": "destination_cidr_block",
+    "type": "string",
+    "description": "The CIDR range used for destination matches. Routing decisions are based on the most specific match."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewayroute.html"><code>AWS::EC2::TransitGatewayRoute</code></a>.
 
@@ -69,26 +100,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>transit_gateway_routes</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="TransitGatewayRouteTableId, DestinationCidrBlock, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>transit_gateway_routes</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>transit_gateway_routes_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>transit_gateway_routes</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -96,6 +132,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>transit_gateway_route</code>.
 ```sql
@@ -108,6 +153,20 @@ transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_routes
 WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayRouteTableId>|<DestinationCidrBlock>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>transit_gateway_routes</code> in a region.
+```sql
+SELECT
+region,
+transit_gateway_route_table_id,
+destination_cidr_block
+FROM awscc.ec2.transit_gateway_routes_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -181,6 +240,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

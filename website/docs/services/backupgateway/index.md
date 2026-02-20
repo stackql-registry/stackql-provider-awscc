@@ -20,7 +20,7 @@ The backupgateway service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The backupgateway service documentation.
 <a href="/services/backupgateway/hypervisors/">hypervisors</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/backupgateway/hypervisors_list_only/">hypervisors_list_only</a>
+
 </div>
 </div>

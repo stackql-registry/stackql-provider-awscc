@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>assignment</code> resource or lists <
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "instance_arn",
@@ -70,6 +79,48 @@ Creates, updates, deletes or gets an <code>assignment</code> resource or lists <
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The sso instance that the permission set is owned."
+  },
+  {
+    "name": "target_id",
+    "type": "string",
+    "description": "The account id to be provisioned."
+  },
+  {
+    "name": "target_type",
+    "type": "string",
+    "description": "The type of resource to be provsioned to, only aws account now"
+  },
+  {
+    "name": "permission_set_arn",
+    "type": "string",
+    "description": "The permission set that the assignemt will be assigned"
+  },
+  {
+    "name": "principal_type",
+    "type": "string",
+    "description": "The assignee's type, user/group"
+  },
+  {
+    "name": "principal_id",
+    "type": "string",
+    "description": "The assignee's identifier, user id/group id"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-assignment.html"><code>AWS::SSO::Assignment</code></a>.
 
@@ -79,26 +130,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>assignments</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InstanceArn, TargetId, TargetType, PermissionSetArn, PrincipalType, PrincipalId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>assignments</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>assignments_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>assignments</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -106,6 +162,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>assignment</code>.
 ```sql
@@ -120,6 +185,24 @@ principal_id
 FROM awscc.sso.assignments
 WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>|<TargetId>|<TargetType>|<PermissionSetArn>|<PrincipalType>|<PrincipalId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>assignments</code> in a region.
+```sql
+SELECT
+region,
+instance_arn,
+target_id,
+target_type,
+permission_set_arn,
+principal_type,
+principal_id
+FROM awscc.sso.assignments_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -209,6 +292,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>autoshift_observer_notification_statu
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "status",
@@ -67,6 +76,28 @@ Creates, updates, deletes or gets an <code>autoshift_observer_notification_statu
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "account_id",
+    "type": "string",
+    "description": "User account id, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "Region, used as part of the primary identifier for the resource"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-arczonalshift-autoshiftobservernotificationstatus.html"><code>AWS::ARCZonalShift::AutoshiftObserverNotificationStatus</code></a>.
 
@@ -76,26 +107,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>autoshift_observer_notification_statuses</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Status, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>autoshift_observer_notification_statuses</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>autoshift_observer_notification_statuses_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>autoshift_observer_notification_statuses</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -103,6 +139,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>autoshift_observer_notification_status</code>.
 ```sql
@@ -114,6 +159,20 @@ region
 FROM awscc.arczonalshift.autoshift_observer_notification_statuses
 WHERE region = 'us-east-1' AND data__Identifier = '<AccountId>|<Region>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>autoshift_observer_notification_statuses</code> in a region.
+```sql
+SELECT
+region,
+account_id,
+region
+FROM awscc.arczonalshift.autoshift_observer_notification_statuses_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -174,6 +233,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

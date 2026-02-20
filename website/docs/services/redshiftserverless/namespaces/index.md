@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>namespace</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "admin_password_secret_kms_key_id",
@@ -265,6 +274,139 @@ Creates, updates, deletes or gets a <code>namespace</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "namespace",
+    "type": "object",
+    "description": "Definition of Namespace resource.",
+    "children": [
+      {
+        "name": "admin_password_secret_kms_key_id",
+        "type": "string",
+        "description": "The ID of the AWS Key Management Service (KMS) key used to encrypt and store the namespace's admin credentials secret. You can only use this parameter if manageAdminPassword is true."
+      },
+      {
+        "name": "admin_user_password",
+        "type": "string",
+        "description": "The password associated with the admin user for the namespace that is being created. Password must be at least 8 characters in length, should be any printable ASCII character. Must contain at least one lowercase letter, one uppercase letter and one decimal digit. You can't use adminUserPassword if manageAdminPassword is true."
+      },
+      {
+        "name": "admin_username",
+        "type": "string",
+        "description": "The user name associated with the admin user for the namespace that is being created. Only alphanumeric characters and underscores are allowed. It should start with an alphabet."
+      },
+      {
+        "name": "db_name",
+        "type": "string",
+        "description": "The database name associated for the namespace that is being created. Only alphanumeric characters and underscores are allowed. It should start with an alphabet."
+      },
+      {
+        "name": "default_iam_role_arn",
+        "type": "string",
+        "description": "The default IAM role ARN for the namespace that is being created."
+      },
+      {
+        "name": "iam_roles",
+        "type": "array",
+        "description": "A list of AWS Identity and Access Management (IAM) roles that can be used by the namespace to access other AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. The Default role limit for each request is 10."
+      },
+      {
+        "name": "kms_key_id",
+        "type": "string",
+        "description": "The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the namespace."
+      },
+      {
+        "name": "log_exports",
+        "type": "array",
+        "description": "The collection of log types to be exported provided by the customer. Should only be one of the three supported log types: userlog, useractivitylog and connectionlog"
+      },
+      {
+        "name": "manage_admin_password",
+        "type": "boolean",
+        "description": "If true, Amazon Redshift uses AWS Secrets Manager to manage the namespace's admin credentials. You can't use adminUserPassword if manageAdminPassword is true. If manageAdminPassword is false or not set, Amazon Redshift uses adminUserPassword for the admin user account's password."
+      },
+      {
+        "name": "namespace_name",
+        "type": "string",
+        "description": "A unique identifier for the namespace. You use this identifier to refer to the namespace for any subsequent namespace operations such as deleting or modifying. All alphabetical characters must be lower case. Namespace name should be unique for all namespaces within an AWS account."
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "description": "The list of tags for the namespace.",
+        "children": [
+          {
+            "name": "key",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "final_snapshot_name",
+        "type": "string",
+        "description": "The name of the namespace the source snapshot was created from. Please specify the name if needed before deleting namespace"
+      },
+      {
+        "name": "final_snapshot_retention_period",
+        "type": "integer",
+        "description": "The number of days to retain automated snapshot in the destination region after they are copied from the source region. If the value is -1, the manual snapshot is retained indefinitely. The value must be either -1 or an integer between 1 and 3,653."
+      },
+      {
+        "name": "namespace_resource_policy",
+        "type": "object",
+        "description": "The resource policy document that will be attached to the namespace."
+      },
+      {
+        "name": "redshift_idc_application_arn",
+        "type": "string",
+        "description": "The ARN for the Redshift application that integrates with IAM Identity Center."
+      },
+      {
+        "name": "snapshot_copy_configurations",
+        "type": "array",
+        "description": "The snapshot copy configurations for the namespace.",
+        "children": [
+          {
+            "name": "destination_region",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "destination_kms_key_id",
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "snapshot_retention_period",
+            "type": "integer",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "namespace_name",
+    "type": "string",
+    "description": "A unique identifier for the namespace. You use this identifier to refer to the namespace for any subsequent namespace operations such as deleting or modifying. All alphabetical characters must be lower case. Namespace name should be unique for all namespaces within an AWS account."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshiftserverless-namespace.html"><code>AWS::RedshiftServerless::Namespace</code></a>.
 
@@ -274,31 +416,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>namespaces</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="NamespaceName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>namespaces</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>namespaces</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>namespaces_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>namespaces</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -306,6 +454,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>namespace</code>.
 ```sql
@@ -331,6 +488,19 @@ snapshot_copy_configurations
 FROM awscc.redshiftserverless.namespaces
 WHERE region = 'us-east-1' AND data__Identifier = '<NamespaceName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>namespaces</code> in a region.
+```sql
+SELECT
+region,
+namespace_name
+FROM awscc.redshiftserverless.namespaces_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -457,6 +627,33 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.redshiftserverless.namespaces
+SET data__PatchDocument = string('{{ {
+    "AdminPasswordSecretKmsKeyId": admin_password_secret_kms_key_id,
+    "AdminUserPassword": admin_user_password,
+    "AdminUsername": admin_username,
+    "DbName": db_name,
+    "DefaultIamRoleArn": default_iam_role_arn,
+    "IamRoles": iam_roles,
+    "KmsKeyId": kms_key_id,
+    "LogExports": log_exports,
+    "ManageAdminPassword": manage_admin_password,
+    "Tags": tags,
+    "FinalSnapshotName": final_snapshot_name,
+    "FinalSnapshotRetentionPeriod": final_snapshot_retention_period,
+    "NamespaceResourcePolicy": namespace_resource_policy,
+    "RedshiftIdcApplicationArn": redshift_idc_application_arn,
+    "SnapshotCopyConfigurations": snapshot_copy_configurations
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<NamespaceName>';
+```
+
 
 ## `DELETE` example
 

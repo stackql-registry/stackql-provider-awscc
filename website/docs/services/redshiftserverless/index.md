@@ -20,7 +20,7 @@ The redshiftserverless service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The redshiftserverless service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/redshiftserverless/namespaces/">namespaces</a><br />
-<a href="/services/redshiftserverless/namespaces_list_only/">namespaces_list_only</a><br />
 <a href="/services/redshiftserverless/snapshots/">snapshots</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/redshiftserverless/snapshots_list_only/">snapshots_list_only</a><br />
-<a href="/services/redshiftserverless/workgroups/">workgroups</a><br />
-<a href="/services/redshiftserverless/workgroups_list_only/">workgroups_list_only</a>
+<a href="/services/redshiftserverless/workgroups/">workgroups</a>
 </div>
 </div>

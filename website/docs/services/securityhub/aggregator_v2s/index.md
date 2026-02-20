@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>aggregator_v2</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "aggregator_v2_arn",
@@ -60,6 +69,23 @@ Creates, updates, deletes or gets an <code>aggregator_v2</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "aggregator_v2_arn",
+    "type": "string",
+    "description": "The ARN of the AggregatorV2 being created and assigned as the unique identifier"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-securityhub-aggregatorv2.html"><code>AWS::SecurityHub::AggregatorV2</code></a>.
 
@@ -69,31 +95,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>aggregator_v2s</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RegionLinkingMode, LinkedRegions, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>aggregator_v2s</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>aggregator_v2s</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>aggregator_v2s_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>aggregator_v2s</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +133,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>aggregator_v2</code>.
 ```sql
@@ -114,6 +155,19 @@ aggregation_region
 FROM awscc.securityhub.aggregator_v2s
 WHERE region = 'us-east-1' AND data__Identifier = '<AggregatorV2Arn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>aggregator_v2s</code> in a region.
+```sql
+SELECT
+region,
+aggregator_v2_arn
+FROM awscc.securityhub.aggregator_v2s_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -184,6 +238,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.securityhub.aggregator_v2s
+SET data__PatchDocument = string('{{ {
+    "RegionLinkingMode": region_linking_mode,
+    "LinkedRegions": linked_regions,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AggregatorV2Arn>';
+```
+
 
 ## `DELETE` example
 

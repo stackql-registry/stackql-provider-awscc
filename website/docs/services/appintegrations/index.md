@@ -20,7 +20,7 @@ The appintegrations service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The appintegrations service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/appintegrations/applications/">applications</a><br />
-<a href="/services/appintegrations/applications_list_only/">applications_list_only</a><br />
 <a href="/services/appintegrations/data_integrations/">data_integrations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/appintegrations/data_integrations_list_only/">data_integrations_list_only</a><br />
-<a href="/services/appintegrations/event_integrations/">event_integrations</a><br />
-<a href="/services/appintegrations/event_integrations_list_only/">event_integrations_list_only</a>
+<a href="/services/appintegrations/event_integrations/">event_integrations</a>
 </div>
 </div>

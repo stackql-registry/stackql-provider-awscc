@@ -20,7 +20,7 @@ The b2bi service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The b2bi service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/b2bi/capabilities/">capabilities</a><br />
-<a href="/services/b2bi/capabilities_list_only/">capabilities_list_only</a><br />
-<a href="/services/b2bi/partnerships/">partnerships</a><br />
-<a href="/services/b2bi/partnerships_list_only/">partnerships_list_only</a>
+<a href="/services/b2bi/partnerships/">partnerships</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/b2bi/profiles/">profiles</a><br />
-<a href="/services/b2bi/profiles_list_only/">profiles_list_only</a><br />
-<a href="/services/b2bi/transformers/">transformers</a><br />
-<a href="/services/b2bi/transformers_list_only/">transformers_list_only</a>
+<a href="/services/b2bi/transformers/">transformers</a>
 </div>
 </div>

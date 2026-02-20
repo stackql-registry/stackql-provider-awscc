@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>request_validator</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "request_validator_id",
@@ -65,6 +74,28 @@ Creates, updates, deletes or gets a <code>request_validator</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "request_validator_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "rest_api_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-requestvalidator.html"><code>AWS::ApiGateway::RequestValidator</code></a>.
 
@@ -74,31 +105,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>request_validators</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="RestApiId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>request_validators</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>request_validators</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>request_validators_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>request_validators</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -106,6 +143,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>request_validator</code>.
 ```sql
@@ -119,6 +165,20 @@ validate_request_parameters
 FROM awscc.apigateway.request_validators
 WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>request_validators</code> in a region.
+```sql
+SELECT
+region,
+rest_api_id,
+request_validator_id
+FROM awscc.apigateway.request_validators_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -190,6 +250,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigateway.request_validators
+SET data__PatchDocument = string('{{ {
+    "ValidateRequestBody": validate_request_body,
+    "ValidateRequestParameters": validate_request_parameters
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RestApiId>|<RequestValidatorId>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>invoice_unit</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "invoice_unit_arn",
@@ -99,6 +108,23 @@ Creates, updates, deletes or gets an <code>invoice_unit</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "invoice_unit_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-invoicing-invoiceunit.html"><code>AWS::Invoicing::InvoiceUnit</code></a>.
 
@@ -108,31 +134,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>invoice_units</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InvoiceReceiver, Name, Rule, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>invoice_units</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>invoice_units</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>invoice_units_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>invoice_units</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -140,6 +172,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>invoice_unit</code>.
 ```sql
@@ -156,6 +197,19 @@ resource_tags
 FROM awscc.invoicing.invoice_units
 WHERE region = 'us-east-1' AND data__Identifier = '<InvoiceUnitArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>invoice_units</code> in a region.
+```sql
+SELECT
+region,
+invoice_unit_arn
+FROM awscc.invoicing.invoice_units_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -243,6 +297,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.invoicing.invoice_units
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "TaxInheritanceDisabled": tax_inheritance_disabled,
+    "Rule": rule,
+    "ResourceTags": resource_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<InvoiceUnitArn>';
+```
+
 
 ## `DELETE` example
 

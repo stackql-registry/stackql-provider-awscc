@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>firewall</code> resource or lists <cod
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "firewall_name",
@@ -146,6 +155,23 @@ Creates, updates, deletes or gets a <code>firewall</code> resource or lists <cod
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "firewall_arn",
+    "type": "string",
+    "description": "A resource ARN."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkfirewall-firewall.html"><code>AWS::NetworkFirewall::Firewall</code></a>.
 
@@ -155,31 +181,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>firewalls</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="FirewallName, FirewallPolicyArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>firewalls</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>firewalls</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>firewalls_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>firewalls</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -187,6 +219,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>firewall</code>.
 ```sql
@@ -211,6 +252,19 @@ tags
 FROM awscc.networkfirewall.firewalls
 WHERE region = 'us-east-1' AND data__Identifier = '<FirewallArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>firewalls</code> in a region.
+```sql
+SELECT
+region,
+firewall_arn
+FROM awscc.networkfirewall.firewalls_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -326,6 +380,29 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.networkfirewall.firewalls
+SET data__PatchDocument = string('{{ {
+    "FirewallPolicyArn": firewall_policy_arn,
+    "SubnetMappings": subnet_mappings,
+    "AvailabilityZoneMappings": availability_zone_mappings,
+    "DeleteProtection": delete_protection,
+    "SubnetChangeProtection": subnet_change_protection,
+    "AvailabilityZoneChangeProtection": availability_zone_change_protection,
+    "FirewallPolicyChangeProtection": firewall_policy_change_protection,
+    "TransitGatewayId": transit_gateway_id,
+    "Description": description,
+    "EnabledAnalysisTypes": enabled_analysis_types,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FirewallArn>';
+```
+
 
 ## `DELETE` example
 

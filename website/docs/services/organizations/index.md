@@ -20,7 +20,7 @@ The organizations service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,11 @@ The organizations service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/organizations/accounts/">accounts</a><br />
-<a href="/services/organizations/accounts_list_only/">accounts_list_only</a><br />
 <a href="/services/organizations/organizational_units/">organizational_units</a><br />
-<a href="/services/organizations/organizational_units_list_only/">organizational_units_list_only</a><br />
 <a href="/services/organizations/organizations/">organizations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/organizations/organizations_list_only/">organizations_list_only</a><br />
 <a href="/services/organizations/policies/">policies</a><br />
-<a href="/services/organizations/policies_list_only/">policies_list_only</a><br />
-<a href="/services/organizations/resource_policies/">resource_policies</a><br />
-<a href="/services/organizations/resource_policies_list_only/">resource_policies_list_only</a>
+<a href="/services/organizations/resource_policies/">resource_policies</a>
 </div>
 </div>

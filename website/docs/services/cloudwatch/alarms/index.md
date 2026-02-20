@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>alarm</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "threshold_metric_id",
@@ -255,6 +264,23 @@ Creates, updates, deletes or gets an <code>alarm</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "alarm_name",
+    "type": "string",
+    "description": "The name of the alarm. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the alarm name. <br />If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html"><code>AWS::CloudWatch::Alarm</code></a>.
 
@@ -264,31 +290,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ComparisonOperator, EvaluationPeriods, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>alarms_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>alarms</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -296,6 +328,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>alarm</code>.
 ```sql
@@ -327,6 +368,19 @@ tags
 FROM awscc.cloudwatch.alarms
 WHERE region = 'us-east-1' AND data__Identifier = '<AlarmName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>alarms</code> in a region.
+```sql
+SELECT
+region,
+alarm_name
+FROM awscc.cloudwatch.alarms_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -494,6 +548,39 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudwatch.alarms
+SET data__PatchDocument = string('{{ {
+    "ThresholdMetricId": threshold_metric_id,
+    "EvaluateLowSampleCountPercentile": evaluate_low_sample_count_percentile,
+    "ExtendedStatistic": extended_statistic,
+    "ComparisonOperator": comparison_operator,
+    "TreatMissingData": treat_missing_data,
+    "Dimensions": dimensions,
+    "Period": period,
+    "EvaluationPeriods": evaluation_periods,
+    "Unit": unit,
+    "Namespace": namespace,
+    "OKActions": ok_actions,
+    "AlarmActions": alarm_actions,
+    "MetricName": metric_name,
+    "ActionsEnabled": actions_enabled,
+    "Metrics": metrics,
+    "AlarmDescription": alarm_description,
+    "Statistic": statistic,
+    "InsufficientDataActions": insufficient_data_actions,
+    "DatapointsToAlarm": datapoints_to_alarm,
+    "Threshold": threshold,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AlarmName>';
+```
+
 
 ## `DELETE` example
 

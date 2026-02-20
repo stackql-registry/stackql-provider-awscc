@@ -290,6 +290,24 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.evidently.features
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "EvaluationStrategy": evaluation_strategy,
+    "Variations": variations,
+    "DefaultVariation": default_variation,
+    "EntityOverrides": entity_overrides,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
+
 ## `DELETE` example
 
 ```sql

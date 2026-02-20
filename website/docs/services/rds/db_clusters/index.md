@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "endpoint",
@@ -474,6 +483,23 @@ Creates, updates, deletes or gets a <code>db_cluster</code> resource or lists <c
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "db_cluster_identifier",
+    "type": "string",
+    "description": "The DB cluster identifier. This parameter is stored as a lowercase string.<br />Constraints:<br />+ Must contain from 1 to 63 letters, numbers, or hyphens.<br />+ First character must be a letter.<br />+ Can't end with a hyphen or contain two consecutive hyphens.<br /><br />Example: &#96;&#96;my-cluster1&#96;&#96;<br />Valid for: Aurora DB clusters and Multi-AZ DB clusters"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html"><code>AWS::RDS::DBCluster</code></a>.
 
@@ -483,31 +509,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>db_clusters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>db_clusters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -515,6 +547,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>db_cluster</code>.
 ```sql
@@ -588,6 +629,19 @@ vpc_security_group_ids
 FROM awscc.rds.db_clusters
 WHERE region = 'us-east-1' AND data__Identifier = '<DBClusterIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>db_clusters</code> in a region.
+```sql
+SELECT
+region,
+db_cluster_identifier
+FROM awscc.rds.db_clusters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1019,6 +1073,60 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.rds.db_clusters
+SET data__PatchDocument = string('{{ {
+    "AllocatedStorage": allocated_storage,
+    "AssociatedRoles": associated_roles,
+    "AutoMinorVersionUpgrade": auto_minor_version_upgrade,
+    "BacktrackWindow": backtrack_window,
+    "BackupRetentionPeriod": backup_retention_period,
+    "CopyTagsToSnapshot": copy_tags_to_snapshot,
+    "DatabaseInsightsMode": database_insights_mode,
+    "DBClusterInstanceClass": db_cluster_instance_class,
+    "DBInstanceParameterGroupName": db_instance_parameter_group_name,
+    "GlobalClusterIdentifier": global_cluster_identifier,
+    "DBClusterParameterGroupName": db_cluster_parameter_group_name,
+    "DeleteAutomatedBackups": delete_automated_backups,
+    "DeletionProtection": deletion_protection,
+    "Domain": domain,
+    "DomainIAMRoleName": domain_iam_role_name,
+    "EnableCloudwatchLogsExports": enable_cloudwatch_logs_exports,
+    "EnableGlobalWriteForwarding": enable_global_write_forwarding,
+    "EnableHttpEndpoint": enable_http_endpoint,
+    "EnableIAMDatabaseAuthentication": enable_iam_database_authentication,
+    "EnableLocalWriteForwarding": enable_local_write_forwarding,
+    "Engine": engine,
+    "EngineLifecycleSupport": engine_lifecycle_support,
+    "EngineVersion": engine_version,
+    "ManageMasterUserPassword": manage_master_user_password,
+    "Iops": iops,
+    "MasterUsername": master_username,
+    "MasterUserPassword": master_user_password,
+    "MonitoringInterval": monitoring_interval,
+    "MonitoringRoleArn": monitoring_role_arn,
+    "NetworkType": network_type,
+    "PerformanceInsightsEnabled": performance_insights_enabled,
+    "PerformanceInsightsKmsKeyId": performance_insights_kms_key_id,
+    "PerformanceInsightsRetentionPeriod": performance_insights_retention_period,
+    "Port": port,
+    "PreferredBackupWindow": preferred_backup_window,
+    "PreferredMaintenanceWindow": preferred_maintenance_window,
+    "ReplicationSourceIdentifier": replication_source_identifier,
+    "ServerlessV2ScalingConfiguration": serverless_v2_scaling_configuration,
+    "ScalingConfiguration": scaling_configuration,
+    "StorageType": storage_type,
+    "Tags": tags,
+    "VpcSecurityGroupIds": vpc_security_group_ids
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DBClusterIdentifier>';
+```
+
 
 ## `DELETE` example
 

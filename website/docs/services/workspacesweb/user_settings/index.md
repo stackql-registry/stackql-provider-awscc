@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>user_setting</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "additional_encryption_context",
@@ -153,6 +162,23 @@ Creates, updates, deletes or gets an <code>user_setting</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "user_settings_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspacesweb-usersetting.html"><code>AWS::WorkSpacesWeb::UserSettings</code></a>.
 
@@ -162,31 +188,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>user_settings</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="CopyAllowed, DownloadAllowed, PasteAllowed, PrintAllowed, UploadAllowed, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>user_settings</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>user_settings</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>user_settings_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>user_settings</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -194,6 +226,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>user_setting</code>.
 ```sql
@@ -217,6 +258,19 @@ deep_link_allowed
 FROM awscc.workspacesweb.user_settings
 WHERE region = 'us-east-1' AND data__Identifier = '<UserSettingsArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>user_settings</code> in a region.
+```sql
+SELECT
+region,
+user_settings_arn
+FROM awscc.workspacesweb.user_settings_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -345,6 +399,31 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.workspacesweb.user_settings
+SET data__PatchDocument = string('{{ {
+    "AdditionalEncryptionContext": additional_encryption_context,
+    "CookieSynchronizationConfiguration": cookie_synchronization_configuration,
+    "CopyAllowed": copy_allowed,
+    "CustomerManagedKey": customer_managed_key,
+    "DisconnectTimeoutInMinutes": disconnect_timeout_in_minutes,
+    "DownloadAllowed": download_allowed,
+    "IdleDisconnectTimeoutInMinutes": idle_disconnect_timeout_in_minutes,
+    "PasteAllowed": paste_allowed,
+    "PrintAllowed": print_allowed,
+    "Tags": tags,
+    "ToolbarConfiguration": toolbar_configuration,
+    "UploadAllowed": upload_allowed,
+    "DeepLinkAllowed": deep_link_allowed
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<UserSettingsArn>';
+```
+
 
 ## `DELETE` example
 

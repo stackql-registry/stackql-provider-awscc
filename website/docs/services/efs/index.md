@@ -20,7 +20,7 @@ The efs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The efs service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/efs/access_points/">access_points</a><br />
-<a href="/services/efs/access_points_list_only/">access_points_list_only</a><br />
 <a href="/services/efs/file_systems/">file_systems</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/efs/file_systems_list_only/">file_systems_list_only</a><br />
-<a href="/services/efs/mount_targets/">mount_targets</a><br />
-<a href="/services/efs/mount_targets_list_only/">mount_targets_list_only</a>
+<a href="/services/efs/mount_targets/">mount_targets</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>model_package</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "tags",
@@ -818,6 +827,23 @@ Creates, updates, deletes or gets a <code>model_package</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "model_package_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN) of the model package group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html"><code>AWS::SageMaker::ModelPackage</code></a>.
 
@@ -827,31 +853,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>model_packages</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>model_packages</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>model_packages</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>model_packages_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>model_packages</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -859,6 +891,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>model_package</code>.
 ```sql
@@ -897,6 +938,19 @@ security_config
 FROM awscc.sagemaker.model_packages
 WHERE region = 'us-east-1' AND data__Identifier = '<ModelPackageArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>model_packages</code> in a region.
+```sql
+SELECT
+region,
+model_package_arn
+FROM awscc.sagemaker.model_packages_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1222,6 +1276,32 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.sagemaker.model_packages
+SET data__PatchDocument = string('{{ {
+    "Tags": tags,
+    "AdditionalInferenceSpecifications": additional_inference_specifications,
+    "CertifyForMarketplace": certify_for_marketplace,
+    "CustomerMetadataProperties": customer_metadata_properties,
+    "ModelApprovalStatus": model_approval_status,
+    "ModelPackageName": model_package_name,
+    "SkipModelValidation": skip_model_validation,
+    "ApprovalDescription": approval_description,
+    "LastModifiedTime": last_modified_time,
+    "ModelPackageVersion": model_package_version,
+    "AdditionalInferenceSpecificationsToAdd": additional_inference_specifications_to_add,
+    "ModelPackageStatusDetails": model_package_status_details,
+    "SourceUri": source_uri,
+    "ModelCard": model_card
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ModelPackageArn>';
+```
+
 
 ## `DELETE` example
 

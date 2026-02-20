@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>network_performance_metric_subscriptio
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "source",
@@ -60,6 +69,38 @@ Creates, updates, deletes or gets a <code>network_performance_metric_subscriptio
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "source",
+    "type": "string",
+    "description": "The starting Region or Availability Zone for metric to subscribe to."
+  },
+  {
+    "name": "destination",
+    "type": "string",
+    "description": "The target Region or Availability Zone for the metric to subscribe to."
+  },
+  {
+    "name": "metric",
+    "type": "string",
+    "description": "The metric type to subscribe to."
+  },
+  {
+    "name": "statistic",
+    "type": "string",
+    "description": "The statistic to subscribe to."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkperformancemetricsubscription.html"><code>AWS::EC2::NetworkPerformanceMetricSubscription</code></a>.
 
@@ -69,26 +110,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>network_performance_metric_subscriptions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Source, Destination, Metric, Statistic, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>network_performance_metric_subscriptions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>network_performance_metric_subscriptions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>network_performance_metric_subscriptions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -96,6 +142,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>network_performance_metric_subscription</code>.
 ```sql
@@ -108,6 +163,22 @@ statistic
 FROM awscc.ec2.network_performance_metric_subscriptions
 WHERE region = 'us-east-1' AND data__Identifier = '<Source>|<Destination>|<Metric>|<Statistic>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>network_performance_metric_subscriptions</code> in a region.
+```sql
+SELECT
+region,
+source,
+destination,
+metric,
+statistic
+FROM awscc.ec2.network_performance_metric_subscriptions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -185,6 +256,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The kms service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The kms service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/kms/aliases/">aliases</a><br />
-<a href="/services/kms/aliases_list_only/">aliases_list_only</a><br />
 <a href="/services/kms/keys/">keys</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/kms/keys_list_only/">keys_list_only</a><br />
-<a href="/services/kms/replica_keys/">replica_keys</a><br />
-<a href="/services/kms/replica_keys_list_only/">replica_keys_list_only</a>
+<a href="/services/kms/replica_keys/">replica_keys</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>pod_identity_association</code> resour
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "cluster_name",
@@ -102,6 +111,23 @@ Creates, updates, deletes or gets a <code>pod_identity_association</code> resour
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "association_arn",
+    "type": "string",
+    "description": "The ARN of the pod identity association."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-podidentityassociation.html"><code>AWS::EKS::PodIdentityAssociation</code></a>.
 
@@ -111,31 +137,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>pod_identity_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ClusterName, RoleArn, Namespace, ServiceAccount, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>pod_identity_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>pod_identity_associations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>pod_identity_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>pod_identity_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -143,6 +175,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>pod_identity_association</code>.
 ```sql
@@ -161,6 +202,19 @@ tags
 FROM awscc.eks.pod_identity_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<AssociationArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>pod_identity_associations</code> in a region.
+```sql
+SELECT
+region,
+association_arn
+FROM awscc.eks.pod_identity_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -252,6 +306,22 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.eks.pod_identity_associations
+SET data__PatchDocument = string('{{ {
+    "RoleArn": role_arn,
+    "TargetRoleArn": target_role_arn,
+    "DisableSessionTags": disable_session_tags,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AssociationArn>';
+```
+
 
 ## `DELETE` example
 

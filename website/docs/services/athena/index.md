@@ -20,7 +20,7 @@ The athena service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,11 @@ The athena service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/athena/capacity_reservations/">capacity_reservations</a><br />
-<a href="/services/athena/capacity_reservations_list_only/">capacity_reservations_list_only</a><br />
 <a href="/services/athena/data_catalogs/">data_catalogs</a><br />
-<a href="/services/athena/data_catalogs_list_only/">data_catalogs_list_only</a><br />
 <a href="/services/athena/named_queries/">named_queries</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/athena/named_queries_list_only/">named_queries_list_only</a><br />
 <a href="/services/athena/prepared_statements/">prepared_statements</a><br />
-<a href="/services/athena/prepared_statements_list_only/">prepared_statements_list_only</a><br />
-<a href="/services/athena/work_groups/">work_groups</a><br />
-<a href="/services/athena/work_groups_list_only/">work_groups_list_only</a>
+<a href="/services/athena/work_groups/">work_groups</a>
 </div>
 </div>

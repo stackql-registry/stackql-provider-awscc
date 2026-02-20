@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "name",
@@ -339,6 +348,23 @@ Creates, updates, deletes or gets a <code>canary</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "name",
+    "type": "string",
+    "description": "Name of the canary."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html"><code>AWS::Synthetics::Canary</code></a>.
 
@@ -348,31 +374,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>canaries</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, Code, ArtifactS3Location, ExecutionRoleArn, Schedule, RuntimeVersion, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>canaries</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>canaries</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>canaries_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>canaries</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -380,6 +412,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>canary</code>.
 ```sql
@@ -410,6 +451,19 @@ visual_references
 FROM awscc.synthetics.canaries
 WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>canaries</code> in a region.
+```sql
+SELECT
+region,
+name
+FROM awscc.synthetics.canaries_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -593,6 +647,36 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.synthetics.canaries
+SET data__PatchDocument = string('{{ {
+    "ArtifactS3Location": artifact_s3_location,
+    "ArtifactConfig": artifact_config,
+    "Schedule": schedule,
+    "ExecutionRoleArn": execution_role_arn,
+    "RuntimeVersion": runtime_version,
+    "SuccessRetentionPeriod": success_retention_period,
+    "FailureRetentionPeriod": failure_retention_period,
+    "Tags": tags,
+    "VPCConfig": vpc_config,
+    "RunConfig": run_config,
+    "StartCanaryAfterCreation": start_canary_after_creation,
+    "VisualReference": visual_reference,
+    "DeleteLambdaResourcesOnCanaryDeletion": delete_lambda_resources_on_canary_deletion,
+    "ResourcesToReplicateTags": resources_to_replicate_tags,
+    "ProvisionedResourceCleanup": provisioned_resource_cleanup,
+    "DryRunAndUpdate": dry_run_and_update,
+    "BrowserConfigs": browser_configs,
+    "VisualReferences": visual_references
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Name>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>resource_data_sync</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "s3_destination",
@@ -146,6 +155,23 @@ Creates, updates, deletes or gets a <code>resource_data_sync</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "sync_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-resourcedatasync.html"><code>AWS::SSM::ResourceDataSync</code></a>.
 
@@ -155,31 +181,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>resource_data_syncs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="SyncName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>resource_data_syncs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>resource_data_syncs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>resource_data_syncs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>resource_data_syncs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -187,6 +219,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>resource_data_sync</code>.
 ```sql
@@ -204,6 +245,19 @@ bucket_prefix
 FROM awscc.ssm.resource_data_syncs
 WHERE region = 'us-east-1' AND data__Identifier = '<SyncName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>resource_data_syncs</code> in a region.
+```sql
+SELECT
+region,
+sync_name
+FROM awscc.ssm.resource_data_syncs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -308,6 +362,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ssm.resource_data_syncs
+SET data__PatchDocument = string('{{ {
+    "SyncSource": sync_source
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<SyncName>';
+```
+
 
 ## `DELETE` example
 

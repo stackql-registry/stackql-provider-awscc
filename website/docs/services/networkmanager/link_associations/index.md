@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>link_association</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "global_network_id",
@@ -55,6 +64,33 @@ Creates, updates, deletes or gets a <code>link_association</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "global_network_id",
+    "type": "string",
+    "description": "The ID of the global network."
+  },
+  {
+    "name": "device_id",
+    "type": "string",
+    "description": "The ID of the device"
+  },
+  {
+    "name": "link_id",
+    "type": "string",
+    "description": "The ID of the link"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-linkassociation.html"><code>AWS::NetworkManager::LinkAssociation</code></a>.
 
@@ -64,26 +100,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>link_associations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="GlobalNetworkId, DeviceId, LinkId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>link_associations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>link_associations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>link_associations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -91,6 +132,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>link_association</code>.
 ```sql
@@ -102,6 +152,21 @@ link_id
 FROM awscc.networkmanager.link_associations
 WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>|<DeviceId>|<LinkId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>link_associations</code> in a region.
+```sql
+SELECT
+region,
+global_network_id,
+device_id,
+link_id
+FROM awscc.networkmanager.link_associations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -173,6 +238,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

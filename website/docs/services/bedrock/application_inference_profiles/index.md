@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>application_inference_profile</code> 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "created_at",
@@ -119,6 +128,28 @@ Creates, updates, deletes or gets an <code>application_inference_profile</code> 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "inference_profile_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "inference_profile_identifier",
+    "type": "string",
+    "description": "Inference profile identifier. Supports both system-defined inference profile ids, and inference profile ARNs."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-applicationinferenceprofile.html"><code>AWS::Bedrock::ApplicationInferenceProfile</code></a>.
 
@@ -128,31 +159,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>application_inference_profiles</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InferenceProfileName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>application_inference_profiles</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>application_inference_profiles</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>application_inference_profiles_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>application_inference_profiles</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -160,6 +197,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>application_inference_profile</code>.
 ```sql
@@ -180,6 +226,19 @@ updated_at
 FROM awscc.bedrock.application_inference_profiles
 WHERE region = 'us-east-1' AND data__Identifier = '<InferenceProfileIdentifier>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>application_inference_profiles</code> in a region.
+```sql
+SELECT
+region,
+inference_profile_identifier
+FROM awscc.bedrock.application_inference_profiles_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -253,6 +312,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.bedrock.application_inference_profiles
+SET data__PatchDocument = string('{{ {
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<InferenceProfileIdentifier>';
+```
+
 
 ## `DELETE` example
 

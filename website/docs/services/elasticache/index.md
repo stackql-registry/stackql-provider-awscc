@@ -20,7 +20,7 @@ The elasticache service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,18 +30,12 @@ The elasticache service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/elasticache/global_replication_groups/">global_replication_groups</a><br />
-<a href="/services/elasticache/global_replication_groups_list_only/">global_replication_groups_list_only</a><br />
 <a href="/services/elasticache/parameter_groups/">parameter_groups</a><br />
-<a href="/services/elasticache/parameter_groups_list_only/">parameter_groups_list_only</a><br />
-<a href="/services/elasticache/serverless_caches/">serverless_caches</a><br />
-<a href="/services/elasticache/serverless_caches_list_only/">serverless_caches_list_only</a>
+<a href="/services/elasticache/serverless_caches/">serverless_caches</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/elasticache/subnet_groups/">subnet_groups</a><br />
-<a href="/services/elasticache/subnet_groups_list_only/">subnet_groups_list_only</a><br />
 <a href="/services/elasticache/user_groups/">user_groups</a><br />
-<a href="/services/elasticache/user_groups_list_only/">user_groups_list_only</a><br />
-<a href="/services/elasticache/users/">users</a><br />
-<a href="/services/elasticache/users_list_only/">users_list_only</a>
+<a href="/services/elasticache/users/">users</a>
 </div>
 </div>

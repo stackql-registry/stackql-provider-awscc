@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>queue_environment</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "farm_id",
@@ -75,6 +84,33 @@ Creates, updates, deletes or gets a <code>queue_environment</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "farm_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "queue_environment_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "queue_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-deadline-queueenvironment.html"><code>AWS::Deadline::QueueEnvironment</code></a>.
 
@@ -84,31 +120,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>queue_environments</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="FarmId, QueueId, Priority, Template, TemplateType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>queue_environments</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>queue_environments</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>queue_environments_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>queue_environments</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -116,6 +158,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>queue_environment</code>.
 ```sql
@@ -131,6 +182,21 @@ template_type
 FROM awscc.deadline.queue_environments
 WHERE region = 'us-east-1' AND data__Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>queue_environments</code> in a region.
+```sql
+SELECT
+region,
+farm_id,
+queue_id,
+queue_environment_id
+FROM awscc.deadline.queue_environments_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -214,6 +280,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.deadline.queue_environments
+SET data__PatchDocument = string('{{ {
+    "Priority": priority,
+    "Template": template,
+    "TemplateType": template_type
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
+```
+
 
 ## `DELETE` example
 

@@ -20,7 +20,7 @@ The route53profiles service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The route53profiles service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/route53profiles/profile_associations/">profile_associations</a><br />
-<a href="/services/route53profiles/profile_associations_list_only/">profile_associations_list_only</a><br />
 <a href="/services/route53profiles/profile_resource_associations/">profile_resource_associations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/route53profiles/profile_resource_associations_list_only/">profile_resource_associations_list_only</a><br />
-<a href="/services/route53profiles/profiles/">profiles</a><br />
-<a href="/services/route53profiles/profiles_list_only/">profiles_list_only</a>
+<a href="/services/route53profiles/profiles/">profiles</a>
 </div>
 </div>

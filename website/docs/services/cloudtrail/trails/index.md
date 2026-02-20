@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>trail</code> resource or lists <code>t
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "include_global_service_events",
@@ -232,6 +241,23 @@ Creates, updates, deletes or gets a <code>trail</code> resource or lists <code>t
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "trail_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-trail.html"><code>AWS::CloudTrail::Trail</code></a>.
 
@@ -241,31 +267,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>trails</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="S3BucketName, IsLogging, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>trails</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>trails</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>trails_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>trails</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -273,6 +305,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>trail</code>.
 ```sql
@@ -299,6 +340,19 @@ is_logging
 FROM awscc.cloudtrail.trails
 WHERE region = 'us-east-1' AND data__Identifier = '<TrailName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>trails</code> in a region.
+```sql
+SELECT
+region,
+trail_name
+FROM awscc.cloudtrail.trails_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -446,6 +500,33 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cloudtrail.trails
+SET data__PatchDocument = string('{{ {
+    "IncludeGlobalServiceEvents": include_global_service_events,
+    "EventSelectors": event_selectors,
+    "KMSKeyId": kms_key_id,
+    "CloudWatchLogsRoleArn": cloud_watch_logs_role_arn,
+    "S3KeyPrefix": s3_key_prefix,
+    "AdvancedEventSelectors": advanced_event_selectors,
+    "IsOrganizationTrail": is_organization_trail,
+    "InsightSelectors": insight_selectors,
+    "CloudWatchLogsLogGroupArn": cloud_watch_logs_log_group_arn,
+    "SnsTopicName": sns_topic_name,
+    "IsMultiRegionTrail": is_multi_region_trail,
+    "S3BucketName": s3_bucket_name,
+    "EnableLogFileValidation": enable_log_file_validation,
+    "Tags": tags,
+    "IsLogging": is_logging
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<TrailName>';
+```
+
 
 ## `DELETE` example
 

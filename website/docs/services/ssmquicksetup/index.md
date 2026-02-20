@@ -20,7 +20,7 @@ The ssmquicksetup service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The ssmquicksetup service documentation.
 <a href="/services/ssmquicksetup/configuration_managers/">configuration_managers</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/ssmquicksetup/configuration_managers_list_only/">configuration_managers_list_only</a>
+
 </div>
 </div>

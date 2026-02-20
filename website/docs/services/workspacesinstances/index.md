@@ -20,7 +20,7 @@ The workspacesinstances service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The workspacesinstances service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/workspacesinstances/volume_associations/">volume_associations</a><br />
-<a href="/services/workspacesinstances/volume_associations_list_only/">volume_associations_list_only</a><br />
 <a href="/services/workspacesinstances/volumes/">volumes</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/workspacesinstances/volumes_list_only/">volumes_list_only</a><br />
-<a href="/services/workspacesinstances/workspace_instances/">workspace_instances</a><br />
-<a href="/services/workspacesinstances/workspace_instances_list_only/">workspace_instances_list_only</a>
+<a href="/services/workspacesinstances/workspace_instances/">workspace_instances</a>
 </div>
 </div>

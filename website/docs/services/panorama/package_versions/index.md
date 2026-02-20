@@ -235,6 +235,20 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.panorama.package_versions
+SET data__PatchDocument = string('{{ {
+    "MarkLatest": mark_latest,
+    "UpdatedLatestPatchVersion": updated_latest_patch_version
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<PackageId>|<PackageVersion>|<PatchVersion>';
+```
+
+
 ## `DELETE` example
 
 ```sql

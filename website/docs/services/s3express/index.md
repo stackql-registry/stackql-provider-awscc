@@ -20,7 +20,7 @@ The s3express service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The s3express service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/s3express/access_points/">access_points</a><br />
-<a href="/services/s3express/access_points_list_only/">access_points_list_only</a><br />
 <a href="/services/s3express/bucket_policies/">bucket_policies</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/s3express/bucket_policies_list_only/">bucket_policies_list_only</a><br />
-<a href="/services/s3express/directory_buckets/">directory_buckets</a><br />
-<a href="/services/s3express/directory_buckets_list_only/">directory_buckets_list_only</a>
+<a href="/services/s3express/directory_buckets/">directory_buckets</a>
 </div>
 </div>

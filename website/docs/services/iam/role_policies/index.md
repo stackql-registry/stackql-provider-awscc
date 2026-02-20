@@ -172,6 +172,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.iam.role_policies
+SET data__PatchDocument = string('{{ {
+    "PolicyDocument": policy_document
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<PolicyName>|<RoleName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

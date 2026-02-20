@@ -20,7 +20,7 @@ The notificationscontacts service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The notificationscontacts service documentation.
 <a href="/services/notificationscontacts/email_contacts/">email_contacts</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/notificationscontacts/email_contacts_list_only/">email_contacts_list_only</a>
+
 </div>
 </div>

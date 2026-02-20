@@ -20,7 +20,7 @@ The kendra service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total resources:&nbsp;<b>3</b></span><br />
 </div>
 </div>
 
@@ -30,12 +30,9 @@ The kendra service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/kendra/data_sources/">data_sources</a><br />
-<a href="/services/kendra/data_sources_list_only/">data_sources_list_only</a><br />
 <a href="/services/kendra/faqs/">faqs</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/kendra/faqs_list_only/">faqs_list_only</a><br />
-<a href="/services/kendra/indices/">indices</a><br />
-<a href="/services/kendra/indices_list_only/">indices_list_only</a>
+<a href="/services/kendra/indices/">indices</a>
 </div>
 </div>

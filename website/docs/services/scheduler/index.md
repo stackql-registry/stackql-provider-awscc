@@ -20,7 +20,7 @@ The scheduler service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The scheduler service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/scheduler/schedule_groups/">schedule_groups</a><br />
-<a href="/services/scheduler/schedule_groups_list_only/">schedule_groups_list_only</a>
+<a href="/services/scheduler/schedule_groups/">schedule_groups</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/scheduler/schedules/">schedules</a><br />
-<a href="/services/scheduler/schedules_list_only/">schedules_list_only</a>
+<a href="/services/scheduler/schedules/">schedules</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>fl
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "flow_arn",
@@ -592,6 +601,23 @@ Creates, updates, deletes or gets a <code>flow</code> resource or lists <code>fl
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "flow_arn",
+    "type": "string",
+    "description": "The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-flow.html"><code>AWS::MediaConnect::Flow</code></a>.
 
@@ -601,31 +627,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>flows</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, Source, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>flows</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>flows</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>flows_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>flows</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -633,6 +665,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>flow</code>.
 ```sql
@@ -655,6 +696,19 @@ flow_ndi_machine_name
 FROM awscc.mediaconnect.flows
 WHERE region = 'us-east-1' AND data__Identifier = '<FlowArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>flows</code> in a region.
+```sql
+SELECT
+region,
+flow_arn
+FROM awscc.mediaconnect.flows_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -843,6 +897,23 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediaconnect.flows
+SET data__PatchDocument = string('{{ {
+    "SourceFailoverConfig": source_failover_config,
+    "Maintenance": maintenance,
+    "SourceMonitoringConfig": source_monitoring_config,
+    "FlowSize": flow_size,
+    "NdiConfig": ndi_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<FlowArn>';
+```
+
 
 ## `DELETE` example
 

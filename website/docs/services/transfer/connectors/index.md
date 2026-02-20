@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "access_role",
@@ -171,6 +180,23 @@ Creates, updates, deletes or gets a <code>connector</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "connector_id",
+    "type": "string",
+    "description": "A unique identifier for the connector."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html"><code>AWS::Transfer::Connector</code></a>.
 
@@ -180,31 +206,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>connectors</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AccessRole, Url, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>connectors</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>connectors</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>connectors_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>connectors</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -212,6 +244,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>connector</code>.
 ```sql
@@ -230,6 +271,19 @@ security_policy_name
 FROM awscc.transfer.connectors
 WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>connectors</code> in a region.
+```sql
+SELECT
+region,
+connector_id
+FROM awscc.transfer.connectors_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -331,6 +385,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.transfer.connectors
+SET data__PatchDocument = string('{{ {
+    "AccessRole": access_role,
+    "As2Config": as2_config,
+    "SftpConfig": sftp_config,
+    "LoggingRole": logging_role,
+    "Tags": tags,
+    "Url": url,
+    "SecurityPolicyName": security_policy_name
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ConnectorId>';
+```
+
 
 ## `DELETE` example
 

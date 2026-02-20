@@ -20,7 +20,7 @@ The odb service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,14 +30,10 @@ The odb service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/odb/cloud_autonomous_vm_clusters/">cloud_autonomous_vm_clusters</a><br />
-<a href="/services/odb/cloud_autonomous_vm_clusters_list_only/">cloud_autonomous_vm_clusters_list_only</a><br />
-<a href="/services/odb/cloud_exadata_infrastructures/">cloud_exadata_infrastructures</a><br />
-<a href="/services/odb/cloud_exadata_infrastructures_list_only/">cloud_exadata_infrastructures_list_only</a>
+<a href="/services/odb/cloud_exadata_infrastructures/">cloud_exadata_infrastructures</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/odb/cloud_vm_clusters/">cloud_vm_clusters</a><br />
-<a href="/services/odb/cloud_vm_clusters_list_only/">cloud_vm_clusters_list_only</a><br />
-<a href="/services/odb/odb_networks/">odb_networks</a><br />
-<a href="/services/odb/odb_networks_list_only/">odb_networks_list_only</a>
+<a href="/services/odb/odb_networks/">odb_networks</a>
 </div>
 </div>

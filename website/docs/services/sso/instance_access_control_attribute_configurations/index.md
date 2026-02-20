@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>instance_access_control_attribute_con
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "instance_arn",
@@ -100,6 +109,23 @@ Creates, updates, deletes or gets an <code>instance_access_control_attribute_con
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "instance_arn",
+    "type": "string",
+    "description": "The ARN of the AWS SSO instance under which the operation will be executed."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sso-instanceaccesscontrolattributeconfiguration.html"><code>AWS::SSO::InstanceAccessControlAttributeConfiguration</code></a>.
 
@@ -109,31 +135,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>instance_access_control_attribute_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="InstanceArn, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>instance_access_control_attribute_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>instance_access_control_attribute_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>instance_access_control_attribute_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>instance_access_control_attribute_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -141,6 +173,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>instance_access_control_attribute_configuration</code>.
 ```sql
@@ -152,6 +193,19 @@ access_control_attributes
 FROM awscc.sso.instance_access_control_attribute_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>instance_access_control_attribute_configurations</code> in a region.
+```sql
+SELECT
+region,
+instance_arn
+FROM awscc.sso.instance_access_control_attribute_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -224,6 +278,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.sso.instance_access_control_attribute_configurations
+SET data__PatchDocument = string('{{ {
+    "InstanceAccessControlAttributeConfiguration": instance_access_control_attribute_configuration,
+    "AccessControlAttributes": access_control_attributes
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<InstanceArn>';
+```
+
 
 ## `DELETE` example
 

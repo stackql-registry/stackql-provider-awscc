@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "rules",
@@ -79,6 +88,23 @@ Creates, updates, deletes or gets a <code>registry_scanning_configuration</code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "registry_id",
+    "type": "string",
+    "description": "The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-registryscanningconfiguration.html"><code>AWS::ECR::RegistryScanningConfiguration</code></a>.
 
@@ -88,31 +114,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>registry_scanning_configurations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Rules, ScanType, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>registry_scanning_configurations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>registry_scanning_configurations</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>registry_scanning_configurations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>registry_scanning_configurations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -120,6 +152,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>registry_scanning_configuration</code>.
 ```sql
@@ -131,6 +172,19 @@ registry_id
 FROM awscc.ecr.registry_scanning_configurations
 WHERE region = 'us-east-1' AND data__Identifier = '<RegistryId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>registry_scanning_configurations</code> in a region.
+```sql
+SELECT
+region,
+registry_id
+FROM awscc.ecr.registry_scanning_configurations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -200,6 +254,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ecr.registry_scanning_configurations
+SET data__PatchDocument = string('{{ {
+    "Rules": rules,
+    "ScanType": scan_type
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RegistryId>';
+```
+
 
 ## `DELETE` example
 

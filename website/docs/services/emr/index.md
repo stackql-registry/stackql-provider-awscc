@@ -20,7 +20,7 @@ The emr service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>9</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,15 +30,11 @@ The emr service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/emr/security_configurations/">security_configurations</a><br />
-<a href="/services/emr/security_configurations_list_only/">security_configurations_list_only</a><br />
 <a href="/services/emr/steps/">steps</a><br />
-<a href="/services/emr/studio_session_mappings/">studio_session_mappings</a><br />
-<a href="/services/emr/studio_session_mappings_list_only/">studio_session_mappings_list_only</a>
+<a href="/services/emr/studio_session_mappings/">studio_session_mappings</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/emr/studios/">studios</a><br />
-<a href="/services/emr/studios_list_only/">studios_list_only</a><br />
-<a href="/services/emr/wal_workspaces/">wal_workspaces</a><br />
-<a href="/services/emr/wal_workspaces_list_only/">wal_workspaces_list_only</a>
+<a href="/services/emr/wal_workspaces/">wal_workspaces</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>guardrail</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "blocked_input_messaging",
@@ -422,6 +431,23 @@ Creates, updates, deletes or gets a <code>guardrail</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "guardrail_arn",
+    "type": "string",
+    "description": "Arn representation for the guardrail"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-bedrock-guardrail.html"><code>AWS::Bedrock::Guardrail</code></a>.
 
@@ -431,31 +457,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>guardrails</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, BlockedInputMessaging, BlockedOutputsMessaging, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>guardrails</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>guardrails</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>guardrails_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>guardrails</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -463,6 +495,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>guardrail</code>.
 ```sql
@@ -491,6 +532,19 @@ word_policy_config
 FROM awscc.bedrock.guardrails
 WHERE region = 'us-east-1' AND data__Identifier = '<GuardrailArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>guardrails</code> in a region.
+```sql
+SELECT
+region,
+guardrail_arn
+FROM awscc.bedrock.guardrails_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -660,6 +714,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.bedrock.guardrails
+SET data__PatchDocument = string('{{ {
+    "BlockedInputMessaging": blocked_input_messaging,
+    "BlockedOutputsMessaging": blocked_outputs_messaging,
+    "ContentPolicyConfig": content_policy_config,
+    "ContextualGroundingPolicyConfig": contextual_grounding_policy_config,
+    "CrossRegionConfig": cross_region_config,
+    "Description": description,
+    "KmsKeyArn": kms_key_arn,
+    "Name": name,
+    "SensitiveInformationPolicyConfig": sensitive_information_policy_config,
+    "Tags": tags,
+    "TopicPolicyConfig": topic_policy_config,
+    "WordPolicyConfig": word_policy_config
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<GuardrailArn>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>q
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "queue_url",
@@ -142,6 +151,23 @@ Creates, updates, deletes or gets a <code>queue</code> resource or lists <code>q
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "queue_url",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queue.html"><code>AWS::SQS::Queue</code></a>.
 
@@ -151,31 +177,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>queues</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>queues</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>queues</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>queues_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>queues</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -183,6 +215,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>queue</code>.
 ```sql
@@ -209,6 +250,19 @@ visibility_timeout
 FROM awscc.sqs.queues
 WHERE region = 'us-east-1' AND data__Identifier = '<QueueUrl>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>queues</code> in a region.
+```sql
+SELECT
+region,
+queue_url
+FROM awscc.sqs.queues_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -360,6 +414,32 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.sqs.queues
+SET data__PatchDocument = string('{{ {
+    "ContentBasedDeduplication": content_based_deduplication,
+    "DeduplicationScope": deduplication_scope,
+    "DelaySeconds": delay_seconds,
+    "FifoThroughputLimit": fifo_throughput_limit,
+    "KmsDataKeyReusePeriodSeconds": kms_data_key_reuse_period_seconds,
+    "KmsMasterKeyId": kms_master_key_id,
+    "SqsManagedSseEnabled": sqs_managed_sse_enabled,
+    "MaximumMessageSize": maximum_message_size,
+    "MessageRetentionPeriod": message_retention_period,
+    "ReceiveMessageWaitTimeSeconds": receive_message_wait_time_seconds,
+    "RedriveAllowPolicy": redrive_allow_policy,
+    "RedrivePolicy": redrive_policy,
+    "Tags": tags,
+    "VisibilityTimeout": visibility_timeout
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<QueueUrl>';
+```
+
 
 ## `DELETE` example
 

@@ -206,6 +206,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediaconnect.bridge_outputs
+SET data__PatchDocument = string('{{ {
+    "NetworkOutput": network_output
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<BridgeArn>|<Name>';
+```
+
+
 ## `DELETE` example
 
 ```sql

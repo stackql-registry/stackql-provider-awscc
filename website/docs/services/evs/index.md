@@ -20,7 +20,7 @@ The evs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The evs service documentation.
 <a href="/services/evs/environments/">environments</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/evs/environments_list_only/">environments_list_only</a>
+
 </div>
 </div>

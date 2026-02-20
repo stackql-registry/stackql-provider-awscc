@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>data_cells_filter</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "table_catalog_id",
@@ -77,6 +86,28 @@ Creates, updates, deletes or gets a <code>data_cells_filter</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "table_catalog_id",
+    "type": "string",
+    "description": "The Catalog Id of the Table on which to create a Data Cells Filter."
+  },
+  {
+    "name": "database_name",
+    "type": "string",
+    "description": "The name of the Database that the Table resides in."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lakeformation-datacellsfilter.html"><code>AWS::LakeFormation::DataCellsFilter</code></a>.
 
@@ -86,26 +117,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>data_cells_filters</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="TableCatalogId, DatabaseName, TableName, Name, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>data_cells_filters</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>data_cells_filters_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>data_cells_filters</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -113,6 +149,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>data_cells_filter</code>.
 ```sql
@@ -128,6 +173,22 @@ column_wildcard
 FROM awscc.lakeformation.data_cells_filters
 WHERE region = 'us-east-1' AND data__Identifier = '<TableCatalogId>|<DatabaseName>|<TableName>|<Name>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>data_cells_filters</code> in a region.
+```sql
+SELECT
+region,
+table_catalog_id,
+database_name,
+table_name,
+name
+FROM awscc.lakeformation.data_cells_filters_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -221,6 +282,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

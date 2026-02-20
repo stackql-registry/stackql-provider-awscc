@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>customdb_engine_version</code> resourc
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "database_installation_files_s3_bucket_name",
@@ -117,6 +126,28 @@ Creates, updates, deletes or gets a <code>customdb_engine_version</code> resourc
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "engine",
+    "type": "string",
+    "description": "The database engine to use for your custom engine version (CEV).<br />Valid values:<br />+ &#96;&#96;custom-oracle-ee&#96;&#96; <br />+ &#96;&#96;custom-oracle-ee-cdb&#96;&#96;"
+  },
+  {
+    "name": "engine_version",
+    "type": "string",
+    "description": "The name of your CEV. The name format is &#96;&#96;major version.customized&#95;string&#96;&#96;. For example, a valid CEV name is &#96;&#96;19.my&#95;cev1&#96;&#96;. This setting is required for RDS Custom for Oracle, but optional for Amazon RDS. The combination of &#96;&#96;Engine&#96;&#96; and &#96;&#96;EngineVersion&#96;&#96; is unique per customer per Region.<br />&#42;Constraints:&#42; Minimum length is 1. Maximum length is 60.<br />&#42;Pattern:&#42;&#96;&#96;^&#91;a-z0-9&#95;.-&#93;&#123;1,60$&#96;&#96;&#125;"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-customdbengineversion.html"><code>AWS::RDS::CustomDBEngineVersion</code></a>.
 
@@ -126,31 +157,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>customdb_engine_versions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Engine, EngineVersion, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>customdb_engine_versions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>customdb_engine_versions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>customdb_engine_versions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>customdb_engine_versions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -158,6 +195,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>customdb_engine_version</code>.
 ```sql
@@ -179,6 +225,20 @@ tags
 FROM awscc.rds.customdb_engine_versions
 WHERE region = 'us-east-1' AND data__Identifier = '<Engine>|<EngineVersion>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>customdb_engine_versions</code> in a region.
+```sql
+SELECT
+region,
+engine,
+engine_version
+FROM awscc.rds.customdb_engine_versions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -286,6 +346,21 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.rds.customdb_engine_versions
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "Status": status,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Engine>|<EngineVersion>';
+```
+
 
 ## `DELETE` example
 

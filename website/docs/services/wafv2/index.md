@@ -20,7 +20,7 @@ The wafv2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>11</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,17 +30,12 @@ The wafv2 service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/wafv2/ip_sets/">ip_sets</a><br />
-<a href="/services/wafv2/ip_sets_list_only/">ip_sets_list_only</a><br />
 <a href="/services/wafv2/logging_configurations/">logging_configurations</a><br />
-<a href="/services/wafv2/logging_configurations_list_only/">logging_configurations_list_only</a><br />
-<a href="/services/wafv2/regex_pattern_sets/">regex_pattern_sets</a><br />
-<a href="/services/wafv2/regex_pattern_sets_list_only/">regex_pattern_sets_list_only</a>
+<a href="/services/wafv2/regex_pattern_sets/">regex_pattern_sets</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/wafv2/rule_groups/">rule_groups</a><br />
-<a href="/services/wafv2/rule_groups_list_only/">rule_groups_list_only</a><br />
 <a href="/services/wafv2/web_acls/">web_acls</a><br />
-<a href="/services/wafv2/web_acls_list_only/">web_acls_list_only</a><br />
 <a href="/services/wafv2/webacl_associations/">webacl_associations</a>
 </div>
 </div>

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_group_source
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "group_ip_address",
@@ -90,6 +99,33 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_group_source
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "group_ip_address",
+    "type": "string",
+    "description": "The IP address assigned to the transit gateway multicast group."
+  },
+  {
+    "name": "transit_gateway_multicast_domain_id",
+    "type": "string",
+    "description": "The ID of the transit gateway multicast domain."
+  },
+  {
+    "name": "network_interface_id",
+    "type": "string",
+    "description": "The ID of the transit gateway attachment."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgatewaymulticastgroupsource.html"><code>AWS::EC2::TransitGatewayMulticastGroupSource</code></a>.
 
@@ -99,26 +135,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>transit_gateway_multicast_group_sources</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="TransitGatewayMulticastDomainId, NetworkInterfaceId, GroupIpAddress, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>transit_gateway_multicast_group_sources</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>transit_gateway_multicast_group_sources_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>transit_gateway_multicast_group_sources</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -126,6 +167,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>transit_gateway_multicast_group_source</code>.
 ```sql
@@ -144,6 +194,21 @@ source_type
 FROM awscc.ec2.transit_gateway_multicast_group_sources
 WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayMulticastDomainId>|<GroupIpAddress>|<NetworkInterfaceId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>transit_gateway_multicast_group_sources</code> in a region.
+```sql
+SELECT
+region,
+transit_gateway_multicast_domain_id,
+group_ip_address,
+network_interface_id
+FROM awscc.ec2.transit_gateway_multicast_group_sources_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -215,6 +280,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

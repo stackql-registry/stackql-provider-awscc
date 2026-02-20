@@ -180,6 +180,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.s3.multi_region_access_point_policies
+SET data__PatchDocument = string('{{ {
+    "Policy": policy
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<MrapName>';
+```
+
+
 ## `DELETE` example
 
 ```sql

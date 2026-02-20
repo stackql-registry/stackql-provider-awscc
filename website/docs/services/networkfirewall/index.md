@@ -20,7 +20,7 @@ The networkfirewall service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>11</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -30,17 +30,12 @@ The networkfirewall service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/networkfirewall/firewall_policies/">firewall_policies</a><br />
-<a href="/services/networkfirewall/firewall_policies_list_only/">firewall_policies_list_only</a><br />
 <a href="/services/networkfirewall/firewalls/">firewalls</a><br />
-<a href="/services/networkfirewall/firewalls_list_only/">firewalls_list_only</a><br />
-<a href="/services/networkfirewall/logging_configurations/">logging_configurations</a><br />
-<a href="/services/networkfirewall/rule_groups/">rule_groups</a>
+<a href="/services/networkfirewall/logging_configurations/">logging_configurations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/networkfirewall/rule_groups_list_only/">rule_groups_list_only</a><br />
+<a href="/services/networkfirewall/rule_groups/">rule_groups</a><br />
 <a href="/services/networkfirewall/tls_inspection_configurations/">tls_inspection_configurations</a><br />
-<a href="/services/networkfirewall/tls_inspection_configurations_list_only/">tls_inspection_configurations_list_only</a><br />
-<a href="/services/networkfirewall/vpc_endpoint_associations/">vpc_endpoint_associations</a><br />
-<a href="/services/networkfirewall/vpc_endpoint_associations_list_only/">vpc_endpoint_associations_list_only</a>
+<a href="/services/networkfirewall/vpc_endpoint_associations/">vpc_endpoint_associations</a>
 </div>
 </div>

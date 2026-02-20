@@ -20,7 +20,7 @@ The applicationsignals service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The applicationsignals service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/applicationsignals/discoveries/">discoveries</a><br />
-<a href="/services/applicationsignals/discoveries_list_only/">discoveries_list_only</a>
+<a href="/services/applicationsignals/discoveries/">discoveries</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/applicationsignals/service_level_objectives/">service_level_objectives</a><br />
-<a href="/services/applicationsignals/service_level_objectives_list_only/">service_level_objectives_list_only</a>
+<a href="/services/applicationsignals/service_level_objectives/">service_level_objectives</a>
 </div>
 </div>

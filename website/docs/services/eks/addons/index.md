@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "cluster_name",
@@ -178,6 +187,28 @@ Creates, updates, deletes or gets an <code>addon</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "cluster_name",
+    "type": "string",
+    "description": "Name of Cluster"
+  },
+  {
+    "name": "addon_name",
+    "type": "string",
+    "description": "Name of Addon"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-addon.html"><code>AWS::EKS::Addon</code></a>.
 
@@ -187,31 +218,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>addons</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ClusterName, AddonName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>addons</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>addons</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>addons_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>addons</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -219,6 +256,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>addon</code>.
 ```sql
@@ -238,6 +284,20 @@ tags
 FROM awscc.eks.addons
 WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>|<AddonName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>addons</code> in a region.
+```sql
+SELECT
+region,
+cluster_name,
+addon_name
+FROM awscc.eks.addons_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -346,6 +406,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.eks.addons
+SET data__PatchDocument = string('{{ {
+    "AddonVersion": addon_version,
+    "PreserveOnDelete": preserve_on_delete,
+    "ResolveConflicts": resolve_conflicts,
+    "ServiceAccountRoleArn": service_account_role_arn,
+    "PodIdentityAssociations": pod_identity_associations,
+    "ConfigurationValues": configuration_values,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<ClusterName>|<AddonName>';
+```
+
 
 ## `DELETE` example
 

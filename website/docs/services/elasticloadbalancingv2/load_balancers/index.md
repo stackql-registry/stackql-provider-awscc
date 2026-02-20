@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>load_balancer</code> resource or lists
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "ip_address_type",
@@ -188,6 +197,23 @@ Creates, updates, deletes or gets a <code>load_balancer</code> resource or lists
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "load_balancer_arn",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html"><code>AWS::ElasticLoadBalancingV2::LoadBalancer</code></a>.
 
@@ -197,31 +223,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>load_balancers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>load_balancers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>load_balancers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>load_balancers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>load_balancers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -229,6 +261,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>load_balancer</code>.
 ```sql
@@ -255,6 +296,19 @@ ipv4_ipam_pool_id
 FROM awscc.elasticloadbalancingv2.load_balancers
 WHERE region = 'us-east-1' AND data__Identifier = '<LoadBalancerArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>load_balancers</code> in a region.
+```sql
+SELECT
+region,
+load_balancer_arn
+FROM awscc.elasticloadbalancingv2.load_balancers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -398,6 +452,28 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.elasticloadbalancingv2.load_balancers
+SET data__PatchDocument = string('{{ {
+    "IpAddressType": ip_address_type,
+    "EnablePrefixForIpv6SourceNat": enable_prefix_for_ipv6_source_nat,
+    "SecurityGroups": security_groups,
+    "LoadBalancerAttributes": load_balancer_attributes,
+    "MinimumLoadBalancerCapacity": minimum_load_balancer_capacity,
+    "Subnets": subnets,
+    "Tags": tags,
+    "SubnetMappings": subnet_mappings,
+    "EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic": enforce_security_group_inbound_rules_on_private_link_traffic,
+    "Ipv4IpamPoolId": ipv4_ipam_pool_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<LoadBalancerArn>';
+```
+
 
 ## `DELETE` example
 

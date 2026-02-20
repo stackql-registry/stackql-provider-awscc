@@ -20,7 +20,7 @@ The managedblockchain service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>1</b></span><br />
 </div>
 </div>
 
@@ -32,6 +32,6 @@ The managedblockchain service documentation.
 <a href="/services/managedblockchain/accessors/">accessors</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/managedblockchain/accessors_list_only/">accessors_list_only</a>
+
 </div>
 </div>

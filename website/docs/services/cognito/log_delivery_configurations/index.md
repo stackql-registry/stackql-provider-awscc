@@ -222,6 +222,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.log_delivery_configurations
+SET data__PatchDocument = string('{{ {
+    "LogConfigurations": log_configurations
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Id>';
+```
+
+
 ## `DELETE` example
 
 ```sql

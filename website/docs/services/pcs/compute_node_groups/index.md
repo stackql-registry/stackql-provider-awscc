@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>compute_node_group</code> resource or 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "status",
@@ -189,6 +198,23 @@ Creates, updates, deletes or gets a <code>compute_node_group</code> resource or 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "arn",
+    "type": "string",
+    "description": "The unique Amazon Resource Name (ARN) of the compute node group."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pcs-computenodegroup.html"><code>AWS::PCS::ComputeNodeGroup</code></a>.
 
@@ -198,31 +224,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>compute_node_groups</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="ClusterId, CustomLaunchTemplate, IamInstanceProfileArn, InstanceConfigs, ScalingConfiguration, SubnetIds, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>compute_node_groups</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>compute_node_groups</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>compute_node_groups_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>compute_node_groups</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -230,6 +262,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>compute_node_group</code>.
 ```sql
@@ -254,6 +295,19 @@ iam_instance_profile_arn
 FROM awscc.pcs.compute_node_groups
 WHERE region = 'us-east-1' AND data__Identifier = '<Arn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>compute_node_groups</code> in a region.
+```sql
+SELECT
+region,
+arn
+FROM awscc.pcs.compute_node_groups_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -377,6 +431,27 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.pcs.compute_node_groups
+SET data__PatchDocument = string('{{ {
+    "SpotOptions": spot_options,
+    "SlurmConfiguration": slurm_configuration,
+    "SubnetIds": subnet_ids,
+    "ScalingConfiguration": scaling_configuration,
+    "PurchaseOption": purchase_option,
+    "CustomLaunchTemplate": custom_launch_template,
+    "Tags": tags,
+    "AmiId": ami_id,
+    "IamInstanceProfileArn": iam_instance_profile_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<Arn>';
+```
+
 
 ## `DELETE` example
 

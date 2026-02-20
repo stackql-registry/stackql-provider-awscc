@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>event_trigger</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "domain_name",
@@ -177,6 +186,28 @@ Creates, updates, deletes or gets an <code>event_trigger</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "domain_name",
+    "type": "string",
+    "description": "The unique name of the domain."
+  },
+  {
+    "name": "event_trigger_name",
+    "type": "string",
+    "description": "The unique name of the event trigger."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-customerprofiles-eventtrigger.html"><code>AWS::CustomerProfiles::EventTrigger</code></a>.
 
@@ -186,31 +217,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>event_triggers</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="DomainName, EventTriggerName, ObjectTypeName, EventTriggerConditions, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>event_triggers</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>event_triggers</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>event_triggers_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>event_triggers</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -218,6 +255,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>event_trigger</code>.
 ```sql
@@ -236,6 +282,20 @@ tags
 FROM awscc.customerprofiles.event_triggers
 WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<EventTriggerName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>event_triggers</code> in a region.
+```sql
+SELECT
+region,
+domain_name,
+event_trigger_name
+FROM awscc.customerprofiles.event_triggers_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -345,6 +405,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.customerprofiles.event_triggers
+SET data__PatchDocument = string('{{ {
+    "ObjectTypeName": object_type_name,
+    "Description": description,
+    "EventTriggerConditions": event_trigger_conditions,
+    "EventTriggerLimits": event_trigger_limits,
+    "SegmentFilter": segment_filter,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<DomainName>|<EventTriggerName>';
+```
+
 
 ## `DELETE` example
 

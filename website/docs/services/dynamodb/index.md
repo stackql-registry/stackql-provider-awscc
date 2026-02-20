@@ -20,7 +20,7 @@ The dynamodb service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The dynamodb service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/dynamodb/global_tables/">global_tables</a><br />
-<a href="/services/dynamodb/global_tables_list_only/">global_tables_list_only</a>
+<a href="/services/dynamodb/global_tables/">global_tables</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/dynamodb/tables/">tables</a><br />
-<a href="/services/dynamodb/tables_list_only/">tables_list_only</a>
+<a href="/services/dynamodb/tables/">tables</a>
 </div>
 </div>

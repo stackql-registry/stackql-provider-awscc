@@ -20,7 +20,7 @@ The fis service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,11 +29,9 @@ The fis service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/fis/experiment_templates/">experiment_templates</a><br />
-<a href="/services/fis/experiment_templates_list_only/">experiment_templates_list_only</a>
+<a href="/services/fis/experiment_templates/">experiment_templates</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/fis/target_account_configurations/">target_account_configurations</a><br />
-<a href="/services/fis/target_account_configurations_list_only/">target_account_configurations_list_only</a>
+<a href="/services/fis/target_account_configurations/">target_account_configurations</a>
 </div>
 </div>

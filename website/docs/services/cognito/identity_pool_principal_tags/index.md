@@ -33,6 +33,15 @@ Expands all tag keys and values for <code>identity_pool_principals</code> in a r
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "identity_pool_id",
@@ -70,6 +79,28 @@ Expands all tag keys and values for <code>identity_pool_principals</code> in a r
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "identity_pool_id",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "identity_provider_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-identitypoolprincipaltag.html"><code>AWS::Cognito::IdentityPoolPrincipalTag</code></a>.
 
@@ -79,31 +110,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>identity_pool_principal_tags</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="IdentityPoolId, IdentityProviderName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>identity_pool_principal_tags</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>identity_pool_principal_tags</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>identity_pool_principal_tags_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>identity_pool_principal_tags</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -111,19 +148,16 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
-Expands tags for all <code>identity_pool_principals</code> in a region.
-```sql
-SELECT
-region,
-identity_pool_id,
-identity_provider_name,
-use_defaults,
-principal_tags,
-tag_key,
-tag_value
-FROM awscc.cognito.identity_pool_principal_tags
-WHERE region = 'us-east-1';
-```
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 Gets all properties from an individual <code>identity_pool_principal_tag</code>.
 ```sql
 SELECT
@@ -135,6 +169,20 @@ principal_tags
 FROM awscc.cognito.identity_pool_principal_tags
 WHERE region = 'us-east-1' AND data__Identifier = '<IdentityPoolId>|<IdentityProviderName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>identity_pool_principal_tags</code> in a region.
+```sql
+SELECT
+region,
+identity_pool_id,
+identity_provider_name
+FROM awscc.cognito.identity_pool_principal_tags_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -208,6 +256,20 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.cognito.identity_pool_principal_tags
+SET data__PatchDocument = string('{{ {
+    "UseDefaults": use_defaults,
+    "PrincipalTags": principal_tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<IdentityPoolId>|<IdentityProviderName>';
+```
+
 
 ## `DELETE` example
 

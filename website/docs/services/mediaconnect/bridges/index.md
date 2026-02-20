@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "name",
@@ -252,6 +261,23 @@ Creates, updates, deletes or gets a <code>bridge</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "bridge_arn",
+    "type": "string",
+    "description": "The Amazon Resource Number (ARN) of the bridge."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediaconnect-bridge.html"><code>AWS::MediaConnect::Bridge</code></a>.
 
@@ -261,31 +287,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>bridges</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Name, PlacementArn, Sources, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>bridges</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>bridges</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>bridges_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>bridges</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -293,6 +325,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>bridge</code>.
 ```sql
@@ -310,6 +351,19 @@ egress_gateway_bridge
 FROM awscc.mediaconnect.bridges
 WHERE region = 'us-east-1' AND data__Identifier = '<BridgeArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>bridges</code> in a region.
+```sql
+SELECT
+region,
+bridge_arn
+FROM awscc.mediaconnect.bridges_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -426,6 +480,25 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.mediaconnect.bridges
+SET data__PatchDocument = string('{{ {
+    "Name": name,
+    "PlacementArn": placement_arn,
+    "SourceFailoverConfig": source_failover_config,
+    "Outputs": outputs,
+    "Sources": sources,
+    "IngressGatewayBridge": ingress_gateway_bridge,
+    "EgressGatewayBridge": egress_gateway_bridge
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<BridgeArn>';
+```
+
 
 ## `DELETE` example
 

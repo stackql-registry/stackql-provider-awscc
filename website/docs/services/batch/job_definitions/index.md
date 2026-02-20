@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>job_definition</code> resource or list
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "container_properties",
@@ -1076,6 +1085,23 @@ Creates, updates, deletes or gets a <code>job_definition</code> resource or list
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "job_definition_name",
+    "type": "string",
+    "description": ""
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html"><code>AWS::Batch::JobDefinition</code></a>.
 
@@ -1085,31 +1111,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>job_definitions</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Type, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>job_definitions</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>job_definitions</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>job_definitions_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>job_definitions</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -1117,6 +1149,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>job_definition</code>.
 ```sql
@@ -1140,6 +1181,19 @@ consumable_resource_properties
 FROM awscc.batch.job_definitions
 WHERE region = 'us-east-1' AND data__Identifier = '<JobDefinitionName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>job_definitions</code> in a region.
+```sql
+SELECT
+region,
+job_definition_name
+FROM awscc.batch.job_definitions_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -1474,6 +1528,31 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.batch.job_definitions
+SET data__PatchDocument = string('{{ {
+    "ContainerProperties": container_properties,
+    "EcsProperties": ecs_properties,
+    "NodeProperties": node_properties,
+    "SchedulingPriority": scheduling_priority,
+    "Parameters": parameters,
+    "PlatformCapabilities": platform_capabilities,
+    "PropagateTags": propagate_tags,
+    "RetryStrategy": retry_strategy,
+    "Timeout": timeout,
+    "Type": type,
+    "Tags": tags,
+    "EksProperties": eks_properties,
+    "ConsumableResourceProperties": consumable_resource_properties
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<JobDefinitionName>';
+```
+
 
 ## `DELETE` example
 

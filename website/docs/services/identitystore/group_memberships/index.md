@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>group_membership</code> resource or li
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "group_id",
@@ -67,6 +76,28 @@ Creates, updates, deletes or gets a <code>group_membership</code> resource or li
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "identity_store_id",
+    "type": "string",
+    "description": "The globally unique identifier for the identity store."
+  },
+  {
+    "name": "membership_id",
+    "type": "string",
+    "description": "The identifier for a GroupMembership in the identity store."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-identitystore-groupmembership.html"><code>AWS::IdentityStore::GroupMembership</code></a>.
 
@@ -76,26 +107,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>group_memberships</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="IdentityStoreId, GroupId, MemberId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>group_memberships</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>group_memberships_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>group_memberships</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -103,6 +139,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>group_membership</code>.
 ```sql
@@ -115,6 +160,20 @@ membership_id
 FROM awscc.identitystore.group_memberships
 WHERE region = 'us-east-1' AND data__Identifier = '<MembershipId>|<IdentityStoreId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>group_memberships</code> in a region.
+```sql
+SELECT
+region,
+membership_id,
+identity_store_id
+FROM awscc.identitystore.group_memberships_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -187,6 +246,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

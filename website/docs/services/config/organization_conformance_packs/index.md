@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>organization_conformance_pack</code> 
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "organization_conformance_pack_name",
@@ -87,6 +96,23 @@ Creates, updates, deletes or gets an <code>organization_conformance_pack</code> 
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "organization_conformance_pack_name",
+    "type": "string",
+    "description": "The name of the organization conformance pack."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-organizationconformancepack.html"><code>AWS::Config::OrganizationConformancePack</code></a>.
 
@@ -96,31 +122,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>organization_conformance_packs</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="OrganizationConformancePackName, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>organization_conformance_packs</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>organization_conformance_packs</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>organization_conformance_packs_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>organization_conformance_packs</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -128,6 +160,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>organization_conformance_pack</code>.
 ```sql
@@ -143,6 +184,19 @@ excluded_accounts
 FROM awscc.config.organization_conformance_packs
 WHERE region = 'us-east-1' AND data__Identifier = '<OrganizationConformancePackName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>organization_conformance_packs</code> in a region.
+```sql
+SELECT
+region,
+organization_conformance_pack_name
+FROM awscc.config.organization_conformance_packs_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -229,6 +283,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.config.organization_conformance_packs
+SET data__PatchDocument = string('{{ {
+    "TemplateS3Uri": template_s3_uri,
+    "TemplateBody": template_body,
+    "DeliveryS3Bucket": delivery_s3_bucket,
+    "DeliveryS3KeyPrefix": delivery_s3_key_prefix,
+    "ConformancePackInputParameters": conformance_pack_input_parameters,
+    "ExcludedAccounts": excluded_accounts
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<OrganizationConformancePackName>';
+```
+
 
 ## `DELETE` example
 

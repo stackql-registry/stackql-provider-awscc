@@ -20,7 +20,7 @@ The mediapackage service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>5</b></span><br />
 </div>
 </div>
 
@@ -30,16 +30,11 @@ The mediapackage service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/mediapackage/assets/">assets</a><br />
-<a href="/services/mediapackage/assets_list_only/">assets_list_only</a><br />
 <a href="/services/mediapackage/channels/">channels</a><br />
-<a href="/services/mediapackage/channels_list_only/">channels_list_only</a><br />
 <a href="/services/mediapackage/origin_endpoints/">origin_endpoints</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/mediapackage/origin_endpoints_list_only/">origin_endpoints_list_only</a><br />
 <a href="/services/mediapackage/packaging_configurations/">packaging_configurations</a><br />
-<a href="/services/mediapackage/packaging_configurations_list_only/">packaging_configurations_list_only</a><br />
-<a href="/services/mediapackage/packaging_groups/">packaging_groups</a><br />
-<a href="/services/mediapackage/packaging_groups_list_only/">packaging_groups_list_only</a>
+<a href="/services/mediapackage/packaging_groups/">packaging_groups</a>
 </div>
 </div>

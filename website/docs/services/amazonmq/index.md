@@ -20,7 +20,7 @@ The amazonmq service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -29,10 +29,9 @@ The amazonmq service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/amazonmq/brokers/">brokers</a><br />
-<a href="/services/amazonmq/configurations/">configurations</a>
+<a href="/services/amazonmq/brokers/">brokers</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/amazonmq/configurations_list_only/">configurations_list_only</a>
+<a href="/services/amazonmq/configurations/">configurations</a>
 </div>
 </div>

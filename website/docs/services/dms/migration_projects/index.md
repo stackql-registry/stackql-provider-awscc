@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>migration_project</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "migration_project_name",
@@ -156,6 +165,23 @@ Creates, updates, deletes or gets a <code>migration_project</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "migration_project_arn",
+    "type": "string",
+    "description": "The property describes an ARN of the migration project."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-migrationproject.html"><code>AWS::DMS::MigrationProject</code></a>.
 
@@ -165,31 +191,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>migration_projects</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>migration_projects</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>migration_projects</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>migration_projects_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>migration_projects</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -197,6 +229,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>migration_project</code>.
 ```sql
@@ -218,6 +259,19 @@ tags
 FROM awscc.dms.migration_projects
 WHERE region = 'us-east-1' AND data__Identifier = '<MigrationProjectArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>migration_projects</code> in a region.
+```sql
+SELECT
+region,
+migration_project_arn
+FROM awscc.dms.migration_projects_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -353,6 +407,30 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.dms.migration_projects
+SET data__PatchDocument = string('{{ {
+    "MigrationProjectName": migration_project_name,
+    "MigrationProjectIdentifier": migration_project_identifier,
+    "MigrationProjectCreationTime": migration_project_creation_time,
+    "InstanceProfileIdentifier": instance_profile_identifier,
+    "InstanceProfileName": instance_profile_name,
+    "InstanceProfileArn": instance_profile_arn,
+    "TransformationRules": transformation_rules,
+    "Description": description,
+    "SchemaConversionApplicationAttributes": schema_conversion_application_attributes,
+    "SourceDataProviderDescriptors": source_data_provider_descriptors,
+    "TargetDataProviderDescriptors": target_data_provider_descriptors,
+    "Tags": tags
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<MigrationProjectArn>';
+```
+
 
 ## `DELETE` example
 

@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>member_invitation</code> resource or l
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "graph_arn",
@@ -65,6 +74,28 @@ Creates, updates, deletes or gets a <code>member_invitation</code> resource or l
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "graph_arn",
+    "type": "string",
+    "description": "The ARN of the graph to which the member account will be invited"
+  },
+  {
+    "name": "member_id",
+    "type": "string",
+    "description": "The AWS account ID to be invited to join the graph as a member"
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-detective-memberinvitation.html"><code>AWS::Detective::MemberInvitation</code></a>.
 
@@ -74,26 +105,31 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>member_invitations</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="GraphArn, MemberId, MemberEmailAddress, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>member_invitations</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>member_invitations_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>member_invitations</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -101,6 +137,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>member_invitation</code>.
 ```sql
@@ -114,6 +159,20 @@ message
 FROM awscc.detective.member_invitations
 WHERE region = 'us-east-1' AND data__Identifier = '<GraphArn>|<MemberId>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>member_invitations</code> in a region.
+```sql
+SELECT
+region,
+graph_arn,
+member_id
+FROM awscc.detective.member_invitations_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -193,6 +252,7 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
 
 ## `DELETE` example
 

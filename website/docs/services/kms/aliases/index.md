@@ -33,6 +33,15 @@ Creates, updates, deletes or gets an <code>alias</code> resource or lists <code>
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "target_key_id",
@@ -50,6 +59,23 @@ Creates, updates, deletes or gets an <code>alias</code> resource or lists <code>
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "alias_name",
+    "type": "string",
+    "description": "Specifies the alias name. This value must begin with &#96;&#96;alias/&#96;&#96; followed by a name, such as &#96;&#96;alias/ExampleAlias&#96;&#96;. <br />If you change the value of the &#96;&#96;AliasName&#96;&#96; property, the existing alias is deleted and a new alias is created for the specified KMS key. This change can disrupt applications that use the alias. It can also allow or deny access to a KMS key affected by attribute-based access control (ABAC).<br />The alias must be string of 1-256 characters. It can contain only alphanumeric characters, forward slashes (/), underscores (&#95;), and dashes (-). The alias name cannot begin with &#96;&#96;alias/aws/&#96;&#96;. The &#96;&#96;alias/aws/&#96;&#96; prefix is reserved for &#91;&#93;(https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk)."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-alias.html"><code>AWS::KMS::Alias</code></a>.
 
@@ -59,31 +85,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>aliases</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="AliasName, TargetKeyId, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>aliases</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>aliases</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>aliases_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>aliases</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -91,6 +123,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>alias</code>.
 ```sql
@@ -101,6 +142,19 @@ alias_name
 FROM awscc.kms.aliases
 WHERE region = 'us-east-1' AND data__Identifier = '<AliasName>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>aliases</code> in a region.
+```sql
+SELECT
+region,
+alias_name
+FROM awscc.kms.aliases_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -166,6 +220,19 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.kms.aliases
+SET data__PatchDocument = string('{{ {
+    "TargetKeyId": target_key_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<AliasName>';
+```
+
 
 ## `DELETE` example
 

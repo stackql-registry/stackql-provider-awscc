@@ -33,6 +33,15 @@ Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <co
 </table>
 
 ## Fields
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
 <SchemaTable fields={[
   {
     "name": "job_queue_name",
@@ -131,6 +140,23 @@ Creates, updates, deletes or gets a <code>job_queue</code> resource or lists <co
     "description": "AWS region."
   }
 ]} />
+</TabItem>
+<TabItem value="list">
+
+<SchemaTable fields={[
+  {
+    "name": "job_queue_arn",
+    "type": "string",
+    "description": "ARN of the Scheduling Policy."
+  },
+  {
+    "name": "region",
+    "type": "string",
+    "description": "AWS region."
+  }
+]} />
+</TabItem>
+</Tabs>
 
 For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobqueue.html"><code>AWS::Batch::JobQueue</code></a>.
 
@@ -140,31 +166,37 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 <tbody>
   <tr>
     <th>Name</th>
+    <th>Resource</th>
     <th>Accessible by</th>
     <th>Required Params</th>
   </tr>
   <tr>
     <td><CopyableCode code="create_resource" /></td>
+    <td><code>job_queues</code></td>
     <td><code>INSERT</code></td>
     <td><CopyableCode code="Priority, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
+    <td><code>job_queues</code></td>
     <td><code>DELETE</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
+    <td><code>job_queues</code></td>
     <td><code>UPDATE</code></td>
     <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
+    <td><code>job_queues_list_only</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
+    <td><code>job_queues</code></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="data__Identifier, region" /></td>
   </tr>
@@ -172,6 +204,15 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
 </table>
 
 ## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get (all properties)', value: 'get' },
+        { label: 'list (identifiers only)', value: 'list' }
+    ]}
+>
+<TabItem value="get">
 
 Gets all properties from an individual <code>job_queue</code>.
 ```sql
@@ -190,6 +231,19 @@ tags
 FROM awscc.batch.job_queues
 WHERE region = 'us-east-1' AND data__Identifier = '<JobQueueArn>';
 ```
+</TabItem>
+<TabItem value="list">
+
+Lists all <code>job_queues</code> in a region.
+```sql
+SELECT
+region,
+job_queue_arn
+FROM awscc.batch.job_queues_list_only
+WHERE region = 'us-east-1';
+```
+</TabItem>
+</Tabs>
 
 ## `INSERT` example
 
@@ -289,6 +343,24 @@ resources:
 ```
 </TabItem>
 </Tabs>
+
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.batch.job_queues
+SET data__PatchDocument = string('{{ {
+    "ComputeEnvironmentOrder": compute_environment_order,
+    "ServiceEnvironmentOrder": service_environment_order,
+    "JobStateTimeLimitActions": job_state_time_limit_actions,
+    "Priority": priority,
+    "State": state,
+    "SchedulingPolicyArn": scheduling_policy_arn
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<JobQueueArn>';
+```
+
 
 ## `DELETE` example
 

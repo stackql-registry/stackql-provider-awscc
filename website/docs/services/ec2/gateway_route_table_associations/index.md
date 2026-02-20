@@ -168,6 +168,19 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.ec2.gateway_route_table_associations
+SET data__PatchDocument = string('{{ {
+    "RouteTableId": route_table_id
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<GatewayId>';
+```
+
+
 ## `DELETE` example
 
 ```sql

@@ -20,7 +20,7 @@ The eventschemas service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -30,13 +30,10 @@ The eventschemas service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/services/eventschemas/discoverers/">discoverers</a><br />
-<a href="/services/eventschemas/discoverers_list_only/">discoverers_list_only</a><br />
-<a href="/services/eventschemas/registries/">registries</a><br />
-<a href="/services/eventschemas/registries_list_only/">registries_list_only</a>
+<a href="/services/eventschemas/registries/">registries</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/eventschemas/registry_policies/">registry_policies</a><br />
-<a href="/services/eventschemas/schemata/">schemata</a><br />
-<a href="/services/eventschemas/schemata_list_only/">schemata_list_only</a>
+<a href="/services/eventschemas/schemata/">schemata</a>
 </div>
 </div>

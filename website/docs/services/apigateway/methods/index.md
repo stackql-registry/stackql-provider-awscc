@@ -414,6 +414,28 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.apigateway.methods
+SET data__PatchDocument = string('{{ {
+    "Integration": integration,
+    "OperationName": operation_name,
+    "RequestModels": request_models,
+    "AuthorizationScopes": authorization_scopes,
+    "RequestValidatorId": request_validator_id,
+    "RequestParameters": request_parameters,
+    "MethodResponses": method_responses,
+    "AuthorizerId": authorizer_id,
+    "ApiKeyRequired": api_key_required,
+    "AuthorizationType": authorization_type
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
+```
+
+
 ## `DELETE` example
 
 ```sql

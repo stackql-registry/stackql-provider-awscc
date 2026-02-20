@@ -222,6 +222,21 @@ resources:
 </TabItem>
 </Tabs>
 
+## `UPDATE` example
+
+```sql
+/*+ update */
+UPDATE awscc.appstream.entitlements
+SET data__PatchDocument = string('{{ {
+    "Description": description,
+    "AppVisibility": app_visibility,
+    "Attributes": attributes
+} | generate_patch_document }}')
+WHERE region = '{{ region }}'
+AND data__Identifier = '<StackName>|<Name>';
+```
+
+
 ## `DELETE` example
 
 ```sql
