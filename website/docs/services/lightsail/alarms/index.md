@@ -154,13 +154,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -172,7 +172,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>alarms</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ threshold,
 treat_missing_data,
 state
 FROM awscc.lightsail.alarms
-WHERE region = 'us-east-1' AND data__Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -338,7 +338,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.alarms
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ComparisonOperator": comparison_operator,
     "ContactProtocols": contact_protocols,
     "DatapointsToAlarm": datapoints_to_alarm,
@@ -349,7 +349,7 @@ SET data__PatchDocument = string('{{ {
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AlarmName>';
+AND Identifier = '<AlarmName>';
 ```
 
 
@@ -358,7 +358,7 @@ AND data__Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.alarms
-WHERE data__Identifier = '<AlarmName>'
+WHERE Identifier = '<AlarmName>'
 AND region = 'us-east-1';
 ```
 

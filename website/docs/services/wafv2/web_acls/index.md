@@ -831,13 +831,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>web_acls</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>web_acls</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -849,7 +849,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>web_acls</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -888,7 +888,7 @@ token_domains,
 association_config,
 on_source_ddo_sprotection_config
 FROM awscc.wafv2.web_acls
-WHERE data__Identifier = '<Name>|<Id>|<Scope>';
+WHERE Identifier = '<Name>|<Id>|<Scope>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1290,7 +1290,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.wafv2.web_acls
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DefaultAction": default_action,
     "Description": description,
     "Rules": rules,
@@ -1305,7 +1305,7 @@ SET data__PatchDocument = string('{{ {
     "OnSourceDDoSProtectionConfig": on_source_ddo_sprotection_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Name>|<Id>|<Scope>';
+AND Identifier = '<Name>|<Id>|<Scope>';
 ```
 
 
@@ -1314,7 +1314,7 @@ AND data__Identifier = '<Name>|<Id>|<Scope>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.web_acls
-WHERE data__Identifier = '<Name|Id|Scope>'
+WHERE Identifier = '<Name|Id|Scope>'
 AND region = 'us-east-1';
 ```
 

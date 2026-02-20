@@ -124,13 +124,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>local_gateway_routes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>local_gateway_routes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -142,7 +142,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>local_gateway_routes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -169,7 +169,7 @@ network_interface_id,
 state,
 type
 FROM awscc.ec2.local_gateway_routes
-WHERE region = 'us-east-1' AND data__Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,12 +268,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.local_gateway_routes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "LocalGatewayVirtualInterfaceGroupId": local_gateway_virtual_interface_group_id,
     "NetworkInterfaceId": network_interface_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
+AND Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
 ```
 
 
@@ -282,7 +282,7 @@ AND data__Identifier = '<DestinationCidrBlock>|<LocalGatewayRouteTableId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_routes
-WHERE data__Identifier = '<DestinationCidrBlock|LocalGatewayRouteTableId>'
+WHERE Identifier = '<DestinationCidrBlock|LocalGatewayRouteTableId>'
 AND region = 'us-east-1';
 ```
 

@@ -170,13 +170,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>access_grants</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>access_grants</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -188,7 +188,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>access_grants</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -219,7 +219,7 @@ access_grant_arn,
 grantee,
 access_grants_location_configuration
 FROM awscc.s3.access_grants
-WHERE region = 'us-east-1' AND data__Identifier = '<AccessGrantId>';
+WHERE region = 'us-east-1' AND Identifier = '<AccessGrantId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,7 +332,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.s3.access_grants
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccessGrantsLocationId": access_grants_location_id,
     "Permission": permission,
     "ApplicationArn": application_arn,
@@ -340,7 +340,7 @@ SET data__PatchDocument = string('{{ {
     "AccessGrantsLocationConfiguration": access_grants_location_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccessGrantId>';
+AND Identifier = '<AccessGrantId>';
 ```
 
 
@@ -349,7 +349,7 @@ AND data__Identifier = '<AccessGrantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants
-WHERE data__Identifier = '<AccessGrantId>'
+WHERE Identifier = '<AccessGrantId>'
 AND region = 'us-east-1';
 ```
 

@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>placement_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -138,7 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>placement_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ spread_level,
 partition_count,
 tags
 FROM awscc.ec2.placement_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<GroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,7 +265,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.placement_groups
-WHERE data__Identifier = '<GroupName>'
+WHERE Identifier = '<GroupName>'
 AND region = 'us-east-1';
 ```
 

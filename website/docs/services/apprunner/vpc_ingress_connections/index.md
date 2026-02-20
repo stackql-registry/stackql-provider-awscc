@@ -148,13 +148,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_ingress_connections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_ingress_connections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -166,7 +166,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_ingress_connections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ domain_name,
 ingress_vpc_configuration,
 tags
 FROM awscc.apprunner.vpc_ingress_connections
-WHERE region = 'us-east-1' AND data__Identifier = '<VpcIngressConnectionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<VpcIngressConnectionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,11 +292,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apprunner.vpc_ingress_connections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IngressVpcConfiguration": ingress_vpc_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VpcIngressConnectionArn>';
+AND Identifier = '<VpcIngressConnectionArn>';
 ```
 
 
@@ -305,7 +305,7 @@ AND data__Identifier = '<VpcIngressConnectionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.vpc_ingress_connections
-WHERE data__Identifier = '<VpcIngressConnectionArn>'
+WHERE Identifier = '<VpcIngressConnectionArn>'
 AND region = 'us-east-1';
 ```
 

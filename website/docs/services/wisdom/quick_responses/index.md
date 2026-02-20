@@ -195,13 +195,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>quick_responses</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>quick_responses</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -213,7 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>quick_responses</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -249,7 +249,7 @@ shortcut_key,
 status,
 tags
 FROM awscc.wisdom.quick_responses
-WHERE region = 'us-east-1' AND data__Identifier = '<QuickResponseArn>';
+WHERE region = 'us-east-1' AND Identifier = '<QuickResponseArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -380,7 +380,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.wisdom.quick_responses
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ContentType": content_type,
     "Name": name,
     "Channels": channels,
@@ -393,7 +393,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<QuickResponseArn>';
+AND Identifier = '<QuickResponseArn>';
 ```
 
 
@@ -402,7 +402,7 @@ AND data__Identifier = '<QuickResponseArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.quick_responses
-WHERE data__Identifier = '<QuickResponseArn>'
+WHERE Identifier = '<QuickResponseArn>'
 AND region = 'us-east-1';
 ```
 

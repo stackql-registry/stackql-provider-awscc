@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>registries</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>registries</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>registries</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ description,
 registry_arn,
 tags
 FROM awscc.eventschemas.registries
-WHERE region = 'us-east-1' AND data__Identifier = '<RegistryArn>';
+WHERE region = 'us-east-1' AND Identifier = '<RegistryArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,12 +258,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eventschemas.registries
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RegistryArn>';
+AND Identifier = '<RegistryArn>';
 ```
 
 
@@ -272,7 +272,7 @@ AND data__Identifier = '<RegistryArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.registries
-WHERE data__Identifier = '<RegistryArn>'
+WHERE Identifier = '<RegistryArn>'
 AND region = 'us-east-1';
 ```
 

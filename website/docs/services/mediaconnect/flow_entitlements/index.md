@@ -176,13 +176,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_entitlements</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_entitlements</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -194,7 +194,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_entitlements</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ entitlement_status,
 name,
 subscribers
 FROM awscc.mediaconnect.flow_entitlements
-WHERE region = 'us-east-1' AND data__Identifier = '<EntitlementArn>';
+WHERE region = 'us-east-1' AND Identifier = '<EntitlementArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -343,7 +343,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flow_entitlements
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FlowArn": flow_arn,
     "Description": description,
     "Encryption": encryption,
@@ -351,7 +351,7 @@ SET data__PatchDocument = string('{{ {
     "Subscribers": subscribers
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EntitlementArn>';
+AND Identifier = '<EntitlementArn>';
 ```
 
 
@@ -360,7 +360,7 @@ AND data__Identifier = '<EntitlementArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_entitlements
-WHERE data__Identifier = '<EntitlementArn>'
+WHERE Identifier = '<EntitlementArn>'
 AND region = 'us-east-1';
 ```
 

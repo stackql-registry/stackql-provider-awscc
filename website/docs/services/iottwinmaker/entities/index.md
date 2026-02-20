@@ -166,13 +166,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>entities</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>entities</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -184,7 +184,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>entities</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -218,7 +218,7 @@ workspace_id,
 components,
 composite_components
 FROM awscc.iottwinmaker.entities
-WHERE region = 'us-east-1' AND data__Identifier = '<WorkspaceId>|<EntityId>';
+WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<EntityId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -329,7 +329,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iottwinmaker.entities
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EntityName": entity_name,
     "ParentEntityId": parent_entity_id,
     "Description": description,
@@ -338,7 +338,7 @@ SET data__PatchDocument = string('{{ {
     "CompositeComponents": composite_components
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<WorkspaceId>|<EntityId>';
+AND Identifier = '<WorkspaceId>|<EntityId>';
 ```
 
 
@@ -347,7 +347,7 @@ AND data__Identifier = '<WorkspaceId>|<EntityId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.entities
-WHERE data__Identifier = '<WorkspaceId|EntityId>'
+WHERE Identifier = '<WorkspaceId|EntityId>'
 AND region = 'us-east-1';
 ```
 

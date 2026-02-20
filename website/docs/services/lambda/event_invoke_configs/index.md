@@ -133,13 +133,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>event_invoke_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>event_invoke_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -151,7 +151,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>event_invoke_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -177,7 +177,7 @@ maximum_event_age_in_seconds,
 maximum_retry_attempts,
 qualifier
 FROM awscc.lambda.event_invoke_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<FunctionName>|<Qualifier>';
+WHERE region = 'us-east-1' AND Identifier = '<FunctionName>|<Qualifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,13 +278,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lambda.event_invoke_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DestinationConfig": destination_config,
     "MaximumEventAgeInSeconds": maximum_event_age_in_seconds,
     "MaximumRetryAttempts": maximum_retry_attempts
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FunctionName>|<Qualifier>';
+AND Identifier = '<FunctionName>|<Qualifier>';
 ```
 
 
@@ -293,7 +293,7 @@ AND data__Identifier = '<FunctionName>|<Qualifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_invoke_configs
-WHERE data__Identifier = '<FunctionName|Qualifier>'
+WHERE Identifier = '<FunctionName|Qualifier>'
 AND region = 'us-east-1';
 ```
 

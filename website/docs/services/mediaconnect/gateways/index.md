@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>gateways</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -138,7 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>gateways</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ gateway_state,
 egress_cidr_blocks,
 networks
 FROM awscc.mediaconnect.gateways
-WHERE region = 'us-east-1' AND data__Identifier = '<GatewayArn>';
+WHERE region = 'us-east-1' AND Identifier = '<GatewayArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,7 +260,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.gateways
-WHERE data__Identifier = '<GatewayArn>'
+WHERE Identifier = '<GatewayArn>'
 AND region = 'us-east-1';
 ```
 

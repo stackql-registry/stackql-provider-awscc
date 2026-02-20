@@ -146,13 +146,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_endpoint_services</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_endpoint_services</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -164,7 +164,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_endpoint_services</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ tags,
 supported_ip_address_types,
 supported_regions
 FROM awscc.ec2.vpc_endpoint_services
-WHERE region = 'us-east-1' AND data__Identifier = '<ServiceId>';
+WHERE region = 'us-east-1' AND Identifier = '<ServiceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -322,7 +322,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpc_endpoint_services
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "NetworkLoadBalancerArns": network_load_balancer_arns,
     "ContributorInsightsEnabled": contributor_insights_enabled,
     "PayerResponsibility": payer_responsibility,
@@ -333,7 +333,7 @@ SET data__PatchDocument = string('{{ {
     "SupportedRegions": supported_regions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ServiceId>';
+AND Identifier = '<ServiceId>';
 ```
 
 
@@ -342,7 +342,7 @@ AND data__Identifier = '<ServiceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_services
-WHERE data__Identifier = '<ServiceId>'
+WHERE Identifier = '<ServiceId>'
 AND region = 'us-east-1';
 ```
 

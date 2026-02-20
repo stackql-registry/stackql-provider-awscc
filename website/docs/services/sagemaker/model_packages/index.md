@@ -867,13 +867,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>model_packages</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>model_packages</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -885,7 +885,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>model_packages</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -936,7 +936,7 @@ source_uri,
 model_card,
 security_config
 FROM awscc.sagemaker.model_packages
-WHERE region = 'us-east-1' AND data__Identifier = '<ModelPackageArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ModelPackageArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1282,7 +1282,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.model_packages
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags,
     "AdditionalInferenceSpecifications": additional_inference_specifications,
     "CertifyForMarketplace": certify_for_marketplace,
@@ -1299,7 +1299,7 @@ SET data__PatchDocument = string('{{ {
     "ModelCard": model_card
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ModelPackageArn>';
+AND Identifier = '<ModelPackageArn>';
 ```
 
 
@@ -1308,7 +1308,7 @@ AND data__Identifier = '<ModelPackageArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.model_packages
-WHERE data__Identifier = '<ModelPackageArn>'
+WHERE Identifier = '<ModelPackageArn>'
 AND region = 'us-east-1';
 ```
 

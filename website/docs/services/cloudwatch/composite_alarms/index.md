@@ -161,13 +161,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>composite_alarms</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>composite_alarms</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -179,7 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>composite_alarms</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -212,7 +212,7 @@ actions_suppressor_wait_period,
 actions_suppressor_extension_period,
 tags
 FROM awscc.cloudwatch.composite_alarms
-WHERE region = 'us-east-1' AND data__Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -337,7 +337,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudwatch.composite_alarms
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AlarmRule": alarm_rule,
     "AlarmDescription": alarm_description,
     "ActionsEnabled": actions_enabled,
@@ -350,7 +350,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AlarmName>';
+AND Identifier = '<AlarmName>';
 ```
 
 
@@ -359,7 +359,7 @@ AND data__Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.composite_alarms
-WHERE data__Identifier = '<AlarmName>'
+WHERE Identifier = '<AlarmName>'
 AND region = 'us-east-1';
 ```
 

@@ -133,7 +133,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>integrations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -145,7 +145,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>integrations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ integration_type,
 resource_config,
 integration_status
 FROM awscc.logs.integrations
-WHERE region = 'us-east-1' AND data__Identifier = '<IntegrationName>';
+WHERE region = 'us-east-1' AND Identifier = '<IntegrationName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,7 +270,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.integrations
-WHERE data__Identifier = '<IntegrationName>'
+WHERE Identifier = '<IntegrationName>'
 AND region = 'us-east-1';
 ```
 

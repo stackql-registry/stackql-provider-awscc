@@ -234,13 +234,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>object_types</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>object_types</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -252,7 +252,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>object_types</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -288,7 +288,7 @@ template_id,
 max_profile_object_count,
 max_available_profile_object_count
 FROM awscc.customerprofiles.object_types
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<ObjectTypeName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<ObjectTypeName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -430,7 +430,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.object_types
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AllowProfileCreation": allow_profile_creation,
     "Description": description,
     "EncryptionKey": encryption_key,
@@ -443,7 +443,7 @@ SET data__PatchDocument = string('{{ {
     "MaxProfileObjectCount": max_profile_object_count
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>|<ObjectTypeName>';
+AND Identifier = '<DomainName>|<ObjectTypeName>';
 ```
 
 
@@ -452,7 +452,7 @@ AND data__Identifier = '<DomainName>|<ObjectTypeName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.object_types
-WHERE data__Identifier = '<DomainName|ObjectTypeName>'
+WHERE Identifier = '<DomainName|ObjectTypeName>'
 AND region = 'us-east-1';
 ```
 

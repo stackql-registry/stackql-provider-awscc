@@ -241,17 +241,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -276,7 +276,7 @@ api_key_required,
 authorization_type,
 http_method
 FROM awscc.apigateway.methods
-WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
+WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
 ```
 
 ## `INSERT` example
@@ -419,7 +419,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.methods
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Integration": integration,
     "OperationName": operation_name,
     "RequestModels": request_models,
@@ -432,7 +432,7 @@ SET data__PatchDocument = string('{{ {
     "AuthorizationType": authorization_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
+AND Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
 ```
 
 
@@ -441,7 +441,7 @@ AND data__Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.methods
-WHERE data__Identifier = '<RestApiId|ResourceId|HttpMethod>'
+WHERE Identifier = '<RestApiId|ResourceId|HttpMethod>'
 AND region = 'us-east-1';
 ```
 

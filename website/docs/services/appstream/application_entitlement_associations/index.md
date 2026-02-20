@@ -75,12 +75,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -95,7 +95,7 @@ stack_name,
 entitlement_name,
 application_identifier
 FROM awscc.appstream.application_entitlement_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<StackName>|<EntitlementName>|<ApplicationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<StackName>|<EntitlementName>|<ApplicationIdentifier>';
 ```
 
 ## `INSERT` example
@@ -175,7 +175,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_entitlement_associations
-WHERE data__Identifier = '<StackName|EntitlementName|ApplicationIdentifier>'
+WHERE Identifier = '<StackName|EntitlementName|ApplicationIdentifier>'
 AND region = 'us-east-1';
 ```
 

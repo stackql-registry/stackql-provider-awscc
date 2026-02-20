@@ -264,13 +264,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>event_data_stores</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>event_data_stores</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -282,7 +282,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>event_data_stores</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -323,7 +323,7 @@ max_event_size,
 context_key_selectors,
 ingestion_enabled
 FROM awscc.cloudtrail.event_data_stores
-WHERE region = 'us-east-1' AND data__Identifier = '<EventDataStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '<EventDataStoreArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -484,7 +484,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudtrail.event_data_stores
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AdvancedEventSelectors": advanced_event_selectors,
     "FederationEnabled": federation_enabled,
     "FederationRoleArn": federation_role_arn,
@@ -503,7 +503,7 @@ SET data__PatchDocument = string('{{ {
     "IngestionEnabled": ingestion_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EventDataStoreArn>';
+AND Identifier = '<EventDataStoreArn>';
 ```
 
 
@@ -512,7 +512,7 @@ AND data__Identifier = '<EventDataStoreArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.event_data_stores
-WHERE data__Identifier = '<EventDataStoreArn>'
+WHERE Identifier = '<EventDataStoreArn>'
 AND region = 'us-east-1';
 ```
 

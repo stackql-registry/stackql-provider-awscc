@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_cidr_blocks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -171,7 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_cidr_blocks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -205,7 +205,7 @@ ipv6_address_attribute,
 ip_source,
 ipv6_cidr_block_network_border_group
 FROM awscc.ec2.vpc_cidr_blocks
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>|<VpcId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,7 +323,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_cidr_blocks
-WHERE data__Identifier = '<Id|VpcId>'
+WHERE Identifier = '<Id|VpcId>'
 AND region = 'us-east-1';
 ```
 

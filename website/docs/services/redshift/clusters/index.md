@@ -410,13 +410,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -428,7 +428,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -504,7 +504,7 @@ defer_maintenance_duration,
 db_name,
 snapshot_copy_retention_period
 FROM awscc.redshift.clusters
-WHERE region = 'us-east-1' AND data__Identifier = '<ClusterIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<ClusterIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -806,7 +806,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.redshift.clusters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RevisionTarget": revision_target,
     "AutomatedSnapshotRetentionPeriod": automated_snapshot_retention_period,
     "Encrypted": encrypted,
@@ -853,7 +853,7 @@ SET data__PatchDocument = string('{{ {
     "SnapshotCopyRetentionPeriod": snapshot_copy_retention_period
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ClusterIdentifier>';
+AND Identifier = '<ClusterIdentifier>';
 ```
 
 
@@ -862,7 +862,7 @@ AND data__Identifier = '<ClusterIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.clusters
-WHERE data__Identifier = '<ClusterIdentifier>'
+WHERE Identifier = '<ClusterIdentifier>'
 AND region = 'us-east-1';
 ```
 

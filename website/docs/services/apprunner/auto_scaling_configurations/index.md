@@ -141,7 +141,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>auto_scaling_configurations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -153,7 +153,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>auto_scaling_configurations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ min_size,
 latest,
 tags
 FROM awscc.apprunner.auto_scaling_configurations
-WHERE region = 'us-east-1' AND data__Identifier = '<AutoScalingConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<AutoScalingConfigurationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -289,7 +289,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.auto_scaling_configurations
-WHERE data__Identifier = '<AutoScalingConfigurationArn>'
+WHERE Identifier = '<AutoScalingConfigurationArn>'
 AND region = 'us-east-1';
 ```
 

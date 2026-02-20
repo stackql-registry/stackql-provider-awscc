@@ -198,13 +198,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>agreements</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>agreements</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -216,7 +216,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>agreements</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -250,7 +250,7 @@ preserve_filename,
 enforce_message_signing,
 custom_directories
 FROM awscc.transfer.agreements
-WHERE region = 'us-east-1' AND data__Identifier = '<AgreementId>|<ServerId>';
+WHERE region = 'us-east-1' AND Identifier = '<AgreementId>|<ServerId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -384,7 +384,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.transfer.agreements
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "LocalProfileId": local_profile_id,
     "PartnerProfileId": partner_profile_id,
@@ -397,7 +397,7 @@ SET data__PatchDocument = string('{{ {
     "CustomDirectories": custom_directories
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AgreementId>|<ServerId>';
+AND Identifier = '<AgreementId>|<ServerId>';
 ```
 
 
@@ -406,7 +406,7 @@ AND data__Identifier = '<AgreementId>|<ServerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.agreements
-WHERE data__Identifier = '<AgreementId|ServerId>'
+WHERE Identifier = '<AgreementId|ServerId>'
 AND region = 'us-east-1';
 ```
 

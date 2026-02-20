@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>permissions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -151,7 +151,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>permissions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ principal_org_id,
 id,
 principal
 FROM awscc.lambda.permissions
-WHERE region = 'us-east-1' AND data__Identifier = '<FunctionName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<FunctionName>|<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,7 +295,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.permissions
-WHERE data__Identifier = '<FunctionName|Id>'
+WHERE Identifier = '<FunctionName|Id>'
 AND region = 'us-east-1';
 ```
 

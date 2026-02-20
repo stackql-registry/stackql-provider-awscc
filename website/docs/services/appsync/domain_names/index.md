@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>domain_names</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>domain_names</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>domain_names</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ hosted_zone_id,
 domain_name_arn,
 tags
 FROM awscc.appsync.domain_names
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,12 +278,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appsync.domain_names
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>';
+AND Identifier = '<DomainName>';
 ```
 
 
@@ -292,7 +292,7 @@ AND data__Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.domain_names
-WHERE data__Identifier = '<DomainName>'
+WHERE Identifier = '<DomainName>'
 AND region = 'us-east-1';
 ```
 

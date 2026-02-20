@@ -200,13 +200,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mission_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mission_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -218,7 +218,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mission_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -251,7 +251,7 @@ id,
 arn,
 region
 FROM awscc.groundstation.mission_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>|<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>|<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -377,7 +377,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.groundstation.mission_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "ContactPrePassDurationSeconds": contact_pre_pass_duration_seconds,
     "ContactPostPassDurationSeconds": contact_post_pass_duration_seconds,
@@ -389,7 +389,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>|<Arn>';
+AND Identifier = '<Id>|<Arn>';
 ```
 
 
@@ -398,7 +398,7 @@ AND data__Identifier = '<Id>|<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.mission_profiles
-WHERE data__Identifier = '<Id|Arn>'
+WHERE Identifier = '<Id|Arn>'
 AND region = 'us-east-1';
 ```
 

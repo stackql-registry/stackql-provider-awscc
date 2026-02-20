@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mail_manager_addon_instances</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mail_manager_addon_instances</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mail_manager_addon_instances</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ addon_name,
 addon_subscription_id,
 tags
 FROM awscc.ses.mail_manager_addon_instances
-WHERE region = 'us-east-1' AND data__Identifier = '<AddonInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '<AddonInstanceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,11 +256,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_addon_instances
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AddonInstanceId>';
+AND Identifier = '<AddonInstanceId>';
 ```
 
 
@@ -269,7 +269,7 @@ AND data__Identifier = '<AddonInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_addon_instances
-WHERE data__Identifier = '<AddonInstanceId>'
+WHERE Identifier = '<AddonInstanceId>'
 AND region = 'us-east-1';
 ```
 

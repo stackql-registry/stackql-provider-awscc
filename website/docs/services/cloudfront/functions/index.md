@@ -155,13 +155,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>functions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>functions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -173,7 +173,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>functions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -201,7 +201,7 @@ function_metadata,
 name,
 stage
 FROM awscc.cloudfront.functions
-WHERE data__Identifier = '<FunctionARN>';
+WHERE Identifier = '<FunctionARN>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,13 +306,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.functions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AutoPublish": auto_publish,
     "FunctionCode": function_code,
     "FunctionConfig": function_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FunctionARN>';
+AND Identifier = '<FunctionARN>';
 ```
 
 
@@ -321,7 +321,7 @@ AND data__Identifier = '<FunctionARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.functions
-WHERE data__Identifier = '<FunctionARN>'
+WHERE Identifier = '<FunctionARN>'
 AND region = 'us-east-1';
 ```
 

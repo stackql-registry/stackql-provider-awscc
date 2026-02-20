@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>storage_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>storage_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>storage_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -180,7 +180,7 @@ file_system_locations,
 os_family,
 storage_profile_id
 FROM awscc.deadline.storage_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<FarmId>|<StorageProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<StorageProfileId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,13 +280,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.deadline.storage_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "FileSystemLocations": file_system_locations,
     "OsFamily": os_family
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FarmId>|<StorageProfileId>';
+AND Identifier = '<FarmId>|<StorageProfileId>';
 ```
 
 
@@ -295,7 +295,7 @@ AND data__Identifier = '<FarmId>|<StorageProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.storage_profiles
-WHERE data__Identifier = '<FarmId|StorageProfileId>'
+WHERE Identifier = '<FarmId|StorageProfileId>'
 AND region = 'us-east-1';
 ```
 

@@ -104,7 +104,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpn_connection_routes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -116,7 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpn_connection_routes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -139,7 +139,7 @@ region,
 destination_cidr_block,
 vpn_connection_id
 FROM awscc.ec2.vpn_connection_routes
-WHERE region = 'us-east-1' AND data__Identifier = '<DestinationCidrBlock>|<VpnConnectionId>';
+WHERE region = 'us-east-1' AND Identifier = '<DestinationCidrBlock>|<VpnConnectionId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,7 +227,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_connection_routes
-WHERE data__Identifier = '<DestinationCidrBlock|VpnConnectionId>'
+WHERE Identifier = '<DestinationCidrBlock|VpnConnectionId>'
 AND region = 'us-east-1';
 ```
 

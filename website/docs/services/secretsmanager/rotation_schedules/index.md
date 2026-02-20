@@ -193,13 +193,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>rotation_schedules</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>rotation_schedules</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -211,7 +211,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>rotation_schedules</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -238,7 +238,7 @@ rotate_immediately_on_update,
 rotation_lambda_arn,
 rotation_rules
 FROM awscc.secretsmanager.rotation_schedules
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -348,14 +348,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.secretsmanager.rotation_schedules
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "HostedRotationLambda": hosted_rotation_lambda,
     "RotateImmediatelyOnUpdate": rotate_immediately_on_update,
     "RotationLambdaARN": rotation_lambda_arn,
     "RotationRules": rotation_rules
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -364,7 +364,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.rotation_schedules
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

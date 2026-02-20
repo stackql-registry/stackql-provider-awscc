@@ -169,13 +169,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>image_versions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>image_versions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -187,7 +187,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>image_versions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ processor,
 horovod,
 release_notes
 FROM awscc.sagemaker.image_versions
-WHERE region = 'us-east-1' AND data__Identifier = '<ImageVersionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ImageVersionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -346,7 +346,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.image_versions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Alias": alias,
     "Aliases": aliases,
     "VendorGuidance": vendor_guidance,
@@ -358,7 +358,7 @@ SET data__PatchDocument = string('{{ {
     "ReleaseNotes": release_notes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ImageVersionArn>';
+AND Identifier = '<ImageVersionArn>';
 ```
 
 
@@ -367,7 +367,7 @@ AND data__Identifier = '<ImageVersionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.image_versions
-WHERE data__Identifier = '<ImageVersionArn>'
+WHERE Identifier = '<ImageVersionArn>'
 AND region = 'us-east-1';
 ```
 

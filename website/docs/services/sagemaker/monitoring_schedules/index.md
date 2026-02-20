@@ -353,13 +353,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>monitoring_schedules</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>monitoring_schedules</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -371,7 +371,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>monitoring_schedules</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -402,7 +402,7 @@ last_modified_time,
 last_monitoring_execution_summary,
 monitoring_schedule_status
 FROM awscc.sagemaker.monitoring_schedules
-WHERE region = 'us-east-1' AND data__Identifier = '<MonitoringScheduleArn>';
+WHERE region = 'us-east-1' AND Identifier = '<MonitoringScheduleArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -582,7 +582,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.monitoring_schedules
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MonitoringScheduleConfig": monitoring_schedule_config,
     "Tags": tags,
     "EndpointName": endpoint_name,
@@ -591,7 +591,7 @@ SET data__PatchDocument = string('{{ {
     "MonitoringScheduleStatus": monitoring_schedule_status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<MonitoringScheduleArn>';
+AND Identifier = '<MonitoringScheduleArn>';
 ```
 
 
@@ -600,7 +600,7 @@ AND data__Identifier = '<MonitoringScheduleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.monitoring_schedules
-WHERE data__Identifier = '<MonitoringScheduleArn>'
+WHERE Identifier = '<MonitoringScheduleArn>'
 AND region = 'us-east-1';
 ```
 

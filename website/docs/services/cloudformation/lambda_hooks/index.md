@@ -175,13 +175,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>lambda_hooks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>lambda_hooks</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -193,7 +193,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>lambda_hooks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ alias,
 hook_arn,
 execution_role
 FROM awscc.cloudformation.lambda_hooks
-WHERE region = 'us-east-1' AND data__Identifier = '<HookArn>';
+WHERE region = 'us-east-1' AND Identifier = '<HookArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,7 +353,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.lambda_hooks
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "LambdaFunction": lambda_function,
     "HookStatus": hook_status,
     "TargetOperations": target_operations,
@@ -363,7 +363,7 @@ SET data__PatchDocument = string('{{ {
     "ExecutionRole": execution_role
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HookArn>';
+AND Identifier = '<HookArn>';
 ```
 
 
@@ -372,7 +372,7 @@ AND data__Identifier = '<HookArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.lambda_hooks
-WHERE data__Identifier = '<HookArn>'
+WHERE Identifier = '<HookArn>'
 AND region = 'us-east-1';
 ```
 

@@ -109,7 +109,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>volume_attachments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -121,7 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>volume_attachments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -145,7 +145,7 @@ volume_id,
 instance_id,
 device
 FROM awscc.ec2.volume_attachments
-WHERE region = 'us-east-1' AND data__Identifier = '<VolumeId>|<InstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '<VolumeId>|<InstanceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,7 +237,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.volume_attachments
-WHERE data__Identifier = '<VolumeId|InstanceId>'
+WHERE Identifier = '<VolumeId|InstanceId>'
 AND region = 'us-east-1';
 ```
 

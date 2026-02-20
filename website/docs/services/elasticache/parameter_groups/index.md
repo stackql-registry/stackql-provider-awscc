@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>parameter_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>parameter_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>parameter_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ tags,
 cache_parameter_group_name,
 cache_parameter_group_family
 FROM awscc.elasticache.parameter_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<CacheParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<CacheParameterGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,13 +266,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticache.parameter_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Properties": properties,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CacheParameterGroupName>';
+AND Identifier = '<CacheParameterGroupName>';
 ```
 
 
@@ -281,7 +281,7 @@ AND data__Identifier = '<CacheParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.parameter_groups
-WHERE data__Identifier = '<CacheParameterGroupName>'
+WHERE Identifier = '<CacheParameterGroupName>'
 AND region = 'us-east-1';
 ```
 

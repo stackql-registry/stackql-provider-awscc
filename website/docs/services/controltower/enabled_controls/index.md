@@ -138,13 +138,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>enabled_controls</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>enabled_controls</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -156,7 +156,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>enabled_controls</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ target_identifier,
 parameters,
 tags
 FROM awscc.controltower.enabled_controls
-WHERE region = 'us-east-1' AND data__Identifier = '<TargetIdentifier>|<ControlIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<TargetIdentifier>|<ControlIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,12 +280,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.controltower.enabled_controls
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Parameters": parameters,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TargetIdentifier>|<ControlIdentifier>';
+AND Identifier = '<TargetIdentifier>|<ControlIdentifier>';
 ```
 
 
@@ -294,7 +294,7 @@ AND data__Identifier = '<TargetIdentifier>|<ControlIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.enabled_controls
-WHERE data__Identifier = '<TargetIdentifier|ControlIdentifier>'
+WHERE Identifier = '<TargetIdentifier|ControlIdentifier>'
 AND region = 'us-east-1';
 ```
 

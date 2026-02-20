@@ -669,13 +669,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>global_tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>global_tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -687,7 +687,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>global_tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -726,7 +726,7 @@ arn,
 stream_arn,
 time_to_live_specification
 FROM awscc.dynamodb.global_tables
-WHERE region = 'us-east-1' AND data__Identifier = '<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '<TableName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -940,7 +940,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.dynamodb.global_tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MultiRegionConsistency": multi_region_consistency,
     "SSESpecification": sse_specification,
     "StreamSpecification": stream_specification,
@@ -955,7 +955,7 @@ SET data__PatchDocument = string('{{ {
     "TimeToLiveSpecification": time_to_live_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TableName>';
+AND Identifier = '<TableName>';
 ```
 
 
@@ -964,7 +964,7 @@ AND data__Identifier = '<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dynamodb.global_tables
-WHERE data__Identifier = '<TableName>'
+WHERE Identifier = '<TableName>'
 AND region = 'us-east-1';
 ```
 

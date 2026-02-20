@@ -143,13 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>subscriber_notifications</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>subscriber_notifications</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -161,7 +161,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>subscriber_notifications</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -185,7 +185,7 @@ notification_configuration,
 subscriber_arn,
 subscriber_endpoint
 FROM awscc.securitylake.subscriber_notifications
-WHERE region = 'us-east-1' AND data__Identifier = '<SubscriberArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SubscriberArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,11 +278,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.securitylake.subscriber_notifications
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "NotificationConfiguration": notification_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SubscriberArn>';
+AND Identifier = '<SubscriberArn>';
 ```
 
 
@@ -291,7 +291,7 @@ AND data__Identifier = '<SubscriberArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.subscriber_notifications
-WHERE data__Identifier = '<SubscriberArn>'
+WHERE Identifier = '<SubscriberArn>'
 AND region = 'us-east-1';
 ```
 

@@ -379,13 +379,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>instances</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>instances</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -397,7 +397,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>instances</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -439,7 +439,7 @@ key_pair_name,
 tags,
 instance_arn
 FROM awscc.lightsail.instances
-WHERE region = 'us-east-1' AND data__Identifier = '<InstanceName>';
+WHERE region = 'us-east-1' AND Identifier = '<InstanceName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -603,14 +603,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.instances
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AddOns": add_ons,
     "UserData": user_data,
     "KeyPairName": key_pair_name,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InstanceName>';
+AND Identifier = '<InstanceName>';
 ```
 
 
@@ -619,7 +619,7 @@ AND data__Identifier = '<InstanceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.instances
-WHERE data__Identifier = '<InstanceName>'
+WHERE Identifier = '<InstanceName>'
 AND region = 'us-east-1';
 ```
 

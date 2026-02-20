@@ -92,17 +92,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -119,7 +119,7 @@ custom_domain_config,
 cloud_front_distribution,
 managed_login_version
 FROM awscc.cognito.user_pool_domains
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<Domain>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<Domain>';
 ```
 
 ## `INSERT` example
@@ -201,12 +201,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_domains
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CustomDomainConfig": custom_domain_config,
     "ManagedLoginVersion": managed_login_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>|<Domain>';
+AND Identifier = '<UserPoolId>|<Domain>';
 ```
 
 
@@ -215,7 +215,7 @@ AND data__Identifier = '<UserPoolId>|<Domain>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_domains
-WHERE data__Identifier = '<UserPoolId|Domain>'
+WHERE Identifier = '<UserPoolId|Domain>'
 AND region = 'us-east-1';
 ```
 

@@ -168,13 +168,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_aliases</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_aliases</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -186,7 +186,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_aliases</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -218,7 +218,7 @@ routing_configuration,
 updated_at,
 tags
 FROM awscc.bedrock.flow_aliases
-WHERE region = 'us-east-1' AND data__Identifier = '<Arn>|<FlowArn>';
+WHERE region = 'us-east-1' AND Identifier = '<Arn>|<FlowArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,7 +326,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.flow_aliases
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ConcurrencyConfiguration": concurrency_configuration,
     "Description": description,
     "Name": name,
@@ -334,7 +334,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>|<FlowArn>';
+AND Identifier = '<Arn>|<FlowArn>';
 ```
 
 
@@ -343,7 +343,7 @@ AND data__Identifier = '<Arn>|<FlowArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_aliases
-WHERE data__Identifier = '<Arn|FlowArn>'
+WHERE Identifier = '<Arn|FlowArn>'
 AND region = 'us-east-1';
 ```
 

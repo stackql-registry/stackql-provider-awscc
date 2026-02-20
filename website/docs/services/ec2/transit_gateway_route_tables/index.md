@@ -116,13 +116,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>transit_gateway_route_tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>transit_gateway_route_tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -134,7 +134,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>transit_gateway_route_tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -158,7 +158,7 @@ transit_gateway_route_table_id,
 transit_gateway_id,
 tags
 FROM awscc.ec2.transit_gateway_route_tables
-WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayRouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayRouteTableId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,11 +244,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.transit_gateway_route_tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TransitGatewayRouteTableId>';
+AND Identifier = '<TransitGatewayRouteTableId>';
 ```
 
 
@@ -257,7 +257,7 @@ AND data__Identifier = '<TransitGatewayRouteTableId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_route_tables
-WHERE data__Identifier = '<TransitGatewayRouteTableId>'
+WHERE Identifier = '<TransitGatewayRouteTableId>'
 AND region = 'us-east-1';
 ```
 

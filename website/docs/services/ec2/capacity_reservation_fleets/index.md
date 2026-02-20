@@ -200,13 +200,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>capacity_reservation_fleets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>capacity_reservation_fleets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -218,7 +218,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>capacity_reservation_fleets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -249,7 +249,7 @@ tenancy,
 remove_end_date,
 no_remove_end_date
 FROM awscc.ec2.capacity_reservation_fleets
-WHERE region = 'us-east-1' AND data__Identifier = '<CapacityReservationFleetId>';
+WHERE region = 'us-east-1' AND Identifier = '<CapacityReservationFleetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -388,13 +388,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.capacity_reservation_fleets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TotalTargetCapacity": total_target_capacity,
     "RemoveEndDate": remove_end_date,
     "NoRemoveEndDate": no_remove_end_date
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CapacityReservationFleetId>';
+AND Identifier = '<CapacityReservationFleetId>';
 ```
 
 
@@ -403,7 +403,7 @@ AND data__Identifier = '<CapacityReservationFleetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.capacity_reservation_fleets
-WHERE data__Identifier = '<CapacityReservationFleetId>'
+WHERE Identifier = '<CapacityReservationFleetId>'
 AND region = 'us-east-1';
 ```
 

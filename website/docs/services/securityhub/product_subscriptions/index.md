@@ -99,7 +99,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>product_subscriptions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -111,7 +111,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>product_subscriptions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -134,7 +134,7 @@ region,
 product_arn,
 product_subscription_arn
 FROM awscc.securityhub.product_subscriptions
-WHERE region = 'us-east-1' AND data__Identifier = '<ProductSubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ProductSubscriptionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,7 +215,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.product_subscriptions
-WHERE data__Identifier = '<ProductSubscriptionArn>'
+WHERE Identifier = '<ProductSubscriptionArn>'
 AND region = 'us-east-1';
 ```
 

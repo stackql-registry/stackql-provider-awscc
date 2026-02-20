@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>hubs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>hubs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>hubs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ auto_enable_controls,
 tags,
 subscribed_at
 FROM awscc.securityhub.hubs
-WHERE region = 'us-east-1' AND data__Identifier = '<ARN>';
+WHERE region = 'us-east-1' AND Identifier = '<ARN>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,14 +262,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.hubs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EnableDefaultStandards": enable_default_standards,
     "ControlFindingGenerator": control_finding_generator,
     "AutoEnableControls": auto_enable_controls,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ARN>';
+AND Identifier = '<ARN>';
 ```
 
 
@@ -278,7 +278,7 @@ AND data__Identifier = '<ARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.hubs
-WHERE data__Identifier = '<ARN>'
+WHERE Identifier = '<ARN>'
 AND region = 'us-east-1';
 ```
 

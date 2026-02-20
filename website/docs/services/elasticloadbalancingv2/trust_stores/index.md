@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>trust_stores</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>trust_stores</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>trust_stores</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ number_of_ca_certificates,
 tags,
 trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE region = 'us-east-1' AND data__Identifier = '<TrustStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '<TrustStoreArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,14 +294,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.trust_stores
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CaCertificatesBundleS3Bucket": ca_certificates_bundle_s3_bucket,
     "CaCertificatesBundleS3Key": ca_certificates_bundle_s3_key,
     "CaCertificatesBundleS3ObjectVersion": ca_certificates_bundle_s3_object_version,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TrustStoreArn>';
+AND Identifier = '<TrustStoreArn>';
 ```
 
 
@@ -310,7 +310,7 @@ AND data__Identifier = '<TrustStoreArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_stores
-WHERE data__Identifier = '<TrustStoreArn>'
+WHERE Identifier = '<TrustStoreArn>'
 AND region = 'us-east-1';
 ```
 

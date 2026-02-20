@@ -70,17 +70,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -94,7 +94,7 @@ region,
 object_lambda_access_point,
 policy_document
 FROM awscc.s3objectlambda.access_point_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<ObjectLambdaAccessPoint>';
+WHERE region = 'us-east-1' AND Identifier = '<ObjectLambdaAccessPoint>';
 ```
 
 ## `INSERT` example
@@ -167,11 +167,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.s3objectlambda.access_point_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ObjectLambdaAccessPoint>';
+AND Identifier = '<ObjectLambdaAccessPoint>';
 ```
 
 
@@ -180,7 +180,7 @@ AND data__Identifier = '<ObjectLambdaAccessPoint>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3objectlambda.access_point_policies
-WHERE data__Identifier = '<ObjectLambdaAccessPoint>'
+WHERE Identifier = '<ObjectLambdaAccessPoint>'
 AND region = 'us-east-1';
 ```
 

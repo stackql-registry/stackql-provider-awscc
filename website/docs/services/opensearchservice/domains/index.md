@@ -690,17 +690,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -739,7 +739,7 @@ software_update_options,
 skip_shard_migration_wait,
 identity_center_options
 FROM awscc.opensearchservice.domains
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
 ```
 
 ## `INSERT` example
@@ -1003,7 +1003,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.opensearchservice.domains
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ClusterConfig": cluster_config,
     "AccessPolicies": access_policies,
     "IPAddressType": ip_address_type,
@@ -1023,7 +1023,7 @@ SET data__PatchDocument = string('{{ {
     "SkipShardMigrationWait": skip_shard_migration_wait
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>';
+AND Identifier = '<DomainName>';
 ```
 
 
@@ -1032,7 +1032,7 @@ AND data__Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchservice.domains
-WHERE data__Identifier = '<DomainName>'
+WHERE Identifier = '<DomainName>'
 AND region = 'us-east-1';
 ```
 

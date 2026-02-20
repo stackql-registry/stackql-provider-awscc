@@ -148,13 +148,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_endpoint_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_endpoint_associations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -166,7 +166,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_endpoint_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ endpoint_id,
 subnet_mapping,
 tags
 FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<VpcEndpointAssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<VpcEndpointAssociationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,11 +299,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.networkfirewall.vpc_endpoint_associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VpcEndpointAssociationArn>';
+AND Identifier = '<VpcEndpointAssociationArn>';
 ```
 
 
@@ -312,7 +312,7 @@ AND data__Identifier = '<VpcEndpointAssociationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE data__Identifier = '<VpcEndpointAssociationArn>'
+WHERE Identifier = '<VpcEndpointAssociationArn>'
 AND region = 'us-east-1';
 ```
 

@@ -330,13 +330,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -348,7 +348,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -383,7 +383,7 @@ auto_scaling_specifications,
 cdc_specification,
 replica_specifications
 FROM awscc.cassandra.tables
-WHERE region = 'us-east-1' AND data__Identifier = '<KeyspaceName>|<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>|<TableName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -549,7 +549,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cassandra.tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RegularColumns": regular_columns,
     "BillingMode": billing_mode,
     "PointInTimeRecoveryEnabled": point_in_time_recovery_enabled,
@@ -561,7 +561,7 @@ SET data__PatchDocument = string('{{ {
     "ReplicaSpecifications": replica_specifications
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<KeyspaceName>|<TableName>';
+AND Identifier = '<KeyspaceName>|<TableName>';
 ```
 
 
@@ -570,7 +570,7 @@ AND data__Identifier = '<KeyspaceName>|<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.tables
-WHERE data__Identifier = '<KeyspaceName|TableName>'
+WHERE Identifier = '<KeyspaceName|TableName>'
 AND region = 'us-east-1';
 ```
 

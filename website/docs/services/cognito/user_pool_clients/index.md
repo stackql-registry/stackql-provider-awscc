@@ -280,13 +280,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>user_pool_clients</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>user_pool_clients</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -298,7 +298,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>user_pool_clients</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -345,7 +345,7 @@ name,
 client_secret,
 client_id
 FROM awscc.cognito.user_pool_clients
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<ClientId>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ClientId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -532,7 +532,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_clients
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ClientName": client_name,
     "ExplicitAuthFlows": explicit_auth_flows,
     "ReadAttributes": read_attributes,
@@ -556,7 +556,7 @@ SET data__PatchDocument = string('{{ {
     "EnablePropagateAdditionalUserContextData": enable_propagate_additional_user_context_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>|<ClientId>';
+AND Identifier = '<UserPoolId>|<ClientId>';
 ```
 
 
@@ -565,7 +565,7 @@ AND data__Identifier = '<UserPoolId>|<ClientId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_clients
-WHERE data__Identifier = '<UserPoolId|ClientId>'
+WHERE Identifier = '<UserPoolId|ClientId>'
 AND region = 'us-east-1';
 ```
 

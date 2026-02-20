@@ -128,13 +128,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -146,7 +146,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -172,7 +172,7 @@ connector_provisioning_type,
 connector_provisioning_config,
 description
 FROM awscc.appflow.connectors
-WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorLabel>';
+WHERE region = 'us-east-1' AND Identifier = '<ConnectorLabel>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,13 +268,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appflow.connectors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ConnectorProvisioningType": connector_provisioning_type,
     "ConnectorProvisioningConfig": connector_provisioning_config,
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConnectorLabel>';
+AND Identifier = '<ConnectorLabel>';
 ```
 
 
@@ -283,7 +283,7 @@ AND data__Identifier = '<ConnectorLabel>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connectors
-WHERE data__Identifier = '<ConnectorLabel>'
+WHERE Identifier = '<ConnectorLabel>'
 AND region = 'us-east-1';
 ```
 

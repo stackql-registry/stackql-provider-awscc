@@ -161,13 +161,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>trackers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>trackers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -179,7 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>trackers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -213,7 +213,7 @@ tracker_name,
 update_time,
 arn
 FROM awscc.location.trackers
-WHERE region = 'us-east-1' AND data__Identifier = '<TrackerName>';
+WHERE region = 'us-east-1' AND Identifier = '<TrackerName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,7 +327,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.location.trackers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "EventBridgeEnabled": event_bridge_enabled,
     "KmsKeyEnableGeospatialQueries": kms_key_enable_geospatial_queries,
@@ -337,7 +337,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TrackerName>';
+AND Identifier = '<TrackerName>';
 ```
 
 
@@ -346,7 +346,7 @@ AND data__Identifier = '<TrackerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.trackers
-WHERE data__Identifier = '<TrackerName>'
+WHERE Identifier = '<TrackerName>'
 AND region = 'us-east-1';
 ```
 

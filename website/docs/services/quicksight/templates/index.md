@@ -1085,13 +1085,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -1103,7 +1103,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1137,7 +1137,7 @@ arn,
 tags,
 template_id
 FROM awscc.quicksight.templates
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<TemplateId>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<TemplateId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -3147,7 +3147,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "VersionDescription": version_description,
     "SourceEntity": source_entity,
     "Definition": definition,
@@ -3157,7 +3157,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>|<TemplateId>';
+AND Identifier = '<AwsAccountId>|<TemplateId>';
 ```
 
 
@@ -3166,7 +3166,7 @@ AND data__Identifier = '<AwsAccountId>|<TemplateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.templates
-WHERE data__Identifier = '<AwsAccountId|TemplateId>'
+WHERE Identifier = '<AwsAccountId|TemplateId>'
 AND region = 'us-east-1';
 ```
 

@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>schemata</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>schemata</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>schemata</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ last_modified,
 version_created_date,
 tags
 FROM awscc.eventschemas.schemata
-WHERE region = 'us-east-1' AND data__Identifier = '<SchemaArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SchemaArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,14 +306,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eventschemas.schemata
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Type": type,
     "Description": description,
     "Content": content,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SchemaArn>';
+AND Identifier = '<SchemaArn>';
 ```
 
 
@@ -322,7 +322,7 @@ AND data__Identifier = '<SchemaArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.schemata
-WHERE data__Identifier = '<SchemaArn>'
+WHERE Identifier = '<SchemaArn>'
 AND region = 'us-east-1';
 ```
 

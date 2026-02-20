@@ -228,13 +228,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>tables</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>tables</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -246,7 +246,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>tables</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -275,7 +275,7 @@ schema,
 magnetic_store_write_properties,
 tags
 FROM awscc.timestream.tables
-WHERE region = 'us-east-1' AND data__Identifier = '<DatabaseName>|<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '<DatabaseName>|<TableName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,14 +391,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.timestream.tables
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RetentionProperties": retention_properties,
     "Schema": schema,
     "MagneticStoreWriteProperties": magnetic_store_write_properties,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DatabaseName>|<TableName>';
+AND Identifier = '<DatabaseName>|<TableName>';
 ```
 
 
@@ -407,7 +407,7 @@ AND data__Identifier = '<DatabaseName>|<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.tables
-WHERE data__Identifier = '<DatabaseName|TableName>'
+WHERE Identifier = '<DatabaseName|TableName>'
 AND region = 'us-east-1';
 ```
 

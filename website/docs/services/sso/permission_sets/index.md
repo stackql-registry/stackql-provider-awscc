@@ -173,13 +173,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>permission_sets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>permission_sets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -191,7 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>permission_sets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ tags,
 customer_managed_policy_references,
 permissions_boundary
 FROM awscc.sso.permission_sets
-WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>|<PermissionSetArn>';
+WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<PermissionSetArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -349,7 +349,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sso.permission_sets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "SessionDuration": session_duration,
     "RelayStateType": relay_state_type,
@@ -360,7 +360,7 @@ SET data__PatchDocument = string('{{ {
     "PermissionsBoundary": permissions_boundary
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<InstanceArn>|<PermissionSetArn>';
+AND Identifier = '<InstanceArn>|<PermissionSetArn>';
 ```
 
 
@@ -369,7 +369,7 @@ AND data__Identifier = '<InstanceArn>|<PermissionSetArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.permission_sets
-WHERE data__Identifier = '<InstanceArn|PermissionSetArn>'
+WHERE Identifier = '<InstanceArn|PermissionSetArn>'
 AND region = 'us-east-1';
 ```
 

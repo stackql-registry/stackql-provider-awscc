@@ -207,7 +207,7 @@ function createDeleteExample(serviceName, resourceName, resourceData, thisSchema
 ${sqlCodeBlockStart}
 /*+ delete */
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
-WHERE data__Identifier = '<${resourceData['x-identifiers'].join('|')}>'
+WHERE Identifier = '<${resourceData['x-identifiers'].join('|')}>'
 AND region = 'us-east-1';
 ${codeBlockEnd}
 `;
@@ -237,11 +237,11 @@ function createUpdateExample(serviceName, resourceName, resourceData, thisSchema
 ${sqlCodeBlockStart}
 /*+ update */
 UPDATE ${providerName}.${serviceName}.${resourceName}
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
 ${patchFields}
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '${identifierValues}';
+AND Identifier = '${identifierValues}';
 ${codeBlockEnd}
 `;
 }
@@ -445,8 +445,8 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
 
     const requiredParamsMap = {
         create_resource: (schema['x-required-properties'] ? schema['x-required-properties'].join(', ') + ', region' : 'region'),
-        delete_resource: "data__Identifier, region",
-        update_resource: "data__Identifier, data__PatchDocument, region",
+        delete_resource: "Identifier, region",
+        update_resource: "Identifier, PatchDocument, region",
     };
 
     const sqlExampleSelect = `SELECT`;
@@ -486,13 +486,13 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
                             if (methodName.includes('list')) {
                                 requiredParams = 'region';
                             } else if (methodName.includes('get') || methodName.includes('describe')) {
-                                requiredParams = 'data__Identifier, region';
+                                requiredParams = 'Identifier, region';
                             } else if (methodName.includes('create')) {
-                                requiredParams = 'data__Identifier, region';
+                                requiredParams = 'Identifier, region';
                             } else if (methodName.includes('update') || methodName.includes('modify')) {
-                                requiredParams = 'data__Identifier, data__PatchDocument, region';
+                                requiredParams = 'Identifier, PatchDocument, region';
                             } else if (methodName.includes('delete')) {
-                                requiredParams = 'data__Identifier, region';
+                                requiredParams = 'Identifier, region';
                             }
                             
                             sqlVerbsList.push({
@@ -644,12 +644,12 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
             sqlVerbsList.push({
                 sqlVerbName: 'select',
                 methodName: 'get_resource',
-                requiredParams: 'data__Identifier, region'
+                requiredParams: 'Identifier, region'
             });
         }
 
         const identifierValues = resourceIdentifiers.map(id => `<${id}>`).join('|');
-        const identifierClause = `data__Identifier = '${identifierValues}'`;
+        const identifierClause = `Identifier = '${identifierValues}'`;
 
         sqlExampleListWhere = `${sqlExampleWhere};`;
         globalServices.includes(serviceName) ? sqlExampleGetWhere = `WHERE ${identifierClause};`: sqlExampleGetWhere = `${sqlExampleWhere} AND ${identifierClause};`;

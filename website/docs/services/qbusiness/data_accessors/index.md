@@ -214,13 +214,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>data_accessors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>data_accessors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -232,7 +232,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>data_accessors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -264,7 +264,7 @@ principal,
 tags,
 updated_at
 FROM awscc.qbusiness.data_accessors
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationId>|<DataAccessorId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<DataAccessorId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -394,14 +394,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.qbusiness.data_accessors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ActionConfigurations": action_configurations,
     "AuthenticationDetail": authentication_detail,
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationId>|<DataAccessorId>';
+AND Identifier = '<ApplicationId>|<DataAccessorId>';
 ```
 
 
@@ -410,7 +410,7 @@ AND data__Identifier = '<ApplicationId>|<DataAccessorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.data_accessors
-WHERE data__Identifier = '<ApplicationId|DataAccessorId>'
+WHERE Identifier = '<ApplicationId|DataAccessorId>'
 AND region = 'us-east-1';
 ```
 

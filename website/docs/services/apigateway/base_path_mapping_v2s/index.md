@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>base_path_mapping_v2s</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>base_path_mapping_v2s</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>base_path_mapping_v2s</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ rest_api_id,
 stage,
 base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s
-WHERE region = 'us-east-1' AND data__Identifier = '<BasePathMappingArn>';
+WHERE region = 'us-east-1' AND Identifier = '<BasePathMappingArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,12 +257,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.base_path_mapping_v2s
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RestApiId": rest_api_id,
     "Stage": stage
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BasePathMappingArn>';
+AND Identifier = '<BasePathMappingArn>';
 ```
 
 
@@ -271,7 +271,7 @@ AND data__Identifier = '<BasePathMappingArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.base_path_mapping_v2s
-WHERE data__Identifier = '<BasePathMappingArn>'
+WHERE Identifier = '<BasePathMappingArn>'
 AND region = 'us-east-1';
 ```
 

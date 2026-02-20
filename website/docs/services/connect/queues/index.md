@@ -185,13 +185,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>queues</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>queues</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -203,7 +203,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>queues</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -236,7 +236,7 @@ quick_connect_arns,
 tags,
 type
 FROM awscc.connect.queues
-WHERE region = 'us-east-1' AND data__Identifier = '<QueueArn>';
+WHERE region = 'us-east-1' AND Identifier = '<QueueArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -363,7 +363,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.queues
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "InstanceArn": instance_arn,
     "Description": description,
     "HoursOfOperationArn": hours_of_operation_arn,
@@ -376,7 +376,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<QueueArn>';
+AND Identifier = '<QueueArn>';
 ```
 
 
@@ -385,7 +385,7 @@ AND data__Identifier = '<QueueArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.queues
-WHERE data__Identifier = '<QueueArn>'
+WHERE Identifier = '<QueueArn>'
 AND region = 'us-east-1';
 ```
 

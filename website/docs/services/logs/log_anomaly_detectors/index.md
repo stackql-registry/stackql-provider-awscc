@@ -144,13 +144,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>log_anomaly_detectors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>log_anomaly_detectors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -162,7 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>log_anomaly_detectors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ creation_time_stamp,
 last_modified_time_stamp,
 anomaly_detector_arn
 FROM awscc.logs.log_anomaly_detectors
-WHERE region = 'us-east-1' AND data__Identifier = '<AnomalyDetectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '<AnomalyDetectorArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,7 +299,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.log_anomaly_detectors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccountId": account_id,
     "KmsKeyId": kms_key_id,
     "DetectorName": detector_name,
@@ -309,7 +309,7 @@ SET data__PatchDocument = string('{{ {
     "AnomalyVisibilityTime": anomaly_visibility_time
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AnomalyDetectorArn>';
+AND Identifier = '<AnomalyDetectorArn>';
 ```
 
 
@@ -318,7 +318,7 @@ AND data__Identifier = '<AnomalyDetectorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_anomaly_detectors
-WHERE data__Identifier = '<AnomalyDetectorArn>'
+WHERE Identifier = '<AnomalyDetectorArn>'
 AND region = 'us-east-1';
 ```
 

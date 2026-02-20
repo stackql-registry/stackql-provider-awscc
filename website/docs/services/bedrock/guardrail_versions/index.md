@@ -85,12 +85,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -107,7 +107,7 @@ guardrail_id,
 guardrail_identifier,
 version
 FROM awscc.bedrock.guardrail_versions
-WHERE region = 'us-east-1' AND data__Identifier = '<GuardrailId>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '<GuardrailId>|<Version>';
 ```
 
 ## `INSERT` example
@@ -179,7 +179,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.guardrail_versions
-WHERE data__Identifier = '<GuardrailId|Version>'
+WHERE Identifier = '<GuardrailId|Version>'
 AND region = 'us-east-1';
 ```
 

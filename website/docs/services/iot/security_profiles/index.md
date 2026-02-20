@@ -314,13 +314,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -332,7 +332,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -362,7 +362,7 @@ tags,
 target_arns,
 security_profile_arn
 FROM awscc.iot.security_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<SecurityProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '<SecurityProfileName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -505,7 +505,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.security_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SecurityProfileDescription": security_profile_description,
     "Behaviors": behaviors,
     "AlertTargets": alert_targets,
@@ -515,7 +515,7 @@ SET data__PatchDocument = string('{{ {
     "TargetArns": target_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SecurityProfileName>';
+AND Identifier = '<SecurityProfileName>';
 ```
 
 
@@ -524,7 +524,7 @@ AND data__Identifier = '<SecurityProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.security_profiles
-WHERE data__Identifier = '<SecurityProfileName>'
+WHERE Identifier = '<SecurityProfileName>'
 AND region = 'us-east-1';
 ```
 

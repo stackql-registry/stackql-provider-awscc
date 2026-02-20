@@ -232,13 +232,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>addons</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>addons</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -250,7 +250,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>addons</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -282,7 +282,7 @@ arn,
 namespace_config,
 tags
 FROM awscc.eks.addons
-WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>|<AddonName>';
+WHERE region = 'us-east-1' AND Identifier = '<ClusterName>|<AddonName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -412,7 +412,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eks.addons
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AddonVersion": addon_version,
     "PreserveOnDelete": preserve_on_delete,
     "ResolveConflicts": resolve_conflicts,
@@ -422,7 +422,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ClusterName>|<AddonName>';
+AND Identifier = '<ClusterName>|<AddonName>';
 ```
 
 
@@ -431,7 +431,7 @@ AND data__Identifier = '<ClusterName>|<AddonName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.addons
-WHERE data__Identifier = '<ClusterName|AddonName>'
+WHERE Identifier = '<ClusterName|AddonName>'
 AND region = 'us-east-1';
 ```
 

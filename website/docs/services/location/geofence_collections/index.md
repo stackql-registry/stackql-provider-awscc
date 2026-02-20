@@ -146,13 +146,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>geofence_collections</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>geofence_collections</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -164,7 +164,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>geofence_collections</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.geofence_collections
-WHERE region = 'us-east-1' AND data__Identifier = '<CollectionName>';
+WHERE region = 'us-east-1' AND Identifier = '<CollectionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,14 +297,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.location.geofence_collections
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "PricingPlan": pricing_plan,
     "PricingPlanDataSource": pricing_plan_data_source,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CollectionName>';
+AND Identifier = '<CollectionName>';
 ```
 
 
@@ -313,7 +313,7 @@ AND data__Identifier = '<CollectionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.geofence_collections
-WHERE data__Identifier = '<CollectionName>'
+WHERE Identifier = '<CollectionName>'
 AND region = 'us-east-1';
 ```
 

@@ -104,7 +104,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>route_server_propagations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -116,7 +116,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>route_server_propagations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -139,7 +139,7 @@ region,
 route_server_id,
 route_table_id
 FROM awscc.ec2.route_server_propagations
-WHERE region = 'us-east-1' AND data__Identifier = '<RouteServerId>|<RouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '<RouteServerId>|<RouteTableId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,7 +227,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_propagations
-WHERE data__Identifier = '<RouteServerId|RouteTableId>'
+WHERE Identifier = '<RouteServerId|RouteTableId>'
 AND region = 'us-east-1';
 ```
 

@@ -195,13 +195,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>resource_data_syncs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>resource_data_syncs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -213,7 +213,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>resource_data_syncs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -243,7 +243,7 @@ sync_name,
 sync_type,
 bucket_prefix
 FROM awscc.ssm.resource_data_syncs
-WHERE region = 'us-east-1' AND data__Identifier = '<SyncName>';
+WHERE region = 'us-east-1' AND Identifier = '<SyncName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -368,11 +368,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ssm.resource_data_syncs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SyncSource": sync_source
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SyncName>';
+AND Identifier = '<SyncName>';
 ```
 
 
@@ -381,7 +381,7 @@ AND data__Identifier = '<SyncName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.resource_data_syncs
-WHERE data__Identifier = '<SyncName>'
+WHERE Identifier = '<SyncName>'
 AND region = 'us-east-1';
 ```
 

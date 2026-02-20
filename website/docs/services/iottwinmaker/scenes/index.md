@@ -144,13 +144,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>scenes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>scenes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -162,7 +162,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>scenes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -194,7 +194,7 @@ capabilities,
 scene_metadata,
 generated_scene_metadata
 FROM awscc.iottwinmaker.scenes
-WHERE region = 'us-east-1' AND data__Identifier = '<WorkspaceId>|<SceneId>';
+WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<SceneId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,7 +304,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iottwinmaker.scenes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "ContentLocation": content_location,
     "Tags": tags,
@@ -312,7 +312,7 @@ SET data__PatchDocument = string('{{ {
     "SceneMetadata": scene_metadata
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<WorkspaceId>|<SceneId>';
+AND Identifier = '<WorkspaceId>|<SceneId>';
 ```
 
 
@@ -321,7 +321,7 @@ AND data__Identifier = '<WorkspaceId>|<SceneId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.scenes
-WHERE data__Identifier = '<WorkspaceId|SceneId>'
+WHERE Identifier = '<WorkspaceId|SceneId>'
 AND region = 'us-east-1';
 ```
 

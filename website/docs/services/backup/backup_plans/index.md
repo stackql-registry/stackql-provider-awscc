@@ -363,13 +363,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>backup_plans</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>backup_plans</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -381,7 +381,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>backup_plans</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -407,7 +407,7 @@ backup_plan_arn,
 backup_plan_id,
 version_id
 FROM awscc.backup.backup_plans
-WHERE region = 'us-east-1' AND data__Identifier = '<BackupPlanId>';
+WHERE region = 'us-east-1' AND Identifier = '<BackupPlanId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -514,12 +514,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.backup.backup_plans
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BackupPlan": backup_plan,
     "BackupPlanTags": backup_plan_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BackupPlanId>';
+AND Identifier = '<BackupPlanId>';
 ```
 
 
@@ -528,7 +528,7 @@ AND data__Identifier = '<BackupPlanId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_plans
-WHERE data__Identifier = '<BackupPlanId>'
+WHERE Identifier = '<BackupPlanId>'
 AND region = 'us-east-1';
 ```
 

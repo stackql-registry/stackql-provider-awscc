@@ -270,13 +270,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>db_clusters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>db_clusters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -288,7 +288,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>db_clusters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -338,7 +338,7 @@ tags,
 use_latest_restorable_time,
 vpc_security_group_ids
 FROM awscc.neptune.db_clusters
-WHERE region = 'us-east-1' AND data__Identifier = '<DBClusterIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<DBClusterIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -571,7 +571,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.neptune.db_clusters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AssociatedRoles": associated_roles,
     "BackupRetentionPeriod": backup_retention_period,
     "CopyTagsToSnapshot": copy_tags_to_snapshot,
@@ -589,7 +589,7 @@ SET data__PatchDocument = string('{{ {
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DBClusterIdentifier>';
+AND Identifier = '<DBClusterIdentifier>';
 ```
 
 
@@ -598,7 +598,7 @@ AND data__Identifier = '<DBClusterIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_clusters
-WHERE data__Identifier = '<DBClusterIdentifier>'
+WHERE Identifier = '<DBClusterIdentifier>'
 AND region = 'us-east-1';
 ```
 

@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>private_graph_endpoints</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>private_graph_endpoints</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>private_graph_endpoints</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ vpc_id,
 private_graph_endpoint_identifier,
 vpc_endpoint_id
 FROM awscc.neptunegraph.private_graph_endpoints
-WHERE region = 'us-east-1' AND data__Identifier = '<PrivateGraphEndpointIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<PrivateGraphEndpointIdentifier>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,7 +261,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptunegraph.private_graph_endpoints
-WHERE data__Identifier = '<PrivateGraphEndpointIdentifier>'
+WHERE Identifier = '<PrivateGraphEndpointIdentifier>'
 AND region = 'us-east-1';
 ```
 

@@ -124,7 +124,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>named_queries</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -136,7 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>named_queries</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ query_string,
 work_group,
 named_query_id
 FROM awscc.athena.named_queries
-WHERE region = 'us-east-1' AND data__Identifier = '<NamedQueryId>';
+WHERE region = 'us-east-1' AND Identifier = '<NamedQueryId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.named_queries
-WHERE data__Identifier = '<NamedQueryId>'
+WHERE Identifier = '<NamedQueryId>'
 AND region = 'us-east-1';
 ```
 

@@ -641,13 +641,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flows</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flows</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -659,7 +659,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flows</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -694,7 +694,7 @@ flow_size,
 ndi_config,
 flow_ndi_machine_name
 FROM awscc.mediaconnect.flows
-WHERE region = 'us-east-1' AND data__Identifier = '<FlowArn>';
+WHERE region = 'us-east-1' AND Identifier = '<FlowArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -903,7 +903,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flows
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SourceFailoverConfig": source_failover_config,
     "Maintenance": maintenance,
     "SourceMonitoringConfig": source_monitoring_config,
@@ -911,7 +911,7 @@ SET data__PatchDocument = string('{{ {
     "NdiConfig": ndi_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FlowArn>';
+AND Identifier = '<FlowArn>';
 ```
 
 
@@ -920,7 +920,7 @@ AND data__Identifier = '<FlowArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flows
-WHERE data__Identifier = '<FlowArn>'
+WHERE Identifier = '<FlowArn>'
 AND region = 'us-east-1';
 ```
 

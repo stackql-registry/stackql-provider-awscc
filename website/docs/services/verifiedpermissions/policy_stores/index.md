@@ -150,13 +150,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>policy_stores</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>policy_stores</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -168,7 +168,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>policy_stores</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -196,7 +196,7 @@ schema,
 deletion_protection,
 tags
 FROM awscc.verifiedpermissions.policy_stores
-WHERE region = 'us-east-1' AND data__Identifier = '<PolicyStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '<PolicyStoreId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,7 +296,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.verifiedpermissions.policy_stores
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "ValidationSettings": validation_settings,
     "Schema": schema,
@@ -304,7 +304,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PolicyStoreId>';
+AND Identifier = '<PolicyStoreId>';
 ```
 
 
@@ -313,7 +313,7 @@ AND data__Identifier = '<PolicyStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.policy_stores
-WHERE data__Identifier = '<PolicyStoreId>'
+WHERE Identifier = '<PolicyStoreId>'
 AND region = 'us-east-1';
 ```
 

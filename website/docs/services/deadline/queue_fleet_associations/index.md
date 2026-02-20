@@ -114,7 +114,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>queue_fleet_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>queue_fleet_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -150,7 +150,7 @@ farm_id,
 fleet_id,
 queue_id
 FROM awscc.deadline.queue_fleet_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<FarmId>|<FleetId>|<QueueId>';
+WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<FleetId>|<QueueId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_fleet_associations
-WHERE data__Identifier = '<FarmId|FleetId|QueueId>'
+WHERE Identifier = '<FarmId|FleetId|QueueId>'
 AND region = 'us-east-1';
 ```
 

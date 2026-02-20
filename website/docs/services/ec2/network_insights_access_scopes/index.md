@@ -228,13 +228,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>network_insights_access_scopes</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>network_insights_access_scopes</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -246,7 +246,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>network_insights_access_scopes</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -274,7 +274,7 @@ tags,
 match_paths,
 exclude_paths
 FROM awscc.ec2.network_insights_access_scopes
-WHERE region = 'us-east-1' AND data__Identifier = '<NetworkInsightsAccessScopeId>';
+WHERE region = 'us-east-1' AND Identifier = '<NetworkInsightsAccessScopeId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -393,11 +393,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_insights_access_scopes
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<NetworkInsightsAccessScopeId>';
+AND Identifier = '<NetworkInsightsAccessScopeId>';
 ```
 
 
@@ -406,7 +406,7 @@ AND data__Identifier = '<NetworkInsightsAccessScopeId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_access_scopes
-WHERE data__Identifier = '<NetworkInsightsAccessScopeId>'
+WHERE Identifier = '<NetworkInsightsAccessScopeId>'
 AND region = 'us-east-1';
 ```
 

@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>integration_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>integration_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -156,7 +156,7 @@ instance_id,
 integration_arn,
 integration_type
 FROM awscc.connect.integration_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<InstanceId>|<IntegrationType>|<IntegrationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<InstanceId>|<IntegrationType>|<IntegrationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,7 +251,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.integration_associations
-WHERE data__Identifier = '<InstanceId|IntegrationType|IntegrationArn>'
+WHERE Identifier = '<InstanceId|IntegrationType|IntegrationArn>'
 AND region = 'us-east-1';
 ```
 

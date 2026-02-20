@@ -233,13 +233,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>channels</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>channels</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -251,7 +251,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>channels</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -282,7 +282,7 @@ tags,
 tier,
 time_shift_configuration
 FROM awscc.mediatailor.channels
-WHERE region = 'us-east-1' AND data__Identifier = '<ChannelName>';
+WHERE region = 'us-east-1' AND Identifier = '<ChannelName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -417,7 +417,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediatailor.channels
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Audiences": audiences,
     "FillerSlate": filler_slate,
     "LogConfiguration": log_configuration,
@@ -427,7 +427,7 @@ SET data__PatchDocument = string('{{ {
     "TimeShiftConfiguration": time_shift_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ChannelName>';
+AND Identifier = '<ChannelName>';
 ```
 
 
@@ -436,7 +436,7 @@ AND data__Identifier = '<ChannelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.channels
-WHERE data__Identifier = '<ChannelName>'
+WHERE Identifier = '<ChannelName>'
 AND region = 'us-east-1';
 ```
 

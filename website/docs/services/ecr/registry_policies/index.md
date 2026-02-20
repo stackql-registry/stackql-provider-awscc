@@ -99,13 +99,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>registry_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>registry_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -117,7 +117,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>registry_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -140,7 +140,7 @@ region,
 registry_id,
 policy_text
 FROM awscc.ecr.registry_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<RegistryId>';
+WHERE region = 'us-east-1' AND Identifier = '<RegistryId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,11 +220,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ecr.registry_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PolicyText": policy_text
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RegistryId>';
+AND Identifier = '<RegistryId>';
 ```
 
 
@@ -233,7 +233,7 @@ AND data__Identifier = '<RegistryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.registry_policies
-WHERE data__Identifier = '<RegistryId>'
+WHERE Identifier = '<RegistryId>'
 AND region = 'us-east-1';
 ```
 

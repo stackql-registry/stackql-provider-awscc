@@ -197,13 +197,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>guard_hooks</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>guard_hooks</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -215,7 +215,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>guard_hooks</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -247,7 +247,7 @@ hook_arn,
 execution_role,
 options
 FROM awscc.cloudformation.guard_hooks
-WHERE region = 'us-east-1' AND data__Identifier = '<HookArn>';
+WHERE region = 'us-east-1' AND Identifier = '<HookArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -387,7 +387,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.guard_hooks
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RuleLocation": rule_location,
     "LogBucket": log_bucket,
     "HookStatus": hook_status,
@@ -398,7 +398,7 @@ SET data__PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<HookArn>';
+AND Identifier = '<HookArn>';
 ```
 
 
@@ -407,7 +407,7 @@ AND data__Identifier = '<HookArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.guard_hooks
-WHERE data__Identifier = '<HookArn>'
+WHERE Identifier = '<HookArn>'
 AND region = 'us-east-1';
 ```
 

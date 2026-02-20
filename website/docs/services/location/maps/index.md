@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>maps</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>maps</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>maps</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.maps
-WHERE region = 'us-east-1' AND data__Identifier = '<MapName>';
+WHERE region = 'us-east-1' AND Identifier = '<MapName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,13 +310,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.location.maps
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "PricingPlan": pricing_plan,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<MapName>';
+AND Identifier = '<MapName>';
 ```
 
 
@@ -325,7 +325,7 @@ AND data__Identifier = '<MapName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.maps
-WHERE data__Identifier = '<MapName>'
+WHERE Identifier = '<MapName>'
 AND region = 'us-east-1';
 ```
 

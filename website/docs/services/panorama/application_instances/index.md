@@ -180,13 +180,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>application_instances</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>application_instances</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -198,7 +198,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>application_instances</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -235,7 +235,7 @@ manifest_payload,
 arn,
 tags
 FROM awscc.panorama.application_instances
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationInstanceId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -349,11 +349,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.panorama.application_instances
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationInstanceId>';
+AND Identifier = '<ApplicationInstanceId>';
 ```
 
 
@@ -362,7 +362,7 @@ AND data__Identifier = '<ApplicationInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.panorama.application_instances
-WHERE data__Identifier = '<ApplicationInstanceId>'
+WHERE Identifier = '<ApplicationInstanceId>'
 AND region = 'us-east-1';
 ```
 

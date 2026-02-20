@@ -244,13 +244,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>app_image_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>app_image_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -262,7 +262,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>app_image_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -289,7 +289,7 @@ jupyter_lab_app_image_config,
 code_editor_app_image_config,
 tags
 FROM awscc.sagemaker.app_image_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<AppImageConfigName>';
+WHERE region = 'us-east-1' AND Identifier = '<AppImageConfigName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -403,14 +403,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.app_image_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "KernelGatewayImageConfig": kernel_gateway_image_config,
     "JupyterLabAppImageConfig": jupyter_lab_app_image_config,
     "CodeEditorAppImageConfig": code_editor_app_image_config,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AppImageConfigName>';
+AND Identifier = '<AppImageConfigName>';
 ```
 
 
@@ -419,7 +419,7 @@ AND data__Identifier = '<AppImageConfigName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.app_image_configs
-WHERE data__Identifier = '<AppImageConfigName>'
+WHERE Identifier = '<AppImageConfigName>'
 AND region = 'us-east-1';
 ```
 

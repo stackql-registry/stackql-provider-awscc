@@ -203,13 +203,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>replication_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>replication_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -221,7 +221,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>replication_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -253,7 +253,7 @@ resource_identifier,
 table_mappings,
 tags
 FROM awscc.dms.replication_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<ReplicationConfigArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ReplicationConfigArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,7 +391,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.dms.replication_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ReplicationConfigIdentifier": replication_config_identifier,
     "SourceEndpointArn": source_endpoint_arn,
     "TargetEndpointArn": target_endpoint_arn,
@@ -403,7 +403,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ReplicationConfigArn>';
+AND Identifier = '<ReplicationConfigArn>';
 ```
 
 
@@ -412,7 +412,7 @@ AND data__Identifier = '<ReplicationConfigArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.replication_configs
-WHERE data__Identifier = '<ReplicationConfigArn>'
+WHERE Identifier = '<ReplicationConfigArn>'
 AND region = 'us-east-1';
 ```
 

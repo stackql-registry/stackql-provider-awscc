@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>delivery_sources</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>delivery_sources</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>delivery_sources</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -177,7 +177,7 @@ service,
 log_type,
 tags
 FROM awscc.logs.delivery_sources
-WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,13 +271,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.delivery_sources
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ResourceArn": resource_arn,
     "LogType": log_type,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Name>';
+AND Identifier = '<Name>';
 ```
 
 
@@ -286,7 +286,7 @@ AND data__Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.delivery_sources
-WHERE data__Identifier = '<Name>'
+WHERE Identifier = '<Name>'
 AND region = 'us-east-1';
 ```
 

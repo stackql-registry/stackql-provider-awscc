@@ -383,13 +383,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -401,7 +401,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>clusters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -436,7 +436,7 @@ auto_scaling,
 cluster_status,
 tags
 FROM awscc.sagemaker.clusters
-WHERE region = 'us-east-1' AND data__Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -613,7 +613,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.clusters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "NodeRecovery": node_recovery,
     "ClusterRole": cluster_role,
     "NodeProvisioningMode": node_provisioning_mode,
@@ -621,7 +621,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ClusterArn>';
+AND Identifier = '<ClusterArn>';
 ```
 
 
@@ -630,7 +630,7 @@ AND data__Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.clusters
-WHERE data__Identifier = '<ClusterArn>'
+WHERE Identifier = '<ClusterArn>'
 AND region = 'us-east-1';
 ```
 

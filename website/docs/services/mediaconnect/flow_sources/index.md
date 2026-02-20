@@ -260,13 +260,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flow_sources</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flow_sources</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -278,7 +278,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flow_sources</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -320,7 +320,7 @@ source_listener_port,
 vpc_interface_name,
 whitelist_cidr
 FROM awscc.mediaconnect.flow_sources
-WHERE region = 'us-east-1' AND data__Identifier = '<SourceArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SourceArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -482,7 +482,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.mediaconnect.flow_sources
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "FlowArn": flow_arn,
     "Decryption": decryption,
     "Description": description,
@@ -502,7 +502,7 @@ SET data__PatchDocument = string('{{ {
     "WhitelistCidr": whitelist_cidr
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SourceArn>';
+AND Identifier = '<SourceArn>';
 ```
 
 
@@ -511,7 +511,7 @@ AND data__Identifier = '<SourceArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_sources
-WHERE data__Identifier = '<SourceArn>'
+WHERE Identifier = '<SourceArn>'
 AND region = 'us-east-1';
 ```
 

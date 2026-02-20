@@ -448,13 +448,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>spaces</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>spaces</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -466,7 +466,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>spaces</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -496,7 +496,7 @@ space_sharing_settings,
 space_display_name,
 url
 FROM awscc.sagemaker.spaces
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainId>|<SpaceName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<SpaceName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -646,13 +646,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.spaces
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SpaceSettings": space_settings,
     "Tags": tags,
     "SpaceDisplayName": space_display_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainId>|<SpaceName>';
+AND Identifier = '<DomainId>|<SpaceName>';
 ```
 
 
@@ -661,7 +661,7 @@ AND data__Identifier = '<DomainId>|<SpaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.spaces
-WHERE data__Identifier = '<DomainId|SpaceName>'
+WHERE Identifier = '<DomainId|SpaceName>'
 AND region = 'us-east-1';
 ```
 

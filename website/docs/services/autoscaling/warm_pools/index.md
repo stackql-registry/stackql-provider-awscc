@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>warm_pools</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>warm_pools</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>warm_pools</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -165,7 +165,7 @@ min_size,
 pool_state,
 instance_reuse_policy
 FROM awscc.autoscaling.warm_pools
-WHERE region = 'us-east-1' AND data__Identifier = '<AutoScalingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<AutoScalingGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,14 +262,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.autoscaling.warm_pools
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "MaxGroupPreparedCapacity": max_group_prepared_capacity,
     "MinSize": min_size,
     "PoolState": pool_state,
     "InstanceReusePolicy": instance_reuse_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AutoScalingGroupName>';
+AND Identifier = '<AutoScalingGroupName>';
 ```
 
 
@@ -278,7 +278,7 @@ AND data__Identifier = '<AutoScalingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.warm_pools
-WHERE data__Identifier = '<AutoScalingGroupName>'
+WHERE Identifier = '<AutoScalingGroupName>'
 AND region = 'us-east-1';
 ```
 

@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>hook_type_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>hook_type_configs</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>hook_type_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ configuration_arn,
 configuration,
 configuration_alias
 FROM awscc.cloudformation.hook_type_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<ConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ConfigurationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,13 +261,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.hook_type_configs
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "TypeArn": type_arn,
     "TypeName": type_name,
     "Configuration": configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConfigurationArn>';
+AND Identifier = '<ConfigurationArn>';
 ```
 
 
@@ -276,7 +276,7 @@ AND data__Identifier = '<ConfigurationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.hook_type_configs
-WHERE data__Identifier = '<ConfigurationArn>'
+WHERE Identifier = '<ConfigurationArn>'
 AND region = 'us-east-1';
 ```
 

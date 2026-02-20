@@ -399,13 +399,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>graphql_apis</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>graphql_apis</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -417,7 +417,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>graphql_apis</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -463,7 +463,7 @@ user_pool_config,
 visibility,
 xray_enabled
 FROM awscc.appsync.graphql_apis
-WHERE region = 'us-east-1' AND data__Identifier = '<ApiId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApiId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -639,7 +639,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appsync.graphql_apis
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AdditionalAuthenticationProviders": additional_authentication_providers,
     "ApiType": api_type,
     "AuthenticationType": authentication_type,
@@ -660,7 +660,7 @@ SET data__PatchDocument = string('{{ {
     "XrayEnabled": xray_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApiId>';
+AND Identifier = '<ApiId>';
 ```
 
 
@@ -669,7 +669,7 @@ AND data__Identifier = '<ApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.graphql_apis
-WHERE data__Identifier = '<ApiId>'
+WHERE Identifier = '<ApiId>'
 AND region = 'us-east-1';
 ```
 

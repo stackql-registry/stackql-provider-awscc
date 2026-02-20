@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>member_invitations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>member_invitations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ member_email_address,
 disable_email_notification,
 message
 FROM awscc.detective.member_invitations
-WHERE region = 'us-east-1' AND data__Identifier = '<GraphArn>|<MemberId>';
+WHERE region = 'us-east-1' AND Identifier = '<GraphArn>|<MemberId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,7 +259,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.member_invitations
-WHERE data__Identifier = '<GraphArn|MemberId>'
+WHERE Identifier = '<GraphArn|MemberId>'
 AND region = 'us-east-1';
 ```
 

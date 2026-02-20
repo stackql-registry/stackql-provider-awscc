@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>saml_providers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>saml_providers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>saml_providers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ remove_private_key,
 private_key_list,
 saml_provider_uu_id
 FROM awscc.iam.saml_providers
-WHERE data__Identifier = '<Arn>';
+WHERE Identifier = '<Arn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,14 +326,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.saml_providers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SamlMetadataDocument": saml_metadata_document,
     "Tags": tags,
     "AssertionEncryptionMode": assertion_encryption_mode,
     "PrivateKeyList": private_key_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Arn>';
+AND Identifier = '<Arn>';
 ```
 
 
@@ -342,7 +342,7 @@ AND data__Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.saml_providers
-WHERE data__Identifier = '<Arn>'
+WHERE Identifier = '<Arn>'
 AND region = 'us-east-1';
 ```
 

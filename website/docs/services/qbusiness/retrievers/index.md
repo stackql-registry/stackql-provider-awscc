@@ -161,13 +161,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>retrievers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>retrievers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -179,7 +179,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>retrievers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ tags,
 type,
 updated_at
 FROM awscc.qbusiness.retrievers
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationId>|<RetrieverId>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<RetrieverId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,14 +320,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.qbusiness.retrievers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Configuration": configuration,
     "DisplayName": display_name,
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationId>|<RetrieverId>';
+AND Identifier = '<ApplicationId>|<RetrieverId>';
 ```
 
 
@@ -336,7 +336,7 @@ AND data__Identifier = '<ApplicationId>|<RetrieverId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.retrievers
-WHERE data__Identifier = '<ApplicationId|RetrieverId>'
+WHERE Identifier = '<ApplicationId|RetrieverId>'
 AND region = 'us-east-1';
 ```
 

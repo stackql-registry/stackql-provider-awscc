@@ -70,17 +70,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -94,7 +94,7 @@ region,
 policy_document,
 queue
 FROM awscc.sqs.queue_inline_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<Queue>';
+WHERE region = 'us-east-1' AND Identifier = '<Queue>';
 ```
 
 ## `INSERT` example
@@ -167,11 +167,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sqs.queue_inline_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Queue>';
+AND Identifier = '<Queue>';
 ```
 
 
@@ -180,7 +180,7 @@ AND data__Identifier = '<Queue>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sqs.queue_inline_policies
-WHERE data__Identifier = '<Queue>'
+WHERE Identifier = '<Queue>'
 AND region = 'us-east-1';
 ```
 

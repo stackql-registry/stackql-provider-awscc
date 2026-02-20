@@ -359,13 +359,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>asset_models</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>asset_models</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -377,7 +377,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>asset_models</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -409,7 +409,7 @@ asset_model_hierarchies,
 enforced_asset_model_interface_relationships,
 tags
 FROM awscc.iotsitewise.asset_models
-WHERE region = 'us-east-1' AND data__Identifier = '<AssetModelId>';
+WHERE region = 'us-east-1' AND Identifier = '<AssetModelId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -576,7 +576,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.asset_models
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AssetModelExternalId": asset_model_external_id,
     "AssetModelName": asset_model_name,
     "AssetModelDescription": asset_model_description,
@@ -584,7 +584,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AssetModelId>';
+AND Identifier = '<AssetModelId>';
 ```
 
 
@@ -593,7 +593,7 @@ AND data__Identifier = '<AssetModelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.asset_models
-WHERE data__Identifier = '<AssetModelId>'
+WHERE Identifier = '<AssetModelId>'
 AND region = 'us-east-1';
 ```
 

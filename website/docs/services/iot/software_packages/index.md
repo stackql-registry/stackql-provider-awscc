@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>software_packages</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>software_packages</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>software_packages</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ package_arn,
 package_name,
 tags
 FROM awscc.iot.software_packages
-WHERE region = 'us-east-1' AND data__Identifier = '<PackageName>';
+WHERE region = 'us-east-1' AND Identifier = '<PackageName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,12 +258,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.software_packages
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PackageName>';
+AND Identifier = '<PackageName>';
 ```
 
 
@@ -272,7 +272,7 @@ AND data__Identifier = '<PackageName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.software_packages
-WHERE data__Identifier = '<PackageName>'
+WHERE Identifier = '<PackageName>'
 AND region = 'us-east-1';
 ```
 

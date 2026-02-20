@@ -163,13 +163,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>anomaly_subscriptions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>anomaly_subscriptions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -181,7 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>anomaly_subscriptions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ threshold_expression,
 frequency,
 resource_tags
 FROM awscc.ce.anomaly_subscriptions
-WHERE region = 'us-east-1' AND data__Identifier = '<SubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SubscriptionArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,7 +327,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ce.anomaly_subscriptions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SubscriptionName": subscription_name,
     "MonitorArnList": monitor_arn_list,
     "Threshold": threshold,
@@ -335,7 +335,7 @@ SET data__PatchDocument = string('{{ {
     "Frequency": frequency
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SubscriptionArn>';
+AND Identifier = '<SubscriptionArn>';
 ```
 
 
@@ -344,7 +344,7 @@ AND data__Identifier = '<SubscriptionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ce.anomaly_subscriptions
-WHERE data__Identifier = '<SubscriptionArn>'
+WHERE Identifier = '<SubscriptionArn>'
 AND region = 'us-east-1';
 ```
 

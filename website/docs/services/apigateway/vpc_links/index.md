@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>vpc_links</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>vpc_links</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>vpc_links</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ tags,
 target_arns,
 vpc_link_id
 FROM awscc.apigateway.vpc_links
-WHERE region = 'us-east-1' AND data__Identifier = '<VpcLinkId>';
+WHERE region = 'us-east-1' AND Identifier = '<VpcLinkId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,13 +267,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.vpc_links
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "Description": description,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<VpcLinkId>';
+AND Identifier = '<VpcLinkId>';
 ```
 
 
@@ -282,7 +282,7 @@ AND data__Identifier = '<VpcLinkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.vpc_links
-WHERE data__Identifier = '<VpcLinkId>'
+WHERE Identifier = '<VpcLinkId>'
 AND region = 'us-east-1';
 ```
 

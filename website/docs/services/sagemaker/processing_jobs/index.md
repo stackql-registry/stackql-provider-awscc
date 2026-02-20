@@ -543,7 +543,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>processing_jobs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -555,7 +555,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>processing_jobs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -598,7 +598,7 @@ last_modified_time,
 processing_start_time,
 processing_end_time
 FROM awscc.sagemaker.processing_jobs
-WHERE region = 'us-east-1' AND data__Identifier = '<ProcessingJobArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ProcessingJobArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -789,7 +789,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.processing_jobs
-WHERE data__Identifier = '<ProcessingJobArn>'
+WHERE Identifier = '<ProcessingJobArn>'
 AND region = 'us-east-1';
 ```
 

@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>studio_lifecycle_configs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -138,7 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>studio_lifecycle_configs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ studio_lifecycle_config_content,
 studio_lifecycle_config_name,
 tags
 FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE region = 'us-east-1' AND data__Identifier = '<StudioLifecycleConfigName>';
+WHERE region = 'us-east-1' AND Identifier = '<StudioLifecycleConfigName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE data__Identifier = '<StudioLifecycleConfigName>'
+WHERE Identifier = '<StudioLifecycleConfigName>'
 AND region = 'us-east-1';
 ```
 

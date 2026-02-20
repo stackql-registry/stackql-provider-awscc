@@ -99,13 +99,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>batch_scram_secrets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>batch_scram_secrets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -117,7 +117,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>batch_scram_secrets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -140,7 +140,7 @@ region,
 cluster_arn,
 secret_arn_list
 FROM awscc.msk.batch_scram_secrets
-WHERE region = 'us-east-1' AND data__Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +225,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.msk.batch_scram_secrets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "SecretArnList": secret_arn_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ClusterArn>';
+AND Identifier = '<ClusterArn>';
 ```
 
 
@@ -238,7 +238,7 @@ AND data__Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.batch_scram_secrets
-WHERE data__Identifier = '<ClusterArn>'
+WHERE Identifier = '<ClusterArn>'
 AND region = 'us-east-1';
 ```
 

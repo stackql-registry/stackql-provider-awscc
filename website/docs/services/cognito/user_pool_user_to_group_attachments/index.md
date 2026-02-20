@@ -75,12 +75,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -95,7 +95,7 @@ user_pool_id,
 username,
 group_name
 FROM awscc.cognito.user_pool_user_to_group_attachments
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<GroupName>|<Username>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<GroupName>|<Username>';
 ```
 
 ## `INSERT` example
@@ -175,7 +175,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_user_to_group_attachments
-WHERE data__Identifier = '<UserPoolId|GroupName|Username>'
+WHERE Identifier = '<UserPoolId|GroupName|Username>'
 AND region = 'us-east-1';
 ```
 

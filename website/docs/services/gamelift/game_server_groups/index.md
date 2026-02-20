@@ -219,13 +219,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>game_server_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>game_server_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -237,7 +237,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>game_server_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -272,7 +272,7 @@ role_arn,
 tags,
 vpc_subnets
 FROM awscc.gamelift.game_server_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<GameServerGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '<GameServerGroupArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -411,7 +411,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.gamelift.game_server_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AutoScalingPolicy": auto_scaling_policy,
     "BalancingStrategy": balancing_strategy,
     "DeleteOption": delete_option,
@@ -426,7 +426,7 @@ SET data__PatchDocument = string('{{ {
     "VpcSubnets": vpc_subnets
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<GameServerGroupArn>';
+AND Identifier = '<GameServerGroupArn>';
 ```
 
 
@@ -435,7 +435,7 @@ AND data__Identifier = '<GameServerGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.game_server_groups
-WHERE data__Identifier = '<GameServerGroupArn>'
+WHERE Identifier = '<GameServerGroupArn>'
 AND region = 'us-east-1';
 ```
 

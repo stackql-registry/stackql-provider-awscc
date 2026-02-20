@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>local_gateway_route_table_virtual_interface_group_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>local_gateway_route_table_virtual_interface_group_associations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>local_gateway_route_table_virtual_interface_group_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ owner_id,
 state,
 tags
 FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,11 +280,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
+AND Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>';
 ```
 
 
@@ -293,7 +293,7 @@ AND data__Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationI
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_table_virtual_interface_group_associations
-WHERE data__Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>'
+WHERE Identifier = '<LocalGatewayRouteTableVirtualInterfaceGroupAssociationId>'
 AND region = 'us-east-1';
 ```
 

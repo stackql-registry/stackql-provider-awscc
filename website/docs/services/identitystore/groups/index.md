@@ -114,13 +114,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -132,7 +132,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ display_name,
 group_id,
 identity_store_id
 FROM awscc.identitystore.groups
-WHERE region = 'us-east-1' AND data__Identifier = '<GroupId>|<IdentityStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '<GroupId>|<IdentityStoreId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,12 +248,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.identitystore.groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "DisplayName": display_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<GroupId>|<IdentityStoreId>';
+AND Identifier = '<GroupId>|<IdentityStoreId>';
 ```
 
 
@@ -262,7 +262,7 @@ AND data__Identifier = '<GroupId>|<IdentityStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.identitystore.groups
-WHERE data__Identifier = '<GroupId|IdentityStoreId>'
+WHERE Identifier = '<GroupId|IdentityStoreId>'
 AND region = 'us-east-1';
 ```
 

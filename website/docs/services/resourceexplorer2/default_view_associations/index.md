@@ -70,17 +70,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -94,7 +94,7 @@ region,
 view_arn,
 associated_aws_principal
 FROM awscc.resourceexplorer2.default_view_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<AssociatedAwsPrincipal>';
+WHERE region = 'us-east-1' AND Identifier = '<AssociatedAwsPrincipal>';
 ```
 
 ## `INSERT` example
@@ -161,11 +161,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.resourceexplorer2.default_view_associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ViewArn": view_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AssociatedAwsPrincipal>';
+AND Identifier = '<AssociatedAwsPrincipal>';
 ```
 
 
@@ -174,7 +174,7 @@ AND data__Identifier = '<AssociatedAwsPrincipal>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.default_view_associations
-WHERE data__Identifier = '<AssociatedAwsPrincipal>'
+WHERE Identifier = '<AssociatedAwsPrincipal>'
 AND region = 'us-east-1';
 ```
 

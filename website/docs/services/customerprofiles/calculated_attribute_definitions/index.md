@@ -270,13 +270,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>calculated_attribute_definitions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>calculated_attribute_definitions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -288,7 +288,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>calculated_attribute_definitions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -322,7 +322,7 @@ status,
 readiness,
 tags
 FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<CalculatedAttributeName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<CalculatedAttributeName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -458,7 +458,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.calculated_attribute_definitions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Description": description,
     "AttributeDetails": attribute_details,
@@ -466,7 +466,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>|<CalculatedAttributeName>';
+AND Identifier = '<DomainName>|<CalculatedAttributeName>';
 ```
 
 
@@ -475,7 +475,7 @@ AND data__Identifier = '<DomainName>|<CalculatedAttributeName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.calculated_attribute_definitions
-WHERE data__Identifier = '<DomainName|CalculatedAttributeName>'
+WHERE Identifier = '<DomainName|CalculatedAttributeName>'
 AND region = 'us-east-1';
 ```
 

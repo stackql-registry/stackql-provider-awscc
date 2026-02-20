@@ -220,13 +220,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -238,7 +238,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -269,7 +269,7 @@ tags,
 url,
 security_policy_name
 FROM awscc.transfer.connectors
-WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorId>';
+WHERE region = 'us-east-1' AND Identifier = '<ConnectorId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,7 +391,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.transfer.connectors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccessRole": access_role,
     "As2Config": as2_config,
     "SftpConfig": sftp_config,
@@ -401,7 +401,7 @@ SET data__PatchDocument = string('{{ {
     "SecurityPolicyName": security_policy_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConnectorId>';
+AND Identifier = '<ConnectorId>';
 ```
 
 
@@ -410,7 +410,7 @@ AND data__Identifier = '<ConnectorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.connectors
-WHERE data__Identifier = '<ConnectorId>'
+WHERE Identifier = '<ConnectorId>'
 AND region = 'us-east-1';
 ```
 

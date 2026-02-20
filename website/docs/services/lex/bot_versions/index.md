@@ -174,7 +174,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>bot_versions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -186,7 +186,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>bot_versions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -211,7 +211,7 @@ bot_version,
 description,
 bot_version_locale_specification
 FROM awscc.lex.bot_versions
-WHERE region = 'us-east-1' AND data__Identifier = '<BotId>|<BotVersion>';
+WHERE region = 'us-east-1' AND Identifier = '<BotId>|<BotVersion>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -309,7 +309,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_versions
-WHERE data__Identifier = '<BotId|BotVersion>'
+WHERE Identifier = '<BotId|BotVersion>'
 AND region = 'us-east-1';
 ```
 

@@ -172,13 +172,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>data_repository_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>data_repository_associations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -190,7 +190,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>data_repository_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -220,7 +220,7 @@ imported_file_chunk_size,
 s3,
 tags
 FROM awscc.fsx.data_repository_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -335,13 +335,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.fsx.data_repository_associations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ImportedFileChunkSize": imported_file_chunk_size,
     "S3": s3,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AssociationId>';
+AND Identifier = '<AssociationId>';
 ```
 
 
@@ -350,7 +350,7 @@ AND data__Identifier = '<AssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fsx.data_repository_associations
-WHERE data__Identifier = '<AssociationId>'
+WHERE Identifier = '<AssociationId>'
 AND region = 'us-east-1';
 ```
 

@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>api_keys</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>api_keys</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>api_keys</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ stage_keys,
 tags,
 value
 FROM awscc.apigateway.api_keys
-WHERE region = 'us-east-1' AND data__Identifier = '<APIKeyId>';
+WHERE region = 'us-east-1' AND Identifier = '<APIKeyId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,7 +332,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.api_keys
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "CustomerId": customer_id,
     "Description": description,
     "Enabled": enabled,
@@ -340,7 +340,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<APIKeyId>';
+AND Identifier = '<APIKeyId>';
 ```
 
 
@@ -349,7 +349,7 @@ AND data__Identifier = '<APIKeyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.api_keys
-WHERE data__Identifier = '<APIKeyId>'
+WHERE Identifier = '<APIKeyId>'
 AND region = 'us-east-1';
 ```
 

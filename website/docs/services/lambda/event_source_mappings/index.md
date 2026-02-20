@@ -449,13 +449,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>event_source_mappings</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>event_source_mappings</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -467,7 +467,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>event_source_mappings</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -517,7 +517,7 @@ document_db_event_source_config,
 provisioned_poller_config,
 metrics_config
 FROM awscc.lambda.event_source_mappings
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -734,7 +734,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.lambda.event_source_mappings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "BatchSize": batch_size,
     "BisectBatchOnFunctionError": bisect_batch_on_function_error,
     "DestinationConfig": destination_config,
@@ -760,7 +760,7 @@ SET data__PatchDocument = string('{{ {
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>';
+AND Identifier = '<Id>';
 ```
 
 
@@ -769,7 +769,7 @@ AND data__Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_source_mappings
-WHERE data__Identifier = '<Id>'
+WHERE Identifier = '<Id>'
 AND region = 'us-east-1';
 ```
 

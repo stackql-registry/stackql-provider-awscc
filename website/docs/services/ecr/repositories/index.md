@@ -199,13 +199,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>repositories</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>repositories</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -217,7 +217,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>repositories</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -249,7 +249,7 @@ image_tag_mutability_exclusion_filters,
 image_scanning_configuration,
 encryption_configuration
 FROM awscc.ecr.repositories
-WHERE region = 'us-east-1' AND data__Identifier = '<RepositoryName>';
+WHERE region = 'us-east-1' AND Identifier = '<RepositoryName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -386,7 +386,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ecr.repositories
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "EmptyOnDelete": empty_on_delete,
     "LifecyclePolicy": lifecycle_policy,
     "RepositoryPolicyText": repository_policy_text,
@@ -396,7 +396,7 @@ SET data__PatchDocument = string('{{ {
     "ImageScanningConfiguration": image_scanning_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RepositoryName>';
+AND Identifier = '<RepositoryName>';
 ```
 
 
@@ -405,7 +405,7 @@ AND data__Identifier = '<RepositoryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repositories
-WHERE data__Identifier = '<RepositoryName>'
+WHERE Identifier = '<RepositoryName>'
 AND region = 'us-east-1';
 ```
 

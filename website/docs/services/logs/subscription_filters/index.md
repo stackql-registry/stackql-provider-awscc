@@ -129,13 +129,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>subscription_filters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>subscription_filters</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -147,7 +147,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>subscription_filters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -175,7 +175,7 @@ role_arn,
 distribution,
 apply_on_transformed_logs
 FROM awscc.logs.subscription_filters
-WHERE region = 'us-east-1' AND data__Identifier = '<FilterName>|<LogGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<FilterName>|<LogGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,7 +284,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.logs.subscription_filters
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DestinationArn": destination_arn,
     "FilterPattern": filter_pattern,
     "RoleArn": role_arn,
@@ -292,7 +292,7 @@ SET data__PatchDocument = string('{{ {
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FilterName>|<LogGroupName>';
+AND Identifier = '<FilterName>|<LogGroupName>';
 ```
 
 
@@ -301,7 +301,7 @@ AND data__Identifier = '<FilterName>|<LogGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.subscription_filters
-WHERE data__Identifier = '<FilterName|LogGroupName>'
+WHERE Identifier = '<FilterName|LogGroupName>'
 AND region = 'us-east-1';
 ```
 

@@ -136,7 +136,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>key_pairs</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -148,7 +148,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>key_pairs</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ key_fingerprint,
 key_pair_id,
 tags
 FROM awscc.ec2.key_pairs
-WHERE region = 'us-east-1' AND data__Identifier = '<KeyName>';
+WHERE region = 'us-east-1' AND Identifier = '<KeyName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,7 +275,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.key_pairs
-WHERE data__Identifier = '<KeyName>'
+WHERE Identifier = '<KeyName>'
 AND region = 'us-east-1';
 ```
 

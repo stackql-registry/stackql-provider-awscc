@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>role_aliases</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>role_aliases</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>role_aliases</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ role_arn,
 credential_duration_seconds,
 tags
 FROM awscc.iot.role_aliases
-WHERE region = 'us-east-1' AND data__Identifier = '<RoleAlias>';
+WHERE region = 'us-east-1' AND Identifier = '<RoleAlias>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,13 +264,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.role_aliases
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "RoleArn": role_arn,
     "CredentialDurationSeconds": credential_duration_seconds,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RoleAlias>';
+AND Identifier = '<RoleAlias>';
 ```
 
 
@@ -279,7 +279,7 @@ AND data__Identifier = '<RoleAlias>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.role_aliases
-WHERE data__Identifier = '<RoleAlias>'
+WHERE Identifier = '<RoleAlias>'
 AND region = 'us-east-1';
 ```
 

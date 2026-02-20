@@ -119,13 +119,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>pull_through_cache_rules</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>pull_through_cache_rules</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -137,7 +137,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>pull_through_cache_rules</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ upstream_registry,
 custom_role_arn,
 upstream_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
-WHERE region = 'us-east-1' AND data__Identifier = '<EcrRepositoryPrefix>';
+WHERE region = 'us-east-1' AND Identifier = '<EcrRepositoryPrefix>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,7 +275,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.pull_through_cache_rules
-WHERE data__Identifier = '<EcrRepositoryPrefix>'
+WHERE Identifier = '<EcrRepositoryPrefix>'
 AND region = 'us-east-1';
 ```
 

@@ -170,13 +170,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>access_entries</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>access_entries</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -188,7 +188,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>access_entries</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -217,7 +217,7 @@ kubernetes_groups,
 access_policies,
 type
 FROM awscc.eks.access_entries
-WHERE region = 'us-east-1' AND data__Identifier = '<PrincipalArn>|<ClusterName>';
+WHERE region = 'us-east-1' AND Identifier = '<PrincipalArn>|<ClusterName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,14 +332,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.eks.access_entries
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Username": username,
     "Tags": tags,
     "KubernetesGroups": kubernetes_groups,
     "AccessPolicies": access_policies
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<PrincipalArn>|<ClusterName>';
+AND Identifier = '<PrincipalArn>|<ClusterName>';
 ```
 
 
@@ -348,7 +348,7 @@ AND data__Identifier = '<PrincipalArn>|<ClusterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.access_entries
-WHERE data__Identifier = '<PrincipalArn|ClusterName>'
+WHERE Identifier = '<PrincipalArn|ClusterName>'
 AND region = 'us-east-1';
 ```
 

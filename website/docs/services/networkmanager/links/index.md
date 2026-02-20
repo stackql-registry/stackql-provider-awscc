@@ -173,13 +173,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>links</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>links</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -191,7 +191,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>links</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -223,7 +223,7 @@ type,
 created_at,
 state
 FROM awscc.networkmanager.links
-WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>|<LinkId>';
+WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<LinkId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -336,7 +336,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.links
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Bandwidth": bandwidth,
     "Provider": provider,
     "Description": description,
@@ -344,7 +344,7 @@ SET data__PatchDocument = string('{{ {
     "Type": type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<GlobalNetworkId>|<LinkId>';
+AND Identifier = '<GlobalNetworkId>|<LinkId>';
 ```
 
 
@@ -353,7 +353,7 @@ AND data__Identifier = '<GlobalNetworkId>|<LinkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.links
-WHERE data__Identifier = '<GlobalNetworkId|LinkId>'
+WHERE Identifier = '<GlobalNetworkId|LinkId>'
 AND region = 'us-east-1';
 ```
 

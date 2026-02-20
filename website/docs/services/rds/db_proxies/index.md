@@ -193,13 +193,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>db_proxies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>db_proxies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -211,7 +211,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>db_proxies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -245,7 +245,7 @@ vpc_id,
 vpc_security_group_ids,
 vpc_subnet_ids
 FROM awscc.rds.db_proxies
-WHERE region = 'us-east-1' AND data__Identifier = '<DBProxyName>';
+WHERE region = 'us-east-1' AND Identifier = '<DBProxyName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -378,7 +378,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rds.db_proxies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Auth": auth,
     "DebugLogging": debug_logging,
     "IdleClientTimeout": idle_client_timeout,
@@ -388,7 +388,7 @@ SET data__PatchDocument = string('{{ {
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DBProxyName>';
+AND Identifier = '<DBProxyName>';
 ```
 
 
@@ -397,7 +397,7 @@ AND data__Identifier = '<DBProxyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxies
-WHERE data__Identifier = '<DBProxyName>'
+WHERE Identifier = '<DBProxyName>'
 AND region = 'us-east-1';
 ```
 

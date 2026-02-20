@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>access_grants_locations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>access_grants_locations</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>access_grants_locations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ iam_role_arn,
 location_scope,
 tags
 FROM awscc.s3.access_grants_locations
-WHERE region = 'us-east-1' AND data__Identifier = '<AccessGrantsLocationId>';
+WHERE region = 'us-east-1' AND Identifier = '<AccessGrantsLocationId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,12 +260,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.s3.access_grants_locations
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IamRoleArn": iam_role_arn,
     "LocationScope": location_scope
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccessGrantsLocationId>';
+AND Identifier = '<AccessGrantsLocationId>';
 ```
 
 
@@ -274,7 +274,7 @@ AND data__Identifier = '<AccessGrantsLocationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants_locations
-WHERE data__Identifier = '<AccessGrantsLocationId>'
+WHERE Identifier = '<AccessGrantsLocationId>'
 AND region = 'us-east-1';
 ```
 

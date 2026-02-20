@@ -150,12 +150,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -174,7 +174,7 @@ permissions_with_grant_option,
 principal_identifier,
 resource_identifier
 FROM awscc.lakeformation.principal_permissions
-WHERE region = 'us-east-1' AND data__Identifier = '<PrincipalIdentifier>|<ResourceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<PrincipalIdentifier>|<ResourceIdentifier>';
 ```
 
 ## `INSERT` example
@@ -281,7 +281,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.principal_permissions
-WHERE data__Identifier = '<PrincipalIdentifier|ResourceIdentifier>'
+WHERE Identifier = '<PrincipalIdentifier|ResourceIdentifier>'
 AND region = 'us-east-1';
 ```
 

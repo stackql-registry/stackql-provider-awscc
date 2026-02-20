@@ -205,13 +205,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>topics</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>topics</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -223,7 +223,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>topics</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -258,7 +258,7 @@ signature_version,
 tracing_config,
 delivery_status_logging
 FROM awscc.sns.topics
-WHERE region = 'us-east-1' AND data__Identifier = '<TopicArn>';
+WHERE region = 'us-east-1' AND Identifier = '<TopicArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -418,7 +418,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.sns.topics
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "KmsMasterKeyId": kms_master_key_id,
     "DataProtectionPolicy": data_protection_policy,
@@ -432,7 +432,7 @@ SET data__PatchDocument = string('{{ {
     "DeliveryStatusLogging": delivery_status_logging
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TopicArn>';
+AND Identifier = '<TopicArn>';
 ```
 
 
@@ -441,7 +441,7 @@ AND data__Identifier = '<TopicArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sns.topics
-WHERE data__Identifier = '<TopicArn>'
+WHERE Identifier = '<TopicArn>'
 AND region = 'us-east-1';
 ```
 

@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>db_subnet_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>db_subnet_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>db_subnet_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ db_subnet_group_name,
 subnet_ids,
 tags
 FROM awscc.rds.db_subnet_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<DBSubnetGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '<DBSubnetGroupName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,13 +261,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.rds.db_subnet_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DBSubnetGroupDescription": db_subnet_group_description,
     "SubnetIds": subnet_ids,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DBSubnetGroupName>';
+AND Identifier = '<DBSubnetGroupName>';
 ```
 
 
@@ -276,7 +276,7 @@ AND data__Identifier = '<DBSubnetGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_subnet_groups
-WHERE data__Identifier = '<DBSubnetGroupName>'
+WHERE Identifier = '<DBSubnetGroupName>'
 AND region = 'us-east-1';
 ```
 

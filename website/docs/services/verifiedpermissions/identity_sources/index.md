@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>identity_sources</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>identity_sources</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>identity_sources</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -185,7 +185,7 @@ identity_source_id,
 policy_store_id,
 principal_entity_type
 FROM awscc.verifiedpermissions.identity_sources
-WHERE region = 'us-east-1' AND data__Identifier = '<IdentitySourceId>|<PolicyStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '<IdentitySourceId>|<PolicyStoreId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,12 +276,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.verifiedpermissions.identity_sources
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Configuration": configuration,
     "PrincipalEntityType": principal_entity_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IdentitySourceId>|<PolicyStoreId>';
+AND Identifier = '<IdentitySourceId>|<PolicyStoreId>';
 ```
 
 
@@ -290,7 +290,7 @@ AND data__Identifier = '<IdentitySourceId>|<PolicyStoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.verifiedpermissions.identity_sources
-WHERE data__Identifier = '<IdentitySourceId|PolicyStoreId>'
+WHERE Identifier = '<IdentitySourceId|PolicyStoreId>'
 AND region = 'us-east-1';
 ```
 

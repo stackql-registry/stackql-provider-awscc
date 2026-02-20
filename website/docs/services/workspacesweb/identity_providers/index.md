@@ -131,13 +131,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>identity_providers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>identity_providers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -149,7 +149,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>identity_providers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -176,7 +176,7 @@ identity_provider_type,
 portal_arn,
 tags
 FROM awscc.workspacesweb.identity_providers
-WHERE region = 'us-east-1' AND data__Identifier = '<IdentityProviderArn>';
+WHERE region = 'us-east-1' AND Identifier = '<IdentityProviderArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,14 +278,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.identity_providers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IdentityProviderDetails": identity_provider_details,
     "IdentityProviderName": identity_provider_name,
     "IdentityProviderType": identity_provider_type,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IdentityProviderArn>';
+AND Identifier = '<IdentityProviderArn>';
 ```
 
 
@@ -294,7 +294,7 @@ AND data__Identifier = '<IdentityProviderArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.identity_providers
-WHERE data__Identifier = '<IdentityProviderArn>'
+WHERE Identifier = '<IdentityProviderArn>'
 AND region = 'us-east-1';
 ```
 

@@ -109,7 +109,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>masters</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -121,7 +121,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>masters</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -145,7 +145,7 @@ master_id,
 invitation_id,
 detector_id
 FROM awscc.guardduty.masters
-WHERE region = 'us-east-1' AND data__Identifier = '<DetectorId>|<MasterId>';
+WHERE region = 'us-east-1' AND Identifier = '<DetectorId>|<MasterId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,7 +237,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.masters
-WHERE data__Identifier = '<DetectorId|MasterId>'
+WHERE Identifier = '<DetectorId|MasterId>'
 AND region = 'us-east-1';
 ```
 

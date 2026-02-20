@@ -206,13 +206,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>applications</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>applications</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -224,7 +224,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>applications</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -257,7 +257,7 @@ initialization_timeout,
 application_config,
 iframe_config
 FROM awscc.appintegrations.applications
-WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -392,7 +392,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appintegrations.applications
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "Namespace": namespace,
     "Description": description,
@@ -405,7 +405,7 @@ SET data__PatchDocument = string('{{ {
     "IframeConfig": iframe_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ApplicationArn>';
+AND Identifier = '<ApplicationArn>';
 ```
 
 
@@ -414,7 +414,7 @@ AND data__Identifier = '<ApplicationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.applications
-WHERE data__Identifier = '<ApplicationArn>'
+WHERE Identifier = '<ApplicationArn>'
 AND region = 'us-east-1';
 ```
 

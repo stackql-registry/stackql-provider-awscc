@@ -139,13 +139,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -157,7 +157,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>scheduled_actions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ enable,
 target_action,
 next_invocations
 FROM awscc.redshift.scheduled_actions
-WHERE region = 'us-east-1' AND data__Identifier = '<ScheduledActionName>';
+WHERE region = 'us-east-1' AND Identifier = '<ScheduledActionName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,7 +296,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.redshift.scheduled_actions
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ScheduledActionDescription": scheduled_action_description,
     "EndTime": end_time,
     "Schedule": schedule,
@@ -306,7 +306,7 @@ SET data__PatchDocument = string('{{ {
     "TargetAction": target_action
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ScheduledActionName>';
+AND Identifier = '<ScheduledActionName>';
 ```
 
 
@@ -315,7 +315,7 @@ AND data__Identifier = '<ScheduledActionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.scheduled_actions
-WHERE data__Identifier = '<ScheduledActionName>'
+WHERE Identifier = '<ScheduledActionName>'
 AND region = 'us-east-1';
 ```
 

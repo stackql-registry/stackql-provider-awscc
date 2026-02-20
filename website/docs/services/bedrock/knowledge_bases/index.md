@@ -519,13 +519,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>knowledge_bases</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>knowledge_bases</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -537,7 +537,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>knowledge_bases</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -570,7 +570,7 @@ updated_at,
 storage_configuration,
 tags
 FROM awscc.bedrock.knowledge_bases
-WHERE region = 'us-east-1' AND data__Identifier = '<KnowledgeBaseId>';
+WHERE region = 'us-east-1' AND Identifier = '<KnowledgeBaseId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -776,14 +776,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.knowledge_bases
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Name": name,
     "RoleArn": role_arn,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<KnowledgeBaseId>';
+AND Identifier = '<KnowledgeBaseId>';
 ```
 
 
@@ -792,7 +792,7 @@ AND data__Identifier = '<KnowledgeBaseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.knowledge_bases
-WHERE data__Identifier = '<KnowledgeBaseId>'
+WHERE Identifier = '<KnowledgeBaseId>'
 AND region = 'us-east-1';
 ```
 

@@ -767,13 +767,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>topics</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>topics</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -785,7 +785,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>topics</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -817,7 +817,7 @@ tags,
 topic_id,
 user_experience_version
 FROM awscc.quicksight.topics
-WHERE region = 'us-east-1' AND data__Identifier = '<AwsAccountId>|<TopicId>';
+WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<TopicId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1093,7 +1093,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.quicksight.topics
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ConfigOptions": config_options,
     "CustomInstructions": custom_instructions,
     "DataSets": data_sets,
@@ -1102,7 +1102,7 @@ SET data__PatchDocument = string('{{ {
     "UserExperienceVersion": user_experience_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AwsAccountId>|<TopicId>';
+AND Identifier = '<AwsAccountId>|<TopicId>';
 ```
 
 
@@ -1111,7 +1111,7 @@ AND data__Identifier = '<AwsAccountId>|<TopicId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.topics
-WHERE data__Identifier = '<AwsAccountId|TopicId>'
+WHERE Identifier = '<AwsAccountId|TopicId>'
 AND region = 'us-east-1';
 ```
 

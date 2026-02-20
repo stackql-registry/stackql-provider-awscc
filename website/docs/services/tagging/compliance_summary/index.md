@@ -47,7 +47,7 @@ Returns a table that shows counts of resources that are noncompliant with their 
   <tr>
     <td><CopyableCode code="get_compliance_summary" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

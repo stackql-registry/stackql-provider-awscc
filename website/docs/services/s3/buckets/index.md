@@ -1216,13 +1216,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>buckets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>buckets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -1234,7 +1234,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>buckets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1282,7 +1282,7 @@ dual_stack_domain_name,
 regional_domain_name,
 website_url
 FROM awscc.s3.buckets
-WHERE region = 'us-east-1' AND data__Identifier = '<BucketName>';
+WHERE region = 'us-east-1' AND Identifier = '<BucketName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1643,7 +1643,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.s3.buckets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccelerateConfiguration": accelerate_configuration,
     "AccessControl": access_control,
     "AnalyticsConfigurations": analytics_configurations,
@@ -1665,7 +1665,7 @@ SET data__PatchDocument = string('{{ {
     "WebsiteConfiguration": website_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<BucketName>';
+AND Identifier = '<BucketName>';
 ```
 
 
@@ -1674,7 +1674,7 @@ AND data__Identifier = '<BucketName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.buckets
-WHERE data__Identifier = '<BucketName>'
+WHERE Identifier = '<BucketName>'
 AND region = 'us-east-1';
 ```
 

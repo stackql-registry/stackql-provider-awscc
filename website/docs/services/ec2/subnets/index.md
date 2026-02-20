@@ -230,13 +230,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>subnets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>subnets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -248,7 +248,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>subnets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -290,7 +290,7 @@ ipv6_ipam_pool_id,
 ipv6_netmask_length,
 block_public_access_states
 FROM awscc.ec2.subnets
-WHERE region = 'us-east-1' AND data__Identifier = '<SubnetId>';
+WHERE region = 'us-east-1' AND Identifier = '<SubnetId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -439,7 +439,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.subnets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AssignIpv6AddressOnCreation": assign_ipv6_address_on_creation,
     "MapPublicIpOnLaunch": map_public_ip_on_launch,
     "EnableLniAtDeviceIndex": enable_lni_at_device_index,
@@ -449,7 +449,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SubnetId>';
+AND Identifier = '<SubnetId>';
 ```
 
 
@@ -458,7 +458,7 @@ AND data__Identifier = '<SubnetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnets
-WHERE data__Identifier = '<SubnetId>'
+WHERE Identifier = '<SubnetId>'
 AND region = 'us-east-1';
 ```
 

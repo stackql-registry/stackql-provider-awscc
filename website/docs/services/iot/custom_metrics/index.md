@@ -126,13 +126,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>custom_metrics</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>custom_metrics</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -144,7 +144,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>custom_metrics</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ metric_type,
 metric_arn,
 tags
 FROM awscc.iot.custom_metrics
-WHERE region = 'us-east-1' AND data__Identifier = '<MetricName>';
+WHERE region = 'us-east-1' AND Identifier = '<MetricName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,12 +264,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.custom_metrics
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DisplayName": display_name,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<MetricName>';
+AND Identifier = '<MetricName>';
 ```
 
 
@@ -278,7 +278,7 @@ AND data__Identifier = '<MetricName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.custom_metrics
-WHERE data__Identifier = '<MetricName>'
+WHERE Identifier = '<MetricName>'
 AND region = 'us-east-1';
 ```
 

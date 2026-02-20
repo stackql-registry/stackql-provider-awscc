@@ -187,17 +187,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -212,7 +212,7 @@ instance_arn,
 user_hierarchy_structure_arn,
 user_hierarchy_structure
 FROM awscc.connect.user_hierarchy_structures
-WHERE region = 'us-east-1' AND data__Identifier = '<UserHierarchyStructureArn>';
+WHERE region = 'us-east-1' AND Identifier = '<UserHierarchyStructureArn>';
 ```
 
 ## `INSERT` example
@@ -303,11 +303,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.user_hierarchy_structures
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "UserHierarchyStructure": user_hierarchy_structure
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserHierarchyStructureArn>';
+AND Identifier = '<UserHierarchyStructureArn>';
 ```
 
 
@@ -316,7 +316,7 @@ AND data__Identifier = '<UserHierarchyStructureArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.user_hierarchy_structures
-WHERE data__Identifier = '<UserHierarchyStructureArn>'
+WHERE Identifier = '<UserHierarchyStructureArn>'
 AND region = 'us-east-1';
 ```
 

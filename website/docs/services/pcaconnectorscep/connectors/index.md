@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>connectors</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -187,7 +187,7 @@ mobile_device_management,
 open_id_configuration,
 tags
 FROM awscc.pcaconnectorscep.connectors
-WHERE region = 'us-east-1' AND data__Identifier = '<ConnectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '<ConnectorArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,11 +275,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.pcaconnectorscep.connectors
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ConnectorArn>';
+AND Identifier = '<ConnectorArn>';
 ```
 
 
@@ -288,7 +288,7 @@ AND data__Identifier = '<ConnectorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorscep.connectors
-WHERE data__Identifier = '<ConnectorArn>'
+WHERE Identifier = '<ConnectorArn>'
 AND region = 'us-east-1';
 ```
 

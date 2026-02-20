@@ -165,12 +165,12 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -186,7 +186,7 @@ lf_tags,
 resource_identifier,
 tags_identifier
 FROM awscc.lakeformation.tag_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<ResourceIdentifier>|<TagsIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '<ResourceIdentifier>|<TagsIdentifier>';
 ```
 
 ## `INSERT` example
@@ -279,7 +279,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tag_associations
-WHERE data__Identifier = '<ResourceIdentifier|TagsIdentifier>'
+WHERE Identifier = '<ResourceIdentifier|TagsIdentifier>'
 AND region = 'us-east-1';
 ```
 

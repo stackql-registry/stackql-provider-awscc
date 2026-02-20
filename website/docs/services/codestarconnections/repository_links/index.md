@@ -141,13 +141,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>repository_links</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>repository_links</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -159,7 +159,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>repository_links</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -188,7 +188,7 @@ repository_link_id,
 repository_link_arn,
 tags
 FROM awscc.codestarconnections.repository_links
-WHERE region = 'us-east-1' AND data__Identifier = '<RepositoryLinkArn>';
+WHERE region = 'us-east-1' AND Identifier = '<RepositoryLinkArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,13 +290,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.codestarconnections.repository_links
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ConnectionArn": connection_arn,
     "EncryptionKeyArn": encryption_key_arn,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RepositoryLinkArn>';
+AND Identifier = '<RepositoryLinkArn>';
 ```
 
 
@@ -305,7 +305,7 @@ AND data__Identifier = '<RepositoryLinkArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.repository_links
-WHERE data__Identifier = '<RepositoryLinkArn>'
+WHERE Identifier = '<RepositoryLinkArn>'
 AND region = 'us-east-1';
 ```
 

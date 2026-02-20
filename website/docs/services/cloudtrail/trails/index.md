@@ -281,13 +281,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>trails</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>trails</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -299,7 +299,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>trails</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -338,7 +338,7 @@ arn,
 tags,
 is_logging
 FROM awscc.cloudtrail.trails
-WHERE region = 'us-east-1' AND data__Identifier = '<TrailName>';
+WHERE region = 'us-east-1' AND Identifier = '<TrailName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -506,7 +506,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cloudtrail.trails
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "IncludeGlobalServiceEvents": include_global_service_events,
     "EventSelectors": event_selectors,
     "KMSKeyId": kms_key_id,
@@ -524,7 +524,7 @@ SET data__PatchDocument = string('{{ {
     "IsLogging": is_logging
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TrailName>';
+AND Identifier = '<TrailName>';
 ```
 
 
@@ -533,7 +533,7 @@ AND data__Identifier = '<TrailName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.trails
-WHERE data__Identifier = '<TrailName>'
+WHERE Identifier = '<TrailName>'
 AND region = 'us-east-1';
 ```
 

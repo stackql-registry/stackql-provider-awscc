@@ -158,13 +158,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>provisioning_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>provisioning_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -176,7 +176,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>provisioning_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -206,7 +206,7 @@ template_type,
 pre_provisioning_hook,
 tags
 FROM awscc.iot.provisioning_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<TemplateName>';
+WHERE region = 'us-east-1' AND Identifier = '<TemplateName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,7 +320,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iot.provisioning_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "Enabled": enabled,
     "ProvisioningRoleArn": provisioning_role_arn,
@@ -329,7 +329,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TemplateName>';
+AND Identifier = '<TemplateName>';
 ```
 
 
@@ -338,7 +338,7 @@ AND data__Identifier = '<TemplateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.provisioning_templates
-WHERE data__Identifier = '<TemplateName>'
+WHERE Identifier = '<TemplateName>'
 AND region = 'us-east-1';
 ```
 

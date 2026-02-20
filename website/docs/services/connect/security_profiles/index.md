@@ -178,13 +178,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -196,7 +196,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>security_profiles</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -230,7 +230,7 @@ tags,
 last_modified_region,
 last_modified_time
 FROM awscc.connect.security_profiles
-WHERE region = 'us-east-1' AND data__Identifier = '<SecurityProfileArn>';
+WHERE region = 'us-east-1' AND Identifier = '<SecurityProfileArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -357,7 +357,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.connect.security_profiles
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AllowedAccessControlTags": allowed_access_control_tags,
     "Description": description,
     "Permissions": permissions,
@@ -368,7 +368,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<SecurityProfileArn>';
+AND Identifier = '<SecurityProfileArn>';
 ```
 
 
@@ -377,7 +377,7 @@ AND data__Identifier = '<SecurityProfileArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.security_profiles
-WHERE data__Identifier = '<SecurityProfileArn>'
+WHERE Identifier = '<SecurityProfileArn>'
 AND region = 'us-east-1';
 ```
 

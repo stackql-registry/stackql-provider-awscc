@@ -136,13 +136,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>server_certificates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>server_certificates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -154,7 +154,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>server_certificates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -182,7 +182,7 @@ private_key,
 arn,
 tags
 FROM awscc.iam.server_certificates
-WHERE data__Identifier = '<ServerCertificateName>';
+WHERE Identifier = '<ServerCertificateName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,12 +294,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.iam.server_certificates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Path": path,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<ServerCertificateName>';
+AND Identifier = '<ServerCertificateName>';
 ```
 
 
@@ -308,7 +308,7 @@ AND data__Identifier = '<ServerCertificateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.server_certificates
-WHERE data__Identifier = '<ServerCertificateName>'
+WHERE Identifier = '<ServerCertificateName>'
 AND region = 'us-east-1';
 ```
 

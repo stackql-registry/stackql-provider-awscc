@@ -121,13 +121,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>proactive_engagements</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>proactive_engagements</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -139,7 +139,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>proactive_engagements</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@ account_id,
 proactive_engagement_status,
 emergency_contact_list
 FROM awscc.shield.proactive_engagements
-WHERE data__Identifier = '<AccountId>';
+WHERE Identifier = '<AccountId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,12 +252,12 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.shield.proactive_engagements
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ProactiveEngagementStatus": proactive_engagement_status,
     "EmergencyContactList": emergency_contact_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccountId>';
+AND Identifier = '<AccountId>';
 ```
 
 
@@ -266,7 +266,7 @@ AND data__Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.proactive_engagements
-WHERE data__Identifier = '<AccountId>'
+WHERE Identifier = '<AccountId>'
 AND region = 'us-east-1';
 ```
 

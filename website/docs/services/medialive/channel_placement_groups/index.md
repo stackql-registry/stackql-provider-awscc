@@ -146,13 +146,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>channel_placement_groups</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>channel_placement_groups</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -164,7 +164,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>channel_placement_groups</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -193,7 +193,7 @@ nodes,
 state,
 tags
 FROM awscc.medialive.channel_placement_groups
-WHERE region = 'us-east-1' AND data__Identifier = '<Id>|<ClusterId>';
+WHERE region = 'us-east-1' AND Identifier = '<Id>|<ClusterId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -295,13 +295,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.medialive.channel_placement_groups
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Name": name,
     "Nodes": nodes,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Id>|<ClusterId>';
+AND Identifier = '<Id>|<ClusterId>';
 ```
 
 
@@ -310,7 +310,7 @@ AND data__Identifier = '<Id>|<ClusterId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.channel_placement_groups
-WHERE data__Identifier = '<Id|ClusterId>'
+WHERE Identifier = '<Id|ClusterId>'
 AND region = 'us-east-1';
 ```
 

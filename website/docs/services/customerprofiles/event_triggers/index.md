@@ -231,13 +231,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>event_triggers</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>event_triggers</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -249,7 +249,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>event_triggers</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -280,7 +280,7 @@ created_at,
 last_updated_at,
 tags
 FROM awscc.customerprofiles.event_triggers
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainName>|<EventTriggerName>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<EventTriggerName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -411,7 +411,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.event_triggers
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ObjectTypeName": object_type_name,
     "Description": description,
     "EventTriggerConditions": event_trigger_conditions,
@@ -420,7 +420,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DomainName>|<EventTriggerName>';
+AND Identifier = '<DomainName>|<EventTriggerName>';
 ```
 
 
@@ -429,7 +429,7 @@ AND data__Identifier = '<DomainName>|<EventTriggerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.event_triggers
-WHERE data__Identifier = '<DomainName|EventTriggerName>'
+WHERE Identifier = '<DomainName|EventTriggerName>'
 AND region = 'us-east-1';
 ```
 

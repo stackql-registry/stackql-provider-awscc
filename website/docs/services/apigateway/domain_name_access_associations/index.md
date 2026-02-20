@@ -126,7 +126,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>domain_name_access_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -138,7 +138,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>domain_name_access_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -164,7 +164,7 @@ access_association_source,
 access_association_source_type,
 tags
 FROM awscc.apigateway.domain_name_access_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<DomainNameAccessAssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '<DomainNameAccessAssociationArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,7 +263,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_name_access_associations
-WHERE data__Identifier = '<DomainNameAccessAssociationArn>'
+WHERE Identifier = '<DomainNameAccessAssociationArn>'
 AND region = 'us-east-1';
 ```
 

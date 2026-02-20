@@ -181,13 +181,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>certificates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>certificates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -199,7 +199,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>certificates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -235,7 +235,7 @@ serial,
 not_before_date,
 not_after_date
 FROM awscc.transfer.certificates
-WHERE region = 'us-east-1' AND data__Identifier = '<CertificateId>';
+WHERE region = 'us-east-1' AND Identifier = '<CertificateId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -347,7 +347,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.transfer.certificates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Usage": usage,
     "ActiveDate": active_date,
     "InactiveDate": inactive_date,
@@ -355,7 +355,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CertificateId>';
+AND Identifier = '<CertificateId>';
 ```
 
 
@@ -364,7 +364,7 @@ AND data__Identifier = '<CertificateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.certificates
-WHERE data__Identifier = '<CertificateId>'
+WHERE Identifier = '<CertificateId>'
 AND region = 'us-east-1';
 ```
 

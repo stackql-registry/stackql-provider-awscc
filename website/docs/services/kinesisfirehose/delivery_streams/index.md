@@ -2732,13 +2732,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>delivery_streams</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>delivery_streams</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -2750,7 +2750,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>delivery_streams</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -2790,7 +2790,7 @@ delivery_stream_name,
 arn,
 tags
 FROM awscc.kinesisfirehose.delivery_streams
-WHERE region = 'us-east-1' AND data__Identifier = '<DeliveryStreamName>';
+WHERE region = 'us-east-1' AND Identifier = '<DeliveryStreamName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -3244,7 +3244,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.kinesisfirehose.delivery_streams
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DeliveryStreamEncryptionConfigurationInput": delivery_stream_encryption_configuration_input,
     "HttpEndpointDestinationConfiguration": http_endpoint_destination_configuration,
     "RedshiftDestinationConfiguration": redshift_destination_configuration,
@@ -3254,7 +3254,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DeliveryStreamName>';
+AND Identifier = '<DeliveryStreamName>';
 ```
 
 
@@ -3263,7 +3263,7 @@ AND data__Identifier = '<DeliveryStreamName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisfirehose.delivery_streams
-WHERE data__Identifier = '<DeliveryStreamName>'
+WHERE Identifier = '<DeliveryStreamName>'
 AND region = 'us-east-1';
 ```
 

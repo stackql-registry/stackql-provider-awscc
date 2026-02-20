@@ -180,13 +180,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>documents</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>documents</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -198,7 +198,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>documents</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -229,7 +229,7 @@ tags,
 requires,
 update_method
 FROM awscc.ssm.documents
-WHERE region = 'us-east-1' AND data__Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '<Name>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,7 +353,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ssm.documents
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Content": content,
     "Attachments": attachments,
     "VersionName": version_name,
@@ -364,7 +364,7 @@ SET data__PatchDocument = string('{{ {
     "UpdateMethod": update_method
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<Name>';
+AND Identifier = '<Name>';
 ```
 
 
@@ -373,7 +373,7 @@ AND data__Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.documents
-WHERE data__Identifier = '<Name>'
+WHERE Identifier = '<Name>'
 AND region = 'us-east-1';
 ```
 

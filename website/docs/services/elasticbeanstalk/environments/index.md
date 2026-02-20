@@ -205,13 +205,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>environments</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>environments</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -223,7 +223,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>environments</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -257,7 +257,7 @@ solution_stack_name,
 cname_prefix,
 tags
 FROM awscc.elasticbeanstalk.environments
-WHERE region = 'us-east-1' AND data__Identifier = '<EnvironmentName>';
+WHERE region = 'us-east-1' AND Identifier = '<EnvironmentName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -390,7 +390,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.elasticbeanstalk.environments
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "PlatformArn": platform_arn,
     "Description": description,
     "OperationsRole": operations_role,
@@ -400,7 +400,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<EnvironmentName>';
+AND Identifier = '<EnvironmentName>';
 ```
 
 
@@ -409,7 +409,7 @@ AND data__Identifier = '<EnvironmentName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.environments
-WHERE data__Identifier = '<EnvironmentName>'
+WHERE Identifier = '<EnvironmentName>'
 AND region = 'us-east-1';
 ```
 

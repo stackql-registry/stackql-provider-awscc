@@ -122,17 +122,17 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
   <tr>
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="get_resource" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -151,7 +151,7 @@ assets,
 managed_login_branding_id,
 return_merged_resources
 FROM awscc.cognito.managed_login_brandings
-WHERE region = 'us-east-1' AND data__Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
+WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
 ```
 
 ## `INSERT` example
@@ -243,14 +243,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.cognito.managed_login_brandings
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "UseCognitoProvidedValues": use_cognito_provided_values,
     "Settings": settings,
     "Assets": assets,
     "ReturnMergedResources": return_merged_resources
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
+AND Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
 ```
 
 
@@ -259,7 +259,7 @@ AND data__Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.managed_login_brandings
-WHERE data__Identifier = '<UserPoolId|ManagedLoginBrandingId>'
+WHERE Identifier = '<UserPoolId|ManagedLoginBrandingId>'
 AND region = 'us-east-1';
 ```
 

@@ -151,13 +151,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>accounts</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>accounts</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -169,7 +169,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>accounts</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -200,7 +200,7 @@ joined_method,
 joined_timestamp,
 status
 FROM awscc.organizations.accounts
-WHERE region = 'us-east-1' AND data__Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -301,7 +301,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.organizations.accounts
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "AccountName": account_name,
     "Email": email,
     "RoleName": role_name,
@@ -309,7 +309,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<AccountId>';
+AND Identifier = '<AccountId>';
 ```
 
 
@@ -318,7 +318,7 @@ AND data__Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.accounts
-WHERE data__Identifier = '<AccountId>'
+WHERE Identifier = '<AccountId>'
 AND region = 'us-east-1';
 ```
 

@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>enclave_certificate_iam_role_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>enclave_certificate_iam_role_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ certificate_s3_bucket_name,
 certificate_s3_object_key,
 encryption_kms_key_id
 FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<CertificateArn>|<RoleArn>';
+WHERE region = 'us-east-1' AND Identifier = '<CertificateArn>|<RoleArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.enclave_certificate_iam_role_associations
-WHERE data__Identifier = '<CertificateArn|RoleArn>'
+WHERE Identifier = '<CertificateArn|RoleArn>'
 AND region = 'us-east-1';
 ```
 

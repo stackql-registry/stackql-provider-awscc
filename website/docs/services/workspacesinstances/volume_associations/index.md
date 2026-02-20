@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>volume_associations</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>volume_associations</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -156,7 +156,7 @@ volume_id,
 device,
 disassociate_mode
 FROM awscc.workspacesinstances.volume_associations
-WHERE region = 'us-east-1' AND data__Identifier = '<WorkspaceInstanceId>|<VolumeId>|<Device>';
+WHERE region = 'us-east-1' AND Identifier = '<WorkspaceInstanceId>|<VolumeId>|<Device>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,7 +255,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volume_associations
-WHERE data__Identifier = '<WorkspaceInstanceId|VolumeId|Device>'
+WHERE Identifier = '<WorkspaceInstanceId|VolumeId|Device>'
 AND region = 'us-east-1';
 ```
 

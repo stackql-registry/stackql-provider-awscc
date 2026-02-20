@@ -956,13 +956,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>flows</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>flows</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -974,7 +974,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>flows</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1006,7 +1006,7 @@ tasks,
 tags,
 metadata_catalog_config
 FROM awscc.appflow.flows
-WHERE region = 'us-east-1' AND data__Identifier = '<FlowName>';
+WHERE region = 'us-east-1' AND Identifier = '<FlowName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1304,7 +1304,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.appflow.flows
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "TriggerConfig": trigger_config,
     "FlowStatus": flow_status,
@@ -1315,7 +1315,7 @@ SET data__PatchDocument = string('{{ {
     "MetadataCatalogConfig": metadata_catalog_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<FlowName>';
+AND Identifier = '<FlowName>';
 ```
 
 
@@ -1324,7 +1324,7 @@ AND data__Identifier = '<FlowName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.flows
-WHERE data__Identifier = '<FlowName>'
+WHERE Identifier = '<FlowName>'
 AND region = 'us-east-1';
 ```
 

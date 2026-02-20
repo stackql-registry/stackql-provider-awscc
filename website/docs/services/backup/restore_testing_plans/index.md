@@ -163,13 +163,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>restore_testing_plans</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>restore_testing_plans</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -181,7 +181,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>restore_testing_plans</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -209,7 +209,7 @@ restore_testing_plan_name,
 schedule_expression_timezone,
 tags
 FROM awscc.backup.restore_testing_plans
-WHERE region = 'us-east-1' AND data__Identifier = '<RestoreTestingPlanName>';
+WHERE region = 'us-east-1' AND Identifier = '<RestoreTestingPlanName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,7 +323,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.backup.restore_testing_plans
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "ScheduleExpression": schedule_expression,
     "StartWindowHours": start_window_hours,
     "RecoveryPointSelection": recovery_point_selection,
@@ -331,7 +331,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<RestoreTestingPlanName>';
+AND Identifier = '<RestoreTestingPlanName>';
 ```
 
 
@@ -340,7 +340,7 @@ AND data__Identifier = '<RestoreTestingPlanName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_plans
-WHERE data__Identifier = '<RestoreTestingPlanName>'
+WHERE Identifier = '<RestoreTestingPlanName>'
 AND region = 'us-east-1';
 ```
 

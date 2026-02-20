@@ -146,7 +146,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>types</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -158,7 +158,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>types</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -187,7 +187,7 @@ max_nesting_depth,
 last_modified_timestamp,
 keyspace_arn
 FROM awscc.cassandra.types
-WHERE region = 'us-east-1' AND data__Identifier = '<KeyspaceName>|<TypeName>';
+WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>|<TypeName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -283,7 +283,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.types
-WHERE data__Identifier = '<KeyspaceName|TypeName>'
+WHERE Identifier = '<KeyspaceName|TypeName>'
 AND region = 'us-east-1';
 ```
 

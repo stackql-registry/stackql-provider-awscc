@@ -119,7 +119,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>profile_permissions</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -131,7 +131,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>profile_permissions</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ action,
 principal,
 statement_id
 FROM awscc.signer.profile_permissions
-WHERE region = 'us-east-1' AND data__Identifier = '<StatementId>|<ProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '<StatementId>|<ProfileName>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,7 +261,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.signer.profile_permissions
-WHERE data__Identifier = '<StatementId|ProfileName>'
+WHERE Identifier = '<StatementId|ProfileName>'
 AND region = 'us-east-1';
 ```
 

@@ -41,7 +41,7 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
   },
   {
     "name": "event_time",
-    "type": "number",
+    "type": "string",
     "description": ""
   },
   {
@@ -67,11 +67,6 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
   {
     "name": "resource_model",
     "type": "string",
-    "description": ""
-  },
-  {
-    "name": "retry_after",
-    "type": "number",
     "description": ""
   },
   {
@@ -103,7 +98,7 @@ For more information about Amazon Web Services Cloud Control API, see the <a hre
   <tr>
     <td><CopyableCode code="get_resource_request" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

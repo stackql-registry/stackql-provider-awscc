@@ -263,13 +263,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>cloud_exadata_infrastructures</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>cloud_exadata_infrastructures</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -281,7 +281,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>cloud_exadata_infrastructures</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -333,7 +333,7 @@ tags,
 total_storage_size_in_gbs,
 db_server_ids
 FROM awscc.odb.cloud_exadata_infrastructures
-WHERE region = 'us-east-1' AND data__Identifier = '<CloudExadataInfrastructureArn>';
+WHERE region = 'us-east-1' AND Identifier = '<CloudExadataInfrastructureArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -470,11 +470,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.odb.cloud_exadata_infrastructures
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<CloudExadataInfrastructureArn>';
+AND Identifier = '<CloudExadataInfrastructureArn>';
 ```
 
 
@@ -483,7 +483,7 @@ AND data__Identifier = '<CloudExadataInfrastructureArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_exadata_infrastructures
-WHERE data__Identifier = '<CloudExadataInfrastructureArn>'
+WHERE Identifier = '<CloudExadataInfrastructureArn>'
 AND region = 'us-east-1';
 ```
 

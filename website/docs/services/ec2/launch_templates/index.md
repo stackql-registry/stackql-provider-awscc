@@ -1026,13 +1026,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>launch_templates</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>launch_templates</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -1044,7 +1044,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>launch_templates</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -1072,7 +1072,7 @@ latest_version_number,
 launch_template_id,
 default_version_number
 FROM awscc.ec2.launch_templates
-WHERE region = 'us-east-1' AND data__Identifier = '<LaunchTemplateId>';
+WHERE region = 'us-east-1' AND Identifier = '<LaunchTemplateId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1334,13 +1334,13 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.launch_templates
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "LaunchTemplateData": launch_template_data,
     "VersionDescription": version_description,
     "TagSpecifications": tag_specifications
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<LaunchTemplateId>';
+AND Identifier = '<LaunchTemplateId>';
 ```
 
 
@@ -1349,7 +1349,7 @@ AND data__Identifier = '<LaunchTemplateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.launch_templates
-WHERE data__Identifier = '<LaunchTemplateId>'
+WHERE Identifier = '<LaunchTemplateId>'
 AND region = 'us-east-1';
 ```
 

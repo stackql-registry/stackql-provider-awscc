@@ -47,7 +47,7 @@ Returns all tag keys currently in use in the specified AWS Region for the callin
   <tr>
     <td><CopyableCode code="get_tag_keys" /></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>

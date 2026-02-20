@@ -190,13 +190,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ipams</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ipams</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -208,7 +208,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ipams</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -244,7 +244,7 @@ metered_account,
 default_resource_discovery_organizational_unit_exclusions,
 tags
 FROM awscc.ec2.ipams
-WHERE region = 'us-east-1' AND data__Identifier = '<IpamId>';
+WHERE region = 'us-east-1' AND Identifier = '<IpamId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -352,7 +352,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.ipams
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "Description": description,
     "OperatingRegions": operating_regions,
     "Tier": tier,
@@ -362,7 +362,7 @@ SET data__PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IpamId>';
+AND Identifier = '<IpamId>';
 ```
 
 
@@ -371,7 +371,7 @@ AND data__Identifier = '<IpamId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipams
-WHERE data__Identifier = '<IpamId>'
+WHERE Identifier = '<IpamId>'
 AND region = 'us-east-1';
 ```
 

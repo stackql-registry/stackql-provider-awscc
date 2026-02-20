@@ -143,13 +143,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>mail_manager_traffic_policies</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>mail_manager_traffic_policies</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -161,7 +161,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>mail_manager_traffic_policies</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -189,7 +189,7 @@ traffic_policy_arn,
 traffic_policy_id,
 traffic_policy_name
 FROM awscc.ses.mail_manager_traffic_policies
-WHERE region = 'us-east-1' AND data__Identifier = '<TrafficPolicyId>';
+WHERE region = 'us-east-1' AND Identifier = '<TrafficPolicyId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,7 +292,7 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_traffic_policies
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DefaultAction": default_action,
     "MaxMessageSizeBytes": max_message_size_bytes,
     "PolicyStatements": policy_statements,
@@ -300,7 +300,7 @@ SET data__PatchDocument = string('{{ {
     "TrafficPolicyName": traffic_policy_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<TrafficPolicyId>';
+AND Identifier = '<TrafficPolicyId>';
 ```
 
 
@@ -309,7 +309,7 @@ AND data__Identifier = '<TrafficPolicyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_traffic_policies
-WHERE data__Identifier = '<TrafficPolicyId>'
+WHERE Identifier = '<TrafficPolicyId>'
 AND region = 'us-east-1';
 ```
 

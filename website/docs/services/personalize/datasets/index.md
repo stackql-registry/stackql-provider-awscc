@@ -153,13 +153,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>datasets</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>datasets</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -171,7 +171,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>datasets</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -198,7 +198,7 @@ dataset_group_arn,
 schema_arn,
 dataset_import_job
 FROM awscc.personalize.datasets
-WHERE region = 'us-east-1' AND data__Identifier = '<DatasetArn>';
+WHERE region = 'us-east-1' AND Identifier = '<DatasetArn>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,11 +306,11 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.personalize.datasets
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "DatasetImportJob": dataset_import_job
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<DatasetArn>';
+AND Identifier = '<DatasetArn>';
 ```
 
 
@@ -319,7 +319,7 @@ AND data__Identifier = '<DatasetArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.datasets
-WHERE data__Identifier = '<DatasetArn>'
+WHERE Identifier = '<DatasetArn>'
 AND region = 'us-east-1';
 ```
 

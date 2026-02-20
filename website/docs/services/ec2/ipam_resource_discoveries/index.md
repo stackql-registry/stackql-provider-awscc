@@ -165,13 +165,13 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="delete_resource" /></td>
     <td><code>ipam_resource_discoveries</code></td>
     <td><code>DELETE</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="update_resource" /></td>
     <td><code>ipam_resource_discoveries</code></td>
     <td><code>UPDATE</code></td>
-    <td><CopyableCode code="data__Identifier, data__PatchDocument, region" /></td>
+    <td><CopyableCode code="Identifier, PatchDocument, region" /></td>
   </tr>
   <tr>
     <td><CopyableCode code="list_resources" /></td>
@@ -183,7 +183,7 @@ For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation
     <td><CopyableCode code="get_resource" /></td>
     <td><code>ipam_resource_discoveries</code></td>
     <td><code>SELECT</code></td>
-    <td><CopyableCode code="data__Identifier, region" /></td>
+    <td><CopyableCode code="Identifier, region" /></td>
   </tr>
 </tbody>
 </table>
@@ -214,7 +214,7 @@ ipam_resource_discovery_arn,
 state,
 tags
 FROM awscc.ec2.ipam_resource_discoveries
-WHERE region = 'us-east-1' AND data__Identifier = '<IpamResourceDiscoveryId>';
+WHERE region = 'us-east-1' AND Identifier = '<IpamResourceDiscoveryId>';
 ```
 </TabItem>
 <TabItem value="list">
@@ -310,14 +310,14 @@ resources:
 ```sql
 /*+ update */
 UPDATE awscc.ec2.ipam_resource_discoveries
-SET data__PatchDocument = string('{{ {
+SET PatchDocument = string('{{ {
     "OperatingRegions": operating_regions,
     "Description": description,
     "OrganizationalUnitExclusions": organizational_unit_exclusions,
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND data__Identifier = '<IpamResourceDiscoveryId>';
+AND Identifier = '<IpamResourceDiscoveryId>';
 ```
 
 
@@ -326,7 +326,7 @@ AND data__Identifier = '<IpamResourceDiscoveryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_resource_discoveries
-WHERE data__Identifier = '<IpamResourceDiscoveryId>'
+WHERE Identifier = '<IpamResourceDiscoveryId>'
 AND region = 'us-east-1';
 ```
 
