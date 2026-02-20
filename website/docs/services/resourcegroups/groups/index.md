@@ -361,6 +361,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.resourcegroups.groups
@@ -389,7 +391,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resource-groups:CreateGroup,
 resource-groups:Tag,
@@ -399,7 +412,9 @@ resource-groups:ListGroupResources,
 resource-groups:GroupResources
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resource-groups:GetGroup,
 resource-groups:GetGroupQuery,
@@ -408,7 +423,9 @@ resource-groups:GetGroupConfiguration,
 resource-groups:ListGroupResources
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 resource-groups:UpdateGroup,
 resource-groups:GetTags,
@@ -423,13 +440,20 @@ resource-groups:GroupResources,
 resource-groups:UnGroupResources
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resource-groups:DeleteGroup,
 resource-groups:UnGroupResources
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resource-groups:ListGroups
 ```
+
+</TabItem>
+</Tabs>

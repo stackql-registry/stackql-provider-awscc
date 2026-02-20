@@ -373,6 +373,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>rotation</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ssmcontacts.rotations
@@ -402,7 +404,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>rotations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ssm-contacts:CreateRotation,
 ssm-contacts:GetRotation,
@@ -410,13 +423,17 @@ ssm-contacts:TagResource,
 ssm-contacts:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm-contacts:GetRotation,
 ssm-contacts:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ssm-contacts:UpdateRotation,
 ssm-contacts:GetRotation,
@@ -425,7 +442,9 @@ ssm-contacts:ListTagsForResource,
 ssm-contacts:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm-contacts:DeleteRotation,
 ssm-contacts:GetRotation,
@@ -433,9 +452,14 @@ ssm-contacts:ListTagsForResource,
 ssm-contacts:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm-contacts:ListRotations,
 ssm-contacts:GetRotation,
 ssm-contacts:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

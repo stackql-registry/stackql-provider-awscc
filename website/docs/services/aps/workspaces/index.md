@@ -399,6 +399,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workspace</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.aps.workspaces
@@ -428,7 +430,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>workspaces</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aps:CreateWorkspace,
 aps:DescribeWorkspace,
@@ -448,7 +461,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aps:DescribeWorkspace,
 aps:ListTagsForResource,
@@ -458,7 +473,9 @@ aps:DescribeQueryLoggingConfiguration,
 aps:DescribeWorkspaceConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aps:UpdateWorkspaceAlias,
 aps:DescribeWorkspace,
@@ -486,7 +503,9 @@ logs:DeleteLogDelivery,
 logs:PutResourcePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aps:DeleteWorkspace,
 aps:DescribeWorkspace,
@@ -496,8 +515,13 @@ aps:DeleteQueryLoggingConfiguration,
 logs:DeleteLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aps:ListWorkspaces,
 aps:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>profile_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53profiles.profile_associations
@@ -300,7 +302,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>profile_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53profiles:AssociateProfile,
 route53profiles:GetProfileAssociation,
@@ -310,7 +323,9 @@ route53profiles:TagResource,
 route53profiles:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53profiles:GetProfileAssociation,
 route53profiles:TagResource,
@@ -318,13 +333,17 @@ route53profiles:UntagResource,
 route53profiles:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53profiles:GetProfileAssociation,
 route53profiles:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53profiles:DisassociateProfile,
 route53profiles:GetProfileAssociation,
@@ -332,8 +351,13 @@ route53profiles:UntagResource,
 route53profiles:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53profiles:ListProfileAssociations,
 route53profiles:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

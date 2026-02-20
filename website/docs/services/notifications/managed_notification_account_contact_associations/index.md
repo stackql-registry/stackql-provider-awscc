@@ -241,29 +241,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>managed_notification_account_contact_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 notifications:AssociateManagedNotificationAccountContact,
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications:DisassociateManagedNotificationAccountContact,
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications:ListManagedNotificationChannelAssociations
 ```
+
+</TabItem>
+</Tabs>

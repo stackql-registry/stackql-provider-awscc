@@ -391,6 +391,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>automated_reasoning_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.automated_reasoning_policies
@@ -418,7 +420,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>automated_reasoning_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateAutomatedReasoningPolicy,
 bedrock:GetAutomatedReasoningPolicy,
@@ -427,14 +440,18 @@ bedrock:TagResource,
 bedrock:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetAutomatedReasoningPolicy,
 bedrock:ExportAutomatedReasoningPolicyVersion,
 bedrock:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:UpdateAutomatedReasoningPolicy,
 bedrock:GetAutomatedReasoningPolicy,
@@ -444,13 +461,20 @@ bedrock:TagResource,
 bedrock:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteAutomatedReasoningPolicy,
 bedrock:GetAutomatedReasoningPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListAutomatedReasoningPolicies
 ```
+
+</TabItem>
+</Tabs>

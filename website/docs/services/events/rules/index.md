@@ -804,6 +804,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.events.rules
@@ -835,7 +837,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>rules</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 iam:PassRole,
 events:DescribeRule,
@@ -843,7 +856,9 @@ events:ListTargetsByRule,
 events:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 events:DescribeRule,
@@ -852,7 +867,9 @@ events:PutTargets,
 events:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 events:DescribeRule,
@@ -863,12 +880,16 @@ events:UntagResource,
 events:TagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 events:ListRules
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:PassRole,
 events:DescribeRule,
@@ -876,3 +897,6 @@ events:DeleteRule,
 events:RemoveTargets,
 events:ListTargetsByRule
 ```
+
+</TabItem>
+</Tabs>

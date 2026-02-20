@@ -301,6 +301,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>public_repository</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecr.public_repositories
@@ -327,7 +329,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>public_repositories</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecr-public:CreateRepository,
 ecr-public:SetRepositoryPolicy,
@@ -335,7 +348,9 @@ ecr-public:PutRepositoryCatalogData,
 ecr-public:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ecr-public:DescribeRepositories,
 ecr-public:GetRepositoryPolicy,
@@ -343,7 +358,9 @@ ecr-public:GetRepositoryCatalogData,
 ecr-public:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecr-public:DescribeRepositories,
 ecr-public:SetRepositoryPolicy,
@@ -353,12 +370,19 @@ ecr-public:TagResource,
 ecr-public:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecr-public:DeleteRepository
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecr-public:DescribeRepositories
 ```
+
+</TabItem>
+</Tabs>

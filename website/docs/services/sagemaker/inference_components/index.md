@@ -500,6 +500,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>inference_component</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sagemaker.inference_components
@@ -529,7 +531,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>inference_components</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:AddTags,
 sagemaker:ListTags,
@@ -537,7 +550,9 @@ sagemaker:CreateInferenceComponent,
 sagemaker:DescribeInferenceComponent
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sagemaker:UpdateInferenceComponent,
 sagemaker:UpdateInferenceComponentRuntimeConfig,
@@ -547,22 +562,31 @@ sagemaker:ListTags,
 sagemaker:DeleteTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DescribeInferenceComponent,
 sagemaker:DeleteInferenceComponent,
 sagemaker:DeleteTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeInferenceComponent,
 sagemaker:ListTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListInferenceComponents,
 sagemaker:DescribeInferenceComponent,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

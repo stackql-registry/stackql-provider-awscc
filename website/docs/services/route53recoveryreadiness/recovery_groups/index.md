@@ -256,6 +256,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>recovery_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53recoveryreadiness.recovery_groups
@@ -281,7 +283,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>recovery_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53-recovery-readiness:CreateRecoveryGroup,
 route53-recovery-readiness:GetRecoveryGroup,
@@ -290,13 +303,17 @@ route53-recovery-readiness:ListTagsForResources,
 route53-recovery-readiness:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53-recovery-readiness:GetRecoveryGroup,
 route53-recovery-readiness:ListTagsForResources
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53-recovery-readiness:UpdateRecoveryGroup,
 route53-recovery-readiness:GetRecoveryGroup,
@@ -306,13 +323,20 @@ route53-recovery-readiness:TagResource,
 route53-recovery-readiness:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53-recovery-readiness:DeleteRecoveryGroup,
 route53-recovery-readiness:GetRecoveryGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53-recovery-readiness:ListRecoveryGroups
 ```
+
+</TabItem>
+</Tabs>

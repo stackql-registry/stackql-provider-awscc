@@ -346,6 +346,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application_instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.panorama.application_instances
@@ -370,7 +372,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>application_instances</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 panorama:DescribeApplicationInstance,
 panorama:DescribeApplicationInstanceDetails,
@@ -380,7 +393,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 panorama:CreateApplicationInstance,
 panorama:ListTagsForResource,
@@ -394,7 +409,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 panorama:ListTagsForResource,
 panorama:TagResource,
@@ -406,7 +423,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 panorama:ListApplicationInstances,
 s3:ListBucket,
@@ -414,7 +433,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 panorama:RemoveApplicationInstance,
 panorama:DescribeApplicationInstance,
@@ -426,3 +447,6 @@ s3:ListObjects,
 s3:GetObject,
 s3:GetObjectVersion
 ```
+
+</TabItem>
+</Tabs>

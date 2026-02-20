@@ -257,6 +257,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>profile_resource_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53profiles.profile_resource_associations
@@ -281,7 +283,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>profile_resource_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53profiles:AssociateResourceToProfile,
 route53profiles:GetProfileResourceAssociation,
@@ -292,12 +305,16 @@ route53resolver:GetResolverQueryLogConfig,
 ec2:DescribeVpcEndpoints
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53profiles:GetProfileResourceAssociation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53profiles:DisassociateResourceFromProfile,
 route53profiles:GetProfileResourceAssociation,
@@ -308,12 +325,19 @@ route53resolver:GetResolverQueryLogConfig,
 ec2:DescribeVpcEndpoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53profiles:ListProfileResourceAssociations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53profiles:UpdateProfileResourceAssociation
 ```
+
+</TabItem>
+</Tabs>

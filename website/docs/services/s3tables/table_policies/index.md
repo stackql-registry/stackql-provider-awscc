@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>table_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3tables.table_policies
@@ -265,35 +267,57 @@ AND region = 'us-east-1';
 
 To operate on the <code>table_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3tables:GetTablePolicy,
 s3tables:PutTablePolicy,
 s3tables:GetTable
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3tables:GetTable,
 s3tables:GetTablePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3tables:GetTablePolicy,
 s3tables:PutTablePolicy,
 s3tables:GetTable
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3tables:GetTablePolicy,
 s3tables:DeleteTablePolicy,
 s3tables:GetTable
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3tables:ListTables,
 s3tables:GetTablePolicy
 ```
+
+</TabItem>
+</Tabs>

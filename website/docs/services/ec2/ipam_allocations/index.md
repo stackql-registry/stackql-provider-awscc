@@ -265,23 +265,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>ipam_allocations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AllocateIpamPoolCidr,
 ec2:GetIpamPoolAllocations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:GetIpamPoolAllocations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:ReleaseIpamPoolAllocation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:GetIpamPoolAllocations
 ```
+
+</TabItem>
+</Tabs>

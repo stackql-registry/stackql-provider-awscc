@@ -377,6 +377,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>location_azure_blob</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datasync.location_azure_blobs
@@ -408,7 +410,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>location_azure_blobs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 datasync:CreateLocationAzureBlob,
 datasync:DescribeLocationAzureBlob,
@@ -424,13 +437,17 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 datasync:DescribeLocationAzureBlob,
 datasync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datasync:DescribeLocationAzureBlob,
 datasync:ListTagsForResource,
@@ -448,13 +465,20 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datasync:DeleteLocation,
 secretsmanager:DeleteSecret
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datasync:ListLocations
 ```
+
+</TabItem>
+</Tabs>

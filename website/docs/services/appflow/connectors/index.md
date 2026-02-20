@@ -265,6 +265,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>connector</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appflow.connectors
@@ -291,29 +293,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>connectors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appflow:RegisterConnector,
 lambda:InvokeFunction
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appflow:DescribeConnector
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appflow:UnRegisterConnector
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appflow:ListConnectors
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appflow:UpdateConnectorRegistration,
 lambda:InvokeFunction
 ```
+
+</TabItem>
+</Tabs>

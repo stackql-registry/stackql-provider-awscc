@@ -235,23 +235,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>channel_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 notifications:AssociateChannel,
 notifications:ListChannels
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications:DisassociateChannel
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications:ListChannels
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 notifications:ListChannels
 ```
+
+</TabItem>
+</Tabs>

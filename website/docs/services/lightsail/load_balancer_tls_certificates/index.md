@@ -284,6 +284,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>load_balancer_tls_certificate</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.load_balancer_tls_certificates
@@ -309,7 +311,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>load_balancer_tls_certificates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:CreateLoadBalancerTlsCertificate,
 lightsail:GetLoadBalancerTlsCertificates,
@@ -318,13 +331,17 @@ lightsail:AttachLoadBalancerTlsCertificate,
 lightsail:UpdateLoadBalancerAttribute
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetLoadBalancerTlsCertificates,
 lightsail:GetLoadBalancer
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:AttachLoadBalancerTlsCertificate,
 lightsail:GetLoadBalancerTlsCertificates,
@@ -332,15 +349,22 @@ lightsail:GetLoadBalancer,
 lightsail:UpdateLoadBalancerAttribute
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:DeleteLoadBalancerTlsCertificate,
 lightsail:GetLoadBalancerTlsCertificates,
 lightsail:GetLoadBalancer
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetLoadBalancerTlsCertificates,
 lightsail:GetLoadBalancer
 ```
+
+</TabItem>
+</Tabs>

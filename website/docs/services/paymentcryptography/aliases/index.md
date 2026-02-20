@@ -221,6 +221,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>alias</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.paymentcryptography.aliases
@@ -245,27 +247,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>aliases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 payment-cryptography:CreateAlias
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 payment-cryptography:GetAlias
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 payment-cryptography:UpdateAlias
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 payment-cryptography:DeleteAlias
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 payment-cryptography:ListAliases
 ```
+
+</TabItem>
+</Tabs>

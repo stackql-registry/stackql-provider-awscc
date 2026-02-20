@@ -315,6 +315,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>route_server_peer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.route_server_peers
@@ -339,7 +341,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>route_server_peers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateRouteServerPeer,
 ec2:CreateTags,
@@ -347,13 +360,17 @@ ec2:DescribeRouteServerPeers,
 ec2:AuthorizeSecurityGroupIngress
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeRouteServerPeers,
 ec2:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTags,
 ec2:DeleteTags,
@@ -362,7 +379,9 @@ ec2:DescribeTags,
 ec2:ModifyRouteServerPeer
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeTags,
 ec2:DescribeRouteServerPeers,
@@ -371,8 +390,13 @@ ec2:DeleteTags,
 ec2:RevokeSecurityGroupIngress
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeTags,
 ec2:DescribeRouteServerPeers
 ```
+
+</TabItem>
+</Tabs>

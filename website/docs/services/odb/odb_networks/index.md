@@ -339,6 +339,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>odb_network</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.odb.odb_networks
@@ -364,7 +366,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>odb_networks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 odb:CreateOdbNetwork,
 odb:TagResource,
@@ -392,7 +405,9 @@ ec2:DescribeVpcEndpoints,
 ec2:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 odb:GetOdbNetwork,
 odb:ListOdbNetworks,
@@ -405,7 +420,9 @@ ec2:DescribeVpcEndpointAssociations,
 ec2:DescribeVpcEndpoints
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 odb:UpdateOdbNetwork,
 odb:TagResource,
@@ -424,7 +441,9 @@ ec2:DescribeVpcEndpointAssociations,
 ec2:DescribeVpcEndpoints
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 odb:DeleteOdbNetwork,
 ec2:DeleteOdbNetworkPeering,
@@ -445,7 +464,9 @@ ec2:DeleteVpcEndpoints,
 ec2:DescribeVpcEndpoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 odb:ListOdbNetworks,
 odb:ListTagsForResource,
@@ -456,3 +477,6 @@ vpc-lattice:GetResourceGateway,
 ec2:DescribeVpcEndpointAssociations,
 ec2:DescribeVpcEndpoints
 ```
+
+</TabItem>
+</Tabs>

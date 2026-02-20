@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>function</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.functions
@@ -329,33 +331,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>functions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateFunction,
 cloudfront:PublishFunction,
 cloudfront:DescribeFunction
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteFunction,
 cloudfront:DescribeFunction
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListFunctions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:DescribeFunction,
 cloudfront:GetFunction
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudfront:UpdateFunction,
 cloudfront:PublishFunction,
 cloudfront:DescribeFunction
 ```
+
+</TabItem>
+</Tabs>

@@ -249,6 +249,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mail_manager_address_list</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_address_lists
@@ -273,7 +275,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>mail_manager_address_lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:TagResource,
 ses:ListTagsForResource,
@@ -281,19 +294,25 @@ ses:GetAddressList,
 ses:CreateAddressList
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:ListTagsForResource,
 ses:GetAddressList
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:GetAddressList,
 ses:DeleteAddressList
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:TagResource,
 ses:UntagResource,
@@ -301,7 +320,12 @@ ses:ListTagsForResource,
 ses:GetAddressList
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListAddressLists
 ```
+
+</TabItem>
+</Tabs>

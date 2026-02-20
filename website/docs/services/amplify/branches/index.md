@@ -425,6 +425,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>branch</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.amplify.branches
@@ -462,7 +464,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>branches</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 amplify:GetBranch,
 amplify:CreateBranch,
@@ -479,7 +492,9 @@ sns:Subscribe,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 amplify:GetBranch,
 amplify:DeleteBranch,
@@ -489,7 +504,9 @@ sns:Unsubscribe,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 amplify:GetBranch,
 amplify:ListBranches,
@@ -497,7 +514,9 @@ amplify:ListTagsForResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 amplify:GetBranch,
 amplify:ListTagsForResource,
@@ -508,7 +527,9 @@ s3:GetObjectAcl,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 amplify:GetBranch,
 amplify:UpdateBranch,
@@ -527,3 +548,6 @@ sns:Subscribe,
 sns:Unsubscribe,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

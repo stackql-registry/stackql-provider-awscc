@@ -253,6 +253,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.opensearchserverless.vpc_endpoints
@@ -278,7 +280,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aoss:BatchGetVpcEndpoint,
 aoss:CreateVpcEndpoint,
@@ -300,13 +313,17 @@ route53:ListHostedZonesByVPC,
 route53:AssociateVPCWithHostedZone
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aoss:BatchGetVpcEndpoint,
 ec2:DescribeVpcEndpoints
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aoss:BatchGetVpcEndpoint,
 aoss:UpdateVpcEndpoint,
@@ -328,7 +345,9 @@ route53:ListHostedZonesByVPC,
 route53:AssociateVPCWithHostedZone
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aoss:BatchGetVpcEndpoint,
 aoss:DeleteVpcEndpoint,
@@ -349,8 +368,13 @@ route53:ListHostedZonesByVPC,
 route53:AssociateVPCWithHostedZone
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aoss:ListVpcEndpoints,
 ec2:DescribeVpcEndpoints
 ```
+
+</TabItem>
+</Tabs>

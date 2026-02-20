@@ -340,6 +340,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>billing_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.billingconductor.billing_groups
@@ -368,7 +370,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>billing_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 billingconductor:CreateBillingGroup,
 billingconductor:AssociateAccounts,
@@ -377,7 +390,9 @@ billingconductor:TagResource,
 billingconductor:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 billingconductor:ListBillingGroups,
 billingconductor:ListAccountAssociations,
@@ -385,7 +400,9 @@ organizations:ListAccounts,
 billingconductor:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 billingconductor:ListBillingGroups,
 billingconductor:ListAccountAssociations,
@@ -393,7 +410,9 @@ organizations:ListAccounts,
 billingconductor:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 billingconductor:UpdateBillingGroup,
 billingconductor:ListAccountAssociations,
@@ -405,10 +424,15 @@ billingconductor:TagResource,
 billingconductor:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 billingconductor:DeleteBillingGroup,
 billingconductor:ListBillingGroups,
 billingconductor:UntagResource,
 billingconductor:UpdateBillingGroup
 ```
+
+</TabItem>
+</Tabs>

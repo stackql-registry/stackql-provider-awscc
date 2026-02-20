@@ -267,7 +267,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>datastores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 medical-imaging:CreateDatastore,
 medical-imaging:GetDatastore,
@@ -282,13 +292,17 @@ medical-imaging:UntagResource,
 medical-imaging:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 medical-imaging:GetDatastore,
 medical-imaging:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 medical-imaging:DeleteDatastore,
 medical-imaging:GetDatastore,
@@ -299,7 +313,12 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 medical-imaging:ListDatastores
 ```
+
+</TabItem>
+</Tabs>

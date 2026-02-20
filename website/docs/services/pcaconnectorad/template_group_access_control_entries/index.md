@@ -258,6 +258,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>template_group_access_control_entry</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pcaconnectorad.template_group_access_control_entries
@@ -283,28 +285,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>template_group_access_control_entries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 pca-connector-ad:CreateTemplateGroupAccessControlEntry
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pca-connector-ad:GetTemplateGroupAccessControlEntry
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pca-connector-ad:UpdateTemplateGroupAccessControlEntry
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 pca-connector-ad:DeleteTemplateGroupAccessControlEntry,
 pca-connector-ad:GetTemplateGroupAccessControlEntry
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pca-connector-ad:ListTemplateGroupAccessControlEntries
 ```
+
+</TabItem>
+</Tabs>

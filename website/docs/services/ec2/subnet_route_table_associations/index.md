@@ -235,12 +235,24 @@ AND region = 'us-east-1';
 
 To operate on the <code>subnet_route_table_associations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeRouteTables
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:AssociateRouteTable,
 ec2:ReplaceRouteTableAssociation,
@@ -248,14 +260,21 @@ ec2:DescribeSubnets,
 ec2:DescribeRouteTables
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeRouteTables
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DisassociateRouteTable,
 ec2:DescribeSubnets,
 ec2:DescribeRouteTables
 ```
+
+</TabItem>
+</Tabs>

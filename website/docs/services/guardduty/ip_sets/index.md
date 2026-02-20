@@ -299,6 +299,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>ip_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.guardduty.ip_sets
@@ -327,7 +329,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>ip_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:CreateIPSet,
 guardduty:GetIPSet,
@@ -335,12 +348,16 @@ guardduty:TagResource,
 iam:PutRolePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:GetIPSet
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:GetDetector,
 guardduty:ListDetectors,
@@ -350,7 +367,9 @@ guardduty:DeleteIPSet,
 iam:DeleteRolePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 guardduty:UpdateIPSet,
 guardduty:GetIPSet,
@@ -360,7 +379,12 @@ guardduty:TagResource,
 guardduty:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:ListIPSets
 ```
+
+</TabItem>
+</Tabs>

@@ -461,6 +461,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>serverless_cach</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticache.serverless_caches
@@ -494,7 +496,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>serverless_caches</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticache:CreateServerlessCache,
 elasticache:DescribeServerlessCaches,
@@ -506,13 +519,17 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticache:DescribeServerlessCaches,
 elasticache:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticache:ModifyServerlessCache,
 elasticache:DescribeServerlessCaches,
@@ -521,15 +538,22 @@ elasticache:ListTagsForResource,
 elasticache:RemoveTagsFromResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticache:DeleteServerlessCache,
 elasticache:DescribeServerlessCaches,
 elasticache:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticache:DescribeServerlessCaches,
 elasticache:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

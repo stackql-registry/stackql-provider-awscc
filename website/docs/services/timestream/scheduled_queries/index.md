@@ -544,6 +544,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>scheduled_query</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.timestream.scheduled_queries
@@ -569,7 +571,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>scheduled_queries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 timestream:CreateScheduledQuery,
 timestream:DescribeEndpoints,
@@ -579,7 +592,9 @@ kms:DescribeKey,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 timestream:DescribeScheduledQuery,
 timestream:ListTagsForResource,
@@ -588,7 +603,9 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 timestream:UpdateScheduledQuery,
 timestream:TagResource,
@@ -596,15 +613,22 @@ timestream:UntagResource,
 timestream:DescribeEndpoints
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 timestream:DeleteScheduledQuery,
 timestream:DescribeScheduledQuery,
 timestream:DescribeEndpoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 timestream:ListScheduledQueries,
 timestream:DescribeEndpoints
 ```
+
+</TabItem>
+</Tabs>

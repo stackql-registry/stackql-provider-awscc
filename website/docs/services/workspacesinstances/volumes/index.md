@@ -331,26 +331,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>volumes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-instances:CreateVolume,
 ec2:CreateVolume,
 ec2:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVolumes
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-instances:DeleteVolume,
 ec2:DescribeVolumes,
 ec2:DeleteVolume
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVolumes
 ```
+
+</TabItem>
+</Tabs>

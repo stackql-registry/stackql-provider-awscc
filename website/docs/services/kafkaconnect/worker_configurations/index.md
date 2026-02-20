@@ -269,6 +269,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>worker_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kafkaconnect.worker_configurations
@@ -293,7 +295,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>worker_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafkaconnect:DescribeWorkerConfiguration,
 kafkaconnect:CreateWorkerConfiguration,
@@ -301,13 +314,17 @@ kafkaconnect:TagResource,
 kafkaconnect:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafkaconnect:DescribeWorkerConfiguration,
 kafkaconnect:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafkaconnect:DescribeWorkerConfiguration,
 kafkaconnect:ListTagsForResource,
@@ -315,13 +332,20 @@ kafkaconnect:TagResource,
 kafkaconnect:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafkaconnect:DescribeWorkerConfiguration,
 kafkaconnect:DeleteWorkerConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafkaconnect:ListWorkerConfigurations
 ```
+
+</TabItem>
+</Tabs>

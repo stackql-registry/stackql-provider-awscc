@@ -171,7 +171,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>webacl_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wafv2:AssociateWebACL,
 wafv2:GetWebACLForResource,
@@ -196,7 +206,9 @@ amplify:AssociateWebACL,
 amplify:GetWebACLForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wafv2:AssociateWebACL,
 wafv2:GetWebACLForResource,
@@ -220,7 +232,9 @@ amplify:DisassociateWebACL,
 amplify:GetWebACLForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wafv2:AssociateWebACL,
 wafv2:GetWebACLForResource,
@@ -242,7 +256,9 @@ ec2:GetVerifiedAccessInstanceWebAcl,
 amplify:GetWebACLForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wafv2:AssociateWebACL,
 wafv2:GetWebACLForResource,
@@ -262,3 +278,6 @@ ec2:DisassociateVerifiedAccessInstanceWebAcl,
 ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
 ec2:GetVerifiedAccessInstanceWebAcl
 ```
+
+</TabItem>
+</Tabs>

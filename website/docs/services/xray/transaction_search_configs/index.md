@@ -217,6 +217,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>transaction_search_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.xray.transaction_search_configs
@@ -241,7 +243,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>transaction_search_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 application-signals:StartDiscovery,
 iam:CreateServiceLinkedRole,
@@ -254,28 +267,39 @@ xray:UpdateIndexingRule,
 xray:UpdateTraceSegmentDestination
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 xray:GetTraceSegmentDestination,
 xray:GetIndexingRules
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 xray:GetTraceSegmentDestination,
 xray:GetIndexingRules
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 xray:GetIndexingRules,
 xray:GetTraceSegmentDestination,
 xray:UpdateIndexingRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 xray:GetTraceSegmentDestination,
 xray:UpdateTraceSegmentDestination,
 xray:UpdateIndexingRule
 ```
+
+</TabItem>
+</Tabs>

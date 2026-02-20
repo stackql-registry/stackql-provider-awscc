@@ -325,25 +325,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>anycast_ip_lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateAnycastIpList,
 cloudfront:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteAnycastIpList,
 cloudfront:GetAnycastIpList
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListAnycastIpLists
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetAnycastIpList,
 cloudfront:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

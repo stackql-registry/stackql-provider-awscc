@@ -235,26 +235,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>service_principal_names</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ds:UpdateAuthorizedApplication,
 pca-connector-ad:GetServicePrincipalName,
 pca-connector-ad:CreateServicePrincipalName
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pca-connector-ad:GetServicePrincipalName
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ds:UpdateAuthorizedApplication,
 pca-connector-ad:GetServicePrincipalName,
 pca-connector-ad:DeleteServicePrincipalName
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pca-connector-ad:ListServicePrincipalNames
 ```
+
+</TabItem>
+</Tabs>

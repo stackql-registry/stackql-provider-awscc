@@ -291,6 +291,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>trust_store</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.trust_stores
@@ -318,7 +320,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>trust_stores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:CreateTrustStore,
 elasticloadbalancing:DescribeTrustStores,
@@ -327,26 +340,34 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DescribeTrustStores,
 elasticloadbalancing:DeleteTrustStore
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeTrustStores,
 s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeTrustStores,
 elasticloadbalancing:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticloadbalancing:ModifyTrustStore,
 elasticloadbalancing:AddTags,
@@ -354,3 +375,6 @@ elasticloadbalancing:RemoveTags,
 s3:GetObject,
 s3:GetObjectVersion
 ```
+
+</TabItem>
+</Tabs>

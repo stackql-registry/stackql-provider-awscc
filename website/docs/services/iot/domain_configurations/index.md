@@ -431,6 +431,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iot.domain_configurations
@@ -462,7 +464,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>domain_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:CreateDomainConfiguration,
 iot:UpdateDomainConfiguration,
@@ -473,14 +486,18 @@ acm:GetCertificate,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:DescribeDomainConfiguration,
 iot:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:UpdateDomainConfiguration,
 iot:DescribeDomainConfiguration,
@@ -490,7 +507,9 @@ iot:UntagResource,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:DescribeDomainConfiguration,
 iot:DeleteDomainConfiguration,
@@ -498,7 +517,12 @@ iot:UpdateDomainConfiguration,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListDomainConfigurations
 ```
+
+</TabItem>
+</Tabs>

@@ -345,6 +345,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>rotation_schedule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.secretsmanager.rotation_schedules
@@ -372,33 +374,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>rotation_schedules</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 secretsmanager:DescribeSecret
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 secretsmanager:RotateSecret,
 secretsmanager:DescribeSecret,
 lambda:InvokeFunction
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 secretsmanager:RotateSecret,
 secretsmanager:DescribeSecret,
 lambda:InvokeFunction
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 secretsmanager:DescribeSecret,
 secretsmanager:ListSecrets
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 secretsmanager:CancelRotateSecret,
 secretsmanager:DescribeSecret
 ```
+
+</TabItem>
+</Tabs>

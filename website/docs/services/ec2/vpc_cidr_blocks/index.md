@@ -331,25 +331,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_cidr_blocks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AssociateVpcCidrBlock,
 ec2:DescribeVpcs,
 ec2:AllocateIpamPoolCidr
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVpcs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeVpcs,
 ec2:DisassociateVpcCidrBlock
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVpcs
 ```
+
+</TabItem>
+</Tabs>

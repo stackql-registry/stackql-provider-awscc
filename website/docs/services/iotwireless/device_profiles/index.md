@@ -374,6 +374,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>device_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotwireless.device_profiles
@@ -398,32 +400,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>device_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotwireless:CreateDeviceProfile,
 iotwireless:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotwireless:GetDeviceProfile,
 iotwireless:TagResource,
 iotwireless:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotwireless:GetDeviceProfile,
 iotwireless:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotwireless:DeleteDeviceProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotwireless:ListDeviceProfiles,
 iotwireless:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

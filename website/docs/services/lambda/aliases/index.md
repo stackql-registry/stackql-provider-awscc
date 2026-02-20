@@ -301,6 +301,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>alias</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lambda.aliases
@@ -328,31 +330,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>aliases</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lambda:CreateAlias,
 lambda:PutProvisionedConcurrencyConfig,
 lambda:GetProvisionedConcurrencyConfig
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lambda:GetAlias,
 lambda:GetProvisionedConcurrencyConfig
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:DeleteAlias,
 lambda:GetAlias
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:ListAliases
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lambda:UpdateAlias,
 lambda:GetAlias,
@@ -365,3 +386,6 @@ codedeploy:GetDeploymentGroup,
 codedeploy:GetDeploymentConfig,
 codedeploy:StopDeployment
 ```
+
+</TabItem>
+</Tabs>

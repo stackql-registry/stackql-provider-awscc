@@ -307,6 +307,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>ipam_resource_discovery</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.ipam_resource_discoveries
@@ -334,7 +336,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>ipam_resource_discoveries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateIpamResourceDiscovery,
 ec2:DescribeIpamResourceDiscoveries,
@@ -343,12 +356,16 @@ ec2:CreateTags,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeIpamResourceDiscoveries
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyIpamResourceDiscovery,
 ec2:DescribeIpamResourceDiscoveries,
@@ -356,14 +373,21 @@ ec2:CreateTags,
 ec2:DeleteTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteIpamResourceDiscovery,
 ec2:DescribeIpamResourceDiscoveries,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeIpamResourceDiscoveries
 ```
+
+</TabItem>
+</Tabs>

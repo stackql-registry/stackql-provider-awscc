@@ -294,6 +294,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>enabled_baseline</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.controltower.enabled_baselines
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>enabled_baselines</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 controltower:EnableBaseline,
 controltower:TagResource,
@@ -352,14 +365,18 @@ servicecatalog:ListPrincipalsForPortfolio,
 servicecatalog:DeleteProvisioningArtifact
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 controltower:GetEnabledBaseline,
 controltower:ListEnabledBaselines,
 controltower:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 controltower:UpdateEnabledBaseline,
 controltower:GetBaselineOperation,
@@ -390,7 +407,9 @@ controltower:UntagResource,
 controltower:GetEnabledBaseline
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 controltower:DisableBaseline,
 controltower:GetBaselineOperation,
@@ -418,7 +437,12 @@ servicecatalog:ListPrincipalsForPortfolio,
 servicecatalog:DeleteProvisioningArtifact
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 controltower:ListEnabledBaselines
 ```
+
+</TabItem>
+</Tabs>

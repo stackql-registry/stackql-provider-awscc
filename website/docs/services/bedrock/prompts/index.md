@@ -355,6 +355,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>prompt</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.prompts
@@ -384,7 +386,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>prompts</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreatePrompt,
 bedrock:GetPrompt,
@@ -396,14 +409,18 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetPrompt,
 bedrock:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:UpdatePrompt,
 bedrock:GetPrompt,
@@ -416,13 +433,20 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeletePrompt,
 bedrock:GetPrompt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListPrompts
 ```
+
+</TabItem>
+</Tabs>

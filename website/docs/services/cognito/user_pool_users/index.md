@@ -309,24 +309,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_pool_users</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:AdminCreateUser,
 cognito-idp:AdminGetUser,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:AdminGetUser
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:AdminDeleteUser
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cognito-idp:ListUsers
 ```
+
+</TabItem>
+</Tabs>

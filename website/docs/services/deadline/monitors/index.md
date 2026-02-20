@@ -295,6 +295,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>monitor</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.deadline.monitors
@@ -322,7 +324,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>monitors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 deadline:CreateMonitor,
 deadline:GetMonitor,
@@ -337,13 +350,17 @@ sso:PutApplicationAuthenticationMethod,
 sso:PutApplicationGrant
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 deadline:GetMonitor,
 deadline:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 deadline:GetMonitor,
 deadline:TagResource,
@@ -356,14 +373,21 @@ sso:PutApplicationGrant,
 sso:UpdateApplication
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 deadline:DeleteMonitor,
 deadline:GetMonitor,
 sso:DeleteApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 deadline:ListMonitors
 ```
+
+</TabItem>
+</Tabs>

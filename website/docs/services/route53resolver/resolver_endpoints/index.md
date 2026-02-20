@@ -355,6 +355,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resolver_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53resolver.resolver_endpoints
@@ -383,7 +385,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_endpoints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:CreateResolverEndpoint,
 route53resolver:GetResolverEndpoint,
@@ -398,14 +411,18 @@ ec2:DescribeSecurityGroups,
 ec2:DescribeVpcs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetResolverEndpoint,
 route53resolver:ListResolverEndpointIpAddresses,
 route53resolver:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53resolver:AssociateResolverEndpointIpAddress,
 route53resolver:DisassociateResolverEndpointIpAddress,
@@ -426,7 +443,9 @@ ec2:ModifyNetworkInterfaceAttribute,
 ec2:UnassignIpv6Addresses
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:DeleteResolverEndpoint,
 route53resolver:GetResolverEndpoint,
@@ -434,7 +453,12 @@ ec2:DeleteNetworkInterface,
 ec2:DescribeNetworkInterfaces
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListResolverEndpoints
 ```
+
+</TabItem>
+</Tabs>

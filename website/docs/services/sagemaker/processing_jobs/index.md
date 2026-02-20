@@ -797,7 +797,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>processing_jobs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkInterface,
 ec2:CreateNetworkInterfacePermission,
@@ -818,13 +828,17 @@ sagemaker:ListTags,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeProcessingJob,
 sagemaker:ListTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteNetworkInterface,
 ec2:DeleteNetworkInterfacePermission,
@@ -838,9 +852,14 @@ sagemaker:ListTags,
 sagemaker:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListProcessingJobs,
 sagemaker:DescribeProcessingJob,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

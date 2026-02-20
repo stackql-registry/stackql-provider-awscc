@@ -388,6 +388,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>replication_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.dms.replication_configs
@@ -420,7 +422,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>replication_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 dms:CreateReplicationConfig,
 dms:AddTagsToResource,
@@ -431,13 +444,17 @@ iam:PutRolePolicy,
 iam:UpdateRoleDescription
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 dms:DescribeReplicationConfigs,
 dms:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 dms:ModifyReplicationConfig,
 dms:AddTagsToResource,
@@ -449,13 +466,17 @@ iam:PutRolePolicy,
 iam:UpdateRoleDescription
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 dms:DescribeReplicationConfigs,
 dms:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 dms:DescribeReplicationConfigs,
 dms:DeleteReplicationConfig,
@@ -463,3 +484,6 @@ dms:ListTagsForResource,
 iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
+
+</TabItem>
+</Tabs>

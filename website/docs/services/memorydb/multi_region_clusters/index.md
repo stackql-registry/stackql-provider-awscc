@@ -333,6 +333,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>multi_region_cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.memorydb.multi_region_clusters
@@ -362,7 +364,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>multi_region_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 memorydb:CreateMultiRegionCluster,
 memorydb:DescribeMultiRegionClusters,
@@ -371,13 +384,17 @@ memorydb:ListTags,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 memorydb:DescribeMultiRegionClusters,
 memorydb:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 memorydb:UpdateMultiRegionCluster,
 memorydb:DescribeMultiRegionClusters,
@@ -386,13 +403,20 @@ memorydb:TagResource,
 memorydb:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 memorydb:DeleteMultiRegionCluster,
 memorydb:DescribeMultiRegionClusters
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 memorydb:DescribeMultiRegionClusters
 ```
+
+</TabItem>
+</Tabs>

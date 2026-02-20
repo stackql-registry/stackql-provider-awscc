@@ -349,6 +349,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>channel_namespace</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appsync.channel_namespaces
@@ -378,7 +380,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>channel_namespaces</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appsync:CreateChannelNamespace,
 appsync:TagResource,
@@ -386,13 +399,17 @@ appsync:GetChannelNamespace,
 s3:GetObject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appsync:GetChannelNamespace,
 appsync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appsync:UpdateChannelNamespace,
 appsync:TagResource,
@@ -401,13 +418,20 @@ appsync:GetChannelNamespace,
 s3:GetObject
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appsync:DeleteChannelNamespace,
 appsync:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appsync:ListChannelNamespaces
 ```
+
+</TabItem>
+</Tabs>

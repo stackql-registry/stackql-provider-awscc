@@ -180,17 +180,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>monitoring_subscriptions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateMonitoringSubscription
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteMonitoringSubscription
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetMonitoringSubscription
 ```
+
+</TabItem>
+</Tabs>

@@ -468,6 +468,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workflow</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.omics.workflows
@@ -496,7 +498,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>workflows</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 omics:CreateWorkflow,
 omics:GetWorkflow,
@@ -516,12 +529,16 @@ codeconnections:GetConnection,
 codeconnections:GetHost
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 omics:GetWorkflow
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 omics:UpdateWorkflow,
 omics:GetWorkflow,
@@ -530,13 +547,20 @@ omics:ListTagsForResource,
 omics:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 omics:DeleteWorkflow,
 omics:GetWorkflow
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 omics:ListWorkflows
 ```
+
+</TabItem>
+</Tabs>

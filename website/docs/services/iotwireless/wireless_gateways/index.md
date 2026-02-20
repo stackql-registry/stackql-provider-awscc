@@ -311,6 +311,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>wireless_gateway</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotwireless.wireless_gateways
@@ -341,19 +343,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>wireless_gateways</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotwireless:CreateWirelessGateway,
 iotwireless:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotwireless:GetWirelessGateway,
 iotwireless:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotwireless:GetWirelessGateway,
 iotwireless:UpdateWirelessGateway,
@@ -362,14 +379,21 @@ iotwireless:TagResource,
 iotwireless:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotwireless:DeleteWirelessGateway,
 iotwireless:DisassociateWirelessGatewayFromThing
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotwireless:ListWirelessGateways,
 iotwireless:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

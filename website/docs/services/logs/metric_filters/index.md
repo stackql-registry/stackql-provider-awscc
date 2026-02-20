@@ -313,6 +313,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>metric_filter</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.logs.metric_filters
@@ -339,29 +341,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>metric_filters</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 logs:DescribeMetricFilters
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 logs:PutMetricFilter,
 logs:DescribeMetricFilters
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 logs:PutMetricFilter,
 logs:DescribeMetricFilters
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:DescribeMetricFilters
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteMetricFilter
 ```
+
+</TabItem>
+</Tabs>

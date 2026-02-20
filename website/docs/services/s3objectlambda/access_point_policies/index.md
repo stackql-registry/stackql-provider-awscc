@@ -164,6 +164,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_point_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3objectlambda.access_point_policies
@@ -188,25 +190,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_point_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3:PutAccessPointPolicyForObjectLambda,
 s3:GetAccessPointPolicyForObjectLambda
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3:GetAccessPointPolicyForObjectLambda
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:PutAccessPointPolicyForObjectLambda,
 s3:GetAccessPointPolicyForObjectLambda
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteAccessPointPolicyForObjectLambda,
 s3:GetAccessPointPolicyForObjectLambda
 ```
+
+</TabItem>
+</Tabs>

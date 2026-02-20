@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>blueprint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.blueprints
@@ -330,7 +332,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>blueprints</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateBlueprint,
 bedrock:GetBlueprint,
@@ -341,7 +354,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetBlueprint,
 bedrock:ListTagsForResource,
@@ -349,7 +364,9 @@ kms:DescribeKey,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:UpdateBlueprint,
 bedrock:GetBlueprint,
@@ -361,7 +378,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteBlueprint,
 bedrock:GetBlueprint,
@@ -369,7 +388,12 @@ kms:DescribeKey,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListBlueprints
 ```
+
+</TabItem>
+</Tabs>

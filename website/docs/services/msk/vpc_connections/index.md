@@ -277,6 +277,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_connection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.vpc_connections
@@ -301,7 +303,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_connections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpcEndpoint,
 ec2:DescribeSecurityGroups,
@@ -323,14 +336,18 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:DescribeVpcConnection,
 kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:DescribeVpcConnection,
 kms:CreateGrant,
@@ -339,7 +356,9 @@ kafka:TagResource,
 kafka:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpcEndpoint,
 ec2:DeleteVpcEndpoints,
@@ -351,9 +370,14 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListVpcConnections,
 kms:CreateGrant,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

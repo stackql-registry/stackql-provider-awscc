@@ -267,6 +267,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>member</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.guardduty.members
@@ -294,25 +296,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>members</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:CreateMembers,
 guardduty:GetMembers
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:GetMembers
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:GetMembers,
 guardduty:DisassociateMembers,
 guardduty:DeleteMembers
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 guardduty:GetMembers,
 guardduty:CreateMembers,
@@ -322,7 +341,12 @@ guardduty:StopMonitoringMembers,
 guardduty:InviteMembers
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:ListMembers
 ```
+
+</TabItem>
+</Tabs>

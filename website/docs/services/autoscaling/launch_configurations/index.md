@@ -491,25 +491,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>launch_configurations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 autoscaling:DescribeLaunchConfigurations
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 autoscaling:CreateLaunchConfiguration,
 autoscaling:DescribeLaunchConfigurations,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 autoscaling:DescribeLaunchConfigurations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 autoscaling:DeleteLaunchConfiguration,
 autoscaling:DescribeLaunchConfigurations
 ```
+
+</TabItem>
+</Tabs>

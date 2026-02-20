@@ -1327,6 +1327,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>task_definition</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecs.task_definitions
@@ -1351,12 +1353,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>task_definitions</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ecs:DescribeTaskDefinition
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ecs:RegisterTaskDefinition,
 ecs:DescribeTaskDefinition,
@@ -1365,7 +1380,9 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecs:TagResource,
 ecs:UntagResource,
@@ -1375,16 +1392,23 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecs:ListTaskDefinitions,
 ecs:DescribeTaskDefinition
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecs:DeregisterTaskDefinition,
 ecs:DescribeTaskDefinition,
 iam:GetRole,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

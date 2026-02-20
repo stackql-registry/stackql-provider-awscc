@@ -253,6 +253,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>key_signing_key</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53.key_signing_keys
@@ -277,7 +279,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>key_signing_keys</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53:CreateKeySigningKey,
 kms:DescribeKey,
@@ -286,12 +299,16 @@ kms:Sign,
 kms:CreateGrant
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53:GetDNSSEC
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53:GetDNSSEC,
 route53:ActivateKeySigningKey,
@@ -302,7 +319,9 @@ kms:Sign,
 kms:CreateGrant
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53:DeactivateKeySigningKey,
 route53:DeleteKeySigningKey,
@@ -312,8 +331,13 @@ kms:Sign,
 kms:CreateGrant
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53:GetDNSSEC,
 route53:ListHostedZones
 ```
+
+</TabItem>
+</Tabs>

@@ -227,6 +227,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>directory_registration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pcaconnectorad.directory_registrations
@@ -251,7 +253,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>directory_registrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ds:AuthorizeApplication,
 ds:DescribeDirectories,
@@ -260,13 +273,17 @@ pca-connector-ad:CreateDirectoryRegistration,
 pca-connector-ad:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pca-connector-ad:GetDirectoryRegistration,
 pca-connector-ad:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ds:DescribeDirectories,
 ds:UnauthorizeApplication,
@@ -276,14 +293,21 @@ pca-connector-ad:DeleteDirectoryRegistration,
 pca-connector-ad:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pca-connector-ad:ListDirectoryRegistrations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pca-connector-ad:ListTagsForResource,
 pca-connector-ad:TagResource,
 pca-connector-ad:UntagResource
 ```
+
+</TabItem>
+</Tabs>

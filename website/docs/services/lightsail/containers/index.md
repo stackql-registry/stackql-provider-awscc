@@ -507,6 +507,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>container</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.containers
@@ -536,7 +538,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>containers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:CreateContainerService,
 lightsail:CreateContainerServiceDeployment,
@@ -546,23 +559,31 @@ lightsail:UntagResource,
 lightsail:UpdateContainerService
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetContainerServices
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:DeleteContainerService,
 lightsail:GetContainerServices
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetContainerServices
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:CreateContainerServiceDeployment,
 lightsail:GetContainerServices,
@@ -570,3 +591,6 @@ lightsail:TagResource,
 lightsail:UntagResource,
 lightsail:UpdateContainerService
 ```
+
+</TabItem>
+</Tabs>

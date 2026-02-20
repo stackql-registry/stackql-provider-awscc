@@ -271,24 +271,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>transit_gateway_multicast_domain_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AssociateTransitGatewayMulticastDomain,
 ec2:GetTransitGatewayMulticastDomainAssociations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:GetTransitGatewayMulticastDomainAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DisassociateTransitGatewayMulticastDomain,
 ec2:GetTransitGatewayMulticastDomainAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:GetTransitGatewayMulticastDomainAssociations
 ```
+
+</TabItem>
+</Tabs>

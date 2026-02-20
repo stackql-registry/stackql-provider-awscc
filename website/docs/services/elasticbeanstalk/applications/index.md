@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticbeanstalk.applications
@@ -328,7 +330,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticbeanstalk:CreateApplication,
 elasticbeanstalk:DescribeApplications,
@@ -347,12 +360,16 @@ s3:GetBucketPolicy,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticbeanstalk:DescribeApplications
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticbeanstalk:UpdateApplication,
 elasticbeanstalk:UpdateApplicationResourceLifecycle,
@@ -360,14 +377,21 @@ elasticbeanstalk:DescribeApplications,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticbeanstalk:DeleteApplication,
 elasticbeanstalk:DescribeApplications,
 s3:ListBucket
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticbeanstalk:DescribeApplications
 ```
+
+</TabItem>
+</Tabs>

@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>secret_target_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.secretsmanager.secret_target_attachments
@@ -266,18 +268,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>secret_target_attachments</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 secretsmanager:GetSecretValue
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 secretsmanager:GetSecretValue,
 secretsmanager:ListSecrets
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 secretsmanager:GetSecretValue,
 secretsmanager:PutSecretValue,
@@ -289,13 +306,17 @@ redshift-serverless:ListWorkgroups,
 redshift-serverless:GetNamespace
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 secretsmanager:GetSecretValue,
 secretsmanager:PutSecretValue
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 secretsmanager:GetSecretValue,
 secretsmanager:PutSecretValue,
@@ -306,3 +327,6 @@ docdb-elastic:GetCluster,
 redshift-serverless:ListWorkgroups,
 redshift-serverless:GetNamespace
 ```
+
+</TabItem>
+</Tabs>

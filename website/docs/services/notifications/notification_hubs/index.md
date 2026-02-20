@@ -241,25 +241,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>notification_hubs</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 notifications:ListNotificationHubs
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 notifications:RegisterNotificationHub,
 notifications:ListNotificationHubs,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications:DeregisterNotificationHub,
 notifications:ListNotificationHubs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications:ListNotificationHubs
 ```
+
+</TabItem>
+</Tabs>

@@ -701,6 +701,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>connector</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kafkaconnect.connectors
@@ -727,7 +729,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>connectors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafkaconnect:CreateConnector,
 kafkaconnect:DescribeConnector,
@@ -750,13 +763,17 @@ s3:PutBucketPolicy,
 firehose:TagDeliveryStream
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafkaconnect:DescribeConnector,
 kafkaconnect:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafkaconnect:DeleteConnector,
 kafkaconnect:DescribeConnector,
@@ -765,7 +782,9 @@ logs:GetLogDelivery,
 logs:ListLogDeliveries
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafkaconnect:UpdateConnector,
 kafkaconnect:DescribeConnector,
@@ -785,7 +804,12 @@ s3:PutBucketPolicy,
 firehose:TagDeliveryStream
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafkaconnect:ListConnectors
 ```
+
+</TabItem>
+</Tabs>

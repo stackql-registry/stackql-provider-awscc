@@ -226,18 +226,34 @@ resources:
 
 To operate on the <code>module_default_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:DescribeType,
 cloudformation:SetTypeDefaultVersion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribeType
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListTypes
 ```
+
+</TabItem>
+</Tabs>

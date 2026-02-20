@@ -363,13 +363,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>deployments</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 appconfig:GetDeployment,
 appconfig:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 appconfig:StartDeployment,
 appconfig:GetDeployment,
@@ -378,12 +390,19 @@ appconfig:ListTagsForResource,
 kms:GenerateDataKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appconfig:ListDeployments
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appconfig:StopDeployment
 ```
+
+</TabItem>
+</Tabs>

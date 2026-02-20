@@ -409,6 +409,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>addon</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.addons
@@ -439,7 +441,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>addons</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:CreateAddon,
 eks:DescribeAddon,
@@ -449,24 +462,32 @@ iam:GetRole,
 eks:CreatePodIdentityAssociation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribeAddon
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DeleteAddon,
 eks:DescribeAddon,
 eks:DeletePodIdentityAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListAddons
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 iam:GetRole,
@@ -479,3 +500,6 @@ eks:CreatePodIdentityAssociation,
 eks:DeletePodIdentityAssociation,
 eks:UpdatePodIdentityAssociation
 ```
+
+</TabItem>
+</Tabs>

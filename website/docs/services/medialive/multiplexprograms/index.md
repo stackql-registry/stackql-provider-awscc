@@ -421,6 +421,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>multiplexprogram</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.medialive.multiplexprograms
@@ -448,30 +450,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>multiplexprograms</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 medialive:CreateMultiplexProgram,
 medialive:DescribeMultiplexProgram
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 medialive:DescribeMultiplexProgram
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 medialive:UpdateMultiplexProgram,
 medialive:DescribeMultiplexProgram
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 medialive:DeleteMultiplexProgram,
 medialive:DescribeMultiplexProgram
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 medialive:ListMultiplexPrograms
 ```
+
+</TabItem>
+</Tabs>

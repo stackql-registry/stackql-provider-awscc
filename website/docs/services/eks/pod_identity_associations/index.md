@@ -309,6 +309,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>pod_identity_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.pod_identity_associations
@@ -336,7 +338,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>pod_identity_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:CreatePodIdentityAssociation,
 eks:DescribePodIdentityAssociation,
@@ -345,12 +358,16 @@ iam:PassRole,
 iam:GetRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribePodIdentityAssociation
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 eks:DescribePodIdentityAssociation,
 eks:UpdatePodIdentityAssociation,
@@ -360,13 +377,20 @@ iam:PassRole,
 iam:GetRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DeletePodIdentityAssociation,
 eks:DescribePodIdentityAssociation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListPodIdentityAssociations
 ```
+
+</TabItem>
+</Tabs>

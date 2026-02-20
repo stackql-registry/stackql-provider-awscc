@@ -351,6 +351,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>configuration_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appconfig.configuration_profiles
@@ -381,13 +383,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>configuration_profiles</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 appconfig:GetConfigurationProfile,
 appconfig:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 appconfig:CreateConfigurationProfile,
 appconfig:GetConfigurationProfile,
@@ -396,7 +411,9 @@ appconfig:ListTagsForResource,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appconfig:UpdateConfigurationProfile,
 appconfig:TagResource,
@@ -404,12 +421,19 @@ appconfig:UntagResource,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appconfig:ListConfigurationProfiles
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appconfig:DeleteConfigurationProfile
 ```
+
+</TabItem>
+</Tabs>

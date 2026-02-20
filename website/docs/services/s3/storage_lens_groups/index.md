@@ -350,6 +350,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>storage_lens_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3.storage_lens_groups
@@ -375,7 +377,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>storage_lens_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3:CreateStorageLensGroup,
 s3:GetStorageLensGroup,
@@ -383,13 +396,17 @@ s3:TagResource,
 s3:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3:GetStorageLensGroup,
 s3:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:GetStorageLensGroup,
 s3:UpdateStorageLensGroup,
@@ -398,12 +415,19 @@ s3:UntagResource,
 s3:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteStorageLensGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3:ListStorageLensGroups
 ```
+
+</TabItem>
+</Tabs>

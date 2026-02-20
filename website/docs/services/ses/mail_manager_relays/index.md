@@ -281,6 +281,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mail_manager_relay</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_relays
@@ -309,7 +311,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>mail_manager_relays</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:TagResource,
 ses:ListTagsForResource,
@@ -317,13 +330,17 @@ ses:GetRelay,
 ses:CreateRelay
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:ListTagsForResource,
 ses:GetRelay
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:TagResource,
 ses:UntagResource,
@@ -332,13 +349,20 @@ ses:GetRelay,
 ses:UpdateRelay
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:GetRelay,
 ses:DeleteRelay
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListRelays
 ```
+
+</TabItem>
+</Tabs>

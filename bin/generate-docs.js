@@ -234,6 +234,8 @@ function createUpdateExample(serviceName, resourceName, resourceData, thisSchema
 
     return `\n## ${mdCodeAnchor}UPDATE${mdCodeAnchor} example
 
+Use the following StackQL query and manifest file to update a <code>${pluralize.singular(resourceName)}</code> resource, using [__${mdCodeAnchor}stack-deploy${mdCodeAnchor}__](https://pypi.org/project/stack-deploy/).
+
 ${sqlCodeBlockStart}
 /*+ update */
 UPDATE ${providerName}.${serviceName}.${resourceName}
@@ -583,13 +585,10 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
         permissionsHeadingMarkdown = schema?.['x-required-permissions'] ? '## Permissions\n' : '';
         permissionsBylineMarkdown = schema?.['x-required-permissions'] ? `To operate on the <code>${resourceName}</code> resource, the following permissions are required:\n` : '';
     
-        permissionsMarkdown = Object.entries(schema?.['x-required-permissions'] ?? {})
+        const permissionTabs = Object.entries(schema?.['x-required-permissions'] ?? {})
         .map(([permissionType, permissions]) => {
-          // Define which permission types to include based on the isPlural flag.
-
             const includedTypes = ['create', 'list', 'delete', 'read', 'update'];
 
-          // Check if the current permissionType is in the includedTypes array.
           if (includedTypes.includes(permissionType)) {
             // update flags
             if (permissionType === 'list') {
@@ -598,29 +597,46 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
             if (permissionType === 'read') {
                 hasGet = true;
             }
-            
+
             if(!hasList && !hasGet){
                 isSelectable = false;
             }
 
-            // If it is, format the permissions as before.
-            const sectionTitle = `### ${permissionType.charAt(0).toUpperCase() + permissionType.slice(1)}\n${jsonCodeBlockStart}\n`;
-            const permissionsList = permissions.join(",\n");
-            const sectionEnd = `\n${codeBlockEnd}\n`;
-    
             if (permissions.length === 0) {
               return null;
             }
-    
-            return `${sectionTitle}${permissionsList}${sectionEnd}`;
+
+            const label = permissionType.charAt(0).toUpperCase() + permissionType.slice(1);
+            const permissionsList = permissions.join(",\n");
+
+            return { value: permissionType, label, permissionsList };
           } else {
-            // If it's not, return an empty string (or null, which will be filtered out).
             return null;
           }
         })
-        // Filter out the null entries resulting from excluded permissionTypes.
-        .filter(section => section !== null)
-        .join('\n');
+        .filter(section => section !== null);
+
+        if (permissionTabs.length > 0) {
+            const tabValues = permissionTabs.map(t => `      { label: '${t.label}', value: '${t.value}', },`).join('\n');
+            const tabItems = permissionTabs.map(t => `<TabItem value="${t.value}">
+
+${jsonCodeBlockStart}
+${t.permissionsList}
+${codeBlockEnd}
+
+</TabItem>`).join('\n');
+
+            permissionsMarkdown = `<Tabs
+    defaultValue="${permissionTabs[0].value}"
+    values={[
+${tabValues}
+    ]
+}>
+${tabItems}
+</Tabs>`;
+        } else {
+            permissionsMarkdown = '';
+        }
 
         // covers non select ops for cc resources
          sqlVerbsList = Object.entries(resourceData.sqlVerbs).map(([key, value]) => {

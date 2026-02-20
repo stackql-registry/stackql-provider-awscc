@@ -305,6 +305,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>virtual_cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.emrcontainers.virtual_clusters
@@ -330,33 +332,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>virtual_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 emr-containers:CreateVirtualCluster,
 emr-containers:TagResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 emr-containers:DescribeVirtualCluster
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 emr-containers:DeleteVirtualCluster,
 emr-containers:DescribeVirtualCluster
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 emr-containers:ListVirtualClusters
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 emr-containers:DescribeVirtualCluster,
 emr-containers:ListTagsForResource,
 emr-containers:TagResource,
 emr-containers:UntagResource
 ```
+
+</TabItem>
+</Tabs>

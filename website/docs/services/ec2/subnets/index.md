@@ -436,6 +436,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>subnet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.subnets
@@ -466,7 +468,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>subnets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:DescribeSubnets,
 ec2:CreateSubnet,
@@ -474,13 +487,17 @@ ec2:CreateTags,
 ec2:ModifySubnetAttribute
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeSubnets,
 ec2:DescribeNetworkAcls
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeSubnets,
 ec2:ModifySubnetAttribute,
@@ -490,14 +507,21 @@ ec2:AssociateSubnetCidrBlock,
 ec2:DisassociateSubnetCidrBlock
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeSubnets,
 ec2:DeleteSubnet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeSubnets,
 ec2:DescribeNetworkAcls
 ```
+
+</TabItem>
+</Tabs>

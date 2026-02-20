@@ -254,22 +254,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>view_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateViewVersion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeView
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListViewVersions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteViewVersion
 ```
+
+</TabItem>
+</Tabs>

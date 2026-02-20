@@ -339,6 +339,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53recoveryreadiness.resource_sets
@@ -364,7 +366,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53-recovery-readiness:CreateResourceSet,
 route53-recovery-readiness:GetResourceSet,
@@ -374,13 +387,17 @@ route53-recovery-readiness:ListTagsForResources,
 route53-recovery-readiness:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53-recovery-readiness:GetResourceSet,
 route53-recovery-readiness:ListTagsForResources
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53-recovery-readiness:UpdateResourceSet,
 route53-recovery-readiness:GetResourceSet,
@@ -391,13 +408,20 @@ route53-recovery-readiness:TagResource,
 route53-recovery-readiness:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53-recovery-readiness:DeleteResourceSet,
 route53-recovery-readiness:GetResourceSet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53-recovery-readiness:ListResourceSets
 ```
+
+</TabItem>
+</Tabs>

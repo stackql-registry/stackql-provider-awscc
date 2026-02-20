@@ -249,6 +249,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>origin_access_control</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.origin_access_controls
@@ -273,29 +275,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>origin_access_controls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateOriginAccessControl
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteOriginAccessControl,
 cloudfront:GetOriginAccessControl
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListOriginAccessControls
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetOriginAccessControl
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudfront:UpdateOriginAccessControl,
 cloudfront:GetOriginAccessControl
 ```
+
+</TabItem>
+</Tabs>

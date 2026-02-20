@@ -253,22 +253,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>schema_version_metadata</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 glue:putSchemaVersionMetadata
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 glue:querySchemaVersionMetadata
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 glue:removeSchemaVersionMetadata
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 glue:querySchemaVersionMetadata
 ```
+
+</TabItem>
+</Tabs>

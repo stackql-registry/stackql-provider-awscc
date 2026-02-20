@@ -307,6 +307,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>url</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lambda.urls
@@ -333,27 +335,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>urls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lambda:CreateFunctionUrlConfig
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lambda:GetFunctionUrlConfig
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lambda:UpdateFunctionUrlConfig
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:ListFunctionUrlConfigs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:DeleteFunctionUrlConfig
 ```
+
+</TabItem>
+</Tabs>

@@ -587,6 +587,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>dataset</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotanalytics.datasets
@@ -617,30 +619,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>datasets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotanalytics:CreateDataset
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotanalytics:DescribeDataset,
 iotanalytics:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotanalytics:UpdateDataset,
 iotanalytics:TagResource,
 iotanalytics:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotanalytics:DeleteDataset
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotanalytics:ListDatasets
 ```
+
+</TabItem>
+</Tabs>

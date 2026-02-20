@@ -297,23 +297,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>data_cells_filters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lakeformation:CreateDataCellsFilter,
 glue:GetTable
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lakeformation:DeleteDataCellsFilter
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lakeformation:ListDataCellsFilter
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lakeformation:ListDataCellsFilter
 ```
+
+</TabItem>
+</Tabs>

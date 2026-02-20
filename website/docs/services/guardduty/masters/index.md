@@ -245,24 +245,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>masters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 guardduty:ListInvitations,
 guardduty:AcceptInvitation,
 guardduty:GetMasterAccount
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 guardduty:GetMasterAccount
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 guardduty:DisassociateFromMasterAccount
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 guardduty:GetMasterAccount
 ```
+
+</TabItem>
+</Tabs>

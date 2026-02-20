@@ -412,6 +412,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>direct_connect_gateway_attachment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.direct_connect_gateway_attachments
@@ -439,7 +441,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>direct_connect_gateway_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:CreateDirectConnectGatewayAttachment,
 networkmanager:GetDirectConnectGatewayAttachment,
@@ -448,12 +461,16 @@ ec2:DescribeRegions,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetDirectConnectGatewayAttachment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 networkmanager:UpdateDirectConnectGatewayAttachment,
 networkmanager:GetDirectConnectGatewayAttachment,
@@ -463,7 +480,9 @@ networkmanager:UntagResource,
 ec2:DescribeRegions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:DeleteAttachment,
 networkmanager:GetDirectConnectGatewayAttachment,
@@ -471,7 +490,12 @@ networkmanager:UntagResource,
 ec2:DescribeRegions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:ListAttachments
 ```
+
+</TabItem>
+</Tabs>

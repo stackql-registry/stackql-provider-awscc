@@ -351,6 +351,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>channel</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mediapackagev2.channels
@@ -378,18 +380,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>channels</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mediapackagev2:TagResource,
 mediapackagev2:CreateChannel
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediapackagev2:GetChannel
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mediapackagev2:TagResource,
 mediapackagev2:UntagResource,
@@ -397,13 +414,20 @@ mediapackagev2:ListTagsForResource,
 mediapackagev2:UpdateChannel
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mediapackagev2:GetChannel,
 mediapackagev2:DeleteChannel
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediapackagev2:ListChannels
 ```
+
+</TabItem>
+</Tabs>

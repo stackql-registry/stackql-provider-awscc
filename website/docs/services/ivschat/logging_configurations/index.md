@@ -307,6 +307,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>logging_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ivschat.logging_configurations
@@ -333,7 +335,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ivschat:CreateLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
@@ -348,13 +361,17 @@ firehose:TagDeliveryStream,
 ivschat:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ivschat:GetLoggingConfiguration,
 ivschat:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ivschat:UpdateLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
@@ -375,7 +392,9 @@ iam:CreateServiceLinkedRole,
 firehose:TagDeliveryStream
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ivschat:DeleteLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
@@ -385,8 +404,13 @@ ivschat:UntagResource,
 logs:GetLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ivschat:ListLoggingConfigurations,
 ivschat:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

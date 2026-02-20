@@ -333,6 +333,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>link</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.networkmanager.links
@@ -361,19 +363,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>links</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:CreateLink,
 networkmanager:GetLinks,
 networkmanager:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetLinks
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 networkmanager:ListTagsForResource,
 networkmanager:TagResource,
@@ -382,13 +399,20 @@ networkmanager:UntagResource,
 networkmanager:UpdateLink
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:GetLinks,
 networkmanager:DeleteLink
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:GetLinks
 ```
+
+</TabItem>
+</Tabs>

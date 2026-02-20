@@ -308,6 +308,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>source_api_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appsync.source_api_associations
@@ -333,27 +335,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>source_api_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appsync:AssociateSourceGraphqlApi,
 appsync:AssociateMergedGraphqlApi,
 appsync:GetSourceApiAssociation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appsync:GetSourceApiAssociation,
 appsync:ListSourceApiAssociations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appsync:GetSourceApiAssociation,
 appsync:UpdateSourceApiAssociation,
 appsync:GetSourceApiAssociation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appsync:GetSourceApiAssociation,
 appsync:DisassociateSourceGraphqlApi,
@@ -361,7 +380,12 @@ appsync:DisassociateMergedGraphqlApi,
 appsync:ListSourceApiAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appsync:ListSourceApiAssociations
 ```
+
+</TabItem>
+</Tabs>

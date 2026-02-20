@@ -267,6 +267,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>farm</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.deadline.farms
@@ -293,7 +295,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>farms</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 deadline:CreateFarm,
 deadline:GetFarm,
@@ -306,7 +319,9 @@ kms:CreateGrant,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 deadline:GetFarm,
 deadline:ListTagsForResource,
@@ -317,7 +332,9 @@ kms:CreateGrant,
 kms:GenerateDataKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 deadline:UpdateFarm,
 deadline:GetFarm,
@@ -331,7 +348,9 @@ kms:CreateGrant,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 deadline:DeleteFarm,
 deadline:GetFarm,
@@ -342,8 +361,13 @@ kms:CreateGrant,
 kms:GenerateDataKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 deadline:ListFarms,
 identitystore:ListGroupMembershipsForMember
 ```
+
+</TabItem>
+</Tabs>

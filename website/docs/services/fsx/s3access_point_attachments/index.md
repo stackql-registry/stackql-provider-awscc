@@ -334,7 +334,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>s3access_point_attachments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 fsx:CreateAndAttachS3AccessPoint,
 fsx:DescribeS3AccessPointAttachments,
@@ -343,13 +353,17 @@ s3:GetAccessPoint,
 s3:PutAccessPointPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 fsx:DescribeS3AccessPointAttachments,
 s3:GetAccessPoint
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 fsx:DescribeS3AccessPointAttachments,
 fsx:DetachAndDeleteS3AccessPoint,
@@ -357,8 +371,13 @@ s3:DeleteAccessPoint,
 s3:GetAccessPoint
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 fsx:DescribeS3AccessPointAttachments,
 s3:GetAccessPoint
 ```
+
+</TabItem>
+</Tabs>

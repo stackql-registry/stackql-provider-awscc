@@ -235,24 +235,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>transit_gateway_registrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:RegisterTransitGateway,
 networkmanager:GetTransitGatewayRegistrations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetTransitGatewayRegistrations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:GetTransitGatewayRegistrations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:DeregisterTransitGateway,
 networkmanager:GetTransitGatewayRegistrations
 ```
+
+</TabItem>
+</Tabs>

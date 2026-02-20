@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>route_table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.route_tables
@@ -265,32 +267,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>route_tables</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeRouteTables
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateRouteTable,
 ec2:CreateTags,
 ec2:DescribeRouteTables
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:CreateTags,
 ec2:DeleteTags,
 ec2:DescribeRouteTables
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeRouteTables
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeRouteTables,
 ec2:DeleteRouteTable
 ```
+
+</TabItem>
+</Tabs>

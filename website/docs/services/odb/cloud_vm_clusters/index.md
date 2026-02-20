@@ -565,6 +565,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cloud_vm_cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.odb.cloud_vm_clusters
@@ -589,7 +591,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>cloud_vm_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 odb:CreateCloudVmCluster,
 odb:TagResource,
@@ -601,14 +614,18 @@ ec2:DescribeAvailabilityZones,
 odb:CreateDbNode
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 odb:GetCloudVmCluster,
 odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 odb:TagResource,
 odb:UntagResource,
@@ -618,7 +635,9 @@ odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 odb:DeleteCloudVmCluster,
 odb:GetCloudVmCluster,
@@ -628,9 +647,14 @@ sts:GetCallerIdentity,
 odb:DeleteDbNode
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 odb:ListCloudVmClusters,
 odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
+
+</TabItem>
+</Tabs>

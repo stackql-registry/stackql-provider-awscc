@@ -622,6 +622,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>listener</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.listeners
@@ -653,13 +655,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>listeners</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeListeners,
 elasticloadbalancing:DescribeListenerAttributes
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:CreateListener,
 elasticloadbalancing:DescribeListeners,
@@ -667,7 +682,9 @@ cognito-idp:DescribeUserPoolClient,
 elasticloadbalancing:ModifyListenerAttributes
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticloadbalancing:ModifyListener,
 elasticloadbalancing:DescribeListeners,
@@ -675,13 +692,20 @@ cognito-idp:DescribeUserPoolClient,
 elasticloadbalancing:ModifyListenerAttributes
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeListeners
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteListener,
 elasticloadbalancing:DescribeListeners
 ```
+
+</TabItem>
+</Tabs>

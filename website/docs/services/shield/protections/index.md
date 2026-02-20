@@ -294,6 +294,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>protection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.shield.protections
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>protections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 shield:CreateProtection,
 shield:DeleteProtection,
@@ -338,19 +351,25 @@ wafv2:GetWebACLForResource,
 wafv2:GetWebACL
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 shield:DeleteProtection,
 shield:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 shield:DescribeProtection,
 shield:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 shield:DescribeProtection,
 shield:AssociateHealthCheck,
@@ -368,7 +387,12 @@ wafv2:GetWebACLForResource,
 wafv2:GetWebACL
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 shield:ListProtections
 ```
+
+</TabItem>
+</Tabs>

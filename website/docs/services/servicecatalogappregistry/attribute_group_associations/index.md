@@ -257,22 +257,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>attribute_group_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 servicecatalog:AssociateAttributeGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 servicecatalog:ListAttributeGroupsForApplication
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 servicecatalog:DisassociateAttributeGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 servicecatalog:ListAttributeGroupsForApplication
 ```
+
+</TabItem>
+</Tabs>

@@ -357,6 +357,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_point</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3express.access_points
@@ -384,7 +386,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_points</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3express:CreateAccessPoint,
 s3express:PutAccessPointPolicy,
@@ -394,7 +407,9 @@ s3express:GetAccessPointScope,
 s3express:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3express:GetAccessPoint,
 s3express:GetAccessPointPolicy,
@@ -402,7 +417,9 @@ s3express:GetAccessPointScope,
 s3express:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3express:PutAccessPointPolicy,
 s3express:DeleteAccessPointPolicy,
@@ -416,14 +433,21 @@ s3express:GetAccessPointScope,
 s3express:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3express:DeleteAccessPointPolicy,
 s3express:DeleteAccessPoint,
 s3express:DeleteAccessPointScope
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3express:ListAccessPointsForDirectoryBuckets
 ```
+
+</TabItem>
+</Tabs>

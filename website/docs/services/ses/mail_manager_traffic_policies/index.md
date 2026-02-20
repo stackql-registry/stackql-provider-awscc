@@ -289,6 +289,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mail_manager_traffic_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.mail_manager_traffic_policies
@@ -317,7 +319,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>mail_manager_traffic_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:TagResource,
 ses:ListTagsForResource,
@@ -325,13 +338,17 @@ ses:GetTrafficPolicy,
 ses:CreateTrafficPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:ListTagsForResource,
 ses:GetTrafficPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:TagResource,
 ses:UntagResource,
@@ -340,13 +357,20 @@ ses:GetTrafficPolicy,
 ses:UpdateTrafficPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:GetTrafficPolicy,
 ses:DeleteTrafficPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListTrafficPolicies
 ```
+
+</TabItem>
+</Tabs>

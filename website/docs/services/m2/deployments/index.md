@@ -247,6 +247,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>deployment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.m2.deployments
@@ -271,7 +273,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>deployments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 m2:CreateDeployment,
 m2:ListDeployments,
@@ -294,13 +307,17 @@ logs:CreateLogGroup,
 logs:PutResourcePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 m2:ListDeployments,
 m2:GetDeployment
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 m2:CreateDeployment,
 m2:ListDeployments,
@@ -317,7 +334,9 @@ elasticloadbalancing:RegisterTargets,
 ec2:DescribeNetworkInterfaces
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteListener,
 elasticloadbalancing:DeleteTargetGroup,
@@ -329,7 +348,12 @@ m2:GetDeployment,
 m2:DeleteApplicationFromEnvironment
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 m2:ListDeployments
 ```
+
+</TabItem>
+</Tabs>

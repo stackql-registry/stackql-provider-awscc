@@ -403,7 +403,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>image_builders</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appstream:CreateImageBuilder,
 appstream:CreateImageBuilderStreamingURL,
@@ -417,7 +427,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appstream:CreateImageBuilder,
 appstream:CreateImageBuilderStreamingURL,
@@ -431,7 +443,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appstream:CreateImageBuilder,
 appstream:CreateImageBuilderStreamingURL,
@@ -445,7 +459,9 @@ iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appstream:CreateImageBuilder,
 appstream:CreateImageBuilderStreamingURL,
@@ -458,3 +474,6 @@ iam:CreateServiceLinkedRole,
 iam:DeleteServiceLinkedRole,
 iam:GetServiceLinkedRoleDeletionStatus
 ```
+
+</TabItem>
+</Tabs>

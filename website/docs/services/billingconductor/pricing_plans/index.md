@@ -280,6 +280,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>pricing_plan</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.billingconductor.pricing_plans
@@ -307,7 +309,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>pricing_plans</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 billingconductor:CreatePricingPlan,
 billingconductor:AssociatePricingRules,
@@ -316,21 +329,27 @@ billingconductor:TagResource,
 billingconductor:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 billingconductor:ListPricingPlans,
 billingconductor:ListPricingRulesAssociatedToPricingPlan,
 billingconductor:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 billingconductor:ListPricingPlans,
 billingconductor:ListPricingRulesAssociatedToPricingPlan,
 billingconductor:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 billingconductor:ListPricingPlans,
 billingconductor:UpdatePricingPlan,
@@ -341,9 +360,14 @@ billingconductor:TagResource,
 billingconductor:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 billingconductor:ListPricingPlans,
 billingconductor:DeletePricingPlan,
 billingconductor:UntagResource
 ```
+
+</TabItem>
+</Tabs>

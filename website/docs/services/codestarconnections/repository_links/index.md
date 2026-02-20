@@ -287,6 +287,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>repository_link</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codestarconnections.repository_links
@@ -313,7 +315,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>repository_links</code> resource, the following permissions are required:
 
-### Update
+<Tabs
+    defaultValue="update"
+    values={[
+      { label: 'Update', value: 'update', },
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="update">
+
 ```json
 codestar-connections:GetConnection,
 codestar-connections:ListTagsForResource,
@@ -324,7 +337,9 @@ codestar-connections:UntagResource,
 codestar-connections:UpdateRepositoryLink
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 codestar-connections:CreateRepositoryLink,
 codestar-connections:TagResource,
@@ -334,22 +349,31 @@ codestar-connections:GetConnection,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codestar-connections:GetRepositoryLink,
 codestar-connections:ListTagsForResource,
 codestar-connections:GetConnection
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codestar-connections:GetRepositoryLink,
 codestar-connections:DeleteRepositoryLink,
 codestar-connections:GetConnection
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codestar-connections:ListRepositoryLinks,
 codestar-connections:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

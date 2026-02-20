@@ -383,6 +383,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>firewall_rule_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53resolver.firewall_rule_groups
@@ -407,7 +409,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>firewall_rule_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53resolver:CreateFirewallRuleGroup,
 route53resolver:GetFirewallRuleGroup,
@@ -418,20 +431,26 @@ route53resolver:TagResource,
 route53resolver:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53resolver:GetFirewallRuleGroup,
 route53resolver:ListFirewallRules,
 route53resolver:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53resolver:ListFirewallRuleGroups,
 route53resolver:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53resolver:GetFirewallRuleGroup,
 route53resolver:DeleteFirewallRuleGroup,
@@ -441,7 +460,9 @@ route53resolver:UntagResource,
 route53resolver:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53resolver:GetFirewallRuleGroup,
 route53resolver:ListFirewallRules,
@@ -452,3 +473,6 @@ route53resolver:TagResource,
 route53resolver:UntagResource,
 route53resolver:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

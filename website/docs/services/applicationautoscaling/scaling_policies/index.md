@@ -658,6 +658,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>scaling_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.applicationautoscaling.scaling_policies
@@ -685,32 +687,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>scaling_policies</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 application-autoscaling:DescribeScalingPolicies
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 application-autoscaling:DescribeScalingPolicies,
 application-autoscaling:PutScalingPolicy,
 cloudwatch:GetMetricData
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 application-autoscaling:DescribeScalingPolicies,
 application-autoscaling:PutScalingPolicy,
 cloudwatch:GetMetricData
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 application-autoscaling:DescribeScalingPolicies
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 application-autoscaling:DescribeScalingPolicies,
 application-autoscaling:DeleteScalingPolicy
 ```
+
+</TabItem>
+</Tabs>

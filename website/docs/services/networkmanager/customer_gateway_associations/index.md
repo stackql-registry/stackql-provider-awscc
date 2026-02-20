@@ -257,23 +257,42 @@ AND region = 'us-east-1';
 
 To operate on the <code>customer_gateway_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 networkmanager:GetCustomerGatewayAssociations,
 networkmanager:AssociateCustomerGateway
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 networkmanager:GetCustomerGatewayAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 networkmanager:GetCustomerGatewayAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 networkmanager:DisassociateCustomerGateway
 ```
+
+</TabItem>
+</Tabs>

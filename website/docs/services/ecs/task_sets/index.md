@@ -396,6 +396,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>task_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecs.task_sets
@@ -421,19 +423,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>task_sets</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ecs:DescribeTaskSets
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ecs:CreateTaskSet,
 ecs:DescribeTaskSets,
 ecs:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecs:DescribeTaskSets,
 ecs:TagResource,
@@ -441,8 +457,13 @@ ecs:UntagResource,
 ecs:UpdateTaskSet
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecs:DeleteTaskSet,
 ecs:DescribeTaskSets
 ```
+
+</TabItem>
+</Tabs>

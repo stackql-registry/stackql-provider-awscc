@@ -384,6 +384,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>guard_hook</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudformation.guard_hooks
@@ -415,7 +417,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>guard_hooks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:ActivateType,
 cloudformation:DescribeType,
@@ -425,13 +438,17 @@ cloudformation:BatchDescribeTypeConfigurations,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribeType,
 cloudformation:BatchDescribeTypeConfigurations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DescribeType,
@@ -439,7 +456,9 @@ cloudformation:SetTypeConfiguration,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudformation:BatchDescribeTypeConfigurations,
 cloudformation:DescribeType,
@@ -447,9 +466,14 @@ cloudformation:DeactivateType,
 cloudformation:SetTypeConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:ListTypes,
 cloudformation:DescribeType,
 cloudformation:BatchDescribeTypeConfigurations
 ```
+
+</TabItem>
+</Tabs>

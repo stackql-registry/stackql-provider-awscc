@@ -315,6 +315,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application_inference_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.bedrock.application_inference_profiles
@@ -339,7 +341,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>application_inference_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateInferenceProfile,
 bedrock:GetInferenceProfile,
@@ -347,13 +360,17 @@ bedrock:TagResource,
 bedrock:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetInferenceProfile,
 bedrock:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 bedrock:GetInferenceProfile,
 bedrock:ListTagsForResource,
@@ -361,13 +378,20 @@ bedrock:TagResource,
 bedrock:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteInferenceProfile,
 bedrock:GetInferenceProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListInferenceProfiles
 ```
+
+</TabItem>
+</Tabs>

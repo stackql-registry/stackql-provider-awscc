@@ -320,6 +320,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resiliency_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.resiliencehub.resiliency_policies
@@ -349,14 +351,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>resiliency_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resiliencehub:CreateResiliencyPolicy,
 resiliencehub:DescribeResiliencyPolicy,
 resiliencehub:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 resiliencehub:DescribeResiliencyPolicy,
 resiliencehub:UpdateResiliencyPolicy,
@@ -365,19 +380,28 @@ resiliencehub:UntagResource,
 resiliencehub:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resiliencehub:DescribeResiliencyPolicy,
 resiliencehub:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resiliencehub:DeleteResiliencyPolicy,
 resiliencehub:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resiliencehub:ListResiliencyPolicies
 ```
+
+</TabItem>
+</Tabs>

@@ -305,6 +305,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>recipe</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.databrew.recipes
@@ -331,7 +333,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>recipes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 databrew:CreateRecipe,
 databrew:DescribeRecipe,
@@ -340,27 +353,38 @@ databrew:UntagResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 databrew:DescribeRecipe,
 databrew:ListTagsForResource,
 iam:ListRoles
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 databrew:DeleteRecipeVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 databrew:ListRecipes,
 iam:ListRoles
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 databrew:UpdateRecipe,
 databrew:TagResource,
 databrew:UntagResource
 ```
+
+</TabItem>
+</Tabs>

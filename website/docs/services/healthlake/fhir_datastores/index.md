@@ -373,6 +373,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>fhir_datastore</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.healthlake.fhir_datastores
@@ -397,7 +399,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>fhir_datastores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 healthlake:CreateFHIRDatastore,
 healthlake:DescribeFHIRDatastore,
@@ -418,13 +431,17 @@ healthlake:UntagResource,
 healthlake:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 healthlake:DescribeFHIRDatastore,
 healthlake:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 healthlake:TagResource,
 healthlake:UntagResource,
@@ -435,7 +452,9 @@ iam:GetRole,
 iam:CreateServiceLinkedRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 healthlake:DeleteFHIRDatastore,
 healthlake:DescribeFHIRDatastore,
@@ -448,7 +467,12 @@ glue:CreateDatabase,
 glue:DeleteDatabase
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 healthlake:ListFHIRDatastores
 ```
+
+</TabItem>
+</Tabs>

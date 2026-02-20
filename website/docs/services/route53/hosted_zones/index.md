@@ -315,6 +315,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>hosted_zone</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53.hosted_zones
@@ -342,14 +344,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>hosted_zones</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 route53:GetHostedZone,
 route53:ListTagsForResource,
 route53:ListQueryLoggingConfigs
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 route53:CreateHostedZone,
 route53:CreateQueryLoggingConfig,
@@ -359,7 +374,9 @@ route53:AssociateVPCWithHostedZone,
 ec2:DescribeVpcs
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53:GetChange,
 route53:GetHostedZone,
@@ -374,7 +391,9 @@ route53:DeleteQueryLoggingConfig,
 ec2:DescribeVpcs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53:GetHostedZone,
 route53:ListHostedZones,
@@ -382,10 +401,15 @@ route53:ListQueryLoggingConfigs,
 route53:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53:DeleteHostedZone,
 route53:DeleteQueryLoggingConfig,
 route53:ListQueryLoggingConfigs,
 route53:GetChange
 ```
+
+</TabItem>
+</Tabs>

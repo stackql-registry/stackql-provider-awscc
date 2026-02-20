@@ -268,6 +268,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>locationf_sx_lustre</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datasync.locationf_sx_lustres
@@ -293,7 +295,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>locationf_sx_lustres</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 datasync:CreateLocationFsxLustre,
 datasync:DescribeLocationFsxLustre,
@@ -305,13 +318,17 @@ ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 datasync:DescribeLocationFsxLustre,
 datasync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datasync:DescribeLocationFsxLustre,
 datasync:ListTagsForResource,
@@ -322,12 +339,19 @@ fsx:DescribeFileSystems,
 ec2:DescribeNetworkInterfaces
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datasync:DeleteLocation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datasync:ListLocations
 ```
+
+</TabItem>
+</Tabs>

@@ -279,6 +279,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.refactorspaces.environments
@@ -303,7 +305,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 refactor-spaces:CreateEnvironment,
 refactor-spaces:GetEnvironment,
@@ -334,20 +347,26 @@ tag:GetResources,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 refactor-spaces:GetEnvironment,
 refactor-spaces:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 refactor-spaces:GetEnvironment,
 refactor-spaces:TagResource,
 refactor-spaces:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 refactor-spaces:GetEnvironment,
 refactor-spaces:DeleteEnvironment,
@@ -361,8 +380,13 @@ ram:GetResourceShareAssociations,
 ram:DeleteResourceShare
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 refactor-spaces:ListEnvironments,
 refactor-spaces:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

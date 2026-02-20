@@ -365,6 +365,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>scraper</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.aps.scrapers
@@ -393,7 +395,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>scrapers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aps:CreateScraper,
 aps:DescribeScraper,
@@ -408,13 +421,17 @@ iam:CreateServiceLinkedRole,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aps:DescribeScraper,
 aps:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aps:CreateScraper,
 aps:DescribeScraper,
@@ -426,7 +443,9 @@ aps:ListTagsForResource,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aps:DeleteScraper,
 aps:DescribeScraper,
@@ -438,8 +457,13 @@ ec2:DescribeSecurityGroups,
 iam:DeleteServiceLinkedRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aps:ListScrapers,
 aps:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

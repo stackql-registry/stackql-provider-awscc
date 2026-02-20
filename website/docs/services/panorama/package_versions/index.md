@@ -237,6 +237,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>package_version</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.panorama.package_versions
@@ -262,7 +264,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>package_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 panorama:RegisterPackageVersion,
 panorama:DescribePackageVersion,
@@ -272,7 +284,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 panorama:DescribePackageVersion,
 s3:ListBucket,
@@ -280,7 +294,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 panorama:DescribePackageVersion,
 panorama:RegisterPackageVersion,
@@ -290,7 +306,9 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 panorama:DeregisterPackageVersion,
 panorama:DescribePackageVersion,
@@ -301,3 +319,6 @@ s3:ListBucket,
 s3:GetObject,
 s3:GetObjectVersion
 ```
+
+</TabItem>
+</Tabs>

@@ -277,6 +277,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>enabled_control</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.controltower.enabled_controls
@@ -302,7 +304,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>enabled_controls</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
@@ -319,7 +332,9 @@ organizations:DescribePolicy,
 controltower:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
@@ -337,7 +352,9 @@ organizations:DescribePolicy,
 controltower:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
@@ -354,14 +371,21 @@ organizations:DescribePolicy,
 controltower:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
 controltower:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 controltower:ListEnabledControls
 ```
+
+</TabItem>
+</Tabs>

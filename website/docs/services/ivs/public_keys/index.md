@@ -261,6 +261,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>public_key</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ivs.public_keys
@@ -285,18 +287,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>public_keys</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ivs:ImportPublicKey,
 ivs:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ivs:GetPublicKey
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ivs:GetPublicKey,
 ivs:ListTagsForResource,
@@ -304,14 +321,21 @@ ivs:UntagResource,
 ivs:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ivs:DeletePublicKey,
 ivs:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ivs:ListPublicKeys,
 ivs:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

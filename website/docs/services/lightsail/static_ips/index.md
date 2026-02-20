@@ -239,6 +239,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>static_ip</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.static_ips
@@ -263,7 +265,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>static_ips</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:AllocateStaticIp,
 lightsail:AttachStaticIp,
@@ -273,13 +286,17 @@ lightsail:GetStaticIp,
 lightsail:GetStaticIps
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetStaticIp,
 lightsail:GetStaticIps
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:AttachStaticIp,
 lightsail:DetachStaticIp,
@@ -288,14 +305,21 @@ lightsail:GetStaticIp,
 lightsail:GetStaticIps
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:GetStaticIp,
 lightsail:GetStaticIps,
 lightsail:ReleaseStaticIp
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetStaticIps
 ```
+
+</TabItem>
+</Tabs>

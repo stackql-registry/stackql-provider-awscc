@@ -223,6 +223,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>alias</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kms.aliases
@@ -247,27 +249,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>aliases</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 kms:ListAliases
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 kms:CreateAlias
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kms:UpdateAlias
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kms:ListAliases
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kms:DeleteAlias
 ```
+
+</TabItem>
+</Tabs>

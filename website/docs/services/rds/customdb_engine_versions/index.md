@@ -349,6 +349,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>customdb_engine_version</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.rds.customdb_engine_versions
@@ -375,7 +377,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>customdb_engine_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CopySnapshot,
 ec2:DeleteSnapshot,
@@ -400,12 +413,16 @@ s3:PutBucketPolicy,
 s3:PutBucketVersioning
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rds:DescribeDBEngineVersions
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 rds:AddTagsToResource,
 rds:DescribeDBEngineVersions,
@@ -413,13 +430,20 @@ rds:ModifyCustomDBEngineVersion,
 rds:RemoveTagsFromResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rds:DeleteCustomDBEngineVersion,
 rds:DescribeDBEngineVersions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rds:DescribeDBEngineVersions
 ```
+
+</TabItem>
+</Tabs>

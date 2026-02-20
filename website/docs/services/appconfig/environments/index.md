@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appconfig.environments
@@ -331,13 +333,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 appconfig:GetEnvironment,
 appconfig:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 appconfig:CreateEnvironment,
 appconfig:GetEnvironment,
@@ -346,7 +361,9 @@ appconfig:TagResource,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appconfig:UpdateEnvironment,
 appconfig:TagResource,
@@ -354,13 +371,20 @@ appconfig:UntagResource,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appconfig:ListEnvironments
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appconfig:GetEnvironment,
 appconfig:DeleteEnvironment
 ```
+
+</TabItem>
+</Tabs>

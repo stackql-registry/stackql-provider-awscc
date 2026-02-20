@@ -289,26 +289,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>multi_region_access_points</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 s3:GetMultiRegionAccessPoint
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 s3:CreateMultiRegionAccessPoint,
 s3:DescribeMultiRegionAccessPointOperation,
 s3:GetMultiRegionAccessPoint
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3:ListMultiRegionAccessPoints
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteMultiRegionAccessPoint,
 s3:DescribeMultiRegionAccessPointOperation,
 s3:GetMultiRegionAccessPoint
 ```
+
+</TabItem>
+</Tabs>

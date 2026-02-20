@@ -251,6 +251,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.opensearchserverless.access_policies
@@ -276,30 +278,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aoss:CreateAccessPolicy,
 aoss:GetAccessPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aoss:GetAccessPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aoss:UpdateAccessPolicy,
 aoss:GetAccessPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aoss:DeleteAccessPolicy,
 aoss:GetAccessPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aoss:ListAccessPolicies
 ```
+
+</TabItem>
+</Tabs>

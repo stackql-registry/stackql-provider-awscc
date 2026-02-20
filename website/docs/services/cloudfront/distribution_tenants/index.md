@@ -455,6 +455,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>distribution_tenant</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.distribution_tenants
@@ -486,7 +488,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>distribution_tenants</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 acm:DescribeCertificate,
 acm:RequestCertificate,
@@ -498,7 +511,9 @@ cloudfront:VerifyDnsConfiguration,
 wafv2:GetWebACL
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteDistributionTenant,
 cloudfront:UpdateDistributionTenant,
@@ -506,19 +521,25 @@ cloudfront:GetDistributionTenant,
 wafv2:GetWebACL
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListDistributionTenants,
 cloudfront:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetDistributionTenant,
 cloudfront:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 acm:DescribeCertificate,
 acm:RequestCertificate,
@@ -531,3 +552,6 @@ cloudfront:UntagResource,
 cloudfront:VerifyDnsConfiguration,
 wafv2:GetWebACL
 ```
+
+</TabItem>
+</Tabs>

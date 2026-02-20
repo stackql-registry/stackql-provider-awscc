@@ -453,6 +453,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>replicator</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.replicators
@@ -477,7 +479,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>replicators</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkInterface,
 ec2:DescribeSecurityGroups,
@@ -494,13 +507,17 @@ kafka:ListTagsForResource,
 kafka:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:DescribeReplicator,
 kafka:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:DescribeReplicator,
 kafka:ListTagsForResource,
@@ -509,7 +526,9 @@ kafka:UntagResource,
 kafka:UpdateReplicationInfo
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:DeleteReplicator,
 kafka:DescribeReplicator,
@@ -517,7 +536,12 @@ kafka:ListTagsForResource,
 kafka:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListReplicators
 ```
+
+</TabItem>
+</Tabs>

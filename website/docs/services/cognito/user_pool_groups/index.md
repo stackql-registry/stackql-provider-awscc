@@ -257,6 +257,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user_pool_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cognito.user_pool_groups
@@ -283,7 +285,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>user_pool_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cognito-idp:CreateGroup,
 iam:PassRole,
@@ -291,26 +304,37 @@ iam:PutRolePolicy,
 cognito-idp:GetGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cognito-idp:GetGroup
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cognito-idp:UpdateGroup,
 iam:PassRole,
 iam:PutRolePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cognito-idp:DeleteGroup,
 cognito-idp:GetGroup,
 iam:PutRolePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cognito-idp:ListGroups
 ```
+
+</TabItem>
+</Tabs>

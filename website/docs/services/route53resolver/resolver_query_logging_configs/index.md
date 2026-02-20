@@ -303,7 +303,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolver_query_logging_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resolverquerylogging:CreateConfig,
 resolverquerylogging:GetConfig,
@@ -323,7 +333,9 @@ route53resolver:TagResource,
 route53resolver:ListResolverQueryLogConfigs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resolverquerylogging:GetConfig,
 route53resolver:GetResolverQueryLogConfig,
@@ -331,7 +343,9 @@ route53resolver:ListTagsForResource,
 route53resolver:ListResolverQueryLogConfigs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resolverquerylogging:DeleteConfig,
 resolverquerylogging:ListConfig,
@@ -341,9 +355,14 @@ route53resolver:UntagResource,
 route53resolver:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resolverquerylogging:ListConfig,
 route53resolver:ListResolverQueryLogConfigs,
 route53resolver:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

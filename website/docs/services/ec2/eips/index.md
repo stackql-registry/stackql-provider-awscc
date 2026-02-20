@@ -327,6 +327,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>eip</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.eips
@@ -354,7 +356,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>eips</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AllocateAddress,
 ec2:AcceptAddressTransfer,
@@ -363,19 +376,25 @@ ec2:AssociateAddress,
 ec2:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeAddresses
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:ReleaseAddress,
 ec2:DescribeAddresses,
 ec2:DisassociateAddress
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeAddresses,
 ec2:DisassociateAddress,
@@ -384,7 +403,12 @@ ec2:CreateTags,
 ec2:AssociateAddress
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeAddresses
 ```
+
+</TabItem>
+</Tabs>

@@ -228,7 +228,17 @@ resources:
 
 To operate on the <code>steps</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 emr:AddJobFlowSteps
 ```
+
+</TabItem>
+</Tabs>

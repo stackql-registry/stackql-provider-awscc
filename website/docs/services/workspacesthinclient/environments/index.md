@@ -411,6 +411,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>environment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesthinclient.environments
@@ -442,7 +444,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 thinclient:CreateEnvironment,
 thinclient:TagResource,
@@ -457,14 +470,18 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 thinclient:GetEnvironment,
 thinclient:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appstream:DescribeStacks,
 workspaces:DescribeWorkspaceDirectories,
@@ -477,7 +494,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 thinclient:DeleteEnvironment,
 thinclient:UntagResource,
@@ -485,9 +504,14 @@ kms:Decrypt,
 kms:RetireGrant
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 thinclient:ListEnvironments,
 thinclient:ListTagsForResource,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

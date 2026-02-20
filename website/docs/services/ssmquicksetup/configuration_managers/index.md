@@ -330,6 +330,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>configuration_manager</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ssmquicksetup.configuration_managers
@@ -356,7 +358,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>configuration_managers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:GetRole,
 iam:CreateServiceLinkedRole,
@@ -398,7 +411,9 @@ organizations:DeregisterDelegatedAdministrator,
 organizations:EnableAWSServiceAccess
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm-quicksetup:GetConfigurationManager,
 iam:GetRole,
@@ -408,7 +423,9 @@ ssm:DescribeDocument,
 ssm:GetDocument
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:GetRole,
 iam:CreateServiceLinkedRole,
@@ -450,7 +467,9 @@ organizations:DeregisterDelegatedAdministrator,
 organizations:EnableAWSServiceAccess
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm-quicksetup:DeleteConfigurationManager,
 iam:GetRole,
@@ -493,7 +512,12 @@ organizations:DeregisterDelegatedAdministrator,
 organizations:EnableAWSServiceAccess
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm-quicksetup:ListConfigurationManagers
 ```
+
+</TabItem>
+</Tabs>

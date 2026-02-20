@@ -278,6 +278,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>signing_profile</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.signer.signing_profiles
@@ -302,31 +304,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>signing_profiles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 signer:PutSigningProfile,
 signer:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 signer:GetSigningProfile
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 signer:CancelSigningProfile,
 signer:GetSigningProfile
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 signer:ListSigningProfiles
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 signer:TagResource,
 signer:UntagResource,
 signer:GetSigningProfile
 ```
+
+</TabItem>
+</Tabs>

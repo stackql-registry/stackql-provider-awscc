@@ -362,6 +362,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>route</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.refactorspaces.routes
@@ -387,7 +389,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>routes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 refactor-spaces:CreateRoute,
 refactor-spaces:GetRoute,
@@ -413,13 +426,17 @@ ec2:DescribeSubnets,
 tag:GetResources
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 refactor-spaces:GetRoute,
 refactor-spaces:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 refactor-spaces:DeleteRoute,
 refactor-spaces:GetRoute,
@@ -446,13 +463,17 @@ ec2:DescribeSubnets,
 tag:GetResources
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 refactor-spaces:ListRoutes,
 refactor-spaces:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 refactor-spaces:UpdateRoute,
 refactor-spaces:GetRoute,
@@ -480,3 +501,6 @@ ec2:DescribeSubnets,
 ec2:DescribeSubnets,
 tag:GetResources
 ```
+
+</TabItem>
+</Tabs>

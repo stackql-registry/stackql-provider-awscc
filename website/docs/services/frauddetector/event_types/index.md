@@ -449,6 +449,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>event_type</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.frauddetector.event_types
@@ -474,7 +476,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>event_types</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 frauddetector:BatchCreateVariable,
 frauddetector:BatchGetVariable,
@@ -490,7 +503,9 @@ frauddetector:ListTagsForResource,
 frauddetector:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 frauddetector:BatchCreateVariable,
 frauddetector:BatchGetVariable,
@@ -512,7 +527,9 @@ frauddetector:TagResource,
 frauddetector:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 frauddetector:BatchGetVariable,
 frauddetector:GetVariables,
@@ -526,7 +543,9 @@ frauddetector:DeleteEntityType,
 frauddetector:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 frauddetector:BatchGetVariable,
 frauddetector:GetVariables,
@@ -536,7 +555,9 @@ frauddetector:GetEntityTypes,
 frauddetector:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 frauddetector:BatchGetVariable,
 frauddetector:GetVariables,
@@ -545,3 +566,6 @@ frauddetector:GetLabels,
 frauddetector:GetEntityTypes,
 frauddetector:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

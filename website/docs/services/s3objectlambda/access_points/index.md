@@ -334,6 +334,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_point</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3objectlambda.access_points
@@ -358,7 +360,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_points</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3:CreateAccessPointForObjectLambda,
 s3:PutAccessPointConfigurationForObjectLambda,
@@ -367,14 +380,18 @@ s3:GetAccessPointPolicyStatusForObjectLambda,
 s3:GetAccessPointConfigurationForObjectLambda
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3:GetAccessPointForObjectLambda,
 s3:GetAccessPointPolicyStatusForObjectLambda,
 s3:GetAccessPointConfigurationForObjectLambda
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3:PutAccessPointConfigurationForObjectLambda,
 s3:GetAccessPointForObjectLambda,
@@ -382,12 +399,19 @@ s3:GetAccessPointPolicyStatusForObjectLambda,
 s3:GetAccessPointConfigurationForObjectLambda
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3:DeleteAccessPointForObjectLambda
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3:ListAccessPointsForObjectLambda
 ```
+
+</TabItem>
+</Tabs>

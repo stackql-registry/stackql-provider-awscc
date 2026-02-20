@@ -257,6 +257,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iot.policies
@@ -282,7 +284,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iot:CreatePolicy,
 iot:GetPolicy,
@@ -291,14 +304,18 @@ iot:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iot:GetPolicy,
 iot:ListTagsForResource,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iot:DeletePolicy,
 iot:GetPolicy,
@@ -307,7 +324,9 @@ iot:DeletePolicyVersion,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iot:GetPolicy,
 iot:ListPolicyVersions,
@@ -320,7 +339,12 @@ iot:ListTagsForResource,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iot:ListPolicies
 ```
+
+</TabItem>
+</Tabs>

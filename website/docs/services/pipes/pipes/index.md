@@ -1533,6 +1533,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>pipe</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pipes.pipes
@@ -1566,7 +1568,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>pipes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 pipes:CreatePipe,
 pipes:DescribePipe,
@@ -1587,13 +1600,17 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pipes:DescribePipe,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pipes:UpdatePipe,
 pipes:TagResource,
@@ -1617,7 +1634,9 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 pipes:DeletePipe,
 pipes:DescribePipe,
@@ -1632,7 +1651,12 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pipes:ListPipes
 ```
+
+</TabItem>
+</Tabs>

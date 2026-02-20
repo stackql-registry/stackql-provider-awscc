@@ -393,6 +393,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>hours_of_operation</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.hours_of_operations
@@ -423,26 +425,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>hours_of_operations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateHoursOfOperation,
 connect:TagResource,
 connect:CreateHoursOfOperationOverride
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeHoursOfOperation,
 connect:ListHoursOfOperationOverrides
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteHoursOfOperation,
 connect:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateHoursOfOperation,
 connect:CreateHoursOfOperationOverride,
@@ -453,7 +472,12 @@ connect:TagResource,
 connect:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListHoursOfOperations
 ```
+
+</TabItem>
+</Tabs>

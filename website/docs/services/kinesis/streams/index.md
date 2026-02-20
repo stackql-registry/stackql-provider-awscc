@@ -326,6 +326,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>stream</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kinesis.streams
@@ -355,7 +357,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>streams</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kinesis:EnableEnhancedMonitoring,
 kinesis:DescribeStreamSummary,
@@ -367,14 +380,18 @@ kinesis:ListTagsForStream,
 kinesis:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kinesis:DescribeStreamSummary,
 kinesis:ListTagsForStream,
 kinesis:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kinesis:EnableEnhancedMonitoring,
 kinesis:DisableEnhancedMonitoring,
@@ -393,7 +410,9 @@ kinesis:ListTagsForStream,
 kinesis:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kinesis:DescribeStreamSummary,
 kinesis:DeleteStream,
@@ -401,7 +420,12 @@ kinesis:RemoveTagsFromStream,
 kinesis:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kinesis:ListStreams
 ```
+
+</TabItem>
+</Tabs>

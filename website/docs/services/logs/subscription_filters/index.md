@@ -281,6 +281,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>subscription_filter</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.logs.subscription_filters
@@ -309,31 +311,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>subscription_filters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 logs:PutSubscriptionFilter,
 logs:DescribeSubscriptionFilters
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 logs:DescribeSubscriptionFilters
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 logs:PutSubscriptionFilter,
 logs:DescribeSubscriptionFilters
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 logs:DeleteSubscriptionFilter
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 logs:DescribeSubscriptionFilters
 ```
+
+</TabItem>
+</Tabs>

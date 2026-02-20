@@ -258,6 +258,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>db_subnet_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.rds.db_subnet_groups
@@ -284,7 +286,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>db_subnet_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateServiceLinkedRole,
 rds:CreateDBSubnetGroup,
@@ -294,13 +307,17 @@ rds:RemoveTagsFromResource,
 rds:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rds:DescribeDBSubnetGroups,
 rds:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 rds:ModifyDBSubnetGroup,
 rds:DescribeDBSubnetGroups,
@@ -309,14 +326,21 @@ rds:RemoveTagsFromResource,
 rds:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rds:DeleteDBSubnetGroup,
 rds:DescribeDBSubnetGroups,
 rds:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rds:DescribeDBSubnetGroups
 ```
+
+</TabItem>
+</Tabs>

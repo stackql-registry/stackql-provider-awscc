@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>replication_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ssmincidents.replication_sets
@@ -299,7 +301,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>replication_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ssm-incidents:CreateReplicationSet,
 ssm-incidents:ListReplicationSets,
@@ -310,14 +323,18 @@ ssm-incidents:ListTagsForResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm-incidents:ListReplicationSets,
 ssm-incidents:GetReplicationSet,
 ssm-incidents:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ssm-incidents:UpdateReplicationSet,
 ssm-incidents:UpdateDeletionProtection,
@@ -327,13 +344,20 @@ ssm-incidents:UntagResource,
 ssm-incidents:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm-incidents:DeleteReplicationSet,
 ssm-incidents:GetReplicationSet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm-incidents:ListReplicationSets
 ```
+
+</TabItem>
+</Tabs>

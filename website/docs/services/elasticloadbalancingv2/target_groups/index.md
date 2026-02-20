@@ -513,6 +513,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>target_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.target_groups
@@ -548,7 +550,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>target_groups</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeTargetGroups,
 elasticloadbalancing:DescribeTargetGroupAttributes,
@@ -556,7 +569,9 @@ elasticloadbalancing:DescribeTargetHealth,
 elasticloadbalancing:DescribeTags
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:CreateTargetGroup,
 elasticloadbalancing:DescribeTargetGroups,
@@ -566,7 +581,9 @@ elasticloadbalancing:DescribeTargetHealth,
 elasticloadbalancing:AddTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticloadbalancing:DescribeTargetGroups,
 elasticloadbalancing:ModifyTargetGroup,
@@ -578,13 +595,20 @@ elasticloadbalancing:AddTags,
 elasticloadbalancing:RemoveTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeTargetGroups
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DeleteTargetGroup,
 elasticloadbalancing:DescribeTargetGroups
 ```
+
+</TabItem>
+</Tabs>

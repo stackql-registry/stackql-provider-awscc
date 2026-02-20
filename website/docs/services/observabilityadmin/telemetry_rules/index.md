@@ -320,6 +320,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>telemetry_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.observabilityadmin.telemetry_rules
@@ -345,7 +347,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>telemetry_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 observabilityadmin:CreateTelemetryRule,
 observabilityadmin:GetTelemetryRule,
@@ -355,14 +368,18 @@ observabilityadmin:GetTelemetryEvaluationStatus,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 observabilityadmin:GetTelemetryRule,
 observabilityadmin:ListTagsForResource,
 observabilityadmin:GetTelemetryEvaluationStatus
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 observabilityadmin:UpdateTelemetryRule,
 observabilityadmin:GetTelemetryRule,
@@ -372,14 +389,21 @@ observabilityadmin:ListTagsForResource,
 observabilityadmin:GetTelemetryEvaluationStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 observabilityadmin:DeleteTelemetryRule,
 observabilityadmin:GetTelemetryEvaluationStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 observabilityadmin:ListTelemetryRules,
 observabilityadmin:GetTelemetryEvaluationStatus
 ```
+
+</TabItem>
+</Tabs>

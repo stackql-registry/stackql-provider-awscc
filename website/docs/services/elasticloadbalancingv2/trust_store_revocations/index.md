@@ -295,7 +295,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>trust_store_revocations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:AddTrustStoreRevocations,
 elasticloadbalancing:DescribeTrustStoreRevocations,
@@ -303,18 +313,27 @@ s3:GetObject,
 s3:GetObjectVersion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DescribeTrustStoreRevocations,
 elasticloadbalancing:RemoveTrustStoreRevocations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeTrustStoreRevocations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeTrustStoreRevocations
 ```
+
+</TabItem>
+</Tabs>

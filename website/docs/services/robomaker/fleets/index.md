@@ -227,6 +227,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>fleet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.robomaker.fleets
@@ -251,28 +253,50 @@ AND region = 'us-east-1';
 
 To operate on the <code>fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 robomaker:CreateFleet
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 robomaker:DescribeFleet
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 robomaker:DeleteFleet
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 robomaker:TagResource,
 robomaker:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 robomaker:ListFleets
 ```
+
+</TabItem>
+</Tabs>

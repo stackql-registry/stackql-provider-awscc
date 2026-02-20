@@ -263,6 +263,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>key_value_store</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.key_value_stores
@@ -288,7 +290,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>key_value_stores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateKeyValueStore,
 cloudfront:DescribeKeyValueStore,
@@ -297,24 +310,35 @@ s3:HeadObject,
 s3:GetBucketLocation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteKeyValueStore,
 cloudfront:DescribeKeyValueStore
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListKeyValueStores
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:DescribeKeyValueStore
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudfront:UpdateKeyValueStore,
 cloudfront:DescribeKeyValueStore
 ```
+
+</TabItem>
+</Tabs>

@@ -553,6 +553,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>logging_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.wafv2.logging_configurations
@@ -579,7 +581,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wafv2:PutLoggingConfiguration,
 wafv2:GetLoggingConfiguration,
@@ -594,12 +607,16 @@ logs:DescribeResourcePolicies,
 logs:DescribeLogGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wafv2:GetLoggingConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wafv2:PutLoggingConfiguration,
 wafv2:GetLoggingConfiguration,
@@ -614,14 +631,21 @@ logs:DescribeResourcePolicies,
 logs:DescribeLogGroups
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wafv2:DeleteLoggingConfiguration,
 wafv2:GetLoggingConfiguration,
 logs:DeleteLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wafv2:ListLoggingConfigurations
 ```
+
+</TabItem>
+</Tabs>

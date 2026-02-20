@@ -344,6 +344,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>safety_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53recoverycontrol.safety_rules
@@ -373,7 +375,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>safety_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53-recovery-control-config:CreateSafetyRule,
 route53-recovery-control-config:DescribeSafetyRule,
@@ -383,13 +396,17 @@ route53-recovery-control-config:ListTagsForResource,
 route53-recovery-control-config:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53-recovery-control-config:DescribeSafetyRule,
 route53-recovery-control-config:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53-recovery-control-config:UpdateSafetyRule,
 route53-recovery-control-config:DescribeSafetyRule,
@@ -398,13 +415,20 @@ route53-recovery-control-config:TagResource,
 route53-recovery-control-config:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53-recovery-control-config:DescribeSafetyRule,
 route53-recovery-control-config:DeleteSafetyRule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53-recovery-control-config:ListSafetyRules
 ```
+
+</TabItem>
+</Tabs>

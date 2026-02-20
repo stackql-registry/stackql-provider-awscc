@@ -471,6 +471,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.access_policies
@@ -497,31 +499,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotsitewise:CreateAccessPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotsitewise:DescribeAccessPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotsitewise:DescribeAccessPolicy,
 iotsitewise:UpdateAccessPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotsitewise:DescribeAccessPolicy,
 iotsitewise:DeleteAccessPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotsitewise:ListAccessPolicies,
 iotsitewise:ListProjects,
 iotsitewise:ListPortals
 ```
+
+</TabItem>
+</Tabs>

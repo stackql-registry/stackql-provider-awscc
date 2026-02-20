@@ -335,6 +335,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>alarm</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lightsail.alarms
@@ -366,30 +368,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>alarms</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lightsail:PutAlarm,
 lightsail:GetAlarms
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lightsail:GetAlarms
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lightsail:PutAlarm,
 lightsail:GetAlarms
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lightsail:DeleteAlarm,
 lightsail:GetAlarms
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lightsail:GetAlarms
 ```
+
+</TabItem>
+</Tabs>

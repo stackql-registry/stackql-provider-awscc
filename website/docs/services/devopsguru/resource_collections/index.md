@@ -255,6 +255,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_collection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.devopsguru.resource_collections
@@ -279,30 +281,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_collections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 devops-guru:UpdateResourceCollection,
 devops-guru:GetResourceCollection
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 devops-guru:GetResourceCollection
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 devops-guru:UpdateResourceCollection,
 devops-guru:GetResourceCollection
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 devops-guru:GetResourceCollection
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 devops-guru:UpdateResourceCollection,
 devops-guru:GetResourceCollection
 ```
+
+</TabItem>
+</Tabs>

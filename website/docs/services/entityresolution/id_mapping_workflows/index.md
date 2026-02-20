@@ -450,6 +450,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>id_mapping_workflow</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.entityresolution.id_mapping_workflows
@@ -480,13 +482,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>id_mapping_workflows</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 entityresolution:GetIdMappingWorkflow,
 entityresolution:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 entityresolution:CreateIdMappingWorkflow,
 entityresolution:GetIdMappingWorkflow,
@@ -496,7 +511,9 @@ kms:DescribeKey,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 entityresolution:GetIdMappingWorkflow,
 entityresolution:UpdateIdMappingWorkflow,
@@ -508,14 +525,21 @@ kms:CreateGrant,
 kms:DescribeKey
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 entityresolution:ListIdMappingWorkflows
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 entityresolution:DeleteIdMappingWorkflow,
 entityresolution:GetIdMappingWorkflow,
 entityresolution:UntagResource
 ```
+
+</TabItem>
+</Tabs>

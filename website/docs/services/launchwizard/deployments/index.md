@@ -305,6 +305,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>deployment</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.launchwizard.deployments
@@ -330,7 +332,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>deployments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 launchwizard:CreateDeployment,
 launchwizard:GetDeployment,
@@ -376,14 +389,18 @@ sqs:CreateQueue,
 sqs:SetQueueAttributes
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 launchwizard:GetDeployment,
 launchwizard:ListDeploymentEvents,
 launchwizard:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 launchwizard:GetDeployment,
 launchwizard:DeleteDeployment,
@@ -409,7 +426,9 @@ sqs:GetQueueAttributes,
 sqs:ListQueueTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 launchwizard:GetDeployment,
 launchwizard:ListTagsForResource,
@@ -417,8 +436,13 @@ launchwizard:TagResource,
 launchwizard:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 launchwizard:ListDeployments,
 launchwizard:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

@@ -781,6 +781,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>fleet</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.gamelift.fleets
@@ -819,7 +821,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>fleets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 gamelift:CreateFleet,
 gamelift:CreateFleetLocations,
@@ -837,7 +850,9 @@ gamelift:UpdateFleetCapacity,
 gamelift:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 gamelift:DescribeFleetAttributes,
 gamelift:DescribeFleetLocationAttributes,
@@ -849,7 +864,9 @@ gamelift:DescribeScalingPolicies,
 gamelift:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 gamelift:UpdateFleetAttributes,
 gamelift:CreateFleetLocations,
@@ -871,7 +888,9 @@ gamelift:UntagResource,
 gamelift:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 gamelift:DeleteFleet,
 gamelift:DescribeFleetLocationCapacity,
@@ -883,7 +902,12 @@ gamelift:DescribeScalingPolicies,
 gamelift:DeleteScalingPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 gamelift:ListFleets
 ```
+
+</TabItem>
+</Tabs>

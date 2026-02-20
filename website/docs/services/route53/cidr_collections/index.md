@@ -248,6 +248,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cidr_collection</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.route53.cidr_collections
@@ -272,32 +274,54 @@ AND region = 'us-east-1';
 
 To operate on the <code>cidr_collections</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 route53:CreateCidrCollection,
 route53:ChangeCidrCollection
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 route53:ListCidrCollections,
 route53:ListCidrBlocks
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 route53:ChangeCidrCollection
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 route53:DeleteCidrCollection,
 route53:ChangeCidrCollection,
 route53:ListCidrBlocks
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 route53:ListCidrCollections,
 route53:ListCidrBlocks
 ```
+
+</TabItem>
+</Tabs>

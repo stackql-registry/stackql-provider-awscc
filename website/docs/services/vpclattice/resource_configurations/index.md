@@ -325,6 +325,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>resource_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.vpclattice.resource_configurations
@@ -354,13 +356,26 @@ AND region = 'us-east-1';
 
 To operate on the <code>resource_configurations</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 vpc-lattice:GetResourceConfiguration,
 vpc-lattice:ListTagsForResource
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:DescribeSubnets,
 vpc-lattice:CreateResourceConfiguration,
@@ -369,7 +384,9 @@ vpc-lattice:TagResource,
 vpc-lattice:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeSubnets,
 vpc-lattice:TagResource,
@@ -379,14 +396,21 @@ vpc-lattice:UpdateResourceConfiguration,
 vpc-lattice:GetResourceConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 vpc-lattice:ListResourceConfigurations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 vpc-lattice:DeleteResourceConfiguration,
 vpc-lattice:GetResourceConfiguration,
 vpc-lattice:UntagResource
 ```
+
+</TabItem>
+</Tabs>

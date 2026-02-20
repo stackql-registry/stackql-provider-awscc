@@ -261,24 +261,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>group_memberships</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 identitystore:CreateGroupMembership,
 identitystore:DescribeGroupMembership
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 identitystore:DescribeGroupMembership
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 identitystore:DeleteGroupMembership,
 identitystore:DescribeGroupMembership
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 identitystore:ListGroupMemberships
 ```
+
+</TabItem>
+</Tabs>

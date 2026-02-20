@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>network_insights_access_scope_analysis</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_insights_access_scope_analyses
@@ -307,7 +309,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_insights_access_scope_analyses</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateTags,
 ec2:StartNetworkInsightsAccessScopeAnalysis,
@@ -320,25 +333,36 @@ tiros:GetQueryAnswer,
 tiros:GetQueryExplanation
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNetworkInsightsAccessScopeAnalyses
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeNetworkInsightsAccessScopeAnalyses,
 ec2:CreateTags,
 ec2:DeleteTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteNetworkInsightsAccessScopeAnalysis,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeNetworkInsightsAccessScopeAnalyses
 ```
+
+</TabItem>
+</Tabs>

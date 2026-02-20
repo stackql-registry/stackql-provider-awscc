@@ -289,7 +289,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>repository_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codeguru-reviewer:DescribeRepositoryAssociation,
 codeguru-reviewer:AssociateRepository,
@@ -309,13 +319,17 @@ codestar-connections:UseConnection,
 s3:ListBucket
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codeguru-reviewer:DescribeRepositoryAssociation,
 codeguru-reviewer:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codeguru-reviewer:DescribeRepositoryAssociation,
 codeguru-reviewer:DisassociateRepository,
@@ -326,7 +340,12 @@ codestar-connections:UntagResource,
 codestar-connections:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codeguru-reviewer:ListRepositoryAssociations
 ```
+
+</TabItem>
+</Tabs>

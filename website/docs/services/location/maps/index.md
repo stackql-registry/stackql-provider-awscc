@@ -307,6 +307,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>map</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.location.maps
@@ -333,7 +335,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>maps</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 geo:CreateMap,
 geo:DescribeMap,
@@ -341,12 +354,16 @@ geo:TagResource,
 geo:UntagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 geo:DescribeMap
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 geo:CreateMap,
 geo:DescribeMap,
@@ -355,13 +372,20 @@ geo:UntagResource,
 geo:UpdateMap
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 geo:DeleteMap,
 geo:DescribeMap
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 geo:ListMaps
 ```
+
+</TabItem>
+</Tabs>

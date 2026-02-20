@@ -265,6 +265,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>rule_groups_namespace</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.aps.rule_groups_namespaces
@@ -290,20 +292,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>rule_groups_namespaces</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 aps:CreateRuleGroupsNamespace,
 aps:DescribeRuleGroupsNamespace,
 aps:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 aps:DescribeRuleGroupsNamespace,
 aps:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 aps:PutRuleGroupsNamespace,
 aps:DescribeRuleGroupsNamespace,
@@ -312,14 +329,21 @@ aps:UntagResource,
 aps:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 aps:DeleteRuleGroupsNamespace,
 aps:DescribeRuleGroupsNamespace
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 aps:ListRuleGroupsNamespaces,
 aps:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

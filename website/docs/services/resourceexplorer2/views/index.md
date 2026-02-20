@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>view</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.resourceexplorer2.views
@@ -299,18 +301,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>views</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resource-explorer-2:CreateView,
 resource-explorer-2:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resource-explorer-2:GetView
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 resource-explorer-2:UpdateView,
 resource-explorer-2:TagResource,
@@ -318,14 +335,21 @@ resource-explorer-2:UntagResource,
 resource-explorer-2:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resource-explorer-2:DeleteView,
 resource-explorer-2:GetView,
 resource-explorer-2:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resource-explorer-2:ListViews
 ```
+
+</TabItem>
+</Tabs>

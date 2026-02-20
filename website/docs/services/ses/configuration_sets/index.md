@@ -398,6 +398,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>configuration_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ses.configuration_sets
@@ -428,7 +430,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>configuration_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:CreateConfigurationSet,
 ses:UntagResource,
@@ -437,13 +450,17 @@ ses:DescribeConfigurationSet,
 ses:GetConfigurationSet
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:GetConfigurationSet,
 ses:DescribeConfigurationSet
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:PutConfigurationSetTrackingOptions,
 ses:PutConfigurationSetDeliveryOptions,
@@ -456,12 +473,19 @@ ses:UntagResource,
 ses:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:DeleteConfigurationSet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListConfigurationSets
 ```
+
+</TabItem>
+</Tabs>

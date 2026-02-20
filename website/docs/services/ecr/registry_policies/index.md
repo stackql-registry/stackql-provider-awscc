@@ -217,6 +217,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>registry_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ecr.registry_policies
@@ -241,29 +243,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>registry_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ecr:GetRegistryPolicy,
 ecr:PutRegistryPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ecr:GetRegistryPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ecr:GetRegistryPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ecr:GetRegistryPolicy,
 ecr:PutRegistryPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ecr:DeleteRegistryPolicy
 ```
+
+</TabItem>
+</Tabs>

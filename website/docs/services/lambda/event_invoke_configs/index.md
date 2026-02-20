@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>event_invoke_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.lambda.event_invoke_configs
@@ -301,27 +303,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>event_invoke_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lambda:PutFunctionEventInvokeConfig
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lambda:GetFunctionEventInvokeConfig
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 lambda:UpdateFunctionEventInvokeConfig
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lambda:DeleteFunctionEventInvokeConfig
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 lambda:ListFunctionEventInvokeConfigs
 ```
+
+</TabItem>
+</Tabs>

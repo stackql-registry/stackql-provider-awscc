@@ -336,6 +336,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain_name_v2</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.domain_name_v2s
@@ -363,19 +365,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>domain_name_v2s</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apigateway:POST,
 apigateway:GET,
 apigateway:UpdateDomainNamePolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apigateway:GET
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:GET,
 apigateway:PUT,
@@ -383,14 +400,21 @@ apigateway:PATCH,
 apigateway:UpdateDomainNamePolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:DELETE,
 apigateway:GET,
 apigateway:UpdateDomainNamePolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:GET
 ```
+
+</TabItem>
+</Tabs>

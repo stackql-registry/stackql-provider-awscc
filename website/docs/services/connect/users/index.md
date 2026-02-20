@@ -424,6 +424,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>user</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.users
@@ -458,26 +460,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>users</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:CreateUser,
 connect:TagResource,
 connect:AssociateUserProficiencies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeUser,
 connect:ListUserProficiencies
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DeleteUser,
 connect:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateUserIdentityInfo,
 connect:UpdateUserPhoneConfig,
@@ -491,7 +510,12 @@ connect:DisassociateUserProficiencies,
 connect:UpdateUserProficiencies
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:ListUsers
 ```
+
+</TabItem>
+</Tabs>

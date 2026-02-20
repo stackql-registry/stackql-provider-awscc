@@ -269,25 +269,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>profile_permissions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 signer:AddProfilePermission,
 signer:ListProfilePermissions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 signer:ListProfilePermissions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 signer:RemoveProfilePermission,
 signer:ListProfilePermissions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 signer:ListProfilePermissions,
 signer:GetSigningProfile
 ```
+
+</TabItem>
+</Tabs>

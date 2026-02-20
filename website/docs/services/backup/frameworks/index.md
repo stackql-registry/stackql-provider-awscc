@@ -348,6 +348,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>framework</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.backup.frameworks
@@ -374,7 +376,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>frameworks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 backup:CreateFramework,
 backup:DescribeFramework,
@@ -383,13 +396,17 @@ backup:TagResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 backup:DescribeFramework,
 backup:ListTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 backup:DescribeFramework,
 backup:UpdateFramework,
@@ -398,13 +415,20 @@ backup:TagResource,
 backup:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 backup:DeleteFramework,
 backup:DescribeFramework
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 backup:ListFrameworks
 ```
+
+</TabItem>
+</Tabs>

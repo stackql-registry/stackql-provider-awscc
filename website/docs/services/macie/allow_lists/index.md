@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>allow_list</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.macie.allow_lists
@@ -302,19 +304,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>allow_lists</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 macie2:CreateAllowList,
 macie2:GetAllowList,
 macie2:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 macie2:GetAllowList
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 macie2:UpdateAllowList,
 macie2:GetAllowList,
@@ -322,12 +339,19 @@ macie2:TagResource,
 macie2:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 macie2:DeleteAllowList
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 macie2:ListAllowLists
 ```
+
+</TabItem>
+</Tabs>

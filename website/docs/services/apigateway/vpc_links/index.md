@@ -264,6 +264,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_link</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.apigateway.vpc_links
@@ -290,7 +292,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_links</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 apigateway:POST,
 apigateway:PUT,
@@ -301,7 +314,9 @@ ec2:DescribeVpcEndpointServiceConfigurations,
 ec2:ModifyVpcEndpointServicePermissions
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 apigateway:PATCH,
 apigateway:GET,
@@ -312,7 +327,9 @@ ec2:DescribeVpcEndpointServiceConfigurations,
 ec2:ModifyVpcEndpointServicePermissions
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apigateway:GET,
 ec2:CreateVpcEndpointServiceConfiguration,
@@ -321,7 +338,9 @@ ec2:DescribeVpcEndpointServiceConfigurations,
 ec2:ModifyVpcEndpointServicePermissions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apigateway:GET,
 ec2:CreateVpcEndpointServiceConfiguration,
@@ -330,7 +349,9 @@ ec2:DescribeVpcEndpointServiceConfigurations,
 ec2:ModifyVpcEndpointServicePermissions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apigateway:GET,
 apigateway:DELETE,
@@ -340,3 +361,6 @@ ec2:DeleteVpcEndpointServiceConfigurations,
 ec2:DescribeVpcEndpointServiceConfigurations,
 ec2:ModifyVpcEndpointServicePermissions
 ```
+
+</TabItem>
+</Tabs>

@@ -373,6 +373,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>campaign</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connectcampaigns.campaigns
@@ -400,7 +402,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>campaigns</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect-campaigns:CreateCampaign,
 connect-campaigns:DescribeCampaign,
@@ -410,22 +423,30 @@ connect:DescribeInstance,
 connect:DescribeQueue
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect-campaigns:DescribeCampaign
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect-campaigns:DeleteCampaign
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect-campaigns:ListCampaigns
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect-campaigns:UpdateCampaignDialerConfig,
 connect-campaigns:UpdateCampaignName,
@@ -434,3 +455,6 @@ connect-campaigns:TagResource,
 connect-campaigns:UntagResource,
 connect-campaigns:DescribeCampaign
 ```
+
+</TabItem>
+</Tabs>

@@ -329,6 +329,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_entry</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eks.access_entries
@@ -356,7 +358,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_entries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 eks:CreateAccessEntry,
 eks:DescribeAccessEntry,
@@ -365,13 +378,17 @@ eks:TagResource,
 eks:ListAssociatedAccessPolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 eks:DescribeAccessEntry,
 eks:ListAssociatedAccessPolicies
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 eks:DescribeAccessEntry,
 eks:ListAssociatedAccessPolicies,
@@ -382,13 +399,20 @@ eks:TagResource,
 eks:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 eks:DeleteAccessEntry,
 eks:DescribeAccessEntry
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 eks:ListAccessEntries
 ```
+
+</TabItem>
+</Tabs>

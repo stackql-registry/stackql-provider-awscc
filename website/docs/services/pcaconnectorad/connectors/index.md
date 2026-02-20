@@ -266,6 +266,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>connector</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.pcaconnectorad.connectors
@@ -290,7 +292,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>connectors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 acm-pca:DescribeCertificateAuthority,
 acm-pca:GetCertificateAuthorityCertificate,
@@ -305,13 +318,17 @@ pca-connector-ad:GetConnector,
 pca-connector-ad:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 pca-connector-ad:ListTagsForResource,
 pca-connector-ad:GetConnector
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpcEndpoints,
 ec2:DescribeVpcEndpoints,
@@ -320,14 +337,21 @@ pca-connector-ad:DeleteConnector,
 pca-connector-ad:UntagResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 pca-connector-ad:ListConnectors
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 pca-connector-ad:ListTagsForResource,
 pca-connector-ad:TagResource,
 pca-connector-ad:UntagResource
 ```
+
+</TabItem>
+</Tabs>

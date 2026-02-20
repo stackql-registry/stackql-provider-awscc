@@ -346,6 +346,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>permission_set</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sso.permission_sets
@@ -377,7 +379,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>permission_sets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sso:CreatePermissionSet,
 sso:PutInlinePolicyToPermissionSet,
@@ -393,7 +406,9 @@ sso:GetInlinePolicyForPermissionSet,
 sso:GetPermissionsBoundaryForPermissionSet
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sso:DescribePermissionSet,
 sso:ListTagsForResource,
@@ -403,7 +418,9 @@ sso:GetInlinePolicyForPermissionSet,
 sso:GetPermissionsBoundaryForPermissionSet
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sso:UpdatePermissionSet,
 sso:TagResource,
@@ -426,12 +443,19 @@ sso:GetInlinePolicyForPermissionSet,
 sso:DescribePermissionSetProvisioningStatus
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sso:DeletePermissionSet
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sso:DescribePermissionSet
 ```
+
+</TabItem>
+</Tabs>

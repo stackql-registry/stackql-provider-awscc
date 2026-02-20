@@ -268,26 +268,45 @@ AND region = 'us-east-1';
 
 To operate on the <code>gateways</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateServiceLinkedRole,
 mediaconnect:CreateGateway,
 mediaconnect:DescribeGateway
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mediaconnect:DescribeGateway
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:CreateServiceLinkedRole,
 mediaconnect:DescribeGateway,
 mediaconnect:DeleteGateway
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mediaconnect:ListGateways
 ```
+
+</TabItem>
+</Tabs>

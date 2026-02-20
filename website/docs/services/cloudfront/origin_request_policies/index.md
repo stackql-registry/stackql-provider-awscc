@@ -300,6 +300,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>origin_request_policy</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudfront.origin_request_policies
@@ -324,29 +326,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>origin_request_policies</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudfront:CreateOriginRequestPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudfront:DeleteOriginRequestPolicy,
 cloudfront:GetOriginRequestPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudfront:ListOriginRequestPolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudfront:GetOriginRequestPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudfront:UpdateOriginRequestPolicy,
 cloudfront:GetOriginRequestPolicy
 ```
+
+</TabItem>
+</Tabs>

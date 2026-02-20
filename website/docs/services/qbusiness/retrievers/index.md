@@ -317,6 +317,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>retriever</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.qbusiness.retrievers
@@ -344,7 +346,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>retrievers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 qbusiness:CreateRetriever,
@@ -353,13 +366,17 @@ qbusiness:ListTagsForResource,
 qbusiness:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 qbusiness:GetRetriever,
 qbusiness:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:PassRole,
 qbusiness:GetRetriever,
@@ -369,13 +386,20 @@ qbusiness:UntagResource,
 qbusiness:UpdateRetriever
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 qbusiness:DeleteRetriever,
 qbusiness:GetRetriever
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 qbusiness:ListRetrievers
 ```
+
+</TabItem>
+</Tabs>

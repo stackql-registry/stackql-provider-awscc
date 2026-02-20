@@ -260,6 +260,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>project_membership</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datazone.project_memberships
@@ -284,12 +286,25 @@ AND region = 'us-east-1';
 
 To operate on the <code>project_memberships</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 datazone:ListProjectMemberships
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 datazone:CreateProjectMembership,
 datazone:ListProjectMemberships,
@@ -298,18 +313,27 @@ datazone:GetGroupProfile,
 datazone:GetUserProfile
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datazone:CreateProjectMembership,
 datazone:DeleteProjectMembership
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datazone:ListProjectMemberships
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datazone:DeleteProjectMembership
 ```
+
+</TabItem>
+</Tabs>

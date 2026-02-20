@@ -275,7 +275,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_connectors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateServiceLinkedRole,
 apprunner:CreateVpcConnector,
@@ -285,17 +295,26 @@ ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 apprunner:DescribeVpcConnector
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 apprunner:DeleteVpcConnector
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 apprunner:ListVpcConnectors
 ```
+
+</TabItem>
+</Tabs>

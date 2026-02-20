@@ -287,23 +287,39 @@ AND region = 'us-east-1';
 
 To operate on the <code>tag_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 lakeformation:AddLFTagsToResource,
 glue:GetDatabase,
 glue:GetTable
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 lakeformation:GetResourceLFTags,
 glue:GetDatabase,
 glue:GetTable
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 lakeformation:RemoveLFTagsFromResource,
 glue:GetDatabase,
 glue:GetTable
 ```
+
+</TabItem>
+</Tabs>

@@ -289,6 +289,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>replica_key</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kms.replica_keys
@@ -317,14 +319,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>replica_keys</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 kms:DescribeKey,
 kms:GetKeyPolicy,
 kms:ListResourceTags
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 kms:ReplicateKey,
 kms:CreateKey,
@@ -333,7 +348,9 @@ kms:DisableKey,
 kms:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kms:DescribeKey,
 kms:DisableKey,
@@ -344,14 +361,21 @@ kms:UntagResource,
 kms:UpdateKeyDescription
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kms:ListKeys,
 kms:DescribeKey
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kms:DescribeKey,
 kms:ScheduleKeyDeletion
 ```
+
+</TabItem>
+</Tabs>

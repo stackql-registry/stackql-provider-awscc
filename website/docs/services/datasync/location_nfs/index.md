@@ -294,6 +294,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>location_nf</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datasync.location_nfs
@@ -322,7 +324,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>location_nfs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 datasync:CreateLocationNfs,
 datasync:DescribeLocationNfs,
@@ -330,13 +343,17 @@ datasync:ListTagsForResource,
 datasync:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 datasync:DescribeLocationNfs,
 datasync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datasync:DescribeLocationNfs,
 datasync:ListTagsForResource,
@@ -345,12 +362,19 @@ datasync:UntagResource,
 datasync:UpdateLocationNfs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datasync:DeleteLocation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datasync:ListLocations
 ```
+
+</TabItem>
+</Tabs>

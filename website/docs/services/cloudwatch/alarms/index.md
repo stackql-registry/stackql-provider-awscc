@@ -551,6 +551,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>alarm</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cloudwatch.alarms
@@ -595,14 +597,27 @@ AND region = 'us-east-1';
 
 To operate on the <code>alarms</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudwatch:PutMetricAlarm,
 cloudwatch:DescribeAlarms,
 cloudwatch:TagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cloudwatch:PutMetricAlarm,
 cloudwatch:DescribeAlarms,
@@ -610,19 +625,28 @@ cloudwatch:TagResource,
 cloudwatch:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cloudwatch:DeleteAlarms,
 cloudwatch:DescribeAlarms
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudwatch:DescribeAlarms
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudwatch:DescribeAlarms,
 cloudwatch:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

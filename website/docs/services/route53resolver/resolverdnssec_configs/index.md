@@ -235,7 +235,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>resolverdnssec_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 resolverdnssec:CreateConfig,
 route53resolver:UpdateResolverDnssecConfig,
@@ -243,13 +253,17 @@ route53resolver:GetResolverDnssecConfig,
 ec2:DescribeVpcs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 resolverdnssec:GetConfig,
 route53resolver:ListResolverDnssecConfigs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 resolverdnssec:DeleteConfig,
 route53resolver:UpdateResolverDnssecConfig,
@@ -257,8 +271,13 @@ route53resolver:ListResolverDnssecConfigs,
 ec2:DescribeVpcs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 resolverdnssec:ListConfig,
 route53resolver:ListResolverDnssecConfigs
 ```
+
+</TabItem>
+</Tabs>

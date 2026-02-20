@@ -281,29 +281,51 @@ AND region = 'us-east-1';
 
 To operate on the <code>ai_guardrail_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 wisdom:CreateAIGuardrailVersion
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 wisdom:GetAIGuardrail,
 wisdom:GetAIGuardrailVersion
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 wisdom:GetAIGuardrail,
 wisdom:GetAIGuardrailVersion
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 wisdom:DeleteAIGuardrailVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 wisdom:ListAIGuardrailVersions
 ```
+
+</TabItem>
+</Tabs>

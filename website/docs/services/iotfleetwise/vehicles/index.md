@@ -321,6 +321,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vehicle</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotfleetwise.vehicles
@@ -350,7 +352,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vehicles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotfleetwise:GetVehicle,
 iotfleetwise:CreateVehicle,
@@ -362,13 +375,17 @@ iotfleetwise:ListVehicles,
 iotfleetwise:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotfleetwise:GetVehicle,
 iotfleetwise:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotfleetwise:GetVehicle,
 iotfleetwise:UpdateVehicle,
@@ -377,13 +394,20 @@ iotfleetwise:TagResource,
 iotfleetwise:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotfleetwise:GetVehicle,
 iotfleetwise:DeleteVehicle
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotfleetwise:ListVehicles
 ```
+
+</TabItem>
+</Tabs>

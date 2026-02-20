@@ -467,6 +467,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cloud_exadata_infrastructure</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.odb.cloud_exadata_infrastructures
@@ -491,7 +493,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>cloud_exadata_infrastructures</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 odb:CreateCloudExadataInfrastructure,
 ec2:DescribeAvailabilityZones,
@@ -504,7 +517,9 @@ sts:GetCallerIdentity,
 odb:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 odb:GetCloudExadataInfrastructure,
 odb:ListDbServers,
@@ -512,7 +527,9 @@ sts:GetCallerIdentity,
 odb:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 odb:UpdateCloudExadataInfrastructure,
 odb:TagResource,
@@ -524,7 +541,9 @@ sts:GetCallerIdentity,
 odb:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 odb:DeleteCloudExadataInfrastructure,
 odb:ListCloudExadataInfrastructures,
@@ -534,10 +553,15 @@ sts:GetCallerIdentity,
 odb:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 odb:ListCloudExadataInfrastructures,
 sts:GetCallerIdentity,
 odb:ListTagsForResource,
 odb:ListDbServers
 ```
+
+</TabItem>
+</Tabs>

@@ -312,6 +312,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>event_bridge_rule_template</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.medialive.event_bridge_rule_templates
@@ -340,19 +342,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>event_bridge_rule_templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 medialive:CreateEventBridgeRuleTemplate,
 medialive:GetEventBridgeRuleTemplate,
 medialive:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 medialive:GetEventBridgeRuleTemplate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 medialive:UpdateEventBridgeRuleTemplate,
 medialive:GetEventBridgeRuleTemplate,
@@ -360,12 +377,19 @@ medialive:CreateTags,
 medialive:DeleteTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 medialive:DeleteEventBridgeRuleTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 medialive:ListEventBridgeRuleTemplates
 ```
+
+</TabItem>
+</Tabs>

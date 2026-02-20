@@ -280,6 +280,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.msk.configurations
@@ -305,30 +307,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafka:CreateConfiguration,
 Kafka:DescribeConfiguration
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:DeleteConfiguration,
 kafka:DescribeConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListConfigurations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:DescribeConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kafka:UpdateConfiguration,
 kafka:DescribeConfiguration
 ```
+
+</TabItem>
+</Tabs>

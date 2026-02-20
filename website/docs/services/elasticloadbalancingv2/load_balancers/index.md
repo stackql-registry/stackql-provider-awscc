@@ -455,6 +455,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>load_balancer</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticloadbalancingv2.load_balancers
@@ -488,7 +490,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>load_balancers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticloadbalancing:CreateLoadBalancer,
 elasticloadbalancing:DescribeLoadBalancers,
@@ -497,18 +510,24 @@ elasticloadbalancing:AddTags,
 ec2:DescribeIpamPools
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticloadbalancing:DescribeLoadBalancers,
 elasticloadbalancing:DeleteLoadBalancer
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticloadbalancing:DescribeLoadBalancers
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticloadbalancing:DescribeLoadBalancers,
 elasticloadbalancing:DescribeLoadBalancerAttributes,
@@ -516,7 +535,9 @@ elasticloadbalancing:DescribeCapacityReservation,
 elasticloadbalancing:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticloadbalancing:ModifyLoadBalancerAttributes,
 elasticloadbalancing:ModifyCapacityReservation,
@@ -527,3 +548,6 @@ elasticloadbalancing:SetSecurityGroups,
 elasticloadbalancing:AddTags,
 elasticloadbalancing:RemoveTags
 ```
+
+</TabItem>
+</Tabs>

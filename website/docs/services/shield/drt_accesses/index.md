@@ -228,6 +228,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>drt_access</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.shield.drt_accesses
@@ -253,7 +255,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>drt_accesses</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 shield:DescribeDRTAccess,
 shield:AssociateDRTLogBucket,
@@ -265,7 +278,9 @@ s3:GetBucketPolicy,
 s3:PutBucketPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 shield:DescribeDRTAccess,
 shield:DisassociateDRTLogBucket,
@@ -278,12 +293,16 @@ s3:PutBucketPolicy,
 s3:DeleteBucketPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 shield:DescribeDRTAccess
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 shield:DescribeDRTAccess,
 shield:AssociateDRTLogBucket,
@@ -298,7 +317,12 @@ s3:PutBucketPolicy,
 s3:DeleteBucketPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 shield:DescribeDRTAccess
 ```
+
+</TabItem>
+</Tabs>

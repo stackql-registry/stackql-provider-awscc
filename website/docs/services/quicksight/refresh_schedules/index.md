@@ -383,30 +383,52 @@ AND region = 'us-east-1';
 
 To operate on the <code>refresh_schedules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 quicksight:CreateRefreshSchedule,
 quicksight:DescribeRefreshSchedule
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 quicksight:UpdateRefreshSchedule,
 quicksight:DescribeRefreshSchedule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 quicksight:DeleteRefreshSchedule,
 quicksight:DescribeRefreshSchedule
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 quicksight:ListRefreshSchedules
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 quicksight:DescribeRefreshSchedule
 ```
+
+</TabItem>
+</Tabs>

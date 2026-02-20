@@ -937,6 +937,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>global_table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.dynamodb.global_tables
@@ -972,7 +974,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>global_tables</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 dynamodb:Describe*,
 dynamodb:GetResourcePolicy,
@@ -982,7 +995,9 @@ dynamodb:ListTagsOfResource,
 kms:DescribeKey
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 dynamodb:CreateTable,
 dynamodb:CreateTableReplica,
@@ -1024,7 +1039,9 @@ cloudwatch:PutMetricData,
 iam:CreateServiceLinkedRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 dynamodb:Describe*,
 dynamodb:CreateTableReplica,
@@ -1069,13 +1086,17 @@ kms:RevokeGrant,
 cloudwatch:PutMetricData
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 dynamodb:ListTables,
 cloudwatch:PutMetricData
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 dynamodb:Describe*,
 dynamodb:DeleteTable,
@@ -1087,3 +1108,6 @@ application-autoscaling:PutScalingPolicy,
 application-autoscaling:PutScheduledAction,
 application-autoscaling:RegisterScalableTarget
 ```
+
+</TabItem>
+</Tabs>

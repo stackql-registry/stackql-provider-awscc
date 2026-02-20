@@ -294,6 +294,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>db_proxy_target_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.rds.db_proxy_target_groups
@@ -320,7 +322,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>db_proxy_target_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 rds:DescribeDBProxies,
 rds:DescribeDBProxyTargetGroups,
@@ -328,13 +341,17 @@ rds:ModifyDBProxyTargetGroup,
 rds:RegisterDBProxyTargets
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 rds:DescribeDBProxyTargetGroups,
 rds:DescribeDBProxyTargets
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 rds:DescribeDBProxyTargetGroups,
 rds:ModifyDBProxyTargetGroup,
@@ -342,12 +359,19 @@ rds:RegisterDBProxyTargets,
 rds:DeregisterDBProxyTargets
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 rds:DeregisterDBProxyTargets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 rds:DescribeDBProxyTargetGroups
 ```
+
+</TabItem>
+</Tabs>

@@ -307,6 +307,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>ip_access_setting</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.ip_access_settings
@@ -334,7 +336,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>ip_access_settings</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-web:CreateIpAccessSettings,
 workspaces-web:GetIpAccessSettings,
@@ -349,7 +362,9 @@ kms:ReEncryptTo,
 kms:ReEncryptFrom
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces-web:GetIpAccessSettings,
 workspaces-web:ListIpAccessSettings,
@@ -360,7 +375,9 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces-web:UpdateIpAccessSettings,
 workspaces-web:TagResource,
@@ -374,7 +391,9 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-web:GetIpAccessSettings,
 workspaces-web:ListIpAccessSettings,
@@ -385,9 +404,14 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces-web:ListIpAccessSettings,
 kms:Decrypt,
 kms:DescribeKey
 ```
+
+</TabItem>
+</Tabs>

@@ -303,6 +303,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>schema</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.eventschemas.schemata
@@ -330,19 +332,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>schemata</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 schemas:DescribeSchema,
 schemas:CreateSchema,
 schemas:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 schemas:DescribeSchema
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 schemas:DescribeSchema,
 schemas:UpdateSchema,
@@ -351,15 +368,22 @@ schemas:UntagResource,
 schemas:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 schemas:DescribeSchema,
 schemas:DeleteSchema,
 schemas:DeleteSchemaVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 schemas:ListSchemas,
 schemas:ListSchemaVersions
 ```
+
+</TabItem>
+</Tabs>

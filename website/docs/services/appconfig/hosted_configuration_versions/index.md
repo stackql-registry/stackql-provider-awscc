@@ -301,22 +301,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>hosted_configuration_versions</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 appconfig:GetHostedConfigurationVersion
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 appconfig:CreateHostedConfigurationVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appconfig:ListHostedConfigurationVersions
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appconfig:DeleteHostedConfigurationVersion
 ```
+
+</TabItem>
+</Tabs>

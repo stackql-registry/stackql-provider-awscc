@@ -415,6 +415,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>topic</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.sns.topics
@@ -449,7 +451,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>topics</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sns:CreateTopic,
 sns:TagResource,
@@ -460,7 +473,9 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sns:GetTopicAttributes,
 sns:ListTagsForResource,
@@ -468,7 +483,9 @@ sns:ListSubscriptionsByTopic,
 sns:GetDataProtectionPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 sns:SetTopicAttributes,
 sns:TagResource,
@@ -484,13 +501,20 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sns:GetTopicAttributes,
 sns:DeleteTopic
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sns:ListTopics
 ```
+
+</TabItem>
+</Tabs>

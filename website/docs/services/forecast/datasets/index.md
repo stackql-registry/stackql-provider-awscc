@@ -339,22 +339,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>datasets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 forecast:CreateDataset
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 forecast:DescribeDataset
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 forecast:DeleteDataset
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 forecast:ListDatasets
 ```
+
+</TabItem>
+</Tabs>

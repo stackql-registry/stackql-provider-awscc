@@ -272,6 +272,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>mount_target</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.efs.mount_targets
@@ -296,33 +298,55 @@ AND region = 'us-east-1';
 
 To operate on the <code>mount_targets</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticfilesystem:CreateMountTarget,
 elasticfilesystem:DescribeMountTargets
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticfilesystem:DescribeMountTargets,
 elasticfilesystem:DescribeMountTargetSecurityGroups
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticfilesystem:DescribeMountTargets,
 elasticfilesystem:DescribeMountTargetSecurityGroups,
 elasticfilesystem:ModifyMountTargetSecurityGroups
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticfilesystem:DescribeMountTargets,
 elasticfilesystem:DeleteMountTarget
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticfilesystem:DescribeMountTargets,
 elasticfilesystem:DescribeMountTargetSecurityGroups
 ```
+
+</TabItem>
+</Tabs>

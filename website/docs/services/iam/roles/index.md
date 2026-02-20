@@ -332,6 +332,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>role</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iam.roles
@@ -362,7 +364,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>roles</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iam:CreateRole,
 iam:PutRolePolicy,
@@ -373,7 +386,9 @@ iam:UntagRole,
 iam:GetRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iam:GetRole,
 iam:ListAttachedRolePolicies,
@@ -381,7 +396,9 @@ iam:ListRolePolicies,
 iam:GetRolePolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iam:UpdateRole,
 iam:UpdateRoleDescription,
@@ -396,7 +413,9 @@ iam:TagRole,
 iam:UntagRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iam:DeleteRole,
 iam:DetachRolePolicy,
@@ -408,7 +427,12 @@ iam:TagRole,
 iam:UntagRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iam:ListRoles
 ```
+
+</TabItem>
+</Tabs>

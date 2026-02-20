@@ -243,6 +243,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>graph</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.detective.graphs
@@ -268,7 +270,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>graphs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 detective:CreateGraph,
 detective:ListGraphs,
@@ -277,7 +290,9 @@ detective:UpdateOrganizationConfiguration,
 organizations:DescribeOrganization
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 detective:ListGraphs,
 detective:UntagResource,
@@ -287,7 +302,9 @@ detective:UpdateOrganizationConfiguration,
 organizations:DescribeOrganization
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 detective:ListGraphs,
 detective:ListTagsForResource,
@@ -295,16 +312,23 @@ detective:DescribeOrganizationConfiguration,
 organizations:DescribeOrganization
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 detective:DeleteGraph,
 detective:ListGraphs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 detective:ListGraphs,
 detective:ListTagsForResource,
 detective:DescribeOrganizationConfiguration,
 organizations:DescribeOrganization
 ```
+
+</TabItem>
+</Tabs>

@@ -273,6 +273,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>identity_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.verifiedpermissions.identity_sources
@@ -298,7 +300,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>identity_sources</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 verifiedpermissions:CreateIdentitySource,
 verifiedpermissions:GetIdentitySource,
@@ -306,14 +319,18 @@ cognito-idp:DescribeUserPool,
 cognito-idp:ListUserPoolClients
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 verifiedpermissions:GetIdentitySource,
 cognito-idp:DescribeUserPool,
 cognito-idp:ListUserPoolClients
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 verifiedpermissions:UpdateIdentitySource,
 verifiedpermissions:GetIdentitySource,
@@ -321,7 +338,9 @@ cognito-idp:DescribeUserPool,
 cognito-idp:ListUserPoolClients
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 verifiedpermissions:DeleteIdentitySource,
 verifiedpermissions:GetIdentitySource,
@@ -329,10 +348,15 @@ cognito-idp:DescribeUserPool,
 cognito-idp:ListUserPoolClients
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 verifiedpermissions:ListIdentitySources,
 verifiedpermissions:GetIdentitySource,
 cognito-idp:DescribeUserPool,
 cognito-idp:ListUserPoolClients
 ```
+
+</TabItem>
+</Tabs>

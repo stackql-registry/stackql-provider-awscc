@@ -344,6 +344,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>data_lake</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.securitylake.data_lakes
@@ -372,7 +374,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>data_lakes</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 events:*,
 iam:CreateServiceLinkedRole,
@@ -393,7 +406,9 @@ securitylake:List*,
 sqs:*
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 events:*,
 iam:CreateServiceLinkedRole,
@@ -414,19 +429,28 @@ securitylake:UpdateDataLake,
 sqs:*
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 organizations:*,
 securitylake:DeleteDataLake,
 securitylake:List*
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securitylake:List*
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securitylake:List*
 ```
+
+</TabItem>
+</Tabs>

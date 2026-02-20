@@ -465,6 +465,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>patch_baseline</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ssm.patch_baselines
@@ -502,7 +504,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>patch_baselines</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ssm:CreatePatchBaseline,
 ssm:RegisterPatchBaselineForPatchGroup,
@@ -513,14 +526,18 @@ ssm:GetDefaultPatchBaseline,
 ssm:RegisterDefaultPatchBaseline
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm:DeletePatchBaseline,
 ssm:GetPatchBaseline,
 ssm:DeregisterPatchBaselineForPatchGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm:DescribePatchBaselines,
 ssm:GetDefaultPatchBaseline,
@@ -528,14 +545,18 @@ ssm:GetPatchBaseline,
 ssm:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm:GetDefaultPatchBaseline,
 ssm:GetPatchBaseline,
 ssm:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ssm:UpdatePatchBaseline,
 ssm:DeregisterPatchBaselineForPatchGroup,
@@ -545,3 +566,6 @@ ssm:ListTagsForResource,
 ssm:GetDefaultPatchBaseline,
 ssm:RegisterDefaultPatchBaseline
 ```
+
+</TabItem>
+</Tabs>

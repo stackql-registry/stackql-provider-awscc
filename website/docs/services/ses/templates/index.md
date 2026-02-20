@@ -237,7 +237,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>templates</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ses:CreateEmailTemplate,
 ses:GetEmailTemplate,
@@ -245,19 +256,25 @@ ses:CreateTemplate,
 ses:GetTemplate
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ses:GetEmailTemplate,
 ses:GetTemplate
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ses:DeleteEmailTemplate,
 ses:DeleteTemplate
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ses:GetEmailTemplate,
 ses:UpdateEmailTemplate,
@@ -265,8 +282,13 @@ ses:GetTemplate,
 ses:UpdateTemplate
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ses:ListEmailTemplates,
 ses:ListTemplates
 ```
+
+</TabItem>
+</Tabs>

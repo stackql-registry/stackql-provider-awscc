@@ -650,6 +650,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>canary</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.synthetics.canaries
@@ -691,7 +693,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>canaries</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 synthetics:CreateCanary,
 synthetics:StartCanary,
@@ -719,7 +732,9 @@ ec2:DescribeSecurityGroups,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 synthetics:UpdateCanary,
 synthetics:StartCanary,
@@ -751,7 +766,9 @@ ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 synthetics:GetCanary,
 synthetics:DescribeCanaries,
@@ -761,7 +778,9 @@ s3:ListAllMyBuckets,
 s3:GetBucketLocation
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 synthetics:DeleteCanary,
 synthetics:GetCanary,
@@ -769,7 +788,12 @@ lambda:DeleteFunction,
 lambda:DeleteLayerVersion
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 synthetics:DescribeCanaries
 ```
+
+</TabItem>
+</Tabs>

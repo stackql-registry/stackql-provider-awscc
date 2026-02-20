@@ -299,6 +299,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>identity_source</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.mpa.identity_sources
@@ -323,7 +325,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>identity_sources</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 mpa:CreateIdentitySource,
 mpa:TagResource,
@@ -339,13 +352,17 @@ sso:PutApplicationAccessScope,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 mpa:GetIdentitySource,
 mpa:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 mpa:GetIdentitySource,
 mpa:TagResource,
@@ -353,7 +370,9 @@ mpa:ListTagsForResource,
 mpa:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 mpa:DeleteIdentitySource,
 mpa:GetIdentitySource,
@@ -363,8 +382,13 @@ sso:ListInstances,
 kms:Decrypt
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 mpa:ListIdentitySources,
 mpa:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

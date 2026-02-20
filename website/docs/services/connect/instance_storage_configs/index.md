@@ -375,6 +375,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance_storage_config</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.connect.instance_storage_configs
@@ -403,7 +405,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>instance_storage_configs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 connect:AssociateInstanceStorageConfig,
 connect:DescribeInstance,
@@ -417,7 +430,9 @@ kms:CreateGrant,
 firehose:DescribeDeliveryStream
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 connect:DescribeInstanceStorageConfig,
 connect:ListInstanceStorageConfigs,
@@ -427,7 +442,9 @@ s3:GetBucketAcl,
 s3:GetBucketLocation
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 connect:UpdateInstanceStorageConfig,
 ds:DescribeDirectories,
@@ -441,7 +458,9 @@ kms:RetireGrant,
 firehose:DescribeDeliveryStream
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 connect:DisassociateInstanceStorageConfig,
 connect:DescribeInstance,
@@ -450,9 +469,14 @@ s3:GetBucketLocation,
 kms:RetireGrant
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 connect:DescribeInstance,
 connect:ListInstanceStorageConfigs,
 ds:DescribeDirectories
 ```
+
+</TabItem>
+</Tabs>

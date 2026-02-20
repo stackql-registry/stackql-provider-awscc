@@ -299,6 +299,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>conformance_pack</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.config.conformance_packs
@@ -328,7 +330,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>conformance_packs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 config:PutConformancePack,
 config:DescribeConformancePackStatus,
@@ -339,12 +352,16 @@ iam:CreateServiceLinkedRole,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 config:DescribeConformancePacks
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 config:PutConformancePack,
 config:DescribeConformancePackStatus,
@@ -354,13 +371,20 @@ iam:CreateServiceLinkedRole,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 config:DeleteConformancePack,
 config:DescribeConformancePackStatus
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 config:DescribeConformancePacks
 ```
+
+</TabItem>
+</Tabs>

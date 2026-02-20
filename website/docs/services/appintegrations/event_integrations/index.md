@@ -283,6 +283,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>event_integration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appintegrations.event_integrations
@@ -308,24 +310,41 @@ AND region = 'us-east-1';
 
 To operate on the <code>event_integrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 app-integrations:CreateEventIntegration,
 app-integrations:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 app-integrations:GetEventIntegration,
 app-integrations:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 app-integrations:ListEventIntegrations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 app-integrations:GetEventIntegration,
 app-integrations:UpdateEventIntegration,
@@ -333,7 +352,12 @@ app-integrations:TagResource,
 app-integrations:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 app-integrations:DeleteEventIntegration
 ```
+
+</TabItem>
+</Tabs>

@@ -265,24 +265,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>subnet_cidr_blocks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:AssociateSubnetCidrBlock,
 ec2:DescribeSubnets
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DisassociateSubnetCidrBlock,
 ec2:DescribeSubnets
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeSubnets
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeSubnets
 ```
+
+</TabItem>
+</Tabs>

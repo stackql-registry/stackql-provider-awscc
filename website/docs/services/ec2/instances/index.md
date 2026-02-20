@@ -1282,6 +1282,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.instances
@@ -1328,7 +1330,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>instances</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNetworkInterfaces,
 ec2:DescribeVolumes,
@@ -1340,7 +1353,9 @@ ssm:DescribeAssociation,
 ssm:ListAssociations
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 iam:PassRole,
 ec2:ModifyPrivateDnsNameOptions,
@@ -1373,7 +1388,9 @@ ssm:DescribeAssociation,
 ssm:ListAssociations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyPrivateDnsNameOptions,
 ec2:DescribeNetworkInterfaces,
@@ -1408,12 +1425,16 @@ ssm:DescribeAssociation,
 ssm:ListAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeInstances
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DescribeInstances,
 ec2:TerminateInstances,
@@ -1426,3 +1447,6 @@ ec2:DescribeLaunchTemplates,
 ssm:DescribeAssociation,
 ssm:ListAssociations
 ```
+
+</TabItem>
+</Tabs>

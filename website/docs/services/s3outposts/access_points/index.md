@@ -259,6 +259,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>access_point</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.s3outposts.access_points
@@ -283,7 +285,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>access_points</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 s3-outposts:CreateAccessPoint,
 s3-outposts:GetAccessPoint,
@@ -291,13 +304,17 @@ s3-outposts:PutAccessPointPolicy,
 s3-outposts:GetAccessPointPolicy
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 s3-outposts:GetAccessPoint,
 s3-outposts:GetAccessPointPolicy
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 s3-outposts:GetAccessPoint,
 s3-outposts:PutAccessPointPolicy,
@@ -305,13 +322,20 @@ s3-outposts:GetAccessPointPolicy,
 s3-outposts:DeleteAccessPointPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 s3-outposts:DeleteAccessPoint,
 s3-outposts:DeleteAccessPointPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 s3-outposts:ListAccessPoints
 ```
+
+</TabItem>
+</Tabs>

@@ -427,6 +427,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>object_type</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.customerprofiles.object_types
@@ -460,7 +462,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>object_types</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 profile:GetProfileObjectType,
 profile:PutProfileObjectType,
@@ -469,14 +482,18 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 profile:GetProfileObjectType,
 kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 profile:GetProfileObjectType,
 profile:PutProfileObjectType,
@@ -486,14 +503,21 @@ kms:GenerateDataKey,
 kms:Decrypt
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 profile:DeleteProfileObjectType
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 profile:ListProfileObjectTypes,
 kms:GenerateDataKey,
 kms:Decrypt
 ```
+
+</TabItem>
+</Tabs>

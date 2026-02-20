@@ -235,24 +235,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>managed_notification_additional_channel_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 notifications:AssociateManagedNotificationAdditionalChannel,
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 notifications:DisassociateManagedNotificationAdditionalChannel,
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 notifications:ListManagedNotificationChannelAssociations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 notifications:ListManagedNotificationChannelAssociations
 ```
+
+</TabItem>
+</Tabs>

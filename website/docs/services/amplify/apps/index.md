@@ -594,6 +594,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>app</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.amplify.apps
@@ -635,7 +637,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>apps</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 amplify:GetApp,
 amplify:CreateApp,
@@ -648,7 +661,9 @@ sns:Subscribe,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 amplify:GetApp,
 amplify:DeleteApp,
@@ -659,7 +674,9 @@ sns:Unsubscribe,
 iam:PassRole
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 amplify:GetApp,
 amplify:ListApps,
@@ -667,7 +684,9 @@ amplify:ListTagsForResource,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 amplify:GetApp,
 amplify:ListTagsForResource,
@@ -676,7 +695,9 @@ codecommit:GetRepositoryTriggers,
 iam:PassRole
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 amplify:GetApp,
 amplify:UpdateApp,
@@ -691,3 +712,6 @@ sns:Subscribe,
 sns:Unsubscribe,
 iam:PassRole
 ```
+
+</TabItem>
+</Tabs>

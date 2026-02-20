@@ -236,7 +236,16 @@ resources:
 
 To operate on the <code>publishers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cloudformation:RegisterPublisher,
 cloudformation:DescribePublisher,
@@ -244,12 +253,19 @@ codestar-connections:GetConnection,
 codestar-connections:UseConnection
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cloudformation:DescribePublisher
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cloudformation:DescribePublisher
 ```
+
+</TabItem>
+</Tabs>

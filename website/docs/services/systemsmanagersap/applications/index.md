@@ -354,6 +354,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>application</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.systemsmanagersap.applications
@@ -380,7 +382,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ssm-sap:RegisterApplication,
 ssm-sap:GetApplication,
@@ -389,13 +402,17 @@ ssm-sap:ListTagsForResource,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ssm-sap:GetApplication,
 ssm-sap:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ssm-sap:TagResource,
 ssm-sap:UntagResource,
@@ -403,13 +420,20 @@ ssm-sap:ListTagsForResource,
 ssm-sap:GetApplication
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ssm-sap:DeregisterApplication,
 ssm-sap:GetApplication
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ssm-sap:ListApplications
 ```
+
+</TabItem>
+</Tabs>

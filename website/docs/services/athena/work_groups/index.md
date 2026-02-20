@@ -626,6 +626,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>work_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.athena.work_groups
@@ -653,7 +655,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>work_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 athena:CreateWorkGroup,
 athena:TagResource,
@@ -669,25 +682,33 @@ kms:Decrypt,
 kms:GenerateDataKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 athena:GetWorkGroup,
 athena:ListTagsForResource
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 athena:ListWorkGroups
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 athena:DeleteWorkGroup,
 athena:GetWorkGroup,
 athena:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 athena:UpdateWorkGroup,
 athena:TagResource,
@@ -703,3 +724,6 @@ s3:ListMultipartUploadParts,
 kms:Decrypt,
 kms:GenerateDataKey
 ```
+
+</TabItem>
+</Tabs>

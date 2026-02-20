@@ -229,6 +229,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>finding_aggregator</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.securityhub.finding_aggregators
@@ -254,27 +256,49 @@ AND region = 'us-east-1';
 
 To operate on the <code>finding_aggregators</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 securityhub:CreateFindingAggregator
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 securityhub:GetFindingAggregator
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 securityhub:UpdateFindingAggregator
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 securityhub:DeleteFindingAggregator
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 securityhub:ListFindingAggregators
 ```
+
+</TabItem>
+</Tabs>

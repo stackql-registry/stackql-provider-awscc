@@ -345,6 +345,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>id_namespace_association</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.cleanrooms.id_namespace_associations
@@ -372,7 +374,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>id_namespace_associations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 cleanrooms:CreateIdNamespaceAssociation,
 cleanrooms:GetIdNamespaceAssociation,
@@ -385,7 +398,9 @@ entityresolution:GetIdNamespace,
 entityresolution:AddPolicyStatement
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 cleanrooms:GetIdNamespaceAssociation,
 cleanrooms:ListTagsForResource,
@@ -394,7 +409,9 @@ cleanrooms:GetCollaboration,
 entityresolution:GetIdNamespace
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 cleanrooms:UpdateIdNamespaceAssociation,
 cleanrooms:GetIdNamespaceAssociation,
@@ -407,7 +424,9 @@ entityresolution:GetIdNamespace,
 entityresolution:AddPolicyStatement
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 cleanrooms:DeleteIdNamespaceAssociation,
 cleanrooms:GetIdNamespaceAssociation,
@@ -420,9 +439,14 @@ entityresolution:GetIdNamespace,
 entityresolution:DeletePolicyStatement
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 cleanrooms:ListIdNamespaceAssociations,
 cleanrooms:GetMembership,
 cleanrooms:GetCollaboration
 ```
+
+</TabItem>
+</Tabs>

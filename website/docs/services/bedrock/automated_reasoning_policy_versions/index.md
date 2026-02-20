@@ -294,7 +294,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>automated_reasoning_policy_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 bedrock:CreateAutomatedReasoningPolicyVersion,
 bedrock:GetAutomatedReasoningPolicy,
@@ -303,20 +313,29 @@ bedrock:TagResource,
 bedrock:ListTagsForResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 bedrock:GetAutomatedReasoningPolicy,
 bedrock:ExportAutomatedReasoningPolicyVersion,
 bedrock:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 bedrock:DeleteAutomatedReasoningPolicy,
 bedrock:GetAutomatedReasoningPolicy
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 bedrock:ListAutomatedReasoningPolicies
 ```
+
+</TabItem>
+</Tabs>

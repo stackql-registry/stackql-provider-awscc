@@ -329,6 +329,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>webhook</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.codepipeline.webhooks
@@ -359,19 +361,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>webhooks</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 codepipeline:ListWebhooks,
 codepipeline:RegisterWebhookWithThirdParty,
 codepipeline:PutWebhook
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 codepipeline:ListWebhooks
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 codepipeline:ListWebhooks,
 codepipeline:RegisterWebhookWithThirdParty,
@@ -379,14 +396,21 @@ codepipeline:PutWebhook,
 codepipeline:DeregisterWebhookWithThirdParty
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 codepipeline:ListWebhooks,
 codepipeline:DeleteWebhook,
 codepipeline:DeregisterWebhookWithThirdParty
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 codepipeline:ListWebhooks
 ```
+
+</TabItem>
+</Tabs>

@@ -554,6 +554,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>workspace</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.grafana.workspaces
@@ -593,7 +595,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>workspaces</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 grafana:CreateWorkspace,
 grafana:DescribeWorkspace,
@@ -614,14 +627,18 @@ sso:ListApplicationInstances,
 sso:GetApplicationInstance
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 grafana:DescribeWorkspace,
 grafana:DescribeWorkspaceAuthentication,
 grafana:DescribeWorkspaceConfiguration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 grafana:DescribeWorkspace,
 grafana:DescribeWorkspaceAuthentication,
@@ -641,7 +658,9 @@ sso:ListApplicationInstances,
 sso:GetApplicationInstance
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 grafana:DeleteWorkspace,
 grafana:DescribeWorkspace,
@@ -651,9 +670,14 @@ sso:DeleteManagedApplicationInstance,
 sso:DescribeRegisteredRegions
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 grafana:ListWorkspaces,
 grafana:DescribeWorkspaceAuthentication,
 grafana:DescribeWorkspaceConfiguration
 ```
+
+</TabItem>
+</Tabs>

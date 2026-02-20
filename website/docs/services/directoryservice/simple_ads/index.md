@@ -318,6 +318,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>simple_ad</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.directoryservice.simple_ads
@@ -342,7 +344,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>simple_ads</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ds:CreateDirectory,
 ds:CreateAlias,
@@ -360,19 +373,25 @@ ec2:RevokeSecurityGroupIngress,
 ec2:RevokeSecurityGroupEgress
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ds:DescribeDirectories
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ds:EnableSso,
 ds:DisableSso,
 ds:DescribeDirectories
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ds:DeleteDirectory,
 ds:DescribeDirectories,
@@ -384,7 +403,12 @@ ec2:RevokeSecurityGroupEgress,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ds:DescribeDirectories
 ```
+
+</TabItem>
+</Tabs>

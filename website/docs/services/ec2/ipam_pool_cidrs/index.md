@@ -260,24 +260,43 @@ AND region = 'us-east-1';
 
 To operate on the <code>ipam_pool_cidrs</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:ProvisionIpamPoolCidr,
 ec2:GetIpamPoolCidrs
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:GetIpamPoolCidrs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeprovisionIpamPoolCidr,
 ec2:GetIpamPoolCidrs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:GetIpamPoolCidrs
 ```
+
+</TabItem>
+</Tabs>

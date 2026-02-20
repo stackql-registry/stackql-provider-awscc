@@ -620,6 +620,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>verified_access_instance</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.verified_access_instances
@@ -650,7 +652,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>verified_access_instances</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateVerifiedAccessInstance,
 ec2:AttachVerifiedAccessTrustProvider,
@@ -681,7 +694,9 @@ iam:CreateServiceLinkedRole,
 verified-access:AllowVerifiedAccess
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVerifiedAccessInstances,
 ec2:DescribeVerifiedAccessInstanceLoggingConfigurations,
@@ -690,7 +705,9 @@ logs:GetLogDelivery,
 logs:ListLogDeliveries
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyVerifiedAccessInstance,
 ec2:ModifyVerifiedAccessInstanceLoggingConfiguration,
@@ -721,7 +738,9 @@ iam:CreateServiceLinkedRole,
 logs:DescribeResourcePolicies
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVerifiedAccessInstance,
 ec2:DeleteTags,
@@ -735,10 +754,15 @@ logs:GetLogDelivery,
 logs:DeleteLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVerifiedAccessInstances,
 ec2:DescribeTags,
 logs:ListLogDeliveries,
 logs:GetLogDelivery
 ```
+
+</TabItem>
+</Tabs>

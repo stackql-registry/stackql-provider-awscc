@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>identity_provider</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.workspacesweb.identity_providers
@@ -302,7 +304,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>identity_providers</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 workspaces-web:CreateIdentityProvider,
 workspaces-web:GetIdentityProvider,
@@ -310,14 +323,18 @@ workspaces-web:ListTagsForResource,
 workspaces-web:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 workspaces-web:GetIdentityProvider,
 workspaces-web:ListIdentityProviders,
 workspaces-web:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 workspaces-web:UpdateIdentityProvider,
 workspaces-web:TagResource,
@@ -327,13 +344,20 @@ workspaces-web:ListIdentityProviders,
 workspaces-web:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 workspaces-web:GetIdentityProvider,
 workspaces-web:DeleteIdentityProvider
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 workspaces-web:ListIdentityProviders
 ```
+
+</TabItem>
+</Tabs>

@@ -413,6 +413,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>component_version</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.greengrassv2.component_versions
@@ -437,7 +439,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>component_versions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 greengrass:CreateComponentVersion,
 greengrass:DescribeComponent,
@@ -447,13 +460,17 @@ lambda:GetFunction,
 s3:GetObject
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 greengrass:DescribeComponent,
 greengrass:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 greengrass:DescribeComponent,
 greengrass:ListTagsForResource,
@@ -461,12 +478,19 @@ greengrass:TagResource,
 greengrass:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 greengrass:DeleteComponent
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 greengrass:ListComponentVersions
 ```
+
+</TabItem>
+</Tabs>

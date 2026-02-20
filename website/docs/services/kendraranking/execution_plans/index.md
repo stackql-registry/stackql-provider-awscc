@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>execution_plan</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.kendraranking.execution_plans
@@ -302,7 +304,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>execution_plans</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kendra-ranking:CreateRescoreExecutionPlan,
 kendra-ranking:DescribeRescoreExecutionPlan,
@@ -311,13 +324,17 @@ kendra-ranking:ListTagsForResource,
 kendra-ranking:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kendra-ranking:DescribeRescoreExecutionPlan,
 kendra-ranking:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 kendra-ranking:DescribeRescoreExecutionPlan,
 kendra-ranking:UpdateRescoreExecutionPlan,
@@ -326,13 +343,20 @@ kendra-ranking:TagResource,
 kendra-ranking:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kendra-ranking:DescribeRescoreExecutionPlan,
 kendra-ranking:DeleteRescoreExecutionPlan
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kendra-ranking:ListRescoreExecutionPlans
 ```
+
+</TabItem>
+</Tabs>

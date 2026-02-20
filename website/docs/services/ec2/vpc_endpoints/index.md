@@ -396,6 +396,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>vpc_endpoint</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.vpc_endpoints
@@ -427,7 +429,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>vpc_endpoints</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeVpcEndpoints,
 ec2:DescribeSubnets,
@@ -436,7 +449,9 @@ vpc-lattice:DescribeServiceNetworkVpcEndpointAssociation,
 ec2:DescribeVpcs
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateVpcEndpoint,
 ec2:DescribeVpcEndpoints,
@@ -450,7 +465,9 @@ vpce:AllowMultiRegion,
 ec2:DescribeVpcs
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:ModifyVpcEndpoint,
 ec2:DescribeVpcEndpoints,
@@ -464,7 +481,9 @@ vpce:AllowMultiRegion,
 ec2:DescribeVpcs
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeVpcEndpoints,
 ec2:DescribeSubnets,
@@ -473,7 +492,9 @@ vpc-lattice:DescribeServiceNetworkVpcEndpointAssociation,
 ec2:DescribeVpcs
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteVpcEndpoints,
 ec2:DescribeVpcEndpoints,
@@ -485,3 +506,6 @@ ec2:DeleteTags,
 vpce:AllowMultiRegion,
 ec2:DescribeVpcs
 ```
+
+</TabItem>
+</Tabs>

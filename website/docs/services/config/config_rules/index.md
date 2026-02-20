@@ -402,6 +402,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>config_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.config.config_rules
@@ -431,31 +433,53 @@ AND region = 'us-east-1';
 
 To operate on the <code>config_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 config:PutConfigRule,
 config:DescribeConfigRules
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 config:DescribeConfigRules,
 config:DescribeComplianceByConfigRule
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 config:DeleteConfigRule,
 config:DescribeConfigRules
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 config:DescribeConfigRules
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 config:PutConfigRule,
 config:DescribeConfigRules
 ```
+
+</TabItem>
+</Tabs>

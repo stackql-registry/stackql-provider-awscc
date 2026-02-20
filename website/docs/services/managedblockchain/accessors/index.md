@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>accessor</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.managedblockchain.accessors
@@ -299,19 +301,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>accessors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 managedblockchain:CreateAccessor,
 managedblockchain:TagResource,
 managedblockchain:GetAccessor
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 managedblockchain:GetAccessor
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 managedblockchain:GetAccessor,
 managedblockchain:CreateAccessor,
@@ -319,12 +336,19 @@ managedblockchain:TagResource,
 managedblockchain:UntagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 managedblockchain:DeleteAccessor
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 managedblockchain:ListAccessors
 ```
+
+</TabItem>
+</Tabs>

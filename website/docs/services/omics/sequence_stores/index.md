@@ -354,6 +354,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>sequence_store</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.omics.sequence_stores
@@ -384,7 +386,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>sequence_stores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 omics:CreateSequenceStore,
 omics:GetSequenceStore,
@@ -395,14 +408,18 @@ omics:TagResource,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 omics:GetS3AccessPolicy,
 omics:GetSequenceStore,
 omics:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 omics:UpdateSequenceStore,
 omics:GetSequenceStore,
@@ -414,12 +431,19 @@ omics:DeleteS3AccessPolicy,
 omics:PutS3AccessPolicy
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 omics:DeleteSequenceStore
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 omics:ListSequenceStores
 ```
+
+</TabItem>
+</Tabs>

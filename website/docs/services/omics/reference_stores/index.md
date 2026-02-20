@@ -279,25 +279,44 @@ AND region = 'us-east-1';
 
 To operate on the <code>reference_stores</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 omics:CreateReferenceStore,
 omics:TagResource,
 kms:DescribeKey
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 omics:GetReferenceStore,
 omics:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 omics:DeleteReferenceStore
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 omics:ListReferenceStores
 ```
+
+</TabItem>
+</Tabs>

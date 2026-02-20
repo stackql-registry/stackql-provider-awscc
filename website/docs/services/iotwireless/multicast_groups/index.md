@@ -319,6 +319,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>multicast_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotwireless.multicast_groups
@@ -347,19 +349,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>multicast_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotwireless:CreateMulticastGroup,
 iotwireless:TagResource
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotwireless:GetMulticastGroup,
 iotwireless:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotwireless:UpdateMulticastGroup,
 iotwireless:GetMulticastGroup,
@@ -369,13 +386,20 @@ iotwireless:AssociateWirelessDeviceWithMulticastGroup,
 iotwireless:DisassociateWirelessDeviceFromMulticastGroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotwireless:DeleteMulticastGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotwireless:ListMulticastGroups,
 iotwireless:ListTagsForResource
 ```
+
+</TabItem>
+</Tabs>

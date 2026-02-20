@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>domain_name</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.appsync.domain_names
@@ -300,7 +302,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>domain_names</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Update', value: 'update', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 appsync:CreateDomainName,
 appsync:GetDomainName,
@@ -309,14 +322,18 @@ cloudfront:UpdateDistribution,
 appsync:TagResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 appsync:GetDomainName,
 appsync:DeleteDomainName,
 appsync:UntagResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 appsync:UpdateDomainName,
 appsync:TagResource,
@@ -324,12 +341,19 @@ appsync:UntagResource,
 appsync:GetDomainName
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 appsync:GetDomainName
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 appsync:ListDomainNames
 ```
+
+</TabItem>
+</Tabs>

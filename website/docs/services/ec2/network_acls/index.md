@@ -241,6 +241,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>network_acl</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.network_acls
@@ -265,34 +267,56 @@ AND region = 'us-east-1';
 
 To operate on the <code>network_acls</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNetworkAcls,
 ec2:DescribeTags
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateNetworkAcl,
 ec2:DescribeNetworkAcls,
 ec2:CreateTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeNetworkAcls,
 ec2:DeleteTags,
 ec2:CreateTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeNetworkAcls
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteTags,
 ec2:DeleteNetworkAcl,
 ec2:DescribeNetworkAcls
 ```
+
+</TabItem>
+</Tabs>

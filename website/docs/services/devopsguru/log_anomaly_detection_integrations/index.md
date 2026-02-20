@@ -221,7 +221,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>log_anomaly_detection_integrations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 devops-guru:DescribeServiceIntegration,
 devops-guru:UpdateServiceIntegration,
@@ -229,19 +240,25 @@ logs:TagLogGroup,
 logs:UntagLogGroup
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 devops-guru:DescribeServiceIntegration
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 devops-guru:UpdateServiceIntegration,
 logs:TagLogGroup,
 logs:UntagLogGroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 devops-guru:DescribeServiceIntegration,
 devops-guru:UpdateServiceIntegration,
@@ -249,7 +266,12 @@ logs:TagLogGroup,
 logs:UntagLogGroup
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 devops-guru:DescribeServiceIntegration
 ```
+
+</TabItem>
+</Tabs>

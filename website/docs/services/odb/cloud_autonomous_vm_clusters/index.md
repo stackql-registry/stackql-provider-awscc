@@ -616,6 +616,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>cloud_autonomous_vm_cluster</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.odb.cloud_autonomous_vm_clusters
@@ -640,7 +642,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>cloud_autonomous_vm_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:DescribeAvailabilityZones,
 iam:CreateServiceLinkedRole,
@@ -652,14 +665,18 @@ odb:TagResource,
 sts:GetCallerIdentity
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 odb:GetCloudAutonomousVmCluster,
 odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 odb:TagResource,
 odb:UntagResource,
@@ -669,7 +686,9 @@ odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 odb:DeleteCloudAutonomousVmCluster,
 odb:GetCloudAutonomousVmCluster,
@@ -678,9 +697,14 @@ odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 odb:ListCloudAutonomousVmClusters,
 odb:ListTagsForResource,
 sts:GetCallerIdentity
 ```
+
+</TabItem>
+</Tabs>

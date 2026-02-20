@@ -654,7 +654,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>model_quality_job_definitions</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'Read', value: 'read', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sagemaker:CreateModelQualityJobDefinition,
 sagemaker:DescribeModelQualityJobDefinition,
@@ -663,19 +673,28 @@ sagemaker:ListTags,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sagemaker:DeleteModelQualityJobDefinition
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sagemaker:DescribeModelQualityJobDefinition,
 sagemaker:ListTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sagemaker:ListModelQualityJobDefinitions,
 sagemaker:ListTags
 ```
+
+</TabItem>
+</Tabs>

@@ -297,7 +297,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>serverless_clusters</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 kafka:CreateClusterV2,
 kafka:TagResource,
@@ -311,19 +321,28 @@ ec2:DescribeVpcs,
 ec2:DescribeSecurityGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 kafka:DescribeClusterV2
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 kafka:DeleteCluster,
 kafka:DescribeClusterV2,
 ec2:DeleteVpcEndpoints
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 kafka:ListClustersV2
 ```
+
+</TabItem>
+</Tabs>

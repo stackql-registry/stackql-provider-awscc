@@ -432,6 +432,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>monitor</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.internetmonitor.monitors
@@ -466,7 +468,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>monitors</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 internetmonitor:CreateMonitor,
 internetmonitor:GetMonitor,
@@ -480,14 +493,18 @@ s3:ListBucket,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 internetmonitor:GetMonitor,
 internetmonitor:ListTagsForResource,
 logs:GetLogDelivery
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 internetmonitor:CreateMonitor,
 internetmonitor:GetMonitor,
@@ -505,7 +522,9 @@ s3:ListBucket,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 internetmonitor:UpdateMonitor,
 internetmonitor:DeleteMonitor,
@@ -513,10 +532,15 @@ internetmonitor:GetMonitor,
 logs:DeleteLogDelivery
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 internetmonitor:ListMonitors,
 internetmonitor:GetMonitor,
 internetmonitor:ListTagsForResource,
 logs:GetLogDelivery
 ```
+
+</TabItem>
+</Tabs>

@@ -326,6 +326,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>snapshot</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.redshiftserverless.snapshots
@@ -350,7 +352,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>snapshots</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 redshift-serverless:CreateSnapshot,
 redshift-serverless:GetSnapshot,
@@ -359,14 +372,18 @@ redshift-serverless:TagResource,
 redshift-serverless:GetNamespace
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 redshift-serverless:GetSnapshot,
 redshift-serverless:ListTagsForResource,
 redshift-serverless:GetNamespace
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 redshift-serverless:UpdateSnapshot,
 redshift-serverless:GetSnapshot,
@@ -376,7 +393,9 @@ redshift-serverless:UntagResource,
 redshift-serverless:GetNamespace
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 redshift-serverless:DeleteSnapshot,
 redshift-serverless:GetSnapshot,
@@ -385,10 +404,15 @@ redshift-serverless:UntagResource,
 redshift-serverless:GetNamespace
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 redshift-serverless:ListSnapshots,
 redshift-serverless:GetSnapshot,
 redshift-serverless:ListTagsForResource,
 redshift-serverless:GetNamespace
 ```
+
+</TabItem>
+</Tabs>

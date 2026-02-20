@@ -329,6 +329,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>nat_gateway</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.nat_gateways
@@ -357,19 +359,34 @@ AND region = 'us-east-1';
 
 To operate on the <code>nat_gateways</code> resource, the following permissions are required:
 
-### Read
+<Tabs
+    defaultValue="read"
+    values={[
+      { label: 'Read', value: 'read', },
+      { label: 'Create', value: 'create', },
+      { label: 'Update', value: 'update', },
+      { label: 'List', value: 'list', },
+      { label: 'Delete', value: 'delete', },
+    ]
+}>
+<TabItem value="read">
+
 ```json
 ec2:DescribeNatGateways
 ```
 
-### Create
+</TabItem>
+<TabItem value="create">
+
 ```json
 ec2:CreateNatGateway,
 ec2:DescribeNatGateways,
 ec2:CreateTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeNatGateways,
 ec2:CreateTags,
@@ -380,13 +397,20 @@ ec2:AssignPrivateNatGatewayAddress,
 ec2:UnassignPrivateNatGatewayAddress
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeNatGateways
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteNatGateway,
 ec2:DescribeNatGateways
 ```
+
+</TabItem>
+</Tabs>

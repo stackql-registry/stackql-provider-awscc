@@ -573,6 +573,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>asset_model</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.iotsitewise.asset_models
@@ -601,7 +603,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>asset_models</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 iotsitewise:CreateAssetModel,
 iotsitewise:ListTagsForResource,
@@ -617,7 +630,9 @@ iotsitewise:PutAssetModelInterfaceRelationship,
 iotsitewise:DescribeAssetModelInterfaceRelationship
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 iotsitewise:DescribeAssetModel,
 iotsitewise:ListAssetModelProperties,
@@ -627,7 +642,9 @@ iotsitewise:ListTagsForResource,
 iotsitewise:DescribeAssetModelInterfaceRelationship
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 iotsitewise:DescribeAssetModel,
 iotsitewise:ListTagsForResource,
@@ -645,7 +662,9 @@ iotsitewise:DeleteAssetModelInterfaceRelationship,
 iotsitewise:DescribeAssetModelInterfaceRelationship
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 iotsitewise:DescribeAssetModel,
 iotsitewise:DeleteAssetModel,
@@ -653,7 +672,9 @@ iotsitewise:ListAssetModelProperties,
 iotsitewise:ListAssetModelCompositeModels
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 iotsitewise:DescribeAssetModel,
 iotsitewise:ListAssetModels,
@@ -661,3 +682,6 @@ iotsitewise:ListTagsForResource,
 iotsitewise:ListAssetModelProperties,
 iotsitewise:ListAssetModelCompositeModels
 ```
+
+</TabItem>
+</Tabs>

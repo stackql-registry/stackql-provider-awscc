@@ -412,6 +412,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>matchmaking_configuration</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.gamelift.matchmaking_configurations
@@ -451,7 +453,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>matchmaking_configurations</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+      { label: 'Update', value: 'update', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 gamelift:CreateMatchmakingConfiguration,
 gamelift:ListTagsForResource,
@@ -459,24 +472,32 @@ gamelift:TagResource,
 gamelift:DescribeMatchmakingConfigurations
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 gamelift:DescribeMatchmakingConfigurations,
 gamelift:ListTagsForResource
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 gamelift:DescribeMatchmakingConfigurations,
 gamelift:DeleteMatchmakingConfiguration
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 gamelift:DescribeMatchmakingConfigurations
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 gamelift:DescribeMatchmakingConfigurations,
 gamelift:UpdateMatchmakingConfiguration,
@@ -484,3 +505,6 @@ gamelift:ListTagsForResource,
 gamelift:TagResource,
 gamelift:UntagResource
 ```
+
+</TabItem>
+</Tabs>

@@ -320,6 +320,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>organization_telemetry_rule</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.observabilityadmin.organization_telemetry_rules
@@ -345,7 +347,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>organization_telemetry_rules</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 observabilityadmin:CreateTelemetryRuleForOrganization,
 observabilityadmin:GetTelemetryRuleForOrganization,
@@ -356,7 +369,9 @@ organizations:ListDelegatedAdministrators,
 iam:CreateServiceLinkedRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 observabilityadmin:GetTelemetryRuleForOrganization,
 observabilityadmin:ListTagsForResource,
@@ -364,7 +379,9 @@ observabilityadmin:GetTelemetryEvaluationStatusForOrganization,
 organizations:ListDelegatedAdministrators
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 observabilityadmin:UpdateTelemetryRuleForOrganization,
 observabilityadmin:GetTelemetryRuleForOrganization,
@@ -375,16 +392,23 @@ observabilityadmin:GetTelemetryEvaluationStatusForOrganization,
 organizations:ListDelegatedAdministrators
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 observabilityadmin:DeleteTelemetryRuleForOrganization,
 observabilityadmin:GetTelemetryEvaluationStatusForOrganization,
 organizations:ListDelegatedAdministrators
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 observabilityadmin:ListTelemetryRulesForOrganization,
 observabilityadmin:GetTelemetryEvaluationStatusForOrganization,
 organizations:ListDelegatedAdministrators
 ```
+
+</TabItem>
+</Tabs>

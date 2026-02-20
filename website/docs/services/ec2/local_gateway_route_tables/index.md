@@ -275,6 +275,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>local_gateway_route_table</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.ec2.local_gateway_route_tables
@@ -299,20 +301,35 @@ AND region = 'us-east-1';
 
 To operate on the <code>local_gateway_route_tables</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 ec2:CreateLocalGatewayRouteTable,
 ec2:DescribeLocalGatewayRouteTables,
 ec2:CreateTags
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 ec2:DescribeLocalGatewayRouteTables,
 ec2:DescribeTags
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 ec2:DescribeLocalGatewayRouteTables,
 ec2:CreateTags,
@@ -320,14 +337,21 @@ ec2:DeleteTags,
 ec2:DescribeTags
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 ec2:DeleteLocalGatewayRouteTable,
 ec2:DescribeLocalGatewayRouteTables,
 ec2:DeleteTags
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 ec2:DescribeLocalGatewayRouteTables
 ```
+
+</TabItem>
+</Tabs>

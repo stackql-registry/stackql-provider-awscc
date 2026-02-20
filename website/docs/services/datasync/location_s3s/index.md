@@ -285,6 +285,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>location_s3</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.datasync.location_s3s
@@ -312,7 +314,18 @@ AND region = 'us-east-1';
 
 To operate on the <code>location_s3s</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 datasync:CreateLocationS3,
 datasync:DescribeLocationS3,
@@ -324,13 +337,17 @@ iam:GetRole,
 iam:PassRole
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 datasync:DescribeLocationS3,
 datasync:ListTagsForResource
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 datasync:DescribeLocationS3,
 datasync:ListTagsForResource,
@@ -340,12 +357,19 @@ datasync:UpdateLocationS3,
 iam:PassRole
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 datasync:DeleteLocation
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 datasync:ListLocations
 ```
+
+</TabItem>
+</Tabs>

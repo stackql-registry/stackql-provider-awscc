@@ -368,6 +368,8 @@ resources:
 
 ## `UPDATE` example
 
+Use the following StackQL query and manifest file to update a <code>global_replication_group</code> resource, using [__`stack-deploy`__](https://pypi.org/project/stack-deploy/).
+
 ```sql
 /*+ update */
 UPDATE awscc.elasticache.global_replication_groups
@@ -401,18 +403,33 @@ AND region = 'us-east-1';
 
 To operate on the <code>global_replication_groups</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Update', value: 'update', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 elasticache:CreateGlobalReplicationGroup,
 elasticache:DescribeGlobalReplicationGroups
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 elasticache:DescribeGlobalReplicationGroups
 ```
 
-### Update
+</TabItem>
+<TabItem value="update">
+
 ```json
 elasticache:ModifyGlobalReplicationGroup,
 elasticache:FailoverGlobalReplicationGroup,
@@ -423,14 +440,21 @@ elasticache:DisassociateGlobalReplicationGroup,
 elasticache:RebalanceSlotsInGlobalReplicationGroup
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 elasticache:DeleteGlobalReplicationGroup,
 elasticache:DisassociateGlobalReplicationGroup,
 elasticache:DescribeGlobalReplicationGroups
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 elasticache:DescribeGlobalReplicationGroups
 ```
+
+</TabItem>
+</Tabs>

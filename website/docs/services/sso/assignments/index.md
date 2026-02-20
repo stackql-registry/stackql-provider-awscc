@@ -307,7 +307,17 @@ AND region = 'us-east-1';
 
 To operate on the <code>assignments</code> resource, the following permissions are required:
 
-### Create
+<Tabs
+    defaultValue="create"
+    values={[
+      { label: 'Create', value: 'create', },
+      { label: 'Read', value: 'read', },
+      { label: 'Delete', value: 'delete', },
+      { label: 'List', value: 'list', },
+    ]
+}>
+<TabItem value="create">
+
 ```json
 sso:CreateAccountAssignment,
 sso:DescribeAccountAssignmentCreationStatus,
@@ -320,14 +330,18 @@ iam:CreateRole,
 iam:ListRolePolicies
 ```
 
-### Read
+</TabItem>
+<TabItem value="read">
+
 ```json
 sso:ListAccountAssignments,
 iam:GetSAMLProvider,
 iam:ListRolePolicies
 ```
 
-### Delete
+</TabItem>
+<TabItem value="delete">
+
 ```json
 sso:ListAccountAssignments,
 sso:DeleteAccountAssignment,
@@ -336,8 +350,13 @@ iam:GetSAMLProvider,
 iam:ListRolePolicies
 ```
 
-### List
+</TabItem>
+<TabItem value="list">
+
 ```json
 sso:ListAccountAssignments,
 iam:ListRolePolicies
 ```
+
+</TabItem>
+</Tabs>
