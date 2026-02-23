@@ -176,7 +176,7 @@ service_account_credentials,
 directory_name,
 certificate_based_auth_properties
 FROM awscc.appstream.directory_configs
-WHERE region = 'us-east-1' AND Identifier = '<DirectoryName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ directory_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.appstream.directory_configs (
  DirectoryName,
  region
 )
-SELECT 
-'{{ OrganizationalUnitDistinguishedNames }}',
- '{{ ServiceAccountCredentials }}',
- '{{ DirectoryName }}',
+SELECT
+'{{ organizational_unit_distinguished_names }}',
+ '{{ service_account_credentials }}',
+ '{{ directory_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,11 +232,11 @@ INSERT INTO awscc.appstream.directory_configs (
  CertificateBasedAuthProperties,
  region
 )
-SELECT 
- '{{ OrganizationalUnitDistinguishedNames }}',
- '{{ ServiceAccountCredentials }}',
- '{{ DirectoryName }}',
- '{{ CertificateBasedAuthProperties }}',
+SELECT
+ '{{ organizational_unit_distinguished_names }}',
+ '{{ service_account_credentials }}',
+ '{{ directory_name }}',
+ '{{ certificate_based_auth_properties }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,20 +254,19 @@ globals:
 resources:
   - name: directory_config
     props:
-      - name: OrganizationalUnitDistinguishedNames
+      - name: organizational_unit_distinguished_names
         value:
-          - '{{ OrganizationalUnitDistinguishedNames[0] }}'
-      - name: ServiceAccountCredentials
+          - '{{ organizational_unit_distinguished_names[0] }}'
+      - name: service_account_credentials
         value:
-          AccountName: '{{ AccountName }}'
-          AccountPassword: '{{ AccountPassword }}'
-      - name: DirectoryName
-        value: '{{ DirectoryName }}'
-      - name: CertificateBasedAuthProperties
+          account_name: '{{ account_name }}'
+          account_password: '{{ account_password }}'
+      - name: directory_name
+        value: '{{ directory_name }}'
+      - name: certificate_based_auth_properties
         value:
-          Status: '{{ Status }}'
-          CertificateAuthorityArn: '{{ CertificateAuthorityArn }}'
-
+          status: '{{ status }}'
+          certificate_authority_arn: '{{ certificate_authority_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "CertificateBasedAuthProperties": certificate_based_auth_properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DirectoryName>';
+AND Identifier = '{{ directory_name }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<DirectoryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.directory_configs
-WHERE Identifier = '<DirectoryName>'
+WHERE Identifier = '{{ directory_name }}'
 AND region = 'us-east-1';
 ```
 

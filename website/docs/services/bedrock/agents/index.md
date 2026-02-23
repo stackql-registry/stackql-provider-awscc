@@ -535,7 +535,7 @@ tags,
 test_alias_tags,
 updated_at
 FROM awscc.bedrock.agents
-WHERE region = 'us-east-1' AND Identifier = '<AgentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -571,8 +571,8 @@ INSERT INTO awscc.bedrock.agents (
  AgentName,
  region
 )
-SELECT 
-'{{ AgentName }}',
+SELECT
+'{{ agent_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -603,27 +603,27 @@ INSERT INTO awscc.bedrock.agents (
  TestAliasTags,
  region
 )
-SELECT 
- '{{ ActionGroups }}',
- '{{ AgentName }}',
- '{{ AgentResourceRoleArn }}',
- '{{ AutoPrepare }}',
- '{{ CustomOrchestration }}',
- '{{ CustomerEncryptionKeyArn }}',
- '{{ SkipResourceInUseCheckOnDelete }}',
- '{{ Description }}',
- '{{ FoundationModel }}',
- '{{ GuardrailConfiguration }}',
- '{{ MemoryConfiguration }}',
- '{{ IdleSessionTTLInSeconds }}',
- '{{ AgentCollaboration }}',
- '{{ Instruction }}',
- '{{ KnowledgeBases }}',
- '{{ AgentCollaborators }}',
- '{{ OrchestrationType }}',
- '{{ PromptOverrideConfiguration }}',
- '{{ Tags }}',
- '{{ TestAliasTags }}',
+SELECT
+ '{{ action_groups }}',
+ '{{ agent_name }}',
+ '{{ agent_resource_role_arn }}',
+ '{{ auto_prepare }}',
+ '{{ custom_orchestration }}',
+ '{{ customer_encryption_key_arn }}',
+ '{{ skip_resource_in_use_check_on_delete }}',
+ '{{ description }}',
+ '{{ foundation_model }}',
+ '{{ guardrail_configuration }}',
+ '{{ memory_configuration }}',
+ '{{ idle_session_ttl_in_seconds }}',
+ '{{ agent_collaboration }}',
+ '{{ instruction }}',
+ '{{ knowledge_bases }}',
+ '{{ agent_collaborators }}',
+ '{{ orchestration_type }}',
+ '{{ prompt_override_configuration }}',
+ '{{ tags }}',
+ '{{ test_alias_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -641,93 +641,92 @@ globals:
 resources:
   - name: agent
     props:
-      - name: ActionGroups
+      - name: action_groups
         value:
-          - ActionGroupName: '{{ ActionGroupName }}'
-            Description: '{{ Description }}'
-            ParentActionGroupSignature: '{{ ParentActionGroupSignature }}'
-            ActionGroupExecutor: null
-            ApiSchema: null
-            ActionGroupState: '{{ ActionGroupState }}'
-            FunctionSchema:
-              Functions:
-                - Name: '{{ Name }}'
-                  Description: '{{ Description }}'
-                  Parameters: {}
-                  RequireConfirmation: '{{ RequireConfirmation }}'
-            SkipResourceInUseCheckOnDelete: '{{ SkipResourceInUseCheckOnDelete }}'
-      - name: AgentName
-        value: '{{ AgentName }}'
-      - name: AgentResourceRoleArn
-        value: '{{ AgentResourceRoleArn }}'
-      - name: AutoPrepare
-        value: '{{ AutoPrepare }}'
-      - name: CustomOrchestration
+          - action_group_name: '{{ action_group_name }}'
+            description: '{{ description }}'
+            parent_action_group_signature: '{{ parent_action_group_signature }}'
+            action_group_executor: null
+            api_schema: null
+            action_group_state: '{{ action_group_state }}'
+            function_schema:
+              functions:
+                - name: '{{ name }}'
+                  description: '{{ description }}'
+                  parameters: {}
+                  require_confirmation: '{{ require_confirmation }}'
+            skip_resource_in_use_check_on_delete: '{{ skip_resource_in_use_check_on_delete }}'
+      - name: agent_name
+        value: '{{ agent_name }}'
+      - name: agent_resource_role_arn
+        value: '{{ agent_resource_role_arn }}'
+      - name: auto_prepare
+        value: '{{ auto_prepare }}'
+      - name: custom_orchestration
         value:
-          Executor:
-            Lambda: '{{ Lambda }}'
-      - name: CustomerEncryptionKeyArn
-        value: '{{ CustomerEncryptionKeyArn }}'
-      - name: SkipResourceInUseCheckOnDelete
-        value: '{{ SkipResourceInUseCheckOnDelete }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FoundationModel
-        value: '{{ FoundationModel }}'
-      - name: GuardrailConfiguration
+          executor:
+            lambda: '{{ lambda }}'
+      - name: customer_encryption_key_arn
+        value: '{{ customer_encryption_key_arn }}'
+      - name: skip_resource_in_use_check_on_delete
+        value: '{{ skip_resource_in_use_check_on_delete }}'
+      - name: description
+        value: '{{ description }}'
+      - name: foundation_model
+        value: '{{ foundation_model }}'
+      - name: guardrail_configuration
         value:
-          GuardrailIdentifier: '{{ GuardrailIdentifier }}'
-          GuardrailVersion: '{{ GuardrailVersion }}'
-      - name: MemoryConfiguration
+          guardrail_identifier: '{{ guardrail_identifier }}'
+          guardrail_version: '{{ guardrail_version }}'
+      - name: memory_configuration
         value:
-          EnabledMemoryTypes:
-            - '{{ EnabledMemoryTypes[0] }}'
-          StorageDays: null
-          SessionSummaryConfiguration:
-            MaxRecentSessions: null
-      - name: IdleSessionTTLInSeconds
+          enabled_memory_types:
+            - '{{ enabled_memory_types[0] }}'
+          storage_days: null
+          session_summary_configuration:
+            max_recent_sessions: null
+      - name: idle_session_ttl_in_seconds
         value: null
-      - name: AgentCollaboration
-        value: '{{ AgentCollaboration }}'
-      - name: Instruction
-        value: '{{ Instruction }}'
-      - name: KnowledgeBases
+      - name: agent_collaboration
+        value: '{{ agent_collaboration }}'
+      - name: instruction
+        value: '{{ instruction }}'
+      - name: knowledge_bases
         value:
-          - KnowledgeBaseId: '{{ KnowledgeBaseId }}'
-            Description: '{{ Description }}'
-            KnowledgeBaseState: '{{ KnowledgeBaseState }}'
-      - name: AgentCollaborators
+          - knowledge_base_id: '{{ knowledge_base_id }}'
+            description: '{{ description }}'
+            knowledge_base_state: '{{ knowledge_base_state }}'
+      - name: agent_collaborators
         value:
-          - AgentDescriptor:
-              AliasArn: '{{ AliasArn }}'
-            CollaborationInstruction: '{{ CollaborationInstruction }}'
-            CollaboratorName: '{{ CollaboratorName }}'
-            RelayConversationHistory: '{{ RelayConversationHistory }}'
-      - name: OrchestrationType
-        value: '{{ OrchestrationType }}'
-      - name: PromptOverrideConfiguration
+          - agent_descriptor:
+              alias_arn: '{{ alias_arn }}'
+            collaboration_instruction: '{{ collaboration_instruction }}'
+            collaborator_name: '{{ collaborator_name }}'
+            relay_conversation_history: '{{ relay_conversation_history }}'
+      - name: orchestration_type
+        value: '{{ orchestration_type }}'
+      - name: prompt_override_configuration
         value:
-          PromptConfigurations:
-            - PromptType: '{{ PromptType }}'
-              PromptCreationMode: '{{ PromptCreationMode }}'
-              PromptState: '{{ PromptState }}'
-              BasePromptTemplate: '{{ BasePromptTemplate }}'
-              InferenceConfiguration:
-                Temperature: null
-                TopP: null
-                TopK: null
-                MaximumLength: null
-                StopSequences:
-                  - '{{ StopSequences[0] }}'
-              ParserMode: null
-              FoundationModel: null
-              AdditionalModelRequestFields: {}
-          OverrideLambda: '{{ OverrideLambda }}'
-      - name: Tags
+          prompt_configurations:
+            - prompt_type: '{{ prompt_type }}'
+              prompt_creation_mode: '{{ prompt_creation_mode }}'
+              prompt_state: '{{ prompt_state }}'
+              base_prompt_template: '{{ base_prompt_template }}'
+              inference_configuration:
+                temperature: null
+                top_p: null
+                top_k: null
+                maximum_length: null
+                stop_sequences:
+                  - '{{ stop_sequences[0] }}'
+              parser_mode: null
+              foundation_model: null
+              additional_model_request_fields: {}
+          override_lambda: '{{ override_lambda }}'
+      - name: tags
         value: {}
-      - name: TestAliasTags
+      - name: test_alias_tags
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -762,7 +761,7 @@ SET PatchDocument = string('{{ {
     "TestAliasTags": test_alias_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AgentId>';
+AND Identifier = '{{ agent_id }}';
 ```
 
 
@@ -771,7 +770,7 @@ AND Identifier = '<AgentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.agents
-WHERE Identifier = '<AgentId>'
+WHERE Identifier = '{{ agent_id }}'
 AND region = 'us-east-1';
 ```
 

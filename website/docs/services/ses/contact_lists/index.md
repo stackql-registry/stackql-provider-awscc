@@ -186,7 +186,7 @@ description,
 topics,
 tags
 FROM awscc.ses.contact_lists
-WHERE region = 'us-east-1' AND Identifier = '<ContactListName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ contact_list_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,11 +225,11 @@ INSERT INTO awscc.ses.contact_lists (
  Tags,
  region
 )
-SELECT 
-'{{ ContactListName }}',
- '{{ Description }}',
- '{{ Topics }}',
- '{{ Tags }}',
+SELECT
+'{{ contact_list_name }}',
+ '{{ description }}',
+ '{{ topics }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,11 +244,11 @@ INSERT INTO awscc.ses.contact_lists (
  Tags,
  region
 )
-SELECT 
- '{{ ContactListName }}',
- '{{ Description }}',
- '{{ Topics }}',
- '{{ Tags }}',
+SELECT
+ '{{ contact_list_name }}',
+ '{{ description }}',
+ '{{ topics }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,21 +266,20 @@ globals:
 resources:
   - name: contact_list
     props:
-      - name: ContactListName
-        value: '{{ ContactListName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Topics
+      - name: contact_list_name
+        value: '{{ contact_list_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: topics
         value:
-          - TopicName: '{{ TopicName }}'
-            DisplayName: '{{ DisplayName }}'
-            Description: '{{ Description }}'
-            DefaultSubscriptionStatus: '{{ DefaultSubscriptionStatus }}'
-      - name: Tags
+          - topic_name: '{{ topic_name }}'
+            display_name: '{{ display_name }}'
+            description: '{{ description }}'
+            default_subscription_status: '{{ default_subscription_status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -298,7 +297,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ContactListName>';
+AND Identifier = '{{ contact_list_name }}';
 ```
 
 
@@ -307,7 +306,7 @@ AND Identifier = '<ContactListName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.contact_lists
-WHERE Identifier = '<ContactListName>'
+WHERE Identifier = '{{ contact_list_name }}'
 AND region = 'us-east-1';
 ```
 

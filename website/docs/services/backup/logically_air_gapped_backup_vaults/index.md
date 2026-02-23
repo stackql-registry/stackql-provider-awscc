@@ -200,7 +200,7 @@ min_retention_days,
 notifications,
 access_policy
 FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE region = 'us-east-1' AND Identifier = '<BackupVaultName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.backup.logically_air_gapped_backup_vaults (
  MinRetentionDays,
  region
 )
-SELECT 
-'{{ BackupVaultName }}',
- '{{ MaxRetentionDays }}',
- '{{ MinRetentionDays }}',
+SELECT
+'{{ backup_vault_name }}',
+ '{{ max_retention_days }}',
+ '{{ min_retention_days }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,13 +258,13 @@ INSERT INTO awscc.backup.logically_air_gapped_backup_vaults (
  AccessPolicy,
  region
 )
-SELECT 
- '{{ BackupVaultTags }}',
- '{{ BackupVaultName }}',
- '{{ MaxRetentionDays }}',
- '{{ MinRetentionDays }}',
- '{{ Notifications }}',
- '{{ AccessPolicy }}',
+SELECT
+ '{{ backup_vault_tags }}',
+ '{{ backup_vault_name }}',
+ '{{ max_retention_days }}',
+ '{{ min_retention_days }}',
+ '{{ notifications }}',
+ '{{ access_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,22 +282,21 @@ globals:
 resources:
   - name: logically_air_gapped_backup_vault
     props:
-      - name: BackupVaultTags
+      - name: backup_vault_tags
         value: {}
-      - name: BackupVaultName
-        value: '{{ BackupVaultName }}'
-      - name: MaxRetentionDays
-        value: '{{ MaxRetentionDays }}'
-      - name: MinRetentionDays
-        value: '{{ MinRetentionDays }}'
-      - name: Notifications
+      - name: backup_vault_name
+        value: '{{ backup_vault_name }}'
+      - name: max_retention_days
+        value: '{{ max_retention_days }}'
+      - name: min_retention_days
+        value: '{{ min_retention_days }}'
+      - name: notifications
         value:
-          SNSTopicArn: '{{ SNSTopicArn }}'
-          BackupVaultEvents:
-            - '{{ BackupVaultEvents[0] }}'
-      - name: AccessPolicy
+          sns_topic_arn: '{{ sns_topic_arn }}'
+          backup_vault_events:
+            - '{{ backup_vault_events[0] }}'
+      - name: access_policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "AccessPolicy": access_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BackupVaultName>';
+AND Identifier = '{{ backup_vault_name }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<BackupVaultName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.logically_air_gapped_backup_vaults
-WHERE Identifier = '<BackupVaultName>'
+WHERE Identifier = '{{ backup_vault_name }}'
 AND region = 'us-east-1';
 ```
 

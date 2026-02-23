@@ -146,7 +146,7 @@ account_id,
 role_arn,
 default_log_level
 FROM awscc.iot.loggings
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -184,10 +184,10 @@ INSERT INTO awscc.iot.loggings (
  DefaultLogLevel,
  region
 )
-SELECT 
-'{{ AccountId }}',
- '{{ RoleArn }}',
- '{{ DefaultLogLevel }}',
+SELECT
+'{{ account_id }}',
+ '{{ role_arn }}',
+ '{{ default_log_level }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -201,10 +201,10 @@ INSERT INTO awscc.iot.loggings (
  DefaultLogLevel,
  region
 )
-SELECT 
- '{{ AccountId }}',
- '{{ RoleArn }}',
- '{{ DefaultLogLevel }}',
+SELECT
+ '{{ account_id }}',
+ '{{ role_arn }}',
+ '{{ default_log_level }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,13 +222,12 @@ globals:
 resources:
   - name: logging
     props:
-      - name: AccountId
-        value: '{{ AccountId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: DefaultLogLevel
-        value: '{{ DefaultLogLevel }}'
-
+      - name: account_id
+        value: '{{ account_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: default_log_level
+        value: '{{ default_log_level }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ SET PatchDocument = string('{{ {
     "DefaultLogLevel": default_log_level
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -254,7 +253,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.loggings
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

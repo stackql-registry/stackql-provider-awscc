@@ -208,7 +208,7 @@ name_servers,
 query_logging_config,
 name
 FROM awscc.route53.hosted_zones
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,7 +219,7 @@ SELECT
 region,
 id
 FROM awscc.route53.hosted_zones_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -248,12 +248,12 @@ INSERT INTO awscc.route53.hosted_zones (
  Name,
  region
 )
-SELECT 
-'{{ HostedZoneTags }}',
- '{{ VPCs }}',
- '{{ HostedZoneConfig }}',
- '{{ QueryLoggingConfig }}',
- '{{ Name }}',
+SELECT
+'{{ hosted_zone_tags }}',
+ '{{ vpcs }}',
+ '{{ hosted_zone_config }}',
+ '{{ query_logging_config }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -269,12 +269,12 @@ INSERT INTO awscc.route53.hosted_zones (
  Name,
  region
 )
-SELECT 
- '{{ HostedZoneTags }}',
- '{{ VPCs }}',
- '{{ HostedZoneConfig }}',
- '{{ QueryLoggingConfig }}',
- '{{ Name }}',
+SELECT
+ '{{ hosted_zone_tags }}',
+ '{{ vpcs }}',
+ '{{ hosted_zone_config }}',
+ '{{ query_logging_config }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,23 +292,22 @@ globals:
 resources:
   - name: hosted_zone
     props:
-      - name: HostedZoneTags
+      - name: hosted_zone_tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: VPCs
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: vpcs
         value:
-          - VPCRegion: '{{ VPCRegion }}'
-            VPCId: '{{ VPCId }}'
-      - name: HostedZoneConfig
+          - vpc_region: '{{ vpc_region }}'
+            vpc_id: '{{ vpc_id }}'
+      - name: hosted_zone_config
         value:
-          Comment: '{{ Comment }}'
-      - name: QueryLoggingConfig
+          comment: '{{ comment }}'
+      - name: query_logging_config
         value:
-          CloudWatchLogsLogGroupArn: '{{ CloudWatchLogsLogGroupArn }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          cloud_watch_logs_log_group_arn: '{{ cloud_watch_logs_log_group_arn }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +326,7 @@ SET PatchDocument = string('{{ {
     "QueryLoggingConfig": query_logging_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -336,7 +335,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.hosted_zones
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

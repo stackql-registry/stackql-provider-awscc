@@ -176,7 +176,7 @@ query_description,
 query_expression,
 tags
 FROM awscc.config.stored_queries
-WHERE region = 'us-east-1' AND Identifier = '<QueryName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ query_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.config.stored_queries (
  QueryExpression,
  region
 )
-SELECT 
-'{{ QueryName }}',
- '{{ QueryExpression }}',
+SELECT
+'{{ query_name }}',
+ '{{ query_expression }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.config.stored_queries (
  Tags,
  region
 )
-SELECT 
- '{{ QueryName }}',
- '{{ QueryDescription }}',
- '{{ QueryExpression }}',
- '{{ Tags }}',
+SELECT
+ '{{ query_name }}',
+ '{{ query_description }}',
+ '{{ query_expression }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,17 +252,16 @@ globals:
 resources:
   - name: stored_query
     props:
-      - name: QueryName
-        value: '{{ QueryName }}'
-      - name: QueryDescription
-        value: '{{ QueryDescription }}'
-      - name: QueryExpression
-        value: '{{ QueryExpression }}'
-      - name: Tags
+      - name: query_name
+        value: '{{ query_name }}'
+      - name: query_description
+        value: '{{ query_description }}'
+      - name: query_expression
+        value: '{{ query_expression }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +279,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QueryName>';
+AND Identifier = '{{ query_name }}';
 ```
 
 
@@ -289,7 +288,7 @@ AND Identifier = '<QueryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.stored_queries
-WHERE Identifier = '<QueryName>'
+WHERE Identifier = '{{ query_name }}'
 AND region = 'us-east-1';
 ```
 

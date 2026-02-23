@@ -150,7 +150,7 @@ farm_id,
 fleet_id,
 queue_id
 FROM awscc.deadline.queue_fleet_associations
-WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<FleetId>|<QueueId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.deadline.queue_fleet_associations (
  QueueId,
  region
 )
-SELECT 
-'{{ FarmId }}',
- '{{ FleetId }}',
- '{{ QueueId }}',
+SELECT
+'{{ farm_id }}',
+ '{{ fleet_id }}',
+ '{{ queue_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.deadline.queue_fleet_associations (
  QueueId,
  region
 )
-SELECT 
- '{{ FarmId }}',
- '{{ FleetId }}',
- '{{ QueueId }}',
+SELECT
+ '{{ farm_id }}',
+ '{{ fleet_id }}',
+ '{{ queue_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: queue_fleet_association
     props:
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: FleetId
-        value: '{{ FleetId }}'
-      - name: QueueId
-        value: '{{ QueueId }}'
-
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: fleet_id
+        value: '{{ fleet_id }}'
+      - name: queue_id
+        value: '{{ queue_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_fleet_associations
-WHERE Identifier = '<FarmId|FleetId|QueueId>'
+WHERE Identifier = '{{ farm_id }}|{{ fleet_id }}|{{ queue_id }}'
 AND region = 'us-east-1';
 ```
 

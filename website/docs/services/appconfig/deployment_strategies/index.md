@@ -194,7 +194,7 @@ replicate_to,
 tags,
 id
 FROM awscc.appconfig.deployment_strategies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,11 +233,11 @@ INSERT INTO awscc.appconfig.deployment_strategies (
  ReplicateTo,
  region
 )
-SELECT 
-'{{ DeploymentDurationInMinutes }}',
- '{{ GrowthFactor }}',
- '{{ Name }}',
- '{{ ReplicateTo }}',
+SELECT
+'{{ deployment_duration_in_minutes }}',
+ '{{ growth_factor }}',
+ '{{ name }}',
+ '{{ replicate_to }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -256,15 +256,15 @@ INSERT INTO awscc.appconfig.deployment_strategies (
  Tags,
  region
 )
-SELECT 
- '{{ DeploymentDurationInMinutes }}',
- '{{ Description }}',
- '{{ FinalBakeTimeInMinutes }}',
- '{{ GrowthFactor }}',
- '{{ GrowthType }}',
- '{{ Name }}',
- '{{ ReplicateTo }}',
- '{{ Tags }}',
+SELECT
+ '{{ deployment_duration_in_minutes }}',
+ '{{ description }}',
+ '{{ final_bake_time_in_minutes }}',
+ '{{ growth_factor }}',
+ '{{ growth_type }}',
+ '{{ name }}',
+ '{{ replicate_to }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,25 +282,24 @@ globals:
 resources:
   - name: deployment_strategy
     props:
-      - name: DeploymentDurationInMinutes
+      - name: deployment_duration_in_minutes
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: FinalBakeTimeInMinutes
+      - name: description
+        value: '{{ description }}'
+      - name: final_bake_time_in_minutes
         value: null
-      - name: GrowthFactor
+      - name: growth_factor
         value: null
-      - name: GrowthType
-        value: '{{ GrowthType }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ReplicateTo
-        value: '{{ ReplicateTo }}'
-      - name: Tags
+      - name: growth_type
+        value: '{{ growth_type }}'
+      - name: name
+        value: '{{ name }}'
+      - name: replicate_to
+        value: '{{ replicate_to }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -321,7 +320,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -330,7 +329,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.deployment_strategies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

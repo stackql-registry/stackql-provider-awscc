@@ -140,7 +140,7 @@ region,
 target_key_id,
 alias_name
 FROM awscc.kms.aliases
-WHERE region = 'us-east-1' AND Identifier = '<AliasName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alias_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.kms.aliases (
  AliasName,
  region
 )
-SELECT 
-'{{ TargetKeyId }}',
- '{{ AliasName }}',
+SELECT
+'{{ target_key_id }}',
+ '{{ alias_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.kms.aliases (
  AliasName,
  region
 )
-SELECT 
- '{{ TargetKeyId }}',
- '{{ AliasName }}',
+SELECT
+ '{{ target_key_id }}',
+ '{{ alias_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: alias
     props:
-      - name: TargetKeyId
-        value: '{{ TargetKeyId }}'
-      - name: AliasName
-        value: '{{ AliasName }}'
-
+      - name: target_key_id
+        value: '{{ target_key_id }}'
+      - name: alias_name
+        value: '{{ alias_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -232,7 +231,7 @@ SET PatchDocument = string('{{ {
     "TargetKeyId": target_key_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AliasName>';
+AND Identifier = '{{ alias_name }}';
 ```
 
 
@@ -241,7 +240,7 @@ AND Identifier = '<AliasName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.aliases
-WHERE Identifier = '<AliasName>'
+WHERE Identifier = '{{ alias_name }}'
 AND region = 'us-east-1';
 ```
 

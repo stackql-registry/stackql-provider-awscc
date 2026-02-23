@@ -198,7 +198,7 @@ dataset_group_arn,
 schema_arn,
 dataset_import_job
 FROM awscc.personalize.datasets
-WHERE region = 'us-east-1' AND Identifier = '<DatasetArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dataset_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,11 +237,11 @@ INSERT INTO awscc.personalize.datasets (
  SchemaArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DatasetType }}',
- '{{ DatasetGroupArn }}',
- '{{ SchemaArn }}',
+SELECT
+'{{ name }}',
+ '{{ dataset_type }}',
+ '{{ dataset_group_arn }}',
+ '{{ schema_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,12 +257,12 @@ INSERT INTO awscc.personalize.datasets (
  DatasetImportJob,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DatasetType }}',
- '{{ DatasetGroupArn }}',
- '{{ SchemaArn }}',
- '{{ DatasetImportJob }}',
+SELECT
+ '{{ name }}',
+ '{{ dataset_type }}',
+ '{{ dataset_group_arn }}',
+ '{{ schema_arn }}',
+ '{{ dataset_import_job }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,23 +280,22 @@ globals:
 resources:
   - name: dataset
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DatasetType
-        value: '{{ DatasetType }}'
-      - name: DatasetGroupArn
-        value: '{{ DatasetGroupArn }}'
-      - name: SchemaArn
-        value: '{{ SchemaArn }}'
-      - name: DatasetImportJob
+      - name: name
+        value: '{{ name }}'
+      - name: dataset_type
+        value: '{{ dataset_type }}'
+      - name: dataset_group_arn
+        value: '{{ dataset_group_arn }}'
+      - name: schema_arn
+        value: '{{ schema_arn }}'
+      - name: dataset_import_job
         value:
-          JobName: '{{ JobName }}'
-          DatasetImportJobArn: '{{ DatasetImportJobArn }}'
-          DatasetArn: '{{ DatasetArn }}'
-          DataSource:
-            DataLocation: '{{ DataLocation }}'
-          RoleArn: '{{ RoleArn }}'
-
+          job_name: '{{ job_name }}'
+          dataset_import_job_arn: '{{ dataset_import_job_arn }}'
+          dataset_arn: '{{ dataset_arn }}'
+          data_source:
+            data_location: '{{ data_location }}'
+          role_arn: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -312,7 +311,7 @@ SET PatchDocument = string('{{ {
     "DatasetImportJob": dataset_import_job
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatasetArn>';
+AND Identifier = '{{ dataset_arn }}';
 ```
 
 
@@ -321,7 +320,7 @@ AND Identifier = '<DatasetArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.datasets
-WHERE Identifier = '<DatasetArn>'
+WHERE Identifier = '{{ dataset_arn }}'
 AND region = 'us-east-1';
 ```
 

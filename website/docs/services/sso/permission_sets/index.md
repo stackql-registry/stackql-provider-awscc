@@ -223,7 +223,7 @@ tags,
 customer_managed_policy_references,
 permissions_boundary
 FROM awscc.sso.permission_sets
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<PermissionSetArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,9 +261,9 @@ INSERT INTO awscc.sso.permission_sets (
  InstanceArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ InstanceArn }}',
+SELECT
+'{{ name }}',
+ '{{ instance_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,17 +284,17 @@ INSERT INTO awscc.sso.permission_sets (
  PermissionsBoundary,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ InstanceArn }}',
- '{{ SessionDuration }}',
- '{{ RelayStateType }}',
- '{{ ManagedPolicies }}',
- '{{ InlinePolicy }}',
- '{{ Tags }}',
- '{{ CustomerManagedPolicyReferences }}',
- '{{ PermissionsBoundary }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ instance_arn }}',
+ '{{ session_duration }}',
+ '{{ relay_state_type }}',
+ '{{ managed_policies }}',
+ '{{ inline_policy }}',
+ '{{ tags }}',
+ '{{ customer_managed_policy_references }}',
+ '{{ permissions_boundary }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -312,34 +312,33 @@ globals:
 resources:
   - name: permission_set
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: SessionDuration
-        value: '{{ SessionDuration }}'
-      - name: RelayStateType
-        value: '{{ RelayStateType }}'
-      - name: ManagedPolicies
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: session_duration
+        value: '{{ session_duration }}'
+      - name: relay_state_type
+        value: '{{ relay_state_type }}'
+      - name: managed_policies
         value:
-          - '{{ ManagedPolicies[0] }}'
-      - name: InlinePolicy
+          - '{{ managed_policies[0] }}'
+      - name: inline_policy
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CustomerManagedPolicyReferences
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: customer_managed_policy_references
         value:
-          - Name: '{{ Name }}'
-            Path: '{{ Path }}'
-      - name: PermissionsBoundary
+          - name: '{{ name }}'
+            path: '{{ path }}'
+      - name: permissions_boundary
         value:
-          CustomerManagedPolicyReference: null
-          ManagedPolicyArn: null
-
+          customer_managed_policy_reference: null
+          managed_policy_arn: null
 ```
 </TabItem>
 </Tabs>
@@ -362,7 +361,7 @@ SET PatchDocument = string('{{ {
     "PermissionsBoundary": permissions_boundary
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceArn>|<PermissionSetArn>';
+AND Identifier = '{{ instance_arn }}|{{ permission_set_arn }}';
 ```
 
 
@@ -371,7 +370,7 @@ AND Identifier = '<InstanceArn>|<PermissionSetArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.permission_sets
-WHERE Identifier = '<InstanceArn|PermissionSetArn>'
+WHERE Identifier = '{{ instance_arn }}|{{ permission_set_arn }}'
 AND region = 'us-east-1';
 ```
 

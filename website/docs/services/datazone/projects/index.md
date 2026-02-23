@@ -246,7 +246,7 @@ project_profile_version,
 project_status,
 user_parameters
 FROM awscc.datazone.projects
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,9 +284,9 @@ INSERT INTO awscc.datazone.projects (
  Name,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ Name }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -305,15 +305,15 @@ INSERT INTO awscc.datazone.projects (
  UserParameters,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ DomainUnitId }}',
- '{{ GlossaryTerms }}',
- '{{ Name }}',
- '{{ ProjectProfileId }}',
- '{{ ProjectProfileVersion }}',
- '{{ UserParameters }}',
+SELECT
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ domain_unit_id }}',
+ '{{ glossary_terms }}',
+ '{{ name }}',
+ '{{ project_profile_id }}',
+ '{{ project_profile_version }}',
+ '{{ user_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -331,29 +331,28 @@ globals:
 resources:
   - name: project
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: DomainUnitId
-        value: '{{ DomainUnitId }}'
-      - name: GlossaryTerms
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: domain_unit_id
+        value: '{{ domain_unit_id }}'
+      - name: glossary_terms
         value:
-          - '{{ GlossaryTerms[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProjectProfileId
-        value: '{{ ProjectProfileId }}'
-      - name: ProjectProfileVersion
-        value: '{{ ProjectProfileVersion }}'
-      - name: UserParameters
+          - '{{ glossary_terms[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: project_profile_id
+        value: '{{ project_profile_id }}'
+      - name: project_profile_version
+        value: '{{ project_profile_version }}'
+      - name: user_parameters
         value:
-          - EnvironmentId: '{{ EnvironmentId }}'
-            EnvironmentConfigurationName: '{{ EnvironmentConfigurationName }}'
-            EnvironmentParameters:
-              - Name: '{{ Name }}'
-                Value: '{{ Value }}'
-
+          - environment_id: '{{ environment_id }}'
+            environment_configuration_name: '{{ environment_configuration_name }}'
+            environment_parameters:
+              - name: '{{ name }}'
+                value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +373,7 @@ SET PatchDocument = string('{{ {
     "UserParameters": user_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -383,7 +382,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.projects
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

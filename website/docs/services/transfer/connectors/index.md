@@ -269,7 +269,7 @@ tags,
 url,
 security_policy_name
 FROM awscc.transfer.connectors
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,9 +306,9 @@ INSERT INTO awscc.transfer.connectors (
  Url,
  region
 )
-SELECT 
-'{{ AccessRole }}',
- '{{ Url }}',
+SELECT
+'{{ access_role }}',
+ '{{ url }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -326,14 +326,14 @@ INSERT INTO awscc.transfer.connectors (
  SecurityPolicyName,
  region
 )
-SELECT 
- '{{ AccessRole }}',
- '{{ As2Config }}',
- '{{ SftpConfig }}',
- '{{ LoggingRole }}',
- '{{ Tags }}',
- '{{ Url }}',
- '{{ SecurityPolicyName }}',
+SELECT
+ '{{ access_role }}',
+ '{{ as2_config }}',
+ '{{ sftp_config }}',
+ '{{ logging_role }}',
+ '{{ tags }}',
+ '{{ url }}',
+ '{{ security_policy_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -351,37 +351,36 @@ globals:
 resources:
   - name: connector
     props:
-      - name: AccessRole
-        value: '{{ AccessRole }}'
-      - name: As2Config
+      - name: access_role
+        value: '{{ access_role }}'
+      - name: as2_config
         value:
-          LocalProfileId: '{{ LocalProfileId }}'
-          PartnerProfileId: '{{ PartnerProfileId }}'
-          MessageSubject: '{{ MessageSubject }}'
-          Compression: '{{ Compression }}'
-          EncryptionAlgorithm: '{{ EncryptionAlgorithm }}'
-          SigningAlgorithm: '{{ SigningAlgorithm }}'
-          MdnSigningAlgorithm: '{{ MdnSigningAlgorithm }}'
-          MdnResponse: '{{ MdnResponse }}'
-          BasicAuthSecretId: '{{ BasicAuthSecretId }}'
-          PreserveContentType: '{{ PreserveContentType }}'
-      - name: SftpConfig
+          local_profile_id: '{{ local_profile_id }}'
+          partner_profile_id: '{{ partner_profile_id }}'
+          message_subject: '{{ message_subject }}'
+          compression: '{{ compression }}'
+          encryption_algorithm: '{{ encryption_algorithm }}'
+          signing_algorithm: '{{ signing_algorithm }}'
+          mdn_signing_algorithm: '{{ mdn_signing_algorithm }}'
+          mdn_response: '{{ mdn_response }}'
+          basic_auth_secret_id: '{{ basic_auth_secret_id }}'
+          preserve_content_type: '{{ preserve_content_type }}'
+      - name: sftp_config
         value:
-          UserSecretId: '{{ UserSecretId }}'
-          TrustedHostKeys:
-            - '{{ TrustedHostKeys[0] }}'
-          MaxConcurrentConnections: '{{ MaxConcurrentConnections }}'
-      - name: LoggingRole
-        value: '{{ LoggingRole }}'
-      - name: Tags
+          user_secret_id: '{{ user_secret_id }}'
+          trusted_host_keys:
+            - '{{ trusted_host_keys[0] }}'
+          max_concurrent_connections: '{{ max_concurrent_connections }}'
+      - name: logging_role
+        value: '{{ logging_role }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Url
-        value: '{{ Url }}'
-      - name: SecurityPolicyName
-        value: '{{ SecurityPolicyName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: url
+        value: '{{ url }}'
+      - name: security_policy_name
+        value: '{{ security_policy_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -403,7 +402,7 @@ SET PatchDocument = string('{{ {
     "SecurityPolicyName": security_policy_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectorId>';
+AND Identifier = '{{ connector_id }}';
 ```
 
 
@@ -412,7 +411,7 @@ AND Identifier = '<ConnectorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.connectors
-WHERE Identifier = '<ConnectorId>'
+WHERE Identifier = '{{ connector_id }}'
 AND region = 'us-east-1';
 ```
 

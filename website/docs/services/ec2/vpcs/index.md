@@ -212,7 +212,7 @@ default_security_group,
 enable_dns_hostnames,
 tags
 FROM awscc.ec2.vpcs
-WHERE region = 'us-east-1' AND Identifier = '<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,14 +254,14 @@ INSERT INTO awscc.ec2.vpcs (
  Tags,
  region
 )
-SELECT 
-'{{ InstanceTenancy }}',
- '{{ Ipv4NetmaskLength }}',
- '{{ CidrBlock }}',
- '{{ Ipv4IpamPoolId }}',
- '{{ EnableDnsSupport }}',
- '{{ EnableDnsHostnames }}',
- '{{ Tags }}',
+SELECT
+'{{ instance_tenancy }}',
+ '{{ ipv4_netmask_length }}',
+ '{{ cidr_block }}',
+ '{{ ipv4_ipam_pool_id }}',
+ '{{ enable_dns_support }}',
+ '{{ enable_dns_hostnames }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -279,14 +279,14 @@ INSERT INTO awscc.ec2.vpcs (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceTenancy }}',
- '{{ Ipv4NetmaskLength }}',
- '{{ CidrBlock }}',
- '{{ Ipv4IpamPoolId }}',
- '{{ EnableDnsSupport }}',
- '{{ EnableDnsHostnames }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_tenancy }}',
+ '{{ ipv4_netmask_length }}',
+ '{{ cidr_block }}',
+ '{{ ipv4_ipam_pool_id }}',
+ '{{ enable_dns_support }}',
+ '{{ enable_dns_hostnames }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,23 +304,22 @@ globals:
 resources:
   - name: vpc
     props:
-      - name: InstanceTenancy
-        value: '{{ InstanceTenancy }}'
-      - name: Ipv4NetmaskLength
-        value: '{{ Ipv4NetmaskLength }}'
-      - name: CidrBlock
-        value: '{{ CidrBlock }}'
-      - name: Ipv4IpamPoolId
-        value: '{{ Ipv4IpamPoolId }}'
-      - name: EnableDnsSupport
-        value: '{{ EnableDnsSupport }}'
-      - name: EnableDnsHostnames
-        value: '{{ EnableDnsHostnames }}'
-      - name: Tags
+      - name: instance_tenancy
+        value: '{{ instance_tenancy }}'
+      - name: ipv4_netmask_length
+        value: '{{ ipv4_netmask_length }}'
+      - name: cidr_block
+        value: '{{ cidr_block }}'
+      - name: ipv4_ipam_pool_id
+        value: '{{ ipv4_ipam_pool_id }}'
+      - name: enable_dns_support
+        value: '{{ enable_dns_support }}'
+      - name: enable_dns_hostnames
+        value: '{{ enable_dns_hostnames }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpcId>';
+AND Identifier = '{{ vpc_id }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<VpcId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpcs
-WHERE Identifier = '<VpcId>'
+WHERE Identifier = '{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

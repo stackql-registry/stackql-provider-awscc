@@ -313,7 +313,7 @@ state,
 state_message,
 tags
 FROM awscc.ec2.ipam_pools
-WHERE region = 'us-east-1' AND Identifier = '<IpamPoolId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -350,9 +350,9 @@ INSERT INTO awscc.ec2.ipam_pools (
  IpamScopeId,
  region
 )
-SELECT 
-'{{ AddressFamily }}',
- '{{ IpamScopeId }}',
+SELECT
+'{{ address_family }}',
+ '{{ ipam_scope_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -379,23 +379,23 @@ INSERT INTO awscc.ec2.ipam_pools (
  Tags,
  region
 )
-SELECT 
- '{{ AddressFamily }}',
- '{{ AllocationMinNetmaskLength }}',
- '{{ AllocationDefaultNetmaskLength }}',
- '{{ AllocationMaxNetmaskLength }}',
- '{{ AllocationResourceTags }}',
- '{{ AutoImport }}',
- '{{ AwsService }}',
- '{{ Description }}',
- '{{ IpamScopeId }}',
- '{{ Locale }}',
- '{{ ProvisionedCidrs }}',
- '{{ PublicIpSource }}',
- '{{ PubliclyAdvertisable }}',
- '{{ SourceIpamPoolId }}',
- '{{ SourceResource }}',
- '{{ Tags }}',
+SELECT
+ '{{ address_family }}',
+ '{{ allocation_min_netmask_length }}',
+ '{{ allocation_default_netmask_length }}',
+ '{{ allocation_max_netmask_length }}',
+ '{{ allocation_resource_tags }}',
+ '{{ auto_import }}',
+ '{{ aws_service }}',
+ '{{ description }}',
+ '{{ ipam_scope_id }}',
+ '{{ locale }}',
+ '{{ provisioned_cidrs }}',
+ '{{ public_ip_source }}',
+ '{{ publicly_advertisable }}',
+ '{{ source_ipam_pool_id }}',
+ '{{ source_resource }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -413,47 +413,46 @@ globals:
 resources:
   - name: ipam_pool
     props:
-      - name: AddressFamily
-        value: '{{ AddressFamily }}'
-      - name: AllocationMinNetmaskLength
-        value: '{{ AllocationMinNetmaskLength }}'
-      - name: AllocationDefaultNetmaskLength
-        value: '{{ AllocationDefaultNetmaskLength }}'
-      - name: AllocationMaxNetmaskLength
-        value: '{{ AllocationMaxNetmaskLength }}'
-      - name: AllocationResourceTags
+      - name: address_family
+        value: '{{ address_family }}'
+      - name: allocation_min_netmask_length
+        value: '{{ allocation_min_netmask_length }}'
+      - name: allocation_default_netmask_length
+        value: '{{ allocation_default_netmask_length }}'
+      - name: allocation_max_netmask_length
+        value: '{{ allocation_max_netmask_length }}'
+      - name: allocation_resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AutoImport
-        value: '{{ AutoImport }}'
-      - name: AwsService
-        value: '{{ AwsService }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: IpamScopeId
-        value: '{{ IpamScopeId }}'
-      - name: Locale
-        value: '{{ Locale }}'
-      - name: ProvisionedCidrs
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: auto_import
+        value: '{{ auto_import }}'
+      - name: aws_service
+        value: '{{ aws_service }}'
+      - name: description
+        value: '{{ description }}'
+      - name: ipam_scope_id
+        value: '{{ ipam_scope_id }}'
+      - name: locale
+        value: '{{ locale }}'
+      - name: provisioned_cidrs
         value:
-          - Cidr: '{{ Cidr }}'
-      - name: PublicIpSource
-        value: '{{ PublicIpSource }}'
-      - name: PubliclyAdvertisable
-        value: '{{ PubliclyAdvertisable }}'
-      - name: SourceIpamPoolId
-        value: '{{ SourceIpamPoolId }}'
-      - name: SourceResource
+          - cidr: '{{ cidr }}'
+      - name: public_ip_source
+        value: '{{ public_ip_source }}'
+      - name: publicly_advertisable
+        value: '{{ publicly_advertisable }}'
+      - name: source_ipam_pool_id
+        value: '{{ source_ipam_pool_id }}'
+      - name: source_resource
         value:
-          ResourceId: '{{ ResourceId }}'
-          ResourceType: '{{ ResourceType }}'
-          ResourceRegion: '{{ ResourceRegion }}'
-          ResourceOwner: '{{ ResourceOwner }}'
-      - name: Tags
+          resource_id: '{{ resource_id }}'
+          resource_type: '{{ resource_type }}'
+          resource_region: '{{ resource_region }}'
+          resource_owner: '{{ resource_owner }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -476,7 +475,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpamPoolId>';
+AND Identifier = '{{ ipam_pool_id }}';
 ```
 
 
@@ -485,7 +484,7 @@ AND Identifier = '<IpamPoolId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_pools
-WHERE Identifier = '<IpamPoolId>'
+WHERE Identifier = '{{ ipam_pool_id }}'
 AND region = 'us-east-1';
 ```
 

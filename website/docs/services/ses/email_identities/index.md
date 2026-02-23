@@ -268,7 +268,7 @@ dkim_dns_token_value2,
 dkim_dns_token_value3,
 tags
 FROM awscc.ses.email_identities
-WHERE region = 'us-east-1' AND Identifier = '<EmailIdentity>';
+WHERE region = 'us-east-1' AND Identifier = '{{ email_identity }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,8 +304,8 @@ INSERT INTO awscc.ses.email_identities (
  EmailIdentity,
  region
 )
-SELECT 
-'{{ EmailIdentity }}',
+SELECT
+'{{ email_identity }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -323,14 +323,14 @@ INSERT INTO awscc.ses.email_identities (
  Tags,
  region
 )
-SELECT 
- '{{ EmailIdentity }}',
- '{{ ConfigurationSetAttributes }}',
- '{{ DkimSigningAttributes }}',
- '{{ DkimAttributes }}',
- '{{ MailFromAttributes }}',
- '{{ FeedbackAttributes }}',
- '{{ Tags }}',
+SELECT
+ '{{ email_identity }}',
+ '{{ configuration_set_attributes }}',
+ '{{ dkim_signing_attributes }}',
+ '{{ dkim_attributes }}',
+ '{{ mail_from_attributes }}',
+ '{{ feedback_attributes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -348,31 +348,30 @@ globals:
 resources:
   - name: email_identity
     props:
-      - name: EmailIdentity
-        value: '{{ EmailIdentity }}'
-      - name: ConfigurationSetAttributes
+      - name: email_identity
+        value: '{{ email_identity }}'
+      - name: configuration_set_attributes
         value:
-          ConfigurationSetName: '{{ ConfigurationSetName }}'
-      - name: DkimSigningAttributes
+          configuration_set_name: '{{ configuration_set_name }}'
+      - name: dkim_signing_attributes
         value:
-          DomainSigningSelector: '{{ DomainSigningSelector }}'
-          DomainSigningPrivateKey: '{{ DomainSigningPrivateKey }}'
-          NextSigningKeyLength: '{{ NextSigningKeyLength }}'
-      - name: DkimAttributes
+          domain_signing_selector: '{{ domain_signing_selector }}'
+          domain_signing_private_key: '{{ domain_signing_private_key }}'
+          next_signing_key_length: '{{ next_signing_key_length }}'
+      - name: dkim_attributes
         value:
-          SigningEnabled: '{{ SigningEnabled }}'
-      - name: MailFromAttributes
+          signing_enabled: '{{ signing_enabled }}'
+      - name: mail_from_attributes
         value:
-          MailFromDomain: '{{ MailFromDomain }}'
-          BehaviorOnMxFailure: '{{ BehaviorOnMxFailure }}'
-      - name: FeedbackAttributes
+          mail_from_domain: '{{ mail_from_domain }}'
+          behavior_on_mx_failure: '{{ behavior_on_mx_failure }}'
+      - name: feedback_attributes
         value:
-          EmailForwardingEnabled: '{{ EmailForwardingEnabled }}'
-      - name: Tags
+          email_forwarding_enabled: '{{ email_forwarding_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +392,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EmailIdentity>';
+AND Identifier = '{{ email_identity }}';
 ```
 
 
@@ -402,7 +401,7 @@ AND Identifier = '<EmailIdentity>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.email_identities
-WHERE Identifier = '<EmailIdentity>'
+WHERE Identifier = '{{ email_identity }}'
 AND region = 'us-east-1';
 ```
 

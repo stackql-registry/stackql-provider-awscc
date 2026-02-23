@@ -183,7 +183,7 @@ permission_set_arn,
 principal_type,
 principal_id
 FROM awscc.sso.assignments
-WHERE region = 'us-east-1' AND Identifier = '<InstanceArn>|<TargetId>|<TargetType>|<PermissionSetArn>|<PrincipalType>|<PrincipalId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,13 +229,13 @@ INSERT INTO awscc.sso.assignments (
  PrincipalId,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ TargetId }}',
- '{{ TargetType }}',
- '{{ PermissionSetArn }}',
- '{{ PrincipalType }}',
- '{{ PrincipalId }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ target_id }}',
+ '{{ target_type }}',
+ '{{ permission_set_arn }}',
+ '{{ principal_type }}',
+ '{{ principal_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,13 +252,13 @@ INSERT INTO awscc.sso.assignments (
  PrincipalId,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ TargetId }}',
- '{{ TargetType }}',
- '{{ PermissionSetArn }}',
- '{{ PrincipalType }}',
- '{{ PrincipalId }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ target_id }}',
+ '{{ target_type }}',
+ '{{ permission_set_arn }}',
+ '{{ principal_type }}',
+ '{{ principal_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,19 +276,18 @@ globals:
 resources:
   - name: assignment
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: TargetId
-        value: '{{ TargetId }}'
-      - name: TargetType
-        value: '{{ TargetType }}'
-      - name: PermissionSetArn
-        value: '{{ PermissionSetArn }}'
-      - name: PrincipalType
-        value: '{{ PrincipalType }}'
-      - name: PrincipalId
-        value: '{{ PrincipalId }}'
-
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: target_id
+        value: '{{ target_id }}'
+      - name: target_type
+        value: '{{ target_type }}'
+      - name: permission_set_arn
+        value: '{{ permission_set_arn }}'
+      - name: principal_type
+        value: '{{ principal_type }}'
+      - name: principal_id
+        value: '{{ principal_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.assignments
-WHERE Identifier = '<InstanceArn|TargetId|TargetType|PermissionSetArn|PrincipalType|PrincipalId>'
+WHERE Identifier = '{{ instance_arn }}|{{ target_id }}|{{ target_type }}|{{ permission_set_arn }}|{{ principal_type }}|{{ principal_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -153,7 +153,7 @@ cloud_front_origin_access_identity_config,
 id,
 s3_canonical_user_id
 FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -164,7 +164,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.cloud_front_origin_access_identities_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -189,8 +189,8 @@ INSERT INTO awscc.cloudfront.cloud_front_origin_access_identities (
  CloudFrontOriginAccessIdentityConfig,
  region
 )
-SELECT 
-'{{ CloudFrontOriginAccessIdentityConfig }}',
+SELECT
+'{{ cloud_front_origin_access_identity_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -202,8 +202,8 @@ INSERT INTO awscc.cloudfront.cloud_front_origin_access_identities (
  CloudFrontOriginAccessIdentityConfig,
  region
 )
-SELECT 
- '{{ CloudFrontOriginAccessIdentityConfig }}',
+SELECT
+ '{{ cloud_front_origin_access_identity_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -221,10 +221,9 @@ globals:
 resources:
   - name: cloud_front_origin_access_identity
     props:
-      - name: CloudFrontOriginAccessIdentityConfig
+      - name: cloud_front_origin_access_identity_config
         value:
-          Comment: '{{ Comment }}'
-
+          comment: '{{ comment }}'
 ```
 </TabItem>
 </Tabs>
@@ -240,7 +239,7 @@ SET PatchDocument = string('{{ {
     "CloudFrontOriginAccessIdentityConfig": cloud_front_origin_access_identity_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -249,7 +248,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.cloud_front_origin_access_identities
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

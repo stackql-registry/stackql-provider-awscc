@@ -236,7 +236,7 @@ quick_connect_arns,
 tags,
 type
 FROM awscc.connect.queues
-WHERE region = 'us-east-1' AND Identifier = '<QueueArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ queue_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,10 +274,10 @@ INSERT INTO awscc.connect.queues (
  Name,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ HoursOfOperationArn }}',
- '{{ Name }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ hours_of_operation_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -298,17 +298,17 @@ INSERT INTO awscc.connect.queues (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Description }}',
- '{{ HoursOfOperationArn }}',
- '{{ MaxContacts }}',
- '{{ Name }}',
- '{{ OutboundCallerConfig }}',
- '{{ OutboundEmailConfig }}',
- '{{ Status }}',
- '{{ QuickConnectArns }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ description }}',
+ '{{ hours_of_operation_arn }}',
+ '{{ max_contacts }}',
+ '{{ name }}',
+ '{{ outbound_caller_config }}',
+ '{{ outbound_email_config }}',
+ '{{ status }}',
+ '{{ quick_connect_arns }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,34 +326,33 @@ globals:
 resources:
   - name: queue
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: HoursOfOperationArn
-        value: '{{ HoursOfOperationArn }}'
-      - name: MaxContacts
-        value: '{{ MaxContacts }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OutboundCallerConfig
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: hours_of_operation_arn
+        value: '{{ hours_of_operation_arn }}'
+      - name: max_contacts
+        value: '{{ max_contacts }}'
+      - name: name
+        value: '{{ name }}'
+      - name: outbound_caller_config
         value:
-          OutboundCallerIdName: '{{ OutboundCallerIdName }}'
-          OutboundCallerIdNumberArn: '{{ OutboundCallerIdNumberArn }}'
-          OutboundFlowArn: '{{ OutboundFlowArn }}'
-      - name: OutboundEmailConfig
+          outbound_caller_id_name: '{{ outbound_caller_id_name }}'
+          outbound_caller_id_number_arn: '{{ outbound_caller_id_number_arn }}'
+          outbound_flow_arn: '{{ outbound_flow_arn }}'
+      - name: outbound_email_config
         value:
-          OutboundEmailAddressId: '{{ OutboundEmailAddressId }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: QuickConnectArns
+          outbound_email_address_id: '{{ outbound_email_address_id }}'
+      - name: status
+        value: '{{ status }}'
+      - name: quick_connect_arns
         value:
-          - '{{ QuickConnectArns[0] }}'
-      - name: Tags
+          - '{{ quick_connect_arns[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -378,7 +377,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QueueArn>';
+AND Identifier = '{{ queue_arn }}';
 ```
 
 
@@ -387,7 +386,7 @@ AND Identifier = '<QueueArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.queues
-WHERE Identifier = '<QueueArn>'
+WHERE Identifier = '{{ queue_arn }}'
 AND region = 'us-east-1';
 ```
 

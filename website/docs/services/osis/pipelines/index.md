@@ -297,7 +297,7 @@ vpc_endpoint_service,
 pipeline_arn,
 ingest_endpoint_urls
 FROM awscc.osis.pipelines
-WHERE region = 'us-east-1' AND Identifier = '<PipelineArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -336,11 +336,11 @@ INSERT INTO awscc.osis.pipelines (
  PipelineName,
  region
 )
-SELECT 
-'{{ MaxUnits }}',
- '{{ MinUnits }}',
- '{{ PipelineConfigurationBody }}',
- '{{ PipelineName }}',
+SELECT
+'{{ max_units }}',
+ '{{ min_units }}',
+ '{{ pipeline_configuration_body }}',
+ '{{ pipeline_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -360,16 +360,16 @@ INSERT INTO awscc.osis.pipelines (
  VpcOptions,
  region
 )
-SELECT 
- '{{ BufferOptions }}',
- '{{ EncryptionAtRestOptions }}',
- '{{ LogPublishingOptions }}',
- '{{ MaxUnits }}',
- '{{ MinUnits }}',
- '{{ PipelineConfigurationBody }}',
- '{{ PipelineName }}',
- '{{ Tags }}',
- '{{ VpcOptions }}',
+SELECT
+ '{{ buffer_options }}',
+ '{{ encryption_at_rest_options }}',
+ '{{ log_publishing_options }}',
+ '{{ max_units }}',
+ '{{ min_units }}',
+ '{{ pipeline_configuration_body }}',
+ '{{ pipeline_name }}',
+ '{{ tags }}',
+ '{{ vpc_options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -387,40 +387,39 @@ globals:
 resources:
   - name: pipeline
     props:
-      - name: BufferOptions
+      - name: buffer_options
         value:
-          PersistentBufferEnabled: '{{ PersistentBufferEnabled }}'
-      - name: EncryptionAtRestOptions
+          persistent_buffer_enabled: '{{ persistent_buffer_enabled }}'
+      - name: encryption_at_rest_options
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: LogPublishingOptions
+          kms_key_arn: '{{ kms_key_arn }}'
+      - name: log_publishing_options
         value:
-          IsLoggingEnabled: '{{ IsLoggingEnabled }}'
-          CloudWatchLogDestination:
-            LogGroup: '{{ LogGroup }}'
-      - name: MaxUnits
-        value: '{{ MaxUnits }}'
-      - name: MinUnits
-        value: '{{ MinUnits }}'
-      - name: PipelineConfigurationBody
-        value: '{{ PipelineConfigurationBody }}'
-      - name: PipelineName
-        value: '{{ PipelineName }}'
-      - name: Tags
+          is_logging_enabled: '{{ is_logging_enabled }}'
+          cloud_watch_log_destination:
+            log_group: '{{ log_group }}'
+      - name: max_units
+        value: '{{ max_units }}'
+      - name: min_units
+        value: '{{ min_units }}'
+      - name: pipeline_configuration_body
+        value: '{{ pipeline_configuration_body }}'
+      - name: pipeline_name
+        value: '{{ pipeline_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcOptions
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_options
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          VpcEndpointManagement: '{{ VpcEndpointManagement }}'
-          VpcAttachmentOptions:
-            AttachToVpc: '{{ AttachToVpc }}'
-            CidrBlock: '{{ CidrBlock }}'
-
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          vpc_endpoint_management: '{{ vpc_endpoint_management }}'
+          vpc_attachment_options:
+            attach_to_vpc: '{{ attach_to_vpc }}'
+            cidr_block: '{{ cidr_block }}'
 ```
 </TabItem>
 </Tabs>
@@ -443,7 +442,7 @@ SET PatchDocument = string('{{ {
     "VpcOptions": vpc_options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PipelineArn>';
+AND Identifier = '{{ pipeline_arn }}';
 ```
 
 
@@ -452,7 +451,7 @@ AND Identifier = '<PipelineArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.osis.pipelines
-WHERE Identifier = '<PipelineArn>'
+WHERE Identifier = '{{ pipeline_arn }}'
 AND region = 'us-east-1';
 ```
 

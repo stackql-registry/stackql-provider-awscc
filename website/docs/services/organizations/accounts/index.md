@@ -200,7 +200,7 @@ joined_method,
 joined_timestamp,
 status
 FROM awscc.organizations.accounts
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.organizations.accounts (
  Email,
  region
 )
-SELECT 
-'{{ AccountName }}',
- '{{ Email }}',
+SELECT
+'{{ account_name }}',
+ '{{ email }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,12 +255,12 @@ INSERT INTO awscc.organizations.accounts (
  Tags,
  region
 )
-SELECT 
- '{{ AccountName }}',
- '{{ Email }}',
- '{{ RoleName }}',
- '{{ ParentIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ account_name }}',
+ '{{ email }}',
+ '{{ role_name }}',
+ '{{ parent_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,20 +278,19 @@ globals:
 resources:
   - name: account
     props:
-      - name: AccountName
-        value: '{{ AccountName }}'
-      - name: Email
-        value: '{{ Email }}'
-      - name: RoleName
-        value: '{{ RoleName }}'
-      - name: ParentIds
+      - name: account_name
+        value: '{{ account_name }}'
+      - name: email
+        value: '{{ email }}'
+      - name: role_name
+        value: '{{ role_name }}'
+      - name: parent_ids
         value:
-          - '{{ ParentIds[0] }}'
-      - name: Tags
+          - '{{ parent_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.accounts
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

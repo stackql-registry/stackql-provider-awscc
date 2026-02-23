@@ -1179,7 +1179,7 @@ tags,
 eks_properties,
 consumable_resource_properties
 FROM awscc.batch.job_definitions
-WHERE region = 'us-east-1' AND Identifier = '<JobDefinitionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1215,8 +1215,8 @@ INSERT INTO awscc.batch.job_definitions (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1241,21 +1241,21 @@ INSERT INTO awscc.batch.job_definitions (
  ConsumableResourceProperties,
  region
 )
-SELECT 
- '{{ ContainerProperties }}',
- '{{ EcsProperties }}',
- '{{ NodeProperties }}',
- '{{ JobDefinitionName }}',
- '{{ SchedulingPriority }}',
- '{{ Parameters }}',
- '{{ PlatformCapabilities }}',
- '{{ PropagateTags }}',
- '{{ RetryStrategy }}',
- '{{ Timeout }}',
- '{{ Type }}',
- '{{ Tags }}',
- '{{ EksProperties }}',
- '{{ ConsumableResourceProperties }}',
+SELECT
+ '{{ container_properties }}',
+ '{{ ecs_properties }}',
+ '{{ node_properties }}',
+ '{{ job_definition_name }}',
+ '{{ scheduling_priority }}',
+ '{{ parameters }}',
+ '{{ platform_capabilities }}',
+ '{{ propagate_tags }}',
+ '{{ retry_strategy }}',
+ '{{ timeout }}',
+ '{{ type }}',
+ '{{ tags }}',
+ '{{ eks_properties }}',
+ '{{ consumable_resource_properties }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1273,258 +1273,257 @@ globals:
 resources:
   - name: job_definition
     props:
-      - name: ContainerProperties
+      - name: container_properties
         value:
-          Command:
-            - '{{ Command[0] }}'
-          Environment:
-            - Name: '{{ Name }}'
-              Value: '{{ Value }}'
-          Image: '{{ Image }}'
-          JobRoleArn: '{{ JobRoleArn }}'
-          Memory: '{{ Memory }}'
-          MountPoints:
-            - ContainerPath: '{{ ContainerPath }}'
-              ReadOnly: '{{ ReadOnly }}'
-              SourceVolume: '{{ SourceVolume }}'
-          Privileged: '{{ Privileged }}'
-          ReadonlyRootFilesystem: '{{ ReadonlyRootFilesystem }}'
-          Ulimits:
-            - HardLimit: '{{ HardLimit }}'
-              Name: '{{ Name }}'
-              SoftLimit: '{{ SoftLimit }}'
-          User: '{{ User }}'
-          Vcpus: '{{ Vcpus }}'
-          Volumes:
-            - Host:
-                SourcePath: '{{ SourcePath }}'
-              EfsVolumeConfiguration:
-                FileSystemId: '{{ FileSystemId }}'
-                RootDirectory: '{{ RootDirectory }}'
-                TransitEncryption: '{{ TransitEncryption }}'
-                TransitEncryptionPort: '{{ TransitEncryptionPort }}'
-                AuthorizationConfig:
-                  AccessPointId: '{{ AccessPointId }}'
-                  Iam: '{{ Iam }}'
-              Name: '{{ Name }}'
-          ResourceRequirements:
-            - Type: '{{ Type }}'
-              Value: '{{ Value }}'
-          LinuxParameters:
-            Devices:
-              - HostPath: '{{ HostPath }}'
-                ContainerPath: '{{ ContainerPath }}'
-                Permissions:
-                  - '{{ Permissions[0] }}'
-            InitProcessEnabled: '{{ InitProcessEnabled }}'
-            MaxSwap: '{{ MaxSwap }}'
-            Swappiness: '{{ Swappiness }}'
-            SharedMemorySize: '{{ SharedMemorySize }}'
-            Tmpfs:
-              - ContainerPath: '{{ ContainerPath }}'
-                Size: '{{ Size }}'
-                MountOptions:
-                  - '{{ MountOptions[0] }}'
-          LogConfiguration:
-            LogDriver: '{{ LogDriver }}'
-            Options: {}
-            SecretOptions:
-              - Name: '{{ Name }}'
-                ValueFrom: '{{ ValueFrom }}'
-          ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-          Secrets:
+          command:
+            - '{{ command[0] }}'
+          environment:
+            - name: '{{ name }}'
+              value: '{{ value }}'
+          image: '{{ image }}'
+          job_role_arn: '{{ job_role_arn }}'
+          memory: '{{ memory }}'
+          mount_points:
+            - container_path: '{{ container_path }}'
+              read_only: '{{ read_only }}'
+              source_volume: '{{ source_volume }}'
+          privileged: '{{ privileged }}'
+          readonly_root_filesystem: '{{ readonly_root_filesystem }}'
+          ulimits:
+            - hard_limit: '{{ hard_limit }}'
+              name: '{{ name }}'
+              soft_limit: '{{ soft_limit }}'
+          user: '{{ user }}'
+          vcpus: '{{ vcpus }}'
+          volumes:
+            - host:
+                source_path: '{{ source_path }}'
+              efs_volume_configuration:
+                file_system_id: '{{ file_system_id }}'
+                root_directory: '{{ root_directory }}'
+                transit_encryption: '{{ transit_encryption }}'
+                transit_encryption_port: '{{ transit_encryption_port }}'
+                authorization_config:
+                  access_point_id: '{{ access_point_id }}'
+                  iam: '{{ iam }}'
+              name: '{{ name }}'
+          resource_requirements:
+            - type: '{{ type }}'
+              value: '{{ value }}'
+          linux_parameters:
+            devices:
+              - host_path: '{{ host_path }}'
+                container_path: '{{ container_path }}'
+                permissions:
+                  - '{{ permissions[0] }}'
+            init_process_enabled: '{{ init_process_enabled }}'
+            max_swap: '{{ max_swap }}'
+            swappiness: '{{ swappiness }}'
+            shared_memory_size: '{{ shared_memory_size }}'
+            tmpfs:
+              - container_path: '{{ container_path }}'
+                size: '{{ size }}'
+                mount_options:
+                  - '{{ mount_options[0] }}'
+          log_configuration:
+            log_driver: '{{ log_driver }}'
+            options: {}
+            secret_options:
+              - name: '{{ name }}'
+                value_from: '{{ value_from }}'
+          execution_role_arn: '{{ execution_role_arn }}'
+          secrets:
             - null
-          NetworkConfiguration:
-            AssignPublicIp: '{{ AssignPublicIp }}'
-          FargatePlatformConfiguration:
-            PlatformVersion: '{{ PlatformVersion }}'
-          EphemeralStorage:
-            SizeInGiB: '{{ SizeInGiB }}'
-          RuntimePlatform:
-            OperatingSystemFamily: '{{ OperatingSystemFamily }}'
-            CpuArchitecture: '{{ CpuArchitecture }}'
-          RepositoryCredentials:
-            CredentialsParameter: '{{ CredentialsParameter }}'
-          EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-      - name: EcsProperties
+          network_configuration:
+            assign_public_ip: '{{ assign_public_ip }}'
+          fargate_platform_configuration:
+            platform_version: '{{ platform_version }}'
+          ephemeral_storage:
+            size_in_gi_b: '{{ size_in_gi_b }}'
+          runtime_platform:
+            operating_system_family: '{{ operating_system_family }}'
+            cpu_architecture: '{{ cpu_architecture }}'
+          repository_credentials:
+            credentials_parameter: '{{ credentials_parameter }}'
+          enable_execute_command: '{{ enable_execute_command }}'
+      - name: ecs_properties
         value:
-          TaskProperties:
-            - Containers:
-                - Command:
-                    - '{{ Command[0] }}'
-                  Environment:
+          task_properties:
+            - containers:
+                - command:
+                    - '{{ command[0] }}'
+                  environment:
                     - null
-                  DependsOn:
-                    - ContainerName: '{{ ContainerName }}'
-                      Condition: '{{ Condition }}'
-                  Name: '{{ Name }}'
-                  Image: '{{ Image }}'
-                  LinuxParameters: null
-                  LogConfiguration: null
-                  MountPoints:
+                  depends_on:
+                    - container_name: '{{ container_name }}'
+                      condition: '{{ condition }}'
+                  name: '{{ name }}'
+                  image: '{{ image }}'
+                  linux_parameters: null
+                  log_configuration: null
+                  mount_points:
                     - null
-                  Essential: '{{ Essential }}'
-                  Privileged: '{{ Privileged }}'
-                  ReadonlyRootFilesystem: '{{ ReadonlyRootFilesystem }}'
-                  Ulimits:
+                  essential: '{{ essential }}'
+                  privileged: '{{ privileged }}'
+                  readonly_root_filesystem: '{{ readonly_root_filesystem }}'
+                  ulimits:
                     - null
-                  User: '{{ User }}'
-                  Secrets:
+                  user: '{{ user }}'
+                  secrets:
                     - null
-                  RepositoryCredentials: null
-                  ResourceRequirements:
+                  repository_credentials: null
+                  resource_requirements:
                     - null
-                  FirelensConfiguration:
-                    Type: '{{ Type }}'
-                    Options: {}
-              EphemeralStorage: null
-              ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-              RuntimePlatform: null
-              NetworkConfiguration: null
-              Volumes:
+                  firelens_configuration:
+                    type: '{{ type }}'
+                    options: {}
+              ephemeral_storage: null
+              execution_role_arn: '{{ execution_role_arn }}'
+              runtime_platform: null
+              network_configuration: null
+              volumes:
                 - null
-              PidMode: '{{ PidMode }}'
-              IpcMode: '{{ IpcMode }}'
-              PlatformVersion: '{{ PlatformVersion }}'
-              TaskRoleArn: '{{ TaskRoleArn }}'
-              EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-      - name: NodeProperties
+              pid_mode: '{{ pid_mode }}'
+              ipc_mode: '{{ ipc_mode }}'
+              platform_version: '{{ platform_version }}'
+              task_role_arn: '{{ task_role_arn }}'
+              enable_execute_command: '{{ enable_execute_command }}'
+      - name: node_properties
         value:
-          NumNodes: '{{ NumNodes }}'
-          MainNode: '{{ MainNode }}'
-          NodeRangeProperties:
-            - TargetNodes: '{{ TargetNodes }}'
-              Container:
-                Command:
-                  - '{{ Command[0] }}'
-                Environment:
+          num_nodes: '{{ num_nodes }}'
+          main_node: '{{ main_node }}'
+          node_range_properties:
+            - target_nodes: '{{ target_nodes }}'
+              container:
+                command:
+                  - '{{ command[0] }}'
+                environment:
                   - null
-                Image: '{{ Image }}'
-                JobRoleArn: '{{ JobRoleArn }}'
-                Memory: '{{ Memory }}'
-                MountPoints:
+                image: '{{ image }}'
+                job_role_arn: '{{ job_role_arn }}'
+                memory: '{{ memory }}'
+                mount_points:
                   - null
-                Privileged: '{{ Privileged }}'
-                ReadonlyRootFilesystem: '{{ ReadonlyRootFilesystem }}'
-                Ulimits:
+                privileged: '{{ privileged }}'
+                readonly_root_filesystem: '{{ readonly_root_filesystem }}'
+                ulimits:
                   - null
-                User: '{{ User }}'
-                Vcpus: '{{ Vcpus }}'
-                Volumes:
+                user: '{{ user }}'
+                vcpus: '{{ vcpus }}'
+                volumes:
                   - null
-                InstanceType: '{{ InstanceType }}'
-                ResourceRequirements:
+                instance_type: '{{ instance_type }}'
+                resource_requirements:
                   - null
-                LinuxParameters: null
-                LogConfiguration: null
-                ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-                Secrets:
+                linux_parameters: null
+                log_configuration: null
+                execution_role_arn: '{{ execution_role_arn }}'
+                secrets:
                   - null
-                EphemeralStorage: null
-                RuntimePlatform: null
-                RepositoryCredentials: null
-                EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-              EcsProperties:
-                TaskProperties:
-                  - Containers:
+                ephemeral_storage: null
+                runtime_platform: null
+                repository_credentials: null
+                enable_execute_command: '{{ enable_execute_command }}'
+              ecs_properties:
+                task_properties:
+                  - containers:
                       - null
-                    ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-                    Volumes:
+                    execution_role_arn: '{{ execution_role_arn }}'
+                    volumes:
                       - null
-                    PidMode: '{{ PidMode }}'
-                    IpcMode: '{{ IpcMode }}'
-                    TaskRoleArn: '{{ TaskRoleArn }}'
-                    EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-              EksProperties:
-                PodProperties:
-                  ServiceAccountName: '{{ ServiceAccountName }}'
-                  HostNetwork: '{{ HostNetwork }}'
-                  DnsPolicy: '{{ DnsPolicy }}'
-                  InitContainers:
-                    - Name: '{{ Name }}'
-                      Image: '{{ Image }}'
-                      ImagePullPolicy: '{{ ImagePullPolicy }}'
-                      Command:
-                        - '{{ Command[0] }}'
-                      Args:
-                        - '{{ Args[0] }}'
-                      Env:
-                        - Name: '{{ Name }}'
-                          Value: '{{ Value }}'
-                      Resources:
-                        Limits: {}
-                        Requests: {}
-                      VolumeMounts:
-                        - Name: '{{ Name }}'
-                          MountPath: '{{ MountPath }}'
-                          SubPath: '{{ SubPath }}'
-                          ReadOnly: '{{ ReadOnly }}'
-                      SecurityContext:
-                        RunAsUser: '{{ RunAsUser }}'
-                        RunAsGroup: '{{ RunAsGroup }}'
-                        Privileged: '{{ Privileged }}'
-                        AllowPrivilegeEscalation: '{{ AllowPrivilegeEscalation }}'
-                        ReadOnlyRootFilesystem: '{{ ReadOnlyRootFilesystem }}'
-                        RunAsNonRoot: '{{ RunAsNonRoot }}'
-                  Containers:
+                    pid_mode: '{{ pid_mode }}'
+                    ipc_mode: '{{ ipc_mode }}'
+                    task_role_arn: '{{ task_role_arn }}'
+                    enable_execute_command: '{{ enable_execute_command }}'
+              eks_properties:
+                pod_properties:
+                  service_account_name: '{{ service_account_name }}'
+                  host_network: '{{ host_network }}'
+                  dns_policy: '{{ dns_policy }}'
+                  init_containers:
+                    - name: '{{ name }}'
+                      image: '{{ image }}'
+                      image_pull_policy: '{{ image_pull_policy }}'
+                      command:
+                        - '{{ command[0] }}'
+                      args:
+                        - '{{ args[0] }}'
+                      env:
+                        - name: '{{ name }}'
+                          value: '{{ value }}'
+                      resources:
+                        limits: {}
+                        requests: {}
+                      volume_mounts:
+                        - name: '{{ name }}'
+                          mount_path: '{{ mount_path }}'
+                          sub_path: '{{ sub_path }}'
+                          read_only: '{{ read_only }}'
+                      security_context:
+                        run_as_user: '{{ run_as_user }}'
+                        run_as_group: '{{ run_as_group }}'
+                        privileged: '{{ privileged }}'
+                        allow_privilege_escalation: '{{ allow_privilege_escalation }}'
+                        read_only_root_filesystem: '{{ read_only_root_filesystem }}'
+                        run_as_non_root: '{{ run_as_non_root }}'
+                  containers:
                     - null
-                  Volumes:
-                    - Name: '{{ Name }}'
-                      HostPath:
-                        Path: '{{ Path }}'
-                      EmptyDir:
-                        Medium: '{{ Medium }}'
-                        SizeLimit: '{{ SizeLimit }}'
-                      Secret:
-                        SecretName: '{{ SecretName }}'
-                        Optional: '{{ Optional }}'
-                      PersistentVolumeClaim:
-                        ClaimName: '{{ ClaimName }}'
-                        ReadOnly: '{{ ReadOnly }}'
-                  ImagePullSecrets:
-                    - Name: '{{ Name }}'
-                  Metadata:
-                    Labels: {}
-                    Annotations: {}
-                    Namespace: '{{ Namespace }}'
-                  ShareProcessNamespace: '{{ ShareProcessNamespace }}'
-              ConsumableResourceProperties:
-                ConsumableResourceList:
-                  - ConsumableResource: '{{ ConsumableResource }}'
-                    Quantity: '{{ Quantity }}'
-              InstanceTypes:
-                - '{{ InstanceTypes[0] }}'
-      - name: JobDefinitionName
-        value: '{{ JobDefinitionName }}'
-      - name: SchedulingPriority
-        value: '{{ SchedulingPriority }}'
-      - name: Parameters
+                  volumes:
+                    - name: '{{ name }}'
+                      host_path:
+                        path: '{{ path }}'
+                      empty_dir:
+                        medium: '{{ medium }}'
+                        size_limit: '{{ size_limit }}'
+                      secret:
+                        secret_name: '{{ secret_name }}'
+                        optional: '{{ optional }}'
+                      persistent_volume_claim:
+                        claim_name: '{{ claim_name }}'
+                        read_only: '{{ read_only }}'
+                  image_pull_secrets:
+                    - name: '{{ name }}'
+                  metadata:
+                    labels: {}
+                    annotations: {}
+                    namespace: '{{ namespace }}'
+                  share_process_namespace: '{{ share_process_namespace }}'
+              consumable_resource_properties:
+                consumable_resource_list:
+                  - consumable_resource: '{{ consumable_resource }}'
+                    quantity: '{{ quantity }}'
+              instance_types:
+                - '{{ instance_types[0] }}'
+      - name: job_definition_name
+        value: '{{ job_definition_name }}'
+      - name: scheduling_priority
+        value: '{{ scheduling_priority }}'
+      - name: parameters
         value: {}
-      - name: PlatformCapabilities
+      - name: platform_capabilities
         value:
-          - '{{ PlatformCapabilities[0] }}'
-      - name: PropagateTags
-        value: '{{ PropagateTags }}'
-      - name: RetryStrategy
+          - '{{ platform_capabilities[0] }}'
+      - name: propagate_tags
+        value: '{{ propagate_tags }}'
+      - name: retry_strategy
         value:
-          Attempts: '{{ Attempts }}'
-          EvaluateOnExit:
-            - OnExitCode: '{{ OnExitCode }}'
-              OnStatusReason: '{{ OnStatusReason }}'
-              OnReason: '{{ OnReason }}'
-              Action: '{{ Action }}'
-      - name: Timeout
+          attempts: '{{ attempts }}'
+          evaluate_on_exit:
+            - on_exit_code: '{{ on_exit_code }}'
+              on_status_reason: '{{ on_status_reason }}'
+              on_reason: '{{ on_reason }}'
+              action: '{{ action }}'
+      - name: timeout
         value:
-          AttemptDurationSeconds: '{{ AttemptDurationSeconds }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+          attempt_duration_seconds: '{{ attempt_duration_seconds }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value: {}
-      - name: EksProperties
+      - name: eks_properties
         value: null
-      - name: ConsumableResourceProperties
+      - name: consumable_resource_properties
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -1552,7 +1551,7 @@ SET PatchDocument = string('{{ {
     "ConsumableResourceProperties": consumable_resource_properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<JobDefinitionName>';
+AND Identifier = '{{ job_definition_name }}';
 ```
 
 
@@ -1561,7 +1560,7 @@ AND Identifier = '<JobDefinitionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.batch.job_definitions
-WHERE Identifier = '<JobDefinitionName>'
+WHERE Identifier = '{{ job_definition_name }}'
 AND region = 'us-east-1';
 ```
 

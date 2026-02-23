@@ -193,7 +193,7 @@ tags,
 type,
 modified_time_seconds
 FROM awscc.wisdom.ai_agents
-WHERE region = 'us-east-1' AND Identifier = '<AIAgentId>|<AssistantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.wisdom.ai_agents (
  Type,
  region
 )
-SELECT 
-'{{ AssistantId }}',
- '{{ Configuration }}',
- '{{ Type }}',
+SELECT
+'{{ assistant_id }}',
+ '{{ configuration }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,13 +252,13 @@ INSERT INTO awscc.wisdom.ai_agents (
  Type,
  region
 )
-SELECT 
- '{{ AssistantId }}',
- '{{ Configuration }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ assistant_id }}',
+ '{{ configuration }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,19 +276,18 @@ globals:
 resources:
   - name: ai_agent
     props:
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: Configuration
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: configuration
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-      - name: Type
-        value: '{{ Type }}'
-
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AIAgentId>|<AssistantId>';
+AND Identifier = '{{ a_iagent_id }}|{{ assistant_id }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<AIAgentId>|<AssistantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_agents
-WHERE Identifier = '<AIAgentId|AssistantId>'
+WHERE Identifier = '{{ a_iagent_id }}|{{ assistant_id }}'
 AND region = 'us-east-1';
 ```
 

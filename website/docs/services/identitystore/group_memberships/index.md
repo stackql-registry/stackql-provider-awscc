@@ -158,7 +158,7 @@ identity_store_id,
 member_id,
 membership_id
 FROM awscc.identitystore.group_memberships
-WHERE region = 'us-east-1' AND Identifier = '<MembershipId>|<IdentityStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ membership_id }}|{{ identity_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,10 +197,10 @@ INSERT INTO awscc.identitystore.group_memberships (
  MemberId,
  region
 )
-SELECT 
-'{{ GroupId }}',
- '{{ IdentityStoreId }}',
- '{{ MemberId }}',
+SELECT
+'{{ group_id }}',
+ '{{ identity_store_id }}',
+ '{{ member_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,10 +214,10 @@ INSERT INTO awscc.identitystore.group_memberships (
  MemberId,
  region
 )
-SELECT 
- '{{ GroupId }}',
- '{{ IdentityStoreId }}',
- '{{ MemberId }}',
+SELECT
+ '{{ group_id }}',
+ '{{ identity_store_id }}',
+ '{{ member_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -235,14 +235,13 @@ globals:
 resources:
   - name: group_membership
     props:
-      - name: GroupId
-        value: '{{ GroupId }}'
-      - name: IdentityStoreId
-        value: '{{ IdentityStoreId }}'
-      - name: MemberId
+      - name: group_id
+        value: '{{ group_id }}'
+      - name: identity_store_id
+        value: '{{ identity_store_id }}'
+      - name: member_id
         value:
-          UserId: '{{ UserId }}'
-
+          user_id: '{{ user_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.identitystore.group_memberships
-WHERE Identifier = '<MembershipId|IdentityStoreId>'
+WHERE Identifier = '{{ membership_id }}|{{ identity_store_id }}'
 AND region = 'us-east-1';
 ```
 

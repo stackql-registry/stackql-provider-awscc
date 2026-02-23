@@ -188,7 +188,7 @@ accessor_type,
 network_type,
 tags
 FROM awscc.managedblockchain.accessors
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.managedblockchain.accessors (
  AccessorType,
  region
 )
-SELECT 
-'{{ AccessorType }}',
+SELECT
+'{{ accessor_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,10 +239,10 @@ INSERT INTO awscc.managedblockchain.accessors (
  Tags,
  region
 )
-SELECT 
- '{{ AccessorType }}',
- '{{ NetworkType }}',
- '{{ Tags }}',
+SELECT
+ '{{ accessor_type }}',
+ '{{ network_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,15 +260,14 @@ globals:
 resources:
   - name: accessor
     props:
-      - name: AccessorType
-        value: '{{ AccessorType }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: Tags
+      - name: accessor_type
+        value: '{{ accessor_type }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.managedblockchain.accessors
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -459,7 +459,7 @@ estimated_instance_warmup,
 adjustment_type,
 arn
 FROM awscc.autoscaling.scaling_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -495,8 +495,8 @@ INSERT INTO awscc.autoscaling.scaling_policies (
  AutoScalingGroupName,
  region
 )
-SELECT 
-'{{ AutoScalingGroupName }}',
+SELECT
+'{{ auto_scaling_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -518,18 +518,18 @@ INSERT INTO awscc.autoscaling.scaling_policies (
  AdjustmentType,
  region
 )
-SELECT 
- '{{ MetricAggregationType }}',
- '{{ PolicyType }}',
- '{{ PredictiveScalingConfiguration }}',
- '{{ ScalingAdjustment }}',
- '{{ Cooldown }}',
- '{{ StepAdjustments }}',
- '{{ AutoScalingGroupName }}',
- '{{ MinAdjustmentMagnitude }}',
- '{{ TargetTrackingConfiguration }}',
- '{{ EstimatedInstanceWarmup }}',
- '{{ AdjustmentType }}',
+SELECT
+ '{{ metric_aggregation_type }}',
+ '{{ policy_type }}',
+ '{{ predictive_scaling_configuration }}',
+ '{{ scaling_adjustment }}',
+ '{{ cooldown }}',
+ '{{ step_adjustments }}',
+ '{{ auto_scaling_group_name }}',
+ '{{ min_adjustment_magnitude }}',
+ '{{ target_tracking_configuration }}',
+ '{{ estimated_instance_warmup }}',
+ '{{ adjustment_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -547,92 +547,91 @@ globals:
 resources:
   - name: scaling_policy
     props:
-      - name: MetricAggregationType
-        value: '{{ MetricAggregationType }}'
-      - name: PolicyType
-        value: '{{ PolicyType }}'
-      - name: PredictiveScalingConfiguration
+      - name: metric_aggregation_type
+        value: '{{ metric_aggregation_type }}'
+      - name: policy_type
+        value: '{{ policy_type }}'
+      - name: predictive_scaling_configuration
         value:
-          MetricSpecifications:
-            - CustomizedCapacityMetricSpecification:
-                MetricDataQueries:
-                  - Label: '{{ Label }}'
-                    MetricStat:
-                      Metric:
-                        MetricName: '{{ MetricName }}'
-                        Dimensions:
-                          - Value: '{{ Value }}'
-                            Name: '{{ Name }}'
-                        Namespace: '{{ Namespace }}'
-                      Stat: '{{ Stat }}'
-                      Unit: '{{ Unit }}'
-                    Id: '{{ Id }}'
-                    ReturnData: '{{ ReturnData }}'
-                    Expression: '{{ Expression }}'
-              CustomizedLoadMetricSpecification:
-                MetricDataQueries:
+          metric_specifications:
+            - customized_capacity_metric_specification:
+                metric_data_queries:
+                  - label: '{{ label }}'
+                    metric_stat:
+                      metric:
+                        metric_name: '{{ metric_name }}'
+                        dimensions:
+                          - value: '{{ value }}'
+                            name: '{{ name }}'
+                        namespace: '{{ namespace }}'
+                      stat: '{{ stat }}'
+                      unit: '{{ unit }}'
+                    id: '{{ id }}'
+                    return_data: '{{ return_data }}'
+                    expression: '{{ expression }}'
+              customized_load_metric_specification:
+                metric_data_queries:
                   - null
-              CustomizedScalingMetricSpecification:
-                MetricDataQueries:
+              customized_scaling_metric_specification:
+                metric_data_queries:
                   - null
-              PredefinedLoadMetricSpecification:
-                ResourceLabel: '{{ ResourceLabel }}'
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-              TargetValue: null
-              PredefinedScalingMetricSpecification:
-                ResourceLabel: '{{ ResourceLabel }}'
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-              PredefinedMetricPairSpecification:
-                ResourceLabel: '{{ ResourceLabel }}'
-                PredefinedMetricType: '{{ PredefinedMetricType }}'
-          MaxCapacityBreachBehavior: '{{ MaxCapacityBreachBehavior }}'
-          MaxCapacityBuffer: '{{ MaxCapacityBuffer }}'
-          SchedulingBufferTime: '{{ SchedulingBufferTime }}'
-          Mode: '{{ Mode }}'
-      - name: ScalingAdjustment
-        value: '{{ ScalingAdjustment }}'
-      - name: Cooldown
-        value: '{{ Cooldown }}'
-      - name: StepAdjustments
+              predefined_load_metric_specification:
+                resource_label: '{{ resource_label }}'
+                predefined_metric_type: '{{ predefined_metric_type }}'
+              target_value: null
+              predefined_scaling_metric_specification:
+                resource_label: '{{ resource_label }}'
+                predefined_metric_type: '{{ predefined_metric_type }}'
+              predefined_metric_pair_specification:
+                resource_label: '{{ resource_label }}'
+                predefined_metric_type: '{{ predefined_metric_type }}'
+          max_capacity_breach_behavior: '{{ max_capacity_breach_behavior }}'
+          max_capacity_buffer: '{{ max_capacity_buffer }}'
+          scheduling_buffer_time: '{{ scheduling_buffer_time }}'
+          mode: '{{ mode }}'
+      - name: scaling_adjustment
+        value: '{{ scaling_adjustment }}'
+      - name: cooldown
+        value: '{{ cooldown }}'
+      - name: step_adjustments
         value:
-          - MetricIntervalUpperBound: null
-            MetricIntervalLowerBound: null
-            ScalingAdjustment: '{{ ScalingAdjustment }}'
-      - name: AutoScalingGroupName
-        value: '{{ AutoScalingGroupName }}'
-      - name: MinAdjustmentMagnitude
-        value: '{{ MinAdjustmentMagnitude }}'
-      - name: TargetTrackingConfiguration
+          - metric_interval_upper_bound: null
+            metric_interval_lower_bound: null
+            scaling_adjustment: '{{ scaling_adjustment }}'
+      - name: auto_scaling_group_name
+        value: '{{ auto_scaling_group_name }}'
+      - name: min_adjustment_magnitude
+        value: '{{ min_adjustment_magnitude }}'
+      - name: target_tracking_configuration
         value:
-          CustomizedMetricSpecification:
-            MetricName: '{{ MetricName }}'
-            Dimensions:
+          customized_metric_specification:
+            metric_name: '{{ metric_name }}'
+            dimensions:
               - null
-            Metrics:
-              - Label: '{{ Label }}'
-                MetricStat:
-                  Metric: null
-                  Stat: '{{ Stat }}'
-                  Unit: '{{ Unit }}'
-                  Period: '{{ Period }}'
-                Id: '{{ Id }}'
-                ReturnData: '{{ ReturnData }}'
-                Expression: '{{ Expression }}'
-                Period: '{{ Period }}'
-            Statistic: '{{ Statistic }}'
-            Unit: '{{ Unit }}'
-            Namespace: '{{ Namespace }}'
-            Period: '{{ Period }}'
-          TargetValue: null
-          DisableScaleIn: '{{ DisableScaleIn }}'
-          PredefinedMetricSpecification:
-            ResourceLabel: '{{ ResourceLabel }}'
-            PredefinedMetricType: '{{ PredefinedMetricType }}'
-      - name: EstimatedInstanceWarmup
-        value: '{{ EstimatedInstanceWarmup }}'
-      - name: AdjustmentType
-        value: '{{ AdjustmentType }}'
-
+            metrics:
+              - label: '{{ label }}'
+                metric_stat:
+                  metric: null
+                  stat: '{{ stat }}'
+                  unit: '{{ unit }}'
+                  period: '{{ period }}'
+                id: '{{ id }}'
+                return_data: '{{ return_data }}'
+                expression: '{{ expression }}'
+                period: '{{ period }}'
+            statistic: '{{ statistic }}'
+            unit: '{{ unit }}'
+            namespace: '{{ namespace }}'
+            period: '{{ period }}'
+          target_value: null
+          disable_scale_in: '{{ disable_scale_in }}'
+          predefined_metric_specification:
+            resource_label: '{{ resource_label }}'
+            predefined_metric_type: '{{ predefined_metric_type }}'
+      - name: estimated_instance_warmup
+        value: '{{ estimated_instance_warmup }}'
+      - name: adjustment_type
+        value: '{{ adjustment_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -657,7 +656,7 @@ SET PatchDocument = string('{{ {
     "AdjustmentType": adjustment_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -666,7 +665,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.scaling_policies
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

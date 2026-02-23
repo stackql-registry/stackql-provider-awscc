@@ -176,7 +176,7 @@ definition,
 description,
 id
 FROM awscc.servicecatalog.service_actions
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.servicecatalog.service_actions (
  Definition,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DefinitionType }}',
- '{{ Definition }}',
+SELECT
+'{{ name }}',
+ '{{ definition_type }}',
+ '{{ definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.servicecatalog.service_actions (
  Description,
  region
 )
-SELECT 
- '{{ AcceptLanguage }}',
- '{{ Name }}',
- '{{ DefinitionType }}',
- '{{ Definition }}',
- '{{ Description }}',
+SELECT
+ '{{ accept_language }}',
+ '{{ name }}',
+ '{{ definition_type }}',
+ '{{ definition }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: service_action
     props:
-      - name: AcceptLanguage
-        value: '{{ AcceptLanguage }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: DefinitionType
-        value: '{{ DefinitionType }}'
-      - name: Definition
+      - name: accept_language
+        value: '{{ accept_language }}'
+      - name: name
+        value: '{{ name }}'
+      - name: definition_type
+        value: '{{ definition_type }}'
+      - name: definition
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.service_actions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

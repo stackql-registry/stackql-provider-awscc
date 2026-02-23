@@ -243,7 +243,7 @@ output_header_configuration,
 ingest_endpoint_urls,
 tags
 FROM awscc.mediapackagev2.channels
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -280,9 +280,9 @@ INSERT INTO awscc.mediapackagev2.channels (
  ChannelName,
  region
 )
-SELECT 
-'{{ ChannelGroupName }}',
- '{{ ChannelName }}',
+SELECT
+'{{ channel_group_name }}',
+ '{{ channel_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -300,14 +300,14 @@ INSERT INTO awscc.mediapackagev2.channels (
  Tags,
  region
 )
-SELECT 
- '{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ Description }}',
- '{{ InputSwitchConfiguration }}',
- '{{ InputType }}',
- '{{ OutputHeaderConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ description }}',
+ '{{ input_switch_configuration }}',
+ '{{ input_type }}',
+ '{{ output_header_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,26 +325,25 @@ globals:
 resources:
   - name: channel
     props:
-      - name: ChannelGroupName
-        value: '{{ ChannelGroupName }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InputSwitchConfiguration
+      - name: channel_group_name
+        value: '{{ channel_group_name }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: input_switch_configuration
         value:
-          MQCSInputSwitching: '{{ MQCSInputSwitching }}'
-          PreferredInput: '{{ PreferredInput }}'
-      - name: InputType
-        value: '{{ InputType }}'
-      - name: OutputHeaderConfiguration
+          m_qc_sinput_switching: '{{ m_qc_sinput_switching }}'
+          preferred_input: '{{ preferred_input }}'
+      - name: input_type
+        value: '{{ input_type }}'
+      - name: output_header_configuration
         value:
-          PublishMQCS: '{{ PublishMQCS }}'
-      - name: Tags
+          publish_mq_cs: '{{ publish_mq_cs }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -363,7 +362,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -372,7 +371,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.channels
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

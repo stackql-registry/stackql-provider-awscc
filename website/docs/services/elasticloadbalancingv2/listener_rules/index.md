@@ -475,7 +475,7 @@ priority,
 rule_arn,
 conditions
 FROM awscc.elasticloadbalancingv2.listener_rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -513,10 +513,10 @@ INSERT INTO awscc.elasticloadbalancingv2.listener_rules (
  Conditions,
  region
 )
-SELECT 
-'{{ Actions }}',
- '{{ Priority }}',
- '{{ Conditions }}',
+SELECT
+'{{ actions }}',
+ '{{ priority }}',
+ '{{ conditions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -531,11 +531,11 @@ INSERT INTO awscc.elasticloadbalancingv2.listener_rules (
  Conditions,
  region
 )
-SELECT 
- '{{ ListenerArn }}',
- '{{ Actions }}',
- '{{ Priority }}',
- '{{ Conditions }}',
+SELECT
+ '{{ listener_arn }}',
+ '{{ actions }}',
+ '{{ priority }}',
+ '{{ conditions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -553,77 +553,76 @@ globals:
 resources:
   - name: listener_rule
     props:
-      - name: ListenerArn
-        value: '{{ ListenerArn }}'
-      - name: Actions
+      - name: listener_arn
+        value: '{{ listener_arn }}'
+      - name: actions
         value:
-          - Order: '{{ Order }}'
-            TargetGroupArn: '{{ TargetGroupArn }}'
-            FixedResponseConfig:
-              ContentType: '{{ ContentType }}'
-              StatusCode: '{{ StatusCode }}'
-              MessageBody: '{{ MessageBody }}'
-            AuthenticateCognitoConfig:
-              OnUnauthenticatedRequest: '{{ OnUnauthenticatedRequest }}'
-              UserPoolClientId: '{{ UserPoolClientId }}'
-              UserPoolDomain: '{{ UserPoolDomain }}'
-              SessionTimeout: '{{ SessionTimeout }}'
-              Scope: '{{ Scope }}'
-              SessionCookieName: '{{ SessionCookieName }}'
-              UserPoolArn: '{{ UserPoolArn }}'
-              AuthenticationRequestExtraParams: {}
-            Type: '{{ Type }}'
-            RedirectConfig:
-              Path: '{{ Path }}'
-              Query: '{{ Query }}'
-              Port: '{{ Port }}'
-              Host: '{{ Host }}'
-              Protocol: '{{ Protocol }}'
-              StatusCode: '{{ StatusCode }}'
-            ForwardConfig:
-              TargetGroupStickinessConfig:
-                Enabled: '{{ Enabled }}'
-                DurationSeconds: '{{ DurationSeconds }}'
-              TargetGroups:
-                - TargetGroupArn: '{{ TargetGroupArn }}'
-                  Weight: '{{ Weight }}'
-            AuthenticateOidcConfig:
-              OnUnauthenticatedRequest: '{{ OnUnauthenticatedRequest }}'
-              TokenEndpoint: '{{ TokenEndpoint }}'
-              UseExistingClientSecret: '{{ UseExistingClientSecret }}'
-              SessionTimeout: '{{ SessionTimeout }}'
-              Scope: '{{ Scope }}'
-              Issuer: '{{ Issuer }}'
-              ClientSecret: '{{ ClientSecret }}'
-              UserInfoEndpoint: '{{ UserInfoEndpoint }}'
-              ClientId: '{{ ClientId }}'
-              AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-              SessionCookieName: '{{ SessionCookieName }}'
-              AuthenticationRequestExtraParams: {}
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: Conditions
+          - order: '{{ order }}'
+            target_group_arn: '{{ target_group_arn }}'
+            fixed_response_config:
+              content_type: '{{ content_type }}'
+              status_code: '{{ status_code }}'
+              message_body: '{{ message_body }}'
+            authenticate_cognito_config:
+              on_unauthenticated_request: '{{ on_unauthenticated_request }}'
+              user_pool_client_id: '{{ user_pool_client_id }}'
+              user_pool_domain: '{{ user_pool_domain }}'
+              session_timeout: '{{ session_timeout }}'
+              scope: '{{ scope }}'
+              session_cookie_name: '{{ session_cookie_name }}'
+              user_pool_arn: '{{ user_pool_arn }}'
+              authentication_request_extra_params: {}
+            type: '{{ type }}'
+            redirect_config:
+              path: '{{ path }}'
+              query: '{{ query }}'
+              port: '{{ port }}'
+              host: '{{ host }}'
+              protocol: '{{ protocol }}'
+              status_code: '{{ status_code }}'
+            forward_config:
+              target_group_stickiness_config:
+                enabled: '{{ enabled }}'
+                duration_seconds: '{{ duration_seconds }}'
+              target_groups:
+                - target_group_arn: '{{ target_group_arn }}'
+                  weight: '{{ weight }}'
+            authenticate_oidc_config:
+              on_unauthenticated_request: '{{ on_unauthenticated_request }}'
+              token_endpoint: '{{ token_endpoint }}'
+              use_existing_client_secret: '{{ use_existing_client_secret }}'
+              session_timeout: '{{ session_timeout }}'
+              scope: '{{ scope }}'
+              issuer: '{{ issuer }}'
+              client_secret: '{{ client_secret }}'
+              user_info_endpoint: '{{ user_info_endpoint }}'
+              client_id: '{{ client_id }}'
+              authorization_endpoint: '{{ authorization_endpoint }}'
+              session_cookie_name: '{{ session_cookie_name }}'
+              authentication_request_extra_params: {}
+      - name: priority
+        value: '{{ priority }}'
+      - name: conditions
         value:
-          - Field: '{{ Field }}'
-            HttpHeaderConfig:
-              Values:
-                - '{{ Values[0] }}'
-              HttpHeaderName: '{{ HttpHeaderName }}'
-            Values: null
-            QueryStringConfig:
-              Values:
-                - Value: '{{ Value }}'
-                  Key: '{{ Key }}'
-            HostHeaderConfig:
-              Values: null
-            HttpRequestMethodConfig:
-              Values: null
-            PathPatternConfig:
-              Values: null
-            SourceIpConfig:
-              Values:
-                - '{{ Values[0] }}'
-
+          - field: '{{ field }}'
+            http_header_config:
+              values:
+                - '{{ values[0] }}'
+              http_header_name: '{{ http_header_name }}'
+            values: null
+            query_string_config:
+              values:
+                - value: '{{ value }}'
+                  key: '{{ key }}'
+            host_header_config:
+              values: null
+            http_request_method_config:
+              values: null
+            path_pattern_config:
+              values: null
+            source_ip_config:
+              values:
+                - '{{ values[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -641,7 +640,7 @@ SET PatchDocument = string('{{ {
     "Conditions": conditions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleArn>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -650,7 +649,7 @@ AND Identifier = '<RuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.listener_rules
-WHERE Identifier = '<RuleArn>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -362,7 +362,7 @@ tags,
 target_arns,
 security_profile_arn
 FROM awscc.iot.security_profiles
-WHERE region = 'us-east-1' AND Identifier = '<SecurityProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ security_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -398,7 +398,7 @@ INSERT INTO awscc.iot.security_profiles (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -418,15 +418,15 @@ INSERT INTO awscc.iot.security_profiles (
  TargetArns,
  region
 )
-SELECT 
- '{{ SecurityProfileName }}',
- '{{ SecurityProfileDescription }}',
- '{{ Behaviors }}',
- '{{ AlertTargets }}',
- '{{ AdditionalMetricsToRetainV2 }}',
- '{{ MetricsExportConfig }}',
- '{{ Tags }}',
- '{{ TargetArns }}',
+SELECT
+ '{{ security_profile_name }}',
+ '{{ security_profile_description }}',
+ '{{ behaviors }}',
+ '{{ alert_targets }}',
+ '{{ additional_metrics_to_retain_v2 }}',
+ '{{ metrics_export_config }}',
+ '{{ tags }}',
+ '{{ target_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -444,58 +444,57 @@ globals:
 resources:
   - name: security_profile
     props:
-      - name: SecurityProfileName
-        value: '{{ SecurityProfileName }}'
-      - name: SecurityProfileDescription
-        value: '{{ SecurityProfileDescription }}'
-      - name: Behaviors
+      - name: security_profile_name
+        value: '{{ security_profile_name }}'
+      - name: security_profile_description
+        value: '{{ security_profile_description }}'
+      - name: behaviors
         value:
-          - Name: '{{ Name }}'
-            Metric: '{{ Metric }}'
-            MetricDimension:
-              DimensionName: '{{ DimensionName }}'
-              Operator: '{{ Operator }}'
-            Criteria:
-              ComparisonOperator: '{{ ComparisonOperator }}'
-              Value:
-                Count: '{{ Count }}'
-                Cidrs:
-                  - '{{ Cidrs[0] }}'
-                Ports:
-                  - '{{ Ports[0] }}'
-                Number: null
-                Numbers:
+          - name: '{{ name }}'
+            metric: '{{ metric }}'
+            metric_dimension:
+              dimension_name: '{{ dimension_name }}'
+              operator: '{{ operator }}'
+            criteria:
+              comparison_operator: '{{ comparison_operator }}'
+              value:
+                count: '{{ count }}'
+                cidrs:
+                  - '{{ cidrs[0] }}'
+                ports:
+                  - '{{ ports[0] }}'
+                number: null
+                numbers:
                   - null
-                Strings:
-                  - '{{ Strings[0] }}'
-              DurationSeconds: '{{ DurationSeconds }}'
-              ConsecutiveDatapointsToAlarm: '{{ ConsecutiveDatapointsToAlarm }}'
-              ConsecutiveDatapointsToClear: '{{ ConsecutiveDatapointsToClear }}'
-              StatisticalThreshold:
-                Statistic: '{{ Statistic }}'
-              MlDetectionConfig:
-                ConfidenceLevel: '{{ ConfidenceLevel }}'
-            SuppressAlerts: '{{ SuppressAlerts }}'
-            ExportMetric: '{{ ExportMetric }}'
-      - name: AlertTargets
+                strings:
+                  - '{{ strings[0] }}'
+              duration_seconds: '{{ duration_seconds }}'
+              consecutive_datapoints_to_alarm: '{{ consecutive_datapoints_to_alarm }}'
+              consecutive_datapoints_to_clear: '{{ consecutive_datapoints_to_clear }}'
+              statistical_threshold:
+                statistic: '{{ statistic }}'
+              ml_detection_config:
+                confidence_level: '{{ confidence_level }}'
+            suppress_alerts: '{{ suppress_alerts }}'
+            export_metric: '{{ export_metric }}'
+      - name: alert_targets
         value: {}
-      - name: AdditionalMetricsToRetainV2
+      - name: additional_metrics_to_retain_v2
         value:
-          - Metric: '{{ Metric }}'
-            MetricDimension: null
-            ExportMetric: null
-      - name: MetricsExportConfig
+          - metric: '{{ metric }}'
+            metric_dimension: null
+            export_metric: null
+      - name: metrics_export_config
         value:
-          MqttTopic: '{{ MqttTopic }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: Tags
+          mqtt_topic: '{{ mqtt_topic }}'
+          role_arn: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TargetArns
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: target_arns
         value:
-          - '{{ TargetArns[0] }}'
-
+          - '{{ target_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -517,7 +516,7 @@ SET PatchDocument = string('{{ {
     "TargetArns": target_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SecurityProfileName>';
+AND Identifier = '{{ security_profile_name }}';
 ```
 
 
@@ -526,7 +525,7 @@ AND Identifier = '<SecurityProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.security_profiles
-WHERE Identifier = '<SecurityProfileName>'
+WHERE Identifier = '{{ security_profile_name }}'
 AND region = 'us-east-1';
 ```
 

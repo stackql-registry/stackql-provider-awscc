@@ -220,7 +220,7 @@ domain_name_configurations,
 routing_mode,
 tags
 FROM awscc.apigatewayv2.domain_names
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,8 +256,8 @@ INSERT INTO awscc.apigatewayv2.domain_names (
  DomainName,
  region
 )
-SELECT 
-'{{ DomainName }}',
+SELECT
+'{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -273,12 +273,12 @@ INSERT INTO awscc.apigatewayv2.domain_names (
  Tags,
  region
 )
-SELECT 
- '{{ MutualTlsAuthentication }}',
- '{{ DomainName }}',
- '{{ DomainNameConfigurations }}',
- '{{ RoutingMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ mutual_tls_authentication }}',
+ '{{ domain_name }}',
+ '{{ domain_name_configurations }}',
+ '{{ routing_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,25 +296,24 @@ globals:
 resources:
   - name: domain_name
     props:
-      - name: MutualTlsAuthentication
+      - name: mutual_tls_authentication
         value:
-          TruststoreVersion: '{{ TruststoreVersion }}'
-          TruststoreUri: '{{ TruststoreUri }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: DomainNameConfigurations
+          truststore_version: '{{ truststore_version }}'
+          truststore_uri: '{{ truststore_uri }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: domain_name_configurations
         value:
-          - OwnershipVerificationCertificateArn: '{{ OwnershipVerificationCertificateArn }}'
-            EndpointType: '{{ EndpointType }}'
-            CertificateName: '{{ CertificateName }}'
-            SecurityPolicy: '{{ SecurityPolicy }}'
-            CertificateArn: '{{ CertificateArn }}'
-            IpAddressType: '{{ IpAddressType }}'
-      - name: RoutingMode
-        value: '{{ RoutingMode }}'
-      - name: Tags
+          - ownership_verification_certificate_arn: '{{ ownership_verification_certificate_arn }}'
+            endpoint_type: '{{ endpoint_type }}'
+            certificate_name: '{{ certificate_name }}'
+            security_policy: '{{ security_policy }}'
+            certificate_arn: '{{ certificate_arn }}'
+            ip_address_type: '{{ ip_address_type }}'
+      - name: routing_mode
+        value: '{{ routing_mode }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>';
+AND Identifier = '{{ domain_name }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.domain_names
-WHERE Identifier = '<DomainName>'
+WHERE Identifier = '{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

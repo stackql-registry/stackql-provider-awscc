@@ -163,7 +163,7 @@ version,
 description,
 flow_content_sha256
 FROM awscc.connect.contact_flow_versions
-WHERE region = 'us-east-1' AND Identifier = '<ContactFlowVersionARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -199,8 +199,8 @@ INSERT INTO awscc.connect.contact_flow_versions (
  ContactFlowId,
  region
 )
-SELECT 
-'{{ ContactFlowId }}',
+SELECT
+'{{ contact_flow_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -213,9 +213,9 @@ INSERT INTO awscc.connect.contact_flow_versions (
  Description,
  region
 )
-SELECT 
- '{{ ContactFlowId }}',
- '{{ Description }}',
+SELECT
+ '{{ contact_flow_id }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -233,11 +233,10 @@ globals:
 resources:
   - name: contact_flow_version
     props:
-      - name: ContactFlowId
-        value: '{{ ContactFlowId }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: contact_flow_id
+        value: '{{ contact_flow_id }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -248,7 +247,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flow_versions
-WHERE Identifier = '<ContactFlowVersionARN>'
+WHERE Identifier = '{{ contact_flow_version_arn }}'
 AND region = 'us-east-1';
 ```
 

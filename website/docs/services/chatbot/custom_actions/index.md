@@ -222,7 +222,7 @@ custom_action_arn,
 definition,
 tags
 FROM awscc.chatbot.custom_actions
-WHERE region = 'us-east-1' AND Identifier = '<CustomActionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ custom_action_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -259,9 +259,9 @@ INSERT INTO awscc.chatbot.custom_actions (
  Definition,
  region
 )
-SELECT 
-'{{ ActionName }}',
- '{{ Definition }}',
+SELECT
+'{{ action_name }}',
+ '{{ definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,12 +277,12 @@ INSERT INTO awscc.chatbot.custom_actions (
  Tags,
  region
 )
-SELECT 
- '{{ ActionName }}',
- '{{ AliasName }}',
- '{{ Attachments }}',
- '{{ Definition }}',
- '{{ Tags }}',
+SELECT
+ '{{ action_name }}',
+ '{{ alias_name }}',
+ '{{ attachments }}',
+ '{{ definition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,27 +300,26 @@ globals:
 resources:
   - name: custom_action
     props:
-      - name: ActionName
-        value: '{{ ActionName }}'
-      - name: AliasName
-        value: '{{ AliasName }}'
-      - name: Attachments
+      - name: action_name
+        value: '{{ action_name }}'
+      - name: alias_name
+        value: '{{ alias_name }}'
+      - name: attachments
         value:
-          - NotificationType: '{{ NotificationType }}'
-            ButtonText: '{{ ButtonText }}'
-            Criteria:
-              - Operator: '{{ Operator }}'
-                VariableName: '{{ VariableName }}'
-                Value: '{{ Value }}'
-            Variables: {}
-      - name: Definition
+          - notification_type: '{{ notification_type }}'
+            button_text: '{{ button_text }}'
+            criteria:
+              - operator: '{{ operator }}'
+                variable_name: '{{ variable_name }}'
+                value: '{{ value }}'
+            variables: {}
+      - name: definition
         value:
-          CommandText: '{{ CommandText }}'
-      - name: Tags
+          command_text: '{{ command_text }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CustomActionArn>';
+AND Identifier = '{{ custom_action_arn }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<CustomActionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.custom_actions
-WHERE Identifier = '<CustomActionArn>'
+WHERE Identifier = '{{ custom_action_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -158,7 +158,7 @@ arn,
 tags,
 auto_enable_members
 FROM awscc.detective.graphs
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.detective.graphs (
  AutoEnableMembers,
  region
 )
-SELECT 
-'{{ Tags }}',
- '{{ AutoEnableMembers }}',
+SELECT
+'{{ tags }}',
+ '{{ auto_enable_members }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.detective.graphs (
  AutoEnableMembers,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ AutoEnableMembers }}',
+SELECT
+ '{{ tags }}',
+ '{{ auto_enable_members }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,12 @@ globals:
 resources:
   - name: graph
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AutoEnableMembers
-        value: '{{ AutoEnableMembers }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: auto_enable_members
+        value: '{{ auto_enable_members }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ SET PatchDocument = string('{{ {
     "AutoEnableMembers": auto_enable_members
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -262,7 +261,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.graphs
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

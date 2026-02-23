@@ -247,7 +247,7 @@ enable_auto_sub_domain,
 status_reason,
 sub_domain_settings
 FROM awscc.amplify.domains
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,10 +285,10 @@ INSERT INTO awscc.amplify.domains (
  SubDomainSettings,
  region
 )
-SELECT 
-'{{ AppId }}',
- '{{ DomainName }}',
- '{{ SubDomainSettings }}',
+SELECT
+'{{ app_id }}',
+ '{{ domain_name }}',
+ '{{ sub_domain_settings }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -306,14 +306,14 @@ INSERT INTO awscc.amplify.domains (
  SubDomainSettings,
  region
 )
-SELECT 
- '{{ AppId }}',
- '{{ AutoSubDomainCreationPatterns }}',
- '{{ AutoSubDomainIAMRole }}',
- '{{ CertificateSettings }}',
- '{{ DomainName }}',
- '{{ EnableAutoSubDomain }}',
- '{{ SubDomainSettings }}',
+SELECT
+ '{{ app_id }}',
+ '{{ auto_sub_domain_creation_patterns }}',
+ '{{ auto_sub_domain_iam_role }}',
+ '{{ certificate_settings }}',
+ '{{ domain_name }}',
+ '{{ enable_auto_sub_domain }}',
+ '{{ sub_domain_settings }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -331,26 +331,25 @@ globals:
 resources:
   - name: domain
     props:
-      - name: AppId
-        value: '{{ AppId }}'
-      - name: AutoSubDomainCreationPatterns
+      - name: app_id
+        value: '{{ app_id }}'
+      - name: auto_sub_domain_creation_patterns
         value:
-          - '{{ AutoSubDomainCreationPatterns[0] }}'
-      - name: AutoSubDomainIAMRole
-        value: '{{ AutoSubDomainIAMRole }}'
-      - name: CertificateSettings
+          - '{{ auto_sub_domain_creation_patterns[0] }}'
+      - name: auto_sub_domain_iam_role
+        value: '{{ auto_sub_domain_iam_role }}'
+      - name: certificate_settings
         value:
-          CertificateType: '{{ CertificateType }}'
-          CustomCertificateArn: '{{ CustomCertificateArn }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: EnableAutoSubDomain
-        value: '{{ EnableAutoSubDomain }}'
-      - name: SubDomainSettings
+          certificate_type: '{{ certificate_type }}'
+          custom_certificate_arn: '{{ custom_certificate_arn }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: enable_auto_sub_domain
+        value: '{{ enable_auto_sub_domain }}'
+      - name: sub_domain_settings
         value:
-          - Prefix: '{{ Prefix }}'
-            BranchName: '{{ BranchName }}'
-
+          - prefix: '{{ prefix }}'
+            branch_name: '{{ branch_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +369,7 @@ SET PatchDocument = string('{{ {
     "SubDomainSettings": sub_domain_settings
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -379,7 +378,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.domains
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

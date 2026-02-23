@@ -417,7 +417,7 @@ vpn_connection_id,
 tunnel_inside_ip_version,
 tags
 FROM awscc.ec2.vpn_connections
-WHERE region = 'us-east-1' AND Identifier = '<VpnConnectionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpn_connection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -454,9 +454,9 @@ INSERT INTO awscc.ec2.vpn_connections (
  Type,
  region
 )
-SELECT 
-'{{ CustomerGatewayId }}',
- '{{ Type }}',
+SELECT
+'{{ customer_gateway_id }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -483,23 +483,23 @@ INSERT INTO awscc.ec2.vpn_connections (
  Tags,
  region
 )
-SELECT 
- '{{ RemoteIpv6NetworkCidr }}',
- '{{ RemoteIpv4NetworkCidr }}',
- '{{ VpnTunnelOptionsSpecifications }}',
- '{{ CustomerGatewayId }}',
- '{{ OutsideIpAddressType }}',
- '{{ StaticRoutesOnly }}',
- '{{ EnableAcceleration }}',
- '{{ TransitGatewayId }}',
- '{{ Type }}',
- '{{ LocalIpv4NetworkCidr }}',
- '{{ VpnGatewayId }}',
- '{{ PreSharedKeyStorage }}',
- '{{ TransportTransitGatewayAttachmentId }}',
- '{{ LocalIpv6NetworkCidr }}',
- '{{ TunnelInsideIpVersion }}',
- '{{ Tags }}',
+SELECT
+ '{{ remote_ipv6_network_cidr }}',
+ '{{ remote_ipv4_network_cidr }}',
+ '{{ vpn_tunnel_options_specifications }}',
+ '{{ customer_gateway_id }}',
+ '{{ outside_ip_address_type }}',
+ '{{ static_routes_only }}',
+ '{{ enable_acceleration }}',
+ '{{ transit_gateway_id }}',
+ '{{ type }}',
+ '{{ local_ipv4_network_cidr }}',
+ '{{ vpn_gateway_id }}',
+ '{{ pre_shared_key_storage }}',
+ '{{ transport_transit_gateway_attachment_id }}',
+ '{{ local_ipv6_network_cidr }}',
+ '{{ tunnel_inside_ip_version }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -517,72 +517,71 @@ globals:
 resources:
   - name: vpn_connection
     props:
-      - name: RemoteIpv6NetworkCidr
-        value: '{{ RemoteIpv6NetworkCidr }}'
-      - name: RemoteIpv4NetworkCidr
-        value: '{{ RemoteIpv4NetworkCidr }}'
-      - name: VpnTunnelOptionsSpecifications
+      - name: remote_ipv6_network_cidr
+        value: '{{ remote_ipv6_network_cidr }}'
+      - name: remote_ipv4_network_cidr
+        value: '{{ remote_ipv4_network_cidr }}'
+      - name: vpn_tunnel_options_specifications
         value:
-          - Phase2EncryptionAlgorithms:
-              - Value: '{{ Value }}'
-            Phase2DHGroupNumbers:
-              - Value: '{{ Value }}'
-            TunnelInsideIpv6Cidr: '{{ TunnelInsideIpv6Cidr }}'
-            StartupAction: '{{ StartupAction }}'
-            TunnelInsideCidr: '{{ TunnelInsideCidr }}'
-            IKEVersions:
-              - Value: '{{ Value }}'
-            LogOptions:
-              CloudwatchLogOptions:
-                LogEnabled: '{{ LogEnabled }}'
-                LogOutputFormat: '{{ LogOutputFormat }}'
-                LogGroupArn: '{{ LogGroupArn }}'
-            Phase1DHGroupNumbers:
-              - Value: '{{ Value }}'
-            ReplayWindowSize: '{{ ReplayWindowSize }}'
-            EnableTunnelLifecycleControl: '{{ EnableTunnelLifecycleControl }}'
-            RekeyMarginTimeSeconds: '{{ RekeyMarginTimeSeconds }}'
-            DPDTimeoutAction: '{{ DPDTimeoutAction }}'
-            Phase2LifetimeSeconds: '{{ Phase2LifetimeSeconds }}'
-            Phase2IntegrityAlgorithms:
-              - Value: '{{ Value }}'
-            Phase1IntegrityAlgorithms:
-              - Value: '{{ Value }}'
-            PreSharedKey: '{{ PreSharedKey }}'
-            Phase1LifetimeSeconds: '{{ Phase1LifetimeSeconds }}'
-            RekeyFuzzPercentage: '{{ RekeyFuzzPercentage }}'
-            Phase1EncryptionAlgorithms:
-              - Value: '{{ Value }}'
-            DPDTimeoutSeconds: '{{ DPDTimeoutSeconds }}'
-      - name: CustomerGatewayId
-        value: '{{ CustomerGatewayId }}'
-      - name: OutsideIpAddressType
-        value: '{{ OutsideIpAddressType }}'
-      - name: StaticRoutesOnly
-        value: '{{ StaticRoutesOnly }}'
-      - name: EnableAcceleration
-        value: '{{ EnableAcceleration }}'
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: LocalIpv4NetworkCidr
-        value: '{{ LocalIpv4NetworkCidr }}'
-      - name: VpnGatewayId
-        value: '{{ VpnGatewayId }}'
-      - name: PreSharedKeyStorage
-        value: '{{ PreSharedKeyStorage }}'
-      - name: TransportTransitGatewayAttachmentId
-        value: '{{ TransportTransitGatewayAttachmentId }}'
-      - name: LocalIpv6NetworkCidr
-        value: '{{ LocalIpv6NetworkCidr }}'
-      - name: TunnelInsideIpVersion
-        value: '{{ TunnelInsideIpVersion }}'
-      - name: Tags
+          - phase2_encryption_algorithms:
+              - value: '{{ value }}'
+            phase2_dh_group_numbers:
+              - value: '{{ value }}'
+            tunnel_inside_ipv6_cidr: '{{ tunnel_inside_ipv6_cidr }}'
+            startup_action: '{{ startup_action }}'
+            tunnel_inside_cidr: '{{ tunnel_inside_cidr }}'
+            i_ke_versions:
+              - value: '{{ value }}'
+            log_options:
+              cloudwatch_log_options:
+                log_enabled: '{{ log_enabled }}'
+                log_output_format: '{{ log_output_format }}'
+                log_group_arn: '{{ log_group_arn }}'
+            phase1_dh_group_numbers:
+              - value: '{{ value }}'
+            replay_window_size: '{{ replay_window_size }}'
+            enable_tunnel_lifecycle_control: '{{ enable_tunnel_lifecycle_control }}'
+            rekey_margin_time_seconds: '{{ rekey_margin_time_seconds }}'
+            d_pd_timeout_action: '{{ d_pd_timeout_action }}'
+            phase2_lifetime_seconds: '{{ phase2_lifetime_seconds }}'
+            phase2_integrity_algorithms:
+              - value: '{{ value }}'
+            phase1_integrity_algorithms:
+              - value: '{{ value }}'
+            pre_shared_key: '{{ pre_shared_key }}'
+            phase1_lifetime_seconds: '{{ phase1_lifetime_seconds }}'
+            rekey_fuzz_percentage: '{{ rekey_fuzz_percentage }}'
+            phase1_encryption_algorithms:
+              - value: '{{ value }}'
+            d_pd_timeout_seconds: '{{ d_pd_timeout_seconds }}'
+      - name: customer_gateway_id
+        value: '{{ customer_gateway_id }}'
+      - name: outside_ip_address_type
+        value: '{{ outside_ip_address_type }}'
+      - name: static_routes_only
+        value: '{{ static_routes_only }}'
+      - name: enable_acceleration
+        value: '{{ enable_acceleration }}'
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: type
+        value: '{{ type }}'
+      - name: local_ipv4_network_cidr
+        value: '{{ local_ipv4_network_cidr }}'
+      - name: vpn_gateway_id
+        value: '{{ vpn_gateway_id }}'
+      - name: pre_shared_key_storage
+        value: '{{ pre_shared_key_storage }}'
+      - name: transport_transit_gateway_attachment_id
+        value: '{{ transport_transit_gateway_attachment_id }}'
+      - name: local_ipv6_network_cidr
+        value: '{{ local_ipv6_network_cidr }}'
+      - name: tunnel_inside_ip_version
+        value: '{{ tunnel_inside_ip_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -598,7 +597,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpnConnectionId>';
+AND Identifier = '{{ vpn_connection_id }}';
 ```
 
 
@@ -607,7 +606,7 @@ AND Identifier = '<VpnConnectionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpn_connections
-WHERE Identifier = '<VpnConnectionId>'
+WHERE Identifier = '{{ vpn_connection_id }}'
 AND region = 'us-east-1';
 ```
 

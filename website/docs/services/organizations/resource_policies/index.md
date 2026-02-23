@@ -164,7 +164,7 @@ arn,
 content,
 tags
 FROM awscc.organizations.resource_policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.organizations.resource_policies (
  Content,
  region
 )
-SELECT 
-'{{ Content }}',
+SELECT
+'{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.organizations.resource_policies (
  Tags,
  region
 )
-SELECT 
- '{{ Content }}',
- '{{ Tags }}',
+SELECT
+ '{{ content }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: resource_policy
     props:
-      - name: Content
+      - name: content
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -266,7 +265,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.resource_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

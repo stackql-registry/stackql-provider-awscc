@@ -208,7 +208,7 @@ creation_time,
 last_successful_allocation_time,
 tags
 FROM awscc.athena.capacity_reservations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,9 +245,9 @@ INSERT INTO awscc.athena.capacity_reservations (
  TargetDpus,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ TargetDpus }}',
+SELECT
+'{{ name }}',
+ '{{ target_dpus }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,11 +262,11 @@ INSERT INTO awscc.athena.capacity_reservations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ TargetDpus }}',
- '{{ CapacityAssignmentConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ target_dpus }}',
+ '{{ capacity_assignment_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,20 +284,19 @@ globals:
 resources:
   - name: capacity_reservation
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: TargetDpus
-        value: '{{ TargetDpus }}'
-      - name: CapacityAssignmentConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: target_dpus
+        value: '{{ target_dpus }}'
+      - name: capacity_assignment_configuration
         value:
-          CapacityAssignments:
-            - WorkgroupNames:
-                - '{{ WorkgroupNames[0] }}'
-      - name: Tags
+          capacity_assignments:
+            - workgroup_names:
+                - '{{ workgroup_names[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.athena.capacity_reservations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

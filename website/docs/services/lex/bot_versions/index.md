@@ -211,7 +211,7 @@ bot_version,
 description,
 bot_version_locale_specification
 FROM awscc.lex.bot_versions
-WHERE region = 'us-east-1' AND Identifier = '<BotId>|<BotVersion>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bot_id }}|{{ bot_version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.lex.bot_versions (
  BotVersionLocaleSpecification,
  region
 )
-SELECT 
-'{{ BotId }}',
- '{{ BotVersionLocaleSpecification }}',
+SELECT
+'{{ bot_id }}',
+ '{{ bot_version_locale_specification }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,10 +265,10 @@ INSERT INTO awscc.lex.bot_versions (
  BotVersionLocaleSpecification,
  region
 )
-SELECT 
- '{{ BotId }}',
- '{{ Description }}',
- '{{ BotVersionLocaleSpecification }}',
+SELECT
+ '{{ bot_id }}',
+ '{{ description }}',
+ '{{ bot_version_locale_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,19 +286,18 @@ globals:
 resources:
   - name: bot_version
     props:
-      - name: BotId
-        value: '{{ BotId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: BotVersionLocaleSpecification
+      - name: bot_id
+        value: '{{ bot_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: bot_version_locale_specification
         value:
-          - LocaleId: '{{ LocaleId }}'
-            BotVersionLocaleDetails:
-              SourceBotVersion:
-                BotId: null
-                Description: null
-                BotVersionLocaleSpecification: null
-
+          - locale_id: '{{ locale_id }}'
+            bot_version_locale_details:
+              source_bot_version:
+                bot_id: null
+                description: null
+                bot_version_locale_specification: null
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bot_versions
-WHERE Identifier = '<BotId|BotVersion>'
+WHERE Identifier = '{{ bot_id }}|{{ bot_version }}'
 AND region = 'us-east-1';
 ```
 

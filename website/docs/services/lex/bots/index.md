@@ -819,7 +819,7 @@ auto_build_bot_locales,
 test_bot_alias_settings,
 replication
 FROM awscc.lex.bots
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -858,11 +858,11 @@ INSERT INTO awscc.lex.bots (
  IdleSessionTTLInSeconds,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoleArn }}',
- '{{ DataPrivacy }}',
- '{{ IdleSessionTTLInSeconds }}',
+SELECT
+'{{ name }}',
+ '{{ role_arn }}',
+ '{{ data_privacy }}',
+ '{{ idle_session_ttl_in_seconds }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -886,20 +886,20 @@ INSERT INTO awscc.lex.bots (
  Replication,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ RoleArn }}',
- '{{ DataPrivacy }}',
- '{{ ErrorLogSettings }}',
- '{{ IdleSessionTTLInSeconds }}',
- '{{ BotLocales }}',
- '{{ BotFileS3Location }}',
- '{{ BotTags }}',
- '{{ TestBotAliasTags }}',
- '{{ AutoBuildBotLocales }}',
- '{{ TestBotAliasSettings }}',
- '{{ Replication }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ role_arn }}',
+ '{{ data_privacy }}',
+ '{{ error_log_settings }}',
+ '{{ idle_session_ttl_in_seconds }}',
+ '{{ bot_locales }}',
+ '{{ bot_file_s3_location }}',
+ '{{ bot_tags }}',
+ '{{ test_bot_alias_tags }}',
+ '{{ auto_build_bot_locales }}',
+ '{{ test_bot_alias_settings }}',
+ '{{ replication }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -917,326 +917,325 @@ globals:
 resources:
   - name: bot
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: DataPrivacy
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: data_privacy
         value:
-          ChildDirected: '{{ ChildDirected }}'
-      - name: ErrorLogSettings
+          child_directed: '{{ child_directed }}'
+      - name: error_log_settings
         value:
-          Enabled: '{{ Enabled }}'
-      - name: IdleSessionTTLInSeconds
-        value: '{{ IdleSessionTTLInSeconds }}'
-      - name: BotLocales
+          enabled: '{{ enabled }}'
+      - name: idle_session_ttl_in_seconds
+        value: '{{ idle_session_ttl_in_seconds }}'
+      - name: bot_locales
         value:
-          - LocaleId: '{{ LocaleId }}'
-            Description: null
-            VoiceSettings:
-              VoiceId: '{{ VoiceId }}'
-              Engine: '{{ Engine }}'
-            GenerativeAISettings:
-              BuildtimeSettings:
-                DescriptiveBotBuilderSpecification:
-                  Enabled: '{{ Enabled }}'
-                  BedrockModelSpecification:
-                    ModelArn: '{{ ModelArn }}'
-                    BedrockGuardrailConfiguration:
-                      BedrockGuardrailIdentifier: '{{ BedrockGuardrailIdentifier }}'
-                      BedrockGuardrailVersion: '{{ BedrockGuardrailVersion }}'
-                    BedrockTraceStatus: '{{ BedrockTraceStatus }}'
-                    BedrockModelCustomPrompt: '{{ BedrockModelCustomPrompt }}'
-                SampleUtteranceGenerationSpecification:
-                  Enabled: '{{ Enabled }}'
-                  BedrockModelSpecification: null
-              RuntimeSettings:
-                NluImprovementSpecification:
-                  Enabled: '{{ Enabled }}'
-                SlotResolutionImprovementSpecification:
-                  Enabled: '{{ Enabled }}'
-                  BedrockModelSpecification: null
-            NluConfidenceThreshold: null
-            Intents:
-              - Name: null
-                Description: null
-                ParentIntentSignature: '{{ ParentIntentSignature }}'
-                SampleUtterances:
-                  - Utterance: '{{ Utterance }}'
-                DialogCodeHook:
-                  Enabled: '{{ Enabled }}'
-                FulfillmentCodeHook:
-                  FulfillmentUpdatesSpecification:
-                    StartResponse:
-                      MessageGroups:
-                        - Message:
-                            PlainTextMessage:
-                              Value: '{{ Value }}'
-                            CustomPayload:
-                              Value: '{{ Value }}'
-                            SSMLMessage:
-                              Value: '{{ Value }}'
-                            ImageResponseCard:
-                              Title: '{{ Title }}'
-                              Subtitle: null
-                              ImageUrl: '{{ ImageUrl }}'
-                              Buttons:
-                                - Text: '{{ Text }}'
-                                  Value: '{{ Value }}'
-                          Variations:
+          - locale_id: '{{ locale_id }}'
+            description: null
+            voice_settings:
+              voice_id: '{{ voice_id }}'
+              engine: '{{ engine }}'
+            generative_ai_settings:
+              buildtime_settings:
+                descriptive_bot_builder_specification:
+                  enabled: '{{ enabled }}'
+                  bedrock_model_specification:
+                    model_arn: '{{ model_arn }}'
+                    bedrock_guardrail_configuration:
+                      bedrock_guardrail_identifier: '{{ bedrock_guardrail_identifier }}'
+                      bedrock_guardrail_version: '{{ bedrock_guardrail_version }}'
+                    bedrock_trace_status: '{{ bedrock_trace_status }}'
+                    bedrock_model_custom_prompt: '{{ bedrock_model_custom_prompt }}'
+                sample_utterance_generation_specification:
+                  enabled: '{{ enabled }}'
+                  bedrock_model_specification: null
+              runtime_settings:
+                nlu_improvement_specification:
+                  enabled: '{{ enabled }}'
+                slot_resolution_improvement_specification:
+                  enabled: '{{ enabled }}'
+                  bedrock_model_specification: null
+            nlu_confidence_threshold: null
+            intents:
+              - name: null
+                description: null
+                parent_intent_signature: '{{ parent_intent_signature }}'
+                sample_utterances:
+                  - utterance: '{{ utterance }}'
+                dialog_code_hook:
+                  enabled: '{{ enabled }}'
+                fulfillment_code_hook:
+                  fulfillment_updates_specification:
+                    start_response:
+                      message_groups:
+                        - message:
+                            plain_text_message:
+                              value: '{{ value }}'
+                            custom_payload:
+                              value: '{{ value }}'
+                            ssm_lmessage:
+                              value: '{{ value }}'
+                            image_response_card:
+                              title: '{{ title }}'
+                              subtitle: null
+                              image_url: '{{ image_url }}'
+                              buttons:
+                                - text: '{{ text }}'
+                                  value: '{{ value }}'
+                          variations:
                             - null
-                      DelayInSeconds: '{{ DelayInSeconds }}'
-                      AllowInterrupt: '{{ AllowInterrupt }}'
-                    UpdateResponse:
-                      MessageGroups: null
-                      FrequencyInSeconds: '{{ FrequencyInSeconds }}'
-                      AllowInterrupt: '{{ AllowInterrupt }}'
-                    TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-                    Active: '{{ Active }}'
-                  PostFulfillmentStatusSpecification:
-                    SuccessResponse:
-                      MessageGroupsList: null
-                      AllowInterrupt: '{{ AllowInterrupt }}'
-                    SuccessNextStep:
-                      DialogAction:
-                        Type: '{{ Type }}'
-                        SlotToElicit: null
-                        SuppressNextMessage: '{{ SuppressNextMessage }}'
-                      Intent:
-                        Name: null
-                        Slots:
-                          - SlotName: null
-                            SlotValueOverride:
-                              Shape: '{{ Shape }}'
-                              Value:
-                                InterpretedValue: '{{ InterpretedValue }}'
-                              Values:
+                      delay_in_seconds: '{{ delay_in_seconds }}'
+                      allow_interrupt: '{{ allow_interrupt }}'
+                    update_response:
+                      message_groups: null
+                      frequency_in_seconds: '{{ frequency_in_seconds }}'
+                      allow_interrupt: '{{ allow_interrupt }}'
+                    timeout_in_seconds: '{{ timeout_in_seconds }}'
+                    active: '{{ active }}'
+                  post_fulfillment_status_specification:
+                    success_response:
+                      message_groups_list: null
+                      allow_interrupt: '{{ allow_interrupt }}'
+                    success_next_step:
+                      dialog_action:
+                        type: '{{ type }}'
+                        slot_to_elicit: null
+                        suppress_next_message: '{{ suppress_next_message }}'
+                      intent:
+                        name: null
+                        slots:
+                          - slot_name: null
+                            slot_value_override:
+                              shape: '{{ shape }}'
+                              value:
+                                interpreted_value: '{{ interpreted_value }}'
+                              values:
                                 - null
-                      SessionAttributes:
-                        - Key: '{{ Key }}'
-                          Value: '{{ Value }}'
-                    SuccessConditional:
-                      IsActive: '{{ IsActive }}'
-                      ConditionalBranches:
-                        - Name: null
-                          Condition:
-                            ExpressionString: '{{ ExpressionString }}'
-                          NextStep: null
-                          Response: null
-                      DefaultBranch:
-                        NextStep: null
-                        Response: null
-                    FailureResponse: null
-                    FailureNextStep: null
-                    FailureConditional: null
-                    TimeoutResponse: null
-                    TimeoutNextStep: null
-                    TimeoutConditional: null
-                  Enabled: '{{ Enabled }}'
-                  IsActive: '{{ IsActive }}'
-                IntentConfirmationSetting:
-                  PromptSpecification:
-                    MessageGroupsList: null
-                    MaxRetries: '{{ MaxRetries }}'
-                    AllowInterrupt: '{{ AllowInterrupt }}'
-                    MessageSelectionStrategy: '{{ MessageSelectionStrategy }}'
-                    PromptAttemptsSpecification: {}
-                  IsActive: '{{ IsActive }}'
-                  ConfirmationResponse: null
-                  ConfirmationNextStep: null
-                  ConfirmationConditional: null
-                  DeclinationResponse: null
-                  DeclinationNextStep: null
-                  DeclinationConditional: null
-                  FailureResponse: null
-                  FailureNextStep: null
-                  FailureConditional: null
-                  CodeHook:
-                    EnableCodeHookInvocation: '{{ EnableCodeHookInvocation }}'
-                    IsActive: '{{ IsActive }}'
-                    InvocationLabel: null
-                    PostCodeHookSpecification:
-                      SuccessResponse: null
-                      SuccessNextStep: null
-                      SuccessConditional: null
-                      FailureResponse: null
-                      FailureNextStep: null
-                      FailureConditional: null
-                      TimeoutResponse: null
-                      TimeoutNextStep: null
-                      TimeoutConditional: null
-                  ElicitationCodeHook:
-                    EnableCodeHookInvocation: '{{ EnableCodeHookInvocation }}'
-                    InvocationLabel: null
-                IntentClosingSetting:
-                  ClosingResponse: null
-                  IsActive: '{{ IsActive }}'
-                  Conditional: null
-                  NextStep: null
-                InitialResponseSetting:
-                  InitialResponse: null
-                  NextStep: null
-                  Conditional: null
-                  CodeHook: null
-                InputContexts:
-                  - Name: null
-                OutputContexts:
-                  - Name: null
-                    TimeToLiveInSeconds: '{{ TimeToLiveInSeconds }}'
-                    TurnsToLive: '{{ TurnsToLive }}'
-                KendraConfiguration:
-                  KendraIndex: '{{ KendraIndex }}'
-                  QueryFilterStringEnabled: '{{ QueryFilterStringEnabled }}'
-                  QueryFilterString: '{{ QueryFilterString }}'
-                QnAIntentConfiguration:
-                  DataSourceConfiguration:
-                    OpensearchConfiguration:
-                      DomainEndpoint: '{{ DomainEndpoint }}'
-                      IndexName: '{{ IndexName }}'
-                      IncludeFields:
-                        - '{{ IncludeFields[0] }}'
-                      ExactResponse: '{{ ExactResponse }}'
-                      ExactResponseFields:
-                        QuestionField: '{{ QuestionField }}'
-                        AnswerField: '{{ AnswerField }}'
-                    BedrockKnowledgeStoreConfiguration:
-                      BedrockKnowledgeBaseArn: '{{ BedrockKnowledgeBaseArn }}'
-                      ExactResponse: '{{ ExactResponse }}'
-                      BKBExactResponseFields:
-                        AnswerField: '{{ AnswerField }}'
-                    KendraConfiguration:
-                      KendraIndex: '{{ KendraIndex }}'
-                      QueryFilterString: '{{ QueryFilterString }}'
-                      QueryFilterStringEnabled: '{{ QueryFilterStringEnabled }}'
-                      ExactResponse: '{{ ExactResponse }}'
-                  BedrockModelConfiguration: null
-                QInConnectIntentConfiguration:
-                  QInConnectAssistantConfiguration:
-                    AssistantArn: '{{ AssistantArn }}'
-                BedrockAgentIntentConfiguration:
-                  BedrockAgentConfiguration:
-                    BedrockAgentId: '{{ BedrockAgentId }}'
-                    BedrockAgentAliasId: '{{ BedrockAgentAliasId }}'
-                  BedrockAgentIntentKnowledgeBaseConfiguration:
-                    BedrockKnowledgeBaseArn: '{{ BedrockKnowledgeBaseArn }}'
-                    BedrockModelConfiguration: null
-                SlotPriorities:
-                  - Priority: '{{ Priority }}'
-                    SlotName: null
-                Slots:
-                  - Name: null
-                    Description: null
-                    SlotTypeName: '{{ SlotTypeName }}'
-                    ValueElicitationSetting:
-                      DefaultValueSpecification:
-                        DefaultValueList:
-                          - DefaultValue: '{{ DefaultValue }}'
-                      SlotConstraint: '{{ SlotConstraint }}'
-                      PromptSpecification: null
-                      SampleUtterances: null
-                      WaitAndContinueSpecification:
-                        WaitingResponse: null
-                        ContinueResponse: null
-                        StillWaitingResponse:
-                          MessageGroupsList: null
-                          FrequencyInSeconds: '{{ FrequencyInSeconds }}'
-                          TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-                          AllowInterrupt: '{{ AllowInterrupt }}'
-                        IsActive: '{{ IsActive }}'
-                      SlotCaptureSetting:
-                        CaptureResponse: null
-                        CaptureNextStep: null
-                        CaptureConditional: null
-                        FailureResponse: null
-                        FailureNextStep: null
-                        FailureConditional: null
-                        CodeHook: null
-                        ElicitationCodeHook: null
-                    ObfuscationSetting:
-                      ObfuscationSettingType: '{{ ObfuscationSettingType }}'
-                    MultipleValuesSetting:
-                      AllowMultipleValues: '{{ AllowMultipleValues }}'
-                    SubSlotSetting:
-                      Expression: '{{ Expression }}'
-                      SlotSpecifications: {}
-            SlotTypes:
-              - Name: null
-                Description: null
-                ParentSlotTypeSignature: '{{ ParentSlotTypeSignature }}'
-                SlotTypeValues:
-                  - SampleValue:
-                      Value: '{{ Value }}'
-                    Synonyms:
+                      session_attributes:
+                        - key: '{{ key }}'
+                          value: '{{ value }}'
+                    success_conditional:
+                      is_active: '{{ is_active }}'
+                      conditional_branches:
+                        - name: null
+                          condition:
+                            expression_string: '{{ expression_string }}'
+                          next_step: null
+                          response: null
+                      default_branch:
+                        next_step: null
+                        response: null
+                    failure_response: null
+                    failure_next_step: null
+                    failure_conditional: null
+                    timeout_response: null
+                    timeout_next_step: null
+                    timeout_conditional: null
+                  enabled: '{{ enabled }}'
+                  is_active: '{{ is_active }}'
+                intent_confirmation_setting:
+                  prompt_specification:
+                    message_groups_list: null
+                    max_retries: '{{ max_retries }}'
+                    allow_interrupt: '{{ allow_interrupt }}'
+                    message_selection_strategy: '{{ message_selection_strategy }}'
+                    prompt_attempts_specification: {}
+                  is_active: '{{ is_active }}'
+                  confirmation_response: null
+                  confirmation_next_step: null
+                  confirmation_conditional: null
+                  declination_response: null
+                  declination_next_step: null
+                  declination_conditional: null
+                  failure_response: null
+                  failure_next_step: null
+                  failure_conditional: null
+                  code_hook:
+                    enable_code_hook_invocation: '{{ enable_code_hook_invocation }}'
+                    is_active: '{{ is_active }}'
+                    invocation_label: null
+                    post_code_hook_specification:
+                      success_response: null
+                      success_next_step: null
+                      success_conditional: null
+                      failure_response: null
+                      failure_next_step: null
+                      failure_conditional: null
+                      timeout_response: null
+                      timeout_next_step: null
+                      timeout_conditional: null
+                  elicitation_code_hook:
+                    enable_code_hook_invocation: '{{ enable_code_hook_invocation }}'
+                    invocation_label: null
+                intent_closing_setting:
+                  closing_response: null
+                  is_active: '{{ is_active }}'
+                  conditional: null
+                  next_step: null
+                initial_response_setting:
+                  initial_response: null
+                  next_step: null
+                  conditional: null
+                  code_hook: null
+                input_contexts:
+                  - name: null
+                output_contexts:
+                  - name: null
+                    time_to_live_in_seconds: '{{ time_to_live_in_seconds }}'
+                    turns_to_live: '{{ turns_to_live }}'
+                kendra_configuration:
+                  kendra_index: '{{ kendra_index }}'
+                  query_filter_string_enabled: '{{ query_filter_string_enabled }}'
+                  query_filter_string: '{{ query_filter_string }}'
+                qn_aintent_configuration:
+                  data_source_configuration:
+                    opensearch_configuration:
+                      domain_endpoint: '{{ domain_endpoint }}'
+                      index_name: '{{ index_name }}'
+                      include_fields:
+                        - '{{ include_fields[0] }}'
+                      exact_response: '{{ exact_response }}'
+                      exact_response_fields:
+                        question_field: '{{ question_field }}'
+                        answer_field: '{{ answer_field }}'
+                    bedrock_knowledge_store_configuration:
+                      bedrock_knowledge_base_arn: '{{ bedrock_knowledge_base_arn }}'
+                      exact_response: '{{ exact_response }}'
+                      b_kb_exact_response_fields:
+                        answer_field: '{{ answer_field }}'
+                    kendra_configuration:
+                      kendra_index: '{{ kendra_index }}'
+                      query_filter_string: '{{ query_filter_string }}'
+                      query_filter_string_enabled: '{{ query_filter_string_enabled }}'
+                      exact_response: '{{ exact_response }}'
+                  bedrock_model_configuration: null
+                q_in_connect_intent_configuration:
+                  q_in_connect_assistant_configuration:
+                    assistant_arn: '{{ assistant_arn }}'
+                bedrock_agent_intent_configuration:
+                  bedrock_agent_configuration:
+                    bedrock_agent_id: '{{ bedrock_agent_id }}'
+                    bedrock_agent_alias_id: '{{ bedrock_agent_alias_id }}'
+                  bedrock_agent_intent_knowledge_base_configuration:
+                    bedrock_knowledge_base_arn: '{{ bedrock_knowledge_base_arn }}'
+                    bedrock_model_configuration: null
+                slot_priorities:
+                  - priority: '{{ priority }}'
+                    slot_name: null
+                slots:
+                  - name: null
+                    description: null
+                    slot_type_name: '{{ slot_type_name }}'
+                    value_elicitation_setting:
+                      default_value_specification:
+                        default_value_list:
+                          - default_value: '{{ default_value }}'
+                      slot_constraint: '{{ slot_constraint }}'
+                      prompt_specification: null
+                      sample_utterances: null
+                      wait_and_continue_specification:
+                        waiting_response: null
+                        continue_response: null
+                        still_waiting_response:
+                          message_groups_list: null
+                          frequency_in_seconds: '{{ frequency_in_seconds }}'
+                          timeout_in_seconds: '{{ timeout_in_seconds }}'
+                          allow_interrupt: '{{ allow_interrupt }}'
+                        is_active: '{{ is_active }}'
+                      slot_capture_setting:
+                        capture_response: null
+                        capture_next_step: null
+                        capture_conditional: null
+                        failure_response: null
+                        failure_next_step: null
+                        failure_conditional: null
+                        code_hook: null
+                        elicitation_code_hook: null
+                    obfuscation_setting:
+                      obfuscation_setting_type: '{{ obfuscation_setting_type }}'
+                    multiple_values_setting:
+                      allow_multiple_values: '{{ allow_multiple_values }}'
+                    sub_slot_setting:
+                      expression: '{{ expression }}'
+                      slot_specifications: {}
+            slot_types:
+              - name: null
+                description: null
+                parent_slot_type_signature: '{{ parent_slot_type_signature }}'
+                slot_type_values:
+                  - sample_value:
+                      value: '{{ value }}'
+                    synonyms:
                       - null
-                ValueSelectionSetting:
-                  ResolutionStrategy: '{{ ResolutionStrategy }}'
-                  RegexFilter:
-                    Pattern: '{{ Pattern }}'
-                  AdvancedRecognitionSetting:
-                    AudioRecognitionStrategy: '{{ AudioRecognitionStrategy }}'
-                ExternalSourceSetting:
-                  GrammarSlotTypeSetting:
-                    Source:
-                      S3BucketName: '{{ S3BucketName }}'
-                      S3ObjectKey: '{{ S3ObjectKey }}'
-                      KmsKeyArn: '{{ KmsKeyArn }}'
-                CompositeSlotTypeSetting:
-                  SubSlots:
-                    - Name: '{{ Name }}'
-                      SlotTypeId: '{{ SlotTypeId }}'
-            CustomVocabulary:
-              CustomVocabularyItems:
-                - Phrase: '{{ Phrase }}'
-                  Weight: '{{ Weight }}'
-                  DisplayAs: '{{ DisplayAs }}'
-      - name: BotFileS3Location
+                value_selection_setting:
+                  resolution_strategy: '{{ resolution_strategy }}'
+                  regex_filter:
+                    pattern: '{{ pattern }}'
+                  advanced_recognition_setting:
+                    audio_recognition_strategy: '{{ audio_recognition_strategy }}'
+                external_source_setting:
+                  grammar_slot_type_setting:
+                    source:
+                      s3_bucket_name: '{{ s3_bucket_name }}'
+                      s3_object_key: '{{ s3_object_key }}'
+                      kms_key_arn: '{{ kms_key_arn }}'
+                composite_slot_type_setting:
+                  sub_slots:
+                    - name: '{{ name }}'
+                      slot_type_id: '{{ slot_type_id }}'
+            custom_vocabulary:
+              custom_vocabulary_items:
+                - phrase: '{{ phrase }}'
+                  weight: '{{ weight }}'
+                  display_as: '{{ display_as }}'
+      - name: bot_file_s3_location
         value:
-          S3Bucket: null
-          S3ObjectKey: null
-          S3ObjectVersion: '{{ S3ObjectVersion }}'
-      - name: BotTags
+          s3_bucket: null
+          s3_object_key: null
+          s3_object_version: '{{ s3_object_version }}'
+      - name: bot_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TestBotAliasTags
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: test_bot_alias_tags
         value:
           - null
-      - name: AutoBuildBotLocales
-        value: '{{ AutoBuildBotLocales }}'
-      - name: TestBotAliasSettings
+      - name: auto_build_bot_locales
+        value: '{{ auto_build_bot_locales }}'
+      - name: test_bot_alias_settings
         value:
-          BotAliasLocaleSettings:
-            - LocaleId: '{{ LocaleId }}'
-              BotAliasLocaleSetting:
-                CodeHookSpecification:
-                  LambdaCodeHook:
-                    CodeHookInterfaceVersion: '{{ CodeHookInterfaceVersion }}'
-                    LambdaArn: '{{ LambdaArn }}'
-                Enabled: '{{ Enabled }}'
-          ConversationLogSettings:
-            AudioLogSettings:
-              - Destination:
-                  S3Bucket:
-                    S3BucketArn: '{{ S3BucketArn }}'
-                    LogPrefix: '{{ LogPrefix }}'
-                    KmsKeyArn: '{{ KmsKeyArn }}'
-                Enabled: '{{ Enabled }}'
-            TextLogSettings:
-              - Destination:
-                  CloudWatch:
-                    CloudWatchLogGroupArn: '{{ CloudWatchLogGroupArn }}'
-                    LogPrefix: '{{ LogPrefix }}'
-                Enabled: '{{ Enabled }}'
-          Description: null
-          SentimentAnalysisSettings:
-            DetectSentiment: '{{ DetectSentiment }}'
-      - name: Replication
+          bot_alias_locale_settings:
+            - locale_id: '{{ locale_id }}'
+              bot_alias_locale_setting:
+                code_hook_specification:
+                  lambda_code_hook:
+                    code_hook_interface_version: '{{ code_hook_interface_version }}'
+                    lambda_arn: '{{ lambda_arn }}'
+                enabled: '{{ enabled }}'
+          conversation_log_settings:
+            audio_log_settings:
+              - destination:
+                  s3_bucket:
+                    s3_bucket_arn: '{{ s3_bucket_arn }}'
+                    log_prefix: '{{ log_prefix }}'
+                    kms_key_arn: '{{ kms_key_arn }}'
+                enabled: '{{ enabled }}'
+            text_log_settings:
+              - destination:
+                  cloud_watch:
+                    cloud_watch_log_group_arn: '{{ cloud_watch_log_group_arn }}'
+                    log_prefix: '{{ log_prefix }}'
+                enabled: '{{ enabled }}'
+          description: null
+          sentiment_analysis_settings:
+            detect_sentiment: '{{ detect_sentiment }}'
+      - name: replication
         value:
-          ReplicaRegions:
-            - '{{ ReplicaRegions[0] }}'
-
+          replica_regions:
+            - '{{ replica_regions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -1264,7 +1263,7 @@ SET PatchDocument = string('{{ {
     "Replication": replication
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -1273,7 +1272,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lex.bots
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ preserve_client_ip,
 tags,
 security_group_ids
 FROM awscc.ec2.instance_connect_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.ec2.instance_connect_endpoints (
  SubnetId,
  region
 )
-SELECT 
-'{{ SubnetId }}',
+SELECT
+'{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -229,12 +229,12 @@ INSERT INTO awscc.ec2.instance_connect_endpoints (
  SecurityGroupIds,
  region
 )
-SELECT 
- '{{ SubnetId }}',
- '{{ ClientToken }}',
- '{{ PreserveClientIp }}',
- '{{ Tags }}',
- '{{ SecurityGroupIds }}',
+SELECT
+ '{{ subnet_id }}',
+ '{{ client_token }}',
+ '{{ preserve_client_ip }}',
+ '{{ tags }}',
+ '{{ security_group_ids }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,20 +252,19 @@ globals:
 resources:
   - name: instance_connect_endpoint
     props:
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: ClientToken
-        value: '{{ ClientToken }}'
-      - name: PreserveClientIp
-        value: '{{ PreserveClientIp }}'
-      - name: Tags
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: client_token
+        value: '{{ client_token }}'
+      - name: preserve_client_ip
+        value: '{{ preserve_client_ip }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SecurityGroupIds
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-
+          - '{{ security_group_ids[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.instance_connect_endpoints
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

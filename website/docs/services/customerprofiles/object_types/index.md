@@ -288,7 +288,7 @@ template_id,
 max_profile_object_count,
 max_available_profile_object_count
 FROM awscc.customerprofiles.object_types
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<ObjectTypeName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,10 +327,10 @@ INSERT INTO awscc.customerprofiles.object_types (
  Description,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ ObjectTypeName }}',
- '{{ Description }}',
+SELECT
+'{{ domain_name }}',
+ '{{ object_type_name }}',
+ '{{ description }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -353,19 +353,19 @@ INSERT INTO awscc.customerprofiles.object_types (
  MaxProfileObjectCount,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ ObjectTypeName }}',
- '{{ AllowProfileCreation }}',
- '{{ Description }}',
- '{{ EncryptionKey }}',
- '{{ ExpirationDays }}',
- '{{ Fields }}',
- '{{ Keys }}',
- '{{ SourceLastUpdatedTimestampFormat }}',
- '{{ Tags }}',
- '{{ TemplateId }}',
- '{{ MaxProfileObjectCount }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ object_type_name }}',
+ '{{ allow_profile_creation }}',
+ '{{ description }}',
+ '{{ encryption_key }}',
+ '{{ expiration_days }}',
+ '{{ fields }}',
+ '{{ keys }}',
+ '{{ source_last_updated_timestamp_format }}',
+ '{{ tags }}',
+ '{{ template_id }}',
+ '{{ max_profile_object_count }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -383,44 +383,43 @@ globals:
 resources:
   - name: object_type
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: ObjectTypeName
-        value: '{{ ObjectTypeName }}'
-      - name: AllowProfileCreation
-        value: '{{ AllowProfileCreation }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EncryptionKey
-        value: '{{ EncryptionKey }}'
-      - name: ExpirationDays
-        value: '{{ ExpirationDays }}'
-      - name: Fields
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: object_type_name
+        value: '{{ object_type_name }}'
+      - name: allow_profile_creation
+        value: '{{ allow_profile_creation }}'
+      - name: description
+        value: '{{ description }}'
+      - name: encryption_key
+        value: '{{ encryption_key }}'
+      - name: expiration_days
+        value: '{{ expiration_days }}'
+      - name: fields
         value:
-          - Name: '{{ Name }}'
-            ObjectTypeField:
-              Source: '{{ Source }}'
-              Target: '{{ Target }}'
-              ContentType: '{{ ContentType }}'
-      - name: Keys
+          - name: '{{ name }}'
+            object_type_field:
+              source: '{{ source }}'
+              target: '{{ target }}'
+              content_type: '{{ content_type }}'
+      - name: keys
         value:
-          - Name: '{{ Name }}'
-            ObjectTypeKeyList:
-              - FieldNames:
-                  - '{{ FieldNames[0] }}'
-                StandardIdentifiers:
-                  - '{{ StandardIdentifiers[0] }}'
-      - name: SourceLastUpdatedTimestampFormat
-        value: '{{ SourceLastUpdatedTimestampFormat }}'
-      - name: Tags
+          - name: '{{ name }}'
+            object_type_key_list:
+              - field_names:
+                  - '{{ field_names[0] }}'
+                standard_identifiers:
+                  - '{{ standard_identifiers[0] }}'
+      - name: source_last_updated_timestamp_format
+        value: '{{ source_last_updated_timestamp_format }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TemplateId
-        value: '{{ TemplateId }}'
-      - name: MaxProfileObjectCount
-        value: '{{ MaxProfileObjectCount }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: template_id
+        value: '{{ template_id }}'
+      - name: max_profile_object_count
+        value: '{{ max_profile_object_count }}'
 ```
 </TabItem>
 </Tabs>
@@ -445,7 +444,7 @@ SET PatchDocument = string('{{ {
     "MaxProfileObjectCount": max_profile_object_count
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<ObjectTypeName>';
+AND Identifier = '{{ domain_name }}|{{ object_type_name }}';
 ```
 
 
@@ -454,7 +453,7 @@ AND Identifier = '<DomainName>|<ObjectTypeName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.customerprofiles.object_types
-WHERE Identifier = '<DomainName|ObjectTypeName>'
+WHERE Identifier = '{{ domain_name }}|{{ object_type_name }}'
 AND region = 'us-east-1';
 ```
 

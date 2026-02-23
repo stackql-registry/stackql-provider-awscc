@@ -258,7 +258,7 @@ signature_version,
 tracing_config,
 delivery_status_logging
 FROM awscc.sns.topics
-WHERE region = 'us-east-1' AND Identifier = '<TopicArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ topic_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -306,20 +306,20 @@ INSERT INTO awscc.sns.topics (
  DeliveryStatusLogging,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ KmsMasterKeyId }}',
- '{{ DataProtectionPolicy }}',
- '{{ Subscription }}',
- '{{ FifoTopic }}',
- '{{ ContentBasedDeduplication }}',
- '{{ ArchivePolicy }}',
- '{{ FifoThroughputScope }}',
- '{{ Tags }}',
- '{{ TopicName }}',
- '{{ SignatureVersion }}',
- '{{ TracingConfig }}',
- '{{ DeliveryStatusLogging }}',
+SELECT
+'{{ display_name }}',
+ '{{ kms_master_key_id }}',
+ '{{ data_protection_policy }}',
+ '{{ subscription }}',
+ '{{ fifo_topic }}',
+ '{{ content_based_deduplication }}',
+ '{{ archive_policy }}',
+ '{{ fifo_throughput_scope }}',
+ '{{ tags }}',
+ '{{ topic_name }}',
+ '{{ signature_version }}',
+ '{{ tracing_config }}',
+ '{{ delivery_status_logging }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,20 +343,20 @@ INSERT INTO awscc.sns.topics (
  DeliveryStatusLogging,
  region
 )
-SELECT 
- '{{ DisplayName }}',
- '{{ KmsMasterKeyId }}',
- '{{ DataProtectionPolicy }}',
- '{{ Subscription }}',
- '{{ FifoTopic }}',
- '{{ ContentBasedDeduplication }}',
- '{{ ArchivePolicy }}',
- '{{ FifoThroughputScope }}',
- '{{ Tags }}',
- '{{ TopicName }}',
- '{{ SignatureVersion }}',
- '{{ TracingConfig }}',
- '{{ DeliveryStatusLogging }}',
+SELECT
+ '{{ display_name }}',
+ '{{ kms_master_key_id }}',
+ '{{ data_protection_policy }}',
+ '{{ subscription }}',
+ '{{ fifo_topic }}',
+ '{{ content_based_deduplication }}',
+ '{{ archive_policy }}',
+ '{{ fifo_throughput_scope }}',
+ '{{ tags }}',
+ '{{ topic_name }}',
+ '{{ signature_version }}',
+ '{{ tracing_config }}',
+ '{{ delivery_status_logging }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -374,41 +374,40 @@ globals:
 resources:
   - name: topic
     props:
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: KmsMasterKeyId
-        value: '{{ KmsMasterKeyId }}'
-      - name: DataProtectionPolicy
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: kms_master_key_id
+        value: '{{ kms_master_key_id }}'
+      - name: data_protection_policy
         value: {}
-      - name: Subscription
+      - name: subscription
         value:
-          - Endpoint: '{{ Endpoint }}'
-            Protocol: '{{ Protocol }}'
-      - name: FifoTopic
-        value: '{{ FifoTopic }}'
-      - name: ContentBasedDeduplication
-        value: '{{ ContentBasedDeduplication }}'
-      - name: ArchivePolicy
+          - endpoint: '{{ endpoint }}'
+            protocol: '{{ protocol }}'
+      - name: fifo_topic
+        value: '{{ fifo_topic }}'
+      - name: content_based_deduplication
+        value: '{{ content_based_deduplication }}'
+      - name: archive_policy
         value: {}
-      - name: FifoThroughputScope
-        value: '{{ FifoThroughputScope }}'
-      - name: Tags
+      - name: fifo_throughput_scope
+        value: '{{ fifo_throughput_scope }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TopicName
-        value: '{{ TopicName }}'
-      - name: SignatureVersion
-        value: '{{ SignatureVersion }}'
-      - name: TracingConfig
-        value: '{{ TracingConfig }}'
-      - name: DeliveryStatusLogging
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: topic_name
+        value: '{{ topic_name }}'
+      - name: signature_version
+        value: '{{ signature_version }}'
+      - name: tracing_config
+        value: '{{ tracing_config }}'
+      - name: delivery_status_logging
         value:
-          - Protocol: '{{ Protocol }}'
-            SuccessFeedbackRoleArn: '{{ SuccessFeedbackRoleArn }}'
-            SuccessFeedbackSampleRate: '{{ SuccessFeedbackSampleRate }}'
-            FailureFeedbackRoleArn: '{{ FailureFeedbackRoleArn }}'
-
+          - protocol: '{{ protocol }}'
+            success_feedback_role_arn: '{{ success_feedback_role_arn }}'
+            success_feedback_sample_rate: '{{ success_feedback_sample_rate }}'
+            failure_feedback_role_arn: '{{ failure_feedback_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -434,7 +433,7 @@ SET PatchDocument = string('{{ {
     "DeliveryStatusLogging": delivery_status_logging
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TopicArn>';
+AND Identifier = '{{ topic_arn }}';
 ```
 
 
@@ -443,7 +442,7 @@ AND Identifier = '<TopicArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sns.topics
-WHERE Identifier = '<TopicArn>'
+WHERE Identifier = '{{ topic_arn }}'
 AND region = 'us-east-1';
 ```
 

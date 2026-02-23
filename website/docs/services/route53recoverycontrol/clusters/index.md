@@ -188,7 +188,7 @@ cluster_endpoints,
 tags,
 network_type
 FROM awscc.route53recoverycontrol.clusters
-WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.route53recoverycontrol.clusters (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,10 +239,10 @@ INSERT INTO awscc.route53recoverycontrol.clusters (
  NetworkType,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ NetworkType }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ network_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,15 +260,14 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: network_type
+        value: '{{ network_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "NetworkType": network_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterArn>';
+AND Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.clusters
-WHERE Identifier = '<ClusterArn>'
+WHERE Identifier = '{{ cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

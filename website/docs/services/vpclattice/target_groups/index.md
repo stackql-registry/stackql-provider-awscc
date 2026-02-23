@@ -308,7 +308,7 @@ type,
 targets,
 tags
 FROM awscc.vpclattice.target_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -344,8 +344,8 @@ INSERT INTO awscc.vpclattice.target_groups (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -361,12 +361,12 @@ INSERT INTO awscc.vpclattice.target_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Config }}',
- '{{ Name }}',
- '{{ Type }}',
- '{{ Targets }}',
- '{{ Tags }}',
+SELECT
+ '{{ config }}',
+ '{{ name }}',
+ '{{ type }}',
+ '{{ targets }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -384,39 +384,38 @@ globals:
 resources:
   - name: target_group
     props:
-      - name: Config
+      - name: config
         value:
-          Port: '{{ Port }}'
-          Protocol: '{{ Protocol }}'
-          ProtocolVersion: '{{ ProtocolVersion }}'
-          IpAddressType: '{{ IpAddressType }}'
-          LambdaEventStructureVersion: '{{ LambdaEventStructureVersion }}'
-          VpcIdentifier: '{{ VpcIdentifier }}'
-          HealthCheck:
-            Enabled: '{{ Enabled }}'
-            Protocol: '{{ Protocol }}'
-            ProtocolVersion: '{{ ProtocolVersion }}'
-            Port: '{{ Port }}'
-            Path: '{{ Path }}'
-            HealthCheckIntervalSeconds: '{{ HealthCheckIntervalSeconds }}'
-            HealthCheckTimeoutSeconds: '{{ HealthCheckTimeoutSeconds }}'
-            HealthyThresholdCount: '{{ HealthyThresholdCount }}'
-            UnhealthyThresholdCount: '{{ UnhealthyThresholdCount }}'
-            Matcher:
-              HttpCode: '{{ HttpCode }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Targets
+          port: '{{ port }}'
+          protocol: '{{ protocol }}'
+          protocol_version: '{{ protocol_version }}'
+          ip_address_type: '{{ ip_address_type }}'
+          lambda_event_structure_version: '{{ lambda_event_structure_version }}'
+          vpc_identifier: '{{ vpc_identifier }}'
+          health_check:
+            enabled: '{{ enabled }}'
+            protocol: '{{ protocol }}'
+            protocol_version: '{{ protocol_version }}'
+            port: '{{ port }}'
+            path: '{{ path }}'
+            health_check_interval_seconds: '{{ health_check_interval_seconds }}'
+            health_check_timeout_seconds: '{{ health_check_timeout_seconds }}'
+            healthy_threshold_count: '{{ healthy_threshold_count }}'
+            unhealthy_threshold_count: '{{ unhealthy_threshold_count }}'
+            matcher:
+              http_code: '{{ http_code }}'
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: targets
         value:
-          - Id: '{{ Id }}'
-            Port: '{{ Port }}'
-      - name: Tags
+          - id: '{{ id }}'
+            port: '{{ port }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -433,7 +432,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -442,7 +441,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.target_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

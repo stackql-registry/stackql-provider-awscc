@@ -316,7 +316,7 @@ delete_all_policy_resources,
 resources_clean_up,
 tags
 FROM awscc.fms.policies
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -355,11 +355,11 @@ INSERT INTO awscc.fms.policies (
  SecurityServicePolicyData,
  region
 )
-SELECT 
-'{{ ExcludeResourceTags }}',
- '{{ PolicyName }}',
- '{{ RemediationEnabled }}',
- '{{ SecurityServicePolicyData }}',
+SELECT
+'{{ exclude_resource_tags }}',
+ '{{ policy_name }}',
+ '{{ remediation_enabled }}',
+ '{{ security_service_policy_data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -385,22 +385,22 @@ INSERT INTO awscc.fms.policies (
  Tags,
  region
 )
-SELECT 
- '{{ ExcludeMap }}',
- '{{ ExcludeResourceTags }}',
- '{{ IncludeMap }}',
- '{{ PolicyName }}',
- '{{ PolicyDescription }}',
- '{{ RemediationEnabled }}',
- '{{ ResourceTags }}',
- '{{ ResourceTagLogicalOperator }}',
- '{{ ResourceType }}',
- '{{ ResourceTypeList }}',
- '{{ ResourceSetIds }}',
- '{{ SecurityServicePolicyData }}',
- '{{ DeleteAllPolicyResources }}',
- '{{ ResourcesCleanUp }}',
- '{{ Tags }}',
+SELECT
+ '{{ exclude_map }}',
+ '{{ exclude_resource_tags }}',
+ '{{ include_map }}',
+ '{{ policy_name }}',
+ '{{ policy_description }}',
+ '{{ remediation_enabled }}',
+ '{{ resource_tags }}',
+ '{{ resource_tag_logical_operator }}',
+ '{{ resource_type }}',
+ '{{ resource_type_list }}',
+ '{{ resource_set_ids }}',
+ '{{ security_service_policy_data }}',
+ '{{ delete_all_policy_resources }}',
+ '{{ resources_clean_up }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -418,71 +418,70 @@ globals:
 resources:
   - name: policy
     props:
-      - name: ExcludeMap
+      - name: exclude_map
         value:
-          ACCOUNT:
-            - '{{ ACCOUNT[0] }}'
-          ORGUNIT:
-            - '{{ ORGUNIT[0] }}'
-      - name: ExcludeResourceTags
-        value: '{{ ExcludeResourceTags }}'
-      - name: IncludeMap
+          a_cc_ou_nt:
+            - '{{ a_cc_ou_nt[0] }}'
+          o_rg_un_it:
+            - '{{ o_rg_un_it[0] }}'
+      - name: exclude_resource_tags
+        value: '{{ exclude_resource_tags }}'
+      - name: include_map
         value: null
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: PolicyDescription
-        value: '{{ PolicyDescription }}'
-      - name: RemediationEnabled
-        value: '{{ RemediationEnabled }}'
-      - name: ResourceTags
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: policy_description
+        value: '{{ policy_description }}'
+      - name: remediation_enabled
+        value: '{{ remediation_enabled }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ResourceTagLogicalOperator
-        value: '{{ ResourceTagLogicalOperator }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: ResourceTypeList
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: resource_tag_logical_operator
+        value: '{{ resource_tag_logical_operator }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: resource_type_list
         value:
           - null
-      - name: ResourceSetIds
+      - name: resource_set_ids
         value:
-          - '{{ ResourceSetIds[0] }}'
-      - name: SecurityServicePolicyData
+          - '{{ resource_set_ids[0] }}'
+      - name: security_service_policy_data
         value:
-          ManagedServiceData: '{{ ManagedServiceData }}'
-          Type: '{{ Type }}'
-          PolicyOption:
-            NetworkFirewallPolicy:
-              FirewallDeploymentModel: '{{ FirewallDeploymentModel }}'
-            ThirdPartyFirewallPolicy:
-              FirewallDeploymentModel: null
-            NetworkAclCommonPolicy:
-              NetworkAclEntrySet:
-                FirstEntries:
-                  - CidrBlock: '{{ CidrBlock }}'
-                    Egress: '{{ Egress }}'
-                    IcmpTypeCode:
-                      Code: '{{ Code }}'
-                      Type: '{{ Type }}'
-                    Ipv6CidrBlock: '{{ Ipv6CidrBlock }}'
-                    PortRange:
-                      From: '{{ From }}'
-                      To: '{{ To }}'
-                    Protocol: '{{ Protocol }}'
-                    RuleAction: '{{ RuleAction }}'
-                ForceRemediateForFirstEntries: '{{ ForceRemediateForFirstEntries }}'
-                LastEntries: null
-                ForceRemediateForLastEntries: '{{ ForceRemediateForLastEntries }}'
-      - name: DeleteAllPolicyResources
-        value: '{{ DeleteAllPolicyResources }}'
-      - name: ResourcesCleanUp
-        value: '{{ ResourcesCleanUp }}'
-      - name: Tags
+          managed_service_data: '{{ managed_service_data }}'
+          type: '{{ type }}'
+          policy_option:
+            network_firewall_policy:
+              firewall_deployment_model: '{{ firewall_deployment_model }}'
+            third_party_firewall_policy:
+              firewall_deployment_model: null
+            network_acl_common_policy:
+              network_acl_entry_set:
+                first_entries:
+                  - cidr_block: '{{ cidr_block }}'
+                    egress: '{{ egress }}'
+                    icmp_type_code:
+                      code: '{{ code }}'
+                      type: '{{ type }}'
+                    ipv6_cidr_block: '{{ ipv6_cidr_block }}'
+                    port_range:
+                      from: '{{ from }}'
+                      to: '{{ to }}'
+                    protocol: '{{ protocol }}'
+                    rule_action: '{{ rule_action }}'
+                force_remediate_for_first_entries: '{{ force_remediate_for_first_entries }}'
+                last_entries: null
+                force_remediate_for_last_entries: '{{ force_remediate_for_last_entries }}'
+      - name: delete_all_policy_resources
+        value: '{{ delete_all_policy_resources }}'
+      - name: resources_clean_up
+        value: '{{ resources_clean_up }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -512,7 +511,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -521,7 +520,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fms.policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

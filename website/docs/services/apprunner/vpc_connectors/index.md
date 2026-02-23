@@ -170,7 +170,7 @@ subnets,
 security_groups,
 tags
 FROM awscc.apprunner.vpc_connectors
-WHERE region = 'us-east-1' AND Identifier = '<VpcConnectorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_connector_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.apprunner.vpc_connectors (
  Subnets,
  region
 )
-SELECT 
-'{{ Subnets }}',
+SELECT
+'{{ subnets }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.apprunner.vpc_connectors (
  Tags,
  region
 )
-SELECT 
- '{{ VpcConnectorName }}',
- '{{ Subnets }}',
- '{{ SecurityGroups }}',
- '{{ Tags }}',
+SELECT
+ '{{ vpc_connector_name }}',
+ '{{ subnets }}',
+ '{{ security_groups }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,19 +244,18 @@ globals:
 resources:
   - name: vpc_connector
     props:
-      - name: VpcConnectorName
-        value: '{{ VpcConnectorName }}'
-      - name: Subnets
+      - name: vpc_connector_name
+        value: '{{ vpc_connector_name }}'
+      - name: subnets
         value:
-          - '{{ Subnets[0] }}'
-      - name: SecurityGroups
+          - '{{ subnets[0] }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: Tags
+          - '{{ security_groups[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apprunner.vpc_connectors
-WHERE Identifier = '<VpcConnectorArn>'
+WHERE Identifier = '{{ vpc_connector_arn }}'
 AND region = 'us-east-1';
 ```
 

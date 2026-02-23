@@ -163,7 +163,7 @@ account_id,
 proactive_engagement_status,
 emergency_contact_list
 FROM awscc.shield.proactive_engagements
-WHERE Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -174,7 +174,7 @@ SELECT
 region,
 account_id
 FROM awscc.shield.proactive_engagements_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -200,9 +200,9 @@ INSERT INTO awscc.shield.proactive_engagements (
  EmergencyContactList,
  region
 )
-SELECT 
-'{{ ProactiveEngagementStatus }}',
- '{{ EmergencyContactList }}',
+SELECT
+'{{ proactive_engagement_status }}',
+ '{{ emergency_contact_list }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,9 +215,9 @@ INSERT INTO awscc.shield.proactive_engagements (
  EmergencyContactList,
  region
 )
-SELECT 
- '{{ ProactiveEngagementStatus }}',
- '{{ EmergencyContactList }}',
+SELECT
+ '{{ proactive_engagement_status }}',
+ '{{ emergency_contact_list }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -235,14 +235,13 @@ globals:
 resources:
   - name: proactive_engagement
     props:
-      - name: ProactiveEngagementStatus
-        value: '{{ ProactiveEngagementStatus }}'
-      - name: EmergencyContactList
+      - name: proactive_engagement_status
+        value: '{{ proactive_engagement_status }}'
+      - name: emergency_contact_list
         value:
-          - ContactNotes: '{{ ContactNotes }}'
-            EmailAddress: '{{ EmailAddress }}'
-            PhoneNumber: '{{ PhoneNumber }}'
-
+          - contact_notes: '{{ contact_notes }}'
+            email_address: '{{ email_address }}'
+            phone_number: '{{ phone_number }}'
 ```
 </TabItem>
 </Tabs>
@@ -259,7 +258,7 @@ SET PatchDocument = string('{{ {
     "EmergencyContactList": emergency_contact_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -268,7 +267,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.shield.proactive_engagements
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

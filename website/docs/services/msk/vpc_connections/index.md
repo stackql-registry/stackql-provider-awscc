@@ -170,7 +170,7 @@ security_groups,
 tags,
 vpc_id
 FROM awscc.msk.vpc_connections
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -210,12 +210,12 @@ INSERT INTO awscc.msk.vpc_connections (
  VpcId,
  region
 )
-SELECT 
-'{{ Authentication }}',
- '{{ ClientSubnets }}',
- '{{ TargetClusterArn }}',
- '{{ SecurityGroups }}',
- '{{ VpcId }}',
+SELECT
+'{{ authentication }}',
+ '{{ client_subnets }}',
+ '{{ target_cluster_arn }}',
+ '{{ security_groups }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,13 +232,13 @@ INSERT INTO awscc.msk.vpc_connections (
  VpcId,
  region
 )
-SELECT 
- '{{ Authentication }}',
- '{{ ClientSubnets }}',
- '{{ TargetClusterArn }}',
- '{{ SecurityGroups }}',
- '{{ Tags }}',
- '{{ VpcId }}',
+SELECT
+ '{{ authentication }}',
+ '{{ client_subnets }}',
+ '{{ target_cluster_arn }}',
+ '{{ security_groups }}',
+ '{{ tags }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,21 +256,20 @@ globals:
 resources:
   - name: vpc_connection
     props:
-      - name: Authentication
-        value: '{{ Authentication }}'
-      - name: ClientSubnets
+      - name: authentication
+        value: '{{ authentication }}'
+      - name: client_subnets
         value:
-          - '{{ ClientSubnets[0] }}'
-      - name: TargetClusterArn
-        value: '{{ TargetClusterArn }}'
-      - name: SecurityGroups
+          - '{{ client_subnets[0] }}'
+      - name: target_cluster_arn
+        value: '{{ target_cluster_arn }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: Tags
+          - '{{ security_groups[0] }}'
+      - name: tags
         value: {}
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.vpc_connections
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

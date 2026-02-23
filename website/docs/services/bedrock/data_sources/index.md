@@ -616,7 +616,7 @@ created_at,
 updated_at,
 failure_reasons
 FROM awscc.bedrock.data_sources
-WHERE region = 'us-east-1' AND Identifier = '<KnowledgeBaseId>|<DataSourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -655,10 +655,10 @@ INSERT INTO awscc.bedrock.data_sources (
  Name,
  region
 )
-SELECT 
-'{{ DataSourceConfiguration }}',
- '{{ KnowledgeBaseId }}',
- '{{ Name }}',
+SELECT
+'{{ data_source_configuration }}',
+ '{{ knowledge_base_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -676,14 +676,14 @@ INSERT INTO awscc.bedrock.data_sources (
  DataDeletionPolicy,
  region
 )
-SELECT 
- '{{ DataSourceConfiguration }}',
- '{{ Description }}',
- '{{ KnowledgeBaseId }}',
- '{{ Name }}',
- '{{ ServerSideEncryptionConfiguration }}',
- '{{ VectorIngestionConfiguration }}',
- '{{ DataDeletionPolicy }}',
+SELECT
+ '{{ data_source_configuration }}',
+ '{{ description }}',
+ '{{ knowledge_base_id }}',
+ '{{ name }}',
+ '{{ server_side_encryption_configuration }}',
+ '{{ vector_ingestion_configuration }}',
+ '{{ data_deletion_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -701,112 +701,111 @@ globals:
 resources:
   - name: data_source
     props:
-      - name: DataSourceConfiguration
+      - name: data_source_configuration
         value:
-          Type: '{{ Type }}'
-          S3Configuration:
-            BucketArn: '{{ BucketArn }}'
-            InclusionPrefixes:
-              - '{{ InclusionPrefixes[0] }}'
-            BucketOwnerAccountId: '{{ BucketOwnerAccountId }}'
-          ConfluenceConfiguration:
-            SourceConfiguration:
-              HostUrl: '{{ HostUrl }}'
-              HostType: '{{ HostType }}'
-              AuthType: '{{ AuthType }}'
-              CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-            CrawlerConfiguration:
-              FilterConfiguration:
-                Type: '{{ Type }}'
-                PatternObjectFilter:
-                  Filters:
-                    - ObjectType: '{{ ObjectType }}'
-                      InclusionFilters:
-                        - '{{ InclusionFilters[0] }}'
-                      ExclusionFilters: null
-          SalesforceConfiguration:
-            SourceConfiguration:
-              HostUrl: '{{ HostUrl }}'
-              AuthType: '{{ AuthType }}'
-              CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-            CrawlerConfiguration:
-              FilterConfiguration: null
-          SharePointConfiguration:
-            SourceConfiguration:
-              SiteUrls:
-                - '{{ SiteUrls[0] }}'
-              HostType: '{{ HostType }}'
-              AuthType: '{{ AuthType }}'
-              CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-              TenantId: '{{ TenantId }}'
-              Domain: '{{ Domain }}'
-            CrawlerConfiguration:
-              FilterConfiguration: null
-          WebConfiguration:
-            SourceConfiguration:
-              UrlConfiguration:
-                SeedUrls:
-                  - Url: '{{ Url }}'
-            CrawlerConfiguration:
-              CrawlerLimits:
-                RateLimit: '{{ RateLimit }}'
-                MaxPages: '{{ MaxPages }}'
-              InclusionFilters: null
-              ExclusionFilters: null
-              Scope: '{{ Scope }}'
-              UserAgent: '{{ UserAgent }}'
-              UserAgentHeader: '{{ UserAgentHeader }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KnowledgeBaseId
-        value: '{{ KnowledgeBaseId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ServerSideEncryptionConfiguration
+          type: '{{ type }}'
+          s3_configuration:
+            bucket_arn: '{{ bucket_arn }}'
+            inclusion_prefixes:
+              - '{{ inclusion_prefixes[0] }}'
+            bucket_owner_account_id: '{{ bucket_owner_account_id }}'
+          confluence_configuration:
+            source_configuration:
+              host_url: '{{ host_url }}'
+              host_type: '{{ host_type }}'
+              auth_type: '{{ auth_type }}'
+              credentials_secret_arn: '{{ credentials_secret_arn }}'
+            crawler_configuration:
+              filter_configuration:
+                type: '{{ type }}'
+                pattern_object_filter:
+                  filters:
+                    - object_type: '{{ object_type }}'
+                      inclusion_filters:
+                        - '{{ inclusion_filters[0] }}'
+                      exclusion_filters: null
+          salesforce_configuration:
+            source_configuration:
+              host_url: '{{ host_url }}'
+              auth_type: '{{ auth_type }}'
+              credentials_secret_arn: '{{ credentials_secret_arn }}'
+            crawler_configuration:
+              filter_configuration: null
+          share_point_configuration:
+            source_configuration:
+              site_urls:
+                - '{{ site_urls[0] }}'
+              host_type: '{{ host_type }}'
+              auth_type: '{{ auth_type }}'
+              credentials_secret_arn: '{{ credentials_secret_arn }}'
+              tenant_id: '{{ tenant_id }}'
+              domain: '{{ domain }}'
+            crawler_configuration:
+              filter_configuration: null
+          web_configuration:
+            source_configuration:
+              url_configuration:
+                seed_urls:
+                  - url: '{{ url }}'
+            crawler_configuration:
+              crawler_limits:
+                rate_limit: '{{ rate_limit }}'
+                max_pages: '{{ max_pages }}'
+              inclusion_filters: null
+              exclusion_filters: null
+              scope: '{{ scope }}'
+              user_agent: '{{ user_agent }}'
+              user_agent_header: '{{ user_agent_header }}'
+      - name: description
+        value: '{{ description }}'
+      - name: knowledge_base_id
+        value: '{{ knowledge_base_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: server_side_encryption_configuration
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: VectorIngestionConfiguration
+          kms_key_arn: '{{ kms_key_arn }}'
+      - name: vector_ingestion_configuration
         value:
-          ChunkingConfiguration:
-            ChunkingStrategy: '{{ ChunkingStrategy }}'
-            FixedSizeChunkingConfiguration:
-              MaxTokens: '{{ MaxTokens }}'
-              OverlapPercentage: '{{ OverlapPercentage }}'
-            HierarchicalChunkingConfiguration:
-              LevelConfigurations:
-                - MaxTokens: '{{ MaxTokens }}'
-              OverlapTokens: '{{ OverlapTokens }}'
-            SemanticChunkingConfiguration:
-              BreakpointPercentileThreshold: '{{ BreakpointPercentileThreshold }}'
-              BufferSize: '{{ BufferSize }}'
-              MaxTokens: '{{ MaxTokens }}'
-          CustomTransformationConfiguration:
-            IntermediateStorage:
-              S3Location:
-                URI: '{{ URI }}'
-            Transformations:
-              - StepToApply: '{{ StepToApply }}'
-                TransformationFunction:
-                  TransformationLambdaConfiguration:
-                    LambdaArn: '{{ LambdaArn }}'
-          ParsingConfiguration:
-            ParsingStrategy: '{{ ParsingStrategy }}'
-            BedrockFoundationModelConfiguration:
-              ModelArn: '{{ ModelArn }}'
-              ParsingPrompt:
-                ParsingPromptText: '{{ ParsingPromptText }}'
-              ParsingModality: '{{ ParsingModality }}'
-            BedrockDataAutomationConfiguration:
-              ParsingModality: null
-          ContextEnrichmentConfiguration:
-            Type: '{{ Type }}'
-            BedrockFoundationModelConfiguration:
-              EnrichmentStrategyConfiguration:
-                Method: '{{ Method }}'
-              ModelArn: null
-      - name: DataDeletionPolicy
-        value: '{{ DataDeletionPolicy }}'
-
+          chunking_configuration:
+            chunking_strategy: '{{ chunking_strategy }}'
+            fixed_size_chunking_configuration:
+              max_tokens: '{{ max_tokens }}'
+              overlap_percentage: '{{ overlap_percentage }}'
+            hierarchical_chunking_configuration:
+              level_configurations:
+                - max_tokens: '{{ max_tokens }}'
+              overlap_tokens: '{{ overlap_tokens }}'
+            semantic_chunking_configuration:
+              breakpoint_percentile_threshold: '{{ breakpoint_percentile_threshold }}'
+              buffer_size: '{{ buffer_size }}'
+              max_tokens: '{{ max_tokens }}'
+          custom_transformation_configuration:
+            intermediate_storage:
+              s3_location:
+                uri: '{{ uri }}'
+            transformations:
+              - step_to_apply: '{{ step_to_apply }}'
+                transformation_function:
+                  transformation_lambda_configuration:
+                    lambda_arn: '{{ lambda_arn }}'
+          parsing_configuration:
+            parsing_strategy: '{{ parsing_strategy }}'
+            bedrock_foundation_model_configuration:
+              model_arn: '{{ model_arn }}'
+              parsing_prompt:
+                parsing_prompt_text: '{{ parsing_prompt_text }}'
+              parsing_modality: '{{ parsing_modality }}'
+            bedrock_data_automation_configuration:
+              parsing_modality: null
+          context_enrichment_configuration:
+            type: '{{ type }}'
+            bedrock_foundation_model_configuration:
+              enrichment_strategy_configuration:
+                method: '{{ method }}'
+              model_arn: null
+      - name: data_deletion_policy
+        value: '{{ data_deletion_policy }}'
 ```
 </TabItem>
 </Tabs>
@@ -825,7 +824,7 @@ SET PatchDocument = string('{{ {
     "DataDeletionPolicy": data_deletion_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KnowledgeBaseId>|<DataSourceId>';
+AND Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}';
 ```
 
 
@@ -834,7 +833,7 @@ AND Identifier = '<KnowledgeBaseId>|<DataSourceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.data_sources
-WHERE Identifier = '<KnowledgeBaseId|DataSourceId>'
+WHERE Identifier = '{{ knowledge_base_id }}|{{ data_source_id }}'
 AND region = 'us-east-1';
 ```
 

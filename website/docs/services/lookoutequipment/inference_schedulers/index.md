@@ -265,7 +265,7 @@ server_side_kms_key_id,
 tags,
 inference_scheduler_arn
 FROM awscc.lookoutequipment.inference_schedulers
-WHERE region = 'us-east-1' AND Identifier = '<InferenceSchedulerName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ inference_scheduler_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -305,12 +305,12 @@ INSERT INTO awscc.lookoutequipment.inference_schedulers (
  RoleArn,
  region
 )
-SELECT 
-'{{ DataInputConfiguration }}',
- '{{ DataOutputConfiguration }}',
- '{{ DataUploadFrequency }}',
- '{{ ModelName }}',
- '{{ RoleArn }}',
+SELECT
+'{{ data_input_configuration }}',
+ '{{ data_output_configuration }}',
+ '{{ data_upload_frequency }}',
+ '{{ model_name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -330,16 +330,16 @@ INSERT INTO awscc.lookoutequipment.inference_schedulers (
  Tags,
  region
 )
-SELECT 
- '{{ DataDelayOffsetInMinutes }}',
- '{{ DataInputConfiguration }}',
- '{{ DataOutputConfiguration }}',
- '{{ DataUploadFrequency }}',
- '{{ InferenceSchedulerName }}',
- '{{ ModelName }}',
- '{{ RoleArn }}',
- '{{ ServerSideKmsKeyId }}',
- '{{ Tags }}',
+SELECT
+ '{{ data_delay_offset_in_minutes }}',
+ '{{ data_input_configuration }}',
+ '{{ data_output_configuration }}',
+ '{{ data_upload_frequency }}',
+ '{{ inference_scheduler_name }}',
+ '{{ model_name }}',
+ '{{ role_arn }}',
+ '{{ server_side_kms_key_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -357,38 +357,37 @@ globals:
 resources:
   - name: inference_scheduler
     props:
-      - name: DataDelayOffsetInMinutes
-        value: '{{ DataDelayOffsetInMinutes }}'
-      - name: DataInputConfiguration
+      - name: data_delay_offset_in_minutes
+        value: '{{ data_delay_offset_in_minutes }}'
+      - name: data_input_configuration
         value:
-          InputTimeZoneOffset: '{{ InputTimeZoneOffset }}'
-          InferenceInputNameConfiguration:
-            ComponentTimestampDelimiter: '{{ ComponentTimestampDelimiter }}'
-            TimestampFormat: '{{ TimestampFormat }}'
-          S3InputConfiguration:
-            Bucket: '{{ Bucket }}'
-            Prefix: '{{ Prefix }}'
-      - name: DataOutputConfiguration
+          input_time_zone_offset: '{{ input_time_zone_offset }}'
+          inference_input_name_configuration:
+            component_timestamp_delimiter: '{{ component_timestamp_delimiter }}'
+            timestamp_format: '{{ timestamp_format }}'
+          s3_input_configuration:
+            bucket: '{{ bucket }}'
+            prefix: '{{ prefix }}'
+      - name: data_output_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          S3OutputConfiguration:
-            Bucket: null
-            Prefix: null
-      - name: DataUploadFrequency
-        value: '{{ DataUploadFrequency }}'
-      - name: InferenceSchedulerName
-        value: '{{ InferenceSchedulerName }}'
-      - name: ModelName
-        value: '{{ ModelName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: ServerSideKmsKeyId
-        value: '{{ ServerSideKmsKeyId }}'
-      - name: Tags
+          kms_key_id: '{{ kms_key_id }}'
+          s3_output_configuration:
+            bucket: null
+            prefix: null
+      - name: data_upload_frequency
+        value: '{{ data_upload_frequency }}'
+      - name: inference_scheduler_name
+        value: '{{ inference_scheduler_name }}'
+      - name: model_name
+        value: '{{ model_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: server_side_kms_key_id
+        value: '{{ server_side_kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -409,7 +408,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InferenceSchedulerName>';
+AND Identifier = '{{ inference_scheduler_name }}';
 ```
 
 
@@ -418,7 +417,7 @@ AND Identifier = '<InferenceSchedulerName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lookoutequipment.inference_schedulers
-WHERE Identifier = '<InferenceSchedulerName>'
+WHERE Identifier = '{{ inference_scheduler_name }}'
 AND region = 'us-east-1';
 ```
 

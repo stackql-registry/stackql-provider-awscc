@@ -164,7 +164,7 @@ studio_lifecycle_config_content,
 studio_lifecycle_config_name,
 tags
 FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE region = 'us-east-1' AND Identifier = '<StudioLifecycleConfigName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ studio_lifecycle_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.sagemaker.studio_lifecycle_configs (
  StudioLifecycleConfigName,
  region
 )
-SELECT 
-'{{ StudioLifecycleConfigAppType }}',
- '{{ StudioLifecycleConfigContent }}',
- '{{ StudioLifecycleConfigName }}',
+SELECT
+'{{ studio_lifecycle_config_app_type }}',
+ '{{ studio_lifecycle_config_content }}',
+ '{{ studio_lifecycle_config_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,11 +220,11 @@ INSERT INTO awscc.sagemaker.studio_lifecycle_configs (
  Tags,
  region
 )
-SELECT 
- '{{ StudioLifecycleConfigAppType }}',
- '{{ StudioLifecycleConfigContent }}',
- '{{ StudioLifecycleConfigName }}',
- '{{ Tags }}',
+SELECT
+ '{{ studio_lifecycle_config_app_type }}',
+ '{{ studio_lifecycle_config_content }}',
+ '{{ studio_lifecycle_config_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,17 +242,16 @@ globals:
 resources:
   - name: studio_lifecycle_config
     props:
-      - name: StudioLifecycleConfigAppType
-        value: '{{ StudioLifecycleConfigAppType }}'
-      - name: StudioLifecycleConfigContent
-        value: '{{ StudioLifecycleConfigContent }}'
-      - name: StudioLifecycleConfigName
-        value: '{{ StudioLifecycleConfigName }}'
-      - name: Tags
+      - name: studio_lifecycle_config_app_type
+        value: '{{ studio_lifecycle_config_app_type }}'
+      - name: studio_lifecycle_config_content
+        value: '{{ studio_lifecycle_config_content }}'
+      - name: studio_lifecycle_config_name
+        value: '{{ studio_lifecycle_config_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.studio_lifecycle_configs
-WHERE Identifier = '<StudioLifecycleConfigName>'
+WHERE Identifier = '{{ studio_lifecycle_config_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -181,7 +181,7 @@ type,
 user_identifier,
 user_type
 FROM awscc.datazone.user_profiles
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.datazone.user_profiles (
  UserIdentifier,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ UserIdentifier }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ user_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.datazone.user_profiles (
  UserType,
  region
 )
-SELECT 
- '{{ DomainIdentifier }}',
- '{{ Status }}',
- '{{ UserIdentifier }}',
- '{{ UserType }}',
+SELECT
+ '{{ domain_identifier }}',
+ '{{ status }}',
+ '{{ user_identifier }}',
+ '{{ user_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,15 +258,14 @@ globals:
 resources:
   - name: user_profile
     props:
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: UserIdentifier
-        value: '{{ UserIdentifier }}'
-      - name: UserType
-        value: '{{ UserType }}'
-
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: status
+        value: '{{ status }}'
+      - name: user_identifier
+        value: '{{ user_identifier }}'
+      - name: user_type
+        value: '{{ user_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +281,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -291,7 +290,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.user_profiles
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -210,7 +210,7 @@ arn,
 id,
 size_on_disk
 FROM awscc.gamelift.scripts
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,8 +246,8 @@ INSERT INTO awscc.gamelift.scripts (
  StorageLocation,
  region
 )
-SELECT 
-'{{ StorageLocation }}',
+SELECT
+'{{ storage_location }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,11 +262,11 @@ INSERT INTO awscc.gamelift.scripts (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ StorageLocation }}',
- '{{ Version }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ storage_location }}',
+ '{{ version }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,21 +284,20 @@ globals:
 resources:
   - name: script
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: StorageLocation
+      - name: name
+        value: '{{ name }}'
+      - name: storage_location
         value:
-          Bucket: '{{ Bucket }}'
-          Key: '{{ Key }}'
-          ObjectVersion: '{{ ObjectVersion }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Tags
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+          object_version: '{{ object_version }}'
+          role_arn: '{{ role_arn }}'
+      - name: version
+        value: '{{ version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -317,7 +316,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -326,7 +325,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.scripts
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

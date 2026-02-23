@@ -199,7 +199,7 @@ name,
 provider_arns,
 type
 FROM awscc.apigateway.authorizers
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<AuthorizerId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.apigateway.authorizers (
  Type,
  region
 )
-SELECT 
-'{{ RestApiId }}',
- '{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ rest_api_id }}',
+ '{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,17 +262,17 @@ INSERT INTO awscc.apigateway.authorizers (
  Type,
  region
 )
-SELECT 
- '{{ RestApiId }}',
- '{{ AuthType }}',
- '{{ AuthorizerCredentials }}',
- '{{ AuthorizerResultTtlInSeconds }}',
- '{{ AuthorizerUri }}',
- '{{ IdentitySource }}',
- '{{ IdentityValidationExpression }}',
- '{{ Name }}',
- '{{ ProviderARNs }}',
- '{{ Type }}',
+SELECT
+ '{{ rest_api_id }}',
+ '{{ auth_type }}',
+ '{{ authorizer_credentials }}',
+ '{{ authorizer_result_ttl_in_seconds }}',
+ '{{ authorizer_uri }}',
+ '{{ identity_source }}',
+ '{{ identity_validation_expression }}',
+ '{{ name }}',
+ '{{ provider_arns }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,28 +290,27 @@ globals:
 resources:
   - name: authorizer
     props:
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: AuthType
-        value: '{{ AuthType }}'
-      - name: AuthorizerCredentials
-        value: '{{ AuthorizerCredentials }}'
-      - name: AuthorizerResultTtlInSeconds
-        value: '{{ AuthorizerResultTtlInSeconds }}'
-      - name: AuthorizerUri
-        value: '{{ AuthorizerUri }}'
-      - name: IdentitySource
-        value: '{{ IdentitySource }}'
-      - name: IdentityValidationExpression
-        value: '{{ IdentityValidationExpression }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProviderARNs
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: auth_type
+        value: '{{ auth_type }}'
+      - name: authorizer_credentials
+        value: '{{ authorizer_credentials }}'
+      - name: authorizer_result_ttl_in_seconds
+        value: '{{ authorizer_result_ttl_in_seconds }}'
+      - name: authorizer_uri
+        value: '{{ authorizer_uri }}'
+      - name: identity_source
+        value: '{{ identity_source }}'
+      - name: identity_validation_expression
+        value: '{{ identity_validation_expression }}'
+      - name: name
+        value: '{{ name }}'
+      - name: provider_arns
         value:
-          - '{{ ProviderARNs[0] }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - '{{ provider_arns[0] }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "Type": type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>|<AuthorizerId>';
+AND Identifier = '{{ rest_api_id }}|{{ authorizer_id }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<RestApiId>|<AuthorizerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.authorizers
-WHERE Identifier = '<RestApiId|AuthorizerId>'
+WHERE Identifier = '{{ rest_api_id }}|{{ authorizer_id }}'
 AND region = 'us-east-1';
 ```
 

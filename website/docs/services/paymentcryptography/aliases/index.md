@@ -140,7 +140,7 @@ region,
 alias_name,
 key_arn
 FROM awscc.paymentcryptography.aliases
-WHERE region = 'us-east-1' AND Identifier = '<AliasName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alias_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.paymentcryptography.aliases (
  AliasName,
  region
 )
-SELECT 
-'{{ AliasName }}',
+SELECT
+'{{ alias_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.paymentcryptography.aliases (
  KeyArn,
  region
 )
-SELECT 
- '{{ AliasName }}',
- '{{ KeyArn }}',
+SELECT
+ '{{ alias_name }}',
+ '{{ key_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,11 +210,10 @@ globals:
 resources:
   - name: alias
     props:
-      - name: AliasName
-        value: '{{ AliasName }}'
-      - name: KeyArn
-        value: '{{ KeyArn }}'
-
+      - name: alias_name
+        value: '{{ alias_name }}'
+      - name: key_arn
+        value: '{{ key_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -230,7 +229,7 @@ SET PatchDocument = string('{{ {
     "KeyArn": key_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AliasName>';
+AND Identifier = '{{ alias_name }}';
 ```
 
 
@@ -239,7 +238,7 @@ AND Identifier = '<AliasName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.paymentcryptography.aliases
-WHERE Identifier = '<AliasName>'
+WHERE Identifier = '{{ alias_name }}'
 AND region = 'us-east-1';
 ```
 

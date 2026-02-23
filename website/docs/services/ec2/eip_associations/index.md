@@ -158,7 +158,7 @@ id,
 network_interface_id,
 e_ip
 FROM awscc.ec2.eip_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -198,12 +198,12 @@ INSERT INTO awscc.ec2.eip_associations (
  EIP,
  region
 )
-SELECT 
-'{{ PrivateIpAddress }}',
- '{{ InstanceId }}',
- '{{ AllocationId }}',
- '{{ NetworkInterfaceId }}',
- '{{ EIP }}',
+SELECT
+'{{ private_ip_address }}',
+ '{{ instance_id }}',
+ '{{ allocation_id }}',
+ '{{ network_interface_id }}',
+ '{{ e_ip }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,12 +219,12 @@ INSERT INTO awscc.ec2.eip_associations (
  EIP,
  region
 )
-SELECT 
- '{{ PrivateIpAddress }}',
- '{{ InstanceId }}',
- '{{ AllocationId }}',
- '{{ NetworkInterfaceId }}',
- '{{ EIP }}',
+SELECT
+ '{{ private_ip_address }}',
+ '{{ instance_id }}',
+ '{{ allocation_id }}',
+ '{{ network_interface_id }}',
+ '{{ e_ip }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,17 +242,16 @@ globals:
 resources:
   - name: eip_association
     props:
-      - name: PrivateIpAddress
-        value: '{{ PrivateIpAddress }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: AllocationId
-        value: '{{ AllocationId }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-      - name: EIP
-        value: '{{ EIP }}'
-
+      - name: private_ip_address
+        value: '{{ private_ip_address }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: allocation_id
+        value: '{{ allocation_id }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
+      - name: e_ip
+        value: '{{ e_ip }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.eip_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

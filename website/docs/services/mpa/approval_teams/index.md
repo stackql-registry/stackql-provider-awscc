@@ -273,7 +273,7 @@ status,
 status_code,
 status_message
 FROM awscc.mpa.approval_teams
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -313,12 +313,12 @@ INSERT INTO awscc.mpa.approval_teams (
  Description,
  region
 )
-SELECT 
-'{{ ApprovalStrategy }}',
- '{{ Approvers }}',
- '{{ Policies }}',
- '{{ Name }}',
- '{{ Description }}',
+SELECT
+'{{ approval_strategy }}',
+ '{{ approvers }}',
+ '{{ policies }}',
+ '{{ name }}',
+ '{{ description }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -335,13 +335,13 @@ INSERT INTO awscc.mpa.approval_teams (
  Description,
  region
 )
-SELECT 
- '{{ ApprovalStrategy }}',
- '{{ Approvers }}',
- '{{ Tags }}',
- '{{ Policies }}',
- '{{ Name }}',
- '{{ Description }}',
+SELECT
+ '{{ approval_strategy }}',
+ '{{ approvers }}',
+ '{{ tags }}',
+ '{{ policies }}',
+ '{{ name }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,29 +359,28 @@ globals:
 resources:
   - name: approval_team
     props:
-      - name: ApprovalStrategy
+      - name: approval_strategy
         value:
-          MofN:
-            MinApprovalsRequired: '{{ MinApprovalsRequired }}'
-      - name: Approvers
+          mof_n:
+            min_approvals_required: '{{ min_approvals_required }}'
+      - name: approvers
         value:
-          - PrimaryIdentityId: '{{ PrimaryIdentityId }}'
-            PrimaryIdentitySourceArn: '{{ PrimaryIdentitySourceArn }}'
-            ApproverId: '{{ ApproverId }}'
-            ResponseTime: '{{ ResponseTime }}'
-            PrimaryIdentityStatus: '{{ PrimaryIdentityStatus }}'
-      - name: Tags
+          - primary_identity_id: '{{ primary_identity_id }}'
+            primary_identity_source_arn: '{{ primary_identity_source_arn }}'
+            approver_id: '{{ approver_id }}'
+            response_time: '{{ response_time }}'
+            primary_identity_status: '{{ primary_identity_status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Policies
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: policies
         value:
           - null
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -399,7 +398,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -408,7 +407,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mpa.approval_teams
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

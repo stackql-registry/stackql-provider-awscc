@@ -211,7 +211,7 @@ export,
 export_arn,
 tags
 FROM awscc.bcmdataexports.exports
-WHERE region = 'us-east-1' AND Identifier = '<ExportArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ export_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,8 +247,8 @@ INSERT INTO awscc.bcmdataexports.exports (
  Export,
  region
 )
-SELECT 
-'{{ Export }}',
+SELECT
+'{{ export }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,9 +261,9 @@ INSERT INTO awscc.bcmdataexports.exports (
  Tags,
  region
 )
-SELECT 
- '{{ Export }}',
- '{{ Tags }}',
+SELECT
+ '{{ export }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -281,16 +281,15 @@ globals:
 resources:
   - name: export
     props:
-      - name: Export
+      - name: export
         value:
-          Export: null
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: Tags
+          export: null
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ExportArn>';
+AND Identifier = '{{ export_arn }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<ExportArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bcmdataexports.exports
-WHERE Identifier = '<ExportArn>'
+WHERE Identifier = '{{ export_arn }}'
 AND region = 'us-east-1';
 ```
 

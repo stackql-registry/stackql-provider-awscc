@@ -94,7 +94,7 @@ region,
 id,
 cloud_watch_role_arn
 FROM awscc.apigateway.accounts
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -117,8 +117,8 @@ INSERT INTO awscc.apigateway.accounts (
  CloudWatchRoleArn,
  region
 )
-SELECT 
-'{{ CloudWatchRoleArn }}',
+SELECT
+'{{ cloud_watch_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -130,8 +130,8 @@ INSERT INTO awscc.apigateway.accounts (
  CloudWatchRoleArn,
  region
 )
-SELECT 
- '{{ CloudWatchRoleArn }}',
+SELECT
+ '{{ cloud_watch_role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -149,9 +149,8 @@ globals:
 resources:
   - name: account
     props:
-      - name: CloudWatchRoleArn
-        value: '{{ CloudWatchRoleArn }}'
-
+      - name: cloud_watch_role_arn
+        value: '{{ cloud_watch_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -167,7 +166,7 @@ SET PatchDocument = string('{{ {
     "CloudWatchRoleArn": cloud_watch_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -176,7 +175,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.accounts
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -288,7 +288,7 @@ packet_identifiers_map,
 pipeline_details,
 program_name
 FROM awscc.medialive.multiplexprograms
-WHERE region = 'us-east-1' AND Identifier = '<ProgramName>|<MultiplexId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -330,13 +330,13 @@ INSERT INTO awscc.medialive.multiplexprograms (
  ProgramName,
  region
 )
-SELECT 
-'{{ MultiplexId }}',
- '{{ MultiplexProgramSettings }}',
- '{{ PreferredChannelPipeline }}',
- '{{ PacketIdentifiersMap }}',
- '{{ PipelineDetails }}',
- '{{ ProgramName }}',
+SELECT
+'{{ multiplex_id }}',
+ '{{ multiplex_program_settings }}',
+ '{{ preferred_channel_pipeline }}',
+ '{{ packet_identifiers_map }}',
+ '{{ pipeline_details }}',
+ '{{ program_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -353,13 +353,13 @@ INSERT INTO awscc.medialive.multiplexprograms (
  ProgramName,
  region
 )
-SELECT 
- '{{ MultiplexId }}',
- '{{ MultiplexProgramSettings }}',
- '{{ PreferredChannelPipeline }}',
- '{{ PacketIdentifiersMap }}',
- '{{ PipelineDetails }}',
- '{{ ProgramName }}',
+SELECT
+ '{{ multiplex_id }}',
+ '{{ multiplex_program_settings }}',
+ '{{ preferred_channel_pipeline }}',
+ '{{ packet_identifiers_map }}',
+ '{{ pipeline_details }}',
+ '{{ program_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -377,44 +377,43 @@ globals:
 resources:
   - name: multiplexprogram
     props:
-      - name: MultiplexId
-        value: '{{ MultiplexId }}'
-      - name: MultiplexProgramSettings
+      - name: multiplex_id
+        value: '{{ multiplex_id }}'
+      - name: multiplex_program_settings
         value:
-          PreferredChannelPipeline: '{{ PreferredChannelPipeline }}'
-          ProgramNumber: '{{ ProgramNumber }}'
-          ServiceDescriptor:
-            ProviderName: '{{ ProviderName }}'
-            ServiceName: '{{ ServiceName }}'
-          VideoSettings: {}
-      - name: PreferredChannelPipeline
+          preferred_channel_pipeline: '{{ preferred_channel_pipeline }}'
+          program_number: '{{ program_number }}'
+          service_descriptor:
+            provider_name: '{{ provider_name }}'
+            service_name: '{{ service_name }}'
+          video_settings: {}
+      - name: preferred_channel_pipeline
         value: null
-      - name: PacketIdentifiersMap
+      - name: packet_identifiers_map
         value:
-          AudioPids:
-            - '{{ AudioPids[0] }}'
-          DvbSubPids:
-            - '{{ DvbSubPids[0] }}'
-          DvbTeletextPid: '{{ DvbTeletextPid }}'
-          EtvPlatformPid: '{{ EtvPlatformPid }}'
-          EtvSignalPid: '{{ EtvSignalPid }}'
-          KlvDataPids:
-            - '{{ KlvDataPids[0] }}'
-          PcrPid: '{{ PcrPid }}'
-          PmtPid: '{{ PmtPid }}'
-          PrivateMetadataPid: '{{ PrivateMetadataPid }}'
-          Scte27Pids:
-            - '{{ Scte27Pids[0] }}'
-          Scte35Pid: '{{ Scte35Pid }}'
-          TimedMetadataPid: '{{ TimedMetadataPid }}'
-          VideoPid: '{{ VideoPid }}'
-      - name: PipelineDetails
+          audio_pids:
+            - '{{ audio_pids[0] }}'
+          dvb_sub_pids:
+            - '{{ dvb_sub_pids[0] }}'
+          dvb_teletext_pid: '{{ dvb_teletext_pid }}'
+          etv_platform_pid: '{{ etv_platform_pid }}'
+          etv_signal_pid: '{{ etv_signal_pid }}'
+          klv_data_pids:
+            - '{{ klv_data_pids[0] }}'
+          pcr_pid: '{{ pcr_pid }}'
+          pmt_pid: '{{ pmt_pid }}'
+          private_metadata_pid: '{{ private_metadata_pid }}'
+          scte27_pids:
+            - '{{ scte27_pids[0] }}'
+          scte35_pid: '{{ scte35_pid }}'
+          timed_metadata_pid: '{{ timed_metadata_pid }}'
+          video_pid: '{{ video_pid }}'
+      - name: pipeline_details
         value:
-          - ActiveChannelPipeline: '{{ ActiveChannelPipeline }}'
-            PipelineId: '{{ PipelineId }}'
-      - name: ProgramName
-        value: '{{ ProgramName }}'
-
+          - active_channel_pipeline: '{{ active_channel_pipeline }}'
+            pipeline_id: '{{ pipeline_id }}'
+      - name: program_name
+        value: '{{ program_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -433,7 +432,7 @@ SET PatchDocument = string('{{ {
     "PipelineDetails": pipeline_details
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProgramName>|<MultiplexId>';
+AND Identifier = '{{ program_name }}|{{ multiplex_id }}';
 ```
 
 
@@ -442,7 +441,7 @@ AND Identifier = '<ProgramName>|<MultiplexId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.multiplexprograms
-WHERE Identifier = '<ProgramName|MultiplexId>'
+WHERE Identifier = '{{ program_name }}|{{ multiplex_id }}'
 AND region = 'us-east-1';
 ```
 

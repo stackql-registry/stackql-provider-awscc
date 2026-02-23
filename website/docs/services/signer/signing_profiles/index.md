@@ -189,7 +189,7 @@ signature_validity_period,
 platform_id,
 tags
 FROM awscc.signer.signing_profiles
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,8 +225,8 @@ INSERT INTO awscc.signer.signing_profiles (
  PlatformId,
  region
 )
-SELECT 
-'{{ PlatformId }}',
+SELECT
+'{{ platform_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,10 +240,10 @@ INSERT INTO awscc.signer.signing_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ SignatureValidityPeriod }}',
- '{{ PlatformId }}',
- '{{ Tags }}',
+SELECT
+ '{{ signature_validity_period }}',
+ '{{ platform_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -261,17 +261,16 @@ globals:
 resources:
   - name: signing_profile
     props:
-      - name: SignatureValidityPeriod
+      - name: signature_validity_period
         value:
-          Value: '{{ Value }}'
-          Type: '{{ Type }}'
-      - name: PlatformId
-        value: '{{ PlatformId }}'
-      - name: Tags
+          value: '{{ value }}'
+          type: '{{ type }}'
+      - name: platform_id
+        value: '{{ platform_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.signer.signing_profiles
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

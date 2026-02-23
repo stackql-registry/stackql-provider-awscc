@@ -354,7 +354,7 @@ output_status,
 ndi_program_name,
 ndi_speed_hq_quality
 FROM awscc.mediaconnect.flow_outputs
-WHERE region = 'us-east-1' AND Identifier = '<OutputArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ output_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -391,9 +391,9 @@ INSERT INTO awscc.mediaconnect.flow_outputs (
  Protocol,
  region
 )
-SELECT 
-'{{ FlowArn }}',
- '{{ Protocol }}',
+SELECT
+'{{ flow_arn }}',
+ '{{ protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -422,25 +422,25 @@ INSERT INTO awscc.mediaconnect.flow_outputs (
  NdiSpeedHqQuality,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ CidrAllowList }}',
- '{{ Encryption }}',
- '{{ Description }}',
- '{{ Destination }}',
- '{{ MaxLatency }}',
- '{{ MinLatency }}',
- '{{ Name }}',
- '{{ Port }}',
- '{{ Protocol }}',
- '{{ RemoteId }}',
- '{{ SmoothingLatency }}',
- '{{ StreamId }}',
- '{{ VpcInterfaceAttachment }}',
- '{{ MediaStreamOutputConfigurations }}',
- '{{ OutputStatus }}',
- '{{ NdiProgramName }}',
- '{{ NdiSpeedHqQuality }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ cidr_allow_list }}',
+ '{{ encryption }}',
+ '{{ description }}',
+ '{{ destination }}',
+ '{{ max_latency }}',
+ '{{ min_latency }}',
+ '{{ name }}',
+ '{{ port }}',
+ '{{ protocol }}',
+ '{{ remote_id }}',
+ '{{ smoothing_latency }}',
+ '{{ stream_id }}',
+ '{{ vpc_interface_attachment }}',
+ '{{ media_stream_output_configurations }}',
+ '{{ output_status }}',
+ '{{ ndi_program_name }}',
+ '{{ ndi_speed_hq_quality }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -458,64 +458,63 @@ globals:
 resources:
   - name: flow_output
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: CidrAllowList
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: cidr_allow_list
         value:
-          - '{{ CidrAllowList[0] }}'
-      - name: Encryption
+          - '{{ cidr_allow_list[0] }}'
+      - name: encryption
         value:
-          Algorithm: '{{ Algorithm }}'
-          ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-          DeviceId: '{{ DeviceId }}'
-          KeyType: '{{ KeyType }}'
-          Region: '{{ Region }}'
-          ResourceId: '{{ ResourceId }}'
-          RoleArn: '{{ RoleArn }}'
-          SecretArn: '{{ SecretArn }}'
-          Url: '{{ Url }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Destination
-        value: '{{ Destination }}'
-      - name: MaxLatency
-        value: '{{ MaxLatency }}'
-      - name: MinLatency
-        value: '{{ MinLatency }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: Protocol
-        value: '{{ Protocol }}'
-      - name: RemoteId
-        value: '{{ RemoteId }}'
-      - name: SmoothingLatency
-        value: '{{ SmoothingLatency }}'
-      - name: StreamId
-        value: '{{ StreamId }}'
-      - name: VpcInterfaceAttachment
+          algorithm: '{{ algorithm }}'
+          constant_initialization_vector: '{{ constant_initialization_vector }}'
+          device_id: '{{ device_id }}'
+          key_type: '{{ key_type }}'
+          region: '{{ region }}'
+          resource_id: '{{ resource_id }}'
+          role_arn: '{{ role_arn }}'
+          secret_arn: '{{ secret_arn }}'
+          url: '{{ url }}'
+      - name: description
+        value: '{{ description }}'
+      - name: destination
+        value: '{{ destination }}'
+      - name: max_latency
+        value: '{{ max_latency }}'
+      - name: min_latency
+        value: '{{ min_latency }}'
+      - name: name
+        value: '{{ name }}'
+      - name: port
+        value: '{{ port }}'
+      - name: protocol
+        value: '{{ protocol }}'
+      - name: remote_id
+        value: '{{ remote_id }}'
+      - name: smoothing_latency
+        value: '{{ smoothing_latency }}'
+      - name: stream_id
+        value: '{{ stream_id }}'
+      - name: vpc_interface_attachment
         value:
-          VpcInterfaceName: '{{ VpcInterfaceName }}'
-      - name: MediaStreamOutputConfigurations
+          vpc_interface_name: '{{ vpc_interface_name }}'
+      - name: media_stream_output_configurations
         value:
-          - EncodingName: '{{ EncodingName }}'
-            DestinationConfigurations:
-              - DestinationIp: '{{ DestinationIp }}'
-                DestinationPort: '{{ DestinationPort }}'
-                Interface:
-                  Name: '{{ Name }}'
-            MediaStreamName: '{{ MediaStreamName }}'
-            EncodingParameters:
-              CompressionFactor: null
-              EncoderProfile: '{{ EncoderProfile }}'
-      - name: OutputStatus
-        value: '{{ OutputStatus }}'
-      - name: NdiProgramName
-        value: '{{ NdiProgramName }}'
-      - name: NdiSpeedHqQuality
-        value: '{{ NdiSpeedHqQuality }}'
-
+          - encoding_name: '{{ encoding_name }}'
+            destination_configurations:
+              - destination_ip: '{{ destination_ip }}'
+                destination_port: '{{ destination_port }}'
+                interface:
+                  name: '{{ name }}'
+            media_stream_name: '{{ media_stream_name }}'
+            encoding_parameters:
+              compression_factor: null
+              encoder_profile: '{{ encoder_profile }}'
+      - name: output_status
+        value: '{{ output_status }}'
+      - name: ndi_program_name
+        value: '{{ ndi_program_name }}'
+      - name: ndi_speed_hq_quality
+        value: '{{ ndi_speed_hq_quality }}'
 ```
 </TabItem>
 </Tabs>
@@ -547,7 +546,7 @@ SET PatchDocument = string('{{ {
     "NdiSpeedHqQuality": ndi_speed_hq_quality
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<OutputArn>';
+AND Identifier = '{{ output_arn }}';
 ```
 
 
@@ -556,7 +555,7 @@ AND Identifier = '<OutputArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_outputs
-WHERE Identifier = '<OutputArn>'
+WHERE Identifier = '{{ output_arn }}'
 AND region = 'us-east-1';
 ```
 

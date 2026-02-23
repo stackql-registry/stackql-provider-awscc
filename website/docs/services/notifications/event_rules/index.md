@@ -182,7 +182,7 @@ regions,
 source,
 status_summary_by_region
 FROM awscc.notifications.event_rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,11 +221,11 @@ INSERT INTO awscc.notifications.event_rules (
  Source,
  region
 )
-SELECT 
-'{{ EventType }}',
- '{{ NotificationConfigurationArn }}',
- '{{ Regions }}',
- '{{ Source }}',
+SELECT
+'{{ event_type }}',
+ '{{ notification_configuration_arn }}',
+ '{{ regions }}',
+ '{{ source }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,12 +241,12 @@ INSERT INTO awscc.notifications.event_rules (
  Source,
  region
 )
-SELECT 
- '{{ EventPattern }}',
- '{{ EventType }}',
- '{{ NotificationConfigurationArn }}',
- '{{ Regions }}',
- '{{ Source }}',
+SELECT
+ '{{ event_pattern }}',
+ '{{ event_type }}',
+ '{{ notification_configuration_arn }}',
+ '{{ regions }}',
+ '{{ source }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,18 +264,17 @@ globals:
 resources:
   - name: event_rule
     props:
-      - name: EventPattern
-        value: '{{ EventPattern }}'
-      - name: EventType
-        value: '{{ EventType }}'
-      - name: NotificationConfigurationArn
-        value: '{{ NotificationConfigurationArn }}'
-      - name: Regions
+      - name: event_pattern
+        value: '{{ event_pattern }}'
+      - name: event_type
+        value: '{{ event_type }}'
+      - name: notification_configuration_arn
+        value: '{{ notification_configuration_arn }}'
+      - name: regions
         value:
-          - '{{ Regions[0] }}'
-      - name: Source
-        value: '{{ Source }}'
-
+          - '{{ regions[0] }}'
+      - name: source
+        value: '{{ source }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Regions": regions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.event_rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

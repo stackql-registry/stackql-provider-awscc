@@ -260,7 +260,7 @@ rule_set_arn,
 rule_set_name,
 tags
 FROM awscc.gamelift.matchmaking_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,11 +299,11 @@ INSERT INTO awscc.gamelift.matchmaking_configurations (
  RuleSetName,
  region
 )
-SELECT 
-'{{ AcceptanceRequired }}',
- '{{ Name }}',
- '{{ RequestTimeoutSeconds }}',
- '{{ RuleSetName }}',
+SELECT
+'{{ acceptance_required }}',
+ '{{ name }}',
+ '{{ request_timeout_seconds }}',
+ '{{ rule_set_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -331,24 +331,24 @@ INSERT INTO awscc.gamelift.matchmaking_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ AcceptanceRequired }}',
- '{{ AcceptanceTimeoutSeconds }}',
- '{{ AdditionalPlayerCount }}',
- '{{ BackfillMode }}',
- '{{ CreationTime }}',
- '{{ CustomEventData }}',
- '{{ Description }}',
- '{{ FlexMatchMode }}',
- '{{ GameProperties }}',
- '{{ GameSessionData }}',
- '{{ GameSessionQueueArns }}',
- '{{ Name }}',
- '{{ NotificationTarget }}',
- '{{ RequestTimeoutSeconds }}',
- '{{ RuleSetArn }}',
- '{{ RuleSetName }}',
- '{{ Tags }}',
+SELECT
+ '{{ acceptance_required }}',
+ '{{ acceptance_timeout_seconds }}',
+ '{{ additional_player_count }}',
+ '{{ backfill_mode }}',
+ '{{ creation_time }}',
+ '{{ custom_event_data }}',
+ '{{ description }}',
+ '{{ flex_match_mode }}',
+ '{{ game_properties }}',
+ '{{ game_session_data }}',
+ '{{ game_session_queue_arns }}',
+ '{{ name }}',
+ '{{ notification_target }}',
+ '{{ request_timeout_seconds }}',
+ '{{ rule_set_arn }}',
+ '{{ rule_set_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -366,46 +366,45 @@ globals:
 resources:
   - name: matchmaking_configuration
     props:
-      - name: AcceptanceRequired
-        value: '{{ AcceptanceRequired }}'
-      - name: AcceptanceTimeoutSeconds
-        value: '{{ AcceptanceTimeoutSeconds }}'
-      - name: AdditionalPlayerCount
-        value: '{{ AdditionalPlayerCount }}'
-      - name: BackfillMode
-        value: '{{ BackfillMode }}'
-      - name: CreationTime
-        value: '{{ CreationTime }}'
-      - name: CustomEventData
-        value: '{{ CustomEventData }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FlexMatchMode
-        value: '{{ FlexMatchMode }}'
-      - name: GameProperties
+      - name: acceptance_required
+        value: '{{ acceptance_required }}'
+      - name: acceptance_timeout_seconds
+        value: '{{ acceptance_timeout_seconds }}'
+      - name: additional_player_count
+        value: '{{ additional_player_count }}'
+      - name: backfill_mode
+        value: '{{ backfill_mode }}'
+      - name: creation_time
+        value: '{{ creation_time }}'
+      - name: custom_event_data
+        value: '{{ custom_event_data }}'
+      - name: description
+        value: '{{ description }}'
+      - name: flex_match_mode
+        value: '{{ flex_match_mode }}'
+      - name: game_properties
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: GameSessionData
-        value: '{{ GameSessionData }}'
-      - name: GameSessionQueueArns
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: game_session_data
+        value: '{{ game_session_data }}'
+      - name: game_session_queue_arns
         value:
-          - '{{ GameSessionQueueArns[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NotificationTarget
-        value: '{{ NotificationTarget }}'
-      - name: RequestTimeoutSeconds
-        value: '{{ RequestTimeoutSeconds }}'
-      - name: RuleSetArn
-        value: '{{ RuleSetArn }}'
-      - name: RuleSetName
-        value: '{{ RuleSetName }}'
-      - name: Tags
+          - '{{ game_session_queue_arns[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: notification_target
+        value: '{{ notification_target }}'
+      - name: request_timeout_seconds
+        value: '{{ request_timeout_seconds }}'
+      - name: rule_set_arn
+        value: '{{ rule_set_arn }}'
+      - name: rule_set_name
+        value: '{{ rule_set_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -436,7 +435,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -445,7 +444,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.matchmaking_configurations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

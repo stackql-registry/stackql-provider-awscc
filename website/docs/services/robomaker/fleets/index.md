@@ -146,7 +146,7 @@ arn,
 tags,
 name
 FROM awscc.robomaker.fleets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,7 +182,7 @@ INSERT INTO awscc.robomaker.fleets (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -196,9 +196,9 @@ INSERT INTO awscc.robomaker.fleets (
  Name,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,10 @@ globals:
 resources:
   - name: fleet
     props:
-      - name: Tags
+      - name: tags
         value: {}
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -236,7 +235,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -245,7 +244,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.fleets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

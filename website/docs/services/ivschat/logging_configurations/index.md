@@ -214,7 +214,7 @@ name,
 state,
 tags
 FROM awscc.ivschat.logging_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,8 +250,8 @@ INSERT INTO awscc.ivschat.logging_configurations (
  DestinationConfiguration,
  region
 )
-SELECT 
-'{{ DestinationConfiguration }}',
+SELECT
+'{{ destination_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,10 +265,10 @@ INSERT INTO awscc.ivschat.logging_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ DestinationConfiguration }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ destination_configuration }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,21 +286,20 @@ globals:
 resources:
   - name: logging_configuration
     props:
-      - name: DestinationConfiguration
+      - name: destination_configuration
         value:
-          CloudWatchLogs:
-            LogGroupName: '{{ LogGroupName }}'
-          Firehose:
-            DeliveryStreamName: '{{ DeliveryStreamName }}'
-          S3:
-            BucketName: '{{ BucketName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          cloud_watch_logs:
+            log_group_name: '{{ log_group_name }}'
+          firehose:
+            delivery_stream_name: '{{ delivery_stream_name }}'
+          s3:
+            bucket_name: '{{ bucket_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivschat.logging_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

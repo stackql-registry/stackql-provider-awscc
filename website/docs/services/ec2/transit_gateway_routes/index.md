@@ -151,7 +151,7 @@ destination_cidr_block,
 blackhole,
 transit_gateway_attachment_id
 FROM awscc.ec2.transit_gateway_routes
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayRouteTableId>|<DestinationCidrBlock>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.ec2.transit_gateway_routes (
  DestinationCidrBlock,
  region
 )
-SELECT 
-'{{ TransitGatewayRouteTableId }}',
- '{{ DestinationCidrBlock }}',
+SELECT
+'{{ transit_gateway_route_table_id }}',
+ '{{ destination_cidr_block }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -206,11 +206,11 @@ INSERT INTO awscc.ec2.transit_gateway_routes (
  TransitGatewayAttachmentId,
  region
 )
-SELECT 
- '{{ TransitGatewayRouteTableId }}',
- '{{ DestinationCidrBlock }}',
- '{{ Blackhole }}',
- '{{ TransitGatewayAttachmentId }}',
+SELECT
+ '{{ transit_gateway_route_table_id }}',
+ '{{ destination_cidr_block }}',
+ '{{ blackhole }}',
+ '{{ transit_gateway_attachment_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,15 +228,14 @@ globals:
 resources:
   - name: transit_gateway_route
     props:
-      - name: TransitGatewayRouteTableId
-        value: '{{ TransitGatewayRouteTableId }}'
-      - name: DestinationCidrBlock
-        value: '{{ DestinationCidrBlock }}'
-      - name: Blackhole
-        value: '{{ Blackhole }}'
-      - name: TransitGatewayAttachmentId
-        value: '{{ TransitGatewayAttachmentId }}'
-
+      - name: transit_gateway_route_table_id
+        value: '{{ transit_gateway_route_table_id }}'
+      - name: destination_cidr_block
+        value: '{{ destination_cidr_block }}'
+      - name: blackhole
+        value: '{{ blackhole }}'
+      - name: transit_gateway_attachment_id
+        value: '{{ transit_gateway_attachment_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_routes
-WHERE Identifier = '<TransitGatewayRouteTableId|DestinationCidrBlock>'
+WHERE Identifier = '{{ transit_gateway_route_table_id }}|{{ destination_cidr_block }}'
 AND region = 'us-east-1';
 ```
 

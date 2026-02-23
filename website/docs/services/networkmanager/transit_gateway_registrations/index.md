@@ -139,7 +139,7 @@ region,
 global_network_id,
 transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<TransitGatewayArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.networkmanager.transit_gateway_registrations (
  TransitGatewayArn,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
- '{{ TransitGatewayArn }}',
+SELECT
+'{{ global_network_id }}',
+ '{{ transit_gateway_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.networkmanager.transit_gateway_registrations (
  TransitGatewayArn,
  region
 )
-SELECT 
- '{{ GlobalNetworkId }}',
- '{{ TransitGatewayArn }}',
+SELECT
+ '{{ global_network_id }}',
+ '{{ transit_gateway_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: transit_gateway_registration
     props:
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: TransitGatewayArn
-        value: '{{ TransitGatewayArn }}'
-
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: transit_gateway_arn
+        value: '{{ transit_gateway_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_registrations
-WHERE Identifier = '<GlobalNetworkId|TransitGatewayArn>'
+WHERE Identifier = '{{ global_network_id }}|{{ transit_gateway_arn }}'
 AND region = 'us-east-1';
 ```
 

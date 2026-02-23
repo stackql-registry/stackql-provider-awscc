@@ -170,7 +170,7 @@ status,
 id,
 arn
 FROM awscc.iot.certificates
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.iot.certificates (
  Status,
  region
 )
-SELECT 
-'{{ Status }}',
+SELECT
+'{{ status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,12 +223,12 @@ INSERT INTO awscc.iot.certificates (
  Status,
  region
 )
-SELECT 
- '{{ CACertificatePem }}',
- '{{ CertificatePem }}',
- '{{ CertificateSigningRequest }}',
- '{{ CertificateMode }}',
- '{{ Status }}',
+SELECT
+ '{{ ca_certificate_pem }}',
+ '{{ certificate_pem }}',
+ '{{ certificate_signing_request }}',
+ '{{ certificate_mode }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,17 +246,16 @@ globals:
 resources:
   - name: certificate
     props:
-      - name: CACertificatePem
-        value: '{{ CACertificatePem }}'
-      - name: CertificatePem
-        value: '{{ CertificatePem }}'
-      - name: CertificateSigningRequest
-        value: '{{ CertificateSigningRequest }}'
-      - name: CertificateMode
-        value: '{{ CertificateMode }}'
-      - name: Status
-        value: '{{ Status }}'
-
+      - name: ca_certificate_pem
+        value: '{{ ca_certificate_pem }}'
+      - name: certificate_pem
+        value: '{{ certificate_pem }}'
+      - name: certificate_signing_request
+        value: '{{ certificate_signing_request }}'
+      - name: certificate_mode
+        value: '{{ certificate_mode }}'
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.certificates
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

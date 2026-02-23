@@ -101,7 +101,7 @@ region,
 arn,
 resource_group_tags
 FROM awscc.inspector.resource_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -124,8 +124,8 @@ INSERT INTO awscc.inspector.resource_groups (
  ResourceGroupTags,
  region
 )
-SELECT 
-'{{ ResourceGroupTags }}',
+SELECT
+'{{ resource_group_tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -137,8 +137,8 @@ INSERT INTO awscc.inspector.resource_groups (
  ResourceGroupTags,
  region
 )
-SELECT 
- '{{ ResourceGroupTags }}',
+SELECT
+ '{{ resource_group_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -156,11 +156,10 @@ globals:
 resources:
   - name: resource_group
     props:
-      - name: ResourceGroupTags
+      - name: resource_group_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -171,7 +170,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.resource_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -206,7 +206,7 @@ short_name,
 size,
 vpc_settings
 FROM awscc.directoryservice.simple_ads
-WHERE region = 'us-east-1' AND Identifier = '<DirectoryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ directory_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +244,10 @@ INSERT INTO awscc.directoryservice.simple_ads (
  VpcSettings,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Size }}',
- '{{ VpcSettings }}',
+SELECT
+'{{ name }}',
+ '{{ size }}',
+ '{{ vpc_settings }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -266,15 +266,15 @@ INSERT INTO awscc.directoryservice.simple_ads (
  VpcSettings,
  region
 )
-SELECT 
- '{{ CreateAlias }}',
- '{{ Description }}',
- '{{ EnableSso }}',
- '{{ Name }}',
- '{{ Password }}',
- '{{ ShortName }}',
- '{{ Size }}',
- '{{ VpcSettings }}',
+SELECT
+ '{{ create_alias }}',
+ '{{ description }}',
+ '{{ enable_sso }}',
+ '{{ name }}',
+ '{{ password }}',
+ '{{ short_name }}',
+ '{{ size }}',
+ '{{ vpc_settings }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,26 +292,25 @@ globals:
 resources:
   - name: simple_ad
     props:
-      - name: CreateAlias
-        value: '{{ CreateAlias }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnableSso
-        value: '{{ EnableSso }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: ShortName
-        value: '{{ ShortName }}'
-      - name: Size
-        value: '{{ Size }}'
-      - name: VpcSettings
+      - name: create_alias
+        value: '{{ create_alias }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enable_sso
+        value: '{{ enable_sso }}'
+      - name: name
+        value: '{{ name }}'
+      - name: password
+        value: '{{ password }}'
+      - name: short_name
+        value: '{{ short_name }}'
+      - name: size
+        value: '{{ size }}'
+      - name: vpc_settings
         value:
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          VpcId: '{{ VpcId }}'
-
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          vpc_id: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -327,7 +326,7 @@ SET PatchDocument = string('{{ {
     "EnableSso": enable_sso
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DirectoryId>';
+AND Identifier = '{{ directory_id }}';
 ```
 
 
@@ -336,7 +335,7 @@ AND Identifier = '<DirectoryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.directoryservice.simple_ads
-WHERE Identifier = '<DirectoryId>'
+WHERE Identifier = '{{ directory_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -170,7 +170,7 @@ name,
 parent_id,
 tags
 FROM awscc.organizations.organizational_units
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.organizations.organizational_units (
  ParentId,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ParentId }}',
+SELECT
+'{{ name }}',
+ '{{ parent_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.organizations.organizational_units (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ParentId }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ parent_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: organizational_unit
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ParentId
-        value: '{{ ParentId }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: parent_id
+        value: '{{ parent_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.organizations.organizational_units
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -188,7 +188,7 @@ resource_type,
 policy_template,
 tags
 FROM awscc.ram.permissions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.ram.permissions (
  PolicyTemplate,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ResourceType }}',
- '{{ PolicyTemplate }}',
+SELECT
+'{{ name }}',
+ '{{ resource_type }}',
+ '{{ policy_template }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,11 +244,11 @@ INSERT INTO awscc.ram.permissions (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ResourceType }}',
- '{{ PolicyTemplate }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ resource_type }}',
+ '{{ policy_template }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,17 +266,16 @@ globals:
 resources:
   - name: permission
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: PolicyTemplate
+      - name: name
+        value: '{{ name }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: policy_template
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ram.permissions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

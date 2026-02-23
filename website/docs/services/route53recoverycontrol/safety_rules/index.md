@@ -234,7 +234,7 @@ status,
 rule_config,
 tags
 FROM awscc.route53recoverycontrol.safety_rules
-WHERE region = 'us-east-1' AND Identifier = '<SafetyRuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ safety_rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,7 +270,7 @@ INSERT INTO awscc.route53recoverycontrol.safety_rules (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -288,13 +288,13 @@ INSERT INTO awscc.route53recoverycontrol.safety_rules (
  Tags,
  region
 )
-SELECT 
- '{{ AssertionRule }}',
- '{{ GatingRule }}',
- '{{ Name }}',
- '{{ ControlPanelArn }}',
- '{{ RuleConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ assertion_rule }}',
+ '{{ gating_rule }}',
+ '{{ name }}',
+ '{{ control_panel_arn }}',
+ '{{ rule_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -312,32 +312,31 @@ globals:
 resources:
   - name: safety_rule
     props:
-      - name: AssertionRule
+      - name: assertion_rule
         value:
-          WaitPeriodMs: '{{ WaitPeriodMs }}'
-          AssertedControls:
-            - '{{ AssertedControls[0] }}'
-      - name: GatingRule
+          wait_period_ms: '{{ wait_period_ms }}'
+          asserted_controls:
+            - '{{ asserted_controls[0] }}'
+      - name: gating_rule
         value:
-          GatingControls:
-            - '{{ GatingControls[0] }}'
-          TargetControls:
-            - '{{ TargetControls[0] }}'
-          WaitPeriodMs: '{{ WaitPeriodMs }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ControlPanelArn
-        value: '{{ ControlPanelArn }}'
-      - name: RuleConfig
+          gating_controls:
+            - '{{ gating_controls[0] }}'
+          target_controls:
+            - '{{ target_controls[0] }}'
+          wait_period_ms: '{{ wait_period_ms }}'
+      - name: name
+        value: '{{ name }}'
+      - name: control_panel_arn
+        value: '{{ control_panel_arn }}'
+      - name: rule_config
         value:
-          Type: '{{ Type }}'
-          Threshold: '{{ Threshold }}'
-          Inverted: '{{ Inverted }}'
-      - name: Tags
+          type: '{{ type }}'
+          threshold: '{{ threshold }}'
+          inverted: '{{ inverted }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +357,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SafetyRuleArn>';
+AND Identifier = '{{ safety_rule_arn }}';
 ```
 
 
@@ -367,7 +366,7 @@ AND Identifier = '<SafetyRuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoverycontrol.safety_rules
-WHERE Identifier = '<SafetyRuleArn>'
+WHERE Identifier = '{{ safety_rule_arn }}'
 AND region = 'us-east-1';
 ```
 

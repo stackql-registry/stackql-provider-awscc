@@ -217,7 +217,7 @@ deprecate_thing_type,
 thing_type_properties,
 tags
 FROM awscc.iot.thing_types
-WHERE region = 'us-east-1' AND Identifier = '<ThingTypeName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ thing_type_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,11 +256,11 @@ INSERT INTO awscc.iot.thing_types (
  Tags,
  region
 )
-SELECT 
-'{{ ThingTypeName }}',
- '{{ DeprecateThingType }}',
- '{{ ThingTypeProperties }}',
- '{{ Tags }}',
+SELECT
+'{{ thing_type_name }}',
+ '{{ deprecate_thing_type }}',
+ '{{ thing_type_properties }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,11 +275,11 @@ INSERT INTO awscc.iot.thing_types (
  Tags,
  region
 )
-SELECT 
- '{{ ThingTypeName }}',
- '{{ DeprecateThingType }}',
- '{{ ThingTypeProperties }}',
- '{{ Tags }}',
+SELECT
+ '{{ thing_type_name }}',
+ '{{ deprecate_thing_type }}',
+ '{{ thing_type_properties }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,25 +297,24 @@ globals:
 resources:
   - name: thing_type
     props:
-      - name: ThingTypeName
-        value: '{{ ThingTypeName }}'
-      - name: DeprecateThingType
-        value: '{{ DeprecateThingType }}'
-      - name: ThingTypeProperties
+      - name: thing_type_name
+        value: '{{ thing_type_name }}'
+      - name: deprecate_thing_type
+        value: '{{ deprecate_thing_type }}'
+      - name: thing_type_properties
         value:
-          SearchableAttributes:
-            - '{{ SearchableAttributes[0] }}'
-          ThingTypeDescription: '{{ ThingTypeDescription }}'
-          Mqtt5Configuration:
-            PropagatingAttributes:
-              - UserPropertyKey: '{{ UserPropertyKey }}'
-                ThingAttribute: '{{ ThingAttribute }}'
-                ConnectionAttribute: '{{ ConnectionAttribute }}'
-      - name: Tags
+          searchable_attributes:
+            - '{{ searchable_attributes[0] }}'
+          thing_type_description: '{{ thing_type_description }}'
+          mqtt5_configuration:
+            propagating_attributes:
+              - user_property_key: '{{ user_property_key }}'
+                thing_attribute: '{{ thing_attribute }}'
+                connection_attribute: '{{ connection_attribute }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ThingTypeName>';
+AND Identifier = '{{ thing_type_name }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<ThingTypeName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.thing_types
-WHERE Identifier = '<ThingTypeName>'
+WHERE Identifier = '{{ thing_type_name }}'
 AND region = 'us-east-1';
 ```
 

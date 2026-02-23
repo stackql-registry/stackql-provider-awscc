@@ -188,7 +188,7 @@ password,
 tags,
 username
 FROM awscc.backupgateway.hypervisors
-WHERE region = 'us-east-1' AND Identifier = '<HypervisorArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hypervisor_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,14 +230,14 @@ INSERT INTO awscc.backupgateway.hypervisors (
  Username,
  region
 )
-SELECT 
-'{{ Host }}',
- '{{ KmsKeyArn }}',
- '{{ LogGroupArn }}',
- '{{ Name }}',
- '{{ Password }}',
- '{{ Tags }}',
- '{{ Username }}',
+SELECT
+'{{ host }}',
+ '{{ kms_key_arn }}',
+ '{{ log_group_arn }}',
+ '{{ name }}',
+ '{{ password }}',
+ '{{ tags }}',
+ '{{ username }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,14 +255,14 @@ INSERT INTO awscc.backupgateway.hypervisors (
  Username,
  region
 )
-SELECT 
- '{{ Host }}',
- '{{ KmsKeyArn }}',
- '{{ LogGroupArn }}',
- '{{ Name }}',
- '{{ Password }}',
- '{{ Tags }}',
- '{{ Username }}',
+SELECT
+ '{{ host }}',
+ '{{ kms_key_arn }}',
+ '{{ log_group_arn }}',
+ '{{ name }}',
+ '{{ password }}',
+ '{{ tags }}',
+ '{{ username }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,23 +280,22 @@ globals:
 resources:
   - name: hypervisor
     props:
-      - name: Host
-        value: '{{ Host }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: LogGroupArn
-        value: '{{ LogGroupArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: Tags
+      - name: host
+        value: '{{ host }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: log_group_arn
+        value: '{{ log_group_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: password
+        value: '{{ password }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Username
-        value: '{{ Username }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: username
+        value: '{{ username }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Username": username
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HypervisorArn>';
+AND Identifier = '{{ hypervisor_arn }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<HypervisorArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backupgateway.hypervisors
-WHERE Identifier = '<HypervisorArn>'
+WHERE Identifier = '{{ hypervisor_arn }}'
 AND region = 'us-east-1';
 ```
 

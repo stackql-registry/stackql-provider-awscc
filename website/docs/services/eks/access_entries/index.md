@@ -217,7 +217,7 @@ kubernetes_groups,
 access_policies,
 type
 FROM awscc.eks.access_entries
-WHERE region = 'us-east-1' AND Identifier = '<PrincipalArn>|<ClusterName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ principal_arn }}|{{ cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,9 +255,9 @@ INSERT INTO awscc.eks.access_entries (
  PrincipalArn,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ PrincipalArn }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ principal_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,14 +275,14 @@ INSERT INTO awscc.eks.access_entries (
  Type,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ PrincipalArn }}',
- '{{ Username }}',
- '{{ Tags }}',
- '{{ KubernetesGroups }}',
- '{{ AccessPolicies }}',
- '{{ Type }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ principal_arn }}',
+ '{{ username }}',
+ '{{ tags }}',
+ '{{ kubernetes_groups }}',
+ '{{ access_policies }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,29 +300,28 @@ globals:
 resources:
   - name: access_entry
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: PrincipalArn
-        value: '{{ PrincipalArn }}'
-      - name: Username
-        value: '{{ Username }}'
-      - name: Tags
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: principal_arn
+        value: '{{ principal_arn }}'
+      - name: username
+        value: '{{ username }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: KubernetesGroups
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: kubernetes_groups
         value:
-          - '{{ KubernetesGroups[0] }}'
-      - name: AccessPolicies
+          - '{{ kubernetes_groups[0] }}'
+      - name: access_policies
         value:
-          - PolicyArn: '{{ PolicyArn }}'
-            AccessScope:
-              Type: '{{ Type }}'
-              Namespaces:
-                - '{{ Namespaces[0] }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - policy_arn: '{{ policy_arn }}'
+            access_scope:
+              type: '{{ type }}'
+              namespaces:
+                - '{{ namespaces[0] }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +340,7 @@ SET PatchDocument = string('{{ {
     "AccessPolicies": access_policies
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PrincipalArn>|<ClusterName>';
+AND Identifier = '{{ principal_arn }}|{{ cluster_name }}';
 ```
 
 
@@ -350,7 +349,7 @@ AND Identifier = '<PrincipalArn>|<ClusterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.access_entries
-WHERE Identifier = '<PrincipalArn|ClusterName>'
+WHERE Identifier = '{{ principal_arn }}|{{ cluster_name }}'
 AND region = 'us-east-1';
 ```
 

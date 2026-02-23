@@ -234,7 +234,7 @@ onboarded_imported_devices_count,
 failed_imported_devices_count,
 tags
 FROM awscc.iotwireless.wireless_device_import_tasks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,9 +271,9 @@ INSERT INTO awscc.iotwireless.wireless_device_import_tasks (
  Sidewalk,
  region
 )
-SELECT 
-'{{ DestinationName }}',
- '{{ Sidewalk }}',
+SELECT
+'{{ destination_name }}',
+ '{{ sidewalk }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,10 +287,10 @@ INSERT INTO awscc.iotwireless.wireless_device_import_tasks (
  Tags,
  region
 )
-SELECT 
- '{{ DestinationName }}',
- '{{ Sidewalk }}',
- '{{ Tags }}',
+SELECT
+ '{{ destination_name }}',
+ '{{ sidewalk }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -308,20 +308,19 @@ globals:
 resources:
   - name: wireless_device_import_task
     props:
-      - name: DestinationName
-        value: '{{ DestinationName }}'
-      - name: Sidewalk
+      - name: destination_name
+        value: '{{ destination_name }}'
+      - name: sidewalk
         value:
-          SidewalkManufacturingSn: '{{ SidewalkManufacturingSn }}'
-          DeviceCreationFile: '{{ DeviceCreationFile }}'
-          DeviceCreationFileList:
-            - '{{ DeviceCreationFileList[0] }}'
-          Role: '{{ Role }}'
-      - name: Tags
+          sidewalk_manufacturing_sn: '{{ sidewalk_manufacturing_sn }}'
+          device_creation_file: '{{ device_creation_file }}'
+          device_creation_file_list:
+            - '{{ device_creation_file_list[0] }}'
+          role: '{{ role }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +337,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -347,7 +346,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_device_import_tasks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

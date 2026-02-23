@@ -184,7 +184,7 @@ location,
 properties,
 rest_api_id
 FROM awscc.apigateway.documentation_parts
-WHERE region = 'us-east-1' AND Identifier = '<DocumentationPartId>|<RestApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,10 +223,10 @@ INSERT INTO awscc.apigateway.documentation_parts (
  RestApiId,
  region
 )
-SELECT 
-'{{ Location }}',
- '{{ Properties }}',
- '{{ RestApiId }}',
+SELECT
+'{{ location }}',
+ '{{ properties }}',
+ '{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,10 +240,10 @@ INSERT INTO awscc.apigateway.documentation_parts (
  RestApiId,
  region
 )
-SELECT 
- '{{ Location }}',
- '{{ Properties }}',
- '{{ RestApiId }}',
+SELECT
+ '{{ location }}',
+ '{{ properties }}',
+ '{{ rest_api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -261,18 +261,17 @@ globals:
 resources:
   - name: documentation_part
     props:
-      - name: Location
+      - name: location
         value:
-          Method: '{{ Method }}'
-          Name: '{{ Name }}'
-          Path: '{{ Path }}'
-          StatusCode: '{{ StatusCode }}'
-          Type: '{{ Type }}'
-      - name: Properties
-        value: '{{ Properties }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-
+          method: '{{ method }}'
+          name: '{{ name }}'
+          path: '{{ path }}'
+          status_code: '{{ status_code }}'
+          type: '{{ type }}'
+      - name: properties
+        value: '{{ properties }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Properties": properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DocumentationPartId>|<RestApiId>';
+AND Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<DocumentationPartId>|<RestApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.documentation_parts
-WHERE Identifier = '<DocumentationPartId|RestApiId>'
+WHERE Identifier = '{{ documentation_part_id }}|{{ rest_api_id }}'
 AND region = 'us-east-1';
 ```
 

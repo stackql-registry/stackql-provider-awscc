@@ -185,7 +185,7 @@ notification_configuration,
 subscriber_arn,
 subscriber_endpoint
 FROM awscc.securitylake.subscriber_notifications
-WHERE region = 'us-east-1' AND Identifier = '<SubscriberArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,9 +222,9 @@ INSERT INTO awscc.securitylake.subscriber_notifications (
  SubscriberArn,
  region
 )
-SELECT 
-'{{ NotificationConfiguration }}',
- '{{ SubscriberArn }}',
+SELECT
+'{{ notification_configuration }}',
+ '{{ subscriber_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,9 +237,9 @@ INSERT INTO awscc.securitylake.subscriber_notifications (
  SubscriberArn,
  region
 )
-SELECT 
- '{{ NotificationConfiguration }}',
- '{{ SubscriberArn }}',
+SELECT
+ '{{ notification_configuration }}',
+ '{{ subscriber_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -257,18 +257,17 @@ globals:
 resources:
   - name: subscriber_notification
     props:
-      - name: NotificationConfiguration
+      - name: notification_configuration
         value:
-          HttpsNotificationConfiguration:
-            AuthorizationApiKeyName: '{{ AuthorizationApiKeyName }}'
-            AuthorizationApiKeyValue: '{{ AuthorizationApiKeyValue }}'
-            Endpoint: '{{ Endpoint }}'
-            HttpMethod: '{{ HttpMethod }}'
-            TargetRoleArn: '{{ TargetRoleArn }}'
-          SqsNotificationConfiguration: {}
-      - name: SubscriberArn
-        value: '{{ SubscriberArn }}'
-
+          https_notification_configuration:
+            authorization_api_key_name: '{{ authorization_api_key_name }}'
+            authorization_api_key_value: '{{ authorization_api_key_value }}'
+            endpoint: '{{ endpoint }}'
+            http_method: '{{ http_method }}'
+            target_role_arn: '{{ target_role_arn }}'
+          sqs_notification_configuration: {}
+      - name: subscriber_arn
+        value: '{{ subscriber_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "NotificationConfiguration": notification_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubscriberArn>';
+AND Identifier = '{{ subscriber_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<SubscriberArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.subscriber_notifications
-WHERE Identifier = '<SubscriberArn>'
+WHERE Identifier = '{{ subscriber_arn }}'
 AND region = 'us-east-1';
 ```
 

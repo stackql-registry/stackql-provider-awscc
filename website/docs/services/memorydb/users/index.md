@@ -188,7 +188,7 @@ authentication_mode,
 arn,
 tags
 FROM awscc.memorydb.users
-WHERE region = 'us-east-1' AND Identifier = '<UserName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.memorydb.users (
  UserName,
  region
 )
-SELECT 
-'{{ UserName }}',
+SELECT
+'{{ user_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.memorydb.users (
  Tags,
  region
 )
-SELECT 
- '{{ UserName }}',
- '{{ AccessString }}',
- '{{ AuthenticationMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ user_name }}',
+ '{{ access_string }}',
+ '{{ authentication_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,20 +262,19 @@ globals:
 resources:
   - name: user
     props:
-      - name: UserName
-        value: '{{ UserName }}'
-      - name: AccessString
-        value: '{{ AccessString }}'
-      - name: AuthenticationMode
+      - name: user_name
+        value: '{{ user_name }}'
+      - name: access_string
+        value: '{{ access_string }}'
+      - name: authentication_mode
         value:
-          Type: '{{ Type }}'
-          Passwords:
-            - '{{ Passwords[0] }}'
-      - name: Tags
+          type: '{{ type }}'
+          passwords:
+            - '{{ passwords[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserName>';
+AND Identifier = '{{ user_name }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<UserName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.users
-WHERE Identifier = '<UserName>'
+WHERE Identifier = '{{ user_name }}'
 AND region = 'us-east-1';
 ```
 

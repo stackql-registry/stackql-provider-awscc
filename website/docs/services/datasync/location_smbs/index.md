@@ -237,7 +237,7 @@ kerberos_principal,
 kerberos_keytab,
 kerberos_krb5_conf
 FROM awscc.datasync.location_smbs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,8 +273,8 @@ INSERT INTO awscc.datasync.location_smbs (
  AgentArns,
  region
 )
-SELECT 
-'{{ AgentArns }}',
+SELECT
+'{{ agent_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -298,20 +298,20 @@ INSERT INTO awscc.datasync.location_smbs (
  KerberosKrb5Conf,
  region
 )
-SELECT 
- '{{ AgentArns }}',
- '{{ Domain }}',
- '{{ MountOptions }}',
- '{{ Password }}',
- '{{ ServerHostname }}',
- '{{ Subdirectory }}',
- '{{ User }}',
- '{{ Tags }}',
- '{{ AuthenticationType }}',
- '{{ DnsIpAddresses }}',
- '{{ KerberosPrincipal }}',
- '{{ KerberosKeytab }}',
- '{{ KerberosKrb5Conf }}',
+SELECT
+ '{{ agent_arns }}',
+ '{{ domain }}',
+ '{{ mount_options }}',
+ '{{ password }}',
+ '{{ server_hostname }}',
+ '{{ subdirectory }}',
+ '{{ user }}',
+ '{{ tags }}',
+ '{{ authentication_type }}',
+ '{{ dns_ip_addresses }}',
+ '{{ kerberos_principal }}',
+ '{{ kerberos_keytab }}',
+ '{{ kerberos_krb5_conf }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -329,38 +329,37 @@ globals:
 resources:
   - name: location_smb
     props:
-      - name: AgentArns
+      - name: agent_arns
         value:
-          - '{{ AgentArns[0] }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: MountOptions
+          - '{{ agent_arns[0] }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: mount_options
         value:
-          Version: '{{ Version }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: ServerHostname
-        value: '{{ ServerHostname }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: User
-        value: '{{ User }}'
-      - name: Tags
+          version: '{{ version }}'
+      - name: password
+        value: '{{ password }}'
+      - name: server_hostname
+        value: '{{ server_hostname }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: user
+        value: '{{ user }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AuthenticationType
-        value: '{{ AuthenticationType }}'
-      - name: DnsIpAddresses
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: authentication_type
+        value: '{{ authentication_type }}'
+      - name: dns_ip_addresses
         value:
-          - '{{ DnsIpAddresses[0] }}'
-      - name: KerberosPrincipal
-        value: '{{ KerberosPrincipal }}'
-      - name: KerberosKeytab
-        value: '{{ KerberosKeytab }}'
-      - name: KerberosKrb5Conf
-        value: '{{ KerberosKrb5Conf }}'
-
+          - '{{ dns_ip_addresses[0] }}'
+      - name: kerberos_principal
+        value: '{{ kerberos_principal }}'
+      - name: kerberos_keytab
+        value: '{{ kerberos_keytab }}'
+      - name: kerberos_krb5_conf
+        value: '{{ kerberos_krb5_conf }}'
 ```
 </TabItem>
 </Tabs>
@@ -388,7 +387,7 @@ SET PatchDocument = string('{{ {
     "KerberosKrb5Conf": kerberos_krb5_conf
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -397,7 +396,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_smbs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

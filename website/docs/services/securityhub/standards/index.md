@@ -158,7 +158,7 @@ standards_subscription_arn,
 standards_arn,
 disabled_standards_controls
 FROM awscc.securityhub.standards
-WHERE region = 'us-east-1' AND Identifier = '<StandardsSubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ standards_subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.securityhub.standards (
  StandardsArn,
  region
 )
-SELECT 
-'{{ StandardsArn }}',
+SELECT
+'{{ standards_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.securityhub.standards (
  DisabledStandardsControls,
  region
 )
-SELECT 
- '{{ StandardsArn }}',
- '{{ DisabledStandardsControls }}',
+SELECT
+ '{{ standards_arn }}',
+ '{{ disabled_standards_controls }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: standard
     props:
-      - name: StandardsArn
-        value: '{{ StandardsArn }}'
-      - name: DisabledStandardsControls
+      - name: standards_arn
+        value: '{{ standards_arn }}'
+      - name: disabled_standards_controls
         value:
-          - StandardsControlArn: '{{ StandardsControlArn }}'
-            Reason: '{{ Reason }}'
-
+          - standards_control_arn: '{{ standards_control_arn }}'
+            reason: '{{ reason }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "DisabledStandardsControls": disabled_standards_controls
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StandardsSubscriptionArn>';
+AND Identifier = '{{ standards_subscription_arn }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<StandardsSubscriptionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.standards
-WHERE Identifier = '<StandardsSubscriptionArn>'
+WHERE Identifier = '{{ standards_subscription_arn }}'
 AND region = 'us-east-1';
 ```
 

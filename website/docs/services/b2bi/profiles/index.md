@@ -206,7 +206,7 @@ profile_arn,
 profile_id,
 tags
 FROM awscc.b2bi.profiles
-WHERE region = 'us-east-1' AND Identifier = '<ProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,11 +245,11 @@ INSERT INTO awscc.b2bi.profiles (
  Phone,
  region
 )
-SELECT 
-'{{ BusinessName }}',
- '{{ Logging }}',
- '{{ Name }}',
- '{{ Phone }}',
+SELECT
+'{{ business_name }}',
+ '{{ logging }}',
+ '{{ name }}',
+ '{{ phone }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -266,13 +266,13 @@ INSERT INTO awscc.b2bi.profiles (
  Tags,
  region
 )
-SELECT 
- '{{ BusinessName }}',
- '{{ Email }}',
- '{{ Logging }}',
- '{{ Name }}',
- '{{ Phone }}',
- '{{ Tags }}',
+SELECT
+ '{{ business_name }}',
+ '{{ email }}',
+ '{{ logging }}',
+ '{{ name }}',
+ '{{ phone }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,21 +290,20 @@ globals:
 resources:
   - name: profile
     props:
-      - name: BusinessName
-        value: '{{ BusinessName }}'
-      - name: Email
-        value: '{{ Email }}'
-      - name: Logging
-        value: '{{ Logging }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Phone
-        value: '{{ Phone }}'
-      - name: Tags
+      - name: business_name
+        value: '{{ business_name }}'
+      - name: email
+        value: '{{ email }}'
+      - name: logging
+        value: '{{ logging }}'
+      - name: name
+        value: '{{ name }}'
+      - name: phone
+        value: '{{ phone }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProfileId>';
+AND Identifier = '{{ profile_id }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<ProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.profiles
-WHERE Identifier = '<ProfileId>'
+WHERE Identifier = '{{ profile_id }}'
 AND region = 'us-east-1';
 ```
 

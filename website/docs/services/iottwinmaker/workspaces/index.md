@@ -171,7 +171,7 @@ creation_date_time,
 update_date_time,
 tags
 FROM awscc.iottwinmaker.workspaces
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +209,10 @@ INSERT INTO awscc.iottwinmaker.workspaces (
  S3Location,
  region
 )
-SELECT 
-'{{ WorkspaceId }}',
- '{{ Role }}',
- '{{ S3Location }}',
+SELECT
+'{{ workspace_id }}',
+ '{{ role }}',
+ '{{ s3_location }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,12 +228,12 @@ INSERT INTO awscc.iottwinmaker.workspaces (
  Tags,
  region
 )
-SELECT 
- '{{ WorkspaceId }}',
- '{{ Description }}',
- '{{ Role }}',
- '{{ S3Location }}',
- '{{ Tags }}',
+SELECT
+ '{{ workspace_id }}',
+ '{{ description }}',
+ '{{ role }}',
+ '{{ s3_location }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -251,17 +251,16 @@ globals:
 resources:
   - name: workspace
     props:
-      - name: WorkspaceId
-        value: '{{ WorkspaceId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Role
-        value: '{{ Role }}'
-      - name: S3Location
-        value: '{{ S3Location }}'
-      - name: Tags
+      - name: workspace_id
+        value: '{{ workspace_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: role
+        value: '{{ role }}'
+      - name: s3_location
+        value: '{{ s3_location }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -280,7 +279,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceId>';
+AND Identifier = '{{ workspace_id }}';
 ```
 
 
@@ -289,7 +288,7 @@ AND Identifier = '<WorkspaceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.workspaces
-WHERE Identifier = '<WorkspaceId>'
+WHERE Identifier = '{{ workspace_id }}'
 AND region = 'us-east-1';
 ```
 

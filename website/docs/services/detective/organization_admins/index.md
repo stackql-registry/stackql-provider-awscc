@@ -134,7 +134,7 @@ region,
 account_id,
 graph_arn
 FROM awscc.detective.organization_admins
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,8 +170,8 @@ INSERT INTO awscc.detective.organization_admins (
  AccountId,
  region
 )
-SELECT 
-'{{ AccountId }}',
+SELECT
+'{{ account_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -183,8 +183,8 @@ INSERT INTO awscc.detective.organization_admins (
  AccountId,
  region
 )
-SELECT 
- '{{ AccountId }}',
+SELECT
+ '{{ account_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,8 @@ globals:
 resources:
   - name: organization_admin
     props:
-      - name: AccountId
-        value: '{{ AccountId }}'
-
+      - name: account_id
+        value: '{{ account_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -215,7 +214,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.organization_admins
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

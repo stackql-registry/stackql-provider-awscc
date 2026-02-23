@@ -134,7 +134,7 @@ region,
 name,
 security_configuration
 FROM awscc.emr.security_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,8 +170,8 @@ INSERT INTO awscc.emr.security_configurations (
  SecurityConfiguration,
  region
 )
-SELECT 
-'{{ SecurityConfiguration }}',
+SELECT
+'{{ security_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -184,9 +184,9 @@ INSERT INTO awscc.emr.security_configurations (
  SecurityConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ SecurityConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ security_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -204,11 +204,10 @@ globals:
 resources:
   - name: security_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: SecurityConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: security_configuration
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -219,7 +218,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.security_configurations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

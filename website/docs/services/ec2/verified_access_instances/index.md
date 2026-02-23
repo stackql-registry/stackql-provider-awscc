@@ -461,7 +461,7 @@ fips_enabled,
 cidr_endpoints_custom_sub_domain,
 cidr_endpoints_custom_sub_domain_name_servers
 FROM awscc.ec2.verified_access_instances
-WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessInstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -503,14 +503,14 @@ INSERT INTO awscc.ec2.verified_access_instances (
  CidrEndpointsCustomSubDomain,
  region
 )
-SELECT 
-'{{ VerifiedAccessTrustProviders }}',
- '{{ VerifiedAccessTrustProviderIds }}',
- '{{ Description }}',
- '{{ LoggingConfigurations }}',
- '{{ Tags }}',
- '{{ FipsEnabled }}',
- '{{ CidrEndpointsCustomSubDomain }}',
+SELECT
+'{{ verified_access_trust_providers }}',
+ '{{ verified_access_trust_provider_ids }}',
+ '{{ description }}',
+ '{{ logging_configurations }}',
+ '{{ tags }}',
+ '{{ fips_enabled }}',
+ '{{ cidr_endpoints_custom_sub_domain }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -528,14 +528,14 @@ INSERT INTO awscc.ec2.verified_access_instances (
  CidrEndpointsCustomSubDomain,
  region
 )
-SELECT 
- '{{ VerifiedAccessTrustProviders }}',
- '{{ VerifiedAccessTrustProviderIds }}',
- '{{ Description }}',
- '{{ LoggingConfigurations }}',
- '{{ Tags }}',
- '{{ FipsEnabled }}',
- '{{ CidrEndpointsCustomSubDomain }}',
+SELECT
+ '{{ verified_access_trust_providers }}',
+ '{{ verified_access_trust_provider_ids }}',
+ '{{ description }}',
+ '{{ logging_configurations }}',
+ '{{ tags }}',
+ '{{ fips_enabled }}',
+ '{{ cidr_endpoints_custom_sub_domain }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -553,67 +553,66 @@ globals:
 resources:
   - name: verified_access_instance
     props:
-      - name: VerifiedAccessTrustProviders
+      - name: verified_access_trust_providers
         value:
-          - TrustProviderType: '{{ TrustProviderType }}'
-            DeviceTrustProviderType: '{{ DeviceTrustProviderType }}'
-            UserTrustProviderType: '{{ UserTrustProviderType }}'
-            OidcOptions:
-              Issuer: '{{ Issuer }}'
-              AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-              TokenEndpoint: '{{ TokenEndpoint }}'
-              UserInfoEndpoint: '{{ UserInfoEndpoint }}'
-              ClientId: '{{ ClientId }}'
-              ClientSecret: '{{ ClientSecret }}'
-              Scope: '{{ Scope }}'
-            DeviceOptions:
-              TenantId: '{{ TenantId }}'
-              PublicSigningKeyUrl: '{{ PublicSigningKeyUrl }}'
-            PolicyReferenceName: '{{ PolicyReferenceName }}'
-            Description: '{{ Description }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-            SseSpecification:
-              KmsKeyArn: '{{ KmsKeyArn }}'
-              CustomerManagedKeyEnabled: '{{ CustomerManagedKeyEnabled }}'
-            NativeApplicationOidcOptions:
-              Issuer: '{{ Issuer }}'
-              AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-              TokenEndpoint: '{{ TokenEndpoint }}'
-              UserInfoEndpoint: '{{ UserInfoEndpoint }}'
-              ClientId: '{{ ClientId }}'
-              ClientSecret: '{{ ClientSecret }}'
-              Scope: '{{ Scope }}'
-              PublicSigningKeyEndpoint: '{{ PublicSigningKeyEndpoint }}'
-      - name: VerifiedAccessTrustProviderIds
+          - trust_provider_type: '{{ trust_provider_type }}'
+            device_trust_provider_type: '{{ device_trust_provider_type }}'
+            user_trust_provider_type: '{{ user_trust_provider_type }}'
+            oidc_options:
+              issuer: '{{ issuer }}'
+              authorization_endpoint: '{{ authorization_endpoint }}'
+              token_endpoint: '{{ token_endpoint }}'
+              user_info_endpoint: '{{ user_info_endpoint }}'
+              client_id: '{{ client_id }}'
+              client_secret: '{{ client_secret }}'
+              scope: '{{ scope }}'
+            device_options:
+              tenant_id: '{{ tenant_id }}'
+              public_signing_key_url: '{{ public_signing_key_url }}'
+            policy_reference_name: '{{ policy_reference_name }}'
+            description: '{{ description }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+            sse_specification:
+              kms_key_arn: '{{ kms_key_arn }}'
+              customer_managed_key_enabled: '{{ customer_managed_key_enabled }}'
+            native_application_oidc_options:
+              issuer: '{{ issuer }}'
+              authorization_endpoint: '{{ authorization_endpoint }}'
+              token_endpoint: '{{ token_endpoint }}'
+              user_info_endpoint: '{{ user_info_endpoint }}'
+              client_id: '{{ client_id }}'
+              client_secret: '{{ client_secret }}'
+              scope: '{{ scope }}'
+              public_signing_key_endpoint: '{{ public_signing_key_endpoint }}'
+      - name: verified_access_trust_provider_ids
         value:
-          - '{{ VerifiedAccessTrustProviderIds[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: LoggingConfigurations
+          - '{{ verified_access_trust_provider_ids[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: logging_configurations
         value:
-          LogVersion: '{{ LogVersion }}'
-          IncludeTrustContext: '{{ IncludeTrustContext }}'
-          CloudWatchLogs:
-            Enabled: '{{ Enabled }}'
-            LogGroup: '{{ LogGroup }}'
-          KinesisDataFirehose:
-            Enabled: '{{ Enabled }}'
-            DeliveryStream: '{{ DeliveryStream }}'
-          S3:
-            Enabled: '{{ Enabled }}'
-            BucketName: '{{ BucketName }}'
-            BucketOwner: '{{ BucketOwner }}'
-            Prefix: '{{ Prefix }}'
-      - name: Tags
+          log_version: '{{ log_version }}'
+          include_trust_context: '{{ include_trust_context }}'
+          cloud_watch_logs:
+            enabled: '{{ enabled }}'
+            log_group: '{{ log_group }}'
+          kinesis_data_firehose:
+            enabled: '{{ enabled }}'
+            delivery_stream: '{{ delivery_stream }}'
+          s3:
+            enabled: '{{ enabled }}'
+            bucket_name: '{{ bucket_name }}'
+            bucket_owner: '{{ bucket_owner }}'
+            prefix: '{{ prefix }}'
+      - name: tags
         value:
           - null
-      - name: FipsEnabled
-        value: '{{ FipsEnabled }}'
-      - name: CidrEndpointsCustomSubDomain
-        value: '{{ CidrEndpointsCustomSubDomain }}'
-
+      - name: fips_enabled
+        value: '{{ fips_enabled }}'
+      - name: cidr_endpoints_custom_sub_domain
+        value: '{{ cidr_endpoints_custom_sub_domain }}'
 ```
 </TabItem>
 </Tabs>
@@ -635,7 +634,7 @@ SET PatchDocument = string('{{ {
     "CidrEndpointsCustomSubDomain": cidr_endpoints_custom_sub_domain
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VerifiedAccessInstanceId>';
+AND Identifier = '{{ verified_access_instance_id }}';
 ```
 
 
@@ -644,7 +643,7 @@ AND Identifier = '<VerifiedAccessInstanceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_instances
-WHERE Identifier = '<VerifiedAccessInstanceId>'
+WHERE Identifier = '{{ verified_access_instance_id }}'
 AND region = 'us-east-1';
 ```
 

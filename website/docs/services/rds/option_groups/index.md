@@ -220,7 +220,7 @@ major_engine_version,
 option_configurations,
 tags
 FROM awscc.rds.option_groups
-WHERE region = 'us-east-1' AND Identifier = '<OptionGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ option_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,10 +258,10 @@ INSERT INTO awscc.rds.option_groups (
  MajorEngineVersion,
  region
 )
-SELECT 
-'{{ OptionGroupDescription }}',
- '{{ EngineName }}',
- '{{ MajorEngineVersion }}',
+SELECT
+'{{ option_group_description }}',
+ '{{ engine_name }}',
+ '{{ major_engine_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -278,13 +278,13 @@ INSERT INTO awscc.rds.option_groups (
  Tags,
  region
 )
-SELECT 
- '{{ OptionGroupName }}',
- '{{ OptionGroupDescription }}',
- '{{ EngineName }}',
- '{{ MajorEngineVersion }}',
- '{{ OptionConfigurations }}',
- '{{ Tags }}',
+SELECT
+ '{{ option_group_name }}',
+ '{{ option_group_description }}',
+ '{{ engine_name }}',
+ '{{ major_engine_version }}',
+ '{{ option_configurations }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,31 +302,30 @@ globals:
 resources:
   - name: option_group
     props:
-      - name: OptionGroupName
-        value: '{{ OptionGroupName }}'
-      - name: OptionGroupDescription
-        value: '{{ OptionGroupDescription }}'
-      - name: EngineName
-        value: '{{ EngineName }}'
-      - name: MajorEngineVersion
-        value: '{{ MajorEngineVersion }}'
-      - name: OptionConfigurations
+      - name: option_group_name
+        value: '{{ option_group_name }}'
+      - name: option_group_description
+        value: '{{ option_group_description }}'
+      - name: engine_name
+        value: '{{ engine_name }}'
+      - name: major_engine_version
+        value: '{{ major_engine_version }}'
+      - name: option_configurations
         value:
-          - DBSecurityGroupMemberships:
-              - '{{ DBSecurityGroupMemberships[0] }}'
-            OptionName: '{{ OptionName }}'
-            OptionSettings:
-              - Name: '{{ Name }}'
-                Value: '{{ Value }}'
-            OptionVersion: '{{ OptionVersion }}'
-            Port: '{{ Port }}'
-            VpcSecurityGroupMemberships:
-              - '{{ VpcSecurityGroupMemberships[0] }}'
-      - name: Tags
+          - db_security_group_memberships:
+              - '{{ db_security_group_memberships[0] }}'
+            option_name: '{{ option_name }}'
+            option_settings:
+              - name: '{{ name }}'
+                value: '{{ value }}'
+            option_version: '{{ option_version }}'
+            port: '{{ port }}'
+            vpc_security_group_memberships:
+              - '{{ vpc_security_group_memberships[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<OptionGroupName>';
+AND Identifier = '{{ option_group_name }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<OptionGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.option_groups
-WHERE Identifier = '<OptionGroupName>'
+WHERE Identifier = '{{ option_group_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -450,7 +450,7 @@ type,
 version,
 version_description
 FROM awscc.quicksight.themes
-WHERE region = 'us-east-1' AND Identifier = '<ThemeId>|<AwsAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -491,12 +491,12 @@ INSERT INTO awscc.quicksight.themes (
  ThemeId,
  region
 )
-SELECT 
-'{{ AwsAccountId }}',
- '{{ BaseThemeId }}',
- '{{ Configuration }}',
- '{{ Name }}',
- '{{ ThemeId }}',
+SELECT
+'{{ aws_account_id }}',
+ '{{ base_theme_id }}',
+ '{{ configuration }}',
+ '{{ name }}',
+ '{{ theme_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -515,15 +515,15 @@ INSERT INTO awscc.quicksight.themes (
  VersionDescription,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ BaseThemeId }}',
- '{{ Configuration }}',
- '{{ Name }}',
- '{{ Permissions }}',
- '{{ Tags }}',
- '{{ ThemeId }}',
- '{{ VersionDescription }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ base_theme_id }}',
+ '{{ configuration }}',
+ '{{ name }}',
+ '{{ permissions }}',
+ '{{ tags }}',
+ '{{ theme_id }}',
+ '{{ version_description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -541,63 +541,62 @@ globals:
 resources:
   - name: theme
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: BaseThemeId
-        value: '{{ BaseThemeId }}'
-      - name: Configuration
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: base_theme_id
+        value: '{{ base_theme_id }}'
+      - name: configuration
         value:
-          DataColorPalette:
-            Colors:
-              - '{{ Colors[0] }}'
-            MinMaxGradient:
-              - '{{ MinMaxGradient[0] }}'
-            EmptyFillColor: '{{ EmptyFillColor }}'
-          UIColorPalette:
-            PrimaryForeground: '{{ PrimaryForeground }}'
-            PrimaryBackground: '{{ PrimaryBackground }}'
-            SecondaryForeground: '{{ SecondaryForeground }}'
-            SecondaryBackground: '{{ SecondaryBackground }}'
-            Accent: '{{ Accent }}'
-            AccentForeground: '{{ AccentForeground }}'
-            Danger: '{{ Danger }}'
-            DangerForeground: '{{ DangerForeground }}'
-            Warning: '{{ Warning }}'
-            WarningForeground: '{{ WarningForeground }}'
-            Success: '{{ Success }}'
-            SuccessForeground: '{{ SuccessForeground }}'
-            Dimension: '{{ Dimension }}'
-            DimensionForeground: '{{ DimensionForeground }}'
-            Measure: '{{ Measure }}'
-            MeasureForeground: '{{ MeasureForeground }}'
-          Sheet:
-            Tile:
-              Border:
-                Show: '{{ Show }}'
-            TileLayout:
-              Gutter:
-                Show: '{{ Show }}'
-              Margin:
-                Show: '{{ Show }}'
-          Typography:
-            FontFamilies:
-              - FontFamily: '{{ FontFamily }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Permissions
+          data_color_palette:
+            colors:
+              - '{{ colors[0] }}'
+            min_max_gradient:
+              - '{{ min_max_gradient[0] }}'
+            empty_fill_color: '{{ empty_fill_color }}'
+          u_icolor_palette:
+            primary_foreground: '{{ primary_foreground }}'
+            primary_background: '{{ primary_background }}'
+            secondary_foreground: '{{ secondary_foreground }}'
+            secondary_background: '{{ secondary_background }}'
+            accent: '{{ accent }}'
+            accent_foreground: '{{ accent_foreground }}'
+            danger: '{{ danger }}'
+            danger_foreground: '{{ danger_foreground }}'
+            warning: '{{ warning }}'
+            warning_foreground: '{{ warning_foreground }}'
+            success: '{{ success }}'
+            success_foreground: '{{ success_foreground }}'
+            dimension: '{{ dimension }}'
+            dimension_foreground: '{{ dimension_foreground }}'
+            measure: '{{ measure }}'
+            measure_foreground: '{{ measure_foreground }}'
+          sheet:
+            tile:
+              border:
+                show: '{{ show }}'
+            tile_layout:
+              gutter:
+                show: '{{ show }}'
+              margin:
+                show: '{{ show }}'
+          typography:
+            font_families:
+              - font_family: '{{ font_family }}'
+      - name: name
+        value: '{{ name }}'
+      - name: permissions
         value:
-          - Principal: '{{ Principal }}'
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: Tags
+          - principal: '{{ principal }}'
+            actions:
+              - '{{ actions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ThemeId
-        value: '{{ ThemeId }}'
-      - name: VersionDescription
-        value: '{{ VersionDescription }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: theme_id
+        value: '{{ theme_id }}'
+      - name: version_description
+        value: '{{ version_description }}'
 ```
 </TabItem>
 </Tabs>
@@ -618,7 +617,7 @@ SET PatchDocument = string('{{ {
     "VersionDescription": version_description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ThemeId>|<AwsAccountId>';
+AND Identifier = '{{ theme_id }}|{{ aws_account_id }}';
 ```
 
 
@@ -627,7 +626,7 @@ AND Identifier = '<ThemeId>|<AwsAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.themes
-WHERE Identifier = '<ThemeId|AwsAccountId>'
+WHERE Identifier = '{{ theme_id }}|{{ aws_account_id }}'
 AND region = 'us-east-1';
 ```
 

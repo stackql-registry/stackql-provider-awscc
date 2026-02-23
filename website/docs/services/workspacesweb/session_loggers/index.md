@@ -228,7 +228,7 @@ log_configuration,
 session_logger_arn,
 tags
 FROM awscc.workspacesweb.session_loggers
-WHERE region = 'us-east-1' AND Identifier = '<SessionLoggerArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ session_logger_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,9 +265,9 @@ INSERT INTO awscc.workspacesweb.session_loggers (
  LogConfiguration,
  region
 )
-SELECT 
-'{{ EventFilter }}',
- '{{ LogConfiguration }}',
+SELECT
+'{{ event_filter }}',
+ '{{ log_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,13 +284,13 @@ INSERT INTO awscc.workspacesweb.session_loggers (
  Tags,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ CustomerManagedKey }}',
- '{{ DisplayName }}',
- '{{ EventFilter }}',
- '{{ LogConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ customer_managed_key }}',
+ '{{ display_name }}',
+ '{{ event_filter }}',
+ '{{ log_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -308,27 +308,26 @@ globals:
 resources:
   - name: session_logger
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: EventFilter
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: event_filter
         value: null
-      - name: LogConfiguration
+      - name: log_configuration
         value:
-          S3:
-            Bucket: '{{ Bucket }}'
-            KeyPrefix: '{{ KeyPrefix }}'
-            BucketOwner: '{{ BucketOwner }}'
-            LogFileFormat: '{{ LogFileFormat }}'
-            FolderStructure: '{{ FolderStructure }}'
-      - name: Tags
+          s3:
+            bucket: '{{ bucket }}'
+            key_prefix: '{{ key_prefix }}'
+            bucket_owner: '{{ bucket_owner }}'
+            log_file_format: '{{ log_file_format }}'
+            folder_structure: '{{ folder_structure }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SessionLoggerArn>';
+AND Identifier = '{{ session_logger_arn }}';
 ```
 
 
@@ -356,7 +355,7 @@ AND Identifier = '<SessionLoggerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.session_loggers
-WHERE Identifier = '<SessionLoggerArn>'
+WHERE Identifier = '{{ session_logger_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -158,7 +158,7 @@ is_attached,
 ip_address,
 static_ip_arn
 FROM awscc.lightsail.static_ips
-WHERE region = 'us-east-1' AND Identifier = '<StaticIpName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ static_ip_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.lightsail.static_ips (
  StaticIpName,
  region
 )
-SELECT 
-'{{ StaticIpName }}',
+SELECT
+'{{ static_ip_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.lightsail.static_ips (
  AttachedTo,
  region
 )
-SELECT 
- '{{ StaticIpName }}',
- '{{ AttachedTo }}',
+SELECT
+ '{{ static_ip_name }}',
+ '{{ attached_to }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,10 @@ globals:
 resources:
   - name: static_ip
     props:
-      - name: StaticIpName
-        value: '{{ StaticIpName }}'
-      - name: AttachedTo
-        value: '{{ AttachedTo }}'
-
+      - name: static_ip_name
+        value: '{{ static_ip_name }}'
+      - name: attached_to
+        value: '{{ attached_to }}'
 ```
 </TabItem>
 </Tabs>
@@ -248,7 +247,7 @@ SET PatchDocument = string('{{ {
     "AttachedTo": attached_to
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StaticIpName>';
+AND Identifier = '{{ static_ip_name }}';
 ```
 
 
@@ -257,7 +256,7 @@ AND Identifier = '<StaticIpName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.static_ips
-WHERE Identifier = '<StaticIpName>'
+WHERE Identifier = '{{ static_ip_name }}'
 AND region = 'us-east-1';
 ```
 

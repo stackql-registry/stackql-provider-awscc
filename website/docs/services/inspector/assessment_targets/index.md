@@ -146,7 +146,7 @@ arn,
 assessment_target_name,
 resource_group_arn
 FROM awscc.inspector.assessment_targets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.inspector.assessment_targets (
  ResourceGroupArn,
  region
 )
-SELECT 
-'{{ AssessmentTargetName }}',
- '{{ ResourceGroupArn }}',
+SELECT
+'{{ assessment_target_name }}',
+ '{{ resource_group_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -198,9 +198,9 @@ INSERT INTO awscc.inspector.assessment_targets (
  ResourceGroupArn,
  region
 )
-SELECT 
- '{{ AssessmentTargetName }}',
- '{{ ResourceGroupArn }}',
+SELECT
+ '{{ assessment_target_name }}',
+ '{{ resource_group_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,10 @@ globals:
 resources:
   - name: assessment_target
     props:
-      - name: AssessmentTargetName
-        value: '{{ AssessmentTargetName }}'
-      - name: ResourceGroupArn
-        value: '{{ ResourceGroupArn }}'
-
+      - name: assessment_target_name
+        value: '{{ assessment_target_name }}'
+      - name: resource_group_arn
+        value: '{{ resource_group_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -238,7 +237,7 @@ SET PatchDocument = string('{{ {
     "ResourceGroupArn": resource_group_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -247,7 +246,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspector.assessment_targets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

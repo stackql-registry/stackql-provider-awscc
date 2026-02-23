@@ -157,7 +157,7 @@ action,
 principal,
 statement_id
 FROM awscc.signer.profile_permissions
-WHERE region = 'us-east-1' AND Identifier = '<StatementId>|<ProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ statement_id }}|{{ profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -197,11 +197,11 @@ INSERT INTO awscc.signer.profile_permissions (
  StatementId,
  region
 )
-SELECT 
-'{{ ProfileName }}',
- '{{ Action }}',
- '{{ Principal }}',
- '{{ StatementId }}',
+SELECT
+'{{ profile_name }}',
+ '{{ action }}',
+ '{{ principal }}',
+ '{{ statement_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,12 +217,12 @@ INSERT INTO awscc.signer.profile_permissions (
  StatementId,
  region
 )
-SELECT 
- '{{ ProfileName }}',
- '{{ ProfileVersion }}',
- '{{ Action }}',
- '{{ Principal }}',
- '{{ StatementId }}',
+SELECT
+ '{{ profile_name }}',
+ '{{ profile_version }}',
+ '{{ action }}',
+ '{{ principal }}',
+ '{{ statement_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,17 +240,16 @@ globals:
 resources:
   - name: profile_permission
     props:
-      - name: ProfileName
-        value: '{{ ProfileName }}'
-      - name: ProfileVersion
-        value: '{{ ProfileVersion }}'
-      - name: Action
-        value: '{{ Action }}'
-      - name: Principal
-        value: '{{ Principal }}'
-      - name: StatementId
-        value: '{{ StatementId }}'
-
+      - name: profile_name
+        value: '{{ profile_name }}'
+      - name: profile_version
+        value: '{{ profile_version }}'
+      - name: action
+        value: '{{ action }}'
+      - name: principal
+        value: '{{ principal }}'
+      - name: statement_id
+        value: '{{ statement_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.signer.profile_permissions
-WHERE Identifier = '<StatementId|ProfileName>'
+WHERE Identifier = '{{ statement_id }}|{{ profile_name }}'
 AND region = 'us-east-1';
 ```
 

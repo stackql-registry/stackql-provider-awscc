@@ -175,7 +175,7 @@ role_arn,
 distribution,
 apply_on_transformed_logs
 FROM awscc.logs.subscription_filters
-WHERE region = 'us-east-1' AND Identifier = '<FilterName>|<LogGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.logs.subscription_filters (
  LogGroupName,
  region
 )
-SELECT 
-'{{ DestinationArn }}',
- '{{ FilterPattern }}',
- '{{ LogGroupName }}',
+SELECT
+'{{ destination_arn }}',
+ '{{ filter_pattern }}',
+ '{{ log_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,14 +235,14 @@ INSERT INTO awscc.logs.subscription_filters (
  ApplyOnTransformedLogs,
  region
 )
-SELECT 
- '{{ FilterName }}',
- '{{ DestinationArn }}',
- '{{ FilterPattern }}',
- '{{ LogGroupName }}',
- '{{ RoleArn }}',
- '{{ Distribution }}',
- '{{ ApplyOnTransformedLogs }}',
+SELECT
+ '{{ filter_name }}',
+ '{{ destination_arn }}',
+ '{{ filter_pattern }}',
+ '{{ log_group_name }}',
+ '{{ role_arn }}',
+ '{{ distribution }}',
+ '{{ apply_on_transformed_logs }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,21 +260,20 @@ globals:
 resources:
   - name: subscription_filter
     props:
-      - name: FilterName
-        value: '{{ FilterName }}'
-      - name: DestinationArn
-        value: '{{ DestinationArn }}'
-      - name: FilterPattern
-        value: '{{ FilterPattern }}'
-      - name: LogGroupName
-        value: '{{ LogGroupName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Distribution
-        value: '{{ Distribution }}'
-      - name: ApplyOnTransformedLogs
-        value: '{{ ApplyOnTransformedLogs }}'
-
+      - name: filter_name
+        value: '{{ filter_name }}'
+      - name: destination_arn
+        value: '{{ destination_arn }}'
+      - name: filter_pattern
+        value: '{{ filter_pattern }}'
+      - name: log_group_name
+        value: '{{ log_group_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: distribution
+        value: '{{ distribution }}'
+      - name: apply_on_transformed_logs
+        value: '{{ apply_on_transformed_logs }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "ApplyOnTransformedLogs": apply_on_transformed_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FilterName>|<LogGroupName>';
+AND Identifier = '{{ filter_name }}|{{ log_group_name }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<FilterName>|<LogGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.subscription_filters
-WHERE Identifier = '<FilterName|LogGroupName>'
+WHERE Identifier = '{{ filter_name }}|{{ log_group_name }}'
 AND region = 'us-east-1';
 ```
 

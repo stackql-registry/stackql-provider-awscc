@@ -284,7 +284,7 @@ payload,
 pending_deletion,
 tags
 FROM awscc.iot.commands
-WHERE region = 'us-east-1' AND Identifier = '<CommandId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ command_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,8 +320,8 @@ INSERT INTO awscc.iot.commands (
  CommandId,
  region
 )
-SELECT 
-'{{ CommandId }}',
+SELECT
+'{{ command_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -344,19 +344,19 @@ INSERT INTO awscc.iot.commands (
  Tags,
  region
 )
-SELECT 
- '{{ CommandId }}',
- '{{ CreatedAt }}',
- '{{ Deprecated }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ LastUpdatedAt }}',
- '{{ MandatoryParameters }}',
- '{{ Namespace }}',
- '{{ RoleArn }}',
- '{{ Payload }}',
- '{{ PendingDeletion }}',
- '{{ Tags }}',
+SELECT
+ '{{ command_id }}',
+ '{{ created_at }}',
+ '{{ deprecated }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ last_updated_at }}',
+ '{{ mandatory_parameters }}',
+ '{{ namespace }}',
+ '{{ role_arn }}',
+ '{{ payload }}',
+ '{{ pending_deletion }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -374,46 +374,45 @@ globals:
 resources:
   - name: command
     props:
-      - name: CommandId
-        value: '{{ CommandId }}'
-      - name: CreatedAt
-        value: '{{ CreatedAt }}'
-      - name: Deprecated
-        value: '{{ Deprecated }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: LastUpdatedAt
-        value: '{{ LastUpdatedAt }}'
-      - name: MandatoryParameters
+      - name: command_id
+        value: '{{ command_id }}'
+      - name: created_at
+        value: '{{ created_at }}'
+      - name: deprecated
+        value: '{{ deprecated }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: last_updated_at
+        value: '{{ last_updated_at }}'
+      - name: mandatory_parameters
         value:
-          - Name: '{{ Name }}'
-            Value:
-              S: '{{ S }}'
-              B: '{{ B }}'
-              I: '{{ I }}'
-              L: '{{ L }}'
-              D: null
-              BIN: '{{ BIN }}'
-              UL: '{{ UL }}'
-            DefaultValue: null
-            Description: '{{ Description }}'
-      - name: Namespace
-        value: '{{ Namespace }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Payload
+          - name: '{{ name }}'
+            value:
+              s: '{{ s }}'
+              b: '{{ b }}'
+              i: '{{ i }}'
+              l: '{{ l }}'
+              d: null
+              b_in: '{{ b_in }}'
+              u_l: '{{ u_l }}'
+            default_value: null
+            description: '{{ description }}'
+      - name: namespace
+        value: '{{ namespace }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: payload
         value:
-          Content: '{{ Content }}'
-          ContentType: '{{ ContentType }}'
-      - name: PendingDeletion
-        value: '{{ PendingDeletion }}'
-      - name: Tags
+          content: '{{ content }}'
+          content_type: '{{ content_type }}'
+      - name: pending_deletion
+        value: '{{ pending_deletion }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -439,7 +438,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CommandId>';
+AND Identifier = '{{ command_id }}';
 ```
 
 
@@ -448,7 +447,7 @@ AND Identifier = '<CommandId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.commands
-WHERE Identifier = '<CommandId>'
+WHERE Identifier = '{{ command_id }}'
 AND region = 'us-east-1';
 ```
 

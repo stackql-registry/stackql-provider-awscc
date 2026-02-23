@@ -225,7 +225,7 @@ fingerprint,
 arn,
 tags
 FROM awscc.iotwireless.partner_accounts
-WHERE region = 'us-east-1' AND Identifier = '<PartnerAccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ partner_account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,14 +267,14 @@ INSERT INTO awscc.iotwireless.partner_accounts (
  Tags,
  region
 )
-SELECT 
-'{{ Sidewalk }}',
- '{{ PartnerAccountId }}',
- '{{ PartnerType }}',
- '{{ SidewalkResponse }}',
- '{{ AccountLinked }}',
- '{{ SidewalkUpdate }}',
- '{{ Tags }}',
+SELECT
+'{{ sidewalk }}',
+ '{{ partner_account_id }}',
+ '{{ partner_type }}',
+ '{{ sidewalk_response }}',
+ '{{ account_linked }}',
+ '{{ sidewalk_update }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,14 +292,14 @@ INSERT INTO awscc.iotwireless.partner_accounts (
  Tags,
  region
 )
-SELECT 
- '{{ Sidewalk }}',
- '{{ PartnerAccountId }}',
- '{{ PartnerType }}',
- '{{ SidewalkResponse }}',
- '{{ AccountLinked }}',
- '{{ SidewalkUpdate }}',
- '{{ Tags }}',
+SELECT
+ '{{ sidewalk }}',
+ '{{ partner_account_id }}',
+ '{{ partner_type }}',
+ '{{ sidewalk_response }}',
+ '{{ account_linked }}',
+ '{{ sidewalk_update }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -317,28 +317,27 @@ globals:
 resources:
   - name: partner_account
     props:
-      - name: Sidewalk
+      - name: sidewalk
         value:
-          AppServerPrivateKey: '{{ AppServerPrivateKey }}'
-      - name: PartnerAccountId
-        value: '{{ PartnerAccountId }}'
-      - name: PartnerType
-        value: '{{ PartnerType }}'
-      - name: SidewalkResponse
+          app_server_private_key: '{{ app_server_private_key }}'
+      - name: partner_account_id
+        value: '{{ partner_account_id }}'
+      - name: partner_type
+        value: '{{ partner_type }}'
+      - name: sidewalk_response
         value:
-          AmazonId: '{{ AmazonId }}'
-          Fingerprint: '{{ Fingerprint }}'
-          Arn: '{{ Arn }}'
-      - name: AccountLinked
-        value: '{{ AccountLinked }}'
-      - name: SidewalkUpdate
+          amazon_id: '{{ amazon_id }}'
+          fingerprint: '{{ fingerprint }}'
+          arn: '{{ arn }}'
+      - name: account_linked
+        value: '{{ account_linked }}'
+      - name: sidewalk_update
         value:
-          AppServerPrivateKey: '{{ AppServerPrivateKey }}'
-      - name: Tags
+          app_server_private_key: '{{ app_server_private_key }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +358,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PartnerAccountId>';
+AND Identifier = '{{ partner_account_id }}';
 ```
 
 
@@ -368,7 +367,7 @@ AND Identifier = '<PartnerAccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.partner_accounts
-WHERE Identifier = '<PartnerAccountId>'
+WHERE Identifier = '{{ partner_account_id }}'
 AND region = 'us-east-1';
 ```
 

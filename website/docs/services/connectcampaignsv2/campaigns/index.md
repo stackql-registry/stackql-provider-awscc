@@ -455,7 +455,7 @@ communication_time_config,
 communication_limits_override,
 tags
 FROM awscc.connectcampaignsv2.campaigns
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -493,10 +493,10 @@ INSERT INTO awscc.connectcampaignsv2.campaigns (
  ChannelSubtypeConfig,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ConnectInstanceId }}',
- '{{ ChannelSubtypeConfig }}',
+SELECT
+'{{ name }}',
+ '{{ connect_instance_id }}',
+ '{{ channel_subtype_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -516,16 +516,16 @@ INSERT INTO awscc.connectcampaignsv2.campaigns (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ConnectInstanceId }}',
- '{{ ChannelSubtypeConfig }}',
- '{{ Source }}',
- '{{ ConnectCampaignFlowArn }}',
- '{{ Schedule }}',
- '{{ CommunicationTimeConfig }}',
- '{{ CommunicationLimitsOverride }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ connect_instance_id }}',
+ '{{ channel_subtype_config }}',
+ '{{ source }}',
+ '{{ connect_campaign_flow_arn }}',
+ '{{ schedule }}',
+ '{{ communication_time_config }}',
+ '{{ communication_limits_override }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -543,87 +543,86 @@ globals:
 resources:
   - name: campaign
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ConnectInstanceId
-        value: '{{ ConnectInstanceId }}'
-      - name: ChannelSubtypeConfig
+      - name: name
+        value: '{{ name }}'
+      - name: connect_instance_id
+        value: '{{ connect_instance_id }}'
+      - name: channel_subtype_config
         value:
-          Telephony:
-            Capacity: null
-            ConnectQueueId: '{{ ConnectQueueId }}'
-            OutboundMode:
-              ProgressiveConfig:
-                BandwidthAllocation: null
-              PredictiveConfig:
-                BandwidthAllocation: null
-              AgentlessConfig: {}
-            DefaultOutboundConfig:
-              ConnectContactFlowId: '{{ ConnectContactFlowId }}'
-              ConnectSourcePhoneNumber: '{{ ConnectSourcePhoneNumber }}'
-              AnswerMachineDetectionConfig:
-                EnableAnswerMachineDetection: '{{ EnableAnswerMachineDetection }}'
-                AwaitAnswerMachinePrompt: '{{ AwaitAnswerMachinePrompt }}'
-          Sms:
-            Capacity: null
-            OutboundMode:
-              AgentlessConfig: null
-            DefaultOutboundConfig:
-              ConnectSourcePhoneNumberArn: '{{ ConnectSourcePhoneNumberArn }}'
-              WisdomTemplateArn: null
-          Email:
-            Capacity: null
-            OutboundMode:
-              AgentlessConfig: null
-            DefaultOutboundConfig:
-              ConnectSourceEmailAddress: '{{ ConnectSourceEmailAddress }}'
-              SourceEmailAddressDisplayName: '{{ SourceEmailAddressDisplayName }}'
-              WisdomTemplateArn: null
-      - name: Source
+          telephony:
+            capacity: null
+            connect_queue_id: '{{ connect_queue_id }}'
+            outbound_mode:
+              progressive_config:
+                bandwidth_allocation: null
+              predictive_config:
+                bandwidth_allocation: null
+              agentless_config: {}
+            default_outbound_config:
+              connect_contact_flow_id: '{{ connect_contact_flow_id }}'
+              connect_source_phone_number: '{{ connect_source_phone_number }}'
+              answer_machine_detection_config:
+                enable_answer_machine_detection: '{{ enable_answer_machine_detection }}'
+                await_answer_machine_prompt: '{{ await_answer_machine_prompt }}'
+          sms:
+            capacity: null
+            outbound_mode:
+              agentless_config: null
+            default_outbound_config:
+              connect_source_phone_number_arn: '{{ connect_source_phone_number_arn }}'
+              wisdom_template_arn: null
+          email:
+            capacity: null
+            outbound_mode:
+              agentless_config: null
+            default_outbound_config:
+              connect_source_email_address: '{{ connect_source_email_address }}'
+              source_email_address_display_name: '{{ source_email_address_display_name }}'
+              wisdom_template_arn: null
+      - name: source
         value:
-          CustomerProfilesSegmentArn: null
-          EventTrigger:
-            CustomerProfilesDomainArn: null
-      - name: ConnectCampaignFlowArn
+          customer_profiles_segment_arn: null
+          event_trigger:
+            customer_profiles_domain_arn: null
+      - name: connect_campaign_flow_arn
         value: null
-      - name: Schedule
+      - name: schedule
         value:
-          StartTime: '{{ StartTime }}'
-          EndTime: null
-          RefreshFrequency: '{{ RefreshFrequency }}'
-      - name: CommunicationTimeConfig
+          start_time: '{{ start_time }}'
+          end_time: null
+          refresh_frequency: '{{ refresh_frequency }}'
+      - name: communication_time_config
         value:
-          LocalTimeZoneConfig:
-            DefaultTimeZone: '{{ DefaultTimeZone }}'
-            LocalTimeZoneDetection:
-              - '{{ LocalTimeZoneDetection[0] }}'
-          Telephony:
-            OpenHours:
-              DailyHours:
-                - Key: '{{ Key }}'
-                  Value:
-                    - StartTime: '{{ StartTime }}'
-                      EndTime: null
-            RestrictedPeriods:
-              RestrictedPeriodList:
-                - Name: '{{ Name }}'
-                  StartDate: '{{ StartDate }}'
-                  EndDate: null
-          Sms: null
-          Email: null
-      - name: CommunicationLimitsOverride
+          local_time_zone_config:
+            default_time_zone: '{{ default_time_zone }}'
+            local_time_zone_detection:
+              - '{{ local_time_zone_detection[0] }}'
+          telephony:
+            open_hours:
+              daily_hours:
+                - key: '{{ key }}'
+                  value:
+                    - start_time: '{{ start_time }}'
+                      end_time: null
+            restricted_periods:
+              restricted_period_list:
+                - name: '{{ name }}'
+                  start_date: '{{ start_date }}'
+                  end_date: null
+          sms: null
+          email: null
+      - name: communication_limits_override
         value:
-          AllChannelsSubtypes:
-            CommunicationLimitList:
-              - MaxCountPerRecipient: '{{ MaxCountPerRecipient }}'
-                Frequency: '{{ Frequency }}'
-                Unit: '{{ Unit }}'
-          InstanceLimitsHandling: '{{ InstanceLimitsHandling }}'
-      - name: Tags
+          all_channels_subtypes:
+            communication_limit_list:
+              - max_count_per_recipient: '{{ max_count_per_recipient }}'
+                frequency: '{{ frequency }}'
+                unit: '{{ unit }}'
+          instance_limits_handling: '{{ instance_limits_handling }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -646,7 +645,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -655,7 +654,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connectcampaignsv2.campaigns
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

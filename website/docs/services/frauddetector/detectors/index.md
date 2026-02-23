@@ -481,7 +481,7 @@ created_time,
 last_updated_time,
 associated_models
 FROM awscc.frauddetector.detectors
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -519,10 +519,10 @@ INSERT INTO awscc.frauddetector.detectors (
  EventType,
  region
 )
-SELECT 
-'{{ DetectorId }}',
- '{{ Rules }}',
- '{{ EventType }}',
+SELECT
+'{{ detector_id }}',
+ '{{ rules }}',
+ '{{ event_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -541,15 +541,15 @@ INSERT INTO awscc.frauddetector.detectors (
  AssociatedModels,
  region
 )
-SELECT 
- '{{ DetectorId }}',
- '{{ DetectorVersionStatus }}',
- '{{ RuleExecutionMode }}',
- '{{ Tags }}',
- '{{ Description }}',
- '{{ Rules }}',
- '{{ EventType }}',
- '{{ AssociatedModels }}',
+SELECT
+ '{{ detector_id }}',
+ '{{ detector_version_status }}',
+ '{{ rule_execution_mode }}',
+ '{{ tags }}',
+ '{{ description }}',
+ '{{ rules }}',
+ '{{ event_type }}',
+ '{{ associated_models }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -567,73 +567,72 @@ globals:
 resources:
   - name: detector
     props:
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-      - name: DetectorVersionStatus
-        value: '{{ DetectorVersionStatus }}'
-      - name: RuleExecutionMode
-        value: '{{ RuleExecutionMode }}'
-      - name: Tags
+      - name: detector_id
+        value: '{{ detector_id }}'
+      - name: detector_version_status
+        value: '{{ detector_version_status }}'
+      - name: rule_execution_mode
+        value: '{{ rule_execution_mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Rules
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: rules
         value:
-          - RuleId: '{{ RuleId }}'
-            RuleVersion: '{{ RuleVersion }}'
-            DetectorId: '{{ DetectorId }}'
-            Expression: '{{ Expression }}'
-            Language: '{{ Language }}'
-            Outcomes:
-              - Name: '{{ Name }}'
-                Tags:
+          - rule_id: '{{ rule_id }}'
+            rule_version: '{{ rule_version }}'
+            detector_id: '{{ detector_id }}'
+            expression: '{{ expression }}'
+            language: '{{ language }}'
+            outcomes:
+              - name: '{{ name }}'
+                tags:
                   - null
-                Description: '{{ Description }}'
-            Arn: '{{ Arn }}'
-            Description: '{{ Description }}'
-            Tags:
+                description: '{{ description }}'
+            arn: '{{ arn }}'
+            description: '{{ description }}'
+            tags:
               - null
-            CreatedTime: '{{ CreatedTime }}'
-            LastUpdatedTime: '{{ LastUpdatedTime }}'
-      - name: EventType
+            created_time: '{{ created_time }}'
+            last_updated_time: '{{ last_updated_time }}'
+      - name: event_type
         value:
-          Name: '{{ Name }}'
-          Tags:
+          name: '{{ name }}'
+          tags:
             - null
-          Description: '{{ Description }}'
-          EventVariables:
-            - Arn: '{{ Arn }}'
-              Inline: '{{ Inline }}'
-              Name: '{{ Name }}'
-              DataSource: '{{ DataSource }}'
-              DataType: '{{ DataType }}'
-              DefaultValue: '{{ DefaultValue }}'
-              VariableType: '{{ VariableType }}'
-              Description: '{{ Description }}'
-              Tags:
+          description: '{{ description }}'
+          event_variables:
+            - arn: '{{ arn }}'
+              inline: '{{ inline }}'
+              name: '{{ name }}'
+              data_source: '{{ data_source }}'
+              data_type: '{{ data_type }}'
+              default_value: '{{ default_value }}'
+              variable_type: '{{ variable_type }}'
+              description: '{{ description }}'
+              tags:
                 - null
-              CreatedTime: '{{ CreatedTime }}'
-              LastUpdatedTime: '{{ LastUpdatedTime }}'
-          Labels:
-            - Name: '{{ Name }}'
-              Tags:
+              created_time: '{{ created_time }}'
+              last_updated_time: '{{ last_updated_time }}'
+          labels:
+            - name: '{{ name }}'
+              tags:
                 - null
-              Description: '{{ Description }}'
-          EntityTypes:
-            - Arn: '{{ Arn }}'
-              Inline: '{{ Inline }}'
-              Name: '{{ Name }}'
-              Description: '{{ Description }}'
-              Tags:
+              description: '{{ description }}'
+          entity_types:
+            - arn: '{{ arn }}'
+              inline: '{{ inline }}'
+              name: '{{ name }}'
+              description: '{{ description }}'
+              tags:
                 - null
-              CreatedTime: '{{ CreatedTime }}'
-              LastUpdatedTime: '{{ LastUpdatedTime }}'
-      - name: AssociatedModels
+              created_time: '{{ created_time }}'
+              last_updated_time: '{{ last_updated_time }}'
+      - name: associated_models
         value:
-          - Arn: '{{ Arn }}'
-
+          - arn: '{{ arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -652,7 +651,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -661,7 +660,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.detectors
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

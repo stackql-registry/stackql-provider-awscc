@@ -194,7 +194,7 @@ capabilities,
 scene_metadata,
 generated_scene_metadata
 FROM awscc.iottwinmaker.scenes
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<SceneId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,10 +233,10 @@ INSERT INTO awscc.iottwinmaker.scenes (
  WorkspaceId,
  region
 )
-SELECT 
-'{{ SceneId }}',
- '{{ ContentLocation }}',
- '{{ WorkspaceId }}',
+SELECT
+'{{ scene_id }}',
+ '{{ content_location }}',
+ '{{ workspace_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,14 +254,14 @@ INSERT INTO awscc.iottwinmaker.scenes (
  SceneMetadata,
  region
 )
-SELECT 
- '{{ SceneId }}',
- '{{ Description }}',
- '{{ ContentLocation }}',
- '{{ Tags }}',
- '{{ WorkspaceId }}',
- '{{ Capabilities }}',
- '{{ SceneMetadata }}',
+SELECT
+ '{{ scene_id }}',
+ '{{ description }}',
+ '{{ content_location }}',
+ '{{ tags }}',
+ '{{ workspace_id }}',
+ '{{ capabilities }}',
+ '{{ scene_metadata }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -279,22 +279,21 @@ globals:
 resources:
   - name: scene
     props:
-      - name: SceneId
-        value: '{{ SceneId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ContentLocation
-        value: '{{ ContentLocation }}'
-      - name: Tags
+      - name: scene_id
+        value: '{{ scene_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: content_location
+        value: '{{ content_location }}'
+      - name: tags
         value: {}
-      - name: WorkspaceId
-        value: '{{ WorkspaceId }}'
-      - name: Capabilities
+      - name: workspace_id
+        value: '{{ workspace_id }}'
+      - name: capabilities
         value:
-          - '{{ Capabilities[0] }}'
-      - name: SceneMetadata
+          - '{{ capabilities[0] }}'
+      - name: scene_metadata
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "SceneMetadata": scene_metadata
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceId>|<SceneId>';
+AND Identifier = '{{ workspace_id }}|{{ scene_id }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<WorkspaceId>|<SceneId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.scenes
-WHERE Identifier = '<WorkspaceId|SceneId>'
+WHERE Identifier = '{{ workspace_id }}|{{ scene_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -254,7 +254,7 @@ items,
 evaluation_form_arn,
 tags
 FROM awscc.connect.evaluation_forms
-WHERE region = 'us-east-1' AND Identifier = '<EvaluationFormArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ evaluation_form_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,11 +293,11 @@ INSERT INTO awscc.connect.evaluation_forms (
  Items,
  region
 )
-SELECT 
-'{{ Status }}',
- '{{ InstanceArn }}',
- '{{ Title }}',
- '{{ Items }}',
+SELECT
+'{{ status }}',
+ '{{ instance_arn }}',
+ '{{ title }}',
+ '{{ items }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -316,15 +316,15 @@ INSERT INTO awscc.connect.evaluation_forms (
  Tags,
  region
 )
-SELECT 
- '{{ ScoringStrategy }}',
- '{{ Status }}',
- '{{ AutoEvaluationConfiguration }}',
- '{{ Description }}',
- '{{ InstanceArn }}',
- '{{ Title }}',
- '{{ Items }}',
- '{{ Tags }}',
+SELECT
+ '{{ scoring_strategy }}',
+ '{{ status }}',
+ '{{ auto_evaluation_configuration }}',
+ '{{ description }}',
+ '{{ instance_arn }}',
+ '{{ title }}',
+ '{{ items }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -342,69 +342,68 @@ globals:
 resources:
   - name: evaluation_form
     props:
-      - name: ScoringStrategy
+      - name: scoring_strategy
         value:
-          Status: '{{ Status }}'
-          Mode: '{{ Mode }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: AutoEvaluationConfiguration
+          status: '{{ status }}'
+          mode: '{{ mode }}'
+      - name: status
+        value: '{{ status }}'
+      - name: auto_evaluation_configuration
         value:
-          Enabled: '{{ Enabled }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Title
-        value: '{{ Title }}'
-      - name: Items
+          enabled: '{{ enabled }}'
+      - name: description
+        value: '{{ description }}'
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: title
+        value: '{{ title }}'
+      - name: items
         value:
-          - Section:
-              Title: '{{ Title }}'
-              Instructions: '{{ Instructions }}'
-              Items:
-                - Question:
-                    NotApplicableEnabled: '{{ NotApplicableEnabled }}'
-                    Title: '{{ Title }}'
-                    QuestionType: '{{ QuestionType }}'
-                    Instructions: '{{ Instructions }}'
-                    RefId: '{{ RefId }}'
-                    QuestionTypeProperties:
-                      Numeric:
-                        Options:
-                          - Score: '{{ Score }}'
-                            MinValue: '{{ MinValue }}'
-                            MaxValue: '{{ MaxValue }}'
-                            AutomaticFail: '{{ AutomaticFail }}'
-                        Automation:
-                          AnswerSource: null
-                          PropertyValue:
-                            Label: '{{ Label }}'
-                        MinValue: '{{ MinValue }}'
-                        MaxValue: '{{ MaxValue }}'
-                      SingleSelect:
-                        DisplayAs: '{{ DisplayAs }}'
-                        Options:
-                          - Score: null
-                            Text: '{{ Text }}'
-                            RefId: null
-                            AutomaticFail: '{{ AutomaticFail }}'
-                        Automation:
-                          Options:
-                            - RuleCategory:
-                                Condition: '{{ Condition }}'
-                                Category: '{{ Category }}'
-                                OptionRefId: null
-                          DefaultOptionRefId: null
-                    Weight: null
-                  Section: null
-              RefId: null
-              Weight: null
-      - name: Tags
+          - section:
+              title: '{{ title }}'
+              instructions: '{{ instructions }}'
+              items:
+                - question:
+                    not_applicable_enabled: '{{ not_applicable_enabled }}'
+                    title: '{{ title }}'
+                    question_type: '{{ question_type }}'
+                    instructions: '{{ instructions }}'
+                    ref_id: '{{ ref_id }}'
+                    question_type_properties:
+                      numeric:
+                        options:
+                          - score: '{{ score }}'
+                            min_value: '{{ min_value }}'
+                            max_value: '{{ max_value }}'
+                            automatic_fail: '{{ automatic_fail }}'
+                        automation:
+                          answer_source: null
+                          property_value:
+                            label: '{{ label }}'
+                        min_value: '{{ min_value }}'
+                        max_value: '{{ max_value }}'
+                      single_select:
+                        display_as: '{{ display_as }}'
+                        options:
+                          - score: null
+                            text: '{{ text }}'
+                            ref_id: null
+                            automatic_fail: '{{ automatic_fail }}'
+                        automation:
+                          options:
+                            - rule_category:
+                                condition: '{{ condition }}'
+                                category: '{{ category }}'
+                                option_ref_id: null
+                          default_option_ref_id: null
+                    weight: null
+                  section: null
+              ref_id: null
+              weight: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -427,7 +426,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EvaluationFormArn>';
+AND Identifier = '{{ evaluation_form_arn }}';
 ```
 
 
@@ -436,7 +435,7 @@ AND Identifier = '<EvaluationFormArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.evaluation_forms
-WHERE Identifier = '<EvaluationFormArn>'
+WHERE Identifier = '{{ evaluation_form_arn }}'
 AND region = 'us-east-1';
 ```
 

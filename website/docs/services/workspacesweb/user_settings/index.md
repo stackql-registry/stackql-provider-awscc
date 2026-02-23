@@ -256,7 +256,7 @@ upload_allowed,
 user_settings_arn,
 deep_link_allowed
 FROM awscc.workspacesweb.user_settings
-WHERE region = 'us-east-1' AND Identifier = '<UserSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,12 +296,12 @@ INSERT INTO awscc.workspacesweb.user_settings (
  UploadAllowed,
  region
 )
-SELECT 
-'{{ CopyAllowed }}',
- '{{ DownloadAllowed }}',
- '{{ PasteAllowed }}',
- '{{ PrintAllowed }}',
- '{{ UploadAllowed }}',
+SELECT
+'{{ copy_allowed }}',
+ '{{ download_allowed }}',
+ '{{ paste_allowed }}',
+ '{{ print_allowed }}',
+ '{{ upload_allowed }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -325,20 +325,20 @@ INSERT INTO awscc.workspacesweb.user_settings (
  DeepLinkAllowed,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ CookieSynchronizationConfiguration }}',
- '{{ CopyAllowed }}',
- '{{ CustomerManagedKey }}',
- '{{ DisconnectTimeoutInMinutes }}',
- '{{ DownloadAllowed }}',
- '{{ IdleDisconnectTimeoutInMinutes }}',
- '{{ PasteAllowed }}',
- '{{ PrintAllowed }}',
- '{{ Tags }}',
- '{{ ToolbarConfiguration }}',
- '{{ UploadAllowed }}',
- '{{ DeepLinkAllowed }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ cookie_synchronization_configuration }}',
+ '{{ copy_allowed }}',
+ '{{ customer_managed_key }}',
+ '{{ disconnect_timeout_in_minutes }}',
+ '{{ download_allowed }}',
+ '{{ idle_disconnect_timeout_in_minutes }}',
+ '{{ paste_allowed }}',
+ '{{ print_allowed }}',
+ '{{ tags }}',
+ '{{ toolbar_configuration }}',
+ '{{ upload_allowed }}',
+ '{{ deep_link_allowed }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -356,46 +356,45 @@ globals:
 resources:
   - name: user_setting
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: CookieSynchronizationConfiguration
+      - name: cookie_synchronization_configuration
         value:
-          Allowlist:
-            - Domain: '{{ Domain }}'
-              Name: '{{ Name }}'
-              Path: '{{ Path }}'
-          Blocklist:
+          allowlist:
+            - domain: '{{ domain }}'
+              name: '{{ name }}'
+              path: '{{ path }}'
+          blocklist:
             - null
-      - name: CopyAllowed
-        value: '{{ CopyAllowed }}'
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: DisconnectTimeoutInMinutes
+      - name: copy_allowed
+        value: '{{ copy_allowed }}'
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: disconnect_timeout_in_minutes
         value: null
-      - name: DownloadAllowed
+      - name: download_allowed
         value: null
-      - name: IdleDisconnectTimeoutInMinutes
+      - name: idle_disconnect_timeout_in_minutes
         value: null
-      - name: PasteAllowed
+      - name: paste_allowed
         value: null
-      - name: PrintAllowed
+      - name: print_allowed
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ToolbarConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: toolbar_configuration
         value:
-          ToolbarType: '{{ ToolbarType }}'
-          VisualMode: '{{ VisualMode }}'
-          HiddenToolbarItems:
-            - '{{ HiddenToolbarItems[0] }}'
-          MaxDisplayResolution: '{{ MaxDisplayResolution }}'
-      - name: UploadAllowed
+          toolbar_type: '{{ toolbar_type }}'
+          visual_mode: '{{ visual_mode }}'
+          hidden_toolbar_items:
+            - '{{ hidden_toolbar_items[0] }}'
+          max_display_resolution: '{{ max_display_resolution }}'
+      - name: upload_allowed
         value: null
-      - name: DeepLinkAllowed
+      - name: deep_link_allowed
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -423,7 +422,7 @@ SET PatchDocument = string('{{ {
     "DeepLinkAllowed": deep_link_allowed
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserSettingsArn>';
+AND Identifier = '{{ user_settings_arn }}';
 ```
 
 
@@ -432,7 +431,7 @@ AND Identifier = '<UserSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.user_settings
-WHERE Identifier = '<UserSettingsArn>'
+WHERE Identifier = '{{ user_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ enable_strict_origin_enforcement,
 name,
 tags
 FROM awscc.ivs.playback_restriction_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -216,12 +216,12 @@ INSERT INTO awscc.ivs.playback_restriction_policies (
  Tags,
  region
 )
-SELECT 
-'{{ AllowedCountries }}',
- '{{ AllowedOrigins }}',
- '{{ EnableStrictOriginEnforcement }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+'{{ allowed_countries }}',
+ '{{ allowed_origins }}',
+ '{{ enable_strict_origin_enforcement }}',
+ '{{ name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,12 +237,12 @@ INSERT INTO awscc.ivs.playback_restriction_policies (
  Tags,
  region
 )
-SELECT 
- '{{ AllowedCountries }}',
- '{{ AllowedOrigins }}',
- '{{ EnableStrictOriginEnforcement }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ allowed_countries }}',
+ '{{ allowed_origins }}',
+ '{{ enable_strict_origin_enforcement }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,21 +260,20 @@ globals:
 resources:
   - name: playback_restriction_policy
     props:
-      - name: AllowedCountries
+      - name: allowed_countries
         value:
-          - '{{ AllowedCountries[0] }}'
-      - name: AllowedOrigins
+          - '{{ allowed_countries[0] }}'
+      - name: allowed_origins
         value:
-          - '{{ AllowedOrigins[0] }}'
-      - name: EnableStrictOriginEnforcement
-        value: '{{ EnableStrictOriginEnforcement }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - '{{ allowed_origins[0] }}'
+      - name: enable_strict_origin_enforcement
+        value: '{{ enable_strict_origin_enforcement }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.playback_restriction_policies
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

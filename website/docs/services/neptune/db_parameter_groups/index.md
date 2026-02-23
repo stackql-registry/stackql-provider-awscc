@@ -170,7 +170,7 @@ family,
 parameters,
 tags
 FROM awscc.neptune.db_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.neptune.db_parameter_groups (
  Parameters,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Family }}',
- '{{ Parameters }}',
+SELECT
+'{{ description }}',
+ '{{ family }}',
+ '{{ parameters }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,12 +227,12 @@ INSERT INTO awscc.neptune.db_parameter_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Family }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ family }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,19 +250,18 @@ globals:
 resources:
   - name: db_parameter_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Family
-        value: '{{ Family }}'
-      - name: Parameters
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: family
+        value: '{{ family }}'
+      - name: parameters
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptune.db_parameter_groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

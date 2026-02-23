@@ -409,7 +409,7 @@ asset_model_hierarchies,
 enforced_asset_model_interface_relationships,
 tags
 FROM awscc.iotsitewise.asset_models
-WHERE region = 'us-east-1' AND Identifier = '<AssetModelId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ asset_model_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -445,8 +445,8 @@ INSERT INTO awscc.iotsitewise.asset_models (
  AssetModelName,
  region
 )
-SELECT 
-'{{ AssetModelName }}',
+SELECT
+'{{ asset_model_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -466,16 +466,16 @@ INSERT INTO awscc.iotsitewise.asset_models (
  Tags,
  region
 )
-SELECT 
- '{{ AssetModelType }}',
- '{{ AssetModelExternalId }}',
- '{{ AssetModelName }}',
- '{{ AssetModelDescription }}',
- '{{ AssetModelProperties }}',
- '{{ AssetModelCompositeModels }}',
- '{{ AssetModelHierarchies }}',
- '{{ EnforcedAssetModelInterfaceRelationships }}',
- '{{ Tags }}',
+SELECT
+ '{{ asset_model_type }}',
+ '{{ asset_model_external_id }}',
+ '{{ asset_model_name }}',
+ '{{ asset_model_description }}',
+ '{{ asset_model_properties }}',
+ '{{ asset_model_composite_models }}',
+ '{{ asset_model_hierarchies }}',
+ '{{ enforced_asset_model_interface_relationships }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -493,80 +493,79 @@ globals:
 resources:
   - name: asset_model
     props:
-      - name: AssetModelType
-        value: '{{ AssetModelType }}'
-      - name: AssetModelExternalId
-        value: '{{ AssetModelExternalId }}'
-      - name: AssetModelName
-        value: '{{ AssetModelName }}'
-      - name: AssetModelDescription
-        value: '{{ AssetModelDescription }}'
-      - name: AssetModelProperties
+      - name: asset_model_type
+        value: '{{ asset_model_type }}'
+      - name: asset_model_external_id
+        value: '{{ asset_model_external_id }}'
+      - name: asset_model_name
+        value: '{{ asset_model_name }}'
+      - name: asset_model_description
+        value: '{{ asset_model_description }}'
+      - name: asset_model_properties
         value:
-          - LogicalId: '{{ LogicalId }}'
-            Id: '{{ Id }}'
-            ExternalId: '{{ ExternalId }}'
-            Name: '{{ Name }}'
-            DataType: '{{ DataType }}'
-            DataTypeSpec: '{{ DataTypeSpec }}'
-            Unit: '{{ Unit }}'
-            Type:
-              TypeName: '{{ TypeName }}'
-              Attribute:
-                DefaultValue: '{{ DefaultValue }}'
-              Transform:
-                Expression: '{{ Expression }}'
-                Variables:
-                  - Name: '{{ Name }}'
-                    Value:
-                      PropertyLogicalId: '{{ PropertyLogicalId }}'
-                      PropertyId: '{{ PropertyId }}'
-                      PropertyExternalId: '{{ PropertyExternalId }}'
-                      PropertyPath:
-                        - Name: '{{ Name }}'
-                      HierarchyLogicalId: '{{ HierarchyLogicalId }}'
-                      HierarchyId: '{{ HierarchyId }}'
-                      HierarchyExternalId: '{{ HierarchyExternalId }}'
-              Metric:
-                Expression: '{{ Expression }}'
-                Variables:
+          - logical_id: '{{ logical_id }}'
+            id: '{{ id }}'
+            external_id: '{{ external_id }}'
+            name: '{{ name }}'
+            data_type: '{{ data_type }}'
+            data_type_spec: '{{ data_type_spec }}'
+            unit: '{{ unit }}'
+            type:
+              type_name: '{{ type_name }}'
+              attribute:
+                default_value: '{{ default_value }}'
+              transform:
+                expression: '{{ expression }}'
+                variables:
+                  - name: '{{ name }}'
+                    value:
+                      property_logical_id: '{{ property_logical_id }}'
+                      property_id: '{{ property_id }}'
+                      property_external_id: '{{ property_external_id }}'
+                      property_path:
+                        - name: '{{ name }}'
+                      hierarchy_logical_id: '{{ hierarchy_logical_id }}'
+                      hierarchy_id: '{{ hierarchy_id }}'
+                      hierarchy_external_id: '{{ hierarchy_external_id }}'
+              metric:
+                expression: '{{ expression }}'
+                variables:
                   - null
-                Window:
-                  Tumbling:
-                    Interval: '{{ Interval }}'
-                    Offset: '{{ Offset }}'
-      - name: AssetModelCompositeModels
+                window:
+                  tumbling:
+                    interval: '{{ interval }}'
+                    offset: '{{ offset }}'
+      - name: asset_model_composite_models
         value:
-          - Id: '{{ Id }}'
-            ExternalId: '{{ ExternalId }}'
-            ComposedAssetModelId: '{{ ComposedAssetModelId }}'
-            ParentAssetModelCompositeModelExternalId: '{{ ParentAssetModelCompositeModelExternalId }}'
-            Path:
-              - '{{ Path[0] }}'
-            Description: '{{ Description }}'
-            Name: '{{ Name }}'
-            Type: '{{ Type }}'
-            CompositeModelProperties:
+          - id: '{{ id }}'
+            external_id: '{{ external_id }}'
+            composed_asset_model_id: '{{ composed_asset_model_id }}'
+            parent_asset_model_composite_model_external_id: '{{ parent_asset_model_composite_model_external_id }}'
+            path:
+              - '{{ path[0] }}'
+            description: '{{ description }}'
+            name: '{{ name }}'
+            type: '{{ type }}'
+            composite_model_properties:
               - null
-      - name: AssetModelHierarchies
+      - name: asset_model_hierarchies
         value:
-          - Id: '{{ Id }}'
-            ExternalId: '{{ ExternalId }}'
-            LogicalId: '{{ LogicalId }}'
-            Name: '{{ Name }}'
-            ChildAssetModelId: '{{ ChildAssetModelId }}'
-      - name: EnforcedAssetModelInterfaceRelationships
+          - id: '{{ id }}'
+            external_id: '{{ external_id }}'
+            logical_id: '{{ logical_id }}'
+            name: '{{ name }}'
+            child_asset_model_id: '{{ child_asset_model_id }}'
+      - name: enforced_asset_model_interface_relationships
         value:
-          - InterfaceAssetModelId: '{{ InterfaceAssetModelId }}'
-            PropertyMappings:
-              - AssetModelPropertyExternalId: '{{ AssetModelPropertyExternalId }}'
-                AssetModelPropertyLogicalId: '{{ AssetModelPropertyLogicalId }}'
-                InterfaceAssetModelPropertyExternalId: '{{ InterfaceAssetModelPropertyExternalId }}'
-      - name: Tags
+          - interface_asset_model_id: '{{ interface_asset_model_id }}'
+            property_mappings:
+              - asset_model_property_external_id: '{{ asset_model_property_external_id }}'
+                asset_model_property_logical_id: '{{ asset_model_property_logical_id }}'
+                interface_asset_model_property_external_id: '{{ interface_asset_model_property_external_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -586,7 +585,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssetModelId>';
+AND Identifier = '{{ asset_model_id }}';
 ```
 
 
@@ -595,7 +594,7 @@ AND Identifier = '<AssetModelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.asset_models
-WHERE Identifier = '<AssetModelId>'
+WHERE Identifier = '{{ asset_model_id }}'
 AND region = 'us-east-1';
 ```
 

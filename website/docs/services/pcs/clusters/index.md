@@ -320,7 +320,7 @@ slurm_configuration,
 status,
 tags
 FROM awscc.pcs.clusters
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -358,10 +358,10 @@ INSERT INTO awscc.pcs.clusters (
  Size,
  region
 )
-SELECT 
-'{{ Networking }}',
- '{{ Scheduler }}',
- '{{ Size }}',
+SELECT
+'{{ networking }}',
+ '{{ scheduler }}',
+ '{{ size }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -378,13 +378,13 @@ INSERT INTO awscc.pcs.clusters (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Networking }}',
- '{{ Scheduler }}',
- '{{ Size }}',
- '{{ SlurmConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ networking }}',
+ '{{ scheduler }}',
+ '{{ size }}',
+ '{{ slurm_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -402,36 +402,35 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Networking
+      - name: name
+        value: '{{ name }}'
+      - name: networking
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          NetworkType: '{{ NetworkType }}'
-      - name: Scheduler
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          network_type: '{{ network_type }}'
+      - name: scheduler
         value:
-          Type: '{{ Type }}'
-          Version: '{{ Version }}'
-      - name: Size
-        value: '{{ Size }}'
-      - name: SlurmConfiguration
+          type: '{{ type }}'
+          version: '{{ version }}'
+      - name: size
+        value: '{{ size }}'
+      - name: slurm_configuration
         value:
-          Accounting:
-            DefaultPurgeTimeInDays: '{{ DefaultPurgeTimeInDays }}'
-            Mode: '{{ Mode }}'
-          AuthKey:
-            SecretArn: '{{ SecretArn }}'
-            SecretVersion: '{{ SecretVersion }}'
-          ScaleDownIdleTimeInSeconds: '{{ ScaleDownIdleTimeInSeconds }}'
-          SlurmCustomSettings:
-            - ParameterValue: '{{ ParameterValue }}'
-              ParameterName: '{{ ParameterName }}'
-      - name: Tags
+          accounting:
+            default_purge_time_in_days: '{{ default_purge_time_in_days }}'
+            mode: '{{ mode }}'
+          auth_key:
+            secret_arn: '{{ secret_arn }}'
+            secret_version: '{{ secret_version }}'
+          scale_down_idle_time_in_seconds: '{{ scale_down_idle_time_in_seconds }}'
+          slurm_custom_settings:
+            - parameter_value: '{{ parameter_value }}'
+              parameter_name: '{{ parameter_name }}'
+      - name: tags
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +446,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -456,7 +455,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.clusters
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

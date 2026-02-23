@@ -235,7 +235,7 @@ tags,
 traffic_type,
 destination_options
 FROM awscc.ec2.flow_logs
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,9 +272,9 @@ INSERT INTO awscc.ec2.flow_logs (
  ResourceType,
  region
 )
-SELECT 
-'{{ ResourceId }}',
- '{{ ResourceType }}',
+SELECT
+'{{ resource_id }}',
+ '{{ resource_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,19 +297,19 @@ INSERT INTO awscc.ec2.flow_logs (
  DestinationOptions,
  region
 )
-SELECT 
- '{{ DeliverCrossAccountRole }}',
- '{{ DeliverLogsPermissionArn }}',
- '{{ LogDestination }}',
- '{{ LogDestinationType }}',
- '{{ LogFormat }}',
- '{{ LogGroupName }}',
- '{{ MaxAggregationInterval }}',
- '{{ ResourceId }}',
- '{{ ResourceType }}',
- '{{ Tags }}',
- '{{ TrafficType }}',
- '{{ DestinationOptions }}',
+SELECT
+ '{{ deliver_cross_account_role }}',
+ '{{ deliver_logs_permission_arn }}',
+ '{{ log_destination }}',
+ '{{ log_destination_type }}',
+ '{{ log_format }}',
+ '{{ log_group_name }}',
+ '{{ max_aggregation_interval }}',
+ '{{ resource_id }}',
+ '{{ resource_type }}',
+ '{{ tags }}',
+ '{{ traffic_type }}',
+ '{{ destination_options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -327,36 +327,35 @@ globals:
 resources:
   - name: flow_log
     props:
-      - name: DeliverCrossAccountRole
-        value: '{{ DeliverCrossAccountRole }}'
-      - name: DeliverLogsPermissionArn
-        value: '{{ DeliverLogsPermissionArn }}'
-      - name: LogDestination
-        value: '{{ LogDestination }}'
-      - name: LogDestinationType
-        value: '{{ LogDestinationType }}'
-      - name: LogFormat
-        value: '{{ LogFormat }}'
-      - name: LogGroupName
-        value: '{{ LogGroupName }}'
-      - name: MaxAggregationInterval
-        value: '{{ MaxAggregationInterval }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: Tags
+      - name: deliver_cross_account_role
+        value: '{{ deliver_cross_account_role }}'
+      - name: deliver_logs_permission_arn
+        value: '{{ deliver_logs_permission_arn }}'
+      - name: log_destination
+        value: '{{ log_destination }}'
+      - name: log_destination_type
+        value: '{{ log_destination_type }}'
+      - name: log_format
+        value: '{{ log_format }}'
+      - name: log_group_name
+        value: '{{ log_group_name }}'
+      - name: max_aggregation_interval
+        value: '{{ max_aggregation_interval }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrafficType
-        value: '{{ TrafficType }}'
-      - name: DestinationOptions
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: traffic_type
+        value: '{{ traffic_type }}'
+      - name: destination_options
         value:
-          FileFormat: '{{ FileFormat }}'
-          HiveCompatiblePartitions: '{{ HiveCompatiblePartitions }}'
-          PerHourPartition: '{{ PerHourPartition }}'
-
+          file_format: '{{ file_format }}'
+          hive_compatible_partitions: '{{ hive_compatible_partitions }}'
+          per_hour_partition: '{{ per_hour_partition }}'
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +371,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -381,7 +380,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.flow_logs
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

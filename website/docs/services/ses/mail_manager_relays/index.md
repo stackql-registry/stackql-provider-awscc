@@ -182,7 +182,7 @@ server_name,
 server_port,
 tags
 FROM awscc.ses.mail_manager_relays
-WHERE region = 'us-east-1' AND Identifier = '<RelayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ relay_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.ses.mail_manager_relays (
  ServerPort,
  region
 )
-SELECT 
-'{{ Authentication }}',
- '{{ ServerName }}',
- '{{ ServerPort }}',
+SELECT
+'{{ authentication }}',
+ '{{ server_name }}',
+ '{{ server_port }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,12 +239,12 @@ INSERT INTO awscc.ses.mail_manager_relays (
  Tags,
  region
 )
-SELECT 
- '{{ Authentication }}',
- '{{ RelayName }}',
- '{{ ServerName }}',
- '{{ ServerPort }}',
- '{{ Tags }}',
+SELECT
+ '{{ authentication }}',
+ '{{ relay_name }}',
+ '{{ server_name }}',
+ '{{ server_port }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,19 +262,18 @@ globals:
 resources:
   - name: mail_manager_relay
     props:
-      - name: Authentication
+      - name: authentication
         value: null
-      - name: RelayName
-        value: '{{ RelayName }}'
-      - name: ServerName
-        value: '{{ ServerName }}'
-      - name: ServerPort
+      - name: relay_name
+        value: '{{ relay_name }}'
+      - name: server_name
+        value: '{{ server_name }}'
+      - name: server_port
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RelayId>';
+AND Identifier = '{{ relay_id }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<RelayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_relays
-WHERE Identifier = '<RelayId>'
+WHERE Identifier = '{{ relay_id }}'
 AND region = 'us-east-1';
 ```
 

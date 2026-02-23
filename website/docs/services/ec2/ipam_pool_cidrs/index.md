@@ -162,7 +162,7 @@ cidr,
 netmask_length,
 state
 FROM awscc.ec2.ipam_pool_cidrs
-WHERE region = 'us-east-1' AND Identifier = '<IpamPoolId>|<IpamPoolCidrId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -199,8 +199,8 @@ INSERT INTO awscc.ec2.ipam_pool_cidrs (
  IpamPoolId,
  region
 )
-SELECT 
-'{{ IpamPoolId }}',
+SELECT
+'{{ ipam_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,10 +214,10 @@ INSERT INTO awscc.ec2.ipam_pool_cidrs (
  NetmaskLength,
  region
 )
-SELECT 
- '{{ IpamPoolId }}',
- '{{ Cidr }}',
- '{{ NetmaskLength }}',
+SELECT
+ '{{ ipam_pool_id }}',
+ '{{ cidr }}',
+ '{{ netmask_length }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -235,13 +235,12 @@ globals:
 resources:
   - name: ipam_pool_cidr
     props:
-      - name: IpamPoolId
-        value: '{{ IpamPoolId }}'
-      - name: Cidr
-        value: '{{ Cidr }}'
-      - name: NetmaskLength
-        value: '{{ NetmaskLength }}'
-
+      - name: ipam_pool_id
+        value: '{{ ipam_pool_id }}'
+      - name: cidr
+        value: '{{ cidr }}'
+      - name: netmask_length
+        value: '{{ netmask_length }}'
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_pool_cidrs
-WHERE Identifier = '<IpamPoolId|IpamPoolCidrId>'
+WHERE Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_cidr_id }}'
 AND region = 'us-east-1';
 ```
 

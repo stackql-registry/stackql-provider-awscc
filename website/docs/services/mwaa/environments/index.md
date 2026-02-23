@@ -325,7 +325,7 @@ database_vpc_endpoint_service,
 webserver_vpc_endpoint_service,
 worker_replacement_strategy
 FROM awscc.mwaa.environments
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -361,8 +361,8 @@ INSERT INTO awscc.mwaa.environments (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -399,33 +399,33 @@ INSERT INTO awscc.mwaa.environments (
  WorkerReplacementStrategy,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ExecutionRoleArn }}',
- '{{ KmsKey }}',
- '{{ AirflowVersion }}',
- '{{ SourceBucketArn }}',
- '{{ DagS3Path }}',
- '{{ PluginsS3Path }}',
- '{{ PluginsS3ObjectVersion }}',
- '{{ RequirementsS3Path }}',
- '{{ RequirementsS3ObjectVersion }}',
- '{{ StartupScriptS3Path }}',
- '{{ StartupScriptS3ObjectVersion }}',
- '{{ AirflowConfigurationOptions }}',
- '{{ EnvironmentClass }}',
- '{{ MaxWorkers }}',
- '{{ MinWorkers }}',
- '{{ MaxWebservers }}',
- '{{ MinWebservers }}',
- '{{ Schedulers }}',
- '{{ NetworkConfiguration }}',
- '{{ LoggingConfiguration }}',
- '{{ WeeklyMaintenanceWindowStart }}',
- '{{ Tags }}',
- '{{ WebserverAccessMode }}',
- '{{ EndpointManagement }}',
- '{{ WorkerReplacementStrategy }}',
+SELECT
+ '{{ name }}',
+ '{{ execution_role_arn }}',
+ '{{ kms_key }}',
+ '{{ airflow_version }}',
+ '{{ source_bucket_arn }}',
+ '{{ dag_s3_path }}',
+ '{{ plugins_s3_path }}',
+ '{{ plugins_s3_object_version }}',
+ '{{ requirements_s3_path }}',
+ '{{ requirements_s3_object_version }}',
+ '{{ startup_script_s3_path }}',
+ '{{ startup_script_s3_object_version }}',
+ '{{ airflow_configuration_options }}',
+ '{{ environment_class }}',
+ '{{ max_workers }}',
+ '{{ min_workers }}',
+ '{{ max_webservers }}',
+ '{{ min_webservers }}',
+ '{{ schedulers }}',
+ '{{ network_configuration }}',
+ '{{ logging_configuration }}',
+ '{{ weekly_maintenance_window_start }}',
+ '{{ tags }}',
+ '{{ webserver_access_mode }}',
+ '{{ endpoint_management }}',
+ '{{ worker_replacement_strategy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -443,71 +443,70 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: KmsKey
-        value: '{{ KmsKey }}'
-      - name: AirflowVersion
-        value: '{{ AirflowVersion }}'
-      - name: SourceBucketArn
-        value: '{{ SourceBucketArn }}'
-      - name: DagS3Path
-        value: '{{ DagS3Path }}'
-      - name: PluginsS3Path
+      - name: name
+        value: '{{ name }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: kms_key
+        value: '{{ kms_key }}'
+      - name: airflow_version
+        value: '{{ airflow_version }}'
+      - name: source_bucket_arn
+        value: '{{ source_bucket_arn }}'
+      - name: dag_s3_path
+        value: '{{ dag_s3_path }}'
+      - name: plugins_s3_path
         value: null
-      - name: PluginsS3ObjectVersion
-        value: '{{ PluginsS3ObjectVersion }}'
-      - name: RequirementsS3Path
+      - name: plugins_s3_object_version
+        value: '{{ plugins_s3_object_version }}'
+      - name: requirements_s3_path
         value: null
-      - name: RequirementsS3ObjectVersion
+      - name: requirements_s3_object_version
         value: null
-      - name: StartupScriptS3Path
+      - name: startup_script_s3_path
         value: null
-      - name: StartupScriptS3ObjectVersion
+      - name: startup_script_s3_object_version
         value: null
-      - name: AirflowConfigurationOptions
+      - name: airflow_configuration_options
         value: {}
-      - name: EnvironmentClass
-        value: '{{ EnvironmentClass }}'
-      - name: MaxWorkers
-        value: '{{ MaxWorkers }}'
-      - name: MinWorkers
-        value: '{{ MinWorkers }}'
-      - name: MaxWebservers
-        value: '{{ MaxWebservers }}'
-      - name: MinWebservers
-        value: '{{ MinWebservers }}'
-      - name: Schedulers
-        value: '{{ Schedulers }}'
-      - name: NetworkConfiguration
+      - name: environment_class
+        value: '{{ environment_class }}'
+      - name: max_workers
+        value: '{{ max_workers }}'
+      - name: min_workers
+        value: '{{ min_workers }}'
+      - name: max_webservers
+        value: '{{ max_webservers }}'
+      - name: min_webservers
+        value: '{{ min_webservers }}'
+      - name: schedulers
+        value: '{{ schedulers }}'
+      - name: network_configuration
         value:
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-      - name: LoggingConfiguration
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+      - name: logging_configuration
         value:
-          DagProcessingLogs:
-            Enabled: '{{ Enabled }}'
-            LogLevel: '{{ LogLevel }}'
-            CloudWatchLogGroupArn: '{{ CloudWatchLogGroupArn }}'
-          SchedulerLogs: null
-          WebserverLogs: null
-          WorkerLogs: null
-          TaskLogs: null
-      - name: WeeklyMaintenanceWindowStart
-        value: '{{ WeeklyMaintenanceWindowStart }}'
-      - name: Tags
+          dag_processing_logs:
+            enabled: '{{ enabled }}'
+            log_level: '{{ log_level }}'
+            cloud_watch_log_group_arn: '{{ cloud_watch_log_group_arn }}'
+          scheduler_logs: null
+          webserver_logs: null
+          worker_logs: null
+          task_logs: null
+      - name: weekly_maintenance_window_start
+        value: '{{ weekly_maintenance_window_start }}'
+      - name: tags
         value: {}
-      - name: WebserverAccessMode
-        value: '{{ WebserverAccessMode }}'
-      - name: EndpointManagement
-        value: '{{ EndpointManagement }}'
-      - name: WorkerReplacementStrategy
-        value: '{{ WorkerReplacementStrategy }}'
-
+      - name: webserver_access_mode
+        value: '{{ webserver_access_mode }}'
+      - name: endpoint_management
+        value: '{{ endpoint_management }}'
+      - name: worker_replacement_strategy
+        value: '{{ worker_replacement_strategy }}'
 ```
 </TabItem>
 </Tabs>
@@ -543,7 +542,7 @@ SET PatchDocument = string('{{ {
     "WorkerReplacementStrategy": worker_replacement_strategy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -552,7 +551,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mwaa.environments
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

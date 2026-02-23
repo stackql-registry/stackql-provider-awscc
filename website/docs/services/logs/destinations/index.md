@@ -176,7 +176,7 @@ destination_policy,
 role_arn,
 target_arn
 FROM awscc.logs.destinations
-WHERE region = 'us-east-1' AND Identifier = '<DestinationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ destination_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.logs.destinations (
  TargetArn,
  region
 )
-SELECT 
-'{{ DestinationName }}',
- '{{ RoleArn }}',
- '{{ TargetArn }}',
+SELECT
+'{{ destination_name }}',
+ '{{ role_arn }}',
+ '{{ target_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.logs.destinations (
  TargetArn,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ DestinationName }}',
- '{{ DestinationPolicy }}',
- '{{ RoleArn }}',
- '{{ TargetArn }}',
+SELECT
+ '{{ tags }}',
+ '{{ destination_name }}',
+ '{{ destination_policy }}',
+ '{{ role_arn }}',
+ '{{ target_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: destination
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DestinationName
-        value: '{{ DestinationName }}'
-      - name: DestinationPolicy
-        value: '{{ DestinationPolicy }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: TargetArn
-        value: '{{ TargetArn }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: destination_name
+        value: '{{ destination_name }}'
+      - name: destination_policy
+        value: '{{ destination_policy }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: target_arn
+        value: '{{ target_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "TargetArn": target_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DestinationName>';
+AND Identifier = '{{ destination_name }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<DestinationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.destinations
-WHERE Identifier = '<DestinationName>'
+WHERE Identifier = '{{ destination_name }}'
 AND region = 'us-east-1';
 ```
 

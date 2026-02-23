@@ -100,7 +100,7 @@ policy_document,
 policy_name,
 group_name
 FROM awscc.iam.group_policies
-WHERE Identifier = '<PolicyName>|<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}|{{ group_name }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.iam.group_policies (
  GroupName,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ GroupName }}',
+SELECT
+'{{ policy_name }}',
+ '{{ group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -140,10 +140,10 @@ INSERT INTO awscc.iam.group_policies (
  GroupName,
  region
 )
-SELECT 
- '{{ PolicyDocument }}',
- '{{ PolicyName }}',
- '{{ GroupName }}',
+SELECT
+ '{{ policy_document }}',
+ '{{ policy_name }}',
+ '{{ group_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -161,13 +161,12 @@ globals:
 resources:
   - name: group_policy
     props:
-      - name: PolicyDocument
+      - name: policy_document
         value: {}
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: GroupName
-        value: '{{ GroupName }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: group_name
+        value: '{{ group_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -183,7 +182,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyName>|<GroupName>';
+AND Identifier = '{{ policy_name }}|{{ group_name }}';
 ```
 
 
@@ -192,7 +191,7 @@ AND Identifier = '<PolicyName>|<GroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.group_policies
-WHERE Identifier = '<PolicyName|GroupName>'
+WHERE Identifier = '{{ policy_name }}|{{ group_name }}'
 AND region = 'us-east-1';
 ```
 

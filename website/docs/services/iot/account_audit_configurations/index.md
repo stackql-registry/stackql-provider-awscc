@@ -238,7 +238,7 @@ audit_check_configurations,
 audit_notification_target_configurations,
 role_arn
 FROM awscc.iot.account_audit_configurations
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,10 +276,10 @@ INSERT INTO awscc.iot.account_audit_configurations (
  RoleArn,
  region
 )
-SELECT 
-'{{ AccountId }}',
- '{{ AuditCheckConfigurations }}',
- '{{ RoleArn }}',
+SELECT
+'{{ account_id }}',
+ '{{ audit_check_configurations }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,11 +294,11 @@ INSERT INTO awscc.iot.account_audit_configurations (
  RoleArn,
  region
 )
-SELECT 
- '{{ AccountId }}',
- '{{ AuditCheckConfigurations }}',
- '{{ AuditNotificationTargetConfigurations }}',
- '{{ RoleArn }}',
+SELECT
+ '{{ account_id }}',
+ '{{ audit_check_configurations }}',
+ '{{ audit_notification_target_configurations }}',
+ '{{ role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,43 +316,42 @@ globals:
 resources:
   - name: account_audit_configuration
     props:
-      - name: AccountId
-        value: '{{ AccountId }}'
-      - name: AuditCheckConfigurations
+      - name: account_id
+        value: '{{ account_id }}'
+      - name: audit_check_configurations
         value:
-          AuthenticatedCognitoRoleOverlyPermissiveCheck:
-            Enabled: '{{ Enabled }}'
-          CaCertificateExpiringCheck: null
-          CaCertificateKeyQualityCheck: null
-          ConflictingClientIdsCheck: null
-          DeviceCertificateExpiringCheck:
-            Enabled: '{{ Enabled }}'
-            Configuration:
-              CertExpirationThresholdInDays: '{{ CertExpirationThresholdInDays }}'
-          DeviceCertificateKeyQualityCheck: null
-          DeviceCertificateSharedCheck: null
-          IotPolicyOverlyPermissiveCheck: null
-          IotRoleAliasAllowsAccessToUnusedServicesCheck: null
-          IotRoleAliasOverlyPermissiveCheck: null
-          LoggingDisabledCheck: null
-          RevokedCaCertificateStillActiveCheck: null
-          RevokedDeviceCertificateStillActiveCheck: null
-          UnauthenticatedCognitoRoleOverlyPermissiveCheck: null
-          IntermediateCaRevokedForActiveDeviceCertificatesCheck: null
-          IoTPolicyPotentialMisConfigurationCheck: null
-          DeviceCertificateAgeCheck:
-            Enabled: '{{ Enabled }}'
-            Configuration:
-              CertAgeThresholdInDays: null
-      - name: AuditNotificationTargetConfigurations
+          authenticated_cognito_role_overly_permissive_check:
+            enabled: '{{ enabled }}'
+          ca_certificate_expiring_check: null
+          ca_certificate_key_quality_check: null
+          conflicting_client_ids_check: null
+          device_certificate_expiring_check:
+            enabled: '{{ enabled }}'
+            configuration:
+              cert_expiration_threshold_in_days: '{{ cert_expiration_threshold_in_days }}'
+          device_certificate_key_quality_check: null
+          device_certificate_shared_check: null
+          iot_policy_overly_permissive_check: null
+          iot_role_alias_allows_access_to_unused_services_check: null
+          iot_role_alias_overly_permissive_check: null
+          logging_disabled_check: null
+          revoked_ca_certificate_still_active_check: null
+          revoked_device_certificate_still_active_check: null
+          unauthenticated_cognito_role_overly_permissive_check: null
+          intermediate_ca_revoked_for_active_device_certificates_check: null
+          io_tpolicy_potential_mis_configuration_check: null
+          device_certificate_age_check:
+            enabled: '{{ enabled }}'
+            configuration:
+              cert_age_threshold_in_days: null
+      - name: audit_notification_target_configurations
         value:
-          Sns:
-            TargetArn: '{{ TargetArn }}'
-            RoleArn: '{{ RoleArn }}'
-            Enabled: '{{ Enabled }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-
+          sns:
+            target_arn: '{{ target_arn }}'
+            role_arn: '{{ role_arn }}'
+            enabled: '{{ enabled }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +369,7 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -379,7 +378,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.account_audit_configurations
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

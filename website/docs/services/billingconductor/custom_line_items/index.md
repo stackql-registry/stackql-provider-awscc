@@ -288,7 +288,7 @@ currency_code,
 account_id,
 tags
 FROM awscc.billingconductor.custom_line_items
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,9 +325,9 @@ INSERT INTO awscc.billingconductor.custom_line_items (
  BillingGroupArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ BillingGroupArn }}',
+SELECT
+'{{ name }}',
+ '{{ billing_group_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -345,14 +345,14 @@ INSERT INTO awscc.billingconductor.custom_line_items (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ CustomLineItemChargeDetails }}',
- '{{ BillingGroupArn }}',
- '{{ BillingPeriodRange }}',
- '{{ AccountId }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ custom_line_item_charge_details }}',
+ '{{ billing_group_arn }}',
+ '{{ billing_period_range }}',
+ '{{ account_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -370,37 +370,36 @@ globals:
 resources:
   - name: custom_line_item
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: CustomLineItemChargeDetails
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: custom_line_item_charge_details
         value:
-          Flat:
-            ChargeValue: null
-          Percentage:
-            ChildAssociatedResources:
-              - '{{ ChildAssociatedResources[0] }}'
-            PercentageValue: null
-          Type: '{{ Type }}'
-          LineItemFilters:
-            - Attribute: '{{ Attribute }}'
-              MatchOption: '{{ MatchOption }}'
-              Values:
-                - '{{ Values[0] }}'
-      - name: BillingGroupArn
-        value: '{{ BillingGroupArn }}'
-      - name: BillingPeriodRange
+          flat:
+            charge_value: null
+          percentage:
+            child_associated_resources:
+              - '{{ child_associated_resources[0] }}'
+            percentage_value: null
+          type: '{{ type }}'
+          line_item_filters:
+            - attribute: '{{ attribute }}'
+              match_option: '{{ match_option }}'
+              values:
+                - '{{ values[0] }}'
+      - name: billing_group_arn
+        value: '{{ billing_group_arn }}'
+      - name: billing_period_range
         value:
-          InclusiveStartBillingPeriod: '{{ InclusiveStartBillingPeriod }}'
-          ExclusiveEndBillingPeriod: '{{ ExclusiveEndBillingPeriod }}'
-      - name: AccountId
-        value: '{{ AccountId }}'
-      - name: Tags
+          inclusive_start_billing_period: '{{ inclusive_start_billing_period }}'
+          exclusive_end_billing_period: '{{ exclusive_end_billing_period }}'
+      - name: account_id
+        value: '{{ account_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -418,7 +417,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -427,7 +426,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billingconductor.custom_line_items
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

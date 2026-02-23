@@ -167,7 +167,7 @@ region,
 id,
 origin_access_control_config
 FROM awscc.cloudfront.origin_access_controls
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -178,7 +178,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.origin_access_controls_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -203,8 +203,8 @@ INSERT INTO awscc.cloudfront.origin_access_controls (
  OriginAccessControlConfig,
  region
 )
-SELECT 
-'{{ OriginAccessControlConfig }}',
+SELECT
+'{{ origin_access_control_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,8 +216,8 @@ INSERT INTO awscc.cloudfront.origin_access_controls (
  OriginAccessControlConfig,
  region
 )
-SELECT 
- '{{ OriginAccessControlConfig }}',
+SELECT
+ '{{ origin_access_control_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -235,14 +235,13 @@ globals:
 resources:
   - name: origin_access_control
     props:
-      - name: OriginAccessControlConfig
+      - name: origin_access_control_config
         value:
-          Description: '{{ Description }}'
-          Name: '{{ Name }}'
-          OriginAccessControlOriginType: '{{ OriginAccessControlOriginType }}'
-          SigningBehavior: '{{ SigningBehavior }}'
-          SigningProtocol: '{{ SigningProtocol }}'
-
+          description: '{{ description }}'
+          name: '{{ name }}'
+          origin_access_control_origin_type: '{{ origin_access_control_origin_type }}'
+          signing_behavior: '{{ signing_behavior }}'
+          signing_protocol: '{{ signing_protocol }}'
 ```
 </TabItem>
 </Tabs>
@@ -258,7 +257,7 @@ SET PatchDocument = string('{{ {
     "OriginAccessControlConfig": origin_access_control_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -267,7 +266,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.origin_access_controls
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

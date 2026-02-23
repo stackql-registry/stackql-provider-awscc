@@ -332,7 +332,7 @@ is_enabled,
 certificate_name,
 tags
 FROM awscc.lightsail.distributions
-WHERE region = 'us-east-1' AND Identifier = '<DistributionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ distribution_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,11 +371,11 @@ INSERT INTO awscc.lightsail.distributions (
  Origin,
  region
 )
-SELECT 
-'{{ DistributionName }}',
- '{{ BundleId }}',
- '{{ DefaultCacheBehavior }}',
- '{{ Origin }}',
+SELECT
+'{{ distribution_name }}',
+ '{{ bundle_id }}',
+ '{{ default_cache_behavior }}',
+ '{{ origin }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -396,17 +396,17 @@ INSERT INTO awscc.lightsail.distributions (
  Tags,
  region
 )
-SELECT 
- '{{ DistributionName }}',
- '{{ BundleId }}',
- '{{ IpAddressType }}',
- '{{ CacheBehaviors }}',
- '{{ CacheBehaviorSettings }}',
- '{{ DefaultCacheBehavior }}',
- '{{ Origin }}',
- '{{ IsEnabled }}',
- '{{ CertificateName }}',
- '{{ Tags }}',
+SELECT
+ '{{ distribution_name }}',
+ '{{ bundle_id }}',
+ '{{ ip_address_type }}',
+ '{{ cache_behaviors }}',
+ '{{ cache_behavior_settings }}',
+ '{{ default_cache_behavior }}',
+ '{{ origin }}',
+ '{{ is_enabled }}',
+ '{{ certificate_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -424,52 +424,51 @@ globals:
 resources:
   - name: distribution
     props:
-      - name: DistributionName
-        value: '{{ DistributionName }}'
-      - name: BundleId
-        value: '{{ BundleId }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: CacheBehaviors
+      - name: distribution_name
+        value: '{{ distribution_name }}'
+      - name: bundle_id
+        value: '{{ bundle_id }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: cache_behaviors
         value:
-          - Behavior: '{{ Behavior }}'
-            Path: '{{ Path }}'
-      - name: CacheBehaviorSettings
+          - behavior: '{{ behavior }}'
+            path: '{{ path }}'
+      - name: cache_behavior_settings
         value:
-          AllowedHTTPMethods: '{{ AllowedHTTPMethods }}'
-          CachedHTTPMethods: '{{ CachedHTTPMethods }}'
-          DefaultTTL: '{{ DefaultTTL }}'
-          MaximumTTL: '{{ MaximumTTL }}'
-          MinimumTTL: '{{ MinimumTTL }}'
-          ForwardedCookies:
-            CookiesAllowList:
-              - '{{ CookiesAllowList[0] }}'
-            Option: '{{ Option }}'
-          ForwardedHeaders:
-            HeadersAllowList:
-              - '{{ HeadersAllowList[0] }}'
-            Option: '{{ Option }}'
-          ForwardedQueryStrings:
-            QueryStringsAllowList:
-              - '{{ QueryStringsAllowList[0] }}'
-            Option: '{{ Option }}'
-      - name: DefaultCacheBehavior
+          allowed_ht_tp_methods: '{{ allowed_ht_tp_methods }}'
+          cached_ht_tp_methods: '{{ cached_ht_tp_methods }}'
+          default_ttl: '{{ default_ttl }}'
+          maximum_ttl: '{{ maximum_ttl }}'
+          minimum_ttl: '{{ minimum_ttl }}'
+          forwarded_cookies:
+            cookies_allow_list:
+              - '{{ cookies_allow_list[0] }}'
+            option: '{{ option }}'
+          forwarded_headers:
+            headers_allow_list:
+              - '{{ headers_allow_list[0] }}'
+            option: '{{ option }}'
+          forwarded_query_strings:
+            query_strings_allow_list:
+              - '{{ query_strings_allow_list[0] }}'
+            option: '{{ option }}'
+      - name: default_cache_behavior
         value:
-          Behavior: '{{ Behavior }}'
-      - name: Origin
+          behavior: '{{ behavior }}'
+      - name: origin
         value:
-          Name: '{{ Name }}'
-          ProtocolPolicy: '{{ ProtocolPolicy }}'
-          RegionName: '{{ RegionName }}'
-      - name: IsEnabled
-        value: '{{ IsEnabled }}'
-      - name: CertificateName
-        value: '{{ CertificateName }}'
-      - name: Tags
+          name: '{{ name }}'
+          protocol_policy: '{{ protocol_policy }}'
+          region_name: '{{ region_name }}'
+      - name: is_enabled
+        value: '{{ is_enabled }}'
+      - name: certificate_name
+        value: '{{ certificate_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -492,7 +491,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DistributionName>';
+AND Identifier = '{{ distribution_name }}';
 ```
 
 
@@ -501,7 +500,7 @@ AND Identifier = '<DistributionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.distributions
-WHERE Identifier = '<DistributionName>'
+WHERE Identifier = '{{ distribution_name }}'
 AND region = 'us-east-1';
 ```
 

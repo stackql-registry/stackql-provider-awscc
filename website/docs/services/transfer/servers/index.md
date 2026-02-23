@@ -363,7 +363,7 @@ structured_log_destinations,
 tags,
 workflow_details
 FROM awscc.transfer.servers
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -415,24 +415,24 @@ INSERT INTO awscc.transfer.servers (
  WorkflowDetails,
  region
 )
-SELECT 
-'{{ Certificate }}',
- '{{ Domain }}',
- '{{ EndpointDetails }}',
- '{{ EndpointType }}',
- '{{ IdentityProviderDetails }}',
- '{{ IdentityProviderType }}',
- '{{ IpAddressType }}',
- '{{ LoggingRole }}',
- '{{ PostAuthenticationLoginBanner }}',
- '{{ PreAuthenticationLoginBanner }}',
- '{{ ProtocolDetails }}',
- '{{ Protocols }}',
- '{{ S3StorageOptions }}',
- '{{ SecurityPolicyName }}',
- '{{ StructuredLogDestinations }}',
- '{{ Tags }}',
- '{{ WorkflowDetails }}',
+SELECT
+'{{ certificate }}',
+ '{{ domain }}',
+ '{{ endpoint_details }}',
+ '{{ endpoint_type }}',
+ '{{ identity_provider_details }}',
+ '{{ identity_provider_type }}',
+ '{{ ip_address_type }}',
+ '{{ logging_role }}',
+ '{{ post_authentication_login_banner }}',
+ '{{ pre_authentication_login_banner }}',
+ '{{ protocol_details }}',
+ '{{ protocols }}',
+ '{{ s3_storage_options }}',
+ '{{ security_policy_name }}',
+ '{{ structured_log_destinations }}',
+ '{{ tags }}',
+ '{{ workflow_details }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -460,24 +460,24 @@ INSERT INTO awscc.transfer.servers (
  WorkflowDetails,
  region
 )
-SELECT 
- '{{ Certificate }}',
- '{{ Domain }}',
- '{{ EndpointDetails }}',
- '{{ EndpointType }}',
- '{{ IdentityProviderDetails }}',
- '{{ IdentityProviderType }}',
- '{{ IpAddressType }}',
- '{{ LoggingRole }}',
- '{{ PostAuthenticationLoginBanner }}',
- '{{ PreAuthenticationLoginBanner }}',
- '{{ ProtocolDetails }}',
- '{{ Protocols }}',
- '{{ S3StorageOptions }}',
- '{{ SecurityPolicyName }}',
- '{{ StructuredLogDestinations }}',
- '{{ Tags }}',
- '{{ WorkflowDetails }}',
+SELECT
+ '{{ certificate }}',
+ '{{ domain }}',
+ '{{ endpoint_details }}',
+ '{{ endpoint_type }}',
+ '{{ identity_provider_details }}',
+ '{{ identity_provider_type }}',
+ '{{ ip_address_type }}',
+ '{{ logging_role }}',
+ '{{ post_authentication_login_banner }}',
+ '{{ pre_authentication_login_banner }}',
+ '{{ protocol_details }}',
+ '{{ protocols }}',
+ '{{ s3_storage_options }}',
+ '{{ security_policy_name }}',
+ '{{ structured_log_destinations }}',
+ '{{ tags }}',
+ '{{ workflow_details }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -495,67 +495,66 @@ globals:
 resources:
   - name: server
     props:
-      - name: Certificate
-        value: '{{ Certificate }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: EndpointDetails
+      - name: certificate
+        value: '{{ certificate }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: endpoint_details
         value:
-          AddressAllocationIds:
-            - '{{ AddressAllocationIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          VpcEndpointId: '{{ VpcEndpointId }}'
-          VpcId: '{{ VpcId }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-      - name: EndpointType
-        value: '{{ EndpointType }}'
-      - name: IdentityProviderDetails
+          address_allocation_ids:
+            - '{{ address_allocation_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          vpc_endpoint_id: '{{ vpc_endpoint_id }}'
+          vpc_id: '{{ vpc_id }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+      - name: endpoint_type
+        value: '{{ endpoint_type }}'
+      - name: identity_provider_details
         value:
-          ApplicationArn: '{{ ApplicationArn }}'
-          InstanceArn: '{{ InstanceArn }}'
-          Role: '{{ Role }}'
-      - name: IdentityProviderType
-        value: '{{ IdentityProviderType }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: LoggingRole
-        value: '{{ LoggingRole }}'
-      - name: PostAuthenticationLoginBanner
-        value: '{{ PostAuthenticationLoginBanner }}'
-      - name: PreAuthenticationLoginBanner
-        value: '{{ PreAuthenticationLoginBanner }}'
-      - name: ProtocolDetails
+          application_arn: '{{ application_arn }}'
+          instance_arn: '{{ instance_arn }}'
+          role: '{{ role }}'
+      - name: identity_provider_type
+        value: '{{ identity_provider_type }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: logging_role
+        value: '{{ logging_role }}'
+      - name: post_authentication_login_banner
+        value: '{{ post_authentication_login_banner }}'
+      - name: pre_authentication_login_banner
+        value: '{{ pre_authentication_login_banner }}'
+      - name: protocol_details
         value:
-          PassiveIp: '{{ PassiveIp }}'
-          TlsSessionResumptionMode: '{{ TlsSessionResumptionMode }}'
-          SetStatOption: '{{ SetStatOption }}'
-          As2Transports:
-            - '{{ As2Transports[0] }}'
-      - name: Protocols
+          passive_ip: '{{ passive_ip }}'
+          tls_session_resumption_mode: '{{ tls_session_resumption_mode }}'
+          set_stat_option: '{{ set_stat_option }}'
+          as2_transports:
+            - '{{ as2_transports[0] }}'
+      - name: protocols
         value:
-          - '{{ Protocols[0] }}'
-      - name: S3StorageOptions
+          - '{{ protocols[0] }}'
+      - name: s3_storage_options
         value:
-          DirectoryListingOptimization: '{{ DirectoryListingOptimization }}'
-      - name: SecurityPolicyName
-        value: '{{ SecurityPolicyName }}'
-      - name: StructuredLogDestinations
+          directory_listing_optimization: '{{ directory_listing_optimization }}'
+      - name: security_policy_name
+        value: '{{ security_policy_name }}'
+      - name: structured_log_destinations
         value:
-          - '{{ StructuredLogDestinations[0] }}'
-      - name: Tags
+          - '{{ structured_log_destinations[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: WorkflowDetails
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: workflow_details
         value:
-          OnUpload:
-            - WorkflowId: '{{ WorkflowId }}'
-              ExecutionRole: '{{ ExecutionRole }}'
-          OnPartialUpload:
+          on_upload:
+            - workflow_id: '{{ workflow_id }}'
+              execution_role: '{{ execution_role }}'
+          on_partial_upload:
             - null
-
 ```
 </TabItem>
 </Tabs>
@@ -585,7 +584,7 @@ SET PatchDocument = string('{{ {
     "WorkflowDetails": workflow_details
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -594,7 +593,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.servers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -321,7 +321,7 @@ tags,
 sse_specification,
 native_application_oidc_options
 FROM awscc.ec2.verified_access_trust_providers
-WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessTrustProviderId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_trust_provider_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -358,9 +358,9 @@ INSERT INTO awscc.ec2.verified_access_trust_providers (
  PolicyReferenceName,
  region
 )
-SELECT 
-'{{ TrustProviderType }}',
- '{{ PolicyReferenceName }}',
+SELECT
+'{{ trust_provider_type }}',
+ '{{ policy_reference_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -381,17 +381,17 @@ INSERT INTO awscc.ec2.verified_access_trust_providers (
  NativeApplicationOidcOptions,
  region
 )
-SELECT 
- '{{ TrustProviderType }}',
- '{{ DeviceTrustProviderType }}',
- '{{ UserTrustProviderType }}',
- '{{ OidcOptions }}',
- '{{ DeviceOptions }}',
- '{{ PolicyReferenceName }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ SseSpecification }}',
- '{{ NativeApplicationOidcOptions }}',
+SELECT
+ '{{ trust_provider_type }}',
+ '{{ device_trust_provider_type }}',
+ '{{ user_trust_provider_type }}',
+ '{{ oidc_options }}',
+ '{{ device_options }}',
+ '{{ policy_reference_name }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ sse_specification }}',
+ '{{ native_application_oidc_options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -409,48 +409,47 @@ globals:
 resources:
   - name: verified_access_trust_provider
     props:
-      - name: TrustProviderType
-        value: '{{ TrustProviderType }}'
-      - name: DeviceTrustProviderType
-        value: '{{ DeviceTrustProviderType }}'
-      - name: UserTrustProviderType
-        value: '{{ UserTrustProviderType }}'
-      - name: OidcOptions
+      - name: trust_provider_type
+        value: '{{ trust_provider_type }}'
+      - name: device_trust_provider_type
+        value: '{{ device_trust_provider_type }}'
+      - name: user_trust_provider_type
+        value: '{{ user_trust_provider_type }}'
+      - name: oidc_options
         value:
-          Issuer: '{{ Issuer }}'
-          AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-          TokenEndpoint: '{{ TokenEndpoint }}'
-          UserInfoEndpoint: '{{ UserInfoEndpoint }}'
-          ClientId: '{{ ClientId }}'
-          ClientSecret: '{{ ClientSecret }}'
-          Scope: '{{ Scope }}'
-      - name: DeviceOptions
+          issuer: '{{ issuer }}'
+          authorization_endpoint: '{{ authorization_endpoint }}'
+          token_endpoint: '{{ token_endpoint }}'
+          user_info_endpoint: '{{ user_info_endpoint }}'
+          client_id: '{{ client_id }}'
+          client_secret: '{{ client_secret }}'
+          scope: '{{ scope }}'
+      - name: device_options
         value:
-          TenantId: '{{ TenantId }}'
-          PublicSigningKeyUrl: '{{ PublicSigningKeyUrl }}'
-      - name: PolicyReferenceName
-        value: '{{ PolicyReferenceName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          tenant_id: '{{ tenant_id }}'
+          public_signing_key_url: '{{ public_signing_key_url }}'
+      - name: policy_reference_name
+        value: '{{ policy_reference_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SseSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sse_specification
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          CustomerManagedKeyEnabled: '{{ CustomerManagedKeyEnabled }}'
-      - name: NativeApplicationOidcOptions
+          kms_key_arn: '{{ kms_key_arn }}'
+          customer_managed_key_enabled: '{{ customer_managed_key_enabled }}'
+      - name: native_application_oidc_options
         value:
-          Issuer: '{{ Issuer }}'
-          AuthorizationEndpoint: '{{ AuthorizationEndpoint }}'
-          TokenEndpoint: '{{ TokenEndpoint }}'
-          UserInfoEndpoint: '{{ UserInfoEndpoint }}'
-          ClientId: '{{ ClientId }}'
-          ClientSecret: '{{ ClientSecret }}'
-          Scope: '{{ Scope }}'
-          PublicSigningKeyEndpoint: '{{ PublicSigningKeyEndpoint }}'
-
+          issuer: '{{ issuer }}'
+          authorization_endpoint: '{{ authorization_endpoint }}'
+          token_endpoint: '{{ token_endpoint }}'
+          user_info_endpoint: '{{ user_info_endpoint }}'
+          client_id: '{{ client_id }}'
+          client_secret: '{{ client_secret }}'
+          scope: '{{ scope }}'
+          public_signing_key_endpoint: '{{ public_signing_key_endpoint }}'
 ```
 </TabItem>
 </Tabs>
@@ -470,7 +469,7 @@ SET PatchDocument = string('{{ {
     "NativeApplicationOidcOptions": native_application_oidc_options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VerifiedAccessTrustProviderId>';
+AND Identifier = '{{ verified_access_trust_provider_id }}';
 ```
 
 
@@ -479,7 +478,7 @@ AND Identifier = '<VerifiedAccessTrustProviderId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_trust_providers
-WHERE Identifier = '<VerifiedAccessTrustProviderId>'
+WHERE Identifier = '{{ verified_access_trust_provider_id }}'
 AND region = 'us-east-1';
 ```
 

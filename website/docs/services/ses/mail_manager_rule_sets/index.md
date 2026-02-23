@@ -192,7 +192,7 @@ rule_set_name,
 rules,
 tags
 FROM awscc.ses.mail_manager_rule_sets
-WHERE region = 'us-east-1' AND Identifier = '<RuleSetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,8 +228,8 @@ INSERT INTO awscc.ses.mail_manager_rule_sets (
  Rules,
  region
 )
-SELECT 
-'{{ Rules }}',
+SELECT
+'{{ rules }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,10 +243,10 @@ INSERT INTO awscc.ses.mail_manager_rule_sets (
  Tags,
  region
 )
-SELECT 
- '{{ RuleSetName }}',
- '{{ Rules }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_set_name }}',
+ '{{ rules }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,22 +264,21 @@ globals:
 resources:
   - name: mail_manager_rule_set
     props:
-      - name: RuleSetName
-        value: '{{ RuleSetName }}'
-      - name: Rules
+      - name: rule_set_name
+        value: '{{ rule_set_name }}'
+      - name: rules
         value:
-          - Name: '{{ Name }}'
-            Conditions:
+          - name: '{{ name }}'
+            conditions:
               - null
-            Unless:
+            unless:
               - null
-            Actions:
+            actions:
               - null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +296,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleSetId>';
+AND Identifier = '{{ rule_set_id }}';
 ```
 
 
@@ -306,7 +305,7 @@ AND Identifier = '<RuleSetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_rule_sets
-WHERE Identifier = '<RuleSetId>'
+WHERE Identifier = '{{ rule_set_id }}'
 AND region = 'us-east-1';
 ```
 

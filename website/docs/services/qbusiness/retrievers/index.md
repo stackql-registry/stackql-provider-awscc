@@ -211,7 +211,7 @@ tags,
 type,
 updated_at
 FROM awscc.qbusiness.retrievers
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<RetrieverId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,11 +251,11 @@ INSERT INTO awscc.qbusiness.retrievers (
  Type,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ Configuration }}',
- '{{ DisplayName }}',
- '{{ Type }}',
+SELECT
+'{{ application_id }}',
+ '{{ configuration }}',
+ '{{ display_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,13 +272,13 @@ INSERT INTO awscc.qbusiness.retrievers (
  Type,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ Configuration }}',
- '{{ DisplayName }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ application_id }}',
+ '{{ configuration }}',
+ '{{ display_name }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,21 +296,20 @@ globals:
 resources:
   - name: retriever
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: Configuration
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: configuration
         value: null
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +328,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<RetrieverId>';
+AND Identifier = '{{ application_id }}|{{ retriever_id }}';
 ```
 
 
@@ -338,7 +337,7 @@ AND Identifier = '<ApplicationId>|<RetrieverId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.retrievers
-WHERE Identifier = '<ApplicationId|RetrieverId>'
+WHERE Identifier = '{{ application_id }}|{{ retriever_id }}'
 AND region = 'us-east-1';
 ```
 

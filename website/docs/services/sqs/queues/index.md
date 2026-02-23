@@ -248,7 +248,7 @@ redrive_policy,
 tags,
 visibility_timeout
 FROM awscc.sqs.queues
-WHERE region = 'us-east-1' AND Identifier = '<QueueUrl>';
+WHERE region = 'us-east-1' AND Identifier = '{{ queue_url }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,23 +299,23 @@ INSERT INTO awscc.sqs.queues (
  VisibilityTimeout,
  region
 )
-SELECT 
-'{{ ContentBasedDeduplication }}',
- '{{ DeduplicationScope }}',
- '{{ DelaySeconds }}',
- '{{ FifoQueue }}',
- '{{ FifoThroughputLimit }}',
- '{{ KmsDataKeyReusePeriodSeconds }}',
- '{{ KmsMasterKeyId }}',
- '{{ SqsManagedSseEnabled }}',
- '{{ MaximumMessageSize }}',
- '{{ MessageRetentionPeriod }}',
- '{{ QueueName }}',
- '{{ ReceiveMessageWaitTimeSeconds }}',
- '{{ RedriveAllowPolicy }}',
- '{{ RedrivePolicy }}',
- '{{ Tags }}',
- '{{ VisibilityTimeout }}',
+SELECT
+'{{ content_based_deduplication }}',
+ '{{ deduplication_scope }}',
+ '{{ delay_seconds }}',
+ '{{ fifo_queue }}',
+ '{{ fifo_throughput_limit }}',
+ '{{ kms_data_key_reuse_period_seconds }}',
+ '{{ kms_master_key_id }}',
+ '{{ sqs_managed_sse_enabled }}',
+ '{{ maximum_message_size }}',
+ '{{ message_retention_period }}',
+ '{{ queue_name }}',
+ '{{ receive_message_wait_time_seconds }}',
+ '{{ redrive_allow_policy }}',
+ '{{ redrive_policy }}',
+ '{{ tags }}',
+ '{{ visibility_timeout }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -342,23 +342,23 @@ INSERT INTO awscc.sqs.queues (
  VisibilityTimeout,
  region
 )
-SELECT 
- '{{ ContentBasedDeduplication }}',
- '{{ DeduplicationScope }}',
- '{{ DelaySeconds }}',
- '{{ FifoQueue }}',
- '{{ FifoThroughputLimit }}',
- '{{ KmsDataKeyReusePeriodSeconds }}',
- '{{ KmsMasterKeyId }}',
- '{{ SqsManagedSseEnabled }}',
- '{{ MaximumMessageSize }}',
- '{{ MessageRetentionPeriod }}',
- '{{ QueueName }}',
- '{{ ReceiveMessageWaitTimeSeconds }}',
- '{{ RedriveAllowPolicy }}',
- '{{ RedrivePolicy }}',
- '{{ Tags }}',
- '{{ VisibilityTimeout }}',
+SELECT
+ '{{ content_based_deduplication }}',
+ '{{ deduplication_scope }}',
+ '{{ delay_seconds }}',
+ '{{ fifo_queue }}',
+ '{{ fifo_throughput_limit }}',
+ '{{ kms_data_key_reuse_period_seconds }}',
+ '{{ kms_master_key_id }}',
+ '{{ sqs_managed_sse_enabled }}',
+ '{{ maximum_message_size }}',
+ '{{ message_retention_period }}',
+ '{{ queue_name }}',
+ '{{ receive_message_wait_time_seconds }}',
+ '{{ redrive_allow_policy }}',
+ '{{ redrive_policy }}',
+ '{{ tags }}',
+ '{{ visibility_timeout }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -376,41 +376,40 @@ globals:
 resources:
   - name: queue
     props:
-      - name: ContentBasedDeduplication
-        value: '{{ ContentBasedDeduplication }}'
-      - name: DeduplicationScope
-        value: '{{ DeduplicationScope }}'
-      - name: DelaySeconds
-        value: '{{ DelaySeconds }}'
-      - name: FifoQueue
-        value: '{{ FifoQueue }}'
-      - name: FifoThroughputLimit
-        value: '{{ FifoThroughputLimit }}'
-      - name: KmsDataKeyReusePeriodSeconds
-        value: '{{ KmsDataKeyReusePeriodSeconds }}'
-      - name: KmsMasterKeyId
-        value: '{{ KmsMasterKeyId }}'
-      - name: SqsManagedSseEnabled
-        value: '{{ SqsManagedSseEnabled }}'
-      - name: MaximumMessageSize
-        value: '{{ MaximumMessageSize }}'
-      - name: MessageRetentionPeriod
-        value: '{{ MessageRetentionPeriod }}'
-      - name: QueueName
-        value: '{{ QueueName }}'
-      - name: ReceiveMessageWaitTimeSeconds
-        value: '{{ ReceiveMessageWaitTimeSeconds }}'
-      - name: RedriveAllowPolicy
+      - name: content_based_deduplication
+        value: '{{ content_based_deduplication }}'
+      - name: deduplication_scope
+        value: '{{ deduplication_scope }}'
+      - name: delay_seconds
+        value: '{{ delay_seconds }}'
+      - name: fifo_queue
+        value: '{{ fifo_queue }}'
+      - name: fifo_throughput_limit
+        value: '{{ fifo_throughput_limit }}'
+      - name: kms_data_key_reuse_period_seconds
+        value: '{{ kms_data_key_reuse_period_seconds }}'
+      - name: kms_master_key_id
+        value: '{{ kms_master_key_id }}'
+      - name: sqs_managed_sse_enabled
+        value: '{{ sqs_managed_sse_enabled }}'
+      - name: maximum_message_size
+        value: '{{ maximum_message_size }}'
+      - name: message_retention_period
+        value: '{{ message_retention_period }}'
+      - name: queue_name
+        value: '{{ queue_name }}'
+      - name: receive_message_wait_time_seconds
+        value: '{{ receive_message_wait_time_seconds }}'
+      - name: redrive_allow_policy
         value: {}
-      - name: RedrivePolicy
+      - name: redrive_policy
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VisibilityTimeout
-        value: '{{ VisibilityTimeout }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: visibility_timeout
+        value: '{{ visibility_timeout }}'
 ```
 </TabItem>
 </Tabs>
@@ -439,7 +438,7 @@ SET PatchDocument = string('{{ {
     "VisibilityTimeout": visibility_timeout
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QueueUrl>';
+AND Identifier = '{{ queue_url }}';
 ```
 
 
@@ -448,7 +447,7 @@ AND Identifier = '<QueueUrl>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sqs.queues
-WHERE Identifier = '<QueueUrl>'
+WHERE Identifier = '{{ queue_url }}'
 AND region = 'us-east-1';
 ```
 

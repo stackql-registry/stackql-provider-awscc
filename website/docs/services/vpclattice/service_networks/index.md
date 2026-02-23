@@ -195,7 +195,7 @@ auth_type,
 tags,
 sharing_config
 FROM awscc.vpclattice.service_networks
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,11 +234,11 @@ INSERT INTO awscc.vpclattice.service_networks (
  SharingConfig,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ AuthType }}',
- '{{ Tags }}',
- '{{ SharingConfig }}',
+SELECT
+'{{ name }}',
+ '{{ auth_type }}',
+ '{{ tags }}',
+ '{{ sharing_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,11 +253,11 @@ INSERT INTO awscc.vpclattice.service_networks (
  SharingConfig,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ AuthType }}',
- '{{ Tags }}',
- '{{ SharingConfig }}',
+SELECT
+ '{{ name }}',
+ '{{ auth_type }}',
+ '{{ tags }}',
+ '{{ sharing_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -275,18 +275,17 @@ globals:
 resources:
   - name: service_network
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: AuthType
-        value: '{{ AuthType }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: auth_type
+        value: '{{ auth_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SharingConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sharing_config
         value:
           enabled: '{{ enabled }}'
-
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +303,7 @@ SET PatchDocument = string('{{ {
     "SharingConfig": sharing_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -313,7 +312,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_networks
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

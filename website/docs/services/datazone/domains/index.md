@@ -253,7 +253,7 @@ single_sign_on,
 status,
 tags
 FROM awscc.datazone.domains
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -290,9 +290,9 @@ INSERT INTO awscc.datazone.domains (
  Name,
  region
 )
-SELECT 
-'{{ DomainExecutionRole }}',
- '{{ Name }}',
+SELECT
+'{{ domain_execution_role }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -311,15 +311,15 @@ INSERT INTO awscc.datazone.domains (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DomainExecutionRole }}',
- '{{ ServiceRole }}',
- '{{ DomainVersion }}',
- '{{ KmsKeyIdentifier }}',
- '{{ Name }}',
- '{{ SingleSignOn }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ domain_execution_role }}',
+ '{{ service_role }}',
+ '{{ domain_version }}',
+ '{{ kms_key_identifier }}',
+ '{{ name }}',
+ '{{ single_sign_on }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -337,28 +337,27 @@ globals:
 resources:
   - name: domain
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainExecutionRole
-        value: '{{ DomainExecutionRole }}'
-      - name: ServiceRole
-        value: '{{ ServiceRole }}'
-      - name: DomainVersion
-        value: '{{ DomainVersion }}'
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SingleSignOn
+      - name: description
+        value: '{{ description }}'
+      - name: domain_execution_role
+        value: '{{ domain_execution_role }}'
+      - name: service_role
+        value: '{{ service_role }}'
+      - name: domain_version
+        value: '{{ domain_version }}'
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: single_sign_on
         value:
-          Type: '{{ Type }}'
-          UserAssignment: '{{ UserAssignment }}'
-          IdcInstanceArn: '{{ IdcInstanceArn }}'
-      - name: Tags
+          type: '{{ type }}'
+          user_assignment: '{{ user_assignment }}'
+          idc_instance_arn: '{{ idc_instance_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -379,7 +378,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -388,7 +387,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.domains
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

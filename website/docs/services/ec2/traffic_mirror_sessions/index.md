@@ -200,7 +200,7 @@ description,
 owner_id,
 tags
 FROM awscc.ec2.traffic_mirror_sessions
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,11 +239,11 @@ INSERT INTO awscc.ec2.traffic_mirror_sessions (
  SessionNumber,
  region
 )
-SELECT 
-'{{ NetworkInterfaceId }}',
- '{{ TrafficMirrorTargetId }}',
- '{{ TrafficMirrorFilterId }}',
- '{{ SessionNumber }}',
+SELECT
+'{{ network_interface_id }}',
+ '{{ traffic_mirror_target_id }}',
+ '{{ traffic_mirror_filter_id }}',
+ '{{ session_number }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,16 +263,16 @@ INSERT INTO awscc.ec2.traffic_mirror_sessions (
  Tags,
  region
 )
-SELECT 
- '{{ NetworkInterfaceId }}',
- '{{ TrafficMirrorTargetId }}',
- '{{ TrafficMirrorFilterId }}',
- '{{ PacketLength }}',
- '{{ SessionNumber }}',
- '{{ VirtualNetworkId }}',
- '{{ Description }}',
- '{{ OwnerId }}',
- '{{ Tags }}',
+SELECT
+ '{{ network_interface_id }}',
+ '{{ traffic_mirror_target_id }}',
+ '{{ traffic_mirror_filter_id }}',
+ '{{ packet_length }}',
+ '{{ session_number }}',
+ '{{ virtual_network_id }}',
+ '{{ description }}',
+ '{{ owner_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,27 +290,26 @@ globals:
 resources:
   - name: traffic_mirror_session
     props:
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-      - name: TrafficMirrorTargetId
-        value: '{{ TrafficMirrorTargetId }}'
-      - name: TrafficMirrorFilterId
-        value: '{{ TrafficMirrorFilterId }}'
-      - name: PacketLength
-        value: '{{ PacketLength }}'
-      - name: SessionNumber
-        value: '{{ SessionNumber }}'
-      - name: VirtualNetworkId
-        value: '{{ VirtualNetworkId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: OwnerId
-        value: '{{ OwnerId }}'
-      - name: Tags
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
+      - name: traffic_mirror_target_id
+        value: '{{ traffic_mirror_target_id }}'
+      - name: traffic_mirror_filter_id
+        value: '{{ traffic_mirror_filter_id }}'
+      - name: packet_length
+        value: '{{ packet_length }}'
+      - name: session_number
+        value: '{{ session_number }}'
+      - name: virtual_network_id
+        value: '{{ virtual_network_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: owner_id
+        value: '{{ owner_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +333,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -343,7 +342,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_sessions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

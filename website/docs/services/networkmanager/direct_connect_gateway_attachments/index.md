@@ -300,7 +300,7 @@ tags,
 created_at,
 updated_at
 FROM awscc.networkmanager.direct_connect_gateway_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -338,10 +338,10 @@ INSERT INTO awscc.networkmanager.direct_connect_gateway_attachments (
  DirectConnectGatewayArn,
  region
 )
-SELECT 
-'{{ CoreNetworkId }}',
- '{{ EdgeLocations }}',
- '{{ DirectConnectGatewayArn }}',
+SELECT
+'{{ core_network_id }}',
+ '{{ edge_locations }}',
+ '{{ direct_connect_gateway_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -358,13 +358,13 @@ INSERT INTO awscc.networkmanager.direct_connect_gateway_attachments (
  Tags,
  region
 )
-SELECT 
- '{{ CoreNetworkId }}',
- '{{ EdgeLocations }}',
- '{{ DirectConnectGatewayArn }}',
- '{{ ProposedSegmentChange }}',
- '{{ ProposedNetworkFunctionGroupChange }}',
- '{{ Tags }}',
+SELECT
+ '{{ core_network_id }}',
+ '{{ edge_locations }}',
+ '{{ direct_connect_gateway_arn }}',
+ '{{ proposed_segment_change }}',
+ '{{ proposed_network_function_group_change }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -382,30 +382,29 @@ globals:
 resources:
   - name: direct_connect_gateway_attachment
     props:
-      - name: CoreNetworkId
-        value: '{{ CoreNetworkId }}'
-      - name: EdgeLocations
+      - name: core_network_id
+        value: '{{ core_network_id }}'
+      - name: edge_locations
         value:
-          - '{{ EdgeLocations[0] }}'
-      - name: DirectConnectGatewayArn
-        value: '{{ DirectConnectGatewayArn }}'
-      - name: ProposedSegmentChange
+          - '{{ edge_locations[0] }}'
+      - name: direct_connect_gateway_arn
+        value: '{{ direct_connect_gateway_arn }}'
+      - name: proposed_segment_change
         value:
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          SegmentName: '{{ SegmentName }}'
-      - name: ProposedNetworkFunctionGroupChange
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          segment_name: '{{ segment_name }}'
+      - name: proposed_network_function_group_change
         value:
-          Tags:
+          tags:
             - null
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          NetworkFunctionGroupName: '{{ NetworkFunctionGroupName }}'
-      - name: Tags
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          network_function_group_name: '{{ network_function_group_name }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.direct_connect_gateway_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

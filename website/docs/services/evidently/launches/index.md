@@ -266,7 +266,7 @@ metric_monitors,
 tags,
 execution_status
 FROM awscc.evidently.launches
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -292,11 +292,11 @@ INSERT INTO awscc.evidently.launches (
  Groups,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Project }}',
- '{{ ScheduledSplitsConfig }}',
- '{{ Groups }}',
+SELECT
+'{{ name }}',
+ '{{ project }}',
+ '{{ scheduled_splits_config }}',
+ '{{ groups }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -316,16 +316,16 @@ INSERT INTO awscc.evidently.launches (
  ExecutionStatus,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Project }}',
- '{{ Description }}',
- '{{ RandomizationSalt }}',
- '{{ ScheduledSplitsConfig }}',
- '{{ Groups }}',
- '{{ MetricMonitors }}',
- '{{ Tags }}',
- '{{ ExecutionStatus }}',
+SELECT
+ '{{ name }}',
+ '{{ project }}',
+ '{{ description }}',
+ '{{ randomization_salt }}',
+ '{{ scheduled_splits_config }}',
+ '{{ groups }}',
+ '{{ metric_monitors }}',
+ '{{ tags }}',
+ '{{ execution_status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -343,48 +343,47 @@ globals:
 resources:
   - name: launch
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Project
-        value: '{{ Project }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RandomizationSalt
-        value: '{{ RandomizationSalt }}'
-      - name: ScheduledSplitsConfig
+      - name: name
+        value: '{{ name }}'
+      - name: project
+        value: '{{ project }}'
+      - name: description
+        value: '{{ description }}'
+      - name: randomization_salt
+        value: '{{ randomization_salt }}'
+      - name: scheduled_splits_config
         value:
-          - StartTime: '{{ StartTime }}'
-            GroupWeights:
-              - GroupName: '{{ GroupName }}'
-                SplitWeight: '{{ SplitWeight }}'
-            SegmentOverrides:
-              - Segment: '{{ Segment }}'
-                EvaluationOrder: '{{ EvaluationOrder }}'
-                Weights:
+          - start_time: '{{ start_time }}'
+            group_weights:
+              - group_name: '{{ group_name }}'
+                split_weight: '{{ split_weight }}'
+            segment_overrides:
+              - segment: '{{ segment }}'
+                evaluation_order: '{{ evaluation_order }}'
+                weights:
                   - null
-      - name: Groups
+      - name: groups
         value:
-          - GroupName: '{{ GroupName }}'
-            Description: '{{ Description }}'
-            Feature: '{{ Feature }}'
-            Variation: '{{ Variation }}'
-      - name: MetricMonitors
+          - group_name: '{{ group_name }}'
+            description: '{{ description }}'
+            feature: '{{ feature }}'
+            variation: '{{ variation }}'
+      - name: metric_monitors
         value:
-          - MetricName: '{{ MetricName }}'
-            EntityIdKey: '{{ EntityIdKey }}'
-            ValueKey: '{{ ValueKey }}'
-            EventPattern: '{{ EventPattern }}'
-            UnitLabel: '{{ UnitLabel }}'
-      - name: Tags
+          - metric_name: '{{ metric_name }}'
+            entity_id_key: '{{ entity_id_key }}'
+            value_key: '{{ value_key }}'
+            event_pattern: '{{ event_pattern }}'
+            unit_label: '{{ unit_label }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ExecutionStatus
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: execution_status
         value:
-          Status: '{{ Status }}'
-          DesiredState: '{{ DesiredState }}'
-          Reason: '{{ Reason }}'
-
+          status: '{{ status }}'
+          desired_state: '{{ desired_state }}'
+          reason: '{{ reason }}'
 ```
 </TabItem>
 </Tabs>
@@ -406,7 +405,7 @@ SET PatchDocument = string('{{ {
     "ExecutionStatus": execution_status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -415,7 +414,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.launches
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

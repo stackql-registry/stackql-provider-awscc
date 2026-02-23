@@ -89,7 +89,7 @@ region,
 fleet_name,
 application_arn
 FROM awscc.appstream.application_fleet_associations
-WHERE region = 'us-east-1' AND Identifier = '<FleetName>|<ApplicationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ fleet_name }}|{{ application_arn }}';
 ```
 
 ## `INSERT` example
@@ -113,9 +113,9 @@ INSERT INTO awscc.appstream.application_fleet_associations (
  ApplicationArn,
  region
 )
-SELECT 
-'{{ FleetName }}',
- '{{ ApplicationArn }}',
+SELECT
+'{{ fleet_name }}',
+ '{{ application_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -128,9 +128,9 @@ INSERT INTO awscc.appstream.application_fleet_associations (
  ApplicationArn,
  region
 )
-SELECT 
- '{{ FleetName }}',
- '{{ ApplicationArn }}',
+SELECT
+ '{{ fleet_name }}',
+ '{{ application_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -148,11 +148,10 @@ globals:
 resources:
   - name: application_fleet_association
     props:
-      - name: FleetName
-        value: '{{ FleetName }}'
-      - name: ApplicationArn
-        value: '{{ ApplicationArn }}'
-
+      - name: fleet_name
+        value: '{{ fleet_name }}'
+      - name: application_arn
+        value: '{{ application_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -163,7 +162,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_fleet_associations
-WHERE Identifier = '<FleetName|ApplicationArn>'
+WHERE Identifier = '{{ fleet_name }}|{{ application_arn }}'
 AND region = 'us-east-1';
 ```
 

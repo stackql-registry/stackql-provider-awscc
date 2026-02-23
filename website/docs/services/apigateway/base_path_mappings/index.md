@@ -157,7 +157,7 @@ domain_name,
 rest_api_id,
 stage
 FROM awscc.apigateway.base_path_mappings
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>|<BasePath>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}|{{ base_path }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.apigateway.base_path_mappings (
  DomainName,
  region
 )
-SELECT 
-'{{ DomainName }}',
+SELECT
+'{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,11 +210,11 @@ INSERT INTO awscc.apigateway.base_path_mappings (
  Stage,
  region
 )
-SELECT 
- '{{ BasePath }}',
- '{{ DomainName }}',
- '{{ RestApiId }}',
- '{{ Stage }}',
+SELECT
+ '{{ base_path }}',
+ '{{ domain_name }}',
+ '{{ rest_api_id }}',
+ '{{ stage }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -232,15 +232,14 @@ globals:
 resources:
   - name: base_path_mapping
     props:
-      - name: BasePath
-        value: '{{ BasePath }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: Stage
-        value: '{{ Stage }}'
-
+      - name: base_path
+        value: '{{ base_path }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: stage
+        value: '{{ stage }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ SET PatchDocument = string('{{ {
     "Stage": stage
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>|<BasePath>';
+AND Identifier = '{{ domain_name }}|{{ base_path }}';
 ```
 
 
@@ -266,7 +265,7 @@ AND Identifier = '<DomainName>|<BasePath>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.base_path_mappings
-WHERE Identifier = '<DomainName|BasePath>'
+WHERE Identifier = '{{ domain_name }}|{{ base_path }}'
 AND region = 'us-east-1';
 ```
 

@@ -193,7 +193,7 @@ nodes,
 state,
 tags
 FROM awscc.medialive.channel_placement_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>|<ClusterId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ cluster_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,11 +233,11 @@ INSERT INTO awscc.medialive.channel_placement_groups (
  Tags,
  region
 )
-SELECT 
-'{{ ClusterId }}',
- '{{ Name }}',
- '{{ Nodes }}',
- '{{ Tags }}',
+SELECT
+'{{ cluster_id }}',
+ '{{ name }}',
+ '{{ nodes }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,11 +252,11 @@ INSERT INTO awscc.medialive.channel_placement_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterId }}',
- '{{ Name }}',
- '{{ Nodes }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_id }}',
+ '{{ name }}',
+ '{{ nodes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,18 +274,17 @@ globals:
 resources:
   - name: channel_placement_group
     props:
-      - name: ClusterId
-        value: '{{ ClusterId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Nodes
+      - name: cluster_id
+        value: '{{ cluster_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: nodes
         value:
-          - '{{ Nodes[0] }}'
-      - name: Tags
+          - '{{ nodes[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +302,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>|<ClusterId>';
+AND Identifier = '{{ id }}|{{ cluster_id }}';
 ```
 
 
@@ -312,7 +311,7 @@ AND Identifier = '<Id>|<ClusterId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.channel_placement_groups
-WHERE Identifier = '<Id|ClusterId>'
+WHERE Identifier = '{{ id }}|{{ cluster_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -206,7 +206,7 @@ tags,
 name,
 arn
 FROM awscc.codestarnotifications.notification_rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -246,12 +246,12 @@ INSERT INTO awscc.codestarnotifications.notification_rules (
  Name,
  region
 )
-SELECT 
-'{{ EventTypeIds }}',
- '{{ DetailType }}',
- '{{ Resource }}',
- '{{ Targets }}',
- '{{ Name }}',
+SELECT
+'{{ event_type_ids }}',
+ '{{ detail_type }}',
+ '{{ resource }}',
+ '{{ targets }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,17 +272,17 @@ INSERT INTO awscc.codestarnotifications.notification_rules (
  Name,
  region
 )
-SELECT 
- '{{ EventTypeId }}',
- '{{ CreatedBy }}',
- '{{ TargetAddress }}',
- '{{ EventTypeIds }}',
- '{{ Status }}',
- '{{ DetailType }}',
- '{{ Resource }}',
- '{{ Targets }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ event_type_id }}',
+ '{{ created_by }}',
+ '{{ target_address }}',
+ '{{ event_type_ids }}',
+ '{{ status }}',
+ '{{ detail_type }}',
+ '{{ resource }}',
+ '{{ targets }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,30 +300,29 @@ globals:
 resources:
   - name: notification_rule
     props:
-      - name: EventTypeId
-        value: '{{ EventTypeId }}'
-      - name: CreatedBy
-        value: '{{ CreatedBy }}'
-      - name: TargetAddress
-        value: '{{ TargetAddress }}'
-      - name: EventTypeIds
+      - name: event_type_id
+        value: '{{ event_type_id }}'
+      - name: created_by
+        value: '{{ created_by }}'
+      - name: target_address
+        value: '{{ target_address }}'
+      - name: event_type_ids
         value:
-          - '{{ EventTypeIds[0] }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: DetailType
-        value: '{{ DetailType }}'
-      - name: Resource
-        value: '{{ Resource }}'
-      - name: Targets
+          - '{{ event_type_ids[0] }}'
+      - name: status
+        value: '{{ status }}'
+      - name: detail_type
+        value: '{{ detail_type }}'
+      - name: resource
+        value: '{{ resource }}'
+      - name: targets
         value:
-          - TargetType: '{{ TargetType }}'
-            TargetAddress: '{{ TargetAddress }}'
-      - name: Tags
+          - target_type: '{{ target_type }}'
+            target_address: '{{ target_address }}'
+      - name: tags
         value: {}
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -356,7 +355,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarnotifications.notification_rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -216,7 +216,7 @@ domain_name_arn,
 routing_mode,
 tags
 FROM awscc.apigateway.domain_name_v2s
-WHERE region = 'us-east-1' AND Identifier = '<DomainNameArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,14 +258,14 @@ INSERT INTO awscc.apigateway.domain_name_v2s (
  Tags,
  region
 )
-SELECT 
-'{{ CertificateArn }}',
- '{{ DomainName }}',
- '{{ EndpointConfiguration }}',
- '{{ SecurityPolicy }}',
- '{{ Policy }}',
- '{{ RoutingMode }}',
- '{{ Tags }}',
+SELECT
+'{{ certificate_arn }}',
+ '{{ domain_name }}',
+ '{{ endpoint_configuration }}',
+ '{{ security_policy }}',
+ '{{ policy }}',
+ '{{ routing_mode }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -283,14 +283,14 @@ INSERT INTO awscc.apigateway.domain_name_v2s (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateArn }}',
- '{{ DomainName }}',
- '{{ EndpointConfiguration }}',
- '{{ SecurityPolicy }}',
- '{{ Policy }}',
- '{{ RoutingMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_arn }}',
+ '{{ domain_name }}',
+ '{{ endpoint_configuration }}',
+ '{{ security_policy }}',
+ '{{ policy }}',
+ '{{ routing_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -308,28 +308,27 @@ globals:
 resources:
   - name: domain_name_v2
     props:
-      - name: CertificateArn
-        value: '{{ CertificateArn }}'
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: EndpointConfiguration
+      - name: certificate_arn
+        value: '{{ certificate_arn }}'
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: endpoint_configuration
         value:
-          IpAddressType: '{{ IpAddressType }}'
-          Types:
-            - '{{ Types[0] }}'
-          VpcEndpointIds:
-            - '{{ VpcEndpointIds[0] }}'
-      - name: SecurityPolicy
-        value: '{{ SecurityPolicy }}'
-      - name: Policy
+          ip_address_type: '{{ ip_address_type }}'
+          types:
+            - '{{ types[0] }}'
+          vpc_endpoint_ids:
+            - '{{ vpc_endpoint_ids[0] }}'
+      - name: security_policy
+        value: '{{ security_policy }}'
+      - name: policy
         value: {}
-      - name: RoutingMode
-        value: '{{ RoutingMode }}'
-      - name: Tags
+      - name: routing_mode
+        value: '{{ routing_mode }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +347,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainNameArn>';
+AND Identifier = '{{ domain_name_arn }}';
 ```
 
 
@@ -357,7 +356,7 @@ AND Identifier = '<DomainNameArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.domain_name_v2s
-WHERE Identifier = '<DomainNameArn>'
+WHERE Identifier = '{{ domain_name_arn }}'
 AND region = 'us-east-1';
 ```
 

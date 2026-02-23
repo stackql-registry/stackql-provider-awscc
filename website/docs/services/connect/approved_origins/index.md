@@ -139,7 +139,7 @@ region,
 origin,
 instance_id
 FROM awscc.connect.approved_origins
-WHERE region = 'us-east-1' AND Identifier = '<InstanceId>|<Origin>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ origin }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.connect.approved_origins (
  InstanceId,
  region
 )
-SELECT 
-'{{ Origin }}',
- '{{ InstanceId }}',
+SELECT
+'{{ origin }}',
+ '{{ instance_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.connect.approved_origins (
  InstanceId,
  region
 )
-SELECT 
- '{{ Origin }}',
- '{{ InstanceId }}',
+SELECT
+ '{{ origin }}',
+ '{{ instance_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: approved_origin
     props:
-      - name: Origin
-        value: '{{ Origin }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-
+      - name: origin
+        value: '{{ origin }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.approved_origins
-WHERE Identifier = '<InstanceId|Origin>'
+WHERE Identifier = '{{ instance_id }}|{{ origin }}'
 AND region = 'us-east-1';
 ```
 

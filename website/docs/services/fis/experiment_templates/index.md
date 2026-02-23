@@ -303,7 +303,7 @@ tags,
 experiment_options,
 experiment_report_configuration
 FROM awscc.fis.experiment_templates
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -342,11 +342,11 @@ INSERT INTO awscc.fis.experiment_templates (
  RoleArn,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Targets }}',
- '{{ StopConditions }}',
- '{{ RoleArn }}',
+SELECT
+'{{ description }}',
+ '{{ targets }}',
+ '{{ stop_conditions }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -366,16 +366,16 @@ INSERT INTO awscc.fis.experiment_templates (
  ExperimentReportConfiguration,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Targets }}',
- '{{ Actions }}',
- '{{ StopConditions }}',
- '{{ LogConfiguration }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ ExperimentOptions }}',
- '{{ ExperimentReportConfiguration }}',
+SELECT
+ '{{ description }}',
+ '{{ targets }}',
+ '{{ actions }}',
+ '{{ stop_conditions }}',
+ '{{ log_configuration }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ experiment_options }}',
+ '{{ experiment_report_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -393,44 +393,43 @@ globals:
 resources:
   - name: experiment_template
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Targets
+      - name: description
+        value: '{{ description }}'
+      - name: targets
         value: {}
-      - name: Actions
+      - name: actions
         value: {}
-      - name: StopConditions
+      - name: stop_conditions
         value:
-          - Source: '{{ Source }}'
-            Value: '{{ Value }}'
-      - name: LogConfiguration
+          - source: '{{ source }}'
+            value: '{{ value }}'
+      - name: log_configuration
         value:
-          CloudWatchLogsConfiguration:
-            LogGroupArn: '{{ LogGroupArn }}'
-          S3Configuration:
-            BucketName: '{{ BucketName }}'
-            Prefix: '{{ Prefix }}'
-          LogSchemaVersion: '{{ LogSchemaVersion }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          cloud_watch_logs_configuration:
+            log_group_arn: '{{ log_group_arn }}'
+          s3_configuration:
+            bucket_name: '{{ bucket_name }}'
+            prefix: '{{ prefix }}'
+          log_schema_version: '{{ log_schema_version }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value: {}
-      - name: ExperimentOptions
+      - name: experiment_options
         value:
-          AccountTargeting: '{{ AccountTargeting }}'
-          EmptyTargetResolutionMode: '{{ EmptyTargetResolutionMode }}'
-      - name: ExperimentReportConfiguration
+          account_targeting: '{{ account_targeting }}'
+          empty_target_resolution_mode: '{{ empty_target_resolution_mode }}'
+      - name: experiment_report_configuration
         value:
-          Outputs:
-            ExperimentReportS3Configuration:
-              BucketName: '{{ BucketName }}'
-              Prefix: '{{ Prefix }}'
-          DataSources:
-            CloudWatchDashboards:
-              - DashboardIdentifier: '{{ DashboardIdentifier }}'
-          PreExperimentDuration: '{{ PreExperimentDuration }}'
-          PostExperimentDuration: '{{ PostExperimentDuration }}'
-
+          outputs:
+            experiment_report_s3_configuration:
+              bucket_name: '{{ bucket_name }}'
+              prefix: '{{ prefix }}'
+          data_sources:
+            cloud_watch_dashboards:
+              - dashboard_identifier: '{{ dashboard_identifier }}'
+          pre_experiment_duration: '{{ pre_experiment_duration }}'
+          post_experiment_duration: '{{ post_experiment_duration }}'
 ```
 </TabItem>
 </Tabs>
@@ -453,7 +452,7 @@ SET PatchDocument = string('{{ {
     "ExperimentReportConfiguration": experiment_report_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -462,7 +461,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.fis.experiment_templates
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

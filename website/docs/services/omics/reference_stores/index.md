@@ -176,7 +176,7 @@ reference_store_id,
 sse_config,
 tags
 FROM awscc.omics.reference_stores
-WHERE region = 'us-east-1' AND Identifier = '<ReferenceStoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ reference_store_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.omics.reference_stores (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.omics.reference_stores (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ SseConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ sse_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,17 +250,16 @@ globals:
 resources:
   - name: reference_store
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SseConfig
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: sse_config
         value:
-          Type: '{{ Type }}'
-          KeyArn: '{{ KeyArn }}'
-      - name: Tags
+          type: '{{ type }}'
+          key_arn: '{{ key_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.reference_stores
-WHERE Identifier = '<ReferenceStoreId>'
+WHERE Identifier = '{{ reference_store_id }}'
 AND region = 'us-east-1';
 ```
 

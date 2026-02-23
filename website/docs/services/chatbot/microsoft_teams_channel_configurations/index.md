@@ -218,7 +218,7 @@ user_role_required,
 tags,
 customization_resource_arns
 FROM awscc.chatbot.microsoft_teams_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,12 +258,12 @@ INSERT INTO awscc.chatbot.microsoft_teams_channel_configurations (
  IamRoleArn,
  region
 )
-SELECT 
-'{{ TeamId }}',
- '{{ TeamsChannelId }}',
- '{{ TeamsTenantId }}',
- '{{ ConfigurationName }}',
- '{{ IamRoleArn }}',
+SELECT
+'{{ team_id }}',
+ '{{ teams_channel_id }}',
+ '{{ teams_tenant_id }}',
+ '{{ configuration_name }}',
+ '{{ iam_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -286,19 +286,19 @@ INSERT INTO awscc.chatbot.microsoft_teams_channel_configurations (
  CustomizationResourceArns,
  region
 )
-SELECT 
- '{{ TeamId }}',
- '{{ TeamsChannelId }}',
- '{{ TeamsChannelName }}',
- '{{ TeamsTenantId }}',
- '{{ ConfigurationName }}',
- '{{ IamRoleArn }}',
- '{{ SnsTopicArns }}',
- '{{ LoggingLevel }}',
- '{{ GuardrailPolicies }}',
- '{{ UserRoleRequired }}',
- '{{ Tags }}',
- '{{ CustomizationResourceArns }}',
+SELECT
+ '{{ team_id }}',
+ '{{ teams_channel_id }}',
+ '{{ teams_channel_name }}',
+ '{{ teams_tenant_id }}',
+ '{{ configuration_name }}',
+ '{{ iam_role_arn }}',
+ '{{ sns_topic_arns }}',
+ '{{ logging_level }}',
+ '{{ guardrail_policies }}',
+ '{{ user_role_required }}',
+ '{{ tags }}',
+ '{{ customization_resource_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,36 +316,35 @@ globals:
 resources:
   - name: microsoft_teams_channel_configuration
     props:
-      - name: TeamId
-        value: '{{ TeamId }}'
-      - name: TeamsChannelId
-        value: '{{ TeamsChannelId }}'
-      - name: TeamsChannelName
-        value: '{{ TeamsChannelName }}'
-      - name: TeamsTenantId
-        value: '{{ TeamsTenantId }}'
-      - name: ConfigurationName
-        value: '{{ ConfigurationName }}'
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: SnsTopicArns
+      - name: team_id
+        value: '{{ team_id }}'
+      - name: teams_channel_id
+        value: '{{ teams_channel_id }}'
+      - name: teams_channel_name
+        value: '{{ teams_channel_name }}'
+      - name: teams_tenant_id
+        value: '{{ teams_tenant_id }}'
+      - name: configuration_name
+        value: '{{ configuration_name }}'
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: sns_topic_arns
         value:
-          - '{{ SnsTopicArns[0] }}'
-      - name: LoggingLevel
-        value: '{{ LoggingLevel }}'
-      - name: GuardrailPolicies
+          - '{{ sns_topic_arns[0] }}'
+      - name: logging_level
+        value: '{{ logging_level }}'
+      - name: guardrail_policies
         value:
-          - '{{ GuardrailPolicies[0] }}'
-      - name: UserRoleRequired
-        value: '{{ UserRoleRequired }}'
-      - name: Tags
+          - '{{ guardrail_policies[0] }}'
+      - name: user_role_required
+        value: '{{ user_role_required }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: CustomizationResourceArns
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: customization_resource_arns
         value:
-          - '{{ CustomizationResourceArns[0] }}'
-
+          - '{{ customization_resource_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "CustomizationResourceArns": customization_resource_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.microsoft_teams_channel_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

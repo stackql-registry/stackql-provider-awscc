@@ -252,7 +252,7 @@ id,
 tags,
 name
 FROM awscc.secretsmanager.secrets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,14 +294,14 @@ INSERT INTO awscc.secretsmanager.secrets (
  Name,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ KmsKeyId }}',
- '{{ SecretString }}',
- '{{ GenerateSecretString }}',
- '{{ ReplicaRegions }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+'{{ description }}',
+ '{{ kms_key_id }}',
+ '{{ secret_string }}',
+ '{{ generate_secret_string }}',
+ '{{ replica_regions }}',
+ '{{ tags }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -319,14 +319,14 @@ INSERT INTO awscc.secretsmanager.secrets (
  Name,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ KmsKeyId }}',
- '{{ SecretString }}',
- '{{ GenerateSecretString }}',
- '{{ ReplicaRegions }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ description }}',
+ '{{ kms_key_id }}',
+ '{{ secret_string }}',
+ '{{ generate_secret_string }}',
+ '{{ replica_regions }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -344,35 +344,34 @@ globals:
 resources:
   - name: secret
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: SecretString
-        value: '{{ SecretString }}'
-      - name: GenerateSecretString
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: secret_string
+        value: '{{ secret_string }}'
+      - name: generate_secret_string
         value:
-          ExcludeUppercase: '{{ ExcludeUppercase }}'
-          RequireEachIncludedType: '{{ RequireEachIncludedType }}'
-          IncludeSpace: '{{ IncludeSpace }}'
-          ExcludeCharacters: '{{ ExcludeCharacters }}'
-          GenerateStringKey: '{{ GenerateStringKey }}'
-          PasswordLength: '{{ PasswordLength }}'
-          ExcludePunctuation: '{{ ExcludePunctuation }}'
-          ExcludeLowercase: '{{ ExcludeLowercase }}'
-          SecretStringTemplate: '{{ SecretStringTemplate }}'
-          ExcludeNumbers: '{{ ExcludeNumbers }}'
-      - name: ReplicaRegions
+          exclude_uppercase: '{{ exclude_uppercase }}'
+          require_each_included_type: '{{ require_each_included_type }}'
+          include_space: '{{ include_space }}'
+          exclude_characters: '{{ exclude_characters }}'
+          generate_string_key: '{{ generate_string_key }}'
+          password_length: '{{ password_length }}'
+          exclude_punctuation: '{{ exclude_punctuation }}'
+          exclude_lowercase: '{{ exclude_lowercase }}'
+          secret_string_template: '{{ secret_string_template }}'
+          exclude_numbers: '{{ exclude_numbers }}'
+      - name: replica_regions
         value:
-          - KmsKeyId: '{{ KmsKeyId }}'
-            Region: '{{ Region }}'
-      - name: Tags
+          - kms_key_id: '{{ kms_key_id }}'
+            region: '{{ region }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +392,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -402,7 +401,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.secrets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

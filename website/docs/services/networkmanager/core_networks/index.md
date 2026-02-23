@@ -275,7 +275,7 @@ edges,
 owner_account,
 tags
 FROM awscc.networkmanager.core_networks
-WHERE region = 'us-east-1' AND Identifier = '<CoreNetworkId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ core_network_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -311,8 +311,8 @@ INSERT INTO awscc.networkmanager.core_networks (
  GlobalNetworkId,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
+SELECT
+'{{ global_network_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -327,11 +327,11 @@ INSERT INTO awscc.networkmanager.core_networks (
  Tags,
  region
 )
-SELECT 
- '{{ GlobalNetworkId }}',
- '{{ PolicyDocument }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ global_network_id }}',
+ '{{ policy_document }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,17 +349,16 @@ globals:
 resources:
   - name: core_network
     props:
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: PolicyDocument
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: policy_document
         value: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -377,7 +376,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CoreNetworkId>';
+AND Identifier = '{{ core_network_id }}';
 ```
 
 
@@ -386,7 +385,7 @@ AND Identifier = '<CoreNetworkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.core_networks
-WHERE Identifier = '<CoreNetworkId>'
+WHERE Identifier = '{{ core_network_id }}'
 AND region = 'us-east-1';
 ```
 

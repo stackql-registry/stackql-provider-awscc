@@ -217,7 +217,7 @@ id,
 arn,
 tags
 FROM awscc.iot.ca_certificates
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,9 +254,9 @@ INSERT INTO awscc.iot.ca_certificates (
  Status,
  region
 )
-SELECT 
-'{{ CACertificatePem }}',
- '{{ Status }}',
+SELECT
+'{{ ca_certificate_pem }}',
+ '{{ status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,15 +275,15 @@ INSERT INTO awscc.iot.ca_certificates (
  Tags,
  region
 )
-SELECT 
- '{{ CACertificatePem }}',
- '{{ VerificationCertificatePem }}',
- '{{ Status }}',
- '{{ CertificateMode }}',
- '{{ AutoRegistrationStatus }}',
- '{{ RemoveAutoRegistration }}',
- '{{ RegistrationConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ ca_certificate_pem }}',
+ '{{ verification_certificate_pem }}',
+ '{{ status }}',
+ '{{ certificate_mode }}',
+ '{{ auto_registration_status }}',
+ '{{ remove_auto_registration }}',
+ '{{ registration_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -301,28 +301,27 @@ globals:
 resources:
   - name: ca_certificate
     props:
-      - name: CACertificatePem
-        value: '{{ CACertificatePem }}'
-      - name: VerificationCertificatePem
-        value: '{{ VerificationCertificatePem }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: CertificateMode
-        value: '{{ CertificateMode }}'
-      - name: AutoRegistrationStatus
-        value: '{{ AutoRegistrationStatus }}'
-      - name: RemoveAutoRegistration
-        value: '{{ RemoveAutoRegistration }}'
-      - name: RegistrationConfig
+      - name: ca_certificate_pem
+        value: '{{ ca_certificate_pem }}'
+      - name: verification_certificate_pem
+        value: '{{ verification_certificate_pem }}'
+      - name: status
+        value: '{{ status }}'
+      - name: certificate_mode
+        value: '{{ certificate_mode }}'
+      - name: auto_registration_status
+        value: '{{ auto_registration_status }}'
+      - name: remove_auto_registration
+        value: '{{ remove_auto_registration }}'
+      - name: registration_config
         value:
-          TemplateBody: '{{ TemplateBody }}'
-          RoleArn: '{{ RoleArn }}'
-          TemplateName: '{{ TemplateName }}'
-      - name: Tags
+          template_body: '{{ template_body }}'
+          role_arn: '{{ role_arn }}'
+          template_name: '{{ template_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.ca_certificates
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -140,7 +140,7 @@ subnet_id,
 network_acl_id,
 association_id
 FROM awscc.ec2.subnet_network_acl_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.subnet_network_acl_associations (
  NetworkAclId,
  region
 )
-SELECT 
-'{{ SubnetId }}',
- '{{ NetworkAclId }}',
+SELECT
+'{{ subnet_id }}',
+ '{{ network_acl_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.subnet_network_acl_associations (
  NetworkAclId,
  region
 )
-SELECT 
- '{{ SubnetId }}',
- '{{ NetworkAclId }}',
+SELECT
+ '{{ subnet_id }}',
+ '{{ network_acl_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: subnet_network_acl_association
     props:
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: NetworkAclId
-        value: '{{ NetworkAclId }}'
-
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: network_acl_id
+        value: '{{ network_acl_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_network_acl_associations
-WHERE Identifier = '<AssociationId>'
+WHERE Identifier = '{{ association_id }}'
 AND region = 'us-east-1';
 ```
 

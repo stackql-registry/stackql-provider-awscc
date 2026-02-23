@@ -176,7 +176,7 @@ name,
 tags,
 arn
 FROM awscc.route53profiles.profile_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.route53profiles.profile_associations (
  Name,
  region
 )
-SELECT 
-'{{ ResourceId }}',
- '{{ ProfileId }}',
- '{{ Name }}',
+SELECT
+'{{ resource_id }}',
+ '{{ profile_id }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.route53profiles.profile_associations (
  Arn,
  region
 )
-SELECT 
- '{{ ResourceId }}',
- '{{ ProfileId }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Arn }}',
+SELECT
+ '{{ resource_id }}',
+ '{{ profile_id }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: profile_association
     props:
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: ProfileId
-        value: '{{ ProfileId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: profile_id
+        value: '{{ profile_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Arn
-        value: '{{ Arn }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: arn
+        value: '{{ arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "Arn": arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53profiles.profile_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

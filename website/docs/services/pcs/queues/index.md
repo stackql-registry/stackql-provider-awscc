@@ -195,7 +195,7 @@ name,
 status,
 tags
 FROM awscc.pcs.queues
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,8 +231,8 @@ INSERT INTO awscc.pcs.queues (
  ClusterId,
  region
 )
-SELECT 
-'{{ ClusterId }}',
+SELECT
+'{{ cluster_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,11 +247,11 @@ INSERT INTO awscc.pcs.queues (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterId }}',
- '{{ ComputeNodeGroupConfigurations }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_id }}',
+ '{{ compute_node_group_configurations }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -269,16 +269,15 @@ globals:
 resources:
   - name: queue
     props:
-      - name: ClusterId
-        value: '{{ ClusterId }}'
-      - name: ComputeNodeGroupConfigurations
+      - name: cluster_id
+        value: '{{ cluster_id }}'
+      - name: compute_node_group_configurations
         value:
-          - ComputeNodeGroupId: '{{ ComputeNodeGroupId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - compute_node_group_id: '{{ compute_node_group_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +294,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -304,7 +303,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcs.queues
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

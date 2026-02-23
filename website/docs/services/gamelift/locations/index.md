@@ -158,7 +158,7 @@ location_name,
 location_arn,
 tags
 FROM awscc.gamelift.locations
-WHERE region = 'us-east-1' AND Identifier = '<LocationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.gamelift.locations (
  LocationName,
  region
 )
-SELECT 
-'{{ LocationName }}',
+SELECT
+'{{ location_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.gamelift.locations (
  Tags,
  region
 )
-SELECT 
- '{{ LocationName }}',
- '{{ Tags }}',
+SELECT
+ '{{ location_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: location
     props:
-      - name: LocationName
-        value: '{{ LocationName }}'
-      - name: Tags
+      - name: location_name
+        value: '{{ location_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationName>';
+AND Identifier = '{{ location_name }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<LocationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.locations
-WHERE Identifier = '<LocationName>'
+WHERE Identifier = '{{ location_name }}'
 AND region = 'us-east-1';
 ```
 

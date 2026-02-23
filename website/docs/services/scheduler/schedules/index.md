@@ -448,7 +448,7 @@ start_date,
 state,
 target
 FROM awscc.scheduler.schedules
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -486,10 +486,10 @@ INSERT INTO awscc.scheduler.schedules (
  Target,
  region
 )
-SELECT 
-'{{ FlexibleTimeWindow }}',
- '{{ ScheduleExpression }}',
- '{{ Target }}',
+SELECT
+'{{ flexible_time_window }}',
+ '{{ schedule_expression }}',
+ '{{ target }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -511,18 +511,18 @@ INSERT INTO awscc.scheduler.schedules (
  Target,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ EndDate }}',
- '{{ FlexibleTimeWindow }}',
- '{{ GroupName }}',
- '{{ KmsKeyArn }}',
- '{{ Name }}',
- '{{ ScheduleExpression }}',
- '{{ ScheduleExpressionTimezone }}',
- '{{ StartDate }}',
- '{{ State }}',
- '{{ Target }}',
+SELECT
+ '{{ description }}',
+ '{{ end_date }}',
+ '{{ flexible_time_window }}',
+ '{{ group_name }}',
+ '{{ kms_key_arn }}',
+ '{{ name }}',
+ '{{ schedule_expression }}',
+ '{{ schedule_expression_timezone }}',
+ '{{ start_date }}',
+ '{{ state }}',
+ '{{ target }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -540,79 +540,78 @@ globals:
 resources:
   - name: schedule
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: EndDate
-        value: '{{ EndDate }}'
-      - name: FlexibleTimeWindow
+      - name: description
+        value: '{{ description }}'
+      - name: end_date
+        value: '{{ end_date }}'
+      - name: flexible_time_window
         value:
-          Mode: '{{ Mode }}'
-          MaximumWindowInMinutes: null
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ScheduleExpression
-        value: '{{ ScheduleExpression }}'
-      - name: ScheduleExpressionTimezone
-        value: '{{ ScheduleExpressionTimezone }}'
-      - name: StartDate
-        value: '{{ StartDate }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Target
+          mode: '{{ mode }}'
+          maximum_window_in_minutes: null
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: schedule_expression
+        value: '{{ schedule_expression }}'
+      - name: schedule_expression_timezone
+        value: '{{ schedule_expression_timezone }}'
+      - name: start_date
+        value: '{{ start_date }}'
+      - name: state
+        value: '{{ state }}'
+      - name: target
         value:
-          Arn: '{{ Arn }}'
-          RoleArn: '{{ RoleArn }}'
-          DeadLetterConfig:
-            Arn: '{{ Arn }}'
-          RetryPolicy:
-            MaximumEventAgeInSeconds: null
-            MaximumRetryAttempts: null
-          Input: '{{ Input }}'
-          EcsParameters:
-            TaskDefinitionArn: '{{ TaskDefinitionArn }}'
-            TaskCount: null
-            LaunchType: '{{ LaunchType }}'
-            NetworkConfiguration:
-              AwsvpcConfiguration:
-                Subnets:
-                  - '{{ Subnets[0] }}'
-                SecurityGroups:
-                  - '{{ SecurityGroups[0] }}'
-                AssignPublicIp: '{{ AssignPublicIp }}'
-            PlatformVersion: '{{ PlatformVersion }}'
-            Group: '{{ Group }}'
-            CapacityProviderStrategy:
-              - CapacityProvider: '{{ CapacityProvider }}'
-                Weight: null
-                Base: null
-            EnableECSManagedTags: '{{ EnableECSManagedTags }}'
-            EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-            PlacementConstraints:
-              - Type: '{{ Type }}'
-                Expression: '{{ Expression }}'
-            PlacementStrategy:
-              - Type: '{{ Type }}'
-                Field: '{{ Field }}'
-            PropagateTags: '{{ PropagateTags }}'
-            ReferenceId: '{{ ReferenceId }}'
-            Tags:
+          arn: '{{ arn }}'
+          role_arn: '{{ role_arn }}'
+          dead_letter_config:
+            arn: '{{ arn }}'
+          retry_policy:
+            maximum_event_age_in_seconds: null
+            maximum_retry_attempts: null
+          input: '{{ input }}'
+          ecs_parameters:
+            task_definition_arn: '{{ task_definition_arn }}'
+            task_count: null
+            launch_type: '{{ launch_type }}'
+            network_configuration:
+              awsvpc_configuration:
+                subnets:
+                  - '{{ subnets[0] }}'
+                security_groups:
+                  - '{{ security_groups[0] }}'
+                assign_public_ip: '{{ assign_public_ip }}'
+            platform_version: '{{ platform_version }}'
+            group: '{{ group }}'
+            capacity_provider_strategy:
+              - capacity_provider: '{{ capacity_provider }}'
+                weight: null
+                base: null
+            enable_ecs_managed_tags: '{{ enable_ecs_managed_tags }}'
+            enable_execute_command: '{{ enable_execute_command }}'
+            placement_constraints:
+              - type: '{{ type }}'
+                expression: '{{ expression }}'
+            placement_strategy:
+              - type: '{{ type }}'
+                field: '{{ field }}'
+            propagate_tags: '{{ propagate_tags }}'
+            reference_id: '{{ reference_id }}'
+            tags:
               - {}
-          EventBridgeParameters:
-            DetailType: '{{ DetailType }}'
-            Source: '{{ Source }}'
-          KinesisParameters:
-            PartitionKey: '{{ PartitionKey }}'
-          SageMakerPipelineParameters:
-            PipelineParameterList:
-              - Name: '{{ Name }}'
-                Value: '{{ Value }}'
-          SqsParameters:
-            MessageGroupId: '{{ MessageGroupId }}'
-
+          event_bridge_parameters:
+            detail_type: '{{ detail_type }}'
+            source: '{{ source }}'
+          kinesis_parameters:
+            partition_key: '{{ partition_key }}'
+          sage_maker_pipeline_parameters:
+            pipeline_parameter_list:
+              - name: '{{ name }}'
+                value: '{{ value }}'
+          sqs_parameters:
+            message_group_id: '{{ message_group_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -637,7 +636,7 @@ SET PatchDocument = string('{{ {
     "Target": target
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -646,7 +645,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.scheduler.schedules
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

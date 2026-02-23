@@ -183,7 +183,7 @@ instance_id,
 network_interface_id,
 ena_srd_specification
 FROM awscc.ec2.network_interface_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,10 +221,10 @@ INSERT INTO awscc.ec2.network_interface_attachments (
  NetworkInterfaceId,
  region
 )
-SELECT 
-'{{ DeviceIndex }}',
- '{{ InstanceId }}',
- '{{ NetworkInterfaceId }}',
+SELECT
+'{{ device_index }}',
+ '{{ instance_id }}',
+ '{{ network_interface_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,12 +240,12 @@ INSERT INTO awscc.ec2.network_interface_attachments (
  EnaSrdSpecification,
  region
 )
-SELECT 
- '{{ DeleteOnTermination }}',
- '{{ DeviceIndex }}',
- '{{ InstanceId }}',
- '{{ NetworkInterfaceId }}',
- '{{ EnaSrdSpecification }}',
+SELECT
+ '{{ delete_on_termination }}',
+ '{{ device_index }}',
+ '{{ instance_id }}',
+ '{{ network_interface_id }}',
+ '{{ ena_srd_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,20 +263,19 @@ globals:
 resources:
   - name: network_interface_attachment
     props:
-      - name: DeleteOnTermination
-        value: '{{ DeleteOnTermination }}'
-      - name: DeviceIndex
-        value: '{{ DeviceIndex }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-      - name: EnaSrdSpecification
+      - name: delete_on_termination
+        value: '{{ delete_on_termination }}'
+      - name: device_index
+        value: '{{ device_index }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
+      - name: ena_srd_specification
         value:
-          EnaSrdEnabled: '{{ EnaSrdEnabled }}'
-          EnaSrdUdpSpecification:
-            EnaSrdUdpEnabled: '{{ EnaSrdUdpEnabled }}'
-
+          ena_srd_enabled: '{{ ena_srd_enabled }}'
+          ena_srd_udp_specification:
+            ena_srd_udp_enabled: '{{ ena_srd_udp_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "EnaSrdSpecification": ena_srd_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_interface_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

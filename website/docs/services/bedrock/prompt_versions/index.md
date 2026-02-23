@@ -248,7 +248,7 @@ customer_encryption_key_arn,
 name,
 tags
 FROM awscc.bedrock.prompt_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,8 +284,8 @@ INSERT INTO awscc.bedrock.prompt_versions (
  PromptArn,
  region
 )
-SELECT 
-'{{ PromptArn }}',
+SELECT
+'{{ prompt_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -299,10 +299,10 @@ INSERT INTO awscc.bedrock.prompt_versions (
  Tags,
  region
 )
-SELECT 
- '{{ PromptArn }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ prompt_arn }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,13 +320,12 @@ globals:
 resources:
   - name: prompt_version
     props:
-      - name: PromptArn
-        value: '{{ PromptArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: prompt_arn
+        value: '{{ prompt_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -337,7 +336,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.prompt_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -222,7 +222,7 @@ web_app_customization,
 web_app_endpoint_policy,
 tags
 FROM awscc.transfer.web_apps
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,8 +258,8 @@ INSERT INTO awscc.transfer.web_apps (
  IdentityProviderDetails,
  region
 )
-SELECT 
-'{{ IdentityProviderDetails }}',
+SELECT
+'{{ identity_provider_details }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,13 +276,13 @@ INSERT INTO awscc.transfer.web_apps (
  Tags,
  region
 )
-SELECT 
- '{{ IdentityProviderDetails }}',
- '{{ AccessEndpoint }}',
- '{{ WebAppUnits }}',
- '{{ WebAppCustomization }}',
- '{{ WebAppEndpointPolicy }}',
- '{{ Tags }}',
+SELECT
+ '{{ identity_provider_details }}',
+ '{{ access_endpoint }}',
+ '{{ web_app_units }}',
+ '{{ web_app_customization }}',
+ '{{ web_app_endpoint_policy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,27 +300,26 @@ globals:
 resources:
   - name: web_app
     props:
-      - name: IdentityProviderDetails
+      - name: identity_provider_details
         value:
-          ApplicationArn: '{{ ApplicationArn }}'
-          InstanceArn: '{{ InstanceArn }}'
-          Role: '{{ Role }}'
-      - name: AccessEndpoint
-        value: '{{ AccessEndpoint }}'
-      - name: WebAppUnits
+          application_arn: '{{ application_arn }}'
+          instance_arn: '{{ instance_arn }}'
+          role: '{{ role }}'
+      - name: access_endpoint
+        value: '{{ access_endpoint }}'
+      - name: web_app_units
         value: null
-      - name: WebAppCustomization
+      - name: web_app_customization
         value:
-          Title: '{{ Title }}'
-          LogoFile: '{{ LogoFile }}'
-          FaviconFile: '{{ FaviconFile }}'
-      - name: WebAppEndpointPolicy
-        value: '{{ WebAppEndpointPolicy }}'
-      - name: Tags
+          title: '{{ title }}'
+          logo_file: '{{ logo_file }}'
+          favicon_file: '{{ favicon_file }}'
+      - name: web_app_endpoint_policy
+        value: '{{ web_app_endpoint_policy }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.web_apps
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -267,7 +267,7 @@ tags,
 arn,
 id
 FROM awscc.iotwireless.service_profiles
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -303,7 +303,7 @@ INSERT INTO awscc.iotwireless.service_profiles (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -318,10 +318,10 @@ INSERT INTO awscc.iotwireless.service_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ LoRaWAN }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ lo_ra_wan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -339,34 +339,33 @@ globals:
 resources:
   - name: service_profile
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: LoRaWAN
+      - name: name
+        value: '{{ name }}'
+      - name: lo_ra_wan
         value:
-          UlRate: '{{ UlRate }}'
-          UlBucketSize: '{{ UlBucketSize }}'
-          UlRatePolicy: '{{ UlRatePolicy }}'
-          DlRate: '{{ DlRate }}'
-          DlBucketSize: '{{ DlBucketSize }}'
-          DlRatePolicy: '{{ DlRatePolicy }}'
-          AddGwMetadata: '{{ AddGwMetadata }}'
-          DevStatusReqFreq: '{{ DevStatusReqFreq }}'
-          ReportDevStatusBattery: '{{ ReportDevStatusBattery }}'
-          ReportDevStatusMargin: '{{ ReportDevStatusMargin }}'
-          DrMin: '{{ DrMin }}'
-          DrMax: '{{ DrMax }}'
-          ChannelMask: '{{ ChannelMask }}'
-          PrAllowed: '{{ PrAllowed }}'
-          HrAllowed: '{{ HrAllowed }}'
-          RaAllowed: '{{ RaAllowed }}'
-          NwkGeoLoc: '{{ NwkGeoLoc }}'
-          TargetPer: '{{ TargetPer }}'
-          MinGwDiversity: '{{ MinGwDiversity }}'
-      - name: Tags
+          ul_rate: '{{ ul_rate }}'
+          ul_bucket_size: '{{ ul_bucket_size }}'
+          ul_rate_policy: '{{ ul_rate_policy }}'
+          dl_rate: '{{ dl_rate }}'
+          dl_bucket_size: '{{ dl_bucket_size }}'
+          dl_rate_policy: '{{ dl_rate_policy }}'
+          add_gw_metadata: '{{ add_gw_metadata }}'
+          dev_status_req_freq: '{{ dev_status_req_freq }}'
+          report_dev_status_battery: '{{ report_dev_status_battery }}'
+          report_dev_status_margin: '{{ report_dev_status_margin }}'
+          dr_min: '{{ dr_min }}'
+          dr_max: '{{ dr_max }}'
+          channel_mask: '{{ channel_mask }}'
+          pr_allowed: '{{ pr_allowed }}'
+          hr_allowed: '{{ hr_allowed }}'
+          ra_allowed: '{{ ra_allowed }}'
+          nwk_geo_loc: '{{ nwk_geo_loc }}'
+          target_per: '{{ target_per }}'
+          min_gw_diversity: '{{ min_gw_diversity }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +381,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -391,7 +390,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.service_profiles
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

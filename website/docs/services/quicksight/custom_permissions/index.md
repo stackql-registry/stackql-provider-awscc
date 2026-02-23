@@ -182,7 +182,7 @@ capabilities,
 custom_permissions_name,
 tags
 FROM awscc.quicksight.custom_permissions
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<CustomPermissionsName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,9 +220,9 @@ INSERT INTO awscc.quicksight.custom_permissions (
  CustomPermissionsName,
  region
 )
-SELECT 
-'{{ AwsAccountId }}',
- '{{ CustomPermissionsName }}',
+SELECT
+'{{ aws_account_id }}',
+ '{{ custom_permissions_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,11 +237,11 @@ INSERT INTO awscc.quicksight.custom_permissions (
  Tags,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ Capabilities }}',
- '{{ CustomPermissionsName }}',
- '{{ Tags }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ capabilities }}',
+ '{{ custom_permissions_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,40 +259,39 @@ globals:
 resources:
   - name: custom_permission
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: Capabilities
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: capabilities
         value:
-          ExportToCsv: '{{ ExportToCsv }}'
-          ExportToExcel: null
-          ExportToPdf: null
-          PrintReports: null
-          CreateAndUpdateThemes: null
-          AddOrRunAnomalyDetectionForAnalyses: null
-          ShareAnalyses: null
-          CreateAndUpdateDatasets: null
-          ShareDatasets: null
-          SubscribeDashboardEmailReports: null
-          CreateAndUpdateDashboardEmailReports: null
-          ShareDashboards: null
-          CreateAndUpdateThresholdAlerts: null
-          RenameSharedFolders: null
-          CreateSharedFolders: null
-          CreateAndUpdateDataSources: null
-          ShareDataSources: null
-          ViewAccountSPICECapacity: null
-          CreateSPICEDataset: null
-          ExportToPdfInScheduledReports: null
-          ExportToCsvInScheduledReports: null
-          ExportToExcelInScheduledReports: null
-          IncludeContentInScheduledReportsEmail: null
-      - name: CustomPermissionsName
-        value: '{{ CustomPermissionsName }}'
-      - name: Tags
+          export_to_csv: '{{ export_to_csv }}'
+          export_to_excel: null
+          export_to_pdf: null
+          print_reports: null
+          create_and_update_themes: null
+          add_or_run_anomaly_detection_for_analyses: null
+          share_analyses: null
+          create_and_update_datasets: null
+          share_datasets: null
+          subscribe_dashboard_email_reports: null
+          create_and_update_dashboard_email_reports: null
+          share_dashboards: null
+          create_and_update_threshold_alerts: null
+          rename_shared_folders: null
+          create_shared_folders: null
+          create_and_update_data_sources: null
+          share_data_sources: null
+          view_account_sp_ic_ecapacity: null
+          create_sp_ic_edataset: null
+          export_to_pdf_in_scheduled_reports: null
+          export_to_csv_in_scheduled_reports: null
+          export_to_excel_in_scheduled_reports: null
+          include_content_in_scheduled_reports_email: null
+      - name: custom_permissions_name
+        value: '{{ custom_permissions_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<CustomPermissionsName>';
+AND Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<AwsAccountId>|<CustomPermissionsName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.custom_permissions
-WHERE Identifier = '<AwsAccountId|CustomPermissionsName>'
+WHERE Identifier = '{{ aws_account_id }}|{{ custom_permissions_name }}'
 AND region = 'us-east-1';
 ```
 

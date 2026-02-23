@@ -238,7 +238,7 @@ description,
 id_mapping_config,
 input_reference_properties
 FROM awscc.cleanrooms.id_namespace_associations
-WHERE region = 'us-east-1' AND Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,10 +277,10 @@ INSERT INTO awscc.cleanrooms.id_namespace_associations (
  Name,
  region
 )
-SELECT 
-'{{ MembershipIdentifier }}',
- '{{ InputReferenceConfig }}',
- '{{ Name }}',
+SELECT
+'{{ membership_identifier }}',
+ '{{ input_reference_config }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,13 +297,13 @@ INSERT INTO awscc.cleanrooms.id_namespace_associations (
  IdMappingConfig,
  region
 )
-SELECT 
- '{{ MembershipIdentifier }}',
- '{{ InputReferenceConfig }}',
- '{{ Tags }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ IdMappingConfig }}',
+SELECT
+ '{{ membership_identifier }}',
+ '{{ input_reference_config }}',
+ '{{ tags }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ id_mapping_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -321,24 +321,23 @@ globals:
 resources:
   - name: id_namespace_association
     props:
-      - name: MembershipIdentifier
-        value: '{{ MembershipIdentifier }}'
-      - name: InputReferenceConfig
+      - name: membership_identifier
+        value: '{{ membership_identifier }}'
+      - name: input_reference_config
         value:
-          InputReferenceArn: '{{ InputReferenceArn }}'
-          ManageResourcePolicies: '{{ ManageResourcePolicies }}'
-      - name: Tags
+          input_reference_arn: '{{ input_reference_arn }}'
+          manage_resource_policies: '{{ manage_resource_policies }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: IdMappingConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: id_mapping_config
         value:
-          AllowUseAsDimensionColumn: '{{ AllowUseAsDimensionColumn }}'
-
+          allow_use_as_dimension_column: '{{ allow_use_as_dimension_column }}'
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +356,7 @@ SET PatchDocument = string('{{ {
     "IdMappingConfig": id_mapping_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
+AND Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -366,7 +365,7 @@ AND Identifier = '<IdNamespaceAssociationIdentifier>|<MembershipIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.id_namespace_associations
-WHERE Identifier = '<IdNamespaceAssociationIdentifier|MembershipIdentifier>'
+WHERE Identifier = '{{ id_namespace_association_identifier }}|{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

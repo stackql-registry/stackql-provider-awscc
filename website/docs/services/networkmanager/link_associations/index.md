@@ -150,7 +150,7 @@ global_network_id,
 device_id,
 link_id
 FROM awscc.networkmanager.link_associations
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<DeviceId>|<LinkId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.networkmanager.link_associations (
  LinkId,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
- '{{ DeviceId }}',
- '{{ LinkId }}',
+SELECT
+'{{ global_network_id }}',
+ '{{ device_id }}',
+ '{{ link_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.networkmanager.link_associations (
  LinkId,
  region
 )
-SELECT 
- '{{ GlobalNetworkId }}',
- '{{ DeviceId }}',
- '{{ LinkId }}',
+SELECT
+ '{{ global_network_id }}',
+ '{{ device_id }}',
+ '{{ link_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: link_association
     props:
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: DeviceId
-        value: '{{ DeviceId }}'
-      - name: LinkId
-        value: '{{ LinkId }}'
-
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: device_id
+        value: '{{ device_id }}'
+      - name: link_id
+        value: '{{ link_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.link_associations
-WHERE Identifier = '<GlobalNetworkId|DeviceId|LinkId>'
+WHERE Identifier = '{{ global_network_id }}|{{ device_id }}|{{ link_id }}'
 AND region = 'us-east-1';
 ```
 

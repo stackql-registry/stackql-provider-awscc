@@ -797,7 +797,7 @@ rule_name,
 topic_rule_payload,
 tags
 FROM awscc.iot.topic_rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -833,8 +833,8 @@ INSERT INTO awscc.iot.topic_rules (
  TopicRulePayload,
  region
 )
-SELECT 
-'{{ TopicRulePayload }}',
+SELECT
+'{{ topic_rule_payload }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -848,10 +848,10 @@ INSERT INTO awscc.iot.topic_rules (
  Tags,
  region
 )
-SELECT 
- '{{ RuleName }}',
- '{{ TopicRulePayload }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_name }}',
+ '{{ topic_rule_payload }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -869,170 +869,169 @@ globals:
 resources:
   - name: topic_rule
     props:
-      - name: RuleName
-        value: '{{ RuleName }}'
-      - name: TopicRulePayload
+      - name: rule_name
+        value: '{{ rule_name }}'
+      - name: topic_rule_payload
         value:
-          RuleDisabled: '{{ RuleDisabled }}'
-          ErrorAction:
-            CloudwatchAlarm:
-              StateValue: '{{ StateValue }}'
-              AlarmName: '{{ AlarmName }}'
-              StateReason: '{{ StateReason }}'
-              RoleArn: '{{ RoleArn }}'
-            CloudwatchLogs:
-              LogGroupName: '{{ LogGroupName }}'
-              RoleArn: '{{ RoleArn }}'
-              BatchMode: '{{ BatchMode }}'
-            CloudwatchMetric:
-              MetricName: '{{ MetricName }}'
-              MetricValue: '{{ MetricValue }}'
-              MetricNamespace: '{{ MetricNamespace }}'
-              MetricUnit: '{{ MetricUnit }}'
-              RoleArn: '{{ RoleArn }}'
-              MetricTimestamp: '{{ MetricTimestamp }}'
-            DynamoDB:
-              TableName: '{{ TableName }}'
-              PayloadField: '{{ PayloadField }}'
-              RangeKeyField: '{{ RangeKeyField }}'
-              HashKeyField: '{{ HashKeyField }}'
-              RangeKeyValue: '{{ RangeKeyValue }}'
-              RangeKeyType: '{{ RangeKeyType }}'
-              HashKeyType: '{{ HashKeyType }}'
-              HashKeyValue: '{{ HashKeyValue }}'
-              RoleArn: '{{ RoleArn }}'
-            DynamoDBv2:
-              PutItem:
-                TableName: '{{ TableName }}'
-              RoleArn: '{{ RoleArn }}'
-            Elasticsearch:
-              Type: '{{ Type }}'
-              Index: '{{ Index }}'
-              Id: '{{ Id }}'
-              Endpoint: '{{ Endpoint }}'
-              RoleArn: '{{ RoleArn }}'
-            Firehose:
-              DeliveryStreamName: '{{ DeliveryStreamName }}'
-              RoleArn: '{{ RoleArn }}'
-              Separator: '{{ Separator }}'
-              BatchMode: '{{ BatchMode }}'
-            Http:
-              ConfirmationUrl: '{{ ConfirmationUrl }}'
-              Headers:
-                - Value: '{{ Value }}'
-                  Key: '{{ Key }}'
-              Url: '{{ Url }}'
-              Auth:
-                Sigv4:
-                  ServiceName: '{{ ServiceName }}'
-                  SigningRegion: '{{ SigningRegion }}'
-                  RoleArn: '{{ RoleArn }}'
-            IotAnalytics:
-              RoleArn: '{{ RoleArn }}'
-              ChannelName: '{{ ChannelName }}'
-              BatchMode: '{{ BatchMode }}'
-            IotEvents:
-              InputName: '{{ InputName }}'
-              RoleArn: '{{ RoleArn }}'
-              MessageId: '{{ MessageId }}'
-              BatchMode: '{{ BatchMode }}'
-            IotSiteWise:
-              RoleArn: '{{ RoleArn }}'
-              PutAssetPropertyValueEntries:
-                - PropertyAlias: '{{ PropertyAlias }}'
-                  PropertyValues:
-                    - Value:
-                        StringValue: '{{ StringValue }}'
-                        DoubleValue: '{{ DoubleValue }}'
-                        BooleanValue: '{{ BooleanValue }}'
-                        IntegerValue: '{{ IntegerValue }}'
-                      Timestamp:
-                        TimeInSeconds: '{{ TimeInSeconds }}'
-                        OffsetInNanos: '{{ OffsetInNanos }}'
-                      Quality: '{{ Quality }}'
-                  AssetId: '{{ AssetId }}'
-                  EntryId: '{{ EntryId }}'
-                  PropertyId: '{{ PropertyId }}'
-            Kafka:
-              DestinationArn: '{{ DestinationArn }}'
-              Topic: '{{ Topic }}'
-              Key: '{{ Key }}'
-              Partition: '{{ Partition }}'
-              ClientProperties: {}
-              Headers:
-                - Value: '{{ Value }}'
-                  Key: '{{ Key }}'
-            Kinesis:
-              PartitionKey: '{{ PartitionKey }}'
-              StreamName: '{{ StreamName }}'
-              RoleArn: '{{ RoleArn }}'
-            Lambda:
-              FunctionArn: '{{ FunctionArn }}'
-            Location:
-              RoleArn: '{{ RoleArn }}'
-              TrackerName: '{{ TrackerName }}'
-              DeviceId: '{{ DeviceId }}'
-              Latitude: '{{ Latitude }}'
-              Longitude: '{{ Longitude }}'
-              Timestamp:
-                Value: '{{ Value }}'
-                Unit: '{{ Unit }}'
-            OpenSearch:
-              Type: '{{ Type }}'
-              Index: '{{ Index }}'
-              Id: '{{ Id }}'
-              Endpoint: '{{ Endpoint }}'
-              RoleArn: '{{ RoleArn }}'
-            Republish:
-              Qos: '{{ Qos }}'
-              Topic: '{{ Topic }}'
-              RoleArn: '{{ RoleArn }}'
-              Headers:
-                PayloadFormatIndicator: '{{ PayloadFormatIndicator }}'
-                ContentType: '{{ ContentType }}'
-                ResponseTopic: '{{ ResponseTopic }}'
-                CorrelationData: '{{ CorrelationData }}'
-                MessageExpiry: '{{ MessageExpiry }}'
-                UserProperties:
-                  - Key: '{{ Key }}'
-                    Value: '{{ Value }}'
-            S3:
-              BucketName: '{{ BucketName }}'
-              Key: '{{ Key }}'
-              RoleArn: '{{ RoleArn }}'
-              CannedAcl: '{{ CannedAcl }}'
-            Sns:
-              TargetArn: '{{ TargetArn }}'
-              MessageFormat: '{{ MessageFormat }}'
-              RoleArn: '{{ RoleArn }}'
-            Sqs:
-              RoleArn: '{{ RoleArn }}'
-              UseBase64: '{{ UseBase64 }}'
-              QueueUrl: '{{ QueueUrl }}'
-            StepFunctions:
-              ExecutionNamePrefix: '{{ ExecutionNamePrefix }}'
-              StateMachineName: '{{ StateMachineName }}'
-              RoleArn: '{{ RoleArn }}'
-            Timestream:
-              RoleArn: '{{ RoleArn }}'
-              DatabaseName: '{{ DatabaseName }}'
-              TableName: '{{ TableName }}'
-              Dimensions:
-                - Name: '{{ Name }}'
-                  Value: '{{ Value }}'
-              Timestamp:
-                Value: '{{ Value }}'
-                Unit: '{{ Unit }}'
-          Description: '{{ Description }}'
-          AwsIotSqlVersion: '{{ AwsIotSqlVersion }}'
-          Actions:
+          rule_disabled: '{{ rule_disabled }}'
+          error_action:
+            cloudwatch_alarm:
+              state_value: '{{ state_value }}'
+              alarm_name: '{{ alarm_name }}'
+              state_reason: '{{ state_reason }}'
+              role_arn: '{{ role_arn }}'
+            cloudwatch_logs:
+              log_group_name: '{{ log_group_name }}'
+              role_arn: '{{ role_arn }}'
+              batch_mode: '{{ batch_mode }}'
+            cloudwatch_metric:
+              metric_name: '{{ metric_name }}'
+              metric_value: '{{ metric_value }}'
+              metric_namespace: '{{ metric_namespace }}'
+              metric_unit: '{{ metric_unit }}'
+              role_arn: '{{ role_arn }}'
+              metric_timestamp: '{{ metric_timestamp }}'
+            dynamo_db:
+              table_name: '{{ table_name }}'
+              payload_field: '{{ payload_field }}'
+              range_key_field: '{{ range_key_field }}'
+              hash_key_field: '{{ hash_key_field }}'
+              range_key_value: '{{ range_key_value }}'
+              range_key_type: '{{ range_key_type }}'
+              hash_key_type: '{{ hash_key_type }}'
+              hash_key_value: '{{ hash_key_value }}'
+              role_arn: '{{ role_arn }}'
+            dynamo_dbv2:
+              put_item:
+                table_name: '{{ table_name }}'
+              role_arn: '{{ role_arn }}'
+            elasticsearch:
+              type: '{{ type }}'
+              index: '{{ index }}'
+              id: '{{ id }}'
+              endpoint: '{{ endpoint }}'
+              role_arn: '{{ role_arn }}'
+            firehose:
+              delivery_stream_name: '{{ delivery_stream_name }}'
+              role_arn: '{{ role_arn }}'
+              separator: '{{ separator }}'
+              batch_mode: '{{ batch_mode }}'
+            http:
+              confirmation_url: '{{ confirmation_url }}'
+              headers:
+                - value: '{{ value }}'
+                  key: '{{ key }}'
+              url: '{{ url }}'
+              auth:
+                sigv4:
+                  service_name: '{{ service_name }}'
+                  signing_region: '{{ signing_region }}'
+                  role_arn: '{{ role_arn }}'
+            iot_analytics:
+              role_arn: '{{ role_arn }}'
+              channel_name: '{{ channel_name }}'
+              batch_mode: '{{ batch_mode }}'
+            iot_events:
+              input_name: '{{ input_name }}'
+              role_arn: '{{ role_arn }}'
+              message_id: '{{ message_id }}'
+              batch_mode: '{{ batch_mode }}'
+            iot_site_wise:
+              role_arn: '{{ role_arn }}'
+              put_asset_property_value_entries:
+                - property_alias: '{{ property_alias }}'
+                  property_values:
+                    - value:
+                        string_value: '{{ string_value }}'
+                        double_value: '{{ double_value }}'
+                        boolean_value: '{{ boolean_value }}'
+                        integer_value: '{{ integer_value }}'
+                      timestamp:
+                        time_in_seconds: '{{ time_in_seconds }}'
+                        offset_in_nanos: '{{ offset_in_nanos }}'
+                      quality: '{{ quality }}'
+                  asset_id: '{{ asset_id }}'
+                  entry_id: '{{ entry_id }}'
+                  property_id: '{{ property_id }}'
+            kafka:
+              destination_arn: '{{ destination_arn }}'
+              topic: '{{ topic }}'
+              key: '{{ key }}'
+              partition: '{{ partition }}'
+              client_properties: {}
+              headers:
+                - value: '{{ value }}'
+                  key: '{{ key }}'
+            kinesis:
+              partition_key: '{{ partition_key }}'
+              stream_name: '{{ stream_name }}'
+              role_arn: '{{ role_arn }}'
+            lambda:
+              function_arn: '{{ function_arn }}'
+            location:
+              role_arn: '{{ role_arn }}'
+              tracker_name: '{{ tracker_name }}'
+              device_id: '{{ device_id }}'
+              latitude: '{{ latitude }}'
+              longitude: '{{ longitude }}'
+              timestamp:
+                value: '{{ value }}'
+                unit: '{{ unit }}'
+            open_search:
+              type: '{{ type }}'
+              index: '{{ index }}'
+              id: '{{ id }}'
+              endpoint: '{{ endpoint }}'
+              role_arn: '{{ role_arn }}'
+            republish:
+              qos: '{{ qos }}'
+              topic: '{{ topic }}'
+              role_arn: '{{ role_arn }}'
+              headers:
+                payload_format_indicator: '{{ payload_format_indicator }}'
+                content_type: '{{ content_type }}'
+                response_topic: '{{ response_topic }}'
+                correlation_data: '{{ correlation_data }}'
+                message_expiry: '{{ message_expiry }}'
+                user_properties:
+                  - key: '{{ key }}'
+                    value: '{{ value }}'
+            s3:
+              bucket_name: '{{ bucket_name }}'
+              key: '{{ key }}'
+              role_arn: '{{ role_arn }}'
+              canned_acl: '{{ canned_acl }}'
+            sns:
+              target_arn: '{{ target_arn }}'
+              message_format: '{{ message_format }}'
+              role_arn: '{{ role_arn }}'
+            sqs:
+              role_arn: '{{ role_arn }}'
+              use_base64: '{{ use_base64 }}'
+              queue_url: '{{ queue_url }}'
+            step_functions:
+              execution_name_prefix: '{{ execution_name_prefix }}'
+              state_machine_name: '{{ state_machine_name }}'
+              role_arn: '{{ role_arn }}'
+            timestream:
+              role_arn: '{{ role_arn }}'
+              database_name: '{{ database_name }}'
+              table_name: '{{ table_name }}'
+              dimensions:
+                - name: '{{ name }}'
+                  value: '{{ value }}'
+              timestamp:
+                value: '{{ value }}'
+                unit: '{{ unit }}'
+          description: '{{ description }}'
+          aws_iot_sql_version: '{{ aws_iot_sql_version }}'
+          actions:
             - null
-          Sql: '{{ Sql }}'
-      - name: Tags
+          sql: '{{ sql }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -1049,7 +1048,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleName>';
+AND Identifier = '{{ rule_name }}';
 ```
 
 
@@ -1058,7 +1057,7 @@ AND Identifier = '<RuleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.topic_rules
-WHERE Identifier = '<RuleName>'
+WHERE Identifier = '{{ rule_name }}'
 AND region = 'us-east-1';
 ```
 

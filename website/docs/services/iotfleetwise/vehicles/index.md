@@ -212,7 +212,7 @@ model_manifest_arn,
 tags,
 state_templates
 FROM awscc.iotfleetwise.vehicles
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.iotfleetwise.vehicles (
  ModelManifestArn,
  region
 )
-SELECT 
-'{{ DecoderManifestArn }}',
- '{{ Name }}',
- '{{ ModelManifestArn }}',
+SELECT
+'{{ decoder_manifest_arn }}',
+ '{{ name }}',
+ '{{ model_manifest_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,14 +271,14 @@ INSERT INTO awscc.iotfleetwise.vehicles (
  StateTemplates,
  region
 )
-SELECT 
- '{{ AssociationBehavior }}',
- '{{ Attributes }}',
- '{{ DecoderManifestArn }}',
- '{{ Name }}',
- '{{ ModelManifestArn }}',
- '{{ Tags }}',
- '{{ StateTemplates }}',
+SELECT
+ '{{ association_behavior }}',
+ '{{ attributes }}',
+ '{{ decoder_manifest_arn }}',
+ '{{ name }}',
+ '{{ model_manifest_arn }}',
+ '{{ tags }}',
+ '{{ state_templates }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,25 +296,24 @@ globals:
 resources:
   - name: vehicle
     props:
-      - name: AssociationBehavior
-        value: '{{ AssociationBehavior }}'
-      - name: Attributes
+      - name: association_behavior
+        value: '{{ association_behavior }}'
+      - name: attributes
         value: {}
-      - name: DecoderManifestArn
-        value: '{{ DecoderManifestArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ModelManifestArn
-        value: '{{ ModelManifestArn }}'
-      - name: Tags
+      - name: decoder_manifest_arn
+        value: '{{ decoder_manifest_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: model_manifest_arn
+        value: '{{ model_manifest_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: StateTemplates
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: state_templates
         value:
-          - Identifier: '{{ Identifier }}'
-            StateTemplateUpdateStrategy: null
-
+          - identifier: '{{ identifier }}'
+            state_template_update_strategy: null
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "StateTemplates": state_templates
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.vehicles
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

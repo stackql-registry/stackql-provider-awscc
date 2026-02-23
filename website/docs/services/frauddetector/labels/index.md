@@ -176,7 +176,7 @@ arn,
 created_time,
 last_updated_time
 FROM awscc.frauddetector.labels
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.frauddetector.labels (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,10 +227,10 @@ INSERT INTO awscc.frauddetector.labels (
  Description,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Description }}',
+SELECT
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,15 +248,14 @@ globals:
 resources:
   - name: label
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +272,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -282,7 +281,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.frauddetector.labels
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

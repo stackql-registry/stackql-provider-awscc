@@ -873,7 +873,7 @@ credentials,
 data_source_id,
 tags
 FROM awscc.quicksight.data_sources
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<DataSourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -911,9 +911,9 @@ INSERT INTO awscc.quicksight.data_sources (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -937,20 +937,20 @@ INSERT INTO awscc.quicksight.data_sources (
  Tags,
  region
 )
-SELECT 
- '{{ ErrorInfo }}',
- '{{ FolderArns }}',
- '{{ Name }}',
- '{{ DataSourceParameters }}',
- '{{ Type }}',
- '{{ VpcConnectionProperties }}',
- '{{ AlternateDataSourceParameters }}',
- '{{ AwsAccountId }}',
- '{{ Permissions }}',
- '{{ SslProperties }}',
- '{{ Credentials }}',
- '{{ DataSourceId }}',
- '{{ Tags }}',
+SELECT
+ '{{ error_info }}',
+ '{{ folder_arns }}',
+ '{{ name }}',
+ '{{ data_source_parameters }}',
+ '{{ type }}',
+ '{{ vpc_connection_properties }}',
+ '{{ alternate_data_source_parameters }}',
+ '{{ aws_account_id }}',
+ '{{ permissions }}',
+ '{{ ssl_properties }}',
+ '{{ credentials }}',
+ '{{ data_source_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -968,147 +968,146 @@ globals:
 resources:
   - name: data_source
     props:
-      - name: ErrorInfo
+      - name: error_info
         value:
-          Type: '{{ Type }}'
-          Message: '{{ Message }}'
-      - name: FolderArns
+          type: '{{ type }}'
+          message: '{{ message }}'
+      - name: folder_arns
         value:
-          - '{{ FolderArns[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: DataSourceParameters
+          - '{{ folder_arns[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: data_source_parameters
         value:
-          AuroraPostgreSqlParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          TeradataParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          RdsParameters:
-            InstanceId: '{{ InstanceId }}'
-            Database: '{{ Database }}'
-          AthenaParameters:
-            WorkGroup: '{{ WorkGroup }}'
-            IdentityCenterConfiguration:
-              EnableIdentityPropagation: '{{ EnableIdentityPropagation }}'
-            RoleArn: '{{ RoleArn }}'
-          SparkParameters:
-            Port: null
-            Host: '{{ Host }}'
-          MariaDbParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          OracleParameters:
-            UseServiceName: '{{ UseServiceName }}'
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          PrestoParameters:
-            Port: null
-            Host: '{{ Host }}'
-            Catalog: '{{ Catalog }}'
-          StarburstParameters:
-            Port: null
-            DatabaseAccessControlRole: '{{ DatabaseAccessControlRole }}'
-            ProductType: '{{ ProductType }}'
-            OAuthParameters:
-              TokenProviderUrl: '{{ TokenProviderUrl }}'
-              OAuthScope: '{{ OAuthScope }}'
-              IdentityProviderVpcConnectionProperties:
-                VpcConnectionArn: '{{ VpcConnectionArn }}'
-              IdentityProviderResourceUri: '{{ IdentityProviderResourceUri }}'
-            Host: '{{ Host }}'
-            Catalog: '{{ Catalog }}'
-            AuthenticationType: '{{ AuthenticationType }}'
-          RedshiftParameters:
-            IAMParameters:
-              AutoCreateDatabaseUser: '{{ AutoCreateDatabaseUser }}'
-              DatabaseUser: '{{ DatabaseUser }}'
-              RoleArn: '{{ RoleArn }}'
-              DatabaseGroups:
-                - '{{ DatabaseGroups[0] }}'
-            ClusterId: '{{ ClusterId }}'
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-            IdentityCenterConfiguration: null
-          MySqlParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          SqlServerParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          SnowflakeParameters:
-            Warehouse: '{{ Warehouse }}'
-            DatabaseAccessControlRole: '{{ DatabaseAccessControlRole }}'
-            Database: '{{ Database }}'
-            OAuthParameters: null
-            Host: '{{ Host }}'
-            AuthenticationType: null
-          AmazonElasticsearchParameters:
-            Domain: '{{ Domain }}'
-          AmazonOpenSearchParameters:
-            Domain: '{{ Domain }}'
-          PostgreSqlParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          AuroraParameters:
-            Port: null
-            Database: '{{ Database }}'
-            Host: '{{ Host }}'
-          S3Parameters:
-            ManifestFileLocation:
-              Bucket: '{{ Bucket }}'
-              Key: '{{ Key }}'
-            RoleArn: '{{ RoleArn }}'
-          TrinoParameters:
-            Port: null
-            Host: '{{ Host }}'
-            Catalog: '{{ Catalog }}'
-          DatabricksParameters:
-            Port: null
-            Host: '{{ Host }}'
-            SqlEndpointPath: '{{ SqlEndpointPath }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: VpcConnectionProperties
+          aurora_postgre_sql_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          teradata_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          rds_parameters:
+            instance_id: '{{ instance_id }}'
+            database: '{{ database }}'
+          athena_parameters:
+            work_group: '{{ work_group }}'
+            identity_center_configuration:
+              enable_identity_propagation: '{{ enable_identity_propagation }}'
+            role_arn: '{{ role_arn }}'
+          spark_parameters:
+            port: null
+            host: '{{ host }}'
+          maria_db_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          oracle_parameters:
+            use_service_name: '{{ use_service_name }}'
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          presto_parameters:
+            port: null
+            host: '{{ host }}'
+            catalog: '{{ catalog }}'
+          starburst_parameters:
+            port: null
+            database_access_control_role: '{{ database_access_control_role }}'
+            product_type: '{{ product_type }}'
+            oauth_parameters:
+              token_provider_url: '{{ token_provider_url }}'
+              oauth_scope: '{{ oauth_scope }}'
+              identity_provider_vpc_connection_properties:
+                vpc_connection_arn: '{{ vpc_connection_arn }}'
+              identity_provider_resource_uri: '{{ identity_provider_resource_uri }}'
+            host: '{{ host }}'
+            catalog: '{{ catalog }}'
+            authentication_type: '{{ authentication_type }}'
+          redshift_parameters:
+            iam_parameters:
+              auto_create_database_user: '{{ auto_create_database_user }}'
+              database_user: '{{ database_user }}'
+              role_arn: '{{ role_arn }}'
+              database_groups:
+                - '{{ database_groups[0] }}'
+            cluster_id: '{{ cluster_id }}'
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+            identity_center_configuration: null
+          my_sql_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          sql_server_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          snowflake_parameters:
+            warehouse: '{{ warehouse }}'
+            database_access_control_role: '{{ database_access_control_role }}'
+            database: '{{ database }}'
+            oauth_parameters: null
+            host: '{{ host }}'
+            authentication_type: null
+          amazon_elasticsearch_parameters:
+            domain: '{{ domain }}'
+          amazon_open_search_parameters:
+            domain: '{{ domain }}'
+          postgre_sql_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          aurora_parameters:
+            port: null
+            database: '{{ database }}'
+            host: '{{ host }}'
+          s3_parameters:
+            manifest_file_location:
+              bucket: '{{ bucket }}'
+              key: '{{ key }}'
+            role_arn: '{{ role_arn }}'
+          trino_parameters:
+            port: null
+            host: '{{ host }}'
+            catalog: '{{ catalog }}'
+          databricks_parameters:
+            port: null
+            host: '{{ host }}'
+            sql_endpoint_path: '{{ sql_endpoint_path }}'
+      - name: type
+        value: '{{ type }}'
+      - name: vpc_connection_properties
         value: null
-      - name: AlternateDataSourceParameters
+      - name: alternate_data_source_parameters
         value:
           - null
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: Permissions
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: permissions
         value:
-          - Principal: '{{ Principal }}'
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: SslProperties
+          - principal: '{{ principal }}'
+            actions:
+              - '{{ actions[0] }}'
+      - name: ssl_properties
         value:
-          DisableSsl: '{{ DisableSsl }}'
-      - name: Credentials
+          disable_ssl: '{{ disable_ssl }}'
+      - name: credentials
         value:
-          SecretArn: '{{ SecretArn }}'
-          CopySourceArn: '{{ CopySourceArn }}'
-          CredentialPair:
-            AlternateDataSourceParameters:
+          secret_arn: '{{ secret_arn }}'
+          copy_source_arn: '{{ copy_source_arn }}'
+          credential_pair:
+            alternate_data_source_parameters:
               - null
-            Username: '{{ Username }}'
-            Password: '{{ Password }}'
-      - name: DataSourceId
-        value: '{{ DataSourceId }}'
-      - name: Tags
+            username: '{{ username }}'
+            password: '{{ password }}'
+      - name: data_source_id
+        value: '{{ data_source_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -1133,7 +1132,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<DataSourceId>';
+AND Identifier = '{{ aws_account_id }}|{{ data_source_id }}';
 ```
 
 
@@ -1142,7 +1141,7 @@ AND Identifier = '<AwsAccountId>|<DataSourceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.data_sources
-WHERE Identifier = '<AwsAccountId|DataSourceId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ data_source_id }}'
 AND region = 'us-east-1';
 ```
 

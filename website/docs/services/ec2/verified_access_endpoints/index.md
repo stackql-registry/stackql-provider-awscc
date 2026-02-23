@@ -434,7 +434,7 @@ policy_enabled,
 tags,
 sse_specification
 FROM awscc.ec2.verified_access_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessEndpointId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_endpoint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -472,10 +472,10 @@ INSERT INTO awscc.ec2.verified_access_endpoints (
  AttachmentType,
  region
 )
-SELECT 
-'{{ VerifiedAccessGroupId }}',
- '{{ EndpointType }}',
- '{{ AttachmentType }}',
+SELECT
+'{{ verified_access_group_id }}',
+ '{{ endpoint_type }}',
+ '{{ attachment_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -502,23 +502,23 @@ INSERT INTO awscc.ec2.verified_access_endpoints (
  SseSpecification,
  region
 )
-SELECT 
- '{{ VerifiedAccessGroupId }}',
- '{{ SecurityGroupIds }}',
- '{{ NetworkInterfaceOptions }}',
- '{{ LoadBalancerOptions }}',
- '{{ RdsOptions }}',
- '{{ CidrOptions }}',
- '{{ EndpointType }}',
- '{{ EndpointDomainPrefix }}',
- '{{ DomainCertificateArn }}',
- '{{ AttachmentType }}',
- '{{ ApplicationDomain }}',
- '{{ Description }}',
- '{{ PolicyDocument }}',
- '{{ PolicyEnabled }}',
- '{{ Tags }}',
- '{{ SseSpecification }}',
+SELECT
+ '{{ verified_access_group_id }}',
+ '{{ security_group_ids }}',
+ '{{ network_interface_options }}',
+ '{{ load_balancer_options }}',
+ '{{ rds_options }}',
+ '{{ cidr_options }}',
+ '{{ endpoint_type }}',
+ '{{ endpoint_domain_prefix }}',
+ '{{ domain_certificate_arn }}',
+ '{{ attachment_type }}',
+ '{{ application_domain }}',
+ '{{ description }}',
+ '{{ policy_document }}',
+ '{{ policy_enabled }}',
+ '{{ tags }}',
+ '{{ sse_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -536,71 +536,70 @@ globals:
 resources:
   - name: verified_access_endpoint
     props:
-      - name: VerifiedAccessGroupId
-        value: '{{ VerifiedAccessGroupId }}'
-      - name: SecurityGroupIds
+      - name: verified_access_group_id
+        value: '{{ verified_access_group_id }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: NetworkInterfaceOptions
+          - '{{ security_group_ids[0] }}'
+      - name: network_interface_options
         value:
-          NetworkInterfaceId: '{{ NetworkInterfaceId }}'
-          Port: '{{ Port }}'
-          PortRanges:
-            - FromPort: '{{ FromPort }}'
-              ToPort: '{{ ToPort }}'
-          Protocol: '{{ Protocol }}'
-      - name: LoadBalancerOptions
+          network_interface_id: '{{ network_interface_id }}'
+          port: '{{ port }}'
+          port_ranges:
+            - from_port: '{{ from_port }}'
+              to_port: '{{ to_port }}'
+          protocol: '{{ protocol }}'
+      - name: load_balancer_options
         value:
-          LoadBalancerArn: '{{ LoadBalancerArn }}'
-          Port: '{{ Port }}'
-          PortRanges:
+          load_balancer_arn: '{{ load_balancer_arn }}'
+          port: '{{ port }}'
+          port_ranges:
             - null
-          Protocol: '{{ Protocol }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: RdsOptions
+          protocol: '{{ protocol }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: rds_options
         value:
-          Protocol: '{{ Protocol }}'
-          Port: '{{ Port }}'
-          RdsDbInstanceArn: '{{ RdsDbInstanceArn }}'
-          RdsDbClusterArn: '{{ RdsDbClusterArn }}'
-          RdsDbProxyArn: '{{ RdsDbProxyArn }}'
-          RdsEndpoint: '{{ RdsEndpoint }}'
-          SubnetIds:
+          protocol: '{{ protocol }}'
+          port: '{{ port }}'
+          rds_db_instance_arn: '{{ rds_db_instance_arn }}'
+          rds_db_cluster_arn: '{{ rds_db_cluster_arn }}'
+          rds_db_proxy_arn: '{{ rds_db_proxy_arn }}'
+          rds_endpoint: '{{ rds_endpoint }}'
+          subnet_ids:
             - null
-      - name: CidrOptions
+      - name: cidr_options
         value:
-          Cidr: '{{ Cidr }}'
-          PortRanges:
+          cidr: '{{ cidr }}'
+          port_ranges:
             - null
-          Protocol: '{{ Protocol }}'
-          SubnetIds:
+          protocol: '{{ protocol }}'
+          subnet_ids:
             - null
-      - name: EndpointType
-        value: '{{ EndpointType }}'
-      - name: EndpointDomainPrefix
-        value: '{{ EndpointDomainPrefix }}'
-      - name: DomainCertificateArn
-        value: '{{ DomainCertificateArn }}'
-      - name: AttachmentType
-        value: '{{ AttachmentType }}'
-      - name: ApplicationDomain
-        value: '{{ ApplicationDomain }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-      - name: PolicyEnabled
-        value: '{{ PolicyEnabled }}'
-      - name: Tags
+      - name: endpoint_type
+        value: '{{ endpoint_type }}'
+      - name: endpoint_domain_prefix
+        value: '{{ endpoint_domain_prefix }}'
+      - name: domain_certificate_arn
+        value: '{{ domain_certificate_arn }}'
+      - name: attachment_type
+        value: '{{ attachment_type }}'
+      - name: application_domain
+        value: '{{ application_domain }}'
+      - name: description
+        value: '{{ description }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
+      - name: policy_enabled
+        value: '{{ policy_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SseSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sse_specification
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          CustomerManagedKeyEnabled: '{{ CustomerManagedKeyEnabled }}'
-
+          kms_key_arn: '{{ kms_key_arn }}'
+          customer_managed_key_enabled: '{{ customer_managed_key_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -621,7 +620,7 @@ SET PatchDocument = string('{{ {
     "SseSpecification": sse_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VerifiedAccessEndpointId>';
+AND Identifier = '{{ verified_access_endpoint_id }}';
 ```
 
 
@@ -630,7 +629,7 @@ AND Identifier = '<VerifiedAccessEndpointId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_endpoints
-WHERE Identifier = '<VerifiedAccessEndpointId>'
+WHERE Identifier = '{{ verified_access_endpoint_id }}'
 AND region = 'us-east-1';
 ```
 

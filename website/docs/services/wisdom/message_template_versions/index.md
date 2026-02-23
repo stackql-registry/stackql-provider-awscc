@@ -152,7 +152,7 @@ message_template_version_arn,
 message_template_content_sha256,
 message_template_version_number
 FROM awscc.wisdom.message_template_versions
-WHERE region = 'us-east-1' AND Identifier = '<MessageTemplateVersionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ message_template_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.wisdom.message_template_versions (
  MessageTemplateArn,
  region
 )
-SELECT 
-'{{ MessageTemplateArn }}',
+SELECT
+'{{ message_template_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,9 @@ INSERT INTO awscc.wisdom.message_template_versions (
  MessageTemplateContentSha256,
  region
 )
-SELECT 
- '{{ MessageTemplateArn }}',
- '{{ MessageTemplateContentSha256 }}',
+SELECT
+ '{{ message_template_arn }}',
+ '{{ message_template_content_sha256 }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,10 @@ globals:
 resources:
   - name: message_template_version
     props:
-      - name: MessageTemplateArn
-        value: '{{ MessageTemplateArn }}'
-      - name: MessageTemplateContentSha256
-        value: '{{ MessageTemplateContentSha256 }}'
-
+      - name: message_template_arn
+        value: '{{ message_template_arn }}'
+      - name: message_template_content_sha256
+        value: '{{ message_template_content_sha256 }}'
 ```
 </TabItem>
 </Tabs>
@@ -242,7 +241,7 @@ SET PatchDocument = string('{{ {
     "MessageTemplateContentSha256": message_template_content_sha256
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MessageTemplateVersionArn>';
+AND Identifier = '{{ message_template_version_arn }}';
 ```
 
 
@@ -251,7 +250,7 @@ AND Identifier = '<MessageTemplateVersionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.message_template_versions
-WHERE Identifier = '<MessageTemplateVersionArn>'
+WHERE Identifier = '{{ message_template_version_arn }}'
 AND region = 'us-east-1';
 ```
 

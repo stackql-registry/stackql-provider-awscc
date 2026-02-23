@@ -229,7 +229,7 @@ tags,
 file_configuration,
 object_configuration
 FROM awscc.appintegrations.data_integrations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,10 +267,10 @@ INSERT INTO awscc.appintegrations.data_integrations (
  SourceURI,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ KmsKey }}',
- '{{ SourceURI }}',
+SELECT
+'{{ name }}',
+ '{{ kms_key }}',
+ '{{ source_uri }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -289,15 +289,15 @@ INSERT INTO awscc.appintegrations.data_integrations (
  ObjectConfiguration,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ KmsKey }}',
- '{{ ScheduleConfig }}',
- '{{ SourceURI }}',
- '{{ Tags }}',
- '{{ FileConfiguration }}',
- '{{ ObjectConfiguration }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ kms_key }}',
+ '{{ schedule_config }}',
+ '{{ source_uri }}',
+ '{{ tags }}',
+ '{{ file_configuration }}',
+ '{{ object_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,31 +315,30 @@ globals:
 resources:
   - name: data_integration
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: KmsKey
-        value: '{{ KmsKey }}'
-      - name: ScheduleConfig
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: kms_key
+        value: '{{ kms_key }}'
+      - name: schedule_config
         value:
-          FirstExecutionFrom: '{{ FirstExecutionFrom }}'
-          Object: '{{ Object }}'
-          ScheduleExpression: '{{ ScheduleExpression }}'
-      - name: SourceURI
-        value: '{{ SourceURI }}'
-      - name: Tags
+          first_execution_from: '{{ first_execution_from }}'
+          object: '{{ object }}'
+          schedule_expression: '{{ schedule_expression }}'
+      - name: source_uri
+        value: '{{ source_uri }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: FileConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: file_configuration
         value:
-          Folders:
-            - '{{ Folders[0] }}'
-          Filters: {}
-      - name: ObjectConfiguration
+          folders:
+            - '{{ folders[0] }}'
+          filters: {}
+      - name: object_configuration
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +358,7 @@ SET PatchDocument = string('{{ {
     "ObjectConfiguration": object_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -368,7 +367,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appintegrations.data_integrations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -296,7 +296,7 @@ definition_substitutions,
 definition,
 tags
 FROM awscc.stepfunctions.state_machines
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -332,8 +332,8 @@ INSERT INTO awscc.stepfunctions.state_machines (
  RoleArn,
  region
 )
-SELECT 
-'{{ RoleArn }}',
+SELECT
+'{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -355,18 +355,18 @@ INSERT INTO awscc.stepfunctions.state_machines (
  Tags,
  region
 )
-SELECT 
- '{{ DefinitionString }}',
- '{{ RoleArn }}',
- '{{ StateMachineName }}',
- '{{ StateMachineType }}',
- '{{ LoggingConfiguration }}',
- '{{ TracingConfiguration }}',
- '{{ EncryptionConfiguration }}',
- '{{ DefinitionS3Location }}',
- '{{ DefinitionSubstitutions }}',
- '{{ Definition }}',
- '{{ Tags }}',
+SELECT
+ '{{ definition_string }}',
+ '{{ role_arn }}',
+ '{{ state_machine_name }}',
+ '{{ state_machine_type }}',
+ '{{ logging_configuration }}',
+ '{{ tracing_configuration }}',
+ '{{ encryption_configuration }}',
+ '{{ definition_s3_location }}',
+ '{{ definition_substitutions }}',
+ '{{ definition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -384,43 +384,42 @@ globals:
 resources:
   - name: state_machine
     props:
-      - name: DefinitionString
-        value: '{{ DefinitionString }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: StateMachineName
-        value: '{{ StateMachineName }}'
-      - name: StateMachineType
-        value: '{{ StateMachineType }}'
-      - name: LoggingConfiguration
+      - name: definition_string
+        value: '{{ definition_string }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: state_machine_name
+        value: '{{ state_machine_name }}'
+      - name: state_machine_type
+        value: '{{ state_machine_type }}'
+      - name: logging_configuration
         value:
-          Level: '{{ Level }}'
-          IncludeExecutionData: '{{ IncludeExecutionData }}'
-          Destinations:
-            - CloudWatchLogsLogGroup:
-                LogGroupArn: '{{ LogGroupArn }}'
-      - name: TracingConfiguration
+          level: '{{ level }}'
+          include_execution_data: '{{ include_execution_data }}'
+          destinations:
+            - cloud_watch_logs_log_group:
+                log_group_arn: '{{ log_group_arn }}'
+      - name: tracing_configuration
         value:
-          Enabled: '{{ Enabled }}'
-      - name: EncryptionConfiguration
+          enabled: '{{ enabled }}'
+      - name: encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          KmsDataKeyReusePeriodSeconds: '{{ KmsDataKeyReusePeriodSeconds }}'
-          Type: '{{ Type }}'
-      - name: DefinitionS3Location
+          kms_key_id: '{{ kms_key_id }}'
+          kms_data_key_reuse_period_seconds: '{{ kms_data_key_reuse_period_seconds }}'
+          type: '{{ type }}'
+      - name: definition_s3_location
         value:
-          Bucket: '{{ Bucket }}'
-          Key: '{{ Key }}'
-          Version: '{{ Version }}'
-      - name: DefinitionSubstitutions
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+          version: '{{ version }}'
+      - name: definition_substitutions
         value: {}
-      - name: Definition
+      - name: definition
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -444,7 +443,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -453,7 +452,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machines
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

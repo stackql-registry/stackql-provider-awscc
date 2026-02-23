@@ -282,7 +282,7 @@ security_group_egress,
 tags,
 group_id
 FROM awscc.ec2.security_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,8 +318,8 @@ INSERT INTO awscc.ec2.security_groups (
  GroupDescription,
  region
 )
-SELECT 
-'{{ GroupDescription }}',
+SELECT
+'{{ group_description }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -336,13 +336,13 @@ INSERT INTO awscc.ec2.security_groups (
  Tags,
  region
 )
-SELECT 
- '{{ GroupDescription }}',
- '{{ GroupName }}',
- '{{ VpcId }}',
- '{{ SecurityGroupIngress }}',
- '{{ SecurityGroupEgress }}',
- '{{ Tags }}',
+SELECT
+ '{{ group_description }}',
+ '{{ group_name }}',
+ '{{ vpc_id }}',
+ '{{ security_group_ingress }}',
+ '{{ security_group_egress }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -360,39 +360,38 @@ globals:
 resources:
   - name: security_group
     props:
-      - name: GroupDescription
-        value: '{{ GroupDescription }}'
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: SecurityGroupIngress
+      - name: group_description
+        value: '{{ group_description }}'
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: security_group_ingress
         value:
-          - CidrIp: '{{ CidrIp }}'
-            CidrIpv6: '{{ CidrIpv6 }}'
-            Description: '{{ Description }}'
-            FromPort: '{{ FromPort }}'
-            SourceSecurityGroupName: '{{ SourceSecurityGroupName }}'
-            ToPort: '{{ ToPort }}'
-            SourceSecurityGroupOwnerId: '{{ SourceSecurityGroupOwnerId }}'
-            IpProtocol: '{{ IpProtocol }}'
-            SourceSecurityGroupId: '{{ SourceSecurityGroupId }}'
-            SourcePrefixListId: '{{ SourcePrefixListId }}'
-      - name: SecurityGroupEgress
+          - cidr_ip: '{{ cidr_ip }}'
+            cidr_ipv6: '{{ cidr_ipv6 }}'
+            description: '{{ description }}'
+            from_port: '{{ from_port }}'
+            source_security_group_name: '{{ source_security_group_name }}'
+            to_port: '{{ to_port }}'
+            source_security_group_owner_id: '{{ source_security_group_owner_id }}'
+            ip_protocol: '{{ ip_protocol }}'
+            source_security_group_id: '{{ source_security_group_id }}'
+            source_prefix_list_id: '{{ source_prefix_list_id }}'
+      - name: security_group_egress
         value:
-          - CidrIp: '{{ CidrIp }}'
-            CidrIpv6: '{{ CidrIpv6 }}'
-            Description: '{{ Description }}'
-            FromPort: '{{ FromPort }}'
-            ToPort: '{{ ToPort }}'
-            IpProtocol: '{{ IpProtocol }}'
-            DestinationSecurityGroupId: '{{ DestinationSecurityGroupId }}'
-            DestinationPrefixListId: '{{ DestinationPrefixListId }}'
-      - name: Tags
+          - cidr_ip: '{{ cidr_ip }}'
+            cidr_ipv6: '{{ cidr_ipv6 }}'
+            description: '{{ description }}'
+            from_port: '{{ from_port }}'
+            to_port: '{{ to_port }}'
+            ip_protocol: '{{ ip_protocol }}'
+            destination_security_group_id: '{{ destination_security_group_id }}'
+            destination_prefix_list_id: '{{ destination_prefix_list_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +409,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -419,7 +418,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

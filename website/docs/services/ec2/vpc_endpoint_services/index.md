@@ -194,7 +194,7 @@ tags,
 supported_ip_address_types,
 supported_regions
 FROM awscc.ec2.vpc_endpoint_services
-WHERE region = 'us-east-1' AND Identifier = '<ServiceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,15 +237,15 @@ INSERT INTO awscc.ec2.vpc_endpoint_services (
  SupportedRegions,
  region
 )
-SELECT 
-'{{ NetworkLoadBalancerArns }}',
- '{{ ContributorInsightsEnabled }}',
- '{{ PayerResponsibility }}',
- '{{ AcceptanceRequired }}',
- '{{ GatewayLoadBalancerArns }}',
- '{{ Tags }}',
- '{{ SupportedIpAddressTypes }}',
- '{{ SupportedRegions }}',
+SELECT
+'{{ network_load_balancer_arns }}',
+ '{{ contributor_insights_enabled }}',
+ '{{ payer_responsibility }}',
+ '{{ acceptance_required }}',
+ '{{ gateway_load_balancer_arns }}',
+ '{{ tags }}',
+ '{{ supported_ip_address_types }}',
+ '{{ supported_regions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,15 +264,15 @@ INSERT INTO awscc.ec2.vpc_endpoint_services (
  SupportedRegions,
  region
 )
-SELECT 
- '{{ NetworkLoadBalancerArns }}',
- '{{ ContributorInsightsEnabled }}',
- '{{ PayerResponsibility }}',
- '{{ AcceptanceRequired }}',
- '{{ GatewayLoadBalancerArns }}',
- '{{ Tags }}',
- '{{ SupportedIpAddressTypes }}',
- '{{ SupportedRegions }}',
+SELECT
+ '{{ network_load_balancer_arns }}',
+ '{{ contributor_insights_enabled }}',
+ '{{ payer_responsibility }}',
+ '{{ acceptance_required }}',
+ '{{ gateway_load_balancer_arns }}',
+ '{{ tags }}',
+ '{{ supported_ip_address_types }}',
+ '{{ supported_regions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,29 +290,28 @@ globals:
 resources:
   - name: vpc_endpoint_service
     props:
-      - name: NetworkLoadBalancerArns
+      - name: network_load_balancer_arns
         value:
-          - '{{ NetworkLoadBalancerArns[0] }}'
-      - name: ContributorInsightsEnabled
-        value: '{{ ContributorInsightsEnabled }}'
-      - name: PayerResponsibility
-        value: '{{ PayerResponsibility }}'
-      - name: AcceptanceRequired
-        value: '{{ AcceptanceRequired }}'
-      - name: GatewayLoadBalancerArns
+          - '{{ network_load_balancer_arns[0] }}'
+      - name: contributor_insights_enabled
+        value: '{{ contributor_insights_enabled }}'
+      - name: payer_responsibility
+        value: '{{ payer_responsibility }}'
+      - name: acceptance_required
+        value: '{{ acceptance_required }}'
+      - name: gateway_load_balancer_arns
         value:
-          - '{{ GatewayLoadBalancerArns[0] }}'
-      - name: Tags
+          - '{{ gateway_load_balancer_arns[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SupportedIpAddressTypes
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: supported_ip_address_types
         value:
-          - '{{ SupportedIpAddressTypes[0] }}'
-      - name: SupportedRegions
+          - '{{ supported_ip_address_types[0] }}'
+      - name: supported_regions
         value:
-          - '{{ SupportedRegions[0] }}'
-
+          - '{{ supported_regions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "SupportedRegions": supported_regions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceId>';
+AND Identifier = '{{ service_id }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<ServiceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_services
-WHERE Identifier = '<ServiceId>'
+WHERE Identifier = '{{ service_id }}'
 AND region = 'us-east-1';
 ```
 

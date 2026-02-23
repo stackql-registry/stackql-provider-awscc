@@ -176,7 +176,7 @@ name,
 comment,
 import_source
 FROM awscc.cloudfront.key_value_stores
-WHERE Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -187,7 +187,7 @@ SELECT
 region,
 name
 FROM awscc.cloudfront.key_value_stores_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -212,8 +212,8 @@ INSERT INTO awscc.cloudfront.key_value_stores (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,10 +227,10 @@ INSERT INTO awscc.cloudfront.key_value_stores (
  ImportSource,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Comment }}',
- '{{ ImportSource }}',
+SELECT
+ '{{ name }}',
+ '{{ comment }}',
+ '{{ import_source }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,15 +248,14 @@ globals:
 resources:
   - name: key_value_store
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Comment
-        value: '{{ Comment }}'
-      - name: ImportSource
+      - name: name
+        value: '{{ name }}'
+      - name: comment
+        value: '{{ comment }}'
+      - name: import_source
         value:
-          SourceType: '{{ SourceType }}'
-          SourceArn: '{{ SourceArn }}'
-
+          source_type: '{{ source_type }}'
+          source_arn: '{{ source_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +272,7 @@ SET PatchDocument = string('{{ {
     "ImportSource": import_source
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -282,7 +281,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.key_value_stores
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

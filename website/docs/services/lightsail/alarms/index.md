@@ -206,7 +206,7 @@ threshold,
 treat_missing_data,
 state
 FROM awscc.lightsail.alarms
-WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,13 +247,13 @@ INSERT INTO awscc.lightsail.alarms (
  Threshold,
  region
 )
-SELECT 
-'{{ AlarmName }}',
- '{{ MonitoredResourceName }}',
- '{{ MetricName }}',
- '{{ ComparisonOperator }}',
- '{{ EvaluationPeriods }}',
- '{{ Threshold }}',
+SELECT
+'{{ alarm_name }}',
+ '{{ monitored_resource_name }}',
+ '{{ metric_name }}',
+ '{{ comparison_operator }}',
+ '{{ evaluation_periods }}',
+ '{{ threshold }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,18 +275,18 @@ INSERT INTO awscc.lightsail.alarms (
  TreatMissingData,
  region
 )
-SELECT 
- '{{ AlarmName }}',
- '{{ MonitoredResourceName }}',
- '{{ MetricName }}',
- '{{ ComparisonOperator }}',
- '{{ ContactProtocols }}',
- '{{ DatapointsToAlarm }}',
- '{{ EvaluationPeriods }}',
- '{{ NotificationEnabled }}',
- '{{ NotificationTriggers }}',
- '{{ Threshold }}',
- '{{ TreatMissingData }}',
+SELECT
+ '{{ alarm_name }}',
+ '{{ monitored_resource_name }}',
+ '{{ metric_name }}',
+ '{{ comparison_operator }}',
+ '{{ contact_protocols }}',
+ '{{ datapoints_to_alarm }}',
+ '{{ evaluation_periods }}',
+ '{{ notification_enabled }}',
+ '{{ notification_triggers }}',
+ '{{ threshold }}',
+ '{{ treat_missing_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,31 +304,30 @@ globals:
 resources:
   - name: alarm
     props:
-      - name: AlarmName
-        value: '{{ AlarmName }}'
-      - name: MonitoredResourceName
-        value: '{{ MonitoredResourceName }}'
-      - name: MetricName
-        value: '{{ MetricName }}'
-      - name: ComparisonOperator
-        value: '{{ ComparisonOperator }}'
-      - name: ContactProtocols
+      - name: alarm_name
+        value: '{{ alarm_name }}'
+      - name: monitored_resource_name
+        value: '{{ monitored_resource_name }}'
+      - name: metric_name
+        value: '{{ metric_name }}'
+      - name: comparison_operator
+        value: '{{ comparison_operator }}'
+      - name: contact_protocols
         value:
-          - '{{ ContactProtocols[0] }}'
-      - name: DatapointsToAlarm
-        value: '{{ DatapointsToAlarm }}'
-      - name: EvaluationPeriods
-        value: '{{ EvaluationPeriods }}'
-      - name: NotificationEnabled
-        value: '{{ NotificationEnabled }}'
-      - name: NotificationTriggers
+          - '{{ contact_protocols[0] }}'
+      - name: datapoints_to_alarm
+        value: '{{ datapoints_to_alarm }}'
+      - name: evaluation_periods
+        value: '{{ evaluation_periods }}'
+      - name: notification_enabled
+        value: '{{ notification_enabled }}'
+      - name: notification_triggers
         value:
-          - '{{ NotificationTriggers[0] }}'
-      - name: Threshold
+          - '{{ notification_triggers[0] }}'
+      - name: threshold
         value: null
-      - name: TreatMissingData
-        value: '{{ TreatMissingData }}'
-
+      - name: treat_missing_data
+        value: '{{ treat_missing_data }}'
 ```
 </TabItem>
 </Tabs>
@@ -351,7 +350,7 @@ SET PatchDocument = string('{{ {
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AlarmName>';
+AND Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -360,7 +359,7 @@ AND Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.alarms
-WHERE Identifier = '<AlarmName>'
+WHERE Identifier = '{{ alarm_name }}'
 AND region = 'us-east-1';
 ```
 

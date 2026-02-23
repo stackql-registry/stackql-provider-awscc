@@ -218,7 +218,7 @@ policy_enabled,
 tags,
 sse_specification
 FROM awscc.ec2.verified_access_groups
-WHERE region = 'us-east-1' AND Identifier = '<VerifiedAccessGroupId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ verified_access_group_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,8 +254,8 @@ INSERT INTO awscc.ec2.verified_access_groups (
  VerifiedAccessInstanceId,
  region
 )
-SELECT 
-'{{ VerifiedAccessInstanceId }}',
+SELECT
+'{{ verified_access_instance_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,13 +272,13 @@ INSERT INTO awscc.ec2.verified_access_groups (
  SseSpecification,
  region
 )
-SELECT 
- '{{ VerifiedAccessInstanceId }}',
- '{{ Description }}',
- '{{ PolicyDocument }}',
- '{{ PolicyEnabled }}',
- '{{ Tags }}',
- '{{ SseSpecification }}',
+SELECT
+ '{{ verified_access_instance_id }}',
+ '{{ description }}',
+ '{{ policy_document }}',
+ '{{ policy_enabled }}',
+ '{{ tags }}',
+ '{{ sse_specification }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,23 +296,22 @@ globals:
 resources:
   - name: verified_access_group
     props:
-      - name: VerifiedAccessInstanceId
-        value: '{{ VerifiedAccessInstanceId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-      - name: PolicyEnabled
-        value: '{{ PolicyEnabled }}'
-      - name: Tags
+      - name: verified_access_instance_id
+        value: '{{ verified_access_instance_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
+      - name: policy_enabled
+        value: '{{ policy_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SseSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sse_specification
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          CustomerManagedKeyEnabled: '{{ CustomerManagedKeyEnabled }}'
-
+          kms_key_arn: '{{ kms_key_arn }}'
+          customer_managed_key_enabled: '{{ customer_managed_key_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "SseSpecification": sse_specification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VerifiedAccessGroupId>';
+AND Identifier = '{{ verified_access_group_id }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<VerifiedAccessGroupId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.verified_access_groups
-WHERE Identifier = '<VerifiedAccessGroupId>'
+WHERE Identifier = '{{ verified_access_group_id }}'
 AND region = 'us-east-1';
 ```
 

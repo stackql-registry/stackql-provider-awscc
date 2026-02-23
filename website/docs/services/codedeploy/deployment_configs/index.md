@@ -234,7 +234,7 @@ minimum_healthy_hosts,
 zonal_config,
 traffic_routing_config
 FROM awscc.codedeploy.deployment_configs
-WHERE region = 'us-east-1' AND Identifier = '<DeploymentConfigName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ deployment_config_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,12 +274,12 @@ INSERT INTO awscc.codedeploy.deployment_configs (
  TrafficRoutingConfig,
  region
 )
-SELECT 
-'{{ ComputePlatform }}',
- '{{ DeploymentConfigName }}',
- '{{ MinimumHealthyHosts }}',
- '{{ ZonalConfig }}',
- '{{ TrafficRoutingConfig }}',
+SELECT
+'{{ compute_platform }}',
+ '{{ deployment_config_name }}',
+ '{{ minimum_healthy_hosts }}',
+ '{{ zonal_config }}',
+ '{{ traffic_routing_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -295,12 +295,12 @@ INSERT INTO awscc.codedeploy.deployment_configs (
  TrafficRoutingConfig,
  region
 )
-SELECT 
- '{{ ComputePlatform }}',
- '{{ DeploymentConfigName }}',
- '{{ MinimumHealthyHosts }}',
- '{{ ZonalConfig }}',
- '{{ TrafficRoutingConfig }}',
+SELECT
+ '{{ compute_platform }}',
+ '{{ deployment_config_name }}',
+ '{{ minimum_healthy_hosts }}',
+ '{{ zonal_config }}',
+ '{{ traffic_routing_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -318,31 +318,30 @@ globals:
 resources:
   - name: deployment_config
     props:
-      - name: ComputePlatform
-        value: '{{ ComputePlatform }}'
-      - name: DeploymentConfigName
-        value: '{{ DeploymentConfigName }}'
-      - name: MinimumHealthyHosts
+      - name: compute_platform
+        value: '{{ compute_platform }}'
+      - name: deployment_config_name
+        value: '{{ deployment_config_name }}'
+      - name: minimum_healthy_hosts
         value:
-          Value: '{{ Value }}'
-          Type: '{{ Type }}'
-      - name: ZonalConfig
+          value: '{{ value }}'
+          type: '{{ type }}'
+      - name: zonal_config
         value:
-          FirstZoneMonitorDurationInSeconds: '{{ FirstZoneMonitorDurationInSeconds }}'
-          MonitorDurationInSeconds: '{{ MonitorDurationInSeconds }}'
-          MinimumHealthyHostsPerZone:
-            Value: '{{ Value }}'
-            Type: '{{ Type }}'
-      - name: TrafficRoutingConfig
+          first_zone_monitor_duration_in_seconds: '{{ first_zone_monitor_duration_in_seconds }}'
+          monitor_duration_in_seconds: '{{ monitor_duration_in_seconds }}'
+          minimum_healthy_hosts_per_zone:
+            value: '{{ value }}'
+            type: '{{ type }}'
+      - name: traffic_routing_config
         value:
-          Type: '{{ Type }}'
-          TimeBasedLinear:
-            LinearInterval: '{{ LinearInterval }}'
-            LinearPercentage: '{{ LinearPercentage }}'
-          TimeBasedCanary:
-            CanaryPercentage: '{{ CanaryPercentage }}'
-            CanaryInterval: '{{ CanaryInterval }}'
-
+          type: '{{ type }}'
+          time_based_linear:
+            linear_interval: '{{ linear_interval }}'
+            linear_percentage: '{{ linear_percentage }}'
+          time_based_canary:
+            canary_percentage: '{{ canary_percentage }}'
+            canary_interval: '{{ canary_interval }}'
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +352,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.codedeploy.deployment_configs
-WHERE Identifier = '<DeploymentConfigName>'
+WHERE Identifier = '{{ deployment_config_name }}'
 AND region = 'us-east-1';
 ```
 

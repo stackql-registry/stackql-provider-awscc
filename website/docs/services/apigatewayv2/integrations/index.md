@@ -254,7 +254,7 @@ template_selection_expression,
 timeout_in_millis,
 tls_config
 FROM awscc.apigatewayv2.integrations
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<IntegrationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ integration_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -292,9 +292,9 @@ INSERT INTO awscc.apigatewayv2.integrations (
  IntegrationType,
  region
 )
-SELECT 
-'{{ ApiId }}',
- '{{ IntegrationType }}',
+SELECT
+'{{ api_id }}',
+ '{{ integration_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -323,25 +323,25 @@ INSERT INTO awscc.apigatewayv2.integrations (
  TlsConfig,
  region
 )
-SELECT 
- '{{ ApiId }}',
- '{{ ConnectionId }}',
- '{{ ConnectionType }}',
- '{{ ContentHandlingStrategy }}',
- '{{ CredentialsArn }}',
- '{{ Description }}',
- '{{ IntegrationMethod }}',
- '{{ IntegrationSubtype }}',
- '{{ IntegrationType }}',
- '{{ IntegrationUri }}',
- '{{ PassthroughBehavior }}',
- '{{ PayloadFormatVersion }}',
- '{{ RequestParameters }}',
- '{{ RequestTemplates }}',
- '{{ ResponseParameters }}',
- '{{ TemplateSelectionExpression }}',
- '{{ TimeoutInMillis }}',
- '{{ TlsConfig }}',
+SELECT
+ '{{ api_id }}',
+ '{{ connection_id }}',
+ '{{ connection_type }}',
+ '{{ content_handling_strategy }}',
+ '{{ credentials_arn }}',
+ '{{ description }}',
+ '{{ integration_method }}',
+ '{{ integration_subtype }}',
+ '{{ integration_type }}',
+ '{{ integration_uri }}',
+ '{{ passthrough_behavior }}',
+ '{{ payload_format_version }}',
+ '{{ request_parameters }}',
+ '{{ request_templates }}',
+ '{{ response_parameters }}',
+ '{{ template_selection_expression }}',
+ '{{ timeout_in_millis }}',
+ '{{ tls_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,44 +359,43 @@ globals:
 resources:
   - name: integration
     props:
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: ConnectionId
-        value: '{{ ConnectionId }}'
-      - name: ConnectionType
-        value: '{{ ConnectionType }}'
-      - name: ContentHandlingStrategy
-        value: '{{ ContentHandlingStrategy }}'
-      - name: CredentialsArn
-        value: '{{ CredentialsArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: IntegrationMethod
-        value: '{{ IntegrationMethod }}'
-      - name: IntegrationSubtype
-        value: '{{ IntegrationSubtype }}'
-      - name: IntegrationType
-        value: '{{ IntegrationType }}'
-      - name: IntegrationUri
-        value: '{{ IntegrationUri }}'
-      - name: PassthroughBehavior
-        value: '{{ PassthroughBehavior }}'
-      - name: PayloadFormatVersion
-        value: '{{ PayloadFormatVersion }}'
-      - name: RequestParameters
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: connection_id
+        value: '{{ connection_id }}'
+      - name: connection_type
+        value: '{{ connection_type }}'
+      - name: content_handling_strategy
+        value: '{{ content_handling_strategy }}'
+      - name: credentials_arn
+        value: '{{ credentials_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: integration_method
+        value: '{{ integration_method }}'
+      - name: integration_subtype
+        value: '{{ integration_subtype }}'
+      - name: integration_type
+        value: '{{ integration_type }}'
+      - name: integration_uri
+        value: '{{ integration_uri }}'
+      - name: passthrough_behavior
+        value: '{{ passthrough_behavior }}'
+      - name: payload_format_version
+        value: '{{ payload_format_version }}'
+      - name: request_parameters
         value: {}
-      - name: RequestTemplates
+      - name: request_templates
         value: {}
-      - name: ResponseParameters
+      - name: response_parameters
         value: {}
-      - name: TemplateSelectionExpression
-        value: '{{ TemplateSelectionExpression }}'
-      - name: TimeoutInMillis
-        value: '{{ TimeoutInMillis }}'
-      - name: TlsConfig
+      - name: template_selection_expression
+        value: '{{ template_selection_expression }}'
+      - name: timeout_in_millis
+        value: '{{ timeout_in_millis }}'
+      - name: tls_config
         value:
-          ServerNameToVerify: '{{ ServerNameToVerify }}'
-
+          server_name_to_verify: '{{ server_name_to_verify }}'
 ```
 </TabItem>
 </Tabs>
@@ -428,7 +427,7 @@ SET PatchDocument = string('{{ {
     "TlsConfig": tls_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>|<IntegrationId>';
+AND Identifier = '{{ api_id }}|{{ integration_id }}';
 ```
 
 
@@ -437,7 +436,7 @@ AND Identifier = '<ApiId>|<IntegrationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.integrations
-WHERE Identifier = '<ApiId|IntegrationId>'
+WHERE Identifier = '{{ api_id }}|{{ integration_id }}'
 AND region = 'us-east-1';
 ```
 

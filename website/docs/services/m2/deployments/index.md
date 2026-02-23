@@ -158,7 +158,7 @@ application_version,
 deployment_id,
 status
 FROM awscc.m2.deployments
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.m2.deployments (
  ApplicationVersion,
  region
 )
-SELECT 
-'{{ EnvironmentId }}',
- '{{ ApplicationId }}',
- '{{ ApplicationVersion }}',
+SELECT
+'{{ environment_id }}',
+ '{{ application_id }}',
+ '{{ application_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -213,10 +213,10 @@ INSERT INTO awscc.m2.deployments (
  ApplicationVersion,
  region
 )
-SELECT 
- '{{ EnvironmentId }}',
- '{{ ApplicationId }}',
- '{{ ApplicationVersion }}',
+SELECT
+ '{{ environment_id }}',
+ '{{ application_id }}',
+ '{{ application_version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: deployment
     props:
-      - name: EnvironmentId
-        value: '{{ EnvironmentId }}'
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: ApplicationVersion
-        value: '{{ ApplicationVersion }}'
-
+      - name: environment_id
+        value: '{{ environment_id }}'
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: application_version
+        value: '{{ application_version }}'
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +255,7 @@ SET PatchDocument = string('{{ {
     "ApplicationVersion": application_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>';
+AND Identifier = '{{ application_id }}';
 ```
 
 
@@ -265,7 +264,7 @@ AND Identifier = '<ApplicationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.m2.deployments
-WHERE Identifier = '<ApplicationId>'
+WHERE Identifier = '{{ application_id }}'
 AND region = 'us-east-1';
 ```
 

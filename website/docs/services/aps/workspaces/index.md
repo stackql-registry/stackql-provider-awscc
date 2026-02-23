@@ -283,7 +283,7 @@ query_logging_configuration,
 kms_key_arn,
 tags
 FROM awscc.aps.workspaces
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -319,7 +319,7 @@ INSERT INTO awscc.aps.workspaces (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -338,14 +338,14 @@ INSERT INTO awscc.aps.workspaces (
  Tags,
  region
 )
-SELECT 
- '{{ Alias }}',
- '{{ AlertManagerDefinition }}',
- '{{ LoggingConfiguration }}',
- '{{ WorkspaceConfiguration }}',
- '{{ QueryLoggingConfiguration }}',
- '{{ KmsKeyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ alias }}',
+ '{{ alert_manager_definition }}',
+ '{{ logging_configuration }}',
+ '{{ workspace_configuration }}',
+ '{{ query_logging_configuration }}',
+ '{{ kms_key_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -363,36 +363,35 @@ globals:
 resources:
   - name: workspace
     props:
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: AlertManagerDefinition
-        value: '{{ AlertManagerDefinition }}'
-      - name: LoggingConfiguration
+      - name: alias
+        value: '{{ alias }}'
+      - name: alert_manager_definition
+        value: '{{ alert_manager_definition }}'
+      - name: logging_configuration
         value:
-          LogGroupArn: '{{ LogGroupArn }}'
-      - name: WorkspaceConfiguration
+          log_group_arn: '{{ log_group_arn }}'
+      - name: workspace_configuration
         value:
-          RetentionPeriodInDays: '{{ RetentionPeriodInDays }}'
-          LimitsPerLabelSets:
-            - Limits:
-                MaxSeries: '{{ MaxSeries }}'
-              LabelSet:
-                - Name: '{{ Name }}'
-                  Value: '{{ Value }}'
-      - name: QueryLoggingConfiguration
+          retention_period_in_days: '{{ retention_period_in_days }}'
+          limits_per_label_sets:
+            - limits:
+                max_series: '{{ max_series }}'
+              label_set:
+                - name: '{{ name }}'
+                  value: '{{ value }}'
+      - name: query_logging_configuration
         value:
-          Destinations:
-            - CloudWatchLogs:
-                LogGroupArn: '{{ LogGroupArn }}'
-              Filters:
-                QspThreshold: '{{ QspThreshold }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Tags
+          destinations:
+            - cloud_watch_logs:
+                log_group_arn: '{{ log_group_arn }}'
+              filters:
+                qsp_threshold: '{{ qsp_threshold }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -413,7 +412,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -422,7 +421,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.aps.workspaces
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -200,7 +200,7 @@ role_arn,
 status,
 tags
 FROM awscc.proton.environment_account_connections
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,14 +242,14 @@ INSERT INTO awscc.proton.environment_account_connections (
  Tags,
  region
 )
-SELECT 
-'{{ CodebuildRoleArn }}',
- '{{ ComponentRoleArn }}',
- '{{ EnvironmentAccountId }}',
- '{{ EnvironmentName }}',
- '{{ ManagementAccountId }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+'{{ codebuild_role_arn }}',
+ '{{ component_role_arn }}',
+ '{{ environment_account_id }}',
+ '{{ environment_name }}',
+ '{{ management_account_id }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -267,14 +267,14 @@ INSERT INTO awscc.proton.environment_account_connections (
  Tags,
  region
 )
-SELECT 
- '{{ CodebuildRoleArn }}',
- '{{ ComponentRoleArn }}',
- '{{ EnvironmentAccountId }}',
- '{{ EnvironmentName }}',
- '{{ ManagementAccountId }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ codebuild_role_arn }}',
+ '{{ component_role_arn }}',
+ '{{ environment_account_id }}',
+ '{{ environment_name }}',
+ '{{ management_account_id }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,23 +292,22 @@ globals:
 resources:
   - name: environment_account_connection
     props:
-      - name: CodebuildRoleArn
-        value: '{{ CodebuildRoleArn }}'
-      - name: ComponentRoleArn
-        value: '{{ ComponentRoleArn }}'
-      - name: EnvironmentAccountId
-        value: '{{ EnvironmentAccountId }}'
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: ManagementAccountId
-        value: '{{ ManagementAccountId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: codebuild_role_arn
+        value: '{{ codebuild_role_arn }}'
+      - name: component_role_arn
+        value: '{{ component_role_arn }}'
+      - name: environment_account_id
+        value: '{{ environment_account_id }}'
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: management_account_id
+        value: '{{ management_account_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +329,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -339,7 +338,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.proton.environment_account_connections
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

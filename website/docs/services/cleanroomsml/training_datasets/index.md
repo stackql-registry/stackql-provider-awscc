@@ -273,7 +273,7 @@ training_data,
 training_dataset_arn,
 status
 FROM awscc.cleanroomsml.training_datasets
-WHERE region = 'us-east-1' AND Identifier = '<TrainingDatasetArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ training_dataset_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -311,10 +311,10 @@ INSERT INTO awscc.cleanroomsml.training_datasets (
  TrainingData,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoleArn }}',
- '{{ TrainingData }}',
+SELECT
+'{{ name }}',
+ '{{ role_arn }}',
+ '{{ training_data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -330,12 +330,12 @@ INSERT INTO awscc.cleanroomsml.training_datasets (
  TrainingData,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ TrainingData }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ training_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -353,30 +353,29 @@ globals:
 resources:
   - name: training_dataset
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TrainingData
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: training_data
         value:
-          - Type: '{{ Type }}'
-            InputConfig:
-              Schema:
-                - ColumnName: '{{ ColumnName }}'
-                  ColumnTypes:
-                    - '{{ ColumnTypes[0] }}'
-              DataSource:
-                GlueDataSource:
-                  TableName: '{{ TableName }}'
-                  DatabaseName: '{{ DatabaseName }}'
-                  CatalogId: '{{ CatalogId }}'
-
+          - type: '{{ type }}'
+            input_config:
+              schema:
+                - column_name: '{{ column_name }}'
+                  column_types:
+                    - '{{ column_types[0] }}'
+              data_source:
+                glue_data_source:
+                  table_name: '{{ table_name }}'
+                  database_name: '{{ database_name }}'
+                  catalog_id: '{{ catalog_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -392,7 +391,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrainingDatasetArn>';
+AND Identifier = '{{ training_dataset_arn }}';
 ```
 
 
@@ -401,7 +400,7 @@ AND Identifier = '<TrainingDatasetArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanroomsml.training_datasets
-WHERE Identifier = '<TrainingDatasetArn>'
+WHERE Identifier = '{{ training_dataset_arn }}'
 AND region = 'us-east-1';
 ```
 

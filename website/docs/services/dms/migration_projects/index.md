@@ -257,7 +257,7 @@ source_data_provider_descriptors,
 target_data_provider_descriptors,
 tags
 FROM awscc.dms.migration_projects
-WHERE region = 'us-east-1' AND Identifier = '<MigrationProjectArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ migration_project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,19 +304,19 @@ INSERT INTO awscc.dms.migration_projects (
  Tags,
  region
 )
-SELECT 
-'{{ MigrationProjectName }}',
- '{{ MigrationProjectIdentifier }}',
- '{{ MigrationProjectCreationTime }}',
- '{{ InstanceProfileIdentifier }}',
- '{{ InstanceProfileName }}',
- '{{ InstanceProfileArn }}',
- '{{ TransformationRules }}',
- '{{ Description }}',
- '{{ SchemaConversionApplicationAttributes }}',
- '{{ SourceDataProviderDescriptors }}',
- '{{ TargetDataProviderDescriptors }}',
- '{{ Tags }}',
+SELECT
+'{{ migration_project_name }}',
+ '{{ migration_project_identifier }}',
+ '{{ migration_project_creation_time }}',
+ '{{ instance_profile_identifier }}',
+ '{{ instance_profile_name }}',
+ '{{ instance_profile_arn }}',
+ '{{ transformation_rules }}',
+ '{{ description }}',
+ '{{ schema_conversion_application_attributes }}',
+ '{{ source_data_provider_descriptors }}',
+ '{{ target_data_provider_descriptors }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -339,19 +339,19 @@ INSERT INTO awscc.dms.migration_projects (
  Tags,
  region
 )
-SELECT 
- '{{ MigrationProjectName }}',
- '{{ MigrationProjectIdentifier }}',
- '{{ MigrationProjectCreationTime }}',
- '{{ InstanceProfileIdentifier }}',
- '{{ InstanceProfileName }}',
- '{{ InstanceProfileArn }}',
- '{{ TransformationRules }}',
- '{{ Description }}',
- '{{ SchemaConversionApplicationAttributes }}',
- '{{ SourceDataProviderDescriptors }}',
- '{{ TargetDataProviderDescriptors }}',
- '{{ Tags }}',
+SELECT
+ '{{ migration_project_name }}',
+ '{{ migration_project_identifier }}',
+ '{{ migration_project_creation_time }}',
+ '{{ instance_profile_identifier }}',
+ '{{ instance_profile_name }}',
+ '{{ instance_profile_arn }}',
+ '{{ transformation_rules }}',
+ '{{ description }}',
+ '{{ schema_conversion_application_attributes }}',
+ '{{ source_data_provider_descriptors }}',
+ '{{ target_data_provider_descriptors }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -369,41 +369,40 @@ globals:
 resources:
   - name: migration_project
     props:
-      - name: MigrationProjectName
-        value: '{{ MigrationProjectName }}'
-      - name: MigrationProjectIdentifier
-        value: '{{ MigrationProjectIdentifier }}'
-      - name: MigrationProjectCreationTime
-        value: '{{ MigrationProjectCreationTime }}'
-      - name: InstanceProfileIdentifier
-        value: '{{ InstanceProfileIdentifier }}'
-      - name: InstanceProfileName
-        value: '{{ InstanceProfileName }}'
-      - name: InstanceProfileArn
-        value: '{{ InstanceProfileArn }}'
-      - name: TransformationRules
-        value: '{{ TransformationRules }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SchemaConversionApplicationAttributes
+      - name: migration_project_name
+        value: '{{ migration_project_name }}'
+      - name: migration_project_identifier
+        value: '{{ migration_project_identifier }}'
+      - name: migration_project_creation_time
+        value: '{{ migration_project_creation_time }}'
+      - name: instance_profile_identifier
+        value: '{{ instance_profile_identifier }}'
+      - name: instance_profile_name
+        value: '{{ instance_profile_name }}'
+      - name: instance_profile_arn
+        value: '{{ instance_profile_arn }}'
+      - name: transformation_rules
+        value: '{{ transformation_rules }}'
+      - name: description
+        value: '{{ description }}'
+      - name: schema_conversion_application_attributes
         value:
-          S3BucketPath: '{{ S3BucketPath }}'
-          S3BucketRoleArn: '{{ S3BucketRoleArn }}'
-      - name: SourceDataProviderDescriptors
+          s3_bucket_path: '{{ s3_bucket_path }}'
+          s3_bucket_role_arn: '{{ s3_bucket_role_arn }}'
+      - name: source_data_provider_descriptors
         value:
-          - DataProviderIdentifier: '{{ DataProviderIdentifier }}'
-            DataProviderName: '{{ DataProviderName }}'
-            DataProviderArn: '{{ DataProviderArn }}'
-            SecretsManagerSecretId: '{{ SecretsManagerSecretId }}'
-            SecretsManagerAccessRoleArn: '{{ SecretsManagerAccessRoleArn }}'
-      - name: TargetDataProviderDescriptors
+          - data_provider_identifier: '{{ data_provider_identifier }}'
+            data_provider_name: '{{ data_provider_name }}'
+            data_provider_arn: '{{ data_provider_arn }}'
+            secrets_manager_secret_id: '{{ secrets_manager_secret_id }}'
+            secrets_manager_access_role_arn: '{{ secrets_manager_access_role_arn }}'
+      - name: target_data_provider_descriptors
         value:
           - null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -430,7 +429,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MigrationProjectArn>';
+AND Identifier = '{{ migration_project_arn }}';
 ```
 
 
@@ -439,7 +438,7 @@ AND Identifier = '<MigrationProjectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.migration_projects
-WHERE Identifier = '<MigrationProjectArn>'
+WHERE Identifier = '{{ migration_project_arn }}'
 AND region = 'us-east-1';
 ```
 

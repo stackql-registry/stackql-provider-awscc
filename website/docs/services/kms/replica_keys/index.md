@@ -188,7 +188,7 @@ key_id,
 arn,
 tags
 FROM awscc.kms.replica_keys
-WHERE region = 'us-east-1' AND Identifier = '<KeyId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ key_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.kms.replica_keys (
  PrimaryKeyArn,
  region
 )
-SELECT 
-'{{ KeyPolicy }}',
- '{{ PrimaryKeyArn }}',
+SELECT
+'{{ key_policy }}',
+ '{{ primary_key_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,13 +244,13 @@ INSERT INTO awscc.kms.replica_keys (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ PendingWindowInDays }}',
- '{{ KeyPolicy }}',
- '{{ PrimaryKeyArn }}',
- '{{ Enabled }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ pending_window_in_days }}',
+ '{{ key_policy }}',
+ '{{ primary_key_arn }}',
+ '{{ enabled }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,21 +268,20 @@ globals:
 resources:
   - name: replica_key
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: PendingWindowInDays
-        value: '{{ PendingWindowInDays }}'
-      - name: KeyPolicy
+      - name: description
+        value: '{{ description }}'
+      - name: pending_window_in_days
+        value: '{{ pending_window_in_days }}'
+      - name: key_policy
         value: {}
-      - name: PrimaryKeyArn
-        value: '{{ PrimaryKeyArn }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Tags
+      - name: primary_key_arn
+        value: '{{ primary_key_arn }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -302,7 +301,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyId>';
+AND Identifier = '{{ key_id }}';
 ```
 
 
@@ -311,7 +310,7 @@ AND Identifier = '<KeyId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kms.replica_keys
-WHERE Identifier = '<KeyId>'
+WHERE Identifier = '{{ key_id }}'
 AND region = 'us-east-1';
 ```
 

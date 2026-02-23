@@ -151,7 +151,7 @@ assets,
 managed_login_branding_id,
 return_merged_resources
 FROM awscc.cognito.managed_login_brandings
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```
 
 ## `INSERT` example
@@ -174,8 +174,8 @@ INSERT INTO awscc.cognito.managed_login_brandings (
  UserPoolId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
+SELECT
+'{{ user_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,13 +192,13 @@ INSERT INTO awscc.cognito.managed_login_brandings (
  ReturnMergedResources,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ ClientId }}',
- '{{ UseCognitoProvidedValues }}',
- '{{ Settings }}',
- '{{ Assets }}',
- '{{ ReturnMergedResources }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ client_id }}',
+ '{{ use_cognito_provided_values }}',
+ '{{ settings }}',
+ '{{ assets }}',
+ '{{ return_merged_resources }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -216,24 +216,23 @@ globals:
 resources:
   - name: managed_login_branding
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: ClientId
-        value: '{{ ClientId }}'
-      - name: UseCognitoProvidedValues
-        value: '{{ UseCognitoProvidedValues }}'
-      - name: Settings
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: client_id
+        value: '{{ client_id }}'
+      - name: use_cognito_provided_values
+        value: '{{ use_cognito_provided_values }}'
+      - name: settings
         value: {}
-      - name: Assets
+      - name: assets
         value:
-          - Category: '{{ Category }}'
-            ColorMode: '{{ ColorMode }}'
-            Extension: '{{ Extension }}'
-            Bytes: '{{ Bytes }}'
-            ResourceId: '{{ ResourceId }}'
-      - name: ReturnMergedResources
-        value: '{{ ReturnMergedResources }}'
-
+          - category: '{{ category }}'
+            color_mode: '{{ color_mode }}'
+            extension: '{{ extension }}'
+            bytes: '{{ bytes }}'
+            resource_id: '{{ resource_id }}'
+      - name: return_merged_resources
+        value: '{{ return_merged_resources }}'
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ SET PatchDocument = string('{{ {
     "ReturnMergedResources": return_merged_resources
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
+AND Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}';
 ```
 
 
@@ -261,7 +260,7 @@ AND Identifier = '<UserPoolId>|<ManagedLoginBrandingId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.managed_login_brandings
-WHERE Identifier = '<UserPoolId|ManagedLoginBrandingId>'
+WHERE Identifier = '{{ user_pool_id }}|{{ managed_login_branding_id }}'
 AND region = 'us-east-1';
 ```
 

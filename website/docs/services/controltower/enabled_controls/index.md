@@ -181,7 +181,7 @@ target_identifier,
 parameters,
 tags
 FROM awscc.controltower.enabled_controls
-WHERE region = 'us-east-1' AND Identifier = '<TargetIdentifier>|<ControlIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.controltower.enabled_controls (
  TargetIdentifier,
  region
 )
-SELECT 
-'{{ ControlIdentifier }}',
- '{{ TargetIdentifier }}',
+SELECT
+'{{ control_identifier }}',
+ '{{ target_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.controltower.enabled_controls (
  Tags,
  region
 )
-SELECT 
- '{{ ControlIdentifier }}',
- '{{ TargetIdentifier }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ control_identifier }}',
+ '{{ target_identifier }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,19 +258,18 @@ globals:
 resources:
   - name: enabled_control
     props:
-      - name: ControlIdentifier
-        value: '{{ ControlIdentifier }}'
-      - name: TargetIdentifier
-        value: '{{ TargetIdentifier }}'
-      - name: Parameters
+      - name: control_identifier
+        value: '{{ control_identifier }}'
+      - name: target_identifier
+        value: '{{ target_identifier }}'
+      - name: parameters
         value:
-          - Value: null
-            Key: '{{ Key }}'
-      - name: Tags
+          - value: null
+            key: '{{ key }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TargetIdentifier>|<ControlIdentifier>';
+AND Identifier = '{{ target_identifier }}|{{ control_identifier }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<TargetIdentifier>|<ControlIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.controltower.enabled_controls
-WHERE Identifier = '<TargetIdentifier|ControlIdentifier>'
+WHERE Identifier = '{{ target_identifier }}|{{ control_identifier }}'
 AND region = 'us-east-1';
 ```
 

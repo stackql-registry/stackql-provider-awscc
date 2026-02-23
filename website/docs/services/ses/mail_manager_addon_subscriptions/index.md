@@ -164,7 +164,7 @@ addon_subscription_arn,
 addon_subscription_id,
 tags
 FROM awscc.ses.mail_manager_addon_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<AddonSubscriptionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ addon_subscription_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.ses.mail_manager_addon_subscriptions (
  AddonName,
  region
 )
-SELECT 
-'{{ AddonName }}',
+SELECT
+'{{ addon_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.ses.mail_manager_addon_subscriptions (
  Tags,
  region
 )
-SELECT 
- '{{ AddonName }}',
- '{{ Tags }}',
+SELECT
+ '{{ addon_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: mail_manager_addon_subscription
     props:
-      - name: AddonName
-        value: '{{ AddonName }}'
-      - name: Tags
+      - name: addon_name
+        value: '{{ addon_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +255,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AddonSubscriptionId>';
+AND Identifier = '{{ addon_subscription_id }}';
 ```
 
 
@@ -265,7 +264,7 @@ AND Identifier = '<AddonSubscriptionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_addon_subscriptions
-WHERE Identifier = '<AddonSubscriptionId>'
+WHERE Identifier = '{{ addon_subscription_id }}'
 AND region = 'us-east-1';
 ```
 

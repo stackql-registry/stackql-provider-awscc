@@ -94,7 +94,7 @@ region,
 policy_document,
 queue
 FROM awscc.sqs.queue_inline_policies
-WHERE region = 'us-east-1' AND Identifier = '<Queue>';
+WHERE region = 'us-east-1' AND Identifier = '{{ queue }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.sqs.queue_inline_policies (
  Queue,
  region
 )
-SELECT 
-'{{ PolicyDocument }}',
- '{{ Queue }}',
+SELECT
+'{{ policy_document }}',
+ '{{ queue }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.sqs.queue_inline_policies (
  Queue,
  region
 )
-SELECT 
- '{{ PolicyDocument }}',
- '{{ Queue }}',
+SELECT
+ '{{ policy_document }}',
+ '{{ queue }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: queue_inline_policy
     props:
-      - name: PolicyDocument
+      - name: policy_document
         value: {}
-      - name: Queue
-        value: '{{ Queue }}'
-
+      - name: queue
+        value: '{{ queue }}'
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Queue>';
+AND Identifier = '{{ queue }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<Queue>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sqs.queue_inline_policies
-WHERE Identifier = '<Queue>'
+WHERE Identifier = '{{ queue }}'
 AND region = 'us-east-1';
 ```
 

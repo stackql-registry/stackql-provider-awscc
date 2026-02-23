@@ -162,7 +162,7 @@ cidr,
 netmask_length,
 description
 FROM awscc.ec2.ipam_allocations
-WHERE region = 'us-east-1' AND Identifier = '<IpamPoolId>|<IpamPoolAllocationId>|<Cidr>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.ec2.ipam_allocations (
  IpamPoolId,
  region
 )
-SELECT 
-'{{ IpamPoolId }}',
+SELECT
+'{{ ipam_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,11 @@ INSERT INTO awscc.ec2.ipam_allocations (
  Description,
  region
 )
-SELECT 
- '{{ IpamPoolId }}',
- '{{ Cidr }}',
- '{{ NetmaskLength }}',
- '{{ Description }}',
+SELECT
+ '{{ ipam_pool_id }}',
+ '{{ cidr }}',
+ '{{ netmask_length }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,15 +238,14 @@ globals:
 resources:
   - name: ipam_allocation
     props:
-      - name: IpamPoolId
-        value: '{{ IpamPoolId }}'
-      - name: Cidr
-        value: '{{ Cidr }}'
-      - name: NetmaskLength
-        value: '{{ NetmaskLength }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: ipam_pool_id
+        value: '{{ ipam_pool_id }}'
+      - name: cidr
+        value: '{{ cidr }}'
+      - name: netmask_length
+        value: '{{ netmask_length }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_allocations
-WHERE Identifier = '<IpamPoolId|IpamPoolAllocationId|Cidr>'
+WHERE Identifier = '{{ ipam_pool_id }}|{{ ipam_pool_allocation_id }}|{{ cidr }}'
 AND region = 'us-east-1';
 ```
 

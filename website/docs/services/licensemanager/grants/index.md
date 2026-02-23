@@ -171,7 +171,7 @@ allowed_operations,
 principals,
 status
 FROM awscc.licensemanager.grants
-WHERE region = 'us-east-1' AND Identifier = '<GrantArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ grant_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,7 +207,7 @@ INSERT INTO awscc.licensemanager.grants (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -225,13 +225,13 @@ INSERT INTO awscc.licensemanager.grants (
  Status,
  region
 )
-SELECT 
- '{{ GrantName }}',
- '{{ LicenseArn }}',
- '{{ HomeRegion }}',
- '{{ AllowedOperations }}',
- '{{ Principals }}',
- '{{ Status }}',
+SELECT
+ '{{ grant_name }}',
+ '{{ license_arn }}',
+ '{{ home_region }}',
+ '{{ allowed_operations }}',
+ '{{ principals }}',
+ '{{ status }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -249,21 +249,20 @@ globals:
 resources:
   - name: grant
     props:
-      - name: GrantName
-        value: '{{ GrantName }}'
-      - name: LicenseArn
-        value: '{{ LicenseArn }}'
-      - name: HomeRegion
-        value: '{{ HomeRegion }}'
-      - name: AllowedOperations
+      - name: grant_name
+        value: '{{ grant_name }}'
+      - name: license_arn
+        value: '{{ license_arn }}'
+      - name: home_region
+        value: '{{ home_region }}'
+      - name: allowed_operations
         value:
-          - '{{ AllowedOperations[0] }}'
-      - name: Principals
+          - '{{ allowed_operations[0] }}'
+      - name: principals
         value:
           - null
-      - name: Status
-        value: '{{ Status }}'
-
+      - name: status
+        value: '{{ status }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GrantArn>';
+AND Identifier = '{{ grant_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<GrantArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.licensemanager.grants
-WHERE Identifier = '<GrantArn>'
+WHERE Identifier = '{{ grant_arn }}'
 AND region = 'us-east-1';
 ```
 

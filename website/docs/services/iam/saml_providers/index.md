@@ -206,7 +206,7 @@ remove_private_key,
 private_key_list,
 saml_provider_uu_id
 FROM awscc.iam.saml_providers
-WHERE Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,7 +217,7 @@ SELECT
 region,
 arn
 FROM awscc.iam.saml_providers_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -248,14 +248,14 @@ INSERT INTO awscc.iam.saml_providers (
  PrivateKeyList,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SamlMetadataDocument }}',
- '{{ Tags }}',
- '{{ AssertionEncryptionMode }}',
- '{{ AddPrivateKey }}',
- '{{ RemovePrivateKey }}',
- '{{ PrivateKeyList }}',
+SELECT
+'{{ name }}',
+ '{{ saml_metadata_document }}',
+ '{{ tags }}',
+ '{{ assertion_encryption_mode }}',
+ '{{ add_private_key }}',
+ '{{ remove_private_key }}',
+ '{{ private_key_list }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -273,14 +273,14 @@ INSERT INTO awscc.iam.saml_providers (
  PrivateKeyList,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ SamlMetadataDocument }}',
- '{{ Tags }}',
- '{{ AssertionEncryptionMode }}',
- '{{ AddPrivateKey }}',
- '{{ RemovePrivateKey }}',
- '{{ PrivateKeyList }}',
+SELECT
+ '{{ name }}',
+ '{{ saml_metadata_document }}',
+ '{{ tags }}',
+ '{{ assertion_encryption_mode }}',
+ '{{ add_private_key }}',
+ '{{ remove_private_key }}',
+ '{{ private_key_list }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,25 +298,24 @@ globals:
 resources:
   - name: saml_provider
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: SamlMetadataDocument
-        value: '{{ SamlMetadataDocument }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: saml_metadata_document
+        value: '{{ saml_metadata_document }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: AssertionEncryptionMode
-        value: '{{ AssertionEncryptionMode }}'
-      - name: AddPrivateKey
-        value: '{{ AddPrivateKey }}'
-      - name: RemovePrivateKey
-        value: '{{ RemovePrivateKey }}'
-      - name: PrivateKeyList
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: assertion_encryption_mode
+        value: '{{ assertion_encryption_mode }}'
+      - name: add_private_key
+        value: '{{ add_private_key }}'
+      - name: remove_private_key
+        value: '{{ remove_private_key }}'
+      - name: private_key_list
         value:
-          - KeyId: '{{ KeyId }}'
-            Timestamp: '{{ Timestamp }}'
-
+          - key_id: '{{ key_id }}'
+            timestamp: '{{ timestamp }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "PrivateKeyList": private_key_list
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.saml_providers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

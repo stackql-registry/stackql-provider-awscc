@@ -228,7 +228,7 @@ tags,
 throttle,
 usage_plan_name
 FROM awscc.apigateway.usage_plans
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -269,13 +269,13 @@ INSERT INTO awscc.apigateway.usage_plans (
  UsagePlanName,
  region
 )
-SELECT 
-'{{ ApiStages }}',
- '{{ Description }}',
- '{{ Quota }}',
- '{{ Tags }}',
- '{{ Throttle }}',
- '{{ UsagePlanName }}',
+SELECT
+'{{ api_stages }}',
+ '{{ description }}',
+ '{{ quota }}',
+ '{{ tags }}',
+ '{{ throttle }}',
+ '{{ usage_plan_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,13 +292,13 @@ INSERT INTO awscc.apigateway.usage_plans (
  UsagePlanName,
  region
 )
-SELECT 
- '{{ ApiStages }}',
- '{{ Description }}',
- '{{ Quota }}',
- '{{ Tags }}',
- '{{ Throttle }}',
- '{{ UsagePlanName }}',
+SELECT
+ '{{ api_stages }}',
+ '{{ description }}',
+ '{{ quota }}',
+ '{{ tags }}',
+ '{{ throttle }}',
+ '{{ usage_plan_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,29 +316,28 @@ globals:
 resources:
   - name: usage_plan
     props:
-      - name: ApiStages
+      - name: api_stages
         value:
-          - ApiId: '{{ ApiId }}'
-            Stage: '{{ Stage }}'
-            Throttle: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: Quota
+          - api_id: '{{ api_id }}'
+            stage: '{{ stage }}'
+            throttle: {}
+      - name: description
+        value: '{{ description }}'
+      - name: quota
         value:
-          Limit: '{{ Limit }}'
-          Offset: '{{ Offset }}'
-          Period: '{{ Period }}'
-      - name: Tags
+          limit: '{{ limit }}'
+          offset: '{{ offset }}'
+          period: '{{ period }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Throttle
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: throttle
         value:
-          BurstLimit: '{{ BurstLimit }}'
-          RateLimit: null
-      - name: UsagePlanName
-        value: '{{ UsagePlanName }}'
-
+          burst_limit: '{{ burst_limit }}'
+          rate_limit: null
+      - name: usage_plan_name
+        value: '{{ usage_plan_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +358,7 @@ SET PatchDocument = string('{{ {
     "UsagePlanName": usage_plan_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -368,7 +367,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.usage_plans
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

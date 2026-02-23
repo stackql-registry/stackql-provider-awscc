@@ -169,7 +169,7 @@ security_group_ids,
 subnet_id,
 network_interface_ids
 FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE region = 'us-east-1' AND Identifier = '<FlowArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -210,12 +210,12 @@ INSERT INTO awscc.mediaconnect.flow_vpc_interfaces (
  SubnetId,
  region
 )
-SELECT 
-'{{ FlowArn }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetId }}',
+SELECT
+'{{ flow_arn }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.mediaconnect.flow_vpc_interfaces (
  SubnetId,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetId }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,18 +254,17 @@ globals:
 resources:
   - name: flow_vpc_interface
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: SecurityGroupIds
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "SubnetId": subnet_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FlowArn>|<Name>';
+AND Identifier = '{{ flow_arn }}|{{ name }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<FlowArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_vpc_interfaces
-WHERE Identifier = '<FlowArn|Name>'
+WHERE Identifier = '{{ flow_arn }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

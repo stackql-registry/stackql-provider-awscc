@@ -164,7 +164,7 @@ vpc_id,
 private_graph_endpoint_identifier,
 vpc_endpoint_id
 FROM awscc.neptunegraph.private_graph_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<PrivateGraphEndpointIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ private_graph_endpoint_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.neptunegraph.private_graph_endpoints (
  VpcId,
  region
 )
-SELECT 
-'{{ GraphIdentifier }}',
- '{{ VpcId }}',
+SELECT
+'{{ graph_identifier }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,11 @@ INSERT INTO awscc.neptunegraph.private_graph_endpoints (
  VpcId,
  region
 )
-SELECT 
- '{{ GraphIdentifier }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
+SELECT
+ '{{ graph_identifier }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,17 +240,16 @@ globals:
 resources:
   - name: private_graph_endpoint
     props:
-      - name: GraphIdentifier
-        value: '{{ GraphIdentifier }}'
-      - name: SecurityGroupIds
+      - name: graph_identifier
+        value: '{{ graph_identifier }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+          - '{{ subnet_ids[0] }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptunegraph.private_graph_endpoints
-WHERE Identifier = '<PrivateGraphEndpointIdentifier>'
+WHERE Identifier = '{{ private_graph_endpoint_identifier }}'
 AND region = 'us-east-1';
 ```
 

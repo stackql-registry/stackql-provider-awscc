@@ -223,7 +223,7 @@ entitlement_status,
 name,
 subscribers
 FROM awscc.mediaconnect.flow_entitlements
-WHERE region = 'us-east-1' AND Identifier = '<EntitlementArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ entitlement_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,11 +262,11 @@ INSERT INTO awscc.mediaconnect.flow_entitlements (
  Subscribers,
  region
 )
-SELECT 
-'{{ FlowArn }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Subscribers }}',
+SELECT
+'{{ flow_arn }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ subscribers }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,14 +284,14 @@ INSERT INTO awscc.mediaconnect.flow_entitlements (
  Subscribers,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ DataTransferSubscriberFeePercent }}',
- '{{ Description }}',
- '{{ Encryption }}',
- '{{ EntitlementStatus }}',
- '{{ Name }}',
- '{{ Subscribers }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ data_transfer_subscriber_fee_percent }}',
+ '{{ description }}',
+ '{{ encryption }}',
+ '{{ entitlement_status }}',
+ '{{ name }}',
+ '{{ subscribers }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,31 +309,30 @@ globals:
 resources:
   - name: flow_entitlement
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: DataTransferSubscriberFeePercent
-        value: '{{ DataTransferSubscriberFeePercent }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Encryption
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: data_transfer_subscriber_fee_percent
+        value: '{{ data_transfer_subscriber_fee_percent }}'
+      - name: description
+        value: '{{ description }}'
+      - name: encryption
         value:
-          Algorithm: '{{ Algorithm }}'
-          ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-          DeviceId: '{{ DeviceId }}'
-          KeyType: '{{ KeyType }}'
-          Region: '{{ Region }}'
-          ResourceId: '{{ ResourceId }}'
-          RoleArn: '{{ RoleArn }}'
-          SecretArn: '{{ SecretArn }}'
-          Url: '{{ Url }}'
-      - name: EntitlementStatus
-        value: '{{ EntitlementStatus }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Subscribers
+          algorithm: '{{ algorithm }}'
+          constant_initialization_vector: '{{ constant_initialization_vector }}'
+          device_id: '{{ device_id }}'
+          key_type: '{{ key_type }}'
+          region: '{{ region }}'
+          resource_id: '{{ resource_id }}'
+          role_arn: '{{ role_arn }}'
+          secret_arn: '{{ secret_arn }}'
+          url: '{{ url }}'
+      - name: entitlement_status
+        value: '{{ entitlement_status }}'
+      - name: name
+        value: '{{ name }}'
+      - name: subscribers
         value:
-          - '{{ Subscribers[0] }}'
-
+          - '{{ subscribers[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +352,7 @@ SET PatchDocument = string('{{ {
     "Subscribers": subscribers
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EntitlementArn>';
+AND Identifier = '{{ entitlement_arn }}';
 ```
 
 
@@ -362,7 +361,7 @@ AND Identifier = '<EntitlementArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.flow_entitlements
-WHERE Identifier = '<EntitlementArn>'
+WHERE Identifier = '{{ entitlement_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -170,7 +170,7 @@ resource_configuration_id,
 service_network_id,
 tags
 FROM awscc.vpclattice.service_network_resource_associations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.vpclattice.service_network_resource_associations (
  Tags,
  region
 )
-SELECT 
-'{{ ResourceConfigurationId }}',
- '{{ ServiceNetworkId }}',
- '{{ Tags }}',
+SELECT
+'{{ resource_configuration_id }}',
+ '{{ service_network_id }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,10 +225,10 @@ INSERT INTO awscc.vpclattice.service_network_resource_associations (
  Tags,
  region
 )
-SELECT 
- '{{ ResourceConfigurationId }}',
- '{{ ServiceNetworkId }}',
- '{{ Tags }}',
+SELECT
+ '{{ resource_configuration_id }}',
+ '{{ service_network_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,15 +246,14 @@ globals:
 resources:
   - name: service_network_resource_association
     props:
-      - name: ResourceConfigurationId
-        value: '{{ ResourceConfigurationId }}'
-      - name: ServiceNetworkId
-        value: '{{ ServiceNetworkId }}'
-      - name: Tags
+      - name: resource_configuration_id
+        value: '{{ resource_configuration_id }}'
+      - name: service_network_id
+        value: '{{ service_network_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +269,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -279,7 +278,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.service_network_resource_associations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

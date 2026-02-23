@@ -215,7 +215,7 @@ solution_stack_name,
 source_configuration,
 template_name
 FROM awscc.elasticbeanstalk.configuration_templates
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationName>|<TemplateName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}|{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -252,8 +252,8 @@ INSERT INTO awscc.elasticbeanstalk.configuration_templates (
  ApplicationName,
  region
 )
-SELECT 
-'{{ ApplicationName }}',
+SELECT
+'{{ application_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,14 +271,14 @@ INSERT INTO awscc.elasticbeanstalk.configuration_templates (
  SourceConfiguration,
  region
 )
-SELECT 
- '{{ ApplicationName }}',
- '{{ Description }}',
- '{{ EnvironmentId }}',
- '{{ OptionSettings }}',
- '{{ PlatformArn }}',
- '{{ SolutionStackName }}',
- '{{ SourceConfiguration }}',
+SELECT
+ '{{ application_name }}',
+ '{{ description }}',
+ '{{ environment_id }}',
+ '{{ option_settings }}',
+ '{{ platform_arn }}',
+ '{{ solution_stack_name }}',
+ '{{ source_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,27 +296,26 @@ globals:
 resources:
   - name: configuration_template
     props:
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnvironmentId
-        value: '{{ EnvironmentId }}'
-      - name: OptionSettings
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: environment_id
+        value: '{{ environment_id }}'
+      - name: option_settings
         value:
-          - Namespace: '{{ Namespace }}'
-            OptionName: '{{ OptionName }}'
-            ResourceName: '{{ ResourceName }}'
-            Value: '{{ Value }}'
-      - name: PlatformArn
-        value: '{{ PlatformArn }}'
-      - name: SolutionStackName
-        value: '{{ SolutionStackName }}'
-      - name: SourceConfiguration
+          - namespace: '{{ namespace }}'
+            option_name: '{{ option_name }}'
+            resource_name: '{{ resource_name }}'
+            value: '{{ value }}'
+      - name: platform_arn
+        value: '{{ platform_arn }}'
+      - name: solution_stack_name
+        value: '{{ solution_stack_name }}'
+      - name: source_configuration
         value:
-          ApplicationName: '{{ ApplicationName }}'
-          TemplateName: '{{ TemplateName }}'
-
+          application_name: '{{ application_name }}'
+          template_name: '{{ template_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -333,7 +332,7 @@ SET PatchDocument = string('{{ {
     "OptionSettings": option_settings
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationName>|<TemplateName>';
+AND Identifier = '{{ application_name }}|{{ template_name }}';
 ```
 
 
@@ -342,7 +341,7 @@ AND Identifier = '<ApplicationName>|<TemplateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticbeanstalk.configuration_templates
-WHERE Identifier = '<ApplicationName|TemplateName>'
+WHERE Identifier = '{{ application_name }}|{{ template_name }}'
 AND region = 'us-east-1';
 ```
 

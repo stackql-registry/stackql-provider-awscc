@@ -176,7 +176,7 @@ browser_settings_arn,
 customer_managed_key,
 tags
 FROM awscc.workspacesweb.browser_settings
-WHERE region = 'us-east-1' AND Identifier = '<BrowserSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ browser_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,11 +215,11 @@ INSERT INTO awscc.workspacesweb.browser_settings (
  Tags,
  region
 )
-SELECT 
-'{{ AdditionalEncryptionContext }}',
- '{{ BrowserPolicy }}',
- '{{ CustomerManagedKey }}',
- '{{ Tags }}',
+SELECT
+'{{ additional_encryption_context }}',
+ '{{ browser_policy }}',
+ '{{ customer_managed_key }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.workspacesweb.browser_settings (
  Tags,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ BrowserPolicy }}',
- '{{ CustomerManagedKey }}',
- '{{ Tags }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ browser_policy }}',
+ '{{ customer_managed_key }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: browser_setting
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: BrowserPolicy
-        value: '{{ BrowserPolicy }}'
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: Tags
+      - name: browser_policy
+        value: '{{ browser_policy }}'
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BrowserSettingsArn>';
+AND Identifier = '{{ browser_settings_arn }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<BrowserSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.browser_settings
-WHERE Identifier = '<BrowserSettingsArn>'
+WHERE Identifier = '{{ browser_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -212,7 +212,7 @@ arn,
 authentication_mode,
 tags
 FROM awscc.elasticache.users
-WHERE region = 'us-east-1' AND Identifier = '<UserId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -250,10 +250,10 @@ INSERT INTO awscc.elasticache.users (
  Engine,
  region
 )
-SELECT 
-'{{ UserId }}',
- '{{ UserName }}',
- '{{ Engine }}',
+SELECT
+'{{ user_id }}',
+ '{{ user_name }}',
+ '{{ engine }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,15 +272,15 @@ INSERT INTO awscc.elasticache.users (
  Tags,
  region
 )
-SELECT 
- '{{ UserId }}',
- '{{ UserName }}',
- '{{ Engine }}',
- '{{ AccessString }}',
- '{{ NoPasswordRequired }}',
- '{{ Passwords }}',
- '{{ AuthenticationMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ user_id }}',
+ '{{ user_name }}',
+ '{{ engine }}',
+ '{{ access_string }}',
+ '{{ no_password_required }}',
+ '{{ passwords }}',
+ '{{ authentication_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,29 +298,28 @@ globals:
 resources:
   - name: user
     props:
-      - name: UserId
-        value: '{{ UserId }}'
-      - name: UserName
-        value: '{{ UserName }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: AccessString
-        value: '{{ AccessString }}'
-      - name: NoPasswordRequired
-        value: '{{ NoPasswordRequired }}'
-      - name: Passwords
+      - name: user_id
+        value: '{{ user_id }}'
+      - name: user_name
+        value: '{{ user_name }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: access_string
+        value: '{{ access_string }}'
+      - name: no_password_required
+        value: '{{ no_password_required }}'
+      - name: passwords
         value:
-          - '{{ Passwords[0] }}'
-      - name: AuthenticationMode
+          - '{{ passwords[0] }}'
+      - name: authentication_mode
         value:
-          Type: '{{ Type }}'
-          Passwords:
-            - '{{ Passwords[0] }}'
-      - name: Tags
+          type: '{{ type }}'
+          passwords:
+            - '{{ passwords[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +340,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserId>';
+AND Identifier = '{{ user_id }}';
 ```
 
 
@@ -350,7 +349,7 @@ AND Identifier = '<UserId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.users
-WHERE Identifier = '<UserId>'
+WHERE Identifier = '{{ user_id }}'
 AND region = 'us-east-1';
 ```
 

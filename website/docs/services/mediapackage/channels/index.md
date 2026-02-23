@@ -213,7 +213,7 @@ tags,
 egress_access_logs,
 ingress_access_logs
 FROM awscc.mediapackage.channels
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,8 +249,8 @@ INSERT INTO awscc.mediapackage.channels (
  Id,
  region
 )
-SELECT 
-'{{ Id }}',
+SELECT
+'{{ id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -267,13 +267,13 @@ INSERT INTO awscc.mediapackage.channels (
  IngressAccessLogs,
  region
 )
-SELECT 
- '{{ Id }}',
- '{{ Description }}',
- '{{ HlsIngest }}',
- '{{ Tags }}',
- '{{ EgressAccessLogs }}',
- '{{ IngressAccessLogs }}',
+SELECT
+ '{{ id }}',
+ '{{ description }}',
+ '{{ hls_ingest }}',
+ '{{ tags }}',
+ '{{ egress_access_logs }}',
+ '{{ ingress_access_logs }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -291,27 +291,26 @@ globals:
 resources:
   - name: channel
     props:
-      - name: Id
-        value: '{{ Id }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: HlsIngest
+      - name: id
+        value: '{{ id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: hls_ingest
         value:
-          ingestEndpoints:
-            - Id: '{{ Id }}'
-              Username: '{{ Username }}'
-              Password: '{{ Password }}'
-              Url: '{{ Url }}'
-      - name: Tags
+          ingest_endpoints:
+            - id: '{{ id }}'
+              username: '{{ username }}'
+              password: '{{ password }}'
+              url: '{{ url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: EgressAccessLogs
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: egress_access_logs
         value:
-          LogGroupName: '{{ LogGroupName }}'
-      - name: IngressAccessLogs
+          log_group_name: '{{ log_group_name }}'
+      - name: ingress_access_logs
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +328,7 @@ SET PatchDocument = string('{{ {
     "IngressAccessLogs": ingress_access_logs
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -338,7 +337,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.channels
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

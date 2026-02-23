@@ -223,7 +223,7 @@ ip_count,
 name,
 tags
 FROM awscc.cloudfront.anycast_ip_lists
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,7 +234,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.anycast_ip_lists_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -260,9 +260,9 @@ INSERT INTO awscc.cloudfront.anycast_ip_lists (
  Name,
  region
 )
-SELECT 
-'{{ IpCount }}',
- '{{ Name }}',
+SELECT
+'{{ ip_count }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,10 +276,10 @@ INSERT INTO awscc.cloudfront.anycast_ip_lists (
  Tags,
  region
 )
-SELECT 
- '{{ IpCount }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ ip_count }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -297,16 +297,15 @@ globals:
 resources:
   - name: anycast_ip_list
     props:
-      - name: IpCount
-        value: '{{ IpCount }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: ip_count
+        value: '{{ ip_count }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          Items:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-
+          items:
+            - key: '{{ key }}'
+              value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -317,7 +316,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.anycast_ip_lists
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

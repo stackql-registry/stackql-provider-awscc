@@ -206,7 +206,7 @@ status,
 default_for_unmapped_signals,
 tags
 FROM awscc.iotfleetwise.decoder_manifests
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,9 +243,9 @@ INSERT INTO awscc.iotfleetwise.decoder_manifests (
  Name,
  region
 )
-SELECT 
-'{{ ModelManifestArn }}',
- '{{ Name }}',
+SELECT
+'{{ model_manifest_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,15 +264,15 @@ INSERT INTO awscc.iotfleetwise.decoder_manifests (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ ModelManifestArn }}',
- '{{ Name }}',
- '{{ NetworkInterfaces }}',
- '{{ SignalDecoders }}',
- '{{ Status }}',
- '{{ DefaultForUnmappedSignals }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ model_manifest_arn }}',
+ '{{ name }}',
+ '{{ network_interfaces }}',
+ '{{ signal_decoders }}',
+ '{{ status }}',
+ '{{ default_for_unmapped_signals }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,27 +290,26 @@ globals:
 resources:
   - name: decoder_manifest
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: ModelManifestArn
-        value: '{{ ModelManifestArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NetworkInterfaces
+      - name: description
+        value: '{{ description }}'
+      - name: model_manifest_arn
+        value: '{{ model_manifest_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: network_interfaces
         value:
           - null
-      - name: SignalDecoders
+      - name: signal_decoders
         value:
           - null
-      - name: Status
-        value: '{{ Status }}'
-      - name: DefaultForUnmappedSignals
-        value: '{{ DefaultForUnmappedSignals }}'
-      - name: Tags
+      - name: status
+        value: '{{ status }}'
+      - name: default_for_unmapped_signals
+        value: '{{ default_for_unmapped_signals }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -331,7 +330,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -340,7 +339,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.decoder_manifests
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

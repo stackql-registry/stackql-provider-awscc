@@ -817,7 +817,7 @@ tags,
 topic_id,
 user_experience_version
 FROM awscc.quicksight.topics
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<TopicId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -863,17 +863,17 @@ INSERT INTO awscc.quicksight.topics (
  UserExperienceVersion,
  region
 )
-SELECT 
-'{{ AwsAccountId }}',
- '{{ ConfigOptions }}',
- '{{ CustomInstructions }}',
- '{{ DataSets }}',
- '{{ Description }}',
- '{{ FolderArns }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ TopicId }}',
- '{{ UserExperienceVersion }}',
+SELECT
+'{{ aws_account_id }}',
+ '{{ config_options }}',
+ '{{ custom_instructions }}',
+ '{{ data_sets }}',
+ '{{ description }}',
+ '{{ folder_arns }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ topic_id }}',
+ '{{ user_experience_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -894,17 +894,17 @@ INSERT INTO awscc.quicksight.topics (
  UserExperienceVersion,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ ConfigOptions }}',
- '{{ CustomInstructions }}',
- '{{ DataSets }}',
- '{{ Description }}',
- '{{ FolderArns }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ TopicId }}',
- '{{ UserExperienceVersion }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ config_options }}',
+ '{{ custom_instructions }}',
+ '{{ data_sets }}',
+ '{{ description }}',
+ '{{ folder_arns }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ topic_id }}',
+ '{{ user_experience_version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -922,168 +922,167 @@ globals:
 resources:
   - name: topic
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: ConfigOptions
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: config_options
         value:
-          QBusinessInsightsEnabled: '{{ QBusinessInsightsEnabled }}'
-      - name: CustomInstructions
+          q_business_insights_enabled: '{{ q_business_insights_enabled }}'
+      - name: custom_instructions
         value:
-          CustomInstructionsString: '{{ CustomInstructionsString }}'
-      - name: DataSets
+          custom_instructions_string: '{{ custom_instructions_string }}'
+      - name: data_sets
         value:
-          - DatasetArn: '{{ DatasetArn }}'
-            DatasetName: '{{ DatasetName }}'
-            DatasetDescription: '{{ DatasetDescription }}'
-            DataAggregation:
-              DatasetRowDateGranularity: '{{ DatasetRowDateGranularity }}'
-              DefaultDateColumnName: '{{ DefaultDateColumnName }}'
-            Filters:
-              - FilterDescription: '{{ FilterDescription }}'
-                FilterClass: '{{ FilterClass }}'
-                FilterName: '{{ FilterName }}'
-                FilterSynonyms:
-                  - '{{ FilterSynonyms[0] }}'
-                OperandFieldName: '{{ OperandFieldName }}'
-                FilterType: '{{ FilterType }}'
-                CategoryFilter:
-                  CategoryFilterFunction: '{{ CategoryFilterFunction }}'
-                  CategoryFilterType: '{{ CategoryFilterType }}'
-                  Constant:
-                    ConstantType: '{{ ConstantType }}'
-                    SingularConstant: '{{ SingularConstant }}'
-                    CollectiveConstant:
-                      ValueList:
-                        - '{{ ValueList[0] }}'
-                  Inverse: '{{ Inverse }}'
-                NumericEqualityFilter:
-                  Constant:
-                    ConstantType: null
-                    SingularConstant: '{{ SingularConstant }}'
-                  Aggregation: '{{ Aggregation }}'
-                NumericRangeFilter:
-                  Inclusive: '{{ Inclusive }}'
-                  Constant:
-                    ConstantType: null
-                    RangeConstant:
-                      Minimum: '{{ Minimum }}'
-                      Maximum: '{{ Maximum }}'
-                  Aggregation: null
-                DateRangeFilter:
-                  Inclusive: '{{ Inclusive }}'
-                  Constant: null
-                RelativeDateFilter:
-                  TimeGranularity: null
-                  RelativeDateFilterFunction: '{{ RelativeDateFilterFunction }}'
-                  Constant: null
-            Columns:
-              - ColumnName: '{{ ColumnName }}'
-                ColumnFriendlyName: '{{ ColumnFriendlyName }}'
-                ColumnDescription: '{{ ColumnDescription }}'
-                ColumnSynonyms:
-                  - '{{ ColumnSynonyms[0] }}'
-                ColumnDataRole: '{{ ColumnDataRole }}'
-                Aggregation: '{{ Aggregation }}'
-                IsIncludedInTopic: '{{ IsIncludedInTopic }}'
-                DisableIndexing: '{{ DisableIndexing }}'
-                ComparativeOrder:
-                  UseOrdering: '{{ UseOrdering }}'
-                  SpecifedOrder:
-                    - '{{ SpecifedOrder[0] }}'
-                  TreatUndefinedSpecifiedValues: '{{ TreatUndefinedSpecifiedValues }}'
-                SemanticType:
-                  TypeName: '{{ TypeName }}'
-                  SubTypeName: '{{ SubTypeName }}'
-                  TypeParameters: {}
-                  TruthyCellValue: '{{ TruthyCellValue }}'
-                  TruthyCellValueSynonyms:
-                    - '{{ TruthyCellValueSynonyms[0] }}'
-                  FalseyCellValue: '{{ FalseyCellValue }}'
-                  FalseyCellValueSynonyms:
-                    - '{{ FalseyCellValueSynonyms[0] }}'
-                TimeGranularity: null
-                AllowedAggregations:
-                  - '{{ AllowedAggregations[0] }}'
-                NotAllowedAggregations:
+          - dataset_arn: '{{ dataset_arn }}'
+            dataset_name: '{{ dataset_name }}'
+            dataset_description: '{{ dataset_description }}'
+            data_aggregation:
+              dataset_row_date_granularity: '{{ dataset_row_date_granularity }}'
+              default_date_column_name: '{{ default_date_column_name }}'
+            filters:
+              - filter_description: '{{ filter_description }}'
+                filter_class: '{{ filter_class }}'
+                filter_name: '{{ filter_name }}'
+                filter_synonyms:
+                  - '{{ filter_synonyms[0] }}'
+                operand_field_name: '{{ operand_field_name }}'
+                filter_type: '{{ filter_type }}'
+                category_filter:
+                  category_filter_function: '{{ category_filter_function }}'
+                  category_filter_type: '{{ category_filter_type }}'
+                  constant:
+                    constant_type: '{{ constant_type }}'
+                    singular_constant: '{{ singular_constant }}'
+                    collective_constant:
+                      value_list:
+                        - '{{ value_list[0] }}'
+                  inverse: '{{ inverse }}'
+                numeric_equality_filter:
+                  constant:
+                    constant_type: null
+                    singular_constant: '{{ singular_constant }}'
+                  aggregation: '{{ aggregation }}'
+                numeric_range_filter:
+                  inclusive: '{{ inclusive }}'
+                  constant:
+                    constant_type: null
+                    range_constant:
+                      minimum: '{{ minimum }}'
+                      maximum: '{{ maximum }}'
+                  aggregation: null
+                date_range_filter:
+                  inclusive: '{{ inclusive }}'
+                  constant: null
+                relative_date_filter:
+                  time_granularity: null
+                  relative_date_filter_function: '{{ relative_date_filter_function }}'
+                  constant: null
+            columns:
+              - column_name: '{{ column_name }}'
+                column_friendly_name: '{{ column_friendly_name }}'
+                column_description: '{{ column_description }}'
+                column_synonyms:
+                  - '{{ column_synonyms[0] }}'
+                column_data_role: '{{ column_data_role }}'
+                aggregation: '{{ aggregation }}'
+                is_included_in_topic: '{{ is_included_in_topic }}'
+                disable_indexing: '{{ disable_indexing }}'
+                comparative_order:
+                  use_ordering: '{{ use_ordering }}'
+                  specifed_order:
+                    - '{{ specifed_order[0] }}'
+                  treat_undefined_specified_values: '{{ treat_undefined_specified_values }}'
+                semantic_type:
+                  type_name: '{{ type_name }}'
+                  sub_type_name: '{{ sub_type_name }}'
+                  type_parameters: {}
+                  truthy_cell_value: '{{ truthy_cell_value }}'
+                  truthy_cell_value_synonyms:
+                    - '{{ truthy_cell_value_synonyms[0] }}'
+                  falsey_cell_value: '{{ falsey_cell_value }}'
+                  falsey_cell_value_synonyms:
+                    - '{{ falsey_cell_value_synonyms[0] }}'
+                time_granularity: null
+                allowed_aggregations:
+                  - '{{ allowed_aggregations[0] }}'
+                not_allowed_aggregations:
                   - null
-                DefaultFormatting:
-                  DisplayFormat: '{{ DisplayFormat }}'
-                  DisplayFormatOptions:
-                    UseBlankCellFormat: '{{ UseBlankCellFormat }}'
-                    BlankCellFormat: '{{ BlankCellFormat }}'
-                    DateFormat: '{{ DateFormat }}'
-                    DecimalSeparator: '{{ DecimalSeparator }}'
-                    GroupingSeparator: '{{ GroupingSeparator }}'
-                    UseGrouping: '{{ UseGrouping }}'
-                    FractionDigits: null
-                    Prefix: '{{ Prefix }}'
-                    Suffix: '{{ Suffix }}'
-                    UnitScaler: '{{ UnitScaler }}'
-                    NegativeFormat:
-                      Prefix: '{{ Prefix }}'
-                      Suffix: '{{ Suffix }}'
-                    CurrencySymbol: '{{ CurrencySymbol }}'
-                NeverAggregateInFilter: '{{ NeverAggregateInFilter }}'
-                CellValueSynonyms:
-                  - CellValue: '{{ CellValue }}'
-                    Synonyms:
-                      - '{{ Synonyms[0] }}'
-                NonAdditive: '{{ NonAdditive }}'
-            CalculatedFields:
-              - CalculatedFieldName: '{{ CalculatedFieldName }}'
-                CalculatedFieldDescription: '{{ CalculatedFieldDescription }}'
-                Expression: '{{ Expression }}'
-                CalculatedFieldSynonyms:
-                  - '{{ CalculatedFieldSynonyms[0] }}'
-                IsIncludedInTopic: '{{ IsIncludedInTopic }}'
-                DisableIndexing: '{{ DisableIndexing }}'
-                ColumnDataRole: null
-                TimeGranularity: null
-                DefaultFormatting: null
-                Aggregation: null
-                ComparativeOrder: null
-                SemanticType: null
-                AllowedAggregations:
+                default_formatting:
+                  display_format: '{{ display_format }}'
+                  display_format_options:
+                    use_blank_cell_format: '{{ use_blank_cell_format }}'
+                    blank_cell_format: '{{ blank_cell_format }}'
+                    date_format: '{{ date_format }}'
+                    decimal_separator: '{{ decimal_separator }}'
+                    grouping_separator: '{{ grouping_separator }}'
+                    use_grouping: '{{ use_grouping }}'
+                    fraction_digits: null
+                    prefix: '{{ prefix }}'
+                    suffix: '{{ suffix }}'
+                    unit_scaler: '{{ unit_scaler }}'
+                    negative_format:
+                      prefix: '{{ prefix }}'
+                      suffix: '{{ suffix }}'
+                    currency_symbol: '{{ currency_symbol }}'
+                never_aggregate_in_filter: '{{ never_aggregate_in_filter }}'
+                cell_value_synonyms:
+                  - cell_value: '{{ cell_value }}'
+                    synonyms:
+                      - '{{ synonyms[0] }}'
+                non_additive: '{{ non_additive }}'
+            calculated_fields:
+              - calculated_field_name: '{{ calculated_field_name }}'
+                calculated_field_description: '{{ calculated_field_description }}'
+                expression: '{{ expression }}'
+                calculated_field_synonyms:
+                  - '{{ calculated_field_synonyms[0] }}'
+                is_included_in_topic: '{{ is_included_in_topic }}'
+                disable_indexing: '{{ disable_indexing }}'
+                column_data_role: null
+                time_granularity: null
+                default_formatting: null
+                aggregation: null
+                comparative_order: null
+                semantic_type: null
+                allowed_aggregations:
                   - null
-                NotAllowedAggregations:
+                not_allowed_aggregations:
                   - null
-                NeverAggregateInFilter: '{{ NeverAggregateInFilter }}'
-                CellValueSynonyms:
+                never_aggregate_in_filter: '{{ never_aggregate_in_filter }}'
+                cell_value_synonyms:
                   - null
-                NonAdditive: '{{ NonAdditive }}'
-            NamedEntities:
-              - EntityName: '{{ EntityName }}'
-                EntityDescription: '{{ EntityDescription }}'
-                EntitySynonyms:
-                  - '{{ EntitySynonyms[0] }}'
-                SemanticEntityType:
-                  TypeName: '{{ TypeName }}'
-                  SubTypeName: '{{ SubTypeName }}'
-                  TypeParameters: null
-                Definition:
-                  - FieldName: '{{ FieldName }}'
-                    PropertyName: '{{ PropertyName }}'
-                    PropertyRole: '{{ PropertyRole }}'
-                    PropertyUsage: '{{ PropertyUsage }}'
-                    Metric:
-                      Aggregation: '{{ Aggregation }}'
-                      AggregationFunctionParameters: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: FolderArns
+                non_additive: '{{ non_additive }}'
+            named_entities:
+              - entity_name: '{{ entity_name }}'
+                entity_description: '{{ entity_description }}'
+                entity_synonyms:
+                  - '{{ entity_synonyms[0] }}'
+                semantic_entity_type:
+                  type_name: '{{ type_name }}'
+                  sub_type_name: '{{ sub_type_name }}'
+                  type_parameters: null
+                definition:
+                  - field_name: '{{ field_name }}'
+                    property_name: '{{ property_name }}'
+                    property_role: '{{ property_role }}'
+                    property_usage: '{{ property_usage }}'
+                    metric:
+                      aggregation: '{{ aggregation }}'
+                      aggregation_function_parameters: {}
+      - name: description
+        value: '{{ description }}'
+      - name: folder_arns
         value:
-          - '{{ FolderArns[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - '{{ folder_arns[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TopicId
-        value: '{{ TopicId }}'
-      - name: UserExperienceVersion
-        value: '{{ UserExperienceVersion }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: topic_id
+        value: '{{ topic_id }}'
+      - name: user_experience_version
+        value: '{{ user_experience_version }}'
 ```
 </TabItem>
 </Tabs>
@@ -1104,7 +1103,7 @@ SET PatchDocument = string('{{ {
     "UserExperienceVersion": user_experience_version
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AwsAccountId>|<TopicId>';
+AND Identifier = '{{ aws_account_id }}|{{ topic_id }}';
 ```
 
 
@@ -1113,7 +1112,7 @@ AND Identifier = '<AwsAccountId>|<TopicId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.topics
-WHERE Identifier = '<AwsAccountId|TopicId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ topic_id }}'
 AND region = 'us-east-1';
 ```
 

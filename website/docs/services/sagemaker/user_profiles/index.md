@@ -654,7 +654,7 @@ user_profile_name,
 user_settings,
 tags
 FROM awscc.sagemaker.user_profiles
-WHERE region = 'us-east-1' AND Identifier = '<UserProfileName>|<DomainId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_profile_name }}|{{ domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -692,9 +692,9 @@ INSERT INTO awscc.sagemaker.user_profiles (
  UserProfileName,
  region
 )
-SELECT 
-'{{ DomainId }}',
- '{{ UserProfileName }}',
+SELECT
+'{{ domain_id }}',
+ '{{ user_profile_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -711,13 +711,13 @@ INSERT INTO awscc.sagemaker.user_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ DomainId }}',
- '{{ SingleSignOnUserIdentifier }}',
- '{{ SingleSignOnUserValue }}',
- '{{ UserProfileName }}',
- '{{ UserSettings }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_id }}',
+ '{{ single_sign_on_user_identifier }}',
+ '{{ single_sign_on_user_value }}',
+ '{{ user_profile_name }}',
+ '{{ user_settings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -735,101 +735,100 @@ globals:
 resources:
   - name: user_profile
     props:
-      - name: DomainId
-        value: '{{ DomainId }}'
-      - name: SingleSignOnUserIdentifier
-        value: '{{ SingleSignOnUserIdentifier }}'
-      - name: SingleSignOnUserValue
-        value: '{{ SingleSignOnUserValue }}'
-      - name: UserProfileName
-        value: '{{ UserProfileName }}'
-      - name: UserSettings
+      - name: domain_id
+        value: '{{ domain_id }}'
+      - name: single_sign_on_user_identifier
+        value: '{{ single_sign_on_user_identifier }}'
+      - name: single_sign_on_user_value
+        value: '{{ single_sign_on_user_value }}'
+      - name: user_profile_name
+        value: '{{ user_profile_name }}'
+      - name: user_settings
         value:
-          ExecutionRole: '{{ ExecutionRole }}'
-          AutoMountHomeEFS: '{{ AutoMountHomeEFS }}'
-          JupyterServerAppSettings:
-            DefaultResourceSpec:
-              InstanceType: '{{ InstanceType }}'
-              SageMakerImageArn: '{{ SageMakerImageArn }}'
-              SageMakerImageVersionArn: '{{ SageMakerImageVersionArn }}'
-              LifecycleConfigArn: '{{ LifecycleConfigArn }}'
-            LifecycleConfigArns:
-              - '{{ LifecycleConfigArns[0] }}'
-          KernelGatewayAppSettings:
-            CustomImages:
-              - AppImageConfigName: '{{ AppImageConfigName }}'
-                ImageName: '{{ ImageName }}'
-                ImageVersionNumber: '{{ ImageVersionNumber }}'
-            DefaultResourceSpec: null
-            LifecycleConfigArns:
+          execution_role: '{{ execution_role }}'
+          auto_mount_home_ef_s: '{{ auto_mount_home_ef_s }}'
+          jupyter_server_app_settings:
+            default_resource_spec:
+              instance_type: '{{ instance_type }}'
+              sage_maker_image_arn: '{{ sage_maker_image_arn }}'
+              sage_maker_image_version_arn: '{{ sage_maker_image_version_arn }}'
+              lifecycle_config_arn: '{{ lifecycle_config_arn }}'
+            lifecycle_config_arns:
+              - '{{ lifecycle_config_arns[0] }}'
+          kernel_gateway_app_settings:
+            custom_images:
+              - app_image_config_name: '{{ app_image_config_name }}'
+                image_name: '{{ image_name }}'
+                image_version_number: '{{ image_version_number }}'
+            default_resource_spec: null
+            lifecycle_config_arns:
               - null
-          RStudioServerProAppSettings:
-            AccessStatus: '{{ AccessStatus }}'
-            UserGroup: '{{ UserGroup }}'
-          JupyterLabAppSettings:
-            DefaultResourceSpec: null
-            LifecycleConfigArns:
+          r_studio_server_pro_app_settings:
+            access_status: '{{ access_status }}'
+            user_group: '{{ user_group }}'
+          jupyter_lab_app_settings:
+            default_resource_spec: null
+            lifecycle_config_arns:
               - null
-            CodeRepositories:
-              - RepositoryUrl: '{{ RepositoryUrl }}'
-            CustomImages:
+            code_repositories:
+              - repository_url: '{{ repository_url }}'
+            custom_images:
               - null
-            AppLifecycleManagement:
-              IdleSettings:
-                LifecycleManagement: '{{ LifecycleManagement }}'
-                IdleTimeoutInMinutes: '{{ IdleTimeoutInMinutes }}'
-                MinIdleTimeoutInMinutes: '{{ MinIdleTimeoutInMinutes }}'
-                MaxIdleTimeoutInMinutes: '{{ MaxIdleTimeoutInMinutes }}'
-            BuiltInLifecycleConfigArn: '{{ BuiltInLifecycleConfigArn }}'
-          SpaceStorageSettings:
-            DefaultEbsStorageSettings:
-              DefaultEbsVolumeSizeInGb: '{{ DefaultEbsVolumeSizeInGb }}'
-              MaximumEbsVolumeSizeInGb: null
-          CodeEditorAppSettings:
-            DefaultResourceSpec: null
-            LifecycleConfigArns:
+            app_lifecycle_management:
+              idle_settings:
+                lifecycle_management: '{{ lifecycle_management }}'
+                idle_timeout_in_minutes: '{{ idle_timeout_in_minutes }}'
+                min_idle_timeout_in_minutes: '{{ min_idle_timeout_in_minutes }}'
+                max_idle_timeout_in_minutes: '{{ max_idle_timeout_in_minutes }}'
+            built_in_lifecycle_config_arn: '{{ built_in_lifecycle_config_arn }}'
+          space_storage_settings:
+            default_ebs_storage_settings:
+              default_ebs_volume_size_in_gb: '{{ default_ebs_volume_size_in_gb }}'
+              maximum_ebs_volume_size_in_gb: null
+          code_editor_app_settings:
+            default_resource_spec: null
+            lifecycle_config_arns:
               - null
-            CustomImages:
+            custom_images:
               - null
-            AppLifecycleManagement: null
-            BuiltInLifecycleConfigArn: '{{ BuiltInLifecycleConfigArn }}'
-          StudioWebPortalSettings:
-            HiddenMlTools:
-              - '{{ HiddenMlTools[0] }}'
-            HiddenAppTypes:
-              - '{{ HiddenAppTypes[0] }}'
-            HiddenInstanceTypes:
-              - '{{ HiddenInstanceTypes[0] }}'
-            HiddenSageMakerImageVersionAliases:
-              - SageMakerImageName: '{{ SageMakerImageName }}'
-                VersionAliases:
-                  - '{{ VersionAliases[0] }}'
-          DefaultLandingUri: '{{ DefaultLandingUri }}'
-          StudioWebPortal: '{{ StudioWebPortal }}'
-          CustomPosixUserConfig:
-            Uid: '{{ Uid }}'
-            Gid: '{{ Gid }}'
-          CustomFileSystemConfigs:
-            - EFSFileSystemConfig:
-                FileSystemPath: '{{ FileSystemPath }}'
-                FileSystemId: '{{ FileSystemId }}'
-              FSxLustreFileSystemConfig:
-                FileSystemPath: '{{ FileSystemPath }}'
-                FileSystemId: '{{ FileSystemId }}'
-              S3FileSystemConfig:
-                MountPath: '{{ MountPath }}'
-                S3Uri: '{{ S3Uri }}'
-          SecurityGroups:
-            - '{{ SecurityGroups[0] }}'
-          SharingSettings:
-            NotebookOutputOption: '{{ NotebookOutputOption }}'
-            S3KmsKeyId: '{{ S3KmsKeyId }}'
-            S3OutputPath: '{{ S3OutputPath }}'
-      - name: Tags
+            app_lifecycle_management: null
+            built_in_lifecycle_config_arn: '{{ built_in_lifecycle_config_arn }}'
+          studio_web_portal_settings:
+            hidden_ml_tools:
+              - '{{ hidden_ml_tools[0] }}'
+            hidden_app_types:
+              - '{{ hidden_app_types[0] }}'
+            hidden_instance_types:
+              - '{{ hidden_instance_types[0] }}'
+            hidden_sage_maker_image_version_aliases:
+              - sage_maker_image_name: '{{ sage_maker_image_name }}'
+                version_aliases:
+                  - '{{ version_aliases[0] }}'
+          default_landing_uri: '{{ default_landing_uri }}'
+          studio_web_portal: '{{ studio_web_portal }}'
+          custom_posix_user_config:
+            uid: '{{ uid }}'
+            gid: '{{ gid }}'
+          custom_file_system_configs:
+            - e_fs_file_system_config:
+                file_system_path: '{{ file_system_path }}'
+                file_system_id: '{{ file_system_id }}'
+              f_sx_lustre_file_system_config:
+                file_system_path: '{{ file_system_path }}'
+                file_system_id: '{{ file_system_id }}'
+              s3_file_system_config:
+                mount_path: '{{ mount_path }}'
+                s3_uri: '{{ s3_uri }}'
+          security_groups:
+            - '{{ security_groups[0] }}'
+          sharing_settings:
+            notebook_output_option: '{{ notebook_output_option }}'
+            s3_kms_key_id: '{{ s3_kms_key_id }}'
+            s3_output_path: '{{ s3_output_path }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -840,7 +839,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.user_profiles
-WHERE Identifier = '<UserProfileName|DomainId>'
+WHERE Identifier = '{{ user_profile_name }}|{{ domain_id }}'
 AND region = 'us-east-1';
 ```
 

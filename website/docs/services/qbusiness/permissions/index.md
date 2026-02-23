@@ -174,7 +174,7 @@ actions,
 conditions,
 principal
 FROM awscc.qbusiness.permissions
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<StatementId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ statement_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,11 +214,11 @@ INSERT INTO awscc.qbusiness.permissions (
  Principal,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ StatementId }}',
- '{{ Actions }}',
- '{{ Principal }}',
+SELECT
+'{{ application_id }}',
+ '{{ statement_id }}',
+ '{{ actions }}',
+ '{{ principal }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,12 +234,12 @@ INSERT INTO awscc.qbusiness.permissions (
  Principal,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ StatementId }}',
- '{{ Actions }}',
- '{{ Conditions }}',
- '{{ Principal }}',
+SELECT
+ '{{ application_id }}',
+ '{{ statement_id }}',
+ '{{ actions }}',
+ '{{ conditions }}',
+ '{{ principal }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -257,22 +257,21 @@ globals:
 resources:
   - name: permission
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: StatementId
-        value: '{{ StatementId }}'
-      - name: Actions
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: statement_id
+        value: '{{ statement_id }}'
+      - name: actions
         value:
-          - '{{ Actions[0] }}'
-      - name: Conditions
+          - '{{ actions[0] }}'
+      - name: conditions
         value:
-          - ConditionOperator: '{{ ConditionOperator }}'
-            ConditionKey: '{{ ConditionKey }}'
-            ConditionValues:
-              - '{{ ConditionValues[0] }}'
-      - name: Principal
-        value: '{{ Principal }}'
-
+          - condition_operator: '{{ condition_operator }}'
+            condition_key: '{{ condition_key }}'
+            condition_values:
+              - '{{ condition_values[0] }}'
+      - name: principal
+        value: '{{ principal }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.permissions
-WHERE Identifier = '<ApplicationId|StatementId>'
+WHERE Identifier = '{{ application_id }}|{{ statement_id }}'
 AND region = 'us-east-1';
 ```
 

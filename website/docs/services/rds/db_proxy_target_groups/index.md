@@ -191,7 +191,7 @@ connection_pool_configuration_info,
 db_instance_identifiers,
 db_cluster_identifiers
 FROM awscc.rds.db_proxy_target_groups
-WHERE region = 'us-east-1' AND Identifier = '<TargetGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ target_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -228,9 +228,9 @@ INSERT INTO awscc.rds.db_proxy_target_groups (
  TargetGroupName,
  region
 )
-SELECT 
-'{{ DBProxyName }}',
- '{{ TargetGroupName }}',
+SELECT
+'{{ db_proxy_name }}',
+ '{{ target_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,12 +246,12 @@ INSERT INTO awscc.rds.db_proxy_target_groups (
  DBClusterIdentifiers,
  region
 )
-SELECT 
- '{{ DBProxyName }}',
- '{{ TargetGroupName }}',
- '{{ ConnectionPoolConfigurationInfo }}',
- '{{ DBInstanceIdentifiers }}',
- '{{ DBClusterIdentifiers }}',
+SELECT
+ '{{ db_proxy_name }}',
+ '{{ target_group_name }}',
+ '{{ connection_pool_configuration_info }}',
+ '{{ db_instance_identifiers }}',
+ '{{ db_cluster_identifiers }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -269,25 +269,24 @@ globals:
 resources:
   - name: db_proxy_target_group
     props:
-      - name: DBProxyName
-        value: '{{ DBProxyName }}'
-      - name: TargetGroupName
-        value: '{{ TargetGroupName }}'
-      - name: ConnectionPoolConfigurationInfo
+      - name: db_proxy_name
+        value: '{{ db_proxy_name }}'
+      - name: target_group_name
+        value: '{{ target_group_name }}'
+      - name: connection_pool_configuration_info
         value:
-          MaxConnectionsPercent: '{{ MaxConnectionsPercent }}'
-          MaxIdleConnectionsPercent: '{{ MaxIdleConnectionsPercent }}'
-          ConnectionBorrowTimeout: '{{ ConnectionBorrowTimeout }}'
-          SessionPinningFilters:
-            - '{{ SessionPinningFilters[0] }}'
-          InitQuery: '{{ InitQuery }}'
-      - name: DBInstanceIdentifiers
+          max_connections_percent: '{{ max_connections_percent }}'
+          max_idle_connections_percent: '{{ max_idle_connections_percent }}'
+          connection_borrow_timeout: '{{ connection_borrow_timeout }}'
+          session_pinning_filters:
+            - '{{ session_pinning_filters[0] }}'
+          init_query: '{{ init_query }}'
+      - name: db_instance_identifiers
         value:
-          - '{{ DBInstanceIdentifiers[0] }}'
-      - name: DBClusterIdentifiers
+          - '{{ db_instance_identifiers[0] }}'
+      - name: db_cluster_identifiers
         value:
-          - '{{ DBClusterIdentifiers[0] }}'
-
+          - '{{ db_cluster_identifiers[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "DBClusterIdentifiers": db_cluster_identifiers
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TargetGroupArn>';
+AND Identifier = '{{ target_group_arn }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<TargetGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxy_target_groups
-WHERE Identifier = '<TargetGroupArn>'
+WHERE Identifier = '{{ target_group_arn }}'
 AND region = 'us-east-1';
 ```
 

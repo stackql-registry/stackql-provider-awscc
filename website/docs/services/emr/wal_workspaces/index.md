@@ -152,7 +152,7 @@ region,
 wal_workspace_name,
 tags
 FROM awscc.emr.wal_workspaces
-WHERE region = 'us-east-1' AND Identifier = '<WALWorkspaceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ wal_workspace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.emr.wal_workspaces (
  Tags,
  region
 )
-SELECT 
-'{{ WALWorkspaceName }}',
- '{{ Tags }}',
+SELECT
+'{{ wal_workspace_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -204,9 +204,9 @@ INSERT INTO awscc.emr.wal_workspaces (
  Tags,
  region
 )
-SELECT 
- '{{ WALWorkspaceName }}',
- '{{ Tags }}',
+SELECT
+ '{{ wal_workspace_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -224,13 +224,12 @@ globals:
 resources:
   - name: wal_workspace
     props:
-      - name: WALWorkspaceName
-        value: '{{ WALWorkspaceName }}'
-      - name: Tags
+      - name: wal_workspace_name
+        value: '{{ wal_workspace_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +245,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WALWorkspaceName>';
+AND Identifier = '{{ wal_workspace_name }}';
 ```
 
 
@@ -255,7 +254,7 @@ AND Identifier = '<WALWorkspaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emr.wal_workspaces
-WHERE Identifier = '<WALWorkspaceName>'
+WHERE Identifier = '{{ wal_workspace_name }}'
 AND region = 'us-east-1';
 ```
 

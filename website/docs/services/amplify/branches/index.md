@@ -278,7 +278,7 @@ pull_request_environment_name,
 stage,
 tags
 FROM awscc.amplify.branches
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -315,9 +315,9 @@ INSERT INTO awscc.amplify.branches (
  BranchName,
  region
 )
-SELECT 
-'{{ AppId }}',
- '{{ BranchName }}',
+SELECT
+'{{ app_id }}',
+ '{{ branch_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -344,23 +344,23 @@ INSERT INTO awscc.amplify.branches (
  Tags,
  region
 )
-SELECT 
- '{{ AppId }}',
- '{{ BasicAuthConfig }}',
- '{{ Backend }}',
- '{{ BranchName }}',
- '{{ BuildSpec }}',
- '{{ ComputeRoleArn }}',
- '{{ Description }}',
- '{{ EnableAutoBuild }}',
- '{{ EnablePerformanceMode }}',
- '{{ EnablePullRequestPreview }}',
- '{{ EnableSkewProtection }}',
- '{{ EnvironmentVariables }}',
- '{{ Framework }}',
- '{{ PullRequestEnvironmentName }}',
- '{{ Stage }}',
- '{{ Tags }}',
+SELECT
+ '{{ app_id }}',
+ '{{ basic_auth_config }}',
+ '{{ backend }}',
+ '{{ branch_name }}',
+ '{{ build_spec }}',
+ '{{ compute_role_arn }}',
+ '{{ description }}',
+ '{{ enable_auto_build }}',
+ '{{ enable_performance_mode }}',
+ '{{ enable_pull_request_preview }}',
+ '{{ enable_skew_protection }}',
+ '{{ environment_variables }}',
+ '{{ framework }}',
+ '{{ pull_request_environment_name }}',
+ '{{ stage }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -378,47 +378,46 @@ globals:
 resources:
   - name: branch
     props:
-      - name: AppId
-        value: '{{ AppId }}'
-      - name: BasicAuthConfig
+      - name: app_id
+        value: '{{ app_id }}'
+      - name: basic_auth_config
         value:
-          EnableBasicAuth: '{{ EnableBasicAuth }}'
-          Username: '{{ Username }}'
-          Password: '{{ Password }}'
-      - name: Backend
+          enable_basic_auth: '{{ enable_basic_auth }}'
+          username: '{{ username }}'
+          password: '{{ password }}'
+      - name: backend
         value:
-          StackArn: '{{ StackArn }}'
-      - name: BranchName
-        value: '{{ BranchName }}'
-      - name: BuildSpec
-        value: '{{ BuildSpec }}'
-      - name: ComputeRoleArn
-        value: '{{ ComputeRoleArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnableAutoBuild
-        value: '{{ EnableAutoBuild }}'
-      - name: EnablePerformanceMode
-        value: '{{ EnablePerformanceMode }}'
-      - name: EnablePullRequestPreview
-        value: '{{ EnablePullRequestPreview }}'
-      - name: EnableSkewProtection
-        value: '{{ EnableSkewProtection }}'
-      - name: EnvironmentVariables
+          stack_arn: '{{ stack_arn }}'
+      - name: branch_name
+        value: '{{ branch_name }}'
+      - name: build_spec
+        value: '{{ build_spec }}'
+      - name: compute_role_arn
+        value: '{{ compute_role_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enable_auto_build
+        value: '{{ enable_auto_build }}'
+      - name: enable_performance_mode
+        value: '{{ enable_performance_mode }}'
+      - name: enable_pull_request_preview
+        value: '{{ enable_pull_request_preview }}'
+      - name: enable_skew_protection
+        value: '{{ enable_skew_protection }}'
+      - name: environment_variables
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-      - name: Framework
-        value: '{{ Framework }}'
-      - name: PullRequestEnvironmentName
-        value: '{{ PullRequestEnvironmentName }}'
-      - name: Stage
-        value: '{{ Stage }}'
-      - name: Tags
+          - name: '{{ name }}'
+            value: '{{ value }}'
+      - name: framework
+        value: '{{ framework }}'
+      - name: pull_request_environment_name
+        value: '{{ pull_request_environment_name }}'
+      - name: stage
+        value: '{{ stage }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -447,7 +446,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -456,7 +455,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplify.branches
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

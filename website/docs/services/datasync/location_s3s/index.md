@@ -189,7 +189,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.location_s3s
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,8 +225,8 @@ INSERT INTO awscc.datasync.location_s3s (
  S3Config,
  region
 )
-SELECT 
-'{{ S3Config }}',
+SELECT
+'{{ s3_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,12 +242,12 @@ INSERT INTO awscc.datasync.location_s3s (
  Tags,
  region
 )
-SELECT 
- '{{ S3Config }}',
- '{{ S3BucketArn }}',
- '{{ Subdirectory }}',
- '{{ S3StorageClass }}',
- '{{ Tags }}',
+SELECT
+ '{{ s3_config }}',
+ '{{ s3_bucket_arn }}',
+ '{{ subdirectory }}',
+ '{{ s3_storage_class }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -265,20 +265,19 @@ globals:
 resources:
   - name: location_s3
     props:
-      - name: S3Config
+      - name: s3_config
         value:
-          BucketAccessRoleArn: '{{ BucketAccessRoleArn }}'
-      - name: S3BucketArn
-        value: '{{ S3BucketArn }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: S3StorageClass
-        value: '{{ S3StorageClass }}'
-      - name: Tags
+          bucket_access_role_arn: '{{ bucket_access_role_arn }}'
+      - name: s3_bucket_arn
+        value: '{{ s3_bucket_arn }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: s3_storage_class
+        value: '{{ s3_storage_class }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -297,7 +296,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -306,7 +305,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_s3s
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

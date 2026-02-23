@@ -172,7 +172,7 @@ connector_provisioning_type,
 connector_provisioning_config,
 description
 FROM awscc.appflow.connectors
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorLabel>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_label }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,9 +209,9 @@ INSERT INTO awscc.appflow.connectors (
  ConnectorProvisioningConfig,
  region
 )
-SELECT 
-'{{ ConnectorProvisioningType }}',
- '{{ ConnectorProvisioningConfig }}',
+SELECT
+'{{ connector_provisioning_type }}',
+ '{{ connector_provisioning_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,11 +226,11 @@ INSERT INTO awscc.appflow.connectors (
  Description,
  region
 )
-SELECT 
- '{{ ConnectorLabel }}',
- '{{ ConnectorProvisioningType }}',
- '{{ ConnectorProvisioningConfig }}',
- '{{ Description }}',
+SELECT
+ '{{ connector_label }}',
+ '{{ connector_provisioning_type }}',
+ '{{ connector_provisioning_config }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,17 +248,16 @@ globals:
 resources:
   - name: connector
     props:
-      - name: ConnectorLabel
-        value: '{{ ConnectorLabel }}'
-      - name: ConnectorProvisioningType
-        value: '{{ ConnectorProvisioningType }}'
-      - name: ConnectorProvisioningConfig
+      - name: connector_label
+        value: '{{ connector_label }}'
+      - name: connector_provisioning_type
+        value: '{{ connector_provisioning_type }}'
+      - name: connector_provisioning_config
         value:
-          Lambda:
-            LambdaArn: '{{ LambdaArn }}'
-      - name: Description
-        value: '{{ Description }}'
-
+          lambda:
+            lambda_arn: '{{ lambda_arn }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -276,7 +275,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConnectorLabel>';
+AND Identifier = '{{ connector_label }}';
 ```
 
 
@@ -285,7 +284,7 @@ AND Identifier = '<ConnectorLabel>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appflow.connectors
-WHERE Identifier = '<ConnectorLabel>'
+WHERE Identifier = '{{ connector_label }}'
 AND region = 'us-east-1';
 ```
 

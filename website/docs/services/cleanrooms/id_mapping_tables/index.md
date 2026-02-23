@@ -233,7 +233,7 @@ input_reference_properties,
 kms_key_arn,
 tags
 FROM awscc.cleanrooms.id_mapping_tables
-WHERE region = 'us-east-1' AND Identifier = '<IdMappingTableIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,10 +272,10 @@ INSERT INTO awscc.cleanrooms.id_mapping_tables (
  Name,
  region
 )
-SELECT 
-'{{ InputReferenceConfig }}',
- '{{ MembershipIdentifier }}',
- '{{ Name }}',
+SELECT
+'{{ input_reference_config }}',
+ '{{ membership_identifier }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,13 +292,13 @@ INSERT INTO awscc.cleanrooms.id_mapping_tables (
  Tags,
  region
 )
-SELECT 
- '{{ InputReferenceConfig }}',
- '{{ MembershipIdentifier }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ KmsKeyArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ input_reference_config }}',
+ '{{ membership_identifier }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ kms_key_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,23 +316,22 @@ globals:
 resources:
   - name: id_mapping_table
     props:
-      - name: InputReferenceConfig
+      - name: input_reference_config
         value:
-          InputReferenceArn: '{{ InputReferenceArn }}'
-          ManageResourcePolicies: '{{ ManageResourcePolicies }}'
-      - name: MembershipIdentifier
-        value: '{{ MembershipIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Tags
+          input_reference_arn: '{{ input_reference_arn }}'
+          manage_resource_policies: '{{ manage_resource_policies }}'
+      - name: membership_identifier
+        value: '{{ membership_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +349,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdMappingTableIdentifier>|<MembershipIdentifier>';
+AND Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -359,7 +358,7 @@ AND Identifier = '<IdMappingTableIdentifier>|<MembershipIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.id_mapping_tables
-WHERE Identifier = '<IdMappingTableIdentifier|MembershipIdentifier>'
+WHERE Identifier = '{{ id_mapping_table_identifier }}|{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

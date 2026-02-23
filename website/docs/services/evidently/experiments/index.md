@@ -272,7 +272,7 @@ segment,
 remove_segment,
 tags
 FROM awscc.evidently.experiments
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -299,12 +299,12 @@ INSERT INTO awscc.evidently.experiments (
  OnlineAbConfig,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Project }}',
- '{{ Treatments }}',
- '{{ MetricGoals }}',
- '{{ OnlineAbConfig }}',
+SELECT
+'{{ name }}',
+ '{{ project }}',
+ '{{ treatments }}',
+ '{{ metric_goals }}',
+ '{{ online_ab_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -327,19 +327,19 @@ INSERT INTO awscc.evidently.experiments (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Project }}',
- '{{ Description }}',
- '{{ RunningStatus }}',
- '{{ RandomizationSalt }}',
- '{{ Treatments }}',
- '{{ MetricGoals }}',
- '{{ SamplingRate }}',
- '{{ OnlineAbConfig }}',
- '{{ Segment }}',
- '{{ RemoveSegment }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ project }}',
+ '{{ description }}',
+ '{{ running_status }}',
+ '{{ randomization_salt }}',
+ '{{ treatments }}',
+ '{{ metric_goals }}',
+ '{{ sampling_rate }}',
+ '{{ online_ab_config }}',
+ '{{ segment }}',
+ '{{ remove_segment }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -357,51 +357,50 @@ globals:
 resources:
   - name: experiment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Project
-        value: '{{ Project }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RunningStatus
+      - name: name
+        value: '{{ name }}'
+      - name: project
+        value: '{{ project }}'
+      - name: description
+        value: '{{ description }}'
+      - name: running_status
         value:
-          Status: '{{ Status }}'
-          AnalysisCompleteTime: '{{ AnalysisCompleteTime }}'
-          Reason: '{{ Reason }}'
-          DesiredState: '{{ DesiredState }}'
-      - name: RandomizationSalt
-        value: '{{ RandomizationSalt }}'
-      - name: Treatments
+          status: '{{ status }}'
+          analysis_complete_time: '{{ analysis_complete_time }}'
+          reason: '{{ reason }}'
+          desired_state: '{{ desired_state }}'
+      - name: randomization_salt
+        value: '{{ randomization_salt }}'
+      - name: treatments
         value:
-          - TreatmentName: '{{ TreatmentName }}'
-            Description: '{{ Description }}'
-            Feature: '{{ Feature }}'
-            Variation: '{{ Variation }}'
-      - name: MetricGoals
+          - treatment_name: '{{ treatment_name }}'
+            description: '{{ description }}'
+            feature: '{{ feature }}'
+            variation: '{{ variation }}'
+      - name: metric_goals
         value:
-          - MetricName: '{{ MetricName }}'
-            EntityIdKey: '{{ EntityIdKey }}'
-            ValueKey: '{{ ValueKey }}'
-            EventPattern: '{{ EventPattern }}'
-            UnitLabel: '{{ UnitLabel }}'
-            DesiredChange: '{{ DesiredChange }}'
-      - name: SamplingRate
-        value: '{{ SamplingRate }}'
-      - name: OnlineAbConfig
+          - metric_name: '{{ metric_name }}'
+            entity_id_key: '{{ entity_id_key }}'
+            value_key: '{{ value_key }}'
+            event_pattern: '{{ event_pattern }}'
+            unit_label: '{{ unit_label }}'
+            desired_change: '{{ desired_change }}'
+      - name: sampling_rate
+        value: '{{ sampling_rate }}'
+      - name: online_ab_config
         value:
-          ControlTreatmentName: '{{ ControlTreatmentName }}'
-          TreatmentWeights:
-            - Treatment: '{{ Treatment }}'
-              SplitWeight: '{{ SplitWeight }}'
-      - name: Segment
-        value: '{{ Segment }}'
-      - name: RemoveSegment
-        value: '{{ RemoveSegment }}'
-      - name: Tags
+          control_treatment_name: '{{ control_treatment_name }}'
+          treatment_weights:
+            - treatment: '{{ treatment }}'
+              split_weight: '{{ split_weight }}'
+      - name: segment
+        value: '{{ segment }}'
+      - name: remove_segment
+        value: '{{ remove_segment }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -426,7 +425,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -435,7 +434,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.experiments
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

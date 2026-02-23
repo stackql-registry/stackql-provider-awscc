@@ -533,7 +533,7 @@ log_configuration,
 tags,
 fleet_arn
 FROM awscc.gamelift.container_fleets
-WHERE region = 'us-east-1' AND Identifier = '<FleetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -569,8 +569,8 @@ INSERT INTO awscc.gamelift.container_fleets (
  FleetRoleArn,
  region
 )
-SELECT 
-'{{ FleetRoleArn }}',
+SELECT
+'{{ fleet_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -598,24 +598,24 @@ INSERT INTO awscc.gamelift.container_fleets (
  Tags,
  region
 )
-SELECT 
- '{{ FleetRoleArn }}',
- '{{ Description }}',
- '{{ GameServerContainerGroupDefinitionName }}',
- '{{ PerInstanceContainerGroupDefinitionName }}',
- '{{ InstanceConnectionPortRange }}',
- '{{ InstanceInboundPermissions }}',
- '{{ GameServerContainerGroupsPerInstance }}',
- '{{ DeploymentConfiguration }}',
- '{{ InstanceType }}',
- '{{ BillingType }}',
- '{{ Locations }}',
- '{{ ScalingPolicies }}',
- '{{ MetricGroups }}',
- '{{ NewGameSessionProtectionPolicy }}',
- '{{ GameSessionCreationLimitPolicy }}',
- '{{ LogConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ fleet_role_arn }}',
+ '{{ description }}',
+ '{{ game_server_container_group_definition_name }}',
+ '{{ per_instance_container_group_definition_name }}',
+ '{{ instance_connection_port_range }}',
+ '{{ instance_inbound_permissions }}',
+ '{{ game_server_container_groups_per_instance }}',
+ '{{ deployment_configuration }}',
+ '{{ instance_type }}',
+ '{{ billing_type }}',
+ '{{ locations }}',
+ '{{ scaling_policies }}',
+ '{{ metric_groups }}',
+ '{{ new_game_session_protection_policy }}',
+ '{{ game_session_creation_limit_policy }}',
+ '{{ log_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -633,79 +633,78 @@ globals:
 resources:
   - name: container_fleet
     props:
-      - name: FleetRoleArn
-        value: '{{ FleetRoleArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: GameServerContainerGroupDefinitionName
-        value: '{{ GameServerContainerGroupDefinitionName }}'
-      - name: PerInstanceContainerGroupDefinitionName
-        value: '{{ PerInstanceContainerGroupDefinitionName }}'
-      - name: InstanceConnectionPortRange
+      - name: fleet_role_arn
+        value: '{{ fleet_role_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: game_server_container_group_definition_name
+        value: '{{ game_server_container_group_definition_name }}'
+      - name: per_instance_container_group_definition_name
+        value: '{{ per_instance_container_group_definition_name }}'
+      - name: instance_connection_port_range
         value:
-          FromPort: '{{ FromPort }}'
-          ToPort: '{{ ToPort }}'
-      - name: InstanceInboundPermissions
+          from_port: '{{ from_port }}'
+          to_port: '{{ to_port }}'
+      - name: instance_inbound_permissions
         value:
-          - FromPort: '{{ FromPort }}'
-            IpRange: '{{ IpRange }}'
-            Protocol: '{{ Protocol }}'
-            ToPort: '{{ ToPort }}'
-      - name: GameServerContainerGroupsPerInstance
-        value: '{{ GameServerContainerGroupsPerInstance }}'
-      - name: DeploymentConfiguration
+          - from_port: '{{ from_port }}'
+            ip_range: '{{ ip_range }}'
+            protocol: '{{ protocol }}'
+            to_port: '{{ to_port }}'
+      - name: game_server_container_groups_per_instance
+        value: '{{ game_server_container_groups_per_instance }}'
+      - name: deployment_configuration
         value:
-          ProtectionStrategy: '{{ ProtectionStrategy }}'
-          MinimumHealthyPercentage: '{{ MinimumHealthyPercentage }}'
-          ImpairmentStrategy: '{{ ImpairmentStrategy }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: BillingType
-        value: '{{ BillingType }}'
-      - name: Locations
+          protection_strategy: '{{ protection_strategy }}'
+          minimum_healthy_percentage: '{{ minimum_healthy_percentage }}'
+          impairment_strategy: '{{ impairment_strategy }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: billing_type
+        value: '{{ billing_type }}'
+      - name: locations
         value:
-          - Location:
-              LocationName: '{{ LocationName }}'
-              Tags:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-            LocationCapacity:
-              DesiredEC2Instances: '{{ DesiredEC2Instances }}'
-              MinSize: '{{ MinSize }}'
-              MaxSize: '{{ MaxSize }}'
-      - name: ScalingPolicies
+          - location:
+              location_name: '{{ location_name }}'
+              tags:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+            location_capacity:
+              desired_ec2_instances: '{{ desired_ec2_instances }}'
+              min_size: '{{ min_size }}'
+              max_size: '{{ max_size }}'
+      - name: scaling_policies
         value:
-          - ComparisonOperator: '{{ ComparisonOperator }}'
-            EvaluationPeriods: '{{ EvaluationPeriods }}'
-            Location: null
-            MetricName: '{{ MetricName }}'
-            Name: '{{ Name }}'
-            PolicyType: '{{ PolicyType }}'
-            ScalingAdjustment: '{{ ScalingAdjustment }}'
-            ScalingAdjustmentType: '{{ ScalingAdjustmentType }}'
-            Status: '{{ Status }}'
-            TargetConfiguration:
-              TargetValue: null
-            Threshold: null
-            UpdateStatus: '{{ UpdateStatus }}'
-      - name: MetricGroups
+          - comparison_operator: '{{ comparison_operator }}'
+            evaluation_periods: '{{ evaluation_periods }}'
+            location: null
+            metric_name: '{{ metric_name }}'
+            name: '{{ name }}'
+            policy_type: '{{ policy_type }}'
+            scaling_adjustment: '{{ scaling_adjustment }}'
+            scaling_adjustment_type: '{{ scaling_adjustment_type }}'
+            status: '{{ status }}'
+            target_configuration:
+              target_value: null
+            threshold: null
+            update_status: '{{ update_status }}'
+      - name: metric_groups
         value:
-          - '{{ MetricGroups[0] }}'
-      - name: NewGameSessionProtectionPolicy
-        value: '{{ NewGameSessionProtectionPolicy }}'
-      - name: GameSessionCreationLimitPolicy
+          - '{{ metric_groups[0] }}'
+      - name: new_game_session_protection_policy
+        value: '{{ new_game_session_protection_policy }}'
+      - name: game_session_creation_limit_policy
         value:
-          NewGameSessionsPerCreator: '{{ NewGameSessionsPerCreator }}'
-          PolicyPeriodInMinutes: '{{ PolicyPeriodInMinutes }}'
-      - name: LogConfiguration
+          new_game_sessions_per_creator: '{{ new_game_sessions_per_creator }}'
+          policy_period_in_minutes: '{{ policy_period_in_minutes }}'
+      - name: log_configuration
         value:
-          LogDestination: '{{ LogDestination }}'
-          LogGroupArn: '{{ LogGroupArn }}'
-          S3BucketName: '{{ S3BucketName }}'
-      - name: Tags
+          log_destination: '{{ log_destination }}'
+          log_group_arn: '{{ log_group_arn }}'
+          s3_bucket_name: '{{ s3_bucket_name }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -735,7 +734,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FleetId>';
+AND Identifier = '{{ fleet_id }}';
 ```
 
 
@@ -744,7 +743,7 @@ AND Identifier = '<FleetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.container_fleets
-WHERE Identifier = '<FleetId>'
+WHERE Identifier = '{{ fleet_id }}'
 AND region = 'us-east-1';
 ```
 

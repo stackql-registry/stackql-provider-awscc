@@ -338,7 +338,7 @@ arn,
 tags,
 is_logging
 FROM awscc.cloudtrail.trails
-WHERE region = 'us-east-1' AND Identifier = '<TrailName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ trail_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -375,9 +375,9 @@ INSERT INTO awscc.cloudtrail.trails (
  IsLogging,
  region
 )
-SELECT 
-'{{ S3BucketName }}',
- '{{ IsLogging }}',
+SELECT
+'{{ s3_bucket_name }}',
+ '{{ is_logging }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -404,23 +404,23 @@ INSERT INTO awscc.cloudtrail.trails (
  IsLogging,
  region
 )
-SELECT 
- '{{ IncludeGlobalServiceEvents }}',
- '{{ EventSelectors }}',
- '{{ KMSKeyId }}',
- '{{ CloudWatchLogsRoleArn }}',
- '{{ S3KeyPrefix }}',
- '{{ AdvancedEventSelectors }}',
- '{{ TrailName }}',
- '{{ IsOrganizationTrail }}',
- '{{ InsightSelectors }}',
- '{{ CloudWatchLogsLogGroupArn }}',
- '{{ SnsTopicName }}',
- '{{ IsMultiRegionTrail }}',
- '{{ S3BucketName }}',
- '{{ EnableLogFileValidation }}',
- '{{ Tags }}',
- '{{ IsLogging }}',
+SELECT
+ '{{ include_global_service_events }}',
+ '{{ event_selectors }}',
+ '{{ kms_key_id }}',
+ '{{ cloud_watch_logs_role_arn }}',
+ '{{ s3_key_prefix }}',
+ '{{ advanced_event_selectors }}',
+ '{{ trail_name }}',
+ '{{ is_organization_trail }}',
+ '{{ insight_selectors }}',
+ '{{ cloud_watch_logs_log_group_arn }}',
+ '{{ sns_topic_name }}',
+ '{{ is_multi_region_trail }}',
+ '{{ s3_bucket_name }}',
+ '{{ enable_log_file_validation }}',
+ '{{ tags }}',
+ '{{ is_logging }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -438,65 +438,64 @@ globals:
 resources:
   - name: trail
     props:
-      - name: IncludeGlobalServiceEvents
-        value: '{{ IncludeGlobalServiceEvents }}'
-      - name: EventSelectors
+      - name: include_global_service_events
+        value: '{{ include_global_service_events }}'
+      - name: event_selectors
         value:
-          - IncludeManagementEvents: '{{ IncludeManagementEvents }}'
-            ReadWriteType: '{{ ReadWriteType }}'
-            ExcludeManagementEventSources:
-              - '{{ ExcludeManagementEventSources[0] }}'
-            DataResources:
-              - Type: '{{ Type }}'
-                Values:
-                  - '{{ Values[0] }}'
-      - name: KMSKeyId
-        value: '{{ KMSKeyId }}'
-      - name: CloudWatchLogsRoleArn
-        value: '{{ CloudWatchLogsRoleArn }}'
-      - name: S3KeyPrefix
-        value: '{{ S3KeyPrefix }}'
-      - name: AdvancedEventSelectors
+          - include_management_events: '{{ include_management_events }}'
+            read_write_type: '{{ read_write_type }}'
+            exclude_management_event_sources:
+              - '{{ exclude_management_event_sources[0] }}'
+            data_resources:
+              - type: '{{ type }}'
+                values:
+                  - '{{ values[0] }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: cloud_watch_logs_role_arn
+        value: '{{ cloud_watch_logs_role_arn }}'
+      - name: s3_key_prefix
+        value: '{{ s3_key_prefix }}'
+      - name: advanced_event_selectors
         value:
-          - FieldSelectors:
-              - Field: '{{ Field }}'
-                Equals:
-                  - '{{ Equals[0] }}'
-                NotStartsWith:
-                  - '{{ NotStartsWith[0] }}'
-                NotEndsWith:
-                  - '{{ NotEndsWith[0] }}'
-                StartsWith:
-                  - '{{ StartsWith[0] }}'
-                EndsWith:
-                  - '{{ EndsWith[0] }}'
-                NotEquals:
-                  - '{{ NotEquals[0] }}'
-            Name: '{{ Name }}'
-      - name: TrailName
-        value: '{{ TrailName }}'
-      - name: IsOrganizationTrail
-        value: '{{ IsOrganizationTrail }}'
-      - name: InsightSelectors
+          - field_selectors:
+              - field: '{{ field }}'
+                equals:
+                  - '{{ equals[0] }}'
+                not_starts_with:
+                  - '{{ not_starts_with[0] }}'
+                not_ends_with:
+                  - '{{ not_ends_with[0] }}'
+                starts_with:
+                  - '{{ starts_with[0] }}'
+                ends_with:
+                  - '{{ ends_with[0] }}'
+                not_equals:
+                  - '{{ not_equals[0] }}'
+            name: '{{ name }}'
+      - name: trail_name
+        value: '{{ trail_name }}'
+      - name: is_organization_trail
+        value: '{{ is_organization_trail }}'
+      - name: insight_selectors
         value:
-          - InsightType: '{{ InsightType }}'
-      - name: CloudWatchLogsLogGroupArn
-        value: '{{ CloudWatchLogsLogGroupArn }}'
-      - name: SnsTopicName
-        value: '{{ SnsTopicName }}'
-      - name: IsMultiRegionTrail
-        value: '{{ IsMultiRegionTrail }}'
-      - name: S3BucketName
-        value: '{{ S3BucketName }}'
-      - name: EnableLogFileValidation
-        value: '{{ EnableLogFileValidation }}'
-      - name: Tags
+          - insight_type: '{{ insight_type }}'
+      - name: cloud_watch_logs_log_group_arn
+        value: '{{ cloud_watch_logs_log_group_arn }}'
+      - name: sns_topic_name
+        value: '{{ sns_topic_name }}'
+      - name: is_multi_region_trail
+        value: '{{ is_multi_region_trail }}'
+      - name: s3_bucket_name
+        value: '{{ s3_bucket_name }}'
+      - name: enable_log_file_validation
+        value: '{{ enable_log_file_validation }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: IsLogging
-        value: '{{ IsLogging }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: is_logging
+        value: '{{ is_logging }}'
 ```
 </TabItem>
 </Tabs>
@@ -526,7 +525,7 @@ SET PatchDocument = string('{{ {
     "IsLogging": is_logging
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrailName>';
+AND Identifier = '{{ trail_name }}';
 ```
 
 
@@ -535,7 +534,7 @@ AND Identifier = '<TrailName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.trails
-WHERE Identifier = '<TrailName>'
+WHERE Identifier = '{{ trail_name }}'
 AND region = 'us-east-1';
 ```
 

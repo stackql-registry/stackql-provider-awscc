@@ -232,7 +232,7 @@ tags,
 arn,
 s3_bucket_arn
 FROM awscc.securitylake.data_lakes
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,12 +272,12 @@ INSERT INTO awscc.securitylake.data_lakes (
  Tags,
  region
 )
-SELECT 
-'{{ EncryptionConfiguration }}',
- '{{ LifecycleConfiguration }}',
- '{{ ReplicationConfiguration }}',
- '{{ MetaStoreManagerRoleArn }}',
- '{{ Tags }}',
+SELECT
+'{{ encryption_configuration }}',
+ '{{ lifecycle_configuration }}',
+ '{{ replication_configuration }}',
+ '{{ meta_store_manager_role_arn }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,12 +293,12 @@ INSERT INTO awscc.securitylake.data_lakes (
  Tags,
  region
 )
-SELECT 
- '{{ EncryptionConfiguration }}',
- '{{ LifecycleConfiguration }}',
- '{{ ReplicationConfiguration }}',
- '{{ MetaStoreManagerRoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ encryption_configuration }}',
+ '{{ lifecycle_configuration }}',
+ '{{ replication_configuration }}',
+ '{{ meta_store_manager_role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,28 +316,27 @@ globals:
 resources:
   - name: data_lake
     props:
-      - name: EncryptionConfiguration
+      - name: encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: LifecycleConfiguration
+          kms_key_id: '{{ kms_key_id }}'
+      - name: lifecycle_configuration
         value:
-          Expiration:
-            Days: '{{ Days }}'
-          Transitions:
-            - Days: '{{ Days }}'
-              StorageClass: '{{ StorageClass }}'
-      - name: ReplicationConfiguration
+          expiration:
+            days: '{{ days }}'
+          transitions:
+            - days: '{{ days }}'
+              storage_class: '{{ storage_class }}'
+      - name: replication_configuration
         value:
-          Regions:
-            - '{{ Regions[0] }}'
-          RoleArn: '{{ RoleArn }}'
-      - name: MetaStoreManagerRoleArn
-        value: '{{ MetaStoreManagerRoleArn }}'
-      - name: Tags
+          regions:
+            - '{{ regions[0] }}'
+          role_arn: '{{ role_arn }}'
+      - name: meta_store_manager_role_arn
+        value: '{{ meta_store_manager_role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +356,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -366,7 +365,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.data_lakes
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

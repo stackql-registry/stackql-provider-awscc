@@ -200,7 +200,7 @@ findings_found,
 analyzed_eni_count,
 tags
 FROM awscc.ec2.network_insights_access_scope_analyses
-WHERE region = 'us-east-1' AND Identifier = '<NetworkInsightsAccessScopeAnalysisId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_access_scope_analysis_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,8 +236,8 @@ INSERT INTO awscc.ec2.network_insights_access_scope_analyses (
  NetworkInsightsAccessScopeId,
  region
 )
-SELECT 
-'{{ NetworkInsightsAccessScopeId }}',
+SELECT
+'{{ network_insights_access_scope_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,9 +250,9 @@ INSERT INTO awscc.ec2.network_insights_access_scope_analyses (
  Tags,
  region
 )
-SELECT 
- '{{ NetworkInsightsAccessScopeId }}',
- '{{ Tags }}',
+SELECT
+ '{{ network_insights_access_scope_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,13 +270,12 @@ globals:
 resources:
   - name: network_insights_access_scope_analysis
     props:
-      - name: NetworkInsightsAccessScopeId
-        value: '{{ NetworkInsightsAccessScopeId }}'
-      - name: Tags
+      - name: network_insights_access_scope_id
+        value: '{{ network_insights_access_scope_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NetworkInsightsAccessScopeAnalysisId>';
+AND Identifier = '{{ network_insights_access_scope_analysis_id }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<NetworkInsightsAccessScopeAnalysisId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_access_scope_analyses
-WHERE Identifier = '<NetworkInsightsAccessScopeAnalysisId>'
+WHERE Identifier = '{{ network_insights_access_scope_analysis_id }}'
 AND region = 'us-east-1';
 ```
 

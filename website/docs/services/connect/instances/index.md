@@ -262,7 +262,7 @@ directory_id,
 attributes,
 tags
 FROM awscc.connect.instances
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -299,9 +299,9 @@ INSERT INTO awscc.connect.instances (
  Attributes,
  region
 )
-SELECT 
-'{{ IdentityManagementType }}',
- '{{ Attributes }}',
+SELECT
+'{{ identity_management_type }}',
+ '{{ attributes }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,12 +317,12 @@ INSERT INTO awscc.connect.instances (
  Tags,
  region
 )
-SELECT 
- '{{ IdentityManagementType }}',
- '{{ InstanceAlias }}',
- '{{ DirectoryId }}',
- '{{ Attributes }}',
- '{{ Tags }}',
+SELECT
+ '{{ identity_management_type }}',
+ '{{ instance_alias }}',
+ '{{ directory_id }}',
+ '{{ attributes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -340,31 +340,30 @@ globals:
 resources:
   - name: instance
     props:
-      - name: IdentityManagementType
-        value: '{{ IdentityManagementType }}'
-      - name: InstanceAlias
-        value: '{{ InstanceAlias }}'
-      - name: DirectoryId
-        value: '{{ DirectoryId }}'
-      - name: Attributes
+      - name: identity_management_type
+        value: '{{ identity_management_type }}'
+      - name: instance_alias
+        value: '{{ instance_alias }}'
+      - name: directory_id
+        value: '{{ directory_id }}'
+      - name: attributes
         value:
-          InboundCalls: '{{ InboundCalls }}'
-          OutboundCalls: '{{ OutboundCalls }}'
-          ContactflowLogs: '{{ ContactflowLogs }}'
-          ContactLens: '{{ ContactLens }}'
-          AutoResolveBestVoices: '{{ AutoResolveBestVoices }}'
-          UseCustomTTSVoices: '{{ UseCustomTTSVoices }}'
-          EarlyMedia: '{{ EarlyMedia }}'
-          MultiPartyConference: '{{ MultiPartyConference }}'
-          HighVolumeOutBound: '{{ HighVolumeOutBound }}'
-          EnhancedContactMonitoring: '{{ EnhancedContactMonitoring }}'
-          EnhancedChatMonitoring: '{{ EnhancedChatMonitoring }}'
-          MultiPartyChatConference: '{{ MultiPartyChatConference }}'
-      - name: Tags
+          inbound_calls: '{{ inbound_calls }}'
+          outbound_calls: '{{ outbound_calls }}'
+          contactflow_logs: '{{ contactflow_logs }}'
+          contact_lens: '{{ contact_lens }}'
+          auto_resolve_best_voices: '{{ auto_resolve_best_voices }}'
+          use_custom_tt_svoices: '{{ use_custom_tt_svoices }}'
+          early_media: '{{ early_media }}'
+          multi_party_conference: '{{ multi_party_conference }}'
+          high_volume_out_bound: '{{ high_volume_out_bound }}'
+          enhanced_contact_monitoring: '{{ enhanced_contact_monitoring }}'
+          enhanced_chat_monitoring: '{{ enhanced_chat_monitoring }}'
+          multi_party_chat_conference: '{{ multi_party_chat_conference }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -381,7 +380,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -390,7 +389,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.instances
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

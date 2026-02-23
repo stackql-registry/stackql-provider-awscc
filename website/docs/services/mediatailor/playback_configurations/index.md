@@ -405,7 +405,7 @@ tags,
 transcode_profile_name,
 video_content_source_url
 FROM awscc.mediatailor.playback_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -443,10 +443,10 @@ INSERT INTO awscc.mediatailor.playback_configurations (
  VideoContentSourceUrl,
  region
 )
-SELECT 
-'{{ AdDecisionServerUrl }}',
- '{{ Name }}',
- '{{ VideoContentSourceUrl }}',
+SELECT
+'{{ ad_decision_server_url }}',
+ '{{ name }}',
+ '{{ video_content_source_url }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -475,25 +475,25 @@ INSERT INTO awscc.mediatailor.playback_configurations (
  VideoContentSourceUrl,
  region
 )
-SELECT 
- '{{ AdConditioningConfiguration }}',
- '{{ AdDecisionServerUrl }}',
- '{{ AvailSuppression }}',
- '{{ Bumper }}',
- '{{ CdnConfiguration }}',
- '{{ ConfigurationAliases }}',
- '{{ DashConfiguration }}',
- '{{ InsertionMode }}',
- '{{ LivePreRollConfiguration }}',
- '{{ ManifestProcessingRules }}',
- '{{ Name }}',
- '{{ PersonalizationThresholdSeconds }}',
- '{{ HlsConfiguration }}',
- '{{ LogConfiguration }}',
- '{{ SlateAdUrl }}',
- '{{ Tags }}',
- '{{ TranscodeProfileName }}',
- '{{ VideoContentSourceUrl }}',
+SELECT
+ '{{ ad_conditioning_configuration }}',
+ '{{ ad_decision_server_url }}',
+ '{{ avail_suppression }}',
+ '{{ bumper }}',
+ '{{ cdn_configuration }}',
+ '{{ configuration_aliases }}',
+ '{{ dash_configuration }}',
+ '{{ insertion_mode }}',
+ '{{ live_pre_roll_configuration }}',
+ '{{ manifest_processing_rules }}',
+ '{{ name }}',
+ '{{ personalization_threshold_seconds }}',
+ '{{ hls_configuration }}',
+ '{{ log_configuration }}',
+ '{{ slate_ad_url }}',
+ '{{ tags }}',
+ '{{ transcode_profile_name }}',
+ '{{ video_content_source_url }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -511,72 +511,71 @@ globals:
 resources:
   - name: playback_configuration
     props:
-      - name: AdConditioningConfiguration
+      - name: ad_conditioning_configuration
         value:
-          StreamingMediaFileConditioning: '{{ StreamingMediaFileConditioning }}'
-      - name: AdDecisionServerUrl
-        value: '{{ AdDecisionServerUrl }}'
-      - name: AvailSuppression
+          streaming_media_file_conditioning: '{{ streaming_media_file_conditioning }}'
+      - name: ad_decision_server_url
+        value: '{{ ad_decision_server_url }}'
+      - name: avail_suppression
         value:
-          Mode: '{{ Mode }}'
-          Value: '{{ Value }}'
-          FillPolicy: '{{ FillPolicy }}'
-      - name: Bumper
+          mode: '{{ mode }}'
+          value: '{{ value }}'
+          fill_policy: '{{ fill_policy }}'
+      - name: bumper
         value:
-          StartUrl: '{{ StartUrl }}'
-          EndUrl: '{{ EndUrl }}'
-      - name: CdnConfiguration
+          start_url: '{{ start_url }}'
+          end_url: '{{ end_url }}'
+      - name: cdn_configuration
         value:
-          AdSegmentUrlPrefix: '{{ AdSegmentUrlPrefix }}'
-          ContentSegmentUrlPrefix: '{{ ContentSegmentUrlPrefix }}'
-      - name: ConfigurationAliases
+          ad_segment_url_prefix: '{{ ad_segment_url_prefix }}'
+          content_segment_url_prefix: '{{ content_segment_url_prefix }}'
+      - name: configuration_aliases
         value: null
-      - name: DashConfiguration
+      - name: dash_configuration
         value:
-          MpdLocation: '{{ MpdLocation }}'
-          OriginManifestType: '{{ OriginManifestType }}'
-          ManifestEndpointPrefix: '{{ ManifestEndpointPrefix }}'
-      - name: InsertionMode
-        value: '{{ InsertionMode }}'
-      - name: LivePreRollConfiguration
+          mpd_location: '{{ mpd_location }}'
+          origin_manifest_type: '{{ origin_manifest_type }}'
+          manifest_endpoint_prefix: '{{ manifest_endpoint_prefix }}'
+      - name: insertion_mode
+        value: '{{ insertion_mode }}'
+      - name: live_pre_roll_configuration
         value:
-          AdDecisionServerUrl: '{{ AdDecisionServerUrl }}'
-          MaxDurationSeconds: '{{ MaxDurationSeconds }}'
-      - name: ManifestProcessingRules
+          ad_decision_server_url: '{{ ad_decision_server_url }}'
+          max_duration_seconds: '{{ max_duration_seconds }}'
+      - name: manifest_processing_rules
         value:
-          AdMarkerPassthrough:
-            Enabled: '{{ Enabled }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: PersonalizationThresholdSeconds
-        value: '{{ PersonalizationThresholdSeconds }}'
-      - name: HlsConfiguration
+          ad_marker_passthrough:
+            enabled: '{{ enabled }}'
+      - name: name
+        value: '{{ name }}'
+      - name: personalization_threshold_seconds
+        value: '{{ personalization_threshold_seconds }}'
+      - name: hls_configuration
         value:
-          ManifestEndpointPrefix: '{{ ManifestEndpointPrefix }}'
-      - name: LogConfiguration
+          manifest_endpoint_prefix: '{{ manifest_endpoint_prefix }}'
+      - name: log_configuration
         value:
-          AdsInteractionLog:
-            ExcludeEventTypes:
-              - '{{ ExcludeEventTypes[0] }}'
-            PublishOptInEventTypes:
-              - '{{ PublishOptInEventTypes[0] }}'
-          EnabledLoggingStrategies:
-            - '{{ EnabledLoggingStrategies[0] }}'
-          ManifestServiceInteractionLog:
-            ExcludeEventTypes:
-              - '{{ ExcludeEventTypes[0] }}'
-          PercentEnabled: '{{ PercentEnabled }}'
-      - name: SlateAdUrl
-        value: '{{ SlateAdUrl }}'
-      - name: Tags
+          ads_interaction_log:
+            exclude_event_types:
+              - '{{ exclude_event_types[0] }}'
+            publish_opt_in_event_types:
+              - '{{ publish_opt_in_event_types[0] }}'
+          enabled_logging_strategies:
+            - '{{ enabled_logging_strategies[0] }}'
+          manifest_service_interaction_log:
+            exclude_event_types:
+              - '{{ exclude_event_types[0] }}'
+          percent_enabled: '{{ percent_enabled }}'
+      - name: slate_ad_url
+        value: '{{ slate_ad_url }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TranscodeProfileName
-        value: '{{ TranscodeProfileName }}'
-      - name: VideoContentSourceUrl
-        value: '{{ VideoContentSourceUrl }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: transcode_profile_name
+        value: '{{ transcode_profile_name }}'
+      - name: video_content_source_url
+        value: '{{ video_content_source_url }}'
 ```
 </TabItem>
 </Tabs>
@@ -606,7 +605,7 @@ SET PatchDocument = string('{{ {
     "VideoContentSourceUrl": video_content_source_url
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -615,7 +614,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.playback_configurations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -182,7 +182,7 @@ project_arn,
 asset_ids,
 tags
 FROM awscc.iotsitewise.projects
-WHERE region = 'us-east-1' AND Identifier = '<ProjectId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ project_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.iotsitewise.projects (
  ProjectName,
  region
 )
-SELECT 
-'{{ PortalId }}',
- '{{ ProjectName }}',
+SELECT
+'{{ portal_id }}',
+ '{{ project_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,12 +237,12 @@ INSERT INTO awscc.iotsitewise.projects (
  Tags,
  region
 )
-SELECT 
- '{{ PortalId }}',
- '{{ ProjectName }}',
- '{{ ProjectDescription }}',
- '{{ AssetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ portal_id }}',
+ '{{ project_name }}',
+ '{{ project_description }}',
+ '{{ asset_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,20 +260,19 @@ globals:
 resources:
   - name: project
     props:
-      - name: PortalId
-        value: '{{ PortalId }}'
-      - name: ProjectName
-        value: '{{ ProjectName }}'
-      - name: ProjectDescription
-        value: '{{ ProjectDescription }}'
-      - name: AssetIds
+      - name: portal_id
+        value: '{{ portal_id }}'
+      - name: project_name
+        value: '{{ project_name }}'
+      - name: project_description
+        value: '{{ project_description }}'
+      - name: asset_ids
         value:
-          - '{{ AssetIds[0] }}'
-      - name: Tags
+          - '{{ asset_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProjectId>';
+AND Identifier = '{{ project_id }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<ProjectId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.projects
-WHERE Identifier = '<ProjectId>'
+WHERE Identifier = '{{ project_id }}'
 AND region = 'us-east-1';
 ```
 

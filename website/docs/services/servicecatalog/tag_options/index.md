@@ -152,7 +152,7 @@ active,
 value,
 key
 FROM awscc.servicecatalog.tag_options
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.servicecatalog.tag_options (
  Key,
  region
 )
-SELECT 
-'{{ Value }}',
- '{{ Key }}',
+SELECT
+'{{ value }}',
+ '{{ key }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -205,10 +205,10 @@ INSERT INTO awscc.servicecatalog.tag_options (
  Key,
  region
 )
-SELECT 
- '{{ Active }}',
- '{{ Value }}',
- '{{ Key }}',
+SELECT
+ '{{ active }}',
+ '{{ value }}',
+ '{{ key }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -226,13 +226,12 @@ globals:
 resources:
   - name: tag_option
     props:
-      - name: Active
-        value: '{{ Active }}'
-      - name: Value
-        value: '{{ Value }}'
-      - name: Key
-        value: '{{ Key }}'
-
+      - name: active
+        value: '{{ active }}'
+      - name: value
+        value: '{{ value }}'
+      - name: key
+        value: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -248,7 +247,7 @@ SET PatchDocument = string('{{ {
     "Active": active
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -257,7 +256,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.tag_options
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

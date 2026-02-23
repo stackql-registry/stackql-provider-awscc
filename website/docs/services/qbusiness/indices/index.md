@@ -266,7 +266,7 @@ status,
 tags,
 updated_at
 FROM awscc.qbusiness.indices
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<IndexId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,9 +304,9 @@ INSERT INTO awscc.qbusiness.indices (
  DisplayName,
  region
 )
-SELECT 
-'{{ ApplicationId }}',
- '{{ DisplayName }}',
+SELECT
+'{{ application_id }}',
+ '{{ display_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -324,14 +324,14 @@ INSERT INTO awscc.qbusiness.indices (
  Tags,
  region
 )
-SELECT 
- '{{ ApplicationId }}',
- '{{ CapacityConfiguration }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ DocumentAttributeConfigurations }}',
- '{{ Type }}',
- '{{ Tags }}',
+SELECT
+ '{{ application_id }}',
+ '{{ capacity_configuration }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ document_attribute_configurations }}',
+ '{{ type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,27 +349,26 @@ globals:
 resources:
   - name: index
     props:
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: CapacityConfiguration
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: capacity_configuration
         value:
-          Units: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: DocumentAttributeConfigurations
+          units: null
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: document_attribute_configurations
         value:
-          - Name: '{{ Name }}'
-            Type: '{{ Type }}'
-            Search: '{{ Search }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+          - name: '{{ name }}'
+            type: '{{ type }}'
+            search: '{{ search }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -389,7 +388,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<IndexId>';
+AND Identifier = '{{ application_id }}|{{ index_id }}';
 ```
 
 
@@ -398,7 +397,7 @@ AND Identifier = '<ApplicationId>|<IndexId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.indices
-WHERE Identifier = '<ApplicationId|IndexId>'
+WHERE Identifier = '{{ application_id }}|{{ index_id }}'
 AND region = 'us-east-1';
 ```
 

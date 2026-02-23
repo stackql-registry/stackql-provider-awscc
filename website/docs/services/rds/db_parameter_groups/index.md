@@ -170,7 +170,7 @@ family,
 parameters,
 tags
 FROM awscc.rds.db_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<DBParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.rds.db_parameter_groups (
  Family,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Family }}',
+SELECT
+'{{ description }}',
+ '{{ family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,12 +225,12 @@ INSERT INTO awscc.rds.db_parameter_groups (
  Tags,
  region
 )
-SELECT 
- '{{ DBParameterGroupName }}',
- '{{ Description }}',
- '{{ Family }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ db_parameter_group_name }}',
+ '{{ description }}',
+ '{{ family }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,19 +248,18 @@ globals:
 resources:
   - name: db_parameter_group
     props:
-      - name: DBParameterGroupName
-        value: '{{ DBParameterGroupName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Family
-        value: '{{ Family }}'
-      - name: Parameters
+      - name: db_parameter_group_name
+        value: '{{ db_parameter_group_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: family
+        value: '{{ family }}'
+      - name: parameters
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -277,7 +276,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBParameterGroupName>';
+AND Identifier = '{{ db_parameter_group_name }}';
 ```
 
 
@@ -286,7 +285,7 @@ AND Identifier = '<DBParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_parameter_groups
-WHERE Identifier = '<DBParameterGroupName>'
+WHERE Identifier = '{{ db_parameter_group_name }}'
 AND region = 'us-east-1';
 ```
 

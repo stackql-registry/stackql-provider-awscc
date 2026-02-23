@@ -266,7 +266,7 @@ sse_configuration,
 identity_provider_configuration,
 tags
 FROM awscc.healthlake.fhir_datastores
-WHERE region = 'us-east-1' AND Identifier = '<DatastoreId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ datastore_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -302,8 +302,8 @@ INSERT INTO awscc.healthlake.fhir_datastores (
  DatastoreTypeVersion,
  region
 )
-SELECT 
-'{{ DatastoreTypeVersion }}',
+SELECT
+'{{ datastore_type_version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -320,13 +320,13 @@ INSERT INTO awscc.healthlake.fhir_datastores (
  Tags,
  region
 )
-SELECT 
- '{{ DatastoreName }}',
- '{{ DatastoreTypeVersion }}',
- '{{ PreloadDataConfig }}',
- '{{ SseConfiguration }}',
- '{{ IdentityProviderConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ datastore_name }}',
+ '{{ datastore_type_version }}',
+ '{{ preload_data_config }}',
+ '{{ sse_configuration }}',
+ '{{ identity_provider_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -344,29 +344,28 @@ globals:
 resources:
   - name: fhir_datastore
     props:
-      - name: DatastoreName
-        value: '{{ DatastoreName }}'
-      - name: DatastoreTypeVersion
-        value: '{{ DatastoreTypeVersion }}'
-      - name: PreloadDataConfig
+      - name: datastore_name
+        value: '{{ datastore_name }}'
+      - name: datastore_type_version
+        value: '{{ datastore_type_version }}'
+      - name: preload_data_config
         value:
-          PreloadDataType: '{{ PreloadDataType }}'
-      - name: SseConfiguration
+          preload_data_type: '{{ preload_data_type }}'
+      - name: sse_configuration
         value:
-          KmsEncryptionConfig:
-            CmkType: '{{ CmkType }}'
-            KmsKeyId: '{{ KmsKeyId }}'
-      - name: IdentityProviderConfiguration
+          kms_encryption_config:
+            cmk_type: '{{ cmk_type }}'
+            kms_key_id: '{{ kms_key_id }}'
+      - name: identity_provider_configuration
         value:
-          AuthorizationStrategy: '{{ AuthorizationStrategy }}'
-          FineGrainedAuthorizationEnabled: '{{ FineGrainedAuthorizationEnabled }}'
-          Metadata: '{{ Metadata }}'
-          IdpLambdaArn: '{{ IdpLambdaArn }}'
-      - name: Tags
+          authorization_strategy: '{{ authorization_strategy }}'
+          fine_grained_authorization_enabled: '{{ fine_grained_authorization_enabled }}'
+          metadata: '{{ metadata }}'
+          idp_lambda_arn: '{{ idp_lambda_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -382,7 +381,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatastoreId>';
+AND Identifier = '{{ datastore_id }}';
 ```
 
 
@@ -391,7 +390,7 @@ AND Identifier = '<DatastoreId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.healthlake.fhir_datastores
-WHERE Identifier = '<DatastoreId>'
+WHERE Identifier = '{{ datastore_id }}'
 AND region = 'us-east-1';
 ```
 

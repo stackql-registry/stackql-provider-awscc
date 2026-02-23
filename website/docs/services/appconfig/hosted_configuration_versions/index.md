@@ -180,7 +180,7 @@ version_label,
 application_id,
 version_number
 FROM awscc.appconfig.hosted_configuration_versions
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<ConfigurationProfileId>|<VersionNumber>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,11 +221,11 @@ INSERT INTO awscc.appconfig.hosted_configuration_versions (
  ApplicationId,
  region
 )
-SELECT 
-'{{ ConfigurationProfileId }}',
- '{{ ContentType }}',
- '{{ Content }}',
- '{{ ApplicationId }}',
+SELECT
+'{{ configuration_profile_id }}',
+ '{{ content_type }}',
+ '{{ content }}',
+ '{{ application_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,14 +243,14 @@ INSERT INTO awscc.appconfig.hosted_configuration_versions (
  ApplicationId,
  region
 )
-SELECT 
- '{{ ConfigurationProfileId }}',
- '{{ Description }}',
- '{{ ContentType }}',
- '{{ LatestVersionNumber }}',
- '{{ Content }}',
- '{{ VersionLabel }}',
- '{{ ApplicationId }}',
+SELECT
+ '{{ configuration_profile_id }}',
+ '{{ description }}',
+ '{{ content_type }}',
+ '{{ latest_version_number }}',
+ '{{ content }}',
+ '{{ version_label }}',
+ '{{ application_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,21 +268,20 @@ globals:
 resources:
   - name: hosted_configuration_version
     props:
-      - name: ConfigurationProfileId
-        value: '{{ ConfigurationProfileId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ContentType
-        value: '{{ ContentType }}'
-      - name: LatestVersionNumber
-        value: '{{ LatestVersionNumber }}'
-      - name: Content
-        value: '{{ Content }}'
-      - name: VersionLabel
-        value: '{{ VersionLabel }}'
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-
+      - name: configuration_profile_id
+        value: '{{ configuration_profile_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: content_type
+        value: '{{ content_type }}'
+      - name: latest_version_number
+        value: '{{ latest_version_number }}'
+      - name: content
+        value: '{{ content }}'
+      - name: version_label
+        value: '{{ version_label }}'
+      - name: application_id
+        value: '{{ application_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.hosted_configuration_versions
-WHERE Identifier = '<ApplicationId|ConfigurationProfileId|VersionNumber>'
+WHERE Identifier = '{{ application_id }}|{{ configuration_profile_id }}|{{ version_number }}'
 AND region = 'us-east-1';
 ```
 

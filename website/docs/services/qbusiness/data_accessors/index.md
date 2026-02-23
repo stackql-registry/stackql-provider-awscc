@@ -264,7 +264,7 @@ principal,
 tags,
 updated_at
 FROM awscc.qbusiness.data_accessors
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>|<DataAccessorId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -304,11 +304,11 @@ INSERT INTO awscc.qbusiness.data_accessors (
  Principal,
  region
 )
-SELECT 
-'{{ ActionConfigurations }}',
- '{{ ApplicationId }}',
- '{{ DisplayName }}',
- '{{ Principal }}',
+SELECT
+'{{ action_configurations }}',
+ '{{ application_id }}',
+ '{{ display_name }}',
+ '{{ principal }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -325,13 +325,13 @@ INSERT INTO awscc.qbusiness.data_accessors (
  Tags,
  region
 )
-SELECT 
- '{{ ActionConfigurations }}',
- '{{ ApplicationId }}',
- '{{ AuthenticationDetail }}',
- '{{ DisplayName }}',
- '{{ Principal }}',
- '{{ Tags }}',
+SELECT
+ '{{ action_configurations }}',
+ '{{ application_id }}',
+ '{{ authentication_detail }}',
+ '{{ display_name }}',
+ '{{ principal }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,42 +349,41 @@ globals:
 resources:
   - name: data_accessor
     props:
-      - name: ActionConfigurations
+      - name: action_configurations
         value:
-          - Action: '{{ Action }}'
-            FilterConfiguration:
-              DocumentAttributeFilter:
-                AndAllFilters:
+          - action: '{{ action }}'
+            filter_configuration:
+              document_attribute_filter:
+                and_all_filters:
                   - null
-                OrAllFilters:
+                or_all_filters:
                   - null
-                NotFilter: null
-                EqualsTo:
-                  Name: '{{ Name }}'
-                  Value: null
-                ContainsAll: null
-                ContainsAny: null
-                GreaterThan: null
-                GreaterThanOrEquals: null
-                LessThan: null
-                LessThanOrEquals: null
-      - name: ApplicationId
-        value: '{{ ApplicationId }}'
-      - name: AuthenticationDetail
+                not_filter: null
+                equals_to:
+                  name: '{{ name }}'
+                  value: null
+                contains_all: null
+                contains_any: null
+                greater_than: null
+                greater_than_or_equals: null
+                less_than: null
+                less_than_or_equals: null
+      - name: application_id
+        value: '{{ application_id }}'
+      - name: authentication_detail
         value:
-          AuthenticationType: '{{ AuthenticationType }}'
-          AuthenticationConfiguration: null
-          ExternalIds:
-            - '{{ ExternalIds[0] }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Principal
-        value: '{{ Principal }}'
-      - name: Tags
+          authentication_type: '{{ authentication_type }}'
+          authentication_configuration: null
+          external_ids:
+            - '{{ external_ids[0] }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: principal
+        value: '{{ principal }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -403,7 +402,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>|<DataAccessorId>';
+AND Identifier = '{{ application_id }}|{{ data_accessor_id }}';
 ```
 
 
@@ -412,7 +411,7 @@ AND Identifier = '<ApplicationId>|<DataAccessorId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qbusiness.data_accessors
-WHERE Identifier = '<ApplicationId|DataAccessorId>'
+WHERE Identifier = '{{ application_id }}|{{ data_accessor_id }}'
 AND region = 'us-east-1';
 ```
 

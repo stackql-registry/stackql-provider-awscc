@@ -223,7 +223,7 @@ processor,
 horovod,
 release_notes
 FROM awscc.sagemaker.image_versions
-WHERE region = 'us-east-1' AND Identifier = '<ImageVersionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ image_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -260,9 +260,9 @@ INSERT INTO awscc.sagemaker.image_versions (
  BaseImage,
  region
 )
-SELECT 
-'{{ ImageName }}',
- '{{ BaseImage }}',
+SELECT
+'{{ image_name }}',
+ '{{ base_image }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,18 +284,18 @@ INSERT INTO awscc.sagemaker.image_versions (
  ReleaseNotes,
  region
 )
-SELECT 
- '{{ ImageName }}',
- '{{ BaseImage }}',
- '{{ Alias }}',
- '{{ Aliases }}',
- '{{ VendorGuidance }}',
- '{{ JobType }}',
- '{{ MLFramework }}',
- '{{ ProgrammingLang }}',
- '{{ Processor }}',
- '{{ Horovod }}',
- '{{ ReleaseNotes }}',
+SELECT
+ '{{ image_name }}',
+ '{{ base_image }}',
+ '{{ alias }}',
+ '{{ aliases }}',
+ '{{ vendor_guidance }}',
+ '{{ job_type }}',
+ '{{ ml_framework }}',
+ '{{ programming_lang }}',
+ '{{ processor }}',
+ '{{ horovod }}',
+ '{{ release_notes }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -313,30 +313,29 @@ globals:
 resources:
   - name: image_version
     props:
-      - name: ImageName
-        value: '{{ ImageName }}'
-      - name: BaseImage
-        value: '{{ BaseImage }}'
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: Aliases
+      - name: image_name
+        value: '{{ image_name }}'
+      - name: base_image
+        value: '{{ base_image }}'
+      - name: alias
+        value: '{{ alias }}'
+      - name: aliases
         value:
           - null
-      - name: VendorGuidance
-        value: '{{ VendorGuidance }}'
-      - name: JobType
-        value: '{{ JobType }}'
-      - name: MLFramework
-        value: '{{ MLFramework }}'
-      - name: ProgrammingLang
-        value: '{{ ProgrammingLang }}'
-      - name: Processor
-        value: '{{ Processor }}'
-      - name: Horovod
-        value: '{{ Horovod }}'
-      - name: ReleaseNotes
-        value: '{{ ReleaseNotes }}'
-
+      - name: vendor_guidance
+        value: '{{ vendor_guidance }}'
+      - name: job_type
+        value: '{{ job_type }}'
+      - name: ml_framework
+        value: '{{ ml_framework }}'
+      - name: programming_lang
+        value: '{{ programming_lang }}'
+      - name: processor
+        value: '{{ processor }}'
+      - name: horovod
+        value: '{{ horovod }}'
+      - name: release_notes
+        value: '{{ release_notes }}'
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "ReleaseNotes": release_notes
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ImageVersionArn>';
+AND Identifier = '{{ image_version_arn }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<ImageVersionArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.image_versions
-WHERE Identifier = '<ImageVersionArn>'
+WHERE Identifier = '{{ image_version_arn }}'
 AND region = 'us-east-1';
 ```
 

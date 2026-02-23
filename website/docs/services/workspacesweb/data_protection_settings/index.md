@@ -282,7 +282,7 @@ display_name,
 inline_redaction_configuration,
 tags
 FROM awscc.workspacesweb.data_protection_settings
-WHERE region = 'us-east-1' AND Identifier = '<DataProtectionSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ data_protection_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,13 +323,13 @@ INSERT INTO awscc.workspacesweb.data_protection_settings (
  Tags,
  region
 )
-SELECT 
-'{{ AdditionalEncryptionContext }}',
- '{{ CustomerManagedKey }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ InlineRedactionConfiguration }}',
- '{{ Tags }}',
+SELECT
+'{{ additional_encryption_context }}',
+ '{{ customer_managed_key }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ inline_redaction_configuration }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -346,13 +346,13 @@ INSERT INTO awscc.workspacesweb.data_protection_settings (
  Tags,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ CustomerManagedKey }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ InlineRedactionConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ customer_managed_key }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ inline_redaction_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -370,41 +370,40 @@ globals:
 resources:
   - name: data_protection_setting
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: InlineRedactionConfiguration
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: inline_redaction_configuration
         value:
-          InlineRedactionPatterns:
-            - BuiltInPatternId: '{{ BuiltInPatternId }}'
-              CustomPattern:
-                PatternName: '{{ PatternName }}'
-                PatternRegex: '{{ PatternRegex }}'
-                PatternDescription: '{{ PatternDescription }}'
-                KeywordRegex: '{{ KeywordRegex }}'
-              RedactionPlaceHolder:
-                RedactionPlaceHolderType: '{{ RedactionPlaceHolderType }}'
-                RedactionPlaceHolderText: '{{ RedactionPlaceHolderText }}'
-              EnforcedUrls:
-                - '{{ EnforcedUrls[0] }}'
-              ExemptUrls:
-                - '{{ ExemptUrls[0] }}'
-              ConfidenceLevel: null
-          GlobalEnforcedUrls:
-            - '{{ GlobalEnforcedUrls[0] }}'
-          GlobalExemptUrls:
-            - '{{ GlobalExemptUrls[0] }}'
-          GlobalConfidenceLevel: null
-      - name: Tags
+          inline_redaction_patterns:
+            - built_in_pattern_id: '{{ built_in_pattern_id }}'
+              custom_pattern:
+                pattern_name: '{{ pattern_name }}'
+                pattern_regex: '{{ pattern_regex }}'
+                pattern_description: '{{ pattern_description }}'
+                keyword_regex: '{{ keyword_regex }}'
+              redaction_place_holder:
+                redaction_place_holder_type: '{{ redaction_place_holder_type }}'
+                redaction_place_holder_text: '{{ redaction_place_holder_text }}'
+              enforced_urls:
+                - '{{ enforced_urls[0] }}'
+              exempt_urls:
+                - '{{ exempt_urls[0] }}'
+              confidence_level: null
+          global_enforced_urls:
+            - '{{ global_enforced_urls[0] }}'
+          global_exempt_urls:
+            - '{{ global_exempt_urls[0] }}'
+          global_confidence_level: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -423,7 +422,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DataProtectionSettingsArn>';
+AND Identifier = '{{ data_protection_settings_arn }}';
 ```
 
 
@@ -432,7 +431,7 @@ AND Identifier = '<DataProtectionSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.data_protection_settings
-WHERE Identifier = '<DataProtectionSettingsArn>'
+WHERE Identifier = '{{ data_protection_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

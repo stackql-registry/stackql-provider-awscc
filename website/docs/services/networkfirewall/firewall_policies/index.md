@@ -249,7 +249,7 @@ firewall_policy_id,
 description,
 tags
 FROM awscc.networkfirewall.firewall_policies
-WHERE region = 'us-east-1' AND Identifier = '<FirewallPolicyArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ firewall_policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -286,9 +286,9 @@ INSERT INTO awscc.networkfirewall.firewall_policies (
  FirewallPolicy,
  region
 )
-SELECT 
-'{{ FirewallPolicyName }}',
- '{{ FirewallPolicy }}',
+SELECT
+'{{ firewall_policy_name }}',
+ '{{ firewall_policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -303,11 +303,11 @@ INSERT INTO awscc.networkfirewall.firewall_policies (
  Tags,
  region
 )
-SELECT 
- '{{ FirewallPolicyName }}',
- '{{ FirewallPolicy }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ firewall_policy_name }}',
+ '{{ firewall_policy }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,22 +325,21 @@ globals:
 resources:
   - name: firewall_policy
     props:
-      - name: FirewallPolicyName
-        value: '{{ FirewallPolicyName }}'
-      - name: FirewallPolicy
+      - name: firewall_policy_name
+        value: '{{ firewall_policy_name }}'
+      - name: firewall_policy
         value:
-          FirewallPolicyName: '{{ FirewallPolicyName }}'
-          FirewallPolicy: null
-          Description: '{{ Description }}'
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          firewall_policy_name: '{{ firewall_policy_name }}'
+          firewall_policy: null
+          description: '{{ description }}'
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +357,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FirewallPolicyArn>';
+AND Identifier = '{{ firewall_policy_arn }}';
 ```
 
 
@@ -367,7 +366,7 @@ AND Identifier = '<FirewallPolicyArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.firewall_policies
-WHERE Identifier = '<FirewallPolicyArn>'
+WHERE Identifier = '{{ firewall_policy_arn }}'
 AND region = 'us-east-1';
 ```
 

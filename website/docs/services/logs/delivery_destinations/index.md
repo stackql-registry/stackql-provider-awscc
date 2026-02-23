@@ -189,7 +189,7 @@ delivery_destination_type,
 delivery_destination_policy,
 output_format
 FROM awscc.logs.delivery_destinations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,8 +225,8 @@ INSERT INTO awscc.logs.delivery_destinations (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,12 +242,12 @@ INSERT INTO awscc.logs.delivery_destinations (
  OutputFormat,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DestinationResourceArn }}',
- '{{ Tags }}',
- '{{ DeliveryDestinationPolicy }}',
- '{{ OutputFormat }}',
+SELECT
+ '{{ name }}',
+ '{{ destination_resource_arn }}',
+ '{{ tags }}',
+ '{{ delivery_destination_policy }}',
+ '{{ output_format }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -265,21 +265,20 @@ globals:
 resources:
   - name: delivery_destination
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DestinationResourceArn
-        value: '{{ DestinationResourceArn }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: destination_resource_arn
+        value: '{{ destination_resource_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DeliveryDestinationPolicy
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: delivery_destination_policy
         value:
-          DeliveryDestinationName: '{{ DeliveryDestinationName }}'
-          DeliveryDestinationPolicy: {}
-      - name: OutputFormat
-        value: '{{ OutputFormat }}'
-
+          delivery_destination_name: '{{ delivery_destination_name }}'
+          delivery_destination_policy: {}
+      - name: output_format
+        value: '{{ output_format }}'
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +295,7 @@ SET PatchDocument = string('{{ {
     "DeliveryDestinationPolicy": delivery_destination_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -305,7 +304,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.delivery_destinations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

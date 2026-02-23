@@ -194,7 +194,7 @@ tags,
 url,
 arn
 FROM awscc.deadline.monitors
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,11 +233,11 @@ INSERT INTO awscc.deadline.monitors (
  Subdomain,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ IdentityCenterInstanceArn }}',
- '{{ RoleArn }}',
- '{{ Subdomain }}',
+SELECT
+'{{ display_name }}',
+ '{{ identity_center_instance_arn }}',
+ '{{ role_arn }}',
+ '{{ subdomain }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,12 +253,12 @@ INSERT INTO awscc.deadline.monitors (
  Tags,
  region
 )
-SELECT 
- '{{ DisplayName }}',
- '{{ IdentityCenterInstanceArn }}',
- '{{ RoleArn }}',
- '{{ Subdomain }}',
- '{{ Tags }}',
+SELECT
+ '{{ display_name }}',
+ '{{ identity_center_instance_arn }}',
+ '{{ role_arn }}',
+ '{{ subdomain }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,19 +276,18 @@ globals:
 resources:
   - name: monitor
     props:
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: IdentityCenterInstanceArn
-        value: '{{ IdentityCenterInstanceArn }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Subdomain
-        value: '{{ Subdomain }}'
-      - name: Tags
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: identity_center_instance_arn
+        value: '{{ identity_center_instance_arn }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: subdomain
+        value: '{{ subdomain }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -316,7 +315,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.monitors
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

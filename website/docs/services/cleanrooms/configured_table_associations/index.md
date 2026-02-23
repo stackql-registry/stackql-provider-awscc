@@ -218,7 +218,7 @@ name,
 role_arn,
 configured_table_association_analysis_rules
 FROM awscc.cleanrooms.configured_table_associations
-WHERE region = 'us-east-1' AND Identifier = '<ConfiguredTableAssociationIdentifier>|<MembershipIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,11 +258,11 @@ INSERT INTO awscc.cleanrooms.configured_table_associations (
  RoleArn,
  region
 )
-SELECT 
-'{{ ConfiguredTableIdentifier }}',
- '{{ MembershipIdentifier }}',
- '{{ Name }}',
- '{{ RoleArn }}',
+SELECT
+'{{ configured_table_identifier }}',
+ '{{ membership_identifier }}',
+ '{{ name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -280,14 +280,14 @@ INSERT INTO awscc.cleanrooms.configured_table_associations (
  ConfiguredTableAssociationAnalysisRules,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ ConfiguredTableIdentifier }}',
- '{{ Description }}',
- '{{ MembershipIdentifier }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ ConfiguredTableAssociationAnalysisRules }}',
+SELECT
+ '{{ tags }}',
+ '{{ configured_table_identifier }}',
+ '{{ description }}',
+ '{{ membership_identifier }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ configured_table_association_analysis_rules }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -305,26 +305,25 @@ globals:
 resources:
   - name: configured_table_association
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ConfiguredTableIdentifier
-        value: '{{ ConfiguredTableIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MembershipIdentifier
-        value: '{{ MembershipIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: ConfiguredTableAssociationAnalysisRules
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: configured_table_identifier
+        value: '{{ configured_table_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: membership_identifier
+        value: '{{ membership_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: configured_table_association_analysis_rules
         value:
-          - Type: '{{ Type }}'
-            Policy:
-              V1: null
-
+          - type: '{{ type }}'
+            policy:
+              v1: null
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "ConfiguredTableAssociationAnalysisRules": configured_table_association_analysis_rules
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConfiguredTableAssociationIdentifier>|<MembershipIdentifier>';
+AND Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<ConfiguredTableAssociationIdentifier>|<MembershipIdentifier>'
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.configured_table_associations
-WHERE Identifier = '<ConfiguredTableAssociationIdentifier|MembershipIdentifier>'
+WHERE Identifier = '{{ configured_table_association_identifier }}|{{ membership_identifier }}'
 AND region = 'us-east-1';
 ```
 

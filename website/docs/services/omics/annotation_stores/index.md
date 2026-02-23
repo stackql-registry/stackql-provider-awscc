@@ -231,7 +231,7 @@ store_size_bytes,
 tags,
 update_time
 FROM awscc.omics.annotation_stores
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,9 +268,9 @@ INSERT INTO awscc.omics.annotation_stores (
  StoreFormat,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ StoreFormat }}',
+SELECT
+'{{ name }}',
+ '{{ store_format }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -288,14 +288,14 @@ INSERT INTO awscc.omics.annotation_stores (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Reference }}',
- '{{ SseConfig }}',
- '{{ StoreFormat }}',
- '{{ StoreOptions }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ reference }}',
+ '{{ sse_config }}',
+ '{{ store_format }}',
+ '{{ store_options }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -313,24 +313,23 @@ globals:
 resources:
   - name: annotation_store
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Reference
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: reference
         value:
-          ReferenceArn: '{{ ReferenceArn }}'
-      - name: SseConfig
+          reference_arn: '{{ reference_arn }}'
+      - name: sse_config
         value:
-          Type: '{{ Type }}'
-          KeyArn: '{{ KeyArn }}'
-      - name: StoreFormat
-        value: '{{ StoreFormat }}'
-      - name: StoreOptions
+          type: '{{ type }}'
+          key_arn: '{{ key_arn }}'
+      - name: store_format
+        value: '{{ store_format }}'
+      - name: store_options
         value: null
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -346,7 +345,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -355,7 +354,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.annotation_stores
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

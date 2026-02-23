@@ -278,7 +278,7 @@ rotate_master_user_password,
 relational_database_parameters,
 tags
 FROM awscc.lightsail.databases
-WHERE region = 'us-east-1' AND Identifier = '<RelationalDatabaseName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ relational_database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,12 +318,12 @@ INSERT INTO awscc.lightsail.databases (
  MasterUsername,
  region
 )
-SELECT 
-'{{ RelationalDatabaseName }}',
- '{{ RelationalDatabaseBlueprintId }}',
- '{{ RelationalDatabaseBundleId }}',
- '{{ MasterDatabaseName }}',
- '{{ MasterUsername }}',
+SELECT
+'{{ relational_database_name }}',
+ '{{ relational_database_blueprint_id }}',
+ '{{ relational_database_bundle_id }}',
+ '{{ master_database_name }}',
+ '{{ master_username }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -349,22 +349,22 @@ INSERT INTO awscc.lightsail.databases (
  Tags,
  region
 )
-SELECT 
- '{{ RelationalDatabaseName }}',
- '{{ AvailabilityZone }}',
- '{{ RelationalDatabaseBlueprintId }}',
- '{{ RelationalDatabaseBundleId }}',
- '{{ MasterDatabaseName }}',
- '{{ MasterUsername }}',
- '{{ MasterUserPassword }}',
- '{{ PreferredBackupWindow }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ PubliclyAccessible }}',
- '{{ CaCertificateIdentifier }}',
- '{{ BackupRetention }}',
- '{{ RotateMasterUserPassword }}',
- '{{ RelationalDatabaseParameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ relational_database_name }}',
+ '{{ availability_zone }}',
+ '{{ relational_database_blueprint_id }}',
+ '{{ relational_database_bundle_id }}',
+ '{{ master_database_name }}',
+ '{{ master_username }}',
+ '{{ master_user_password }}',
+ '{{ preferred_backup_window }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ publicly_accessible }}',
+ '{{ ca_certificate_identifier }}',
+ '{{ backup_retention }}',
+ '{{ rotate_master_user_password }}',
+ '{{ relational_database_parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -382,47 +382,46 @@ globals:
 resources:
   - name: database
     props:
-      - name: RelationalDatabaseName
-        value: '{{ RelationalDatabaseName }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: RelationalDatabaseBlueprintId
-        value: '{{ RelationalDatabaseBlueprintId }}'
-      - name: RelationalDatabaseBundleId
-        value: '{{ RelationalDatabaseBundleId }}'
-      - name: MasterDatabaseName
-        value: '{{ MasterDatabaseName }}'
-      - name: MasterUsername
-        value: '{{ MasterUsername }}'
-      - name: MasterUserPassword
-        value: '{{ MasterUserPassword }}'
-      - name: PreferredBackupWindow
-        value: '{{ PreferredBackupWindow }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: CaCertificateIdentifier
-        value: '{{ CaCertificateIdentifier }}'
-      - name: BackupRetention
-        value: '{{ BackupRetention }}'
-      - name: RotateMasterUserPassword
-        value: '{{ RotateMasterUserPassword }}'
-      - name: RelationalDatabaseParameters
+      - name: relational_database_name
+        value: '{{ relational_database_name }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: relational_database_blueprint_id
+        value: '{{ relational_database_blueprint_id }}'
+      - name: relational_database_bundle_id
+        value: '{{ relational_database_bundle_id }}'
+      - name: master_database_name
+        value: '{{ master_database_name }}'
+      - name: master_username
+        value: '{{ master_username }}'
+      - name: master_user_password
+        value: '{{ master_user_password }}'
+      - name: preferred_backup_window
+        value: '{{ preferred_backup_window }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: ca_certificate_identifier
+        value: '{{ ca_certificate_identifier }}'
+      - name: backup_retention
+        value: '{{ backup_retention }}'
+      - name: rotate_master_user_password
+        value: '{{ rotate_master_user_password }}'
+      - name: relational_database_parameters
         value:
-          - AllowedValues: '{{ AllowedValues }}'
-            ApplyMethod: '{{ ApplyMethod }}'
-            ApplyType: '{{ ApplyType }}'
-            DataType: '{{ DataType }}'
-            Description: '{{ Description }}'
-            IsModifiable: '{{ IsModifiable }}'
-            ParameterName: '{{ ParameterName }}'
-            ParameterValue: '{{ ParameterValue }}'
-      - name: Tags
+          - allowed_values: '{{ allowed_values }}'
+            apply_method: '{{ apply_method }}'
+            apply_type: '{{ apply_type }}'
+            data_type: '{{ data_type }}'
+            description: '{{ description }}'
+            is_modifiable: '{{ is_modifiable }}'
+            parameter_name: '{{ parameter_name }}'
+            parameter_value: '{{ parameter_value }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -446,7 +445,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RelationalDatabaseName>';
+AND Identifier = '{{ relational_database_name }}';
 ```
 
 
@@ -455,7 +454,7 @@ AND Identifier = '<RelationalDatabaseName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.databases
-WHERE Identifier = '<RelationalDatabaseName>'
+WHERE Identifier = '{{ relational_database_name }}'
 AND region = 'us-east-1';
 ```
 

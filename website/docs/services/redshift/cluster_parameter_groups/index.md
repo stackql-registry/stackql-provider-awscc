@@ -182,7 +182,7 @@ parameter_group_family,
 parameters,
 tags
 FROM awscc.redshift.cluster_parameter_groups
-WHERE region = 'us-east-1' AND Identifier = '<ParameterGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ parameter_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.redshift.cluster_parameter_groups (
  ParameterGroupFamily,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ ParameterGroupFamily }}',
+SELECT
+'{{ description }}',
+ '{{ parameter_group_family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,12 +237,12 @@ INSERT INTO awscc.redshift.cluster_parameter_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ParameterGroupName }}',
- '{{ Description }}',
- '{{ ParameterGroupFamily }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ parameter_group_name }}',
+ '{{ description }}',
+ '{{ parameter_group_family }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,21 +260,20 @@ globals:
 resources:
   - name: cluster_parameter_group
     props:
-      - name: ParameterGroupName
-        value: '{{ ParameterGroupName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ParameterGroupFamily
-        value: '{{ ParameterGroupFamily }}'
-      - name: Parameters
+      - name: parameter_group_name
+        value: '{{ parameter_group_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: parameter_group_family
+        value: '{{ parameter_group_family }}'
+      - name: parameters
         value:
-          - ParameterName: '{{ ParameterName }}'
-            ParameterValue: '{{ ParameterValue }}'
-      - name: Tags
+          - parameter_name: '{{ parameter_name }}'
+            parameter_value: '{{ parameter_value }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -291,7 +290,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ParameterGroupName>';
+AND Identifier = '{{ parameter_group_name }}';
 ```
 
 
@@ -300,7 +299,7 @@ AND Identifier = '<ParameterGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.cluster_parameter_groups
-WHERE Identifier = '<ParameterGroupName>'
+WHERE Identifier = '{{ parameter_group_name }}'
 AND region = 'us-east-1';
 ```
 

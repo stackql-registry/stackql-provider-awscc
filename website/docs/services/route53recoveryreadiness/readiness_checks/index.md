@@ -164,7 +164,7 @@ readiness_check_name,
 readiness_check_arn,
 tags
 FROM awscc.route53recoveryreadiness.readiness_checks
-WHERE region = 'us-east-1' AND Identifier = '<ReadinessCheckName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ readiness_check_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.route53recoveryreadiness.readiness_checks (
  Tags,
  region
 )
-SELECT 
-'{{ ResourceSetName }}',
- '{{ ReadinessCheckName }}',
- '{{ Tags }}',
+SELECT
+'{{ resource_set_name }}',
+ '{{ readiness_check_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.route53recoveryreadiness.readiness_checks (
  Tags,
  region
 )
-SELECT 
- '{{ ResourceSetName }}',
- '{{ ReadinessCheckName }}',
- '{{ Tags }}',
+SELECT
+ '{{ resource_set_name }}',
+ '{{ readiness_check_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,14 @@ globals:
 resources:
   - name: readiness_check
     props:
-      - name: ResourceSetName
-        value: '{{ ResourceSetName }}'
-      - name: ReadinessCheckName
-        value: '{{ ReadinessCheckName }}'
-      - name: Tags
+      - name: resource_set_name
+        value: '{{ resource_set_name }}'
+      - name: readiness_check_name
+        value: '{{ readiness_check_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ReadinessCheckName>';
+AND Identifier = '{{ readiness_check_name }}';
 ```
 
 
@@ -274,7 +273,7 @@ AND Identifier = '<ReadinessCheckName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.readiness_checks
-WHERE Identifier = '<ReadinessCheckName>'
+WHERE Identifier = '{{ readiness_check_name }}'
 AND region = 'us-east-1';
 ```
 

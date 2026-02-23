@@ -253,7 +253,7 @@ resource_identifier,
 table_mappings,
 tags
 FROM awscc.dms.replication_configs
-WHERE region = 'us-east-1' AND Identifier = '<ReplicationConfigArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ replication_config_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -294,13 +294,13 @@ INSERT INTO awscc.dms.replication_configs (
  TableMappings,
  region
 )
-SELECT 
-'{{ ReplicationConfigIdentifier }}',
- '{{ SourceEndpointArn }}',
- '{{ TargetEndpointArn }}',
- '{{ ReplicationType }}',
- '{{ ComputeConfig }}',
- '{{ TableMappings }}',
+SELECT
+'{{ replication_config_identifier }}',
+ '{{ source_endpoint_arn }}',
+ '{{ target_endpoint_arn }}',
+ '{{ replication_type }}',
+ '{{ compute_config }}',
+ '{{ table_mappings }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -321,17 +321,17 @@ INSERT INTO awscc.dms.replication_configs (
  Tags,
  region
 )
-SELECT 
- '{{ ReplicationConfigIdentifier }}',
- '{{ SourceEndpointArn }}',
- '{{ TargetEndpointArn }}',
- '{{ ReplicationType }}',
- '{{ ComputeConfig }}',
- '{{ ReplicationSettings }}',
- '{{ SupplementalSettings }}',
- '{{ ResourceIdentifier }}',
- '{{ TableMappings }}',
- '{{ Tags }}',
+SELECT
+ '{{ replication_config_identifier }}',
+ '{{ source_endpoint_arn }}',
+ '{{ target_endpoint_arn }}',
+ '{{ replication_type }}',
+ '{{ compute_config }}',
+ '{{ replication_settings }}',
+ '{{ supplemental_settings }}',
+ '{{ resource_identifier }}',
+ '{{ table_mappings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,39 +349,38 @@ globals:
 resources:
   - name: replication_config
     props:
-      - name: ReplicationConfigIdentifier
-        value: '{{ ReplicationConfigIdentifier }}'
-      - name: SourceEndpointArn
-        value: '{{ SourceEndpointArn }}'
-      - name: TargetEndpointArn
-        value: '{{ TargetEndpointArn }}'
-      - name: ReplicationType
-        value: '{{ ReplicationType }}'
-      - name: ComputeConfig
+      - name: replication_config_identifier
+        value: '{{ replication_config_identifier }}'
+      - name: source_endpoint_arn
+        value: '{{ source_endpoint_arn }}'
+      - name: target_endpoint_arn
+        value: '{{ target_endpoint_arn }}'
+      - name: replication_type
+        value: '{{ replication_type }}'
+      - name: compute_config
         value:
-          AvailabilityZone: '{{ AvailabilityZone }}'
-          DnsNameServers: '{{ DnsNameServers }}'
-          KmsKeyId: '{{ KmsKeyId }}'
-          MaxCapacityUnits: '{{ MaxCapacityUnits }}'
-          MinCapacityUnits: '{{ MinCapacityUnits }}'
-          MultiAZ: '{{ MultiAZ }}'
-          PreferredMaintenanceWindow: '{{ PreferredMaintenanceWindow }}'
-          ReplicationSubnetGroupId: '{{ ReplicationSubnetGroupId }}'
-          VpcSecurityGroupIds:
-            - '{{ VpcSecurityGroupIds[0] }}'
-      - name: ReplicationSettings
+          availability_zone: '{{ availability_zone }}'
+          dns_name_servers: '{{ dns_name_servers }}'
+          kms_key_id: '{{ kms_key_id }}'
+          max_capacity_units: '{{ max_capacity_units }}'
+          min_capacity_units: '{{ min_capacity_units }}'
+          multi_az: '{{ multi_az }}'
+          preferred_maintenance_window: '{{ preferred_maintenance_window }}'
+          replication_subnet_group_id: '{{ replication_subnet_group_id }}'
+          vpc_security_group_ids:
+            - '{{ vpc_security_group_ids[0] }}'
+      - name: replication_settings
         value: {}
-      - name: SupplementalSettings
+      - name: supplemental_settings
         value: {}
-      - name: ResourceIdentifier
-        value: '{{ ResourceIdentifier }}'
-      - name: TableMappings
+      - name: resource_identifier
+        value: '{{ resource_identifier }}'
+      - name: table_mappings
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -405,7 +404,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ReplicationConfigArn>';
+AND Identifier = '{{ replication_config_arn }}';
 ```
 
 
@@ -414,7 +413,7 @@ AND Identifier = '<ReplicationConfigArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.replication_configs
-WHERE Identifier = '<ReplicationConfigArn>'
+WHERE Identifier = '{{ replication_config_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -212,7 +212,7 @@ peering_type,
 created_at,
 tags
 FROM awscc.networkmanager.transit_gateway_peerings
-WHERE region = 'us-east-1' AND Identifier = '<PeeringId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ peering_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.networkmanager.transit_gateway_peerings (
  TransitGatewayArn,
  region
 )
-SELECT 
-'{{ CoreNetworkId }}',
- '{{ TransitGatewayArn }}',
+SELECT
+'{{ core_network_id }}',
+ '{{ transit_gateway_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,10 +265,10 @@ INSERT INTO awscc.networkmanager.transit_gateway_peerings (
  Tags,
  region
 )
-SELECT 
- '{{ CoreNetworkId }}',
- '{{ TransitGatewayArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ core_network_id }}',
+ '{{ transit_gateway_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,15 +286,14 @@ globals:
 resources:
   - name: transit_gateway_peering
     props:
-      - name: CoreNetworkId
-        value: '{{ CoreNetworkId }}'
-      - name: TransitGatewayArn
-        value: '{{ TransitGatewayArn }}'
-      - name: Tags
+      - name: core_network_id
+        value: '{{ core_network_id }}'
+      - name: transit_gateway_arn
+        value: '{{ transit_gateway_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +309,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PeeringId>';
+AND Identifier = '{{ peering_id }}';
 ```
 
 
@@ -319,7 +318,7 @@ AND Identifier = '<PeeringId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.transit_gateway_peerings
-WHERE Identifier = '<PeeringId>'
+WHERE Identifier = '{{ peering_id }}'
 AND region = 'us-east-1';
 ```
 

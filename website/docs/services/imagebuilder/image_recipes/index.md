@@ -295,7 +295,7 @@ working_directory,
 additional_instance_configuration,
 tags
 FROM awscc.imagebuilder.image_recipes
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -334,11 +334,11 @@ INSERT INTO awscc.imagebuilder.image_recipes (
  ParentImage,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Version }}',
- '{{ Components }}',
- '{{ ParentImage }}',
+SELECT
+'{{ name }}',
+ '{{ version }}',
+ '{{ components }}',
+ '{{ parent_image }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -358,16 +358,16 @@ INSERT INTO awscc.imagebuilder.image_recipes (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Version }}',
- '{{ Components }}',
- '{{ BlockDeviceMappings }}',
- '{{ ParentImage }}',
- '{{ WorkingDirectory }}',
- '{{ AdditionalInstanceConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ version }}',
+ '{{ components }}',
+ '{{ block_device_mappings }}',
+ '{{ parent_image }}',
+ '{{ working_directory }}',
+ '{{ additional_instance_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -385,45 +385,44 @@ globals:
 resources:
   - name: image_recipe
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Components
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: version
+        value: '{{ version }}'
+      - name: components
         value:
-          - ComponentArn: '{{ ComponentArn }}'
-            Parameters:
-              - Name: '{{ Name }}'
-                Value:
-                  - '{{ Value[0] }}'
-      - name: BlockDeviceMappings
+          - component_arn: '{{ component_arn }}'
+            parameters:
+              - name: '{{ name }}'
+                value:
+                  - '{{ value[0] }}'
+      - name: block_device_mappings
         value:
-          - DeviceName: '{{ DeviceName }}'
-            VirtualName: '{{ VirtualName }}'
-            NoDevice: '{{ NoDevice }}'
-            Ebs:
-              Encrypted: '{{ Encrypted }}'
-              DeleteOnTermination: '{{ DeleteOnTermination }}'
-              Iops: '{{ Iops }}'
-              KmsKeyId: '{{ KmsKeyId }}'
-              SnapshotId: '{{ SnapshotId }}'
-              Throughput: '{{ Throughput }}'
-              VolumeSize: '{{ VolumeSize }}'
-              VolumeType: '{{ VolumeType }}'
-      - name: ParentImage
-        value: '{{ ParentImage }}'
-      - name: WorkingDirectory
-        value: '{{ WorkingDirectory }}'
-      - name: AdditionalInstanceConfiguration
+          - device_name: '{{ device_name }}'
+            virtual_name: '{{ virtual_name }}'
+            no_device: '{{ no_device }}'
+            ebs:
+              encrypted: '{{ encrypted }}'
+              delete_on_termination: '{{ delete_on_termination }}'
+              iops: '{{ iops }}'
+              kms_key_id: '{{ kms_key_id }}'
+              snapshot_id: '{{ snapshot_id }}'
+              throughput: '{{ throughput }}'
+              volume_size: '{{ volume_size }}'
+              volume_type: '{{ volume_type }}'
+      - name: parent_image
+        value: '{{ parent_image }}'
+      - name: working_directory
+        value: '{{ working_directory }}'
+      - name: additional_instance_configuration
         value:
-          SystemsManagerAgent:
-            UninstallAfterBuild: '{{ UninstallAfterBuild }}'
-          UserDataOverride: '{{ UserDataOverride }}'
-      - name: Tags
+          systems_manager_agent:
+            uninstall_after_build: '{{ uninstall_after_build }}'
+          user_data_override: '{{ user_data_override }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -440,7 +439,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -449,7 +448,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.image_recipes
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

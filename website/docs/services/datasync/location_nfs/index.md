@@ -196,7 +196,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.location_nfs
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,8 +232,8 @@ INSERT INTO awscc.datasync.location_nfs (
  OnPremConfig,
  region
 )
-SELECT 
-'{{ OnPremConfig }}',
+SELECT
+'{{ on_prem_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,12 +249,12 @@ INSERT INTO awscc.datasync.location_nfs (
  Tags,
  region
 )
-SELECT 
- '{{ MountOptions }}',
- '{{ OnPremConfig }}',
- '{{ ServerHostname }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ mount_options }}',
+ '{{ on_prem_config }}',
+ '{{ server_hostname }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,22 +272,21 @@ globals:
 resources:
   - name: location_nf
     props:
-      - name: MountOptions
+      - name: mount_options
         value:
-          Version: '{{ Version }}'
-      - name: OnPremConfig
+          version: '{{ version }}'
+      - name: on_prem_config
         value:
-          AgentArns:
-            - '{{ AgentArns[0] }}'
-      - name: ServerHostname
-        value: '{{ ServerHostname }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          agent_arns:
+            - '{{ agent_arns[0] }}'
+      - name: server_hostname
+        value: '{{ server_hostname }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -316,7 +315,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.location_nfs
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

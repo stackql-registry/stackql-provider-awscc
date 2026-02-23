@@ -157,7 +157,7 @@ version_description,
 view_content_sha256,
 version
 FROM awscc.connect.view_versions
-WHERE region = 'us-east-1' AND Identifier = '<ViewVersionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ view_version_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,8 +193,8 @@ INSERT INTO awscc.connect.view_versions (
  ViewArn,
  region
 )
-SELECT 
-'{{ ViewArn }}',
+SELECT
+'{{ view_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,10 +208,10 @@ INSERT INTO awscc.connect.view_versions (
  ViewContentSha256,
  region
 )
-SELECT 
- '{{ ViewArn }}',
- '{{ VersionDescription }}',
- '{{ ViewContentSha256 }}',
+SELECT
+ '{{ view_arn }}',
+ '{{ version_description }}',
+ '{{ view_content_sha256 }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -229,13 +229,12 @@ globals:
 resources:
   - name: view_version
     props:
-      - name: ViewArn
-        value: '{{ ViewArn }}'
-      - name: VersionDescription
-        value: '{{ VersionDescription }}'
-      - name: ViewContentSha256
-        value: '{{ ViewContentSha256 }}'
-
+      - name: view_arn
+        value: '{{ view_arn }}'
+      - name: version_description
+        value: '{{ version_description }}'
+      - name: view_content_sha256
+        value: '{{ view_content_sha256 }}'
 ```
 </TabItem>
 </Tabs>
@@ -246,7 +245,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.view_versions
-WHERE Identifier = '<ViewVersionArn>'
+WHERE Identifier = '{{ view_version_arn }}'
 AND region = 'us-east-1';
 ```
 

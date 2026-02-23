@@ -287,7 +287,7 @@ kms_key_arn,
 tags,
 device_creation_tags
 FROM awscc.workspacesthinclient.environments
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,8 +323,8 @@ INSERT INTO awscc.workspacesthinclient.environments (
  DesktopArn,
  region
 )
-SELECT 
-'{{ DesktopArn }}',
+SELECT
+'{{ desktop_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -345,17 +345,17 @@ INSERT INTO awscc.workspacesthinclient.environments (
  DeviceCreationTags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DesktopArn }}',
- '{{ DesktopEndpoint }}',
- '{{ SoftwareSetUpdateSchedule }}',
- '{{ MaintenanceWindow }}',
- '{{ SoftwareSetUpdateMode }}',
- '{{ DesiredSoftwareSetId }}',
- '{{ KmsKeyArn }}',
- '{{ Tags }}',
- '{{ DeviceCreationTags }}',
+SELECT
+ '{{ name }}',
+ '{{ desktop_arn }}',
+ '{{ desktop_endpoint }}',
+ '{{ software_set_update_schedule }}',
+ '{{ maintenance_window }}',
+ '{{ software_set_update_mode }}',
+ '{{ desired_software_set_id }}',
+ '{{ kms_key_arn }}',
+ '{{ tags }}',
+ '{{ device_creation_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -373,38 +373,37 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DesktopArn
-        value: '{{ DesktopArn }}'
-      - name: DesktopEndpoint
-        value: '{{ DesktopEndpoint }}'
-      - name: SoftwareSetUpdateSchedule
-        value: '{{ SoftwareSetUpdateSchedule }}'
-      - name: MaintenanceWindow
+      - name: name
+        value: '{{ name }}'
+      - name: desktop_arn
+        value: '{{ desktop_arn }}'
+      - name: desktop_endpoint
+        value: '{{ desktop_endpoint }}'
+      - name: software_set_update_schedule
+        value: '{{ software_set_update_schedule }}'
+      - name: maintenance_window
         value:
-          Type: '{{ Type }}'
-          StartTimeHour: '{{ StartTimeHour }}'
-          StartTimeMinute: '{{ StartTimeMinute }}'
-          EndTimeHour: null
-          EndTimeMinute: null
-          DaysOfTheWeek:
-            - '{{ DaysOfTheWeek[0] }}'
-          ApplyTimeOf: '{{ ApplyTimeOf }}'
-      - name: SoftwareSetUpdateMode
-        value: '{{ SoftwareSetUpdateMode }}'
-      - name: DesiredSoftwareSetId
-        value: '{{ DesiredSoftwareSetId }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: Tags
+          type: '{{ type }}'
+          start_time_hour: '{{ start_time_hour }}'
+          start_time_minute: '{{ start_time_minute }}'
+          end_time_hour: null
+          end_time_minute: null
+          days_of_the_week:
+            - '{{ days_of_the_week[0] }}'
+          apply_time_of: '{{ apply_time_of }}'
+      - name: software_set_update_mode
+        value: '{{ software_set_update_mode }}'
+      - name: desired_software_set_id
+        value: '{{ desired_software_set_id }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: DeviceCreationTags
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: device_creation_tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -427,7 +426,7 @@ SET PatchDocument = string('{{ {
     "DeviceCreationTags": device_creation_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -436,7 +435,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesthinclient.environments
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

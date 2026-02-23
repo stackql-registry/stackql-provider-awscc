@@ -493,7 +493,7 @@ bootstrap_self_managed_addons,
 deletion_protection,
 zonal_shift_config
 FROM awscc.eks.clusters
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -530,9 +530,9 @@ INSERT INTO awscc.eks.clusters (
  RoleArn,
  region
 )
-SELECT 
-'{{ ResourcesVpcConfig }}',
- '{{ RoleArn }}',
+SELECT
+'{{ resources_vpc_config }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -561,25 +561,25 @@ INSERT INTO awscc.eks.clusters (
  ZonalShiftConfig,
  region
 )
-SELECT 
- '{{ EncryptionConfig }}',
- '{{ KubernetesNetworkConfig }}',
- '{{ Logging }}',
- '{{ Name }}',
- '{{ ResourcesVpcConfig }}',
- '{{ OutpostConfig }}',
- '{{ AccessConfig }}',
- '{{ UpgradePolicy }}',
- '{{ RemoteNetworkConfig }}',
- '{{ ComputeConfig }}',
- '{{ StorageConfig }}',
- '{{ RoleArn }}',
- '{{ Version }}',
- '{{ Force }}',
- '{{ Tags }}',
- '{{ BootstrapSelfManagedAddons }}',
- '{{ DeletionProtection }}',
- '{{ ZonalShiftConfig }}',
+SELECT
+ '{{ encryption_config }}',
+ '{{ kubernetes_network_config }}',
+ '{{ logging }}',
+ '{{ name }}',
+ '{{ resources_vpc_config }}',
+ '{{ outpost_config }}',
+ '{{ access_config }}',
+ '{{ upgrade_policy }}',
+ '{{ remote_network_config }}',
+ '{{ compute_config }}',
+ '{{ storage_config }}',
+ '{{ role_arn }}',
+ '{{ version }}',
+ '{{ force }}',
+ '{{ tags }}',
+ '{{ bootstrap_self_managed_addons }}',
+ '{{ deletion_protection }}',
+ '{{ zonal_shift_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -597,86 +597,85 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: EncryptionConfig
+      - name: encryption_config
         value:
-          - Provider:
-              KeyArn: '{{ KeyArn }}'
-            Resources:
-              - '{{ Resources[0] }}'
-      - name: KubernetesNetworkConfig
+          - provider:
+              key_arn: '{{ key_arn }}'
+            resources:
+              - '{{ resources[0] }}'
+      - name: kubernetes_network_config
         value:
-          ServiceIpv4Cidr: '{{ ServiceIpv4Cidr }}'
-          ServiceIpv6Cidr: '{{ ServiceIpv6Cidr }}'
-          IpFamily: '{{ IpFamily }}'
-          ElasticLoadBalancing:
-            Enabled: '{{ Enabled }}'
-      - name: Logging
+          service_ipv4_cidr: '{{ service_ipv4_cidr }}'
+          service_ipv6_cidr: '{{ service_ipv6_cidr }}'
+          ip_family: '{{ ip_family }}'
+          elastic_load_balancing:
+            enabled: '{{ enabled }}'
+      - name: logging
         value:
-          ClusterLogging:
-            EnabledTypes:
-              - Type: '{{ Type }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ResourcesVpcConfig
+          cluster_logging:
+            enabled_types:
+              - type: '{{ type }}'
+      - name: name
+        value: '{{ name }}'
+      - name: resources_vpc_config
         value:
-          EndpointPrivateAccess: '{{ EndpointPrivateAccess }}'
-          EndpointPublicAccess: '{{ EndpointPublicAccess }}'
-          PublicAccessCidrs:
-            - '{{ PublicAccessCidrs[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: OutpostConfig
+          endpoint_private_access: '{{ endpoint_private_access }}'
+          endpoint_public_access: '{{ endpoint_public_access }}'
+          public_access_cidrs:
+            - '{{ public_access_cidrs[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: outpost_config
         value:
-          OutpostArns:
-            - '{{ OutpostArns[0] }}'
-          ControlPlaneInstanceType: '{{ ControlPlaneInstanceType }}'
-          ControlPlanePlacement:
-            GroupName: '{{ GroupName }}'
-      - name: AccessConfig
+          outpost_arns:
+            - '{{ outpost_arns[0] }}'
+          control_plane_instance_type: '{{ control_plane_instance_type }}'
+          control_plane_placement:
+            group_name: '{{ group_name }}'
+      - name: access_config
         value:
-          BootstrapClusterCreatorAdminPermissions: '{{ BootstrapClusterCreatorAdminPermissions }}'
-          AuthenticationMode: '{{ AuthenticationMode }}'
-      - name: UpgradePolicy
+          bootstrap_cluster_creator_admin_permissions: '{{ bootstrap_cluster_creator_admin_permissions }}'
+          authentication_mode: '{{ authentication_mode }}'
+      - name: upgrade_policy
         value:
-          SupportType: '{{ SupportType }}'
-      - name: RemoteNetworkConfig
+          support_type: '{{ support_type }}'
+      - name: remote_network_config
         value:
-          RemoteNodeNetworks:
-            - Cidrs:
-                - '{{ Cidrs[0] }}'
-          RemotePodNetworks:
-            - Cidrs:
-                - '{{ Cidrs[0] }}'
-      - name: ComputeConfig
+          remote_node_networks:
+            - cidrs:
+                - '{{ cidrs[0] }}'
+          remote_pod_networks:
+            - cidrs:
+                - '{{ cidrs[0] }}'
+      - name: compute_config
         value:
-          Enabled: '{{ Enabled }}'
-          NodeRoleArn: '{{ NodeRoleArn }}'
-          NodePools:
-            - '{{ NodePools[0] }}'
-      - name: StorageConfig
+          enabled: '{{ enabled }}'
+          node_role_arn: '{{ node_role_arn }}'
+          node_pools:
+            - '{{ node_pools[0] }}'
+      - name: storage_config
         value:
-          BlockStorage:
-            Enabled: '{{ Enabled }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Force
-        value: '{{ Force }}'
-      - name: Tags
+          block_storage:
+            enabled: '{{ enabled }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: version
+        value: '{{ version }}'
+      - name: force
+        value: '{{ force }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: BootstrapSelfManagedAddons
-        value: '{{ BootstrapSelfManagedAddons }}'
-      - name: DeletionProtection
-        value: '{{ DeletionProtection }}'
-      - name: ZonalShiftConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: bootstrap_self_managed_addons
+        value: '{{ bootstrap_self_managed_addons }}'
+      - name: deletion_protection
+        value: '{{ deletion_protection }}'
+      - name: zonal_shift_config
         value:
-          Enabled: '{{ Enabled }}'
-
+          enabled: '{{ enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -702,7 +701,7 @@ SET PatchDocument = string('{{ {
     "ZonalShiftConfig": zonal_shift_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -711,7 +710,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eks.clusters
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

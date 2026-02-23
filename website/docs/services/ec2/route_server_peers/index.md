@@ -218,7 +218,7 @@ peer_address,
 bgp_options,
 tags
 FROM awscc.ec2.route_server_peers
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,10 +256,10 @@ INSERT INTO awscc.ec2.route_server_peers (
  BgpOptions,
  region
 )
-SELECT 
-'{{ RouteServerEndpointId }}',
- '{{ PeerAddress }}',
- '{{ BgpOptions }}',
+SELECT
+'{{ route_server_endpoint_id }}',
+ '{{ peer_address }}',
+ '{{ bgp_options }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -274,11 +274,11 @@ INSERT INTO awscc.ec2.route_server_peers (
  Tags,
  region
 )
-SELECT 
- '{{ RouteServerEndpointId }}',
- '{{ PeerAddress }}',
- '{{ BgpOptions }}',
- '{{ Tags }}',
+SELECT
+ '{{ route_server_endpoint_id }}',
+ '{{ peer_address }}',
+ '{{ bgp_options }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,19 +296,18 @@ globals:
 resources:
   - name: route_server_peer
     props:
-      - name: RouteServerEndpointId
-        value: '{{ RouteServerEndpointId }}'
-      - name: PeerAddress
-        value: '{{ PeerAddress }}'
-      - name: BgpOptions
+      - name: route_server_endpoint_id
+        value: '{{ route_server_endpoint_id }}'
+      - name: peer_address
+        value: '{{ peer_address }}'
+      - name: bgp_options
         value:
-          PeerAsn: '{{ PeerAsn }}'
-          PeerLivenessDetection: '{{ PeerLivenessDetection }}'
-      - name: Tags
+          peer_asn: '{{ peer_asn }}'
+          peer_liveness_detection: '{{ peer_liveness_detection }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_peers
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

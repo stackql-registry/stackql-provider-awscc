@@ -200,7 +200,7 @@ maximum_message_rate_per_second,
 message_review_handler,
 tags
 FROM awscc.ivschat.rooms
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,7 +236,7 @@ INSERT INTO awscc.ivschat.rooms (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -254,13 +254,13 @@ INSERT INTO awscc.ivschat.rooms (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ LoggingConfigurationIdentifiers }}',
- '{{ MaximumMessageLength }}',
- '{{ MaximumMessageRatePerSecond }}',
- '{{ MessageReviewHandler }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ logging_configuration_identifiers }}',
+ '{{ maximum_message_length }}',
+ '{{ maximum_message_rate_per_second }}',
+ '{{ message_review_handler }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,24 +278,23 @@ globals:
 resources:
   - name: room
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: LoggingConfigurationIdentifiers
+      - name: name
+        value: '{{ name }}'
+      - name: logging_configuration_identifiers
         value:
-          - '{{ LoggingConfigurationIdentifiers[0] }}'
-      - name: MaximumMessageLength
-        value: '{{ MaximumMessageLength }}'
-      - name: MaximumMessageRatePerSecond
-        value: '{{ MaximumMessageRatePerSecond }}'
-      - name: MessageReviewHandler
+          - '{{ logging_configuration_identifiers[0] }}'
+      - name: maximum_message_length
+        value: '{{ maximum_message_length }}'
+      - name: maximum_message_rate_per_second
+        value: '{{ maximum_message_rate_per_second }}'
+      - name: message_review_handler
         value:
-          FallbackResult: '{{ FallbackResult }}'
-          Uri: '{{ Uri }}'
-      - name: Tags
+          fallback_result: '{{ fallback_result }}'
+          uri: '{{ uri }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivschat.rooms
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

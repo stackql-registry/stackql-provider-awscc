@@ -94,7 +94,7 @@ region,
 object_lambda_access_point,
 policy_document
 FROM awscc.s3objectlambda.access_point_policies
-WHERE region = 'us-east-1' AND Identifier = '<ObjectLambdaAccessPoint>';
+WHERE region = 'us-east-1' AND Identifier = '{{ object_lambda_access_point }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.s3objectlambda.access_point_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ ObjectLambdaAccessPoint }}',
- '{{ PolicyDocument }}',
+SELECT
+'{{ object_lambda_access_point }}',
+ '{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.s3objectlambda.access_point_policies (
  PolicyDocument,
  region
 )
-SELECT 
- '{{ ObjectLambdaAccessPoint }}',
- '{{ PolicyDocument }}',
+SELECT
+ '{{ object_lambda_access_point }}',
+ '{{ policy_document }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: access_point_policy
     props:
-      - name: ObjectLambdaAccessPoint
-        value: '{{ ObjectLambdaAccessPoint }}'
-      - name: PolicyDocument
+      - name: object_lambda_access_point
+        value: '{{ object_lambda_access_point }}'
+      - name: policy_document
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ObjectLambdaAccessPoint>';
+AND Identifier = '{{ object_lambda_access_point }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<ObjectLambdaAccessPoint>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3objectlambda.access_point_policies
-WHERE Identifier = '<ObjectLambdaAccessPoint>'
+WHERE Identifier = '{{ object_lambda_access_point }}'
 AND region = 'us-east-1';
 ```
 

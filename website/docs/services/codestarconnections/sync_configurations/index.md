@@ -199,7 +199,7 @@ publish_deployment_status,
 trigger_resource_update_on,
 repository_link_id
 FROM awscc.codestarconnections.sync_configurations
-WHERE region = 'us-east-1' AND Identifier = '<ResourceName>|<SyncType>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -241,13 +241,13 @@ INSERT INTO awscc.codestarconnections.sync_configurations (
  RepositoryLinkId,
  region
 )
-SELECT 
-'{{ ResourceName }}',
- '{{ Branch }}',
- '{{ ConfigFile }}',
- '{{ SyncType }}',
- '{{ RoleArn }}',
- '{{ RepositoryLinkId }}',
+SELECT
+'{{ resource_name }}',
+ '{{ branch }}',
+ '{{ config_file }}',
+ '{{ sync_type }}',
+ '{{ role_arn }}',
+ '{{ repository_link_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -266,15 +266,15 @@ INSERT INTO awscc.codestarconnections.sync_configurations (
  RepositoryLinkId,
  region
 )
-SELECT 
- '{{ ResourceName }}',
- '{{ Branch }}',
- '{{ ConfigFile }}',
- '{{ SyncType }}',
- '{{ RoleArn }}',
- '{{ PublishDeploymentStatus }}',
- '{{ TriggerResourceUpdateOn }}',
- '{{ RepositoryLinkId }}',
+SELECT
+ '{{ resource_name }}',
+ '{{ branch }}',
+ '{{ config_file }}',
+ '{{ sync_type }}',
+ '{{ role_arn }}',
+ '{{ publish_deployment_status }}',
+ '{{ trigger_resource_update_on }}',
+ '{{ repository_link_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,23 +292,22 @@ globals:
 resources:
   - name: sync_configuration
     props:
-      - name: ResourceName
-        value: '{{ ResourceName }}'
-      - name: Branch
-        value: '{{ Branch }}'
-      - name: ConfigFile
-        value: '{{ ConfigFile }}'
-      - name: SyncType
-        value: '{{ SyncType }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: PublishDeploymentStatus
-        value: '{{ PublishDeploymentStatus }}'
-      - name: TriggerResourceUpdateOn
-        value: '{{ TriggerResourceUpdateOn }}'
-      - name: RepositoryLinkId
-        value: '{{ RepositoryLinkId }}'
-
+      - name: resource_name
+        value: '{{ resource_name }}'
+      - name: branch
+        value: '{{ branch }}'
+      - name: config_file
+        value: '{{ config_file }}'
+      - name: sync_type
+        value: '{{ sync_type }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: publish_deployment_status
+        value: '{{ publish_deployment_status }}'
+      - name: trigger_resource_update_on
+        value: '{{ trigger_resource_update_on }}'
+      - name: repository_link_id
+        value: '{{ repository_link_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -329,7 +328,7 @@ SET PatchDocument = string('{{ {
     "RepositoryLinkId": repository_link_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceName>|<SyncType>';
+AND Identifier = '{{ resource_name }}|{{ sync_type }}';
 ```
 
 
@@ -338,7 +337,7 @@ AND Identifier = '<ResourceName>|<SyncType>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codestarconnections.sync_configurations
-WHERE Identifier = '<ResourceName|SyncType>'
+WHERE Identifier = '{{ resource_name }}|{{ sync_type }}'
 AND region = 'us-east-1';
 ```
 

@@ -200,7 +200,7 @@ scope_settings,
 arn,
 tags
 FROM awscc.inspectorv2.code_security_scan_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -240,12 +240,12 @@ INSERT INTO awscc.inspectorv2.code_security_scan_configurations (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Level }}',
- '{{ Configuration }}',
- '{{ ScopeSettings }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ level }}',
+ '{{ configuration }}',
+ '{{ scope_settings }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,12 +261,12 @@ INSERT INTO awscc.inspectorv2.code_security_scan_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Level }}',
- '{{ Configuration }}',
- '{{ ScopeSettings }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ level }}',
+ '{{ configuration }}',
+ '{{ scope_settings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,23 +284,22 @@ globals:
 resources:
   - name: code_security_scan_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Level
-        value: '{{ Level }}'
-      - name: Configuration
+      - name: name
+        value: '{{ name }}'
+      - name: level
+        value: '{{ level }}'
+      - name: configuration
         value:
-          Name: '{{ Name }}'
-          Level: null
-          Configuration: null
-          ScopeSettings:
-            projectSelectionScope: '{{ projectSelectionScope }}'
-          Tags: {}
-      - name: ScopeSettings
+          name: '{{ name }}'
+          level: null
+          configuration: null
+          scope_settings:
+            project_selection_scope: '{{ project_selection_scope }}'
+          tags: {}
+      - name: scope_settings
         value: null
-      - name: Tags
+      - name: tags
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Configuration": configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.code_security_scan_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

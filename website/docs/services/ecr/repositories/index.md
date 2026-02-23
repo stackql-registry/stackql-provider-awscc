@@ -249,7 +249,7 @@ image_tag_mutability_exclusion_filters,
 image_scanning_configuration,
 encryption_configuration
 FROM awscc.ecr.repositories
-WHERE region = 'us-east-1' AND Identifier = '<RepositoryName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ repository_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,16 +293,16 @@ INSERT INTO awscc.ecr.repositories (
  EncryptionConfiguration,
  region
 )
-SELECT 
-'{{ EmptyOnDelete }}',
- '{{ LifecyclePolicy }}',
- '{{ RepositoryName }}',
- '{{ RepositoryPolicyText }}',
- '{{ Tags }}',
- '{{ ImageTagMutability }}',
- '{{ ImageTagMutabilityExclusionFilters }}',
- '{{ ImageScanningConfiguration }}',
- '{{ EncryptionConfiguration }}',
+SELECT
+'{{ empty_on_delete }}',
+ '{{ lifecycle_policy }}',
+ '{{ repository_name }}',
+ '{{ repository_policy_text }}',
+ '{{ tags }}',
+ '{{ image_tag_mutability }}',
+ '{{ image_tag_mutability_exclusion_filters }}',
+ '{{ image_scanning_configuration }}',
+ '{{ encryption_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -322,16 +322,16 @@ INSERT INTO awscc.ecr.repositories (
  EncryptionConfiguration,
  region
 )
-SELECT 
- '{{ EmptyOnDelete }}',
- '{{ LifecyclePolicy }}',
- '{{ RepositoryName }}',
- '{{ RepositoryPolicyText }}',
- '{{ Tags }}',
- '{{ ImageTagMutability }}',
- '{{ ImageTagMutabilityExclusionFilters }}',
- '{{ ImageScanningConfiguration }}',
- '{{ EncryptionConfiguration }}',
+SELECT
+ '{{ empty_on_delete }}',
+ '{{ lifecycle_policy }}',
+ '{{ repository_name }}',
+ '{{ repository_policy_text }}',
+ '{{ tags }}',
+ '{{ image_tag_mutability }}',
+ '{{ image_tag_mutability_exclusion_filters }}',
+ '{{ image_scanning_configuration }}',
+ '{{ encryption_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,34 +349,33 @@ globals:
 resources:
   - name: repository
     props:
-      - name: EmptyOnDelete
-        value: '{{ EmptyOnDelete }}'
-      - name: LifecyclePolicy
+      - name: empty_on_delete
+        value: '{{ empty_on_delete }}'
+      - name: lifecycle_policy
         value:
-          LifecyclePolicyText: '{{ LifecyclePolicyText }}'
-          RegistryId: '{{ RegistryId }}'
-      - name: RepositoryName
-        value: '{{ RepositoryName }}'
-      - name: RepositoryPolicyText
+          lifecycle_policy_text: '{{ lifecycle_policy_text }}'
+          registry_id: '{{ registry_id }}'
+      - name: repository_name
+        value: '{{ repository_name }}'
+      - name: repository_policy_text
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ImageTagMutability
-        value: '{{ ImageTagMutability }}'
-      - name: ImageTagMutabilityExclusionFilters
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: image_tag_mutability
+        value: '{{ image_tag_mutability }}'
+      - name: image_tag_mutability_exclusion_filters
         value:
-          - ImageTagMutabilityExclusionFilterType: '{{ ImageTagMutabilityExclusionFilterType }}'
-            ImageTagMutabilityExclusionFilterValue: '{{ ImageTagMutabilityExclusionFilterValue }}'
-      - name: ImageScanningConfiguration
+          - image_tag_mutability_exclusion_filter_type: '{{ image_tag_mutability_exclusion_filter_type }}'
+            image_tag_mutability_exclusion_filter_value: '{{ image_tag_mutability_exclusion_filter_value }}'
+      - name: image_scanning_configuration
         value:
-          ScanOnPush: '{{ ScanOnPush }}'
-      - name: EncryptionConfiguration
+          scan_on_push: '{{ scan_on_push }}'
+      - name: encryption_configuration
         value:
-          EncryptionType: '{{ EncryptionType }}'
-          KmsKey: '{{ KmsKey }}'
-
+          encryption_type: '{{ encryption_type }}'
+          kms_key: '{{ kms_key }}'
 ```
 </TabItem>
 </Tabs>
@@ -398,7 +397,7 @@ SET PatchDocument = string('{{ {
     "ImageScanningConfiguration": image_scanning_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RepositoryName>';
+AND Identifier = '{{ repository_name }}';
 ```
 
 
@@ -407,7 +406,7 @@ AND Identifier = '<RepositoryName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.repositories
-WHERE Identifier = '<RepositoryName>'
+WHERE Identifier = '{{ repository_name }}'
 AND region = 'us-east-1';
 ```
 

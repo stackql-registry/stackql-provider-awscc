@@ -153,7 +153,7 @@ linked_regions,
 tags,
 aggregation_region
 FROM awscc.securityhub.aggregator_v2s
-WHERE region = 'us-east-1' AND Identifier = '<AggregatorV2Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aggregator_v2_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,9 +190,9 @@ INSERT INTO awscc.securityhub.aggregator_v2s (
  LinkedRegions,
  region
 )
-SELECT 
-'{{ RegionLinkingMode }}',
- '{{ LinkedRegions }}',
+SELECT
+'{{ region_linking_mode }}',
+ '{{ linked_regions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -206,10 +206,10 @@ INSERT INTO awscc.securityhub.aggregator_v2s (
  Tags,
  region
 )
-SELECT 
- '{{ RegionLinkingMode }}',
- '{{ LinkedRegions }}',
- '{{ Tags }}',
+SELECT
+ '{{ region_linking_mode }}',
+ '{{ linked_regions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -227,14 +227,13 @@ globals:
 resources:
   - name: aggregator_v2
     props:
-      - name: RegionLinkingMode
-        value: '{{ RegionLinkingMode }}'
-      - name: LinkedRegions
+      - name: region_linking_mode
+        value: '{{ region_linking_mode }}'
+      - name: linked_regions
         value:
-          - '{{ LinkedRegions[0] }}'
-      - name: Tags
+          - '{{ linked_regions[0] }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AggregatorV2Arn>';
+AND Identifier = '{{ aggregator_v2_arn }}';
 ```
 
 
@@ -261,7 +260,7 @@ AND Identifier = '<AggregatorV2Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.aggregator_v2s
-WHERE Identifier = '<AggregatorV2Arn>'
+WHERE Identifier = '{{ aggregator_v2_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -804,7 +804,7 @@ use_latest_restorable_time,
 vpc_security_groups,
 apply_immediately
 FROM awscc.rds.db_instances
-WHERE region = 'us-east-1' AND Identifier = '<DBInstanceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_instance_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -920,88 +920,88 @@ INSERT INTO awscc.rds.db_instances (
  ApplyImmediately,
  region
 )
-SELECT 
-'{{ AllocatedStorage }}',
- '{{ AllowMajorVersionUpgrade }}',
- '{{ AssociatedRoles }}',
- '{{ AutoMinorVersionUpgrade }}',
- '{{ AutomaticBackupReplicationRegion }}',
- '{{ AutomaticBackupReplicationKmsKeyId }}',
- '{{ AutomaticBackupReplicationRetentionPeriod }}',
- '{{ AvailabilityZone }}',
- '{{ BackupRetentionPeriod }}',
- '{{ BackupTarget }}',
- '{{ CACertificateIdentifier }}',
- '{{ CertificateRotationRestart }}',
- '{{ CharacterSetName }}',
- '{{ CopyTagsToSnapshot }}',
- '{{ CustomIAMInstanceProfile }}',
- '{{ DatabaseInsightsMode }}',
- '{{ DBClusterIdentifier }}',
- '{{ DBClusterSnapshotIdentifier }}',
- '{{ DBInstanceClass }}',
- '{{ DBInstanceIdentifier }}',
- '{{ DBName }}',
- '{{ DBParameterGroupName }}',
- '{{ DBSecurityGroups }}',
- '{{ DBSnapshotIdentifier }}',
- '{{ DBSubnetGroupName }}',
- '{{ DBSystemId }}',
- '{{ DedicatedLogVolume }}',
- '{{ DeleteAutomatedBackups }}',
- '{{ DeletionProtection }}',
- '{{ Domain }}',
- '{{ DomainAuthSecretArn }}',
- '{{ DomainDnsIps }}',
- '{{ DomainFqdn }}',
- '{{ DomainIAMRoleName }}',
- '{{ DomainOu }}',
- '{{ EnableCloudwatchLogsExports }}',
- '{{ EnableIAMDatabaseAuthentication }}',
- '{{ EnablePerformanceInsights }}',
- '{{ Engine }}',
- '{{ EngineLifecycleSupport }}',
- '{{ EngineVersion }}',
- '{{ ManageMasterUserPassword }}',
- '{{ Iops }}',
- '{{ KmsKeyId }}',
- '{{ LicenseModel }}',
- '{{ MasterUsername }}',
- '{{ MasterUserPassword }}',
- '{{ MasterUserSecret }}',
- '{{ MaxAllocatedStorage }}',
- '{{ MonitoringInterval }}',
- '{{ MonitoringRoleArn }}',
- '{{ MultiAZ }}',
- '{{ NcharCharacterSetName }}',
- '{{ NetworkType }}',
- '{{ OptionGroupName }}',
- '{{ PerformanceInsightsKMSKeyId }}',
- '{{ PerformanceInsightsRetentionPeriod }}',
- '{{ Port }}',
- '{{ PreferredBackupWindow }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ ProcessorFeatures }}',
- '{{ PromotionTier }}',
- '{{ PubliclyAccessible }}',
- '{{ ReplicaMode }}',
- '{{ RestoreTime }}',
- '{{ SourceDBClusterIdentifier }}',
- '{{ SourceDbiResourceId }}',
- '{{ SourceDBInstanceAutomatedBackupsArn }}',
- '{{ SourceDBInstanceIdentifier }}',
- '{{ SourceRegion }}',
- '{{ StorageEncrypted }}',
- '{{ StorageType }}',
- '{{ StorageThroughput }}',
- '{{ Tags }}',
- '{{ TdeCredentialArn }}',
- '{{ TdeCredentialPassword }}',
- '{{ Timezone }}',
- '{{ UseDefaultProcessorFeatures }}',
- '{{ UseLatestRestorableTime }}',
- '{{ VPCSecurityGroups }}',
- '{{ ApplyImmediately }}',
+SELECT
+'{{ allocated_storage }}',
+ '{{ allow_major_version_upgrade }}',
+ '{{ associated_roles }}',
+ '{{ auto_minor_version_upgrade }}',
+ '{{ automatic_backup_replication_region }}',
+ '{{ automatic_backup_replication_kms_key_id }}',
+ '{{ automatic_backup_replication_retention_period }}',
+ '{{ availability_zone }}',
+ '{{ backup_retention_period }}',
+ '{{ backup_target }}',
+ '{{ ca_certificate_identifier }}',
+ '{{ certificate_rotation_restart }}',
+ '{{ character_set_name }}',
+ '{{ copy_tags_to_snapshot }}',
+ '{{ custom_iam_instance_profile }}',
+ '{{ database_insights_mode }}',
+ '{{ db_cluster_identifier }}',
+ '{{ db_cluster_snapshot_identifier }}',
+ '{{ db_instance_class }}',
+ '{{ db_instance_identifier }}',
+ '{{ db_name }}',
+ '{{ db_parameter_group_name }}',
+ '{{ db_security_groups }}',
+ '{{ db_snapshot_identifier }}',
+ '{{ db_subnet_group_name }}',
+ '{{ db_system_id }}',
+ '{{ dedicated_log_volume }}',
+ '{{ delete_automated_backups }}',
+ '{{ deletion_protection }}',
+ '{{ domain }}',
+ '{{ domain_auth_secret_arn }}',
+ '{{ domain_dns_ips }}',
+ '{{ domain_fqdn }}',
+ '{{ domain_iam_role_name }}',
+ '{{ domain_ou }}',
+ '{{ enable_cloudwatch_logs_exports }}',
+ '{{ enable_iam_database_authentication }}',
+ '{{ enable_performance_insights }}',
+ '{{ engine }}',
+ '{{ engine_lifecycle_support }}',
+ '{{ engine_version }}',
+ '{{ manage_master_user_password }}',
+ '{{ iops }}',
+ '{{ kms_key_id }}',
+ '{{ license_model }}',
+ '{{ master_username }}',
+ '{{ master_user_password }}',
+ '{{ master_user_secret }}',
+ '{{ max_allocated_storage }}',
+ '{{ monitoring_interval }}',
+ '{{ monitoring_role_arn }}',
+ '{{ multi_az }}',
+ '{{ nchar_character_set_name }}',
+ '{{ network_type }}',
+ '{{ option_group_name }}',
+ '{{ performance_insights_kms_key_id }}',
+ '{{ performance_insights_retention_period }}',
+ '{{ port }}',
+ '{{ preferred_backup_window }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ processor_features }}',
+ '{{ promotion_tier }}',
+ '{{ publicly_accessible }}',
+ '{{ replica_mode }}',
+ '{{ restore_time }}',
+ '{{ source_db_cluster_identifier }}',
+ '{{ source_dbi_resource_id }}',
+ '{{ source_db_instance_automated_backups_arn }}',
+ '{{ source_db_instance_identifier }}',
+ '{{ source_region }}',
+ '{{ storage_encrypted }}',
+ '{{ storage_type }}',
+ '{{ storage_throughput }}',
+ '{{ tags }}',
+ '{{ tde_credential_arn }}',
+ '{{ tde_credential_password }}',
+ '{{ timezone }}',
+ '{{ use_default_processor_features }}',
+ '{{ use_latest_restorable_time }}',
+ '{{ vpc_security_groups }}',
+ '{{ apply_immediately }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1093,88 +1093,88 @@ INSERT INTO awscc.rds.db_instances (
  ApplyImmediately,
  region
 )
-SELECT 
- '{{ AllocatedStorage }}',
- '{{ AllowMajorVersionUpgrade }}',
- '{{ AssociatedRoles }}',
- '{{ AutoMinorVersionUpgrade }}',
- '{{ AutomaticBackupReplicationRegion }}',
- '{{ AutomaticBackupReplicationKmsKeyId }}',
- '{{ AutomaticBackupReplicationRetentionPeriod }}',
- '{{ AvailabilityZone }}',
- '{{ BackupRetentionPeriod }}',
- '{{ BackupTarget }}',
- '{{ CACertificateIdentifier }}',
- '{{ CertificateRotationRestart }}',
- '{{ CharacterSetName }}',
- '{{ CopyTagsToSnapshot }}',
- '{{ CustomIAMInstanceProfile }}',
- '{{ DatabaseInsightsMode }}',
- '{{ DBClusterIdentifier }}',
- '{{ DBClusterSnapshotIdentifier }}',
- '{{ DBInstanceClass }}',
- '{{ DBInstanceIdentifier }}',
- '{{ DBName }}',
- '{{ DBParameterGroupName }}',
- '{{ DBSecurityGroups }}',
- '{{ DBSnapshotIdentifier }}',
- '{{ DBSubnetGroupName }}',
- '{{ DBSystemId }}',
- '{{ DedicatedLogVolume }}',
- '{{ DeleteAutomatedBackups }}',
- '{{ DeletionProtection }}',
- '{{ Domain }}',
- '{{ DomainAuthSecretArn }}',
- '{{ DomainDnsIps }}',
- '{{ DomainFqdn }}',
- '{{ DomainIAMRoleName }}',
- '{{ DomainOu }}',
- '{{ EnableCloudwatchLogsExports }}',
- '{{ EnableIAMDatabaseAuthentication }}',
- '{{ EnablePerformanceInsights }}',
- '{{ Engine }}',
- '{{ EngineLifecycleSupport }}',
- '{{ EngineVersion }}',
- '{{ ManageMasterUserPassword }}',
- '{{ Iops }}',
- '{{ KmsKeyId }}',
- '{{ LicenseModel }}',
- '{{ MasterUsername }}',
- '{{ MasterUserPassword }}',
- '{{ MasterUserSecret }}',
- '{{ MaxAllocatedStorage }}',
- '{{ MonitoringInterval }}',
- '{{ MonitoringRoleArn }}',
- '{{ MultiAZ }}',
- '{{ NcharCharacterSetName }}',
- '{{ NetworkType }}',
- '{{ OptionGroupName }}',
- '{{ PerformanceInsightsKMSKeyId }}',
- '{{ PerformanceInsightsRetentionPeriod }}',
- '{{ Port }}',
- '{{ PreferredBackupWindow }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ ProcessorFeatures }}',
- '{{ PromotionTier }}',
- '{{ PubliclyAccessible }}',
- '{{ ReplicaMode }}',
- '{{ RestoreTime }}',
- '{{ SourceDBClusterIdentifier }}',
- '{{ SourceDbiResourceId }}',
- '{{ SourceDBInstanceAutomatedBackupsArn }}',
- '{{ SourceDBInstanceIdentifier }}',
- '{{ SourceRegion }}',
- '{{ StorageEncrypted }}',
- '{{ StorageType }}',
- '{{ StorageThroughput }}',
- '{{ Tags }}',
- '{{ TdeCredentialArn }}',
- '{{ TdeCredentialPassword }}',
- '{{ Timezone }}',
- '{{ UseDefaultProcessorFeatures }}',
- '{{ UseLatestRestorableTime }}',
- '{{ VPCSecurityGroups }}',
- '{{ ApplyImmediately }}',
+SELECT
+ '{{ allocated_storage }}',
+ '{{ allow_major_version_upgrade }}',
+ '{{ associated_roles }}',
+ '{{ auto_minor_version_upgrade }}',
+ '{{ automatic_backup_replication_region }}',
+ '{{ automatic_backup_replication_kms_key_id }}',
+ '{{ automatic_backup_replication_retention_period }}',
+ '{{ availability_zone }}',
+ '{{ backup_retention_period }}',
+ '{{ backup_target }}',
+ '{{ ca_certificate_identifier }}',
+ '{{ certificate_rotation_restart }}',
+ '{{ character_set_name }}',
+ '{{ copy_tags_to_snapshot }}',
+ '{{ custom_iam_instance_profile }}',
+ '{{ database_insights_mode }}',
+ '{{ db_cluster_identifier }}',
+ '{{ db_cluster_snapshot_identifier }}',
+ '{{ db_instance_class }}',
+ '{{ db_instance_identifier }}',
+ '{{ db_name }}',
+ '{{ db_parameter_group_name }}',
+ '{{ db_security_groups }}',
+ '{{ db_snapshot_identifier }}',
+ '{{ db_subnet_group_name }}',
+ '{{ db_system_id }}',
+ '{{ dedicated_log_volume }}',
+ '{{ delete_automated_backups }}',
+ '{{ deletion_protection }}',
+ '{{ domain }}',
+ '{{ domain_auth_secret_arn }}',
+ '{{ domain_dns_ips }}',
+ '{{ domain_fqdn }}',
+ '{{ domain_iam_role_name }}',
+ '{{ domain_ou }}',
+ '{{ enable_cloudwatch_logs_exports }}',
+ '{{ enable_iam_database_authentication }}',
+ '{{ enable_performance_insights }}',
+ '{{ engine }}',
+ '{{ engine_lifecycle_support }}',
+ '{{ engine_version }}',
+ '{{ manage_master_user_password }}',
+ '{{ iops }}',
+ '{{ kms_key_id }}',
+ '{{ license_model }}',
+ '{{ master_username }}',
+ '{{ master_user_password }}',
+ '{{ master_user_secret }}',
+ '{{ max_allocated_storage }}',
+ '{{ monitoring_interval }}',
+ '{{ monitoring_role_arn }}',
+ '{{ multi_az }}',
+ '{{ nchar_character_set_name }}',
+ '{{ network_type }}',
+ '{{ option_group_name }}',
+ '{{ performance_insights_kms_key_id }}',
+ '{{ performance_insights_retention_period }}',
+ '{{ port }}',
+ '{{ preferred_backup_window }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ processor_features }}',
+ '{{ promotion_tier }}',
+ '{{ publicly_accessible }}',
+ '{{ replica_mode }}',
+ '{{ restore_time }}',
+ '{{ source_db_cluster_identifier }}',
+ '{{ source_dbi_resource_id }}',
+ '{{ source_db_instance_automated_backups_arn }}',
+ '{{ source_db_instance_identifier }}',
+ '{{ source_region }}',
+ '{{ storage_encrypted }}',
+ '{{ storage_type }}',
+ '{{ storage_throughput }}',
+ '{{ tags }}',
+ '{{ tde_credential_arn }}',
+ '{{ tde_credential_password }}',
+ '{{ timezone }}',
+ '{{ use_default_processor_features }}',
+ '{{ use_latest_restorable_time }}',
+ '{{ vpc_security_groups }}',
+ '{{ apply_immediately }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1192,181 +1192,180 @@ globals:
 resources:
   - name: db_instance
     props:
-      - name: AllocatedStorage
-        value: '{{ AllocatedStorage }}'
-      - name: AllowMajorVersionUpgrade
-        value: '{{ AllowMajorVersionUpgrade }}'
-      - name: AssociatedRoles
+      - name: allocated_storage
+        value: '{{ allocated_storage }}'
+      - name: allow_major_version_upgrade
+        value: '{{ allow_major_version_upgrade }}'
+      - name: associated_roles
         value:
-          - FeatureName: '{{ FeatureName }}'
-            RoleArn: '{{ RoleArn }}'
-      - name: AutoMinorVersionUpgrade
-        value: '{{ AutoMinorVersionUpgrade }}'
-      - name: AutomaticBackupReplicationRegion
-        value: '{{ AutomaticBackupReplicationRegion }}'
-      - name: AutomaticBackupReplicationKmsKeyId
-        value: '{{ AutomaticBackupReplicationKmsKeyId }}'
-      - name: AutomaticBackupReplicationRetentionPeriod
-        value: '{{ AutomaticBackupReplicationRetentionPeriod }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: BackupRetentionPeriod
-        value: '{{ BackupRetentionPeriod }}'
-      - name: BackupTarget
-        value: '{{ BackupTarget }}'
-      - name: CACertificateIdentifier
-        value: '{{ CACertificateIdentifier }}'
-      - name: CertificateRotationRestart
-        value: '{{ CertificateRotationRestart }}'
-      - name: CharacterSetName
-        value: '{{ CharacterSetName }}'
-      - name: CopyTagsToSnapshot
-        value: '{{ CopyTagsToSnapshot }}'
-      - name: CustomIAMInstanceProfile
-        value: '{{ CustomIAMInstanceProfile }}'
-      - name: DatabaseInsightsMode
-        value: '{{ DatabaseInsightsMode }}'
-      - name: DBClusterIdentifier
-        value: '{{ DBClusterIdentifier }}'
-      - name: DBClusterSnapshotIdentifier
-        value: '{{ DBClusterSnapshotIdentifier }}'
-      - name: DBInstanceClass
-        value: '{{ DBInstanceClass }}'
-      - name: DBInstanceIdentifier
-        value: '{{ DBInstanceIdentifier }}'
-      - name: DBName
-        value: '{{ DBName }}'
-      - name: DBParameterGroupName
-        value: '{{ DBParameterGroupName }}'
-      - name: DBSecurityGroups
+          - feature_name: '{{ feature_name }}'
+            role_arn: '{{ role_arn }}'
+      - name: auto_minor_version_upgrade
+        value: '{{ auto_minor_version_upgrade }}'
+      - name: automatic_backup_replication_region
+        value: '{{ automatic_backup_replication_region }}'
+      - name: automatic_backup_replication_kms_key_id
+        value: '{{ automatic_backup_replication_kms_key_id }}'
+      - name: automatic_backup_replication_retention_period
+        value: '{{ automatic_backup_replication_retention_period }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: backup_retention_period
+        value: '{{ backup_retention_period }}'
+      - name: backup_target
+        value: '{{ backup_target }}'
+      - name: ca_certificate_identifier
+        value: '{{ ca_certificate_identifier }}'
+      - name: certificate_rotation_restart
+        value: '{{ certificate_rotation_restart }}'
+      - name: character_set_name
+        value: '{{ character_set_name }}'
+      - name: copy_tags_to_snapshot
+        value: '{{ copy_tags_to_snapshot }}'
+      - name: custom_iam_instance_profile
+        value: '{{ custom_iam_instance_profile }}'
+      - name: database_insights_mode
+        value: '{{ database_insights_mode }}'
+      - name: db_cluster_identifier
+        value: '{{ db_cluster_identifier }}'
+      - name: db_cluster_snapshot_identifier
+        value: '{{ db_cluster_snapshot_identifier }}'
+      - name: db_instance_class
+        value: '{{ db_instance_class }}'
+      - name: db_instance_identifier
+        value: '{{ db_instance_identifier }}'
+      - name: db_name
+        value: '{{ db_name }}'
+      - name: db_parameter_group_name
+        value: '{{ db_parameter_group_name }}'
+      - name: db_security_groups
         value:
-          - '{{ DBSecurityGroups[0] }}'
-      - name: DBSnapshotIdentifier
-        value: '{{ DBSnapshotIdentifier }}'
-      - name: DBSubnetGroupName
-        value: '{{ DBSubnetGroupName }}'
-      - name: DBSystemId
-        value: '{{ DBSystemId }}'
-      - name: DedicatedLogVolume
-        value: '{{ DedicatedLogVolume }}'
-      - name: DeleteAutomatedBackups
-        value: '{{ DeleteAutomatedBackups }}'
-      - name: DeletionProtection
-        value: '{{ DeletionProtection }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: DomainAuthSecretArn
-        value: '{{ DomainAuthSecretArn }}'
-      - name: DomainDnsIps
+          - '{{ db_security_groups[0] }}'
+      - name: db_snapshot_identifier
+        value: '{{ db_snapshot_identifier }}'
+      - name: db_subnet_group_name
+        value: '{{ db_subnet_group_name }}'
+      - name: db_system_id
+        value: '{{ db_system_id }}'
+      - name: dedicated_log_volume
+        value: '{{ dedicated_log_volume }}'
+      - name: delete_automated_backups
+        value: '{{ delete_automated_backups }}'
+      - name: deletion_protection
+        value: '{{ deletion_protection }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: domain_auth_secret_arn
+        value: '{{ domain_auth_secret_arn }}'
+      - name: domain_dns_ips
         value:
-          - '{{ DomainDnsIps[0] }}'
-      - name: DomainFqdn
-        value: '{{ DomainFqdn }}'
-      - name: DomainIAMRoleName
-        value: '{{ DomainIAMRoleName }}'
-      - name: DomainOu
-        value: '{{ DomainOu }}'
-      - name: EnableCloudwatchLogsExports
+          - '{{ domain_dns_ips[0] }}'
+      - name: domain_fqdn
+        value: '{{ domain_fqdn }}'
+      - name: domain_iam_role_name
+        value: '{{ domain_iam_role_name }}'
+      - name: domain_ou
+        value: '{{ domain_ou }}'
+      - name: enable_cloudwatch_logs_exports
         value:
-          - '{{ EnableCloudwatchLogsExports[0] }}'
-      - name: EnableIAMDatabaseAuthentication
-        value: '{{ EnableIAMDatabaseAuthentication }}'
-      - name: EnablePerformanceInsights
-        value: '{{ EnablePerformanceInsights }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: EngineLifecycleSupport
-        value: '{{ EngineLifecycleSupport }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: ManageMasterUserPassword
-        value: '{{ ManageMasterUserPassword }}'
-      - name: Iops
-        value: '{{ Iops }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: LicenseModel
-        value: '{{ LicenseModel }}'
-      - name: MasterUsername
-        value: '{{ MasterUsername }}'
-      - name: MasterUserPassword
-        value: '{{ MasterUserPassword }}'
-      - name: MasterUserSecret
+          - '{{ enable_cloudwatch_logs_exports[0] }}'
+      - name: enable_iam_database_authentication
+        value: '{{ enable_iam_database_authentication }}'
+      - name: enable_performance_insights
+        value: '{{ enable_performance_insights }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: engine_lifecycle_support
+        value: '{{ engine_lifecycle_support }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: manage_master_user_password
+        value: '{{ manage_master_user_password }}'
+      - name: iops
+        value: '{{ iops }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: license_model
+        value: '{{ license_model }}'
+      - name: master_username
+        value: '{{ master_username }}'
+      - name: master_user_password
+        value: '{{ master_user_password }}'
+      - name: master_user_secret
         value:
-          SecretArn: '{{ SecretArn }}'
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: MaxAllocatedStorage
-        value: '{{ MaxAllocatedStorage }}'
-      - name: MonitoringInterval
-        value: '{{ MonitoringInterval }}'
-      - name: MonitoringRoleArn
-        value: '{{ MonitoringRoleArn }}'
-      - name: MultiAZ
-        value: '{{ MultiAZ }}'
-      - name: NcharCharacterSetName
-        value: '{{ NcharCharacterSetName }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: OptionGroupName
-        value: '{{ OptionGroupName }}'
-      - name: PerformanceInsightsKMSKeyId
-        value: '{{ PerformanceInsightsKMSKeyId }}'
-      - name: PerformanceInsightsRetentionPeriod
-        value: '{{ PerformanceInsightsRetentionPeriod }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: PreferredBackupWindow
-        value: '{{ PreferredBackupWindow }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: ProcessorFeatures
+          secret_arn: '{{ secret_arn }}'
+          kms_key_id: '{{ kms_key_id }}'
+      - name: max_allocated_storage
+        value: '{{ max_allocated_storage }}'
+      - name: monitoring_interval
+        value: '{{ monitoring_interval }}'
+      - name: monitoring_role_arn
+        value: '{{ monitoring_role_arn }}'
+      - name: multi_az
+        value: '{{ multi_az }}'
+      - name: nchar_character_set_name
+        value: '{{ nchar_character_set_name }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: option_group_name
+        value: '{{ option_group_name }}'
+      - name: performance_insights_kms_key_id
+        value: '{{ performance_insights_kms_key_id }}'
+      - name: performance_insights_retention_period
+        value: '{{ performance_insights_retention_period }}'
+      - name: port
+        value: '{{ port }}'
+      - name: preferred_backup_window
+        value: '{{ preferred_backup_window }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: processor_features
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-      - name: PromotionTier
-        value: '{{ PromotionTier }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: ReplicaMode
-        value: '{{ ReplicaMode }}'
-      - name: RestoreTime
-        value: '{{ RestoreTime }}'
-      - name: SourceDBClusterIdentifier
-        value: '{{ SourceDBClusterIdentifier }}'
-      - name: SourceDbiResourceId
-        value: '{{ SourceDbiResourceId }}'
-      - name: SourceDBInstanceAutomatedBackupsArn
-        value: '{{ SourceDBInstanceAutomatedBackupsArn }}'
-      - name: SourceDBInstanceIdentifier
-        value: '{{ SourceDBInstanceIdentifier }}'
-      - name: SourceRegion
-        value: '{{ SourceRegion }}'
-      - name: StorageEncrypted
-        value: '{{ StorageEncrypted }}'
-      - name: StorageType
-        value: '{{ StorageType }}'
-      - name: StorageThroughput
-        value: '{{ StorageThroughput }}'
-      - name: Tags
+          - name: '{{ name }}'
+            value: '{{ value }}'
+      - name: promotion_tier
+        value: '{{ promotion_tier }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: replica_mode
+        value: '{{ replica_mode }}'
+      - name: restore_time
+        value: '{{ restore_time }}'
+      - name: source_db_cluster_identifier
+        value: '{{ source_db_cluster_identifier }}'
+      - name: source_dbi_resource_id
+        value: '{{ source_dbi_resource_id }}'
+      - name: source_db_instance_automated_backups_arn
+        value: '{{ source_db_instance_automated_backups_arn }}'
+      - name: source_db_instance_identifier
+        value: '{{ source_db_instance_identifier }}'
+      - name: source_region
+        value: '{{ source_region }}'
+      - name: storage_encrypted
+        value: '{{ storage_encrypted }}'
+      - name: storage_type
+        value: '{{ storage_type }}'
+      - name: storage_throughput
+        value: '{{ storage_throughput }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TdeCredentialArn
-        value: '{{ TdeCredentialArn }}'
-      - name: TdeCredentialPassword
-        value: '{{ TdeCredentialPassword }}'
-      - name: Timezone
-        value: '{{ Timezone }}'
-      - name: UseDefaultProcessorFeatures
-        value: '{{ UseDefaultProcessorFeatures }}'
-      - name: UseLatestRestorableTime
-        value: '{{ UseLatestRestorableTime }}'
-      - name: VPCSecurityGroups
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: tde_credential_arn
+        value: '{{ tde_credential_arn }}'
+      - name: tde_credential_password
+        value: '{{ tde_credential_password }}'
+      - name: timezone
+        value: '{{ timezone }}'
+      - name: use_default_processor_features
+        value: '{{ use_default_processor_features }}'
+      - name: use_latest_restorable_time
+        value: '{{ use_latest_restorable_time }}'
+      - name: vpc_security_groups
         value:
-          - '{{ VPCSecurityGroups[0] }}'
-      - name: ApplyImmediately
-        value: '{{ ApplyImmediately }}'
-
+          - '{{ vpc_security_groups[0] }}'
+      - name: apply_immediately
+        value: '{{ apply_immediately }}'
 ```
 </TabItem>
 </Tabs>
@@ -1447,7 +1446,7 @@ SET PatchDocument = string('{{ {
     "ApplyImmediately": apply_immediately
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBInstanceIdentifier>';
+AND Identifier = '{{ db_instance_identifier }}';
 ```
 
 
@@ -1456,7 +1455,7 @@ AND Identifier = '<DBInstanceIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_instances
-WHERE Identifier = '<DBInstanceIdentifier>'
+WHERE Identifier = '{{ db_instance_identifier }}'
 AND region = 'us-east-1';
 ```
 

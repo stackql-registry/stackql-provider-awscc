@@ -164,7 +164,7 @@ subnet_ids,
 tags,
 cluster_subnet_group_name
 FROM awscc.redshift.cluster_subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '<ClusterSubnetGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.redshift.cluster_subnet_groups (
  SubnetIds,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ SubnetIds }}',
+SELECT
+'{{ description }}',
+ '{{ subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,10 +217,10 @@ INSERT INTO awscc.redshift.cluster_subnet_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,16 +238,15 @@ globals:
 resources:
   - name: cluster_subnet_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: SubnetIds
+      - name: description
+        value: '{{ description }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterSubnetGroupName>';
+AND Identifier = '{{ cluster_subnet_group_name }}';
 ```
 
 
@@ -274,7 +273,7 @@ AND Identifier = '<ClusterSubnetGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.cluster_subnet_groups
-WHERE Identifier = '<ClusterSubnetGroupName>'
+WHERE Identifier = '{{ cluster_subnet_group_name }}'
 AND region = 'us-east-1';
 ```
 

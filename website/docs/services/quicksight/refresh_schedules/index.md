@@ -274,7 +274,7 @@ aws_account_id,
 data_set_id,
 schedule
 FROM awscc.quicksight.refresh_schedules
-WHERE region = 'us-east-1' AND Identifier = '<AwsAccountId>|<DataSetId>|<Schedule/ScheduleId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -312,7 +312,7 @@ INSERT INTO awscc.quicksight.refresh_schedules (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -327,10 +327,10 @@ INSERT INTO awscc.quicksight.refresh_schedules (
  Schedule,
  region
 )
-SELECT 
- '{{ AwsAccountId }}',
- '{{ DataSetId }}',
- '{{ Schedule }}',
+SELECT
+ '{{ aws_account_id }}',
+ '{{ data_set_id }}',
+ '{{ schedule }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -348,23 +348,22 @@ globals:
 resources:
   - name: refresh_schedule
     props:
-      - name: AwsAccountId
-        value: '{{ AwsAccountId }}'
-      - name: DataSetId
-        value: '{{ DataSetId }}'
-      - name: Schedule
+      - name: aws_account_id
+        value: '{{ aws_account_id }}'
+      - name: data_set_id
+        value: '{{ data_set_id }}'
+      - name: schedule
         value:
-          ScheduleId: '{{ ScheduleId }}'
-          ScheduleFrequency:
-            Interval: '{{ Interval }}'
-            RefreshOnDay:
-              DayOfWeek: '{{ DayOfWeek }}'
-              DayOfMonth: '{{ DayOfMonth }}'
-            TimeZone: '{{ TimeZone }}'
-            TimeOfTheDay: '{{ TimeOfTheDay }}'
-          StartAfterDateTime: '{{ StartAfterDateTime }}'
-          RefreshType: '{{ RefreshType }}'
-
+          schedule_id: '{{ schedule_id }}'
+          schedule_frequency:
+            interval: '{{ interval }}'
+            refresh_on_day:
+              day_of_week: '{{ day_of_week }}'
+              day_of_month: '{{ day_of_month }}'
+            time_zone: '{{ time_zone }}'
+            time_of_the_day: '{{ time_of_the_day }}'
+          start_after_date_time: '{{ start_after_date_time }}'
+          refresh_type: '{{ refresh_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -375,7 +374,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.quicksight.refresh_schedules
-WHERE Identifier = '<AwsAccountId|DataSetId|Schedule/ScheduleId>'
+WHERE Identifier = '{{ aws_account_id }}|{{ data_set_id }}|{{ schedule/schedule_id }}'
 AND region = 'us-east-1';
 ```
 

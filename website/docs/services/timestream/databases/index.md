@@ -164,7 +164,7 @@ database_name,
 kms_key_id,
 tags
 FROM awscc.timestream.databases
-WHERE region = 'us-east-1' AND Identifier = '<DatabaseName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.timestream.databases (
  Tags,
  region
 )
-SELECT 
-'{{ DatabaseName }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
+SELECT
+'{{ database_name }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.timestream.databases (
  Tags,
  region
 )
-SELECT 
- '{{ DatabaseName }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
+SELECT
+ '{{ database_name }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,14 @@ globals:
 resources:
   - name: database
     props:
-      - name: DatabaseName
-        value: '{{ DatabaseName }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+      - name: database_name
+        value: '{{ database_name }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatabaseName>';
+AND Identifier = '{{ database_name }}';
 ```
 
 
@@ -274,7 +273,7 @@ AND Identifier = '<DatabaseName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.databases
-WHERE Identifier = '<DatabaseName>'
+WHERE Identifier = '{{ database_name }}'
 AND region = 'us-east-1';
 ```
 

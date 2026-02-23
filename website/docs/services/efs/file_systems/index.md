@@ -305,7 +305,7 @@ backup_policy,
 availability_zone_name,
 replication_configuration
 FROM awscc.efs.file_systems
-WHERE region = 'us-east-1' AND Identifier = '<FileSystemId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ file_system_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,20 +353,20 @@ INSERT INTO awscc.efs.file_systems (
  ReplicationConfiguration,
  region
 )
-SELECT 
-'{{ Encrypted }}',
- '{{ FileSystemTags }}',
- '{{ KmsKeyId }}',
- '{{ LifecyclePolicies }}',
- '{{ FileSystemProtection }}',
- '{{ PerformanceMode }}',
- '{{ ProvisionedThroughputInMibps }}',
- '{{ ThroughputMode }}',
- '{{ FileSystemPolicy }}',
- '{{ BypassPolicyLockoutSafetyCheck }}',
- '{{ BackupPolicy }}',
- '{{ AvailabilityZoneName }}',
- '{{ ReplicationConfiguration }}',
+SELECT
+'{{ encrypted }}',
+ '{{ file_system_tags }}',
+ '{{ kms_key_id }}',
+ '{{ lifecycle_policies }}',
+ '{{ file_system_protection }}',
+ '{{ performance_mode }}',
+ '{{ provisioned_throughput_in_mibps }}',
+ '{{ throughput_mode }}',
+ '{{ file_system_policy }}',
+ '{{ bypass_policy_lockout_safety_check }}',
+ '{{ backup_policy }}',
+ '{{ availability_zone_name }}',
+ '{{ replication_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -390,20 +390,20 @@ INSERT INTO awscc.efs.file_systems (
  ReplicationConfiguration,
  region
 )
-SELECT 
- '{{ Encrypted }}',
- '{{ FileSystemTags }}',
- '{{ KmsKeyId }}',
- '{{ LifecyclePolicies }}',
- '{{ FileSystemProtection }}',
- '{{ PerformanceMode }}',
- '{{ ProvisionedThroughputInMibps }}',
- '{{ ThroughputMode }}',
- '{{ FileSystemPolicy }}',
- '{{ BypassPolicyLockoutSafetyCheck }}',
- '{{ BackupPolicy }}',
- '{{ AvailabilityZoneName }}',
- '{{ ReplicationConfiguration }}',
+SELECT
+ '{{ encrypted }}',
+ '{{ file_system_tags }}',
+ '{{ kms_key_id }}',
+ '{{ lifecycle_policies }}',
+ '{{ file_system_protection }}',
+ '{{ performance_mode }}',
+ '{{ provisioned_throughput_in_mibps }}',
+ '{{ throughput_mode }}',
+ '{{ file_system_policy }}',
+ '{{ bypass_policy_lockout_safety_check }}',
+ '{{ backup_policy }}',
+ '{{ availability_zone_name }}',
+ '{{ replication_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -421,48 +421,47 @@ globals:
 resources:
   - name: file_system
     props:
-      - name: Encrypted
-        value: '{{ Encrypted }}'
-      - name: FileSystemTags
+      - name: encrypted
+        value: '{{ encrypted }}'
+      - name: file_system_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: LifecyclePolicies
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: lifecycle_policies
         value:
-          - TransitionToIA: '{{ TransitionToIA }}'
-            TransitionToPrimaryStorageClass: '{{ TransitionToPrimaryStorageClass }}'
-            TransitionToArchive: '{{ TransitionToArchive }}'
-      - name: FileSystemProtection
+          - transition_to_ia: '{{ transition_to_ia }}'
+            transition_to_primary_storage_class: '{{ transition_to_primary_storage_class }}'
+            transition_to_archive: '{{ transition_to_archive }}'
+      - name: file_system_protection
         value:
-          ReplicationOverwriteProtection: '{{ ReplicationOverwriteProtection }}'
-      - name: PerformanceMode
-        value: '{{ PerformanceMode }}'
-      - name: ProvisionedThroughputInMibps
+          replication_overwrite_protection: '{{ replication_overwrite_protection }}'
+      - name: performance_mode
+        value: '{{ performance_mode }}'
+      - name: provisioned_throughput_in_mibps
         value: null
-      - name: ThroughputMode
-        value: '{{ ThroughputMode }}'
-      - name: FileSystemPolicy
+      - name: throughput_mode
+        value: '{{ throughput_mode }}'
+      - name: file_system_policy
         value: {}
-      - name: BypassPolicyLockoutSafetyCheck
-        value: '{{ BypassPolicyLockoutSafetyCheck }}'
-      - name: BackupPolicy
+      - name: bypass_policy_lockout_safety_check
+        value: '{{ bypass_policy_lockout_safety_check }}'
+      - name: backup_policy
         value:
-          Status: '{{ Status }}'
-      - name: AvailabilityZoneName
-        value: '{{ AvailabilityZoneName }}'
-      - name: ReplicationConfiguration
+          status: '{{ status }}'
+      - name: availability_zone_name
+        value: '{{ availability_zone_name }}'
+      - name: replication_configuration
         value:
-          Destinations:
-            - Status: '{{ Status }}'
-              StatusMessage: '{{ StatusMessage }}'
-              FileSystemId: '{{ FileSystemId }}'
-              Region: '{{ Region }}'
-              RoleArn: '{{ RoleArn }}'
-              AvailabilityZoneName: '{{ AvailabilityZoneName }}'
-              KmsKeyId: '{{ KmsKeyId }}'
-
+          destinations:
+            - status: '{{ status }}'
+              status_message: '{{ status_message }}'
+              file_system_id: '{{ file_system_id }}'
+              region: '{{ region }}'
+              role_arn: '{{ role_arn }}'
+              availability_zone_name: '{{ availability_zone_name }}'
+              kms_key_id: '{{ kms_key_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -485,7 +484,7 @@ SET PatchDocument = string('{{ {
     "BackupPolicy": backup_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FileSystemId>';
+AND Identifier = '{{ file_system_id }}';
 ```
 
 
@@ -494,7 +493,7 @@ AND Identifier = '<FileSystemId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.efs.file_systems
-WHERE Identifier = '<FileSystemId>'
+WHERE Identifier = '{{ file_system_id }}'
 AND region = 'us-east-1';
 ```
 

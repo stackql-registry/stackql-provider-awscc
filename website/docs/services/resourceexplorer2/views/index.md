@@ -178,7 +178,7 @@ tags,
 view_arn,
 view_name
 FROM awscc.resourceexplorer2.views
-WHERE region = 'us-east-1' AND Identifier = '<ViewArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,8 +214,8 @@ INSERT INTO awscc.resourceexplorer2.views (
  ViewName,
  region
 )
-SELECT 
-'{{ ViewName }}',
+SELECT
+'{{ view_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.resourceexplorer2.views (
  ViewName,
  region
 )
-SELECT 
- '{{ Filters }}',
- '{{ IncludedProperties }}',
- '{{ Scope }}',
- '{{ Tags }}',
- '{{ ViewName }}',
+SELECT
+ '{{ filters }}',
+ '{{ included_properties }}',
+ '{{ scope }}',
+ '{{ tags }}',
+ '{{ view_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: view
     props:
-      - name: Filters
+      - name: filters
         value:
-          FilterString: '{{ FilterString }}'
-      - name: IncludedProperties
+          filter_string: '{{ filter_string }}'
+      - name: included_properties
         value:
-          - Name: '{{ Name }}'
-      - name: Scope
-        value: '{{ Scope }}'
-      - name: Tags
+          - name: '{{ name }}'
+      - name: scope
+        value: '{{ scope }}'
+      - name: tags
         value: {}
-      - name: ViewName
-        value: '{{ ViewName }}'
-
+      - name: view_name
+        value: '{{ view_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ViewArn>';
+AND Identifier = '{{ view_arn }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<ViewArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.views
-WHERE Identifier = '<ViewArn>'
+WHERE Identifier = '{{ view_arn }}'
 AND region = 'us-east-1';
 ```
 

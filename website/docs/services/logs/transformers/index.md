@@ -607,7 +607,7 @@ region,
 log_group_identifier,
 transformer_config
 FROM awscc.logs.transformers
-WHERE region = 'us-east-1' AND Identifier = '<LogGroupIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ log_group_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -644,9 +644,9 @@ INSERT INTO awscc.logs.transformers (
  TransformerConfig,
  region
 )
-SELECT 
-'{{ LogGroupIdentifier }}',
- '{{ TransformerConfig }}',
+SELECT
+'{{ log_group_identifier }}',
+ '{{ transformer_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -659,9 +659,9 @@ INSERT INTO awscc.logs.transformers (
  TransformerConfig,
  region
 )
-SELECT 
- '{{ LogGroupIdentifier }}',
- '{{ TransformerConfig }}',
+SELECT
+ '{{ log_group_identifier }}',
+ '{{ transformer_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -679,106 +679,105 @@ globals:
 resources:
   - name: transformer
     props:
-      - name: LogGroupIdentifier
-        value: '{{ LogGroupIdentifier }}'
-      - name: TransformerConfig
+      - name: log_group_identifier
+        value: '{{ log_group_identifier }}'
+      - name: transformer_config
         value:
-          - ParseCloudfront:
-              Source: '{{ Source }}'
-            ParseVPC:
-              Source: null
-            ParseWAF:
-              Source: null
-            ParseJSON:
-              Source: '{{ Source }}'
-              Destination: '{{ Destination }}'
-            ParseRoute53:
-              Source: null
-            ParsePostgres:
-              Source: null
-            ParseToOCSF:
-              Source: null
-              EventSource: '{{ EventSource }}'
-              OcsfVersion: '{{ OcsfVersion }}'
-            ParseKeyValue:
-              Source: null
-              Destination: null
-              FieldDelimiter: '{{ FieldDelimiter }}'
-              KeyValueDelimiter: '{{ KeyValueDelimiter }}'
-              KeyPrefix: null
-              NonMatchValue: null
-              OverwriteIfExists: '{{ OverwriteIfExists }}'
-            CopyValue:
-              Entries:
-                - Source: null
-                  Target: null
-                  OverwriteIfExists: '{{ OverwriteIfExists }}'
-            Csv:
-              QuoteCharacter: '{{ QuoteCharacter }}'
-              Delimiter: '{{ Delimiter }}'
-              Source: '{{ Source }}'
-              Columns:
+          - parse_cloudfront:
+              source: '{{ source }}'
+            parse_vpc:
+              source: null
+            parse_wa_f:
+              source: null
+            parse_js_on:
+              source: '{{ source }}'
+              destination: '{{ destination }}'
+            parse_route53:
+              source: null
+            parse_postgres:
+              source: null
+            parse_to_oc_sf:
+              source: null
+              event_source: '{{ event_source }}'
+              ocsf_version: '{{ ocsf_version }}'
+            parse_key_value:
+              source: null
+              destination: null
+              field_delimiter: '{{ field_delimiter }}'
+              key_value_delimiter: '{{ key_value_delimiter }}'
+              key_prefix: null
+              non_match_value: null
+              overwrite_if_exists: '{{ overwrite_if_exists }}'
+            copy_value:
+              entries:
+                - source: null
+                  target: null
+                  overwrite_if_exists: '{{ overwrite_if_exists }}'
+            csv:
+              quote_character: '{{ quote_character }}'
+              delimiter: '{{ delimiter }}'
+              source: '{{ source }}'
+              columns:
                 - null
-            DateTimeConverter:
-              Source: null
-              Target: null
-              TargetFormat: '{{ TargetFormat }}'
-              MatchPatterns:
+            date_time_converter:
+              source: null
+              target: null
+              target_format: '{{ target_format }}'
+              match_patterns:
                 - null
-              SourceTimezone: '{{ SourceTimezone }}'
-              TargetTimezone: '{{ TargetTimezone }}'
-              Locale: '{{ Locale }}'
-            DeleteKeys:
-              WithKeys:
-                - '{{ WithKeys[0] }}'
-            Grok:
-              Source: null
-              Match: '{{ Match }}'
-            ListToMap:
-              Source: null
-              Key: null
-              ValueKey: null
-              Target: null
-              Flatten: '{{ Flatten }}'
-              FlattenedElement: '{{ FlattenedElement }}'
-            AddKeys:
-              Entries:
-                - Key: null
-                  Value: '{{ Value }}'
-                  OverwriteIfExists: '{{ OverwriteIfExists }}'
-            MoveKeys:
-              Entries:
-                - Source: null
-                  Target: null
-                  OverwriteIfExists: '{{ OverwriteIfExists }}'
-            RenameKeys:
-              Entries:
-                - Key: null
-                  RenameTo: null
-                  OverwriteIfExists: '{{ OverwriteIfExists }}'
-            LowerCaseString:
-              WithKeys:
+              source_timezone: '{{ source_timezone }}'
+              target_timezone: '{{ target_timezone }}'
+              locale: '{{ locale }}'
+            delete_keys:
+              with_keys:
+                - '{{ with_keys[0] }}'
+            grok:
+              source: null
+              match: '{{ match }}'
+            list_to_map:
+              source: null
+              key: null
+              value_key: null
+              target: null
+              flatten: '{{ flatten }}'
+              flattened_element: '{{ flattened_element }}'
+            add_keys:
+              entries:
+                - key: null
+                  value: '{{ value }}'
+                  overwrite_if_exists: '{{ overwrite_if_exists }}'
+            move_keys:
+              entries:
+                - source: null
+                  target: null
+                  overwrite_if_exists: '{{ overwrite_if_exists }}'
+            rename_keys:
+              entries:
+                - key: null
+                  rename_to: null
+                  overwrite_if_exists: '{{ overwrite_if_exists }}'
+            lower_case_string:
+              with_keys:
                 - null
-            SplitString:
-              Entries:
-                - Source: null
-                  Delimiter: '{{ Delimiter }}'
-            SubstituteString:
-              Entries:
-                - Source: null
-                  From: null
-                  To: null
-            TrimString:
-              WithKeys:
+            split_string:
+              entries:
+                - source: null
+                  delimiter: '{{ delimiter }}'
+            substitute_string:
+              entries:
+                - source: null
+                  from: null
+                  to: null
+            trim_string:
+              with_keys:
                 - null
-            UpperCaseString:
-              WithKeys:
+            upper_case_string:
+              with_keys:
                 - null
-            TypeConverter:
-              Entries:
-                - Key: null
-                  Type: '{{ Type }}'
-
+            type_converter:
+              entries:
+                - key: null
+                  type: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -794,7 +793,7 @@ SET PatchDocument = string('{{ {
     "TransformerConfig": transformer_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LogGroupIdentifier>';
+AND Identifier = '{{ log_group_identifier }}';
 ```
 
 
@@ -803,7 +802,7 @@ AND Identifier = '<LogGroupIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.transformers
-WHERE Identifier = '<LogGroupIdentifier>'
+WHERE Identifier = '{{ log_group_identifier }}'
 AND region = 'us-east-1';
 ```
 

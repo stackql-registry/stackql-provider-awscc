@@ -165,7 +165,7 @@ name,
 vpc_configuration,
 policy
 FROM awscc.s3outposts.access_points
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,10 +203,10 @@ INSERT INTO awscc.s3outposts.access_points (
  VpcConfiguration,
  region
 )
-SELECT 
-'{{ Bucket }}',
- '{{ Name }}',
- '{{ VpcConfiguration }}',
+SELECT
+'{{ bucket }}',
+ '{{ name }}',
+ '{{ vpc_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,11 +221,11 @@ INSERT INTO awscc.s3outposts.access_points (
  Policy,
  region
 )
-SELECT 
- '{{ Bucket }}',
- '{{ Name }}',
- '{{ VpcConfiguration }}',
- '{{ Policy }}',
+SELECT
+ '{{ bucket }}',
+ '{{ name }}',
+ '{{ vpc_configuration }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -243,16 +243,15 @@ globals:
 resources:
   - name: access_point
     props:
-      - name: Bucket
-        value: '{{ Bucket }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: VpcConfiguration
+      - name: bucket
+        value: '{{ bucket }}'
+      - name: name
+        value: '{{ name }}'
+      - name: vpc_configuration
         value:
-          VpcId: '{{ VpcId }}'
-      - name: Policy
+          vpc_id: '{{ vpc_id }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.access_points
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -365,7 +365,7 @@ query_log_status,
 analytics_engine,
 creator_payment_configuration
 FROM awscc.cleanrooms.collaborations
-WHERE region = 'us-east-1' AND Identifier = '<CollaborationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ collaboration_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -404,11 +404,11 @@ INSERT INTO awscc.cleanrooms.collaborations (
  QueryLogStatus,
  region
 )
-SELECT 
-'{{ CreatorDisplayName }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ QueryLogStatus }}',
+SELECT
+'{{ creator_display_name }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ query_log_status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -431,19 +431,19 @@ INSERT INTO awscc.cleanrooms.collaborations (
  CreatorPaymentConfiguration,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ CreatorDisplayName }}',
- '{{ CreatorMemberAbilities }}',
- '{{ CreatorMLMemberAbilities }}',
- '{{ DataEncryptionMetadata }}',
- '{{ Description }}',
- '{{ Members }}',
- '{{ Name }}',
- '{{ JobLogStatus }}',
- '{{ QueryLogStatus }}',
- '{{ AnalyticsEngine }}',
- '{{ CreatorPaymentConfiguration }}',
+SELECT
+ '{{ tags }}',
+ '{{ creator_display_name }}',
+ '{{ creator_member_abilities }}',
+ '{{ creator_ml_member_abilities }}',
+ '{{ data_encryption_metadata }}',
+ '{{ description }}',
+ '{{ members }}',
+ '{{ name }}',
+ '{{ job_log_status }}',
+ '{{ query_log_status }}',
+ '{{ analytics_engine }}',
+ '{{ creator_payment_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -461,54 +461,53 @@ globals:
 resources:
   - name: collaboration
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CreatorDisplayName
-        value: '{{ CreatorDisplayName }}'
-      - name: CreatorMemberAbilities
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: creator_display_name
+        value: '{{ creator_display_name }}'
+      - name: creator_member_abilities
         value:
-          - '{{ CreatorMemberAbilities[0] }}'
-      - name: CreatorMLMemberAbilities
+          - '{{ creator_member_abilities[0] }}'
+      - name: creator_ml_member_abilities
         value:
-          CustomMLMemberAbilities:
-            - '{{ CustomMLMemberAbilities[0] }}'
-      - name: DataEncryptionMetadata
+          custom_ml_member_abilities:
+            - '{{ custom_ml_member_abilities[0] }}'
+      - name: data_encryption_metadata
         value:
-          AllowCleartext: '{{ AllowCleartext }}'
-          AllowDuplicates: '{{ AllowDuplicates }}'
-          AllowJoinsOnColumnsWithDifferentNames: '{{ AllowJoinsOnColumnsWithDifferentNames }}'
-          PreserveNulls: '{{ PreserveNulls }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Members
+          allow_cleartext: '{{ allow_cleartext }}'
+          allow_duplicates: '{{ allow_duplicates }}'
+          allow_joins_on_columns_with_different_names: '{{ allow_joins_on_columns_with_different_names }}'
+          preserve_nulls: '{{ preserve_nulls }}'
+      - name: description
+        value: '{{ description }}'
+      - name: members
         value:
-          - AccountId: '{{ AccountId }}'
-            MemberAbilities: null
-            MLMemberAbilities: null
-            DisplayName: null
-            PaymentConfiguration:
-              JobCompute:
-                IsResponsible: '{{ IsResponsible }}'
-              QueryCompute:
-                IsResponsible: '{{ IsResponsible }}'
-              MachineLearning:
-                ModelTraining:
-                  IsResponsible: '{{ IsResponsible }}'
-                ModelInference:
-                  IsResponsible: '{{ IsResponsible }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: JobLogStatus
-        value: '{{ JobLogStatus }}'
-      - name: QueryLogStatus
-        value: '{{ QueryLogStatus }}'
-      - name: AnalyticsEngine
-        value: '{{ AnalyticsEngine }}'
-      - name: CreatorPaymentConfiguration
+          - account_id: '{{ account_id }}'
+            member_abilities: null
+            ml_member_abilities: null
+            display_name: null
+            payment_configuration:
+              job_compute:
+                is_responsible: '{{ is_responsible }}'
+              query_compute:
+                is_responsible: '{{ is_responsible }}'
+              machine_learning:
+                model_training:
+                  is_responsible: '{{ is_responsible }}'
+                model_inference:
+                  is_responsible: '{{ is_responsible }}'
+      - name: name
+        value: '{{ name }}'
+      - name: job_log_status
+        value: '{{ job_log_status }}'
+      - name: query_log_status
+        value: '{{ query_log_status }}'
+      - name: analytics_engine
+        value: '{{ analytics_engine }}'
+      - name: creator_payment_configuration
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -527,7 +526,7 @@ SET PatchDocument = string('{{ {
     "AnalyticsEngine": analytics_engine
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CollaborationIdentifier>';
+AND Identifier = '{{ collaboration_identifier }}';
 ```
 
 
@@ -536,7 +535,7 @@ AND Identifier = '<CollaborationIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.collaborations
-WHERE Identifier = '<CollaborationIdentifier>'
+WHERE Identifier = '{{ collaboration_identifier }}'
 AND region = 'us-east-1';
 ```
 

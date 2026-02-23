@@ -194,7 +194,7 @@ publicly_accessible,
 endpoint,
 tags
 FROM awscc.rds.db_shard_groups
-WHERE region = 'us-east-1' AND Identifier = '<DBShardGroupIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_shard_group_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.rds.db_shard_groups (
  MaxACU,
  region
 )
-SELECT 
-'{{ DBClusterIdentifier }}',
- '{{ MaxACU }}',
+SELECT
+'{{ db_cluster_identifier }}',
+ '{{ max_ac_u }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,14 +251,14 @@ INSERT INTO awscc.rds.db_shard_groups (
  Tags,
  region
 )
-SELECT 
- '{{ DBShardGroupIdentifier }}',
- '{{ DBClusterIdentifier }}',
- '{{ ComputeRedundancy }}',
- '{{ MaxACU }}',
- '{{ MinACU }}',
- '{{ PubliclyAccessible }}',
- '{{ Tags }}',
+SELECT
+ '{{ db_shard_group_identifier }}',
+ '{{ db_cluster_identifier }}',
+ '{{ compute_redundancy }}',
+ '{{ max_ac_u }}',
+ '{{ min_ac_u }}',
+ '{{ publicly_accessible }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,23 +276,22 @@ globals:
 resources:
   - name: db_shard_group
     props:
-      - name: DBShardGroupIdentifier
-        value: '{{ DBShardGroupIdentifier }}'
-      - name: DBClusterIdentifier
-        value: '{{ DBClusterIdentifier }}'
-      - name: ComputeRedundancy
-        value: '{{ ComputeRedundancy }}'
-      - name: MaxACU
+      - name: db_shard_group_identifier
+        value: '{{ db_shard_group_identifier }}'
+      - name: db_cluster_identifier
+        value: '{{ db_cluster_identifier }}'
+      - name: compute_redundancy
+        value: '{{ compute_redundancy }}'
+      - name: max_ac_u
         value: null
-      - name: MinACU
+      - name: min_ac_u
         value: null
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: Tags
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBShardGroupIdentifier>';
+AND Identifier = '{{ db_shard_group_identifier }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<DBShardGroupIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_shard_groups
-WHERE Identifier = '<DBShardGroupIdentifier>'
+WHERE Identifier = '{{ db_shard_group_identifier }}'
 AND region = 'us-east-1';
 ```
 

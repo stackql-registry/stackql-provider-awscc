@@ -740,7 +740,7 @@ region,
 id,
 spot_fleet_request_config_data
 FROM awscc.ec2.spot_fleets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -776,8 +776,8 @@ INSERT INTO awscc.ec2.spot_fleets (
  SpotFleetRequestConfigData,
  region
 )
-SELECT 
-'{{ SpotFleetRequestConfigData }}',
+SELECT
+'{{ spot_fleet_request_config_data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -789,8 +789,8 @@ INSERT INTO awscc.ec2.spot_fleets (
  SpotFleetRequestConfigData,
  region
 )
-SELECT 
- '{{ SpotFleetRequestConfigData }}',
+SELECT
+ '{{ spot_fleet_request_config_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -808,161 +808,160 @@ globals:
 resources:
   - name: spot_fleet
     props:
-      - name: SpotFleetRequestConfigData
+      - name: spot_fleet_request_config_data
         value:
-          AllocationStrategy: '{{ AllocationStrategy }}'
-          Context: '{{ Context }}'
-          ExcessCapacityTerminationPolicy: '{{ ExcessCapacityTerminationPolicy }}'
-          IamFleetRole: '{{ IamFleetRole }}'
-          InstanceInterruptionBehavior: '{{ InstanceInterruptionBehavior }}'
-          InstancePoolsToUseCount: '{{ InstancePoolsToUseCount }}'
-          LaunchSpecifications:
-            - BlockDeviceMappings:
-                - DeviceName: '{{ DeviceName }}'
-                  Ebs:
-                    DeleteOnTermination: '{{ DeleteOnTermination }}'
-                    Encrypted: '{{ Encrypted }}'
-                    Iops: '{{ Iops }}'
-                    SnapshotId: '{{ SnapshotId }}'
-                    VolumeSize: '{{ VolumeSize }}'
-                    VolumeType: '{{ VolumeType }}'
-                  NoDevice: '{{ NoDevice }}'
-                  VirtualName: '{{ VirtualName }}'
-              EbsOptimized: '{{ EbsOptimized }}'
-              IamInstanceProfile:
-                Arn: '{{ Arn }}'
-              ImageId: '{{ ImageId }}'
-              InstanceType: '{{ InstanceType }}'
-              KernelId: '{{ KernelId }}'
-              KeyName: '{{ KeyName }}'
-              Monitoring:
-                Enabled: '{{ Enabled }}'
-              NetworkInterfaces:
-                - AssociatePublicIpAddress: '{{ AssociatePublicIpAddress }}'
-                  DeleteOnTermination: '{{ DeleteOnTermination }}'
-                  Description: '{{ Description }}'
-                  DeviceIndex: '{{ DeviceIndex }}'
-                  Groups:
-                    - '{{ Groups[0] }}'
-                  Ipv6AddressCount: '{{ Ipv6AddressCount }}'
-                  Ipv6Addresses:
-                    - Ipv6Address: '{{ Ipv6Address }}'
-                  NetworkInterfaceId: '{{ NetworkInterfaceId }}'
-                  PrivateIpAddresses:
-                    - Primary: '{{ Primary }}'
-                      PrivateIpAddress: '{{ PrivateIpAddress }}'
-                  SecondaryPrivateIpAddressCount: '{{ SecondaryPrivateIpAddressCount }}'
-                  SubnetId: '{{ SubnetId }}'
-              Placement:
-                AvailabilityZone: '{{ AvailabilityZone }}'
-                GroupName: '{{ GroupName }}'
-                Tenancy: '{{ Tenancy }}'
-              RamdiskId: '{{ RamdiskId }}'
-              SecurityGroups:
-                - GroupId: '{{ GroupId }}'
-              SpotPrice: '{{ SpotPrice }}'
-              SubnetId: '{{ SubnetId }}'
-              TagSpecifications:
-                - ResourceType: '{{ ResourceType }}'
-                  Tags:
-                    - Key: '{{ Key }}'
-                      Value: '{{ Value }}'
-              UserData: '{{ UserData }}'
-              WeightedCapacity: null
-              InstanceRequirements:
-                VCpuCount:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                MemoryMiB:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                CpuManufacturers:
-                  - '{{ CpuManufacturers[0] }}'
-                MemoryGiBPerVCpu:
-                  Min: null
-                  Max: null
-                AllowedInstanceTypes:
-                  - '{{ AllowedInstanceTypes[0] }}'
-                ExcludedInstanceTypes:
-                  - '{{ ExcludedInstanceTypes[0] }}'
-                InstanceGenerations:
-                  - '{{ InstanceGenerations[0] }}'
-                SpotMaxPricePercentageOverLowestPrice: '{{ SpotMaxPricePercentageOverLowestPrice }}'
-                OnDemandMaxPricePercentageOverLowestPrice: '{{ OnDemandMaxPricePercentageOverLowestPrice }}'
-                MaxSpotPriceAsPercentageOfOptimalOnDemandPrice: '{{ MaxSpotPriceAsPercentageOfOptimalOnDemandPrice }}'
-                BareMetal: '{{ BareMetal }}'
-                BurstablePerformance: '{{ BurstablePerformance }}'
-                RequireHibernateSupport: '{{ RequireHibernateSupport }}'
-                NetworkBandwidthGbps:
-                  Min: null
-                  Max: null
-                NetworkInterfaceCount:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                LocalStorage: '{{ LocalStorage }}'
-                LocalStorageTypes:
-                  - '{{ LocalStorageTypes[0] }}'
-                TotalLocalStorageGB:
-                  Min: null
-                  Max: null
-                BaselineEbsBandwidthMbps:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                AcceleratorTypes:
-                  - '{{ AcceleratorTypes[0] }}'
-                AcceleratorCount:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                AcceleratorManufacturers:
-                  - '{{ AcceleratorManufacturers[0] }}'
-                AcceleratorNames:
-                  - '{{ AcceleratorNames[0] }}'
-                AcceleratorTotalMemoryMiB:
-                  Min: '{{ Min }}'
-                  Max: '{{ Max }}'
-                BaselinePerformanceFactors:
-                  Cpu:
-                    References:
-                      - InstanceFamily: '{{ InstanceFamily }}'
-          LaunchTemplateConfigs:
-            - LaunchTemplateSpecification:
-                LaunchTemplateId: '{{ LaunchTemplateId }}'
-                LaunchTemplateName: '{{ LaunchTemplateName }}'
-                Version: '{{ Version }}'
-              Overrides:
-                - AvailabilityZone: '{{ AvailabilityZone }}'
-                  InstanceType: '{{ InstanceType }}'
-                  SpotPrice: '{{ SpotPrice }}'
-                  SubnetId: '{{ SubnetId }}'
-                  WeightedCapacity: null
-                  InstanceRequirements: null
-                  Priority: null
-          LoadBalancersConfig:
-            ClassicLoadBalancersConfig:
-              ClassicLoadBalancers:
-                - Name: '{{ Name }}'
-            TargetGroupsConfig:
-              TargetGroups:
-                - Arn: '{{ Arn }}'
-          OnDemandAllocationStrategy: '{{ OnDemandAllocationStrategy }}'
-          OnDemandMaxTotalPrice: '{{ OnDemandMaxTotalPrice }}'
-          OnDemandTargetCapacity: '{{ OnDemandTargetCapacity }}'
-          ReplaceUnhealthyInstances: '{{ ReplaceUnhealthyInstances }}'
-          SpotMaintenanceStrategies:
-            CapacityRebalance:
-              ReplacementStrategy: '{{ ReplacementStrategy }}'
-              TerminationDelay: '{{ TerminationDelay }}'
-          SpotMaxTotalPrice: '{{ SpotMaxTotalPrice }}'
-          SpotPrice: '{{ SpotPrice }}'
-          TargetCapacity: '{{ TargetCapacity }}'
-          TerminateInstancesWithExpiration: '{{ TerminateInstancesWithExpiration }}'
-          Type: '{{ Type }}'
-          ValidFrom: '{{ ValidFrom }}'
-          ValidUntil: '{{ ValidUntil }}'
-          TagSpecifications:
+          allocation_strategy: '{{ allocation_strategy }}'
+          context: '{{ context }}'
+          excess_capacity_termination_policy: '{{ excess_capacity_termination_policy }}'
+          iam_fleet_role: '{{ iam_fleet_role }}'
+          instance_interruption_behavior: '{{ instance_interruption_behavior }}'
+          instance_pools_to_use_count: '{{ instance_pools_to_use_count }}'
+          launch_specifications:
+            - block_device_mappings:
+                - device_name: '{{ device_name }}'
+                  ebs:
+                    delete_on_termination: '{{ delete_on_termination }}'
+                    encrypted: '{{ encrypted }}'
+                    iops: '{{ iops }}'
+                    snapshot_id: '{{ snapshot_id }}'
+                    volume_size: '{{ volume_size }}'
+                    volume_type: '{{ volume_type }}'
+                  no_device: '{{ no_device }}'
+                  virtual_name: '{{ virtual_name }}'
+              ebs_optimized: '{{ ebs_optimized }}'
+              iam_instance_profile:
+                arn: '{{ arn }}'
+              image_id: '{{ image_id }}'
+              instance_type: '{{ instance_type }}'
+              kernel_id: '{{ kernel_id }}'
+              key_name: '{{ key_name }}'
+              monitoring:
+                enabled: '{{ enabled }}'
+              network_interfaces:
+                - associate_public_ip_address: '{{ associate_public_ip_address }}'
+                  delete_on_termination: '{{ delete_on_termination }}'
+                  description: '{{ description }}'
+                  device_index: '{{ device_index }}'
+                  groups:
+                    - '{{ groups[0] }}'
+                  ipv6_address_count: '{{ ipv6_address_count }}'
+                  ipv6_addresses:
+                    - ipv6_address: '{{ ipv6_address }}'
+                  network_interface_id: '{{ network_interface_id }}'
+                  private_ip_addresses:
+                    - primary: '{{ primary }}'
+                      private_ip_address: '{{ private_ip_address }}'
+                  secondary_private_ip_address_count: '{{ secondary_private_ip_address_count }}'
+                  subnet_id: '{{ subnet_id }}'
+              placement:
+                availability_zone: '{{ availability_zone }}'
+                group_name: '{{ group_name }}'
+                tenancy: '{{ tenancy }}'
+              ramdisk_id: '{{ ramdisk_id }}'
+              security_groups:
+                - group_id: '{{ group_id }}'
+              spot_price: '{{ spot_price }}'
+              subnet_id: '{{ subnet_id }}'
+              tag_specifications:
+                - resource_type: '{{ resource_type }}'
+                  tags:
+                    - key: '{{ key }}'
+                      value: '{{ value }}'
+              user_data: '{{ user_data }}'
+              weighted_capacity: null
+              instance_requirements:
+                v_cpu_count:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                memory_mi_b:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                cpu_manufacturers:
+                  - '{{ cpu_manufacturers[0] }}'
+                memory_gi_bper_vcpu:
+                  min: null
+                  max: null
+                allowed_instance_types:
+                  - '{{ allowed_instance_types[0] }}'
+                excluded_instance_types:
+                  - '{{ excluded_instance_types[0] }}'
+                instance_generations:
+                  - '{{ instance_generations[0] }}'
+                spot_max_price_percentage_over_lowest_price: '{{ spot_max_price_percentage_over_lowest_price }}'
+                on_demand_max_price_percentage_over_lowest_price: '{{ on_demand_max_price_percentage_over_lowest_price }}'
+                max_spot_price_as_percentage_of_optimal_on_demand_price: '{{ max_spot_price_as_percentage_of_optimal_on_demand_price }}'
+                bare_metal: '{{ bare_metal }}'
+                burstable_performance: '{{ burstable_performance }}'
+                require_hibernate_support: '{{ require_hibernate_support }}'
+                network_bandwidth_gbps:
+                  min: null
+                  max: null
+                network_interface_count:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                local_storage: '{{ local_storage }}'
+                local_storage_types:
+                  - '{{ local_storage_types[0] }}'
+                total_local_storage_gb:
+                  min: null
+                  max: null
+                baseline_ebs_bandwidth_mbps:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                accelerator_types:
+                  - '{{ accelerator_types[0] }}'
+                accelerator_count:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                accelerator_manufacturers:
+                  - '{{ accelerator_manufacturers[0] }}'
+                accelerator_names:
+                  - '{{ accelerator_names[0] }}'
+                accelerator_total_memory_mi_b:
+                  min: '{{ min }}'
+                  max: '{{ max }}'
+                baseline_performance_factors:
+                  cpu:
+                    references:
+                      - instance_family: '{{ instance_family }}'
+          launch_template_configs:
+            - launch_template_specification:
+                launch_template_id: '{{ launch_template_id }}'
+                launch_template_name: '{{ launch_template_name }}'
+                version: '{{ version }}'
+              overrides:
+                - availability_zone: '{{ availability_zone }}'
+                  instance_type: '{{ instance_type }}'
+                  spot_price: '{{ spot_price }}'
+                  subnet_id: '{{ subnet_id }}'
+                  weighted_capacity: null
+                  instance_requirements: null
+                  priority: null
+          load_balancers_config:
+            classic_load_balancers_config:
+              classic_load_balancers:
+                - name: '{{ name }}'
+            target_groups_config:
+              target_groups:
+                - arn: '{{ arn }}'
+          on_demand_allocation_strategy: '{{ on_demand_allocation_strategy }}'
+          on_demand_max_total_price: '{{ on_demand_max_total_price }}'
+          on_demand_target_capacity: '{{ on_demand_target_capacity }}'
+          replace_unhealthy_instances: '{{ replace_unhealthy_instances }}'
+          spot_maintenance_strategies:
+            capacity_rebalance:
+              replacement_strategy: '{{ replacement_strategy }}'
+              termination_delay: '{{ termination_delay }}'
+          spot_max_total_price: '{{ spot_max_total_price }}'
+          spot_price: '{{ spot_price }}'
+          target_capacity: '{{ target_capacity }}'
+          terminate_instances_with_expiration: '{{ terminate_instances_with_expiration }}'
+          type: '{{ type }}'
+          valid_from: '{{ valid_from }}'
+          valid_until: '{{ valid_until }}'
+          tag_specifications:
             - null
-          TargetCapacityUnitType: '{{ TargetCapacityUnitType }}'
-
+          target_capacity_unit_type: '{{ target_capacity_unit_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -973,7 +972,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.spot_fleets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

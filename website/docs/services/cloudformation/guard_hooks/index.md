@@ -247,7 +247,7 @@ hook_arn,
 execution_role,
 options
 FROM awscc.cloudformation.guard_hooks
-WHERE region = 'us-east-1' AND Identifier = '<HookArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hook_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -288,13 +288,13 @@ INSERT INTO awscc.cloudformation.guard_hooks (
  ExecutionRole,
  region
 )
-SELECT 
-'{{ RuleLocation }}',
- '{{ HookStatus }}',
- '{{ TargetOperations }}',
- '{{ FailureMode }}',
- '{{ Alias }}',
- '{{ ExecutionRole }}',
+SELECT
+'{{ rule_location }}',
+ '{{ hook_status }}',
+ '{{ target_operations }}',
+ '{{ failure_mode }}',
+ '{{ alias }}',
+ '{{ execution_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -315,17 +315,17 @@ INSERT INTO awscc.cloudformation.guard_hooks (
  Options,
  region
 )
-SELECT 
- '{{ RuleLocation }}',
- '{{ LogBucket }}',
- '{{ HookStatus }}',
- '{{ TargetOperations }}',
- '{{ FailureMode }}',
- '{{ TargetFilters }}',
- '{{ StackFilters }}',
- '{{ Alias }}',
- '{{ ExecutionRole }}',
- '{{ Options }}',
+SELECT
+ '{{ rule_location }}',
+ '{{ log_bucket }}',
+ '{{ hook_status }}',
+ '{{ target_operations }}',
+ '{{ failure_mode }}',
+ '{{ target_filters }}',
+ '{{ stack_filters }}',
+ '{{ alias }}',
+ '{{ execution_role }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -343,41 +343,40 @@ globals:
 resources:
   - name: guard_hook
     props:
-      - name: RuleLocation
+      - name: rule_location
         value:
-          Uri: '{{ Uri }}'
-          VersionId: '{{ VersionId }}'
-      - name: LogBucket
-        value: '{{ LogBucket }}'
-      - name: HookStatus
-        value: '{{ HookStatus }}'
-      - name: TargetOperations
+          uri: '{{ uri }}'
+          version_id: '{{ version_id }}'
+      - name: log_bucket
+        value: '{{ log_bucket }}'
+      - name: hook_status
+        value: '{{ hook_status }}'
+      - name: target_operations
         value:
-          - '{{ TargetOperations[0] }}'
-      - name: FailureMode
-        value: '{{ FailureMode }}'
-      - name: TargetFilters
+          - '{{ target_operations[0] }}'
+      - name: failure_mode
+        value: '{{ failure_mode }}'
+      - name: target_filters
         value: {}
-      - name: StackFilters
+      - name: stack_filters
         value:
-          FilteringCriteria: '{{ FilteringCriteria }}'
-          StackNames:
-            Include:
-              - '{{ Include[0] }}'
-            Exclude:
+          filtering_criteria: '{{ filtering_criteria }}'
+          stack_names:
+            include:
+              - '{{ include[0] }}'
+            exclude:
               - null
-          StackRoles:
-            Include:
-              - '{{ Include[0] }}'
-            Exclude:
+          stack_roles:
+            include:
+              - '{{ include[0] }}'
+            exclude:
               - null
-      - name: Alias
-        value: '{{ Alias }}'
-      - name: ExecutionRole
-        value: '{{ ExecutionRole }}'
-      - name: Options
+      - name: alias
+        value: '{{ alias }}'
+      - name: execution_role
+        value: '{{ execution_role }}'
+      - name: options
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -400,7 +399,7 @@ SET PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HookArn>';
+AND Identifier = '{{ hook_arn }}';
 ```
 
 
@@ -409,7 +408,7 @@ AND Identifier = '<HookArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.guard_hooks
-WHERE Identifier = '<HookArn>'
+WHERE Identifier = '{{ hook_arn }}'
 AND region = 'us-east-1';
 ```
 

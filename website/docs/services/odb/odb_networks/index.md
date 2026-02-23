@@ -218,7 +218,7 @@ odb_network_arn,
 odb_network_id,
 tags
 FROM awscc.odb.odb_networks
-WHERE region = 'us-east-1' AND Identifier = '<OdbNetworkArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ odb_network_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,15 +261,15 @@ INSERT INTO awscc.odb.odb_networks (
  Tags,
  region
 )
-SELECT 
-'{{ AvailabilityZone }}',
- '{{ AvailabilityZoneId }}',
- '{{ BackupSubnetCidr }}',
- '{{ ClientSubnetCidr }}',
- '{{ DefaultDnsPrefix }}',
- '{{ DeleteAssociatedResources }}',
- '{{ DisplayName }}',
- '{{ Tags }}',
+SELECT
+'{{ availability_zone }}',
+ '{{ availability_zone_id }}',
+ '{{ backup_subnet_cidr }}',
+ '{{ client_subnet_cidr }}',
+ '{{ default_dns_prefix }}',
+ '{{ delete_associated_resources }}',
+ '{{ display_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -288,15 +288,15 @@ INSERT INTO awscc.odb.odb_networks (
  Tags,
  region
 )
-SELECT 
- '{{ AvailabilityZone }}',
- '{{ AvailabilityZoneId }}',
- '{{ BackupSubnetCidr }}',
- '{{ ClientSubnetCidr }}',
- '{{ DefaultDnsPrefix }}',
- '{{ DeleteAssociatedResources }}',
- '{{ DisplayName }}',
- '{{ Tags }}',
+SELECT
+ '{{ availability_zone }}',
+ '{{ availability_zone_id }}',
+ '{{ backup_subnet_cidr }}',
+ '{{ client_subnet_cidr }}',
+ '{{ default_dns_prefix }}',
+ '{{ delete_associated_resources }}',
+ '{{ display_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -314,25 +314,24 @@ globals:
 resources:
   - name: odb_network
     props:
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: AvailabilityZoneId
-        value: '{{ AvailabilityZoneId }}'
-      - name: BackupSubnetCidr
-        value: '{{ BackupSubnetCidr }}'
-      - name: ClientSubnetCidr
-        value: '{{ ClientSubnetCidr }}'
-      - name: DefaultDnsPrefix
-        value: '{{ DefaultDnsPrefix }}'
-      - name: DeleteAssociatedResources
-        value: '{{ DeleteAssociatedResources }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: Tags
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: availability_zone_id
+        value: '{{ availability_zone_id }}'
+      - name: backup_subnet_cidr
+        value: '{{ backup_subnet_cidr }}'
+      - name: client_subnet_cidr
+        value: '{{ client_subnet_cidr }}'
+      - name: default_dns_prefix
+        value: '{{ default_dns_prefix }}'
+      - name: delete_associated_resources
+        value: '{{ delete_associated_resources }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +348,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<OdbNetworkArn>';
+AND Identifier = '{{ odb_network_arn }}';
 ```
 
 
@@ -358,7 +357,7 @@ AND Identifier = '<OdbNetworkArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.odb_networks
-WHERE Identifier = '<OdbNetworkArn>'
+WHERE Identifier = '{{ odb_network_arn }}'
 AND region = 'us-east-1';
 ```
 

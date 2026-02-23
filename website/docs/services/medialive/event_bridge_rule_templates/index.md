@@ -212,7 +212,7 @@ modified_at,
 name,
 tags
 FROM awscc.medialive.event_bridge_rule_templates
-WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.medialive.event_bridge_rule_templates (
  Name,
  region
 )
-SELECT 
-'{{ EventType }}',
- '{{ Name }}',
+SELECT
+'{{ event_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -268,13 +268,13 @@ INSERT INTO awscc.medialive.event_bridge_rule_templates (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ EventTargets }}',
- '{{ EventType }}',
- '{{ GroupIdentifier }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ event_targets }}',
+ '{{ event_type }}',
+ '{{ group_identifier }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -292,20 +292,19 @@ globals:
 resources:
   - name: event_bridge_rule_template
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: EventTargets
+      - name: description
+        value: '{{ description }}'
+      - name: event_targets
         value:
-          - Arn: '{{ Arn }}'
-      - name: EventType
-        value: '{{ EventType }}'
-      - name: GroupIdentifier
-        value: '{{ GroupIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - arn: '{{ arn }}'
+      - name: event_type
+        value: '{{ event_type }}'
+      - name: group_identifier
+        value: '{{ group_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -325,7 +324,7 @@ SET PatchDocument = string('{{ {
     "Name": name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Identifier>';
+AND Identifier = '{{ identifier }}';
 ```
 
 
@@ -334,7 +333,7 @@ AND Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.event_bridge_rule_templates
-WHERE Identifier = '<Identifier>'
+WHERE Identifier = '{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

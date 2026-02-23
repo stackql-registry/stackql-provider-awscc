@@ -164,7 +164,7 @@ status_code,
 response_parameters,
 response_templates
 FROM awscc.apigateway.gateway_responses
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.apigateway.gateway_responses (
  ResponseType,
  region
 )
-SELECT 
-'{{ RestApiId }}',
- '{{ ResponseType }}',
+SELECT
+'{{ rest_api_id }}',
+ '{{ response_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,12 +219,12 @@ INSERT INTO awscc.apigateway.gateway_responses (
  ResponseTemplates,
  region
 )
-SELECT 
- '{{ RestApiId }}',
- '{{ ResponseType }}',
- '{{ StatusCode }}',
- '{{ ResponseParameters }}',
- '{{ ResponseTemplates }}',
+SELECT
+ '{{ rest_api_id }}',
+ '{{ response_type }}',
+ '{{ status_code }}',
+ '{{ response_parameters }}',
+ '{{ response_templates }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,17 +242,16 @@ globals:
 resources:
   - name: gateway_response
     props:
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: ResponseType
-        value: '{{ ResponseType }}'
-      - name: StatusCode
-        value: '{{ StatusCode }}'
-      - name: ResponseParameters
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: response_type
+        value: '{{ response_type }}'
+      - name: status_code
+        value: '{{ status_code }}'
+      - name: response_parameters
         value: {}
-      - name: ResponseTemplates
+      - name: response_templates
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +269,7 @@ SET PatchDocument = string('{{ {
     "ResponseTemplates": response_templates
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -279,7 +278,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.gateway_responses
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

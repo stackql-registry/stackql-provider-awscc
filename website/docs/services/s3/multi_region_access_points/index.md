@@ -186,7 +186,7 @@ created_at,
 regions,
 name
 FROM awscc.s3.multi_region_access_points
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,8 +222,8 @@ INSERT INTO awscc.s3.multi_region_access_points (
  Regions,
  region
 )
-SELECT 
-'{{ Regions }}',
+SELECT
+'{{ regions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,10 +237,10 @@ INSERT INTO awscc.s3.multi_region_access_points (
  Name,
  region
 )
-SELECT 
- '{{ PublicAccessBlockConfiguration }}',
- '{{ Regions }}',
- '{{ Name }}',
+SELECT
+ '{{ public_access_block_configuration }}',
+ '{{ regions }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,19 +258,18 @@ globals:
 resources:
   - name: multi_region_access_point
     props:
-      - name: PublicAccessBlockConfiguration
+      - name: public_access_block_configuration
         value:
-          RestrictPublicBuckets: '{{ RestrictPublicBuckets }}'
-          BlockPublicPolicy: '{{ BlockPublicPolicy }}'
-          BlockPublicAcls: '{{ BlockPublicAcls }}'
-          IgnorePublicAcls: '{{ IgnorePublicAcls }}'
-      - name: Regions
+          restrict_public_buckets: '{{ restrict_public_buckets }}'
+          block_public_policy: '{{ block_public_policy }}'
+          block_public_acls: '{{ block_public_acls }}'
+          ignore_public_acls: '{{ ignore_public_acls }}'
+      - name: regions
         value:
-          - Bucket: '{{ Bucket }}'
-            BucketAccountId: '{{ BucketAccountId }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - bucket: '{{ bucket }}'
+            bucket_account_id: '{{ bucket_account_id }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.multi_region_access_points
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

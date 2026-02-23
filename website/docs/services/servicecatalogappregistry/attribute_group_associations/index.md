@@ -161,7 +161,7 @@ attribute_group,
 application_arn,
 attribute_group_arn
 FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>|<AttributeGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ attribute_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -199,9 +199,9 @@ INSERT INTO awscc.servicecatalogappregistry.attribute_group_associations (
  AttributeGroup,
  region
 )
-SELECT 
-'{{ Application }}',
- '{{ AttributeGroup }}',
+SELECT
+'{{ application }}',
+ '{{ attribute_group }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.servicecatalogappregistry.attribute_group_associations (
  AttributeGroup,
  region
 )
-SELECT 
- '{{ Application }}',
- '{{ AttributeGroup }}',
+SELECT
+ '{{ application }}',
+ '{{ attribute_group }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,10 @@ globals:
 resources:
   - name: attribute_group_association
     props:
-      - name: Application
-        value: '{{ Application }}'
-      - name: AttributeGroup
-        value: '{{ AttributeGroup }}'
-
+      - name: application
+        value: '{{ application }}'
+      - name: attribute_group
+        value: '{{ attribute_group }}'
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +248,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.attribute_group_associations
-WHERE Identifier = '<ApplicationArn|AttributeGroupArn>'
+WHERE Identifier = '{{ application_arn }}|{{ attribute_group_arn }}'
 AND region = 'us-east-1';
 ```
 

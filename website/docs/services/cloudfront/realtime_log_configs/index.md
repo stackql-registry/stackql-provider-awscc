@@ -182,7 +182,7 @@ fields,
 name,
 sampling_rate
 FROM awscc.cloudfront.realtime_log_configs
-WHERE Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -193,7 +193,7 @@ SELECT
 region,
 arn
 FROM awscc.cloudfront.realtime_log_configs_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -221,11 +221,11 @@ INSERT INTO awscc.cloudfront.realtime_log_configs (
  SamplingRate,
  region
 )
-SELECT 
-'{{ EndPoints }}',
- '{{ Fields }}',
- '{{ Name }}',
- '{{ SamplingRate }}',
+SELECT
+'{{ end_points }}',
+ '{{ fields }}',
+ '{{ name }}',
+ '{{ sampling_rate }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.cloudfront.realtime_log_configs (
  SamplingRate,
  region
 )
-SELECT 
- '{{ EndPoints }}',
- '{{ Fields }}',
- '{{ Name }}',
- '{{ SamplingRate }}',
+SELECT
+ '{{ end_points }}',
+ '{{ fields }}',
+ '{{ name }}',
+ '{{ sampling_rate }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,20 +262,19 @@ globals:
 resources:
   - name: realtime_log_config
     props:
-      - name: EndPoints
+      - name: end_points
         value:
-          - KinesisStreamConfig:
-              RoleArn: '{{ RoleArn }}'
-              StreamArn: '{{ StreamArn }}'
-            StreamType: '{{ StreamType }}'
-      - name: Fields
+          - kinesis_stream_config:
+              role_arn: '{{ role_arn }}'
+              stream_arn: '{{ stream_arn }}'
+            stream_type: '{{ stream_type }}'
+      - name: fields
         value:
-          - '{{ Fields[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SamplingRate
+          - '{{ fields[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: sampling_rate
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "SamplingRate": sampling_rate
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.realtime_log_configs
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

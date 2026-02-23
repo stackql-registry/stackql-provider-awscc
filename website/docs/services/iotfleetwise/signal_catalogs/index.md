@@ -215,7 +215,7 @@ node_counts,
 nodes,
 tags
 FROM awscc.iotfleetwise.signal_catalogs
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -255,12 +255,12 @@ INSERT INTO awscc.iotfleetwise.signal_catalogs (
  Tags,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Name }}',
- '{{ NodeCounts }}',
- '{{ Nodes }}',
- '{{ Tags }}',
+SELECT
+'{{ description }}',
+ '{{ name }}',
+ '{{ node_counts }}',
+ '{{ nodes }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,12 +276,12 @@ INSERT INTO awscc.iotfleetwise.signal_catalogs (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ NodeCounts }}',
- '{{ Nodes }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ node_counts }}',
+ '{{ nodes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,25 +299,24 @@ globals:
 resources:
   - name: signal_catalog
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NodeCounts
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: node_counts
         value:
-          TotalNodes: null
-          TotalBranches: null
-          TotalSensors: null
-          TotalAttributes: null
-          TotalActuators: null
-      - name: Nodes
+          total_nodes: null
+          total_branches: null
+          total_sensors: null
+          total_attributes: null
+          total_actuators: null
+      - name: nodes
         value:
           - null
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.signal_catalogs
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

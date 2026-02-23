@@ -170,7 +170,7 @@ user_names,
 arn,
 tags
 FROM awscc.memorydb.acls
-WHERE region = 'us-east-1' AND Identifier = '<ACLName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ acl_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.memorydb.acls (
  ACLName,
  region
 )
-SELECT 
-'{{ ACLName }}',
+SELECT
+'{{ acl_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,10 +221,10 @@ INSERT INTO awscc.memorydb.acls (
  Tags,
  region
 )
-SELECT 
- '{{ ACLName }}',
- '{{ UserNames }}',
- '{{ Tags }}',
+SELECT
+ '{{ acl_name }}',
+ '{{ user_names }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,16 +242,15 @@ globals:
 resources:
   - name: acl
     props:
-      - name: ACLName
-        value: '{{ ACLName }}'
-      - name: UserNames
+      - name: acl_name
+        value: '{{ acl_name }}'
+      - name: user_names
         value:
-          - '{{ UserNames[0] }}'
-      - name: Tags
+          - '{{ user_names[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ACLName>';
+AND Identifier = '{{ acl_name }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<ACLName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.acls
-WHERE Identifier = '<ACLName>'
+WHERE Identifier = '{{ acl_name }}'
 AND region = 'us-east-1';
 ```
 

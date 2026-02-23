@@ -214,7 +214,7 @@ origin_configuration,
 tags,
 arn
 FROM awscc.codeartifact.package_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -251,9 +251,9 @@ INSERT INTO awscc.codeartifact.package_groups (
  Pattern,
  region
 )
-SELECT 
-'{{ DomainName }}',
- '{{ Pattern }}',
+SELECT
+'{{ domain_name }}',
+ '{{ pattern }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,14 +271,14 @@ INSERT INTO awscc.codeartifact.package_groups (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ DomainOwner }}',
- '{{ Pattern }}',
- '{{ ContactInfo }}',
- '{{ Description }}',
- '{{ OriginConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ domain_owner }}',
+ '{{ pattern }}',
+ '{{ contact_info }}',
+ '{{ description }}',
+ '{{ origin_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,30 +296,29 @@ globals:
 resources:
   - name: package_group
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: DomainOwner
-        value: '{{ DomainOwner }}'
-      - name: Pattern
-        value: '{{ Pattern }}'
-      - name: ContactInfo
-        value: '{{ ContactInfo }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: OriginConfiguration
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: domain_owner
+        value: '{{ domain_owner }}'
+      - name: pattern
+        value: '{{ pattern }}'
+      - name: contact_info
+        value: '{{ contact_info }}'
+      - name: description
+        value: '{{ description }}'
+      - name: origin_configuration
         value:
-          Restrictions:
-            Publish:
-              RestrictionMode: '{{ RestrictionMode }}'
-              Repositories:
-                - '{{ Repositories[0] }}'
-            ExternalUpstream: null
-            InternalUpstream: null
-      - name: Tags
+          restrictions:
+            publish:
+              restriction_mode: '{{ restriction_mode }}'
+              repositories:
+                - '{{ repositories[0] }}'
+            external_upstream: null
+            internal_upstream: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codeartifact.package_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

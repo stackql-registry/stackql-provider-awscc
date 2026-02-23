@@ -158,7 +158,7 @@ transit_gateway_route_table_id,
 transit_gateway_id,
 tags
 FROM awscc.ec2.transit_gateway_route_tables
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayRouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.ec2.transit_gateway_route_tables (
  TransitGatewayId,
  region
 )
-SELECT 
-'{{ TransitGatewayId }}',
+SELECT
+'{{ transit_gateway_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.ec2.transit_gateway_route_tables (
  Tags,
  region
 )
-SELECT 
- '{{ TransitGatewayId }}',
- '{{ Tags }}',
+SELECT
+ '{{ transit_gateway_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: transit_gateway_route_table
     props:
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: Tags
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransitGatewayRouteTableId>';
+AND Identifier = '{{ transit_gateway_route_table_id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<TransitGatewayRouteTableId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_route_tables
-WHERE Identifier = '<TransitGatewayRouteTableId>'
+WHERE Identifier = '{{ transit_gateway_route_table_id }}'
 AND region = 'us-east-1';
 ```
 

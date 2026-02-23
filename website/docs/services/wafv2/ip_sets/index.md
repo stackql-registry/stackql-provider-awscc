@@ -198,7 +198,7 @@ ip_address_version,
 addresses,
 tags
 FROM awscc.wafv2.ip_sets
-WHERE Identifier = '<Name>|<Id>|<Scope>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -211,7 +211,7 @@ name,
 id,
 scope
 FROM awscc.wafv2.ip_sets_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -238,10 +238,10 @@ INSERT INTO awscc.wafv2.ip_sets (
  Addresses,
  region
 )
-SELECT 
-'{{ Scope }}',
- '{{ IPAddressVersion }}',
- '{{ Addresses }}',
+SELECT
+'{{ scope }}',
+ '{{ ip_address_version }}',
+ '{{ addresses }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,13 +258,13 @@ INSERT INTO awscc.wafv2.ip_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Scope }}',
- '{{ IPAddressVersion }}',
- '{{ Addresses }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ scope }}',
+ '{{ ip_address_version }}',
+ '{{ addresses }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,22 +282,21 @@ globals:
 resources:
   - name: ip_set
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Scope
-        value: '{{ Scope }}'
-      - name: IPAddressVersion
-        value: '{{ IPAddressVersion }}'
-      - name: Addresses
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: scope
+        value: '{{ scope }}'
+      - name: ip_address_version
+        value: '{{ ip_address_version }}'
+      - name: addresses
         value:
-          - '{{ Addresses[0] }}'
-      - name: Tags
+          - '{{ addresses[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>|<Id>|<Scope>';
+AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<Name>|<Id>|<Scope>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.ip_sets
-WHERE Identifier = '<Name|Id|Scope>'
+WHERE Identifier = '{{ name }}|{{ id }}|{{ scope }}'
 AND region = 'us-east-1';
 ```
 

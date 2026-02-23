@@ -200,7 +200,7 @@ source_arn,
 source_role_arn,
 tags
 FROM awscc.mediapackage.assets
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -239,11 +239,11 @@ INSERT INTO awscc.mediapackage.assets (
  SourceRoleArn,
  region
 )
-SELECT 
-'{{ Id }}',
- '{{ PackagingGroupId }}',
- '{{ SourceArn }}',
- '{{ SourceRoleArn }}',
+SELECT
+'{{ id }}',
+ '{{ packaging_group_id }}',
+ '{{ source_arn }}',
+ '{{ source_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,14 +261,14 @@ INSERT INTO awscc.mediapackage.assets (
  Tags,
  region
 )
-SELECT 
- '{{ EgressEndpoints }}',
- '{{ Id }}',
- '{{ PackagingGroupId }}',
- '{{ ResourceId }}',
- '{{ SourceArn }}',
- '{{ SourceRoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ egress_endpoints }}',
+ '{{ id }}',
+ '{{ packaging_group_id }}',
+ '{{ resource_id }}',
+ '{{ source_arn }}',
+ '{{ source_role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,25 +286,24 @@ globals:
 resources:
   - name: asset
     props:
-      - name: EgressEndpoints
+      - name: egress_endpoints
         value:
-          - PackagingConfigurationId: '{{ PackagingConfigurationId }}'
-            Url: '{{ Url }}'
-      - name: Id
-        value: '{{ Id }}'
-      - name: PackagingGroupId
-        value: '{{ PackagingGroupId }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: SourceArn
-        value: '{{ SourceArn }}'
-      - name: SourceRoleArn
-        value: '{{ SourceRoleArn }}'
-      - name: Tags
+          - packaging_configuration_id: '{{ packaging_configuration_id }}'
+            url: '{{ url }}'
+      - name: id
+        value: '{{ id }}'
+      - name: packaging_group_id
+        value: '{{ packaging_group_id }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: source_arn
+        value: '{{ source_arn }}'
+      - name: source_role_arn
+        value: '{{ source_role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.assets
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

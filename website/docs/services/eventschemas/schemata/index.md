@@ -200,7 +200,7 @@ last_modified,
 version_created_date,
 tags
 FROM awscc.eventschemas.schemata
-WHERE region = 'us-east-1' AND Identifier = '<SchemaArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ schema_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.eventschemas.schemata (
  RegistryName,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ Content }}',
- '{{ RegistryName }}',
+SELECT
+'{{ type }}',
+ '{{ content }}',
+ '{{ registry_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,13 +258,13 @@ INSERT INTO awscc.eventschemas.schemata (
  Tags,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ Description }}',
- '{{ Content }}',
- '{{ RegistryName }}',
- '{{ SchemaName }}',
- '{{ Tags }}',
+SELECT
+ '{{ type }}',
+ '{{ description }}',
+ '{{ content }}',
+ '{{ registry_name }}',
+ '{{ schema_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,21 +282,20 @@ globals:
 resources:
   - name: schema
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Content
-        value: '{{ Content }}'
-      - name: RegistryName
-        value: '{{ RegistryName }}'
-      - name: SchemaName
-        value: '{{ SchemaName }}'
-      - name: Tags
+      - name: type
+        value: '{{ type }}'
+      - name: description
+        value: '{{ description }}'
+      - name: content
+        value: '{{ content }}'
+      - name: registry_name
+        value: '{{ registry_name }}'
+      - name: schema_name
+        value: '{{ schema_name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SchemaArn>';
+AND Identifier = '{{ schema_arn }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<SchemaArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.eventschemas.schemata
-WHERE Identifier = '<SchemaArn>'
+WHERE Identifier = '{{ schema_arn }}'
 AND region = 'us-east-1';
 ```
 

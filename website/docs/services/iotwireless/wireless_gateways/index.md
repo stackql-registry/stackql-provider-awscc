@@ -206,7 +206,7 @@ thing_arn,
 thing_name,
 last_uplink_received_at
 FROM awscc.iotwireless.wireless_gateways
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.iotwireless.wireless_gateways (
  LoRaWAN,
  region
 )
-SELECT 
-'{{ LoRaWAN }}',
+SELECT
+'{{ lo_ra_wan }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,14 +261,14 @@ INSERT INTO awscc.iotwireless.wireless_gateways (
  LastUplinkReceivedAt,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ LoRaWAN }}',
- '{{ ThingArn }}',
- '{{ ThingName }}',
- '{{ LastUplinkReceivedAt }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ lo_ra_wan }}',
+ '{{ thing_arn }}',
+ '{{ thing_name }}',
+ '{{ last_uplink_received_at }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,25 +286,24 @@ globals:
 resources:
   - name: wireless_gateway
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: LoRaWAN
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: lo_ra_wan
         value:
-          GatewayEui: '{{ GatewayEui }}'
-          RfRegion: '{{ RfRegion }}'
-      - name: ThingArn
-        value: '{{ ThingArn }}'
-      - name: ThingName
-        value: '{{ ThingName }}'
-      - name: LastUplinkReceivedAt
-        value: '{{ LastUplinkReceivedAt }}'
-
+          gateway_eui: '{{ gateway_eui }}'
+          rf_region: '{{ rf_region }}'
+      - name: thing_arn
+        value: '{{ thing_arn }}'
+      - name: thing_name
+        value: '{{ thing_name }}'
+      - name: last_uplink_received_at
+        value: '{{ last_uplink_received_at }}'
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +325,7 @@ SET PatchDocument = string('{{ {
     "LastUplinkReceivedAt": last_uplink_received_at
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -335,7 +334,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.wireless_gateways
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -146,7 +146,7 @@ hub_v2_arn,
 subscribed_at,
 tags
 FROM awscc.securityhub.hub_v2s
-WHERE region = 'us-east-1' AND Identifier = '<HubV2Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hub_v2_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,8 +182,8 @@ INSERT INTO awscc.securityhub.hub_v2s (
  Tags,
  region
 )
-SELECT 
-'{{ Tags }}',
+SELECT
+'{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -195,8 +195,8 @@ INSERT INTO awscc.securityhub.hub_v2s (
  Tags,
  region
 )
-SELECT 
- '{{ Tags }}',
+SELECT
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,8 @@ globals:
 resources:
   - name: hub_v2
     props:
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -232,7 +231,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HubV2Arn>';
+AND Identifier = '{{ hub_v2_arn }}';
 ```
 
 
@@ -241,7 +240,7 @@ AND Identifier = '<HubV2Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.hub_v2s
-WHERE Identifier = '<HubV2Arn>'
+WHERE Identifier = '{{ hub_v2_arn }}'
 AND region = 'us-east-1';
 ```
 

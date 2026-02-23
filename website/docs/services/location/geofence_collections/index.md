@@ -195,7 +195,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.geofence_collections
-WHERE region = 'us-east-1' AND Identifier = '<CollectionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ collection_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,8 +231,8 @@ INSERT INTO awscc.location.geofence_collections (
  CollectionName,
  region
 )
-SELECT 
-'{{ CollectionName }}',
+SELECT
+'{{ collection_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,13 +249,13 @@ INSERT INTO awscc.location.geofence_collections (
  Tags,
  region
 )
-SELECT 
- '{{ CollectionName }}',
- '{{ Description }}',
- '{{ KmsKeyId }}',
- '{{ PricingPlan }}',
- '{{ PricingPlanDataSource }}',
- '{{ Tags }}',
+SELECT
+ '{{ collection_name }}',
+ '{{ description }}',
+ '{{ kms_key_id }}',
+ '{{ pricing_plan }}',
+ '{{ pricing_plan_data_source }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -273,21 +273,20 @@ globals:
 resources:
   - name: geofence_collection
     props:
-      - name: CollectionName
-        value: '{{ CollectionName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: PricingPlan
-        value: '{{ PricingPlan }}'
-      - name: PricingPlanDataSource
-        value: '{{ PricingPlanDataSource }}'
-      - name: Tags
+      - name: collection_name
+        value: '{{ collection_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: pricing_plan
+        value: '{{ pricing_plan }}'
+      - name: pricing_plan_data_source
+        value: '{{ pricing_plan_data_source }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CollectionName>';
+AND Identifier = '{{ collection_name }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<CollectionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.geofence_collections
-WHERE Identifier = '<CollectionName>'
+WHERE Identifier = '{{ collection_name }}'
 AND region = 'us-east-1';
 ```
 

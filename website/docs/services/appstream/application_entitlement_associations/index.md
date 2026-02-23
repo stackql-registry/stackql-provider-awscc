@@ -95,7 +95,7 @@ stack_name,
 entitlement_name,
 application_identifier
 FROM awscc.appstream.application_entitlement_associations
-WHERE region = 'us-east-1' AND Identifier = '<StackName>|<EntitlementName>|<ApplicationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}';
 ```
 
 ## `INSERT` example
@@ -120,10 +120,10 @@ INSERT INTO awscc.appstream.application_entitlement_associations (
  ApplicationIdentifier,
  region
 )
-SELECT 
-'{{ StackName }}',
- '{{ EntitlementName }}',
- '{{ ApplicationIdentifier }}',
+SELECT
+'{{ stack_name }}',
+ '{{ entitlement_name }}',
+ '{{ application_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -137,10 +137,10 @@ INSERT INTO awscc.appstream.application_entitlement_associations (
  ApplicationIdentifier,
  region
 )
-SELECT 
- '{{ StackName }}',
- '{{ EntitlementName }}',
- '{{ ApplicationIdentifier }}',
+SELECT
+ '{{ stack_name }}',
+ '{{ entitlement_name }}',
+ '{{ application_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -158,13 +158,12 @@ globals:
 resources:
   - name: application_entitlement_association
     props:
-      - name: StackName
-        value: '{{ StackName }}'
-      - name: EntitlementName
-        value: '{{ EntitlementName }}'
-      - name: ApplicationIdentifier
-        value: '{{ ApplicationIdentifier }}'
-
+      - name: stack_name
+        value: '{{ stack_name }}'
+      - name: entitlement_name
+        value: '{{ entitlement_name }}'
+      - name: application_identifier
+        value: '{{ application_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -175,7 +174,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.application_entitlement_associations
-WHERE Identifier = '<StackName|EntitlementName|ApplicationIdentifier>'
+WHERE Identifier = '{{ stack_name }}|{{ entitlement_name }}|{{ application_identifier }}'
 AND region = 'us-east-1';
 ```
 

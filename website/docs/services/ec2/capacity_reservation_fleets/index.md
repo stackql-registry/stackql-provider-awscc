@@ -249,7 +249,7 @@ tenancy,
 remove_end_date,
 no_remove_end_date
 FROM awscc.ec2.capacity_reservation_fleets
-WHERE region = 'us-east-1' AND Identifier = '<CapacityReservationFleetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ capacity_reservation_fleet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,16 +293,16 @@ INSERT INTO awscc.ec2.capacity_reservation_fleets (
  NoRemoveEndDate,
  region
 )
-SELECT 
-'{{ AllocationStrategy }}',
- '{{ TagSpecifications }}',
- '{{ InstanceTypeSpecifications }}',
- '{{ TotalTargetCapacity }}',
- '{{ EndDate }}',
- '{{ InstanceMatchCriteria }}',
- '{{ Tenancy }}',
- '{{ RemoveEndDate }}',
- '{{ NoRemoveEndDate }}',
+SELECT
+'{{ allocation_strategy }}',
+ '{{ tag_specifications }}',
+ '{{ instance_type_specifications }}',
+ '{{ total_target_capacity }}',
+ '{{ end_date }}',
+ '{{ instance_match_criteria }}',
+ '{{ tenancy }}',
+ '{{ remove_end_date }}',
+ '{{ no_remove_end_date }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -322,16 +322,16 @@ INSERT INTO awscc.ec2.capacity_reservation_fleets (
  NoRemoveEndDate,
  region
 )
-SELECT 
- '{{ AllocationStrategy }}',
- '{{ TagSpecifications }}',
- '{{ InstanceTypeSpecifications }}',
- '{{ TotalTargetCapacity }}',
- '{{ EndDate }}',
- '{{ InstanceMatchCriteria }}',
- '{{ Tenancy }}',
- '{{ RemoveEndDate }}',
- '{{ NoRemoveEndDate }}',
+SELECT
+ '{{ allocation_strategy }}',
+ '{{ tag_specifications }}',
+ '{{ instance_type_specifications }}',
+ '{{ total_target_capacity }}',
+ '{{ end_date }}',
+ '{{ instance_match_criteria }}',
+ '{{ tenancy }}',
+ '{{ remove_end_date }}',
+ '{{ no_remove_end_date }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -349,36 +349,35 @@ globals:
 resources:
   - name: capacity_reservation_fleet
     props:
-      - name: AllocationStrategy
-        value: '{{ AllocationStrategy }}'
-      - name: TagSpecifications
+      - name: allocation_strategy
+        value: '{{ allocation_strategy }}'
+      - name: tag_specifications
         value:
-          - ResourceType: '{{ ResourceType }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: InstanceTypeSpecifications
+          - resource_type: '{{ resource_type }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: instance_type_specifications
         value:
-          - InstanceType: '{{ InstanceType }}'
-            InstancePlatform: '{{ InstancePlatform }}'
-            Weight: null
-            AvailabilityZone: '{{ AvailabilityZone }}'
-            AvailabilityZoneId: '{{ AvailabilityZoneId }}'
-            EbsOptimized: '{{ EbsOptimized }}'
-            Priority: '{{ Priority }}'
-      - name: TotalTargetCapacity
-        value: '{{ TotalTargetCapacity }}'
-      - name: EndDate
-        value: '{{ EndDate }}'
-      - name: InstanceMatchCriteria
-        value: '{{ InstanceMatchCriteria }}'
-      - name: Tenancy
-        value: '{{ Tenancy }}'
-      - name: RemoveEndDate
-        value: '{{ RemoveEndDate }}'
-      - name: NoRemoveEndDate
-        value: '{{ NoRemoveEndDate }}'
-
+          - instance_type: '{{ instance_type }}'
+            instance_platform: '{{ instance_platform }}'
+            weight: null
+            availability_zone: '{{ availability_zone }}'
+            availability_zone_id: '{{ availability_zone_id }}'
+            ebs_optimized: '{{ ebs_optimized }}'
+            priority: '{{ priority }}'
+      - name: total_target_capacity
+        value: '{{ total_target_capacity }}'
+      - name: end_date
+        value: '{{ end_date }}'
+      - name: instance_match_criteria
+        value: '{{ instance_match_criteria }}'
+      - name: tenancy
+        value: '{{ tenancy }}'
+      - name: remove_end_date
+        value: '{{ remove_end_date }}'
+      - name: no_remove_end_date
+        value: '{{ no_remove_end_date }}'
 ```
 </TabItem>
 </Tabs>
@@ -396,7 +395,7 @@ SET PatchDocument = string('{{ {
     "NoRemoveEndDate": no_remove_end_date
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CapacityReservationFleetId>';
+AND Identifier = '{{ capacity_reservation_fleet_id }}';
 ```
 
 
@@ -405,7 +404,7 @@ AND Identifier = '<CapacityReservationFleetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.capacity_reservation_fleets
-WHERE Identifier = '<CapacityReservationFleetId>'
+WHERE Identifier = '{{ capacity_reservation_fleet_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -157,7 +157,7 @@ policy,
 name,
 type
 FROM awscc.opensearchserverless.security_policies
-WHERE region = 'us-east-1' AND Identifier = '<Type>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ type }}|{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.opensearchserverless.security_policies (
  Type,
  region
 )
-SELECT 
-'{{ Policy }}',
- '{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ policy }}',
+ '{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,11 +214,11 @@ INSERT INTO awscc.opensearchserverless.security_policies (
  Type,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Policy }}',
- '{{ Name }}',
- '{{ Type }}',
+SELECT
+ '{{ description }}',
+ '{{ policy }}',
+ '{{ name }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: security_policy
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Policy
-        value: '{{ Policy }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: policy
+        value: '{{ policy }}'
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -261,7 +260,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Type>|<Name>';
+AND Identifier = '{{ type }}|{{ name }}';
 ```
 
 
@@ -270,7 +269,7 @@ AND Identifier = '<Type>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.security_policies
-WHERE Identifier = '<Type|Name>'
+WHERE Identifier = '{{ type }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

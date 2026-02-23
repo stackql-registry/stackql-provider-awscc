@@ -112,7 +112,7 @@ mrap_name,
 policy,
 policy_status
 FROM awscc.s3.multi_region_access_point_policies
-WHERE region = 'us-east-1' AND Identifier = '<MrapName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ mrap_name }}';
 ```
 
 ## `INSERT` example
@@ -136,9 +136,9 @@ INSERT INTO awscc.s3.multi_region_access_point_policies (
  Policy,
  region
 )
-SELECT 
-'{{ MrapName }}',
- '{{ Policy }}',
+SELECT
+'{{ mrap_name }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -151,9 +151,9 @@ INSERT INTO awscc.s3.multi_region_access_point_policies (
  Policy,
  region
 )
-SELECT 
- '{{ MrapName }}',
- '{{ Policy }}',
+SELECT
+ '{{ mrap_name }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -171,11 +171,10 @@ globals:
 resources:
   - name: multi_region_access_point_policy
     props:
-      - name: MrapName
-        value: '{{ MrapName }}'
-      - name: Policy
+      - name: mrap_name
+        value: '{{ mrap_name }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -191,7 +190,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MrapName>';
+AND Identifier = '{{ mrap_name }}';
 ```
 
 
@@ -200,7 +199,7 @@ AND Identifier = '<MrapName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.multi_region_access_point_policies
-WHERE Identifier = '<MrapName>'
+WHERE Identifier = '{{ mrap_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -195,7 +195,7 @@ endpoint_id,
 subnet_mapping,
 tags
 FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE region = 'us-east-1' AND Identifier = '<VpcEndpointAssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,10 +233,10 @@ INSERT INTO awscc.networkfirewall.vpc_endpoint_associations (
  SubnetMapping,
  region
 )
-SELECT 
-'{{ FirewallArn }}',
- '{{ VpcId }}',
- '{{ SubnetMapping }}',
+SELECT
+'{{ firewall_arn }}',
+ '{{ vpc_id }}',
+ '{{ subnet_mapping }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,12 +252,12 @@ INSERT INTO awscc.networkfirewall.vpc_endpoint_associations (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ FirewallArn }}',
- '{{ VpcId }}',
- '{{ SubnetMapping }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ firewall_arn }}',
+ '{{ vpc_id }}',
+ '{{ subnet_mapping }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -275,21 +275,20 @@ globals:
 resources:
   - name: vpc_endpoint_association
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: FirewallArn
-        value: '{{ FirewallArn }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: SubnetMapping
+      - name: description
+        value: '{{ description }}'
+      - name: firewall_arn
+        value: '{{ firewall_arn }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: subnet_mapping
         value:
-          SubnetId: '{{ SubnetId }}'
-          IPAddressType: '{{ IPAddressType }}'
-      - name: Tags
+          subnet_id: '{{ subnet_id }}'
+          ip_address_type: '{{ ip_address_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -305,7 +304,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpcEndpointAssociationArn>';
+AND Identifier = '{{ vpc_endpoint_association_arn }}';
 ```
 
 
@@ -314,7 +313,7 @@ AND Identifier = '<VpcEndpointAssociationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.vpc_endpoint_associations
-WHERE Identifier = '<VpcEndpointAssociationArn>'
+WHERE Identifier = '{{ vpc_endpoint_association_arn }}'
 AND region = 'us-east-1';
 ```
 

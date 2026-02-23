@@ -230,7 +230,7 @@ creation_time,
 connect_peer_configuration,
 tags
 FROM awscc.ec2.transit_gateway_connect_peers
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayConnectPeerId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,9 +267,9 @@ INSERT INTO awscc.ec2.transit_gateway_connect_peers (
  ConnectPeerConfiguration,
  region
 )
-SELECT 
-'{{ TransitGatewayAttachmentId }}',
- '{{ ConnectPeerConfiguration }}',
+SELECT
+'{{ transit_gateway_attachment_id }}',
+ '{{ connect_peer_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -283,10 +283,10 @@ INSERT INTO awscc.ec2.transit_gateway_connect_peers (
  Tags,
  region
 )
-SELECT 
- '{{ TransitGatewayAttachmentId }}',
- '{{ ConnectPeerConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ transit_gateway_attachment_id }}',
+ '{{ connect_peer_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,26 +304,25 @@ globals:
 resources:
   - name: transit_gateway_connect_peer
     props:
-      - name: TransitGatewayAttachmentId
-        value: '{{ TransitGatewayAttachmentId }}'
-      - name: ConnectPeerConfiguration
+      - name: transit_gateway_attachment_id
+        value: '{{ transit_gateway_attachment_id }}'
+      - name: connect_peer_configuration
         value:
-          TransitGatewayAddress: '{{ TransitGatewayAddress }}'
-          PeerAddress: '{{ PeerAddress }}'
-          InsideCidrBlocks:
-            - '{{ InsideCidrBlocks[0] }}'
-          Protocol: '{{ Protocol }}'
-          BgpConfigurations:
-            - TransitGatewayAsn: null
-              PeerAsn: null
-              TransitGatewayAddress: '{{ TransitGatewayAddress }}'
-              PeerAddress: '{{ PeerAddress }}'
-              BgpStatus: '{{ BgpStatus }}'
-      - name: Tags
+          transit_gateway_address: '{{ transit_gateway_address }}'
+          peer_address: '{{ peer_address }}'
+          inside_cidr_blocks:
+            - '{{ inside_cidr_blocks[0] }}'
+          protocol: '{{ protocol }}'
+          bgp_configurations:
+            - transit_gateway_asn: null
+              peer_asn: null
+              transit_gateway_address: '{{ transit_gateway_address }}'
+              peer_address: '{{ peer_address }}'
+              bgp_status: '{{ bgp_status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransitGatewayConnectPeerId>';
+AND Identifier = '{{ transit_gateway_connect_peer_id }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<TransitGatewayConnectPeerId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_connect_peers
-WHERE Identifier = '<TransitGatewayConnectPeerId>'
+WHERE Identifier = '{{ transit_gateway_connect_peer_id }}'
 AND region = 'us-east-1';
 ```
 

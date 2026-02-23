@@ -101,7 +101,7 @@ certificate_authority_arn,
 principal,
 source_account
 FROM awscc.acmpca.permissions
-WHERE region = 'us-east-1' AND Identifier = '<CertificateAuthorityArn>|<Principal>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_authority_arn }}|{{ principal }}';
 ```
 
 ## `INSERT` example
@@ -126,10 +126,10 @@ INSERT INTO awscc.acmpca.permissions (
  Principal,
  region
 )
-SELECT 
-'{{ Actions }}',
- '{{ CertificateAuthorityArn }}',
- '{{ Principal }}',
+SELECT
+'{{ actions }}',
+ '{{ certificate_authority_arn }}',
+ '{{ principal }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -144,11 +144,11 @@ INSERT INTO awscc.acmpca.permissions (
  SourceAccount,
  region
 )
-SELECT 
- '{{ Actions }}',
- '{{ CertificateAuthorityArn }}',
- '{{ Principal }}',
- '{{ SourceAccount }}',
+SELECT
+ '{{ actions }}',
+ '{{ certificate_authority_arn }}',
+ '{{ principal }}',
+ '{{ source_account }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -166,16 +166,15 @@ globals:
 resources:
   - name: permission
     props:
-      - name: Actions
+      - name: actions
         value:
-          - '{{ Actions[0] }}'
-      - name: CertificateAuthorityArn
-        value: '{{ CertificateAuthorityArn }}'
-      - name: Principal
-        value: '{{ Principal }}'
-      - name: SourceAccount
-        value: '{{ SourceAccount }}'
-
+          - '{{ actions[0] }}'
+      - name: certificate_authority_arn
+        value: '{{ certificate_authority_arn }}'
+      - name: principal
+        value: '{{ principal }}'
+      - name: source_account
+        value: '{{ source_account }}'
 ```
 </TabItem>
 </Tabs>
@@ -186,7 +185,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.permissions
-WHERE Identifier = '<CertificateAuthorityArn|Principal>'
+WHERE Identifier = '{{ certificate_authority_arn }}|{{ principal }}'
 AND region = 'us-east-1';
 ```
 

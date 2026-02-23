@@ -157,7 +157,7 @@ member_email_address,
 disable_email_notification,
 message
 FROM awscc.detective.member_invitations
-WHERE region = 'us-east-1' AND Identifier = '<GraphArn>|<MemberId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ graph_arn }}|{{ member_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.detective.member_invitations (
  MemberEmailAddress,
  region
 )
-SELECT 
-'{{ GraphArn }}',
- '{{ MemberId }}',
- '{{ MemberEmailAddress }}',
+SELECT
+'{{ graph_arn }}',
+ '{{ member_id }}',
+ '{{ member_email_address }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -215,12 +215,12 @@ INSERT INTO awscc.detective.member_invitations (
  Message,
  region
 )
-SELECT 
- '{{ GraphArn }}',
- '{{ MemberId }}',
- '{{ MemberEmailAddress }}',
- '{{ DisableEmailNotification }}',
- '{{ Message }}',
+SELECT
+ '{{ graph_arn }}',
+ '{{ member_id }}',
+ '{{ member_email_address }}',
+ '{{ disable_email_notification }}',
+ '{{ message }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,17 +238,16 @@ globals:
 resources:
   - name: member_invitation
     props:
-      - name: GraphArn
-        value: '{{ GraphArn }}'
-      - name: MemberId
-        value: '{{ MemberId }}'
-      - name: MemberEmailAddress
-        value: '{{ MemberEmailAddress }}'
-      - name: DisableEmailNotification
-        value: '{{ DisableEmailNotification }}'
-      - name: Message
-        value: '{{ Message }}'
-
+      - name: graph_arn
+        value: '{{ graph_arn }}'
+      - name: member_id
+        value: '{{ member_id }}'
+      - name: member_email_address
+        value: '{{ member_email_address }}'
+      - name: disable_email_notification
+        value: '{{ disable_email_notification }}'
+      - name: message
+        value: '{{ message }}'
 ```
 </TabItem>
 </Tabs>
@@ -259,7 +258,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.detective.member_invitations
-WHERE Identifier = '<GraphArn|MemberId>'
+WHERE Identifier = '{{ graph_arn }}|{{ member_id }}'
 AND region = 'us-east-1';
 ```
 

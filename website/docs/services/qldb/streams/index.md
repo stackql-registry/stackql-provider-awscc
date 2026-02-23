@@ -201,7 +201,7 @@ tags,
 arn,
 id
 FROM awscc.qldb.streams
-WHERE region = 'us-east-1' AND Identifier = '<LedgerName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ledger_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,12 +242,12 @@ INSERT INTO awscc.qldb.streams (
  KinesisConfiguration,
  region
 )
-SELECT 
-'{{ LedgerName }}',
- '{{ StreamName }}',
- '{{ RoleArn }}',
- '{{ InclusiveStartTime }}',
- '{{ KinesisConfiguration }}',
+SELECT
+'{{ ledger_name }}',
+ '{{ stream_name }}',
+ '{{ role_arn }}',
+ '{{ inclusive_start_time }}',
+ '{{ kinesis_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -265,14 +265,14 @@ INSERT INTO awscc.qldb.streams (
  Tags,
  region
 )
-SELECT 
- '{{ LedgerName }}',
- '{{ StreamName }}',
- '{{ RoleArn }}',
- '{{ InclusiveStartTime }}',
- '{{ ExclusiveEndTime }}',
- '{{ KinesisConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ ledger_name }}',
+ '{{ stream_name }}',
+ '{{ role_arn }}',
+ '{{ inclusive_start_time }}',
+ '{{ exclusive_end_time }}',
+ '{{ kinesis_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,25 +290,24 @@ globals:
 resources:
   - name: stream
     props:
-      - name: LedgerName
-        value: '{{ LedgerName }}'
-      - name: StreamName
-        value: '{{ StreamName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: InclusiveStartTime
-        value: '{{ InclusiveStartTime }}'
-      - name: ExclusiveEndTime
-        value: '{{ ExclusiveEndTime }}'
-      - name: KinesisConfiguration
+      - name: ledger_name
+        value: '{{ ledger_name }}'
+      - name: stream_name
+        value: '{{ stream_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: inclusive_start_time
+        value: '{{ inclusive_start_time }}'
+      - name: exclusive_end_time
+        value: '{{ exclusive_end_time }}'
+      - name: kinesis_configuration
         value:
-          StreamArn: null
-          AggregationEnabled: '{{ AggregationEnabled }}'
-      - name: Tags
+          stream_arn: null
+          aggregation_enabled: '{{ aggregation_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -324,7 +323,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LedgerName>|<Id>';
+AND Identifier = '{{ ledger_name }}|{{ id }}';
 ```
 
 
@@ -333,7 +332,7 @@ AND Identifier = '<LedgerName>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.qldb.streams
-WHERE Identifier = '<LedgerName|Id>'
+WHERE Identifier = '{{ ledger_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

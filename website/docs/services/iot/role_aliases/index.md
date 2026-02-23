@@ -170,7 +170,7 @@ role_arn,
 credential_duration_seconds,
 tags
 FROM awscc.iot.role_aliases
-WHERE region = 'us-east-1' AND Identifier = '<RoleAlias>';
+WHERE region = 'us-east-1' AND Identifier = '{{ role_alias }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.iot.role_aliases (
  RoleArn,
  region
 )
-SELECT 
-'{{ RoleArn }}',
+SELECT
+'{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.iot.role_aliases (
  Tags,
  region
 )
-SELECT 
- '{{ RoleAlias }}',
- '{{ RoleArn }}',
- '{{ CredentialDurationSeconds }}',
- '{{ Tags }}',
+SELECT
+ '{{ role_alias }}',
+ '{{ role_arn }}',
+ '{{ credential_duration_seconds }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: role_alias
     props:
-      - name: RoleAlias
-        value: '{{ RoleAlias }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: CredentialDurationSeconds
-        value: '{{ CredentialDurationSeconds }}'
-      - name: Tags
+      - name: role_alias
+        value: '{{ role_alias }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: credential_duration_seconds
+        value: '{{ credential_duration_seconds }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoleAlias>';
+AND Identifier = '{{ role_alias }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<RoleAlias>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.role_aliases
-WHERE Identifier = '<RoleAlias>'
+WHERE Identifier = '{{ role_alias }}'
 AND region = 'us-east-1';
 ```
 

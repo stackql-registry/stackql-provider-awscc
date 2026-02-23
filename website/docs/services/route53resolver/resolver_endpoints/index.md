@@ -235,7 +235,7 @@ resolver_endpoint_type,
 security_group_ids,
 tags
 FROM awscc.route53resolver.resolver_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<ResolverEndpointId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resolver_endpoint_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,10 +273,10 @@ INSERT INTO awscc.route53resolver.resolver_endpoints (
  SecurityGroupIds,
  region
 )
-SELECT 
-'{{ Direction }}',
- '{{ IpAddresses }}',
- '{{ SecurityGroupIds }}',
+SELECT
+'{{ direction }}',
+ '{{ ip_addresses }}',
+ '{{ security_group_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -296,16 +296,16 @@ INSERT INTO awscc.route53resolver.resolver_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ Direction }}',
- '{{ IpAddresses }}',
- '{{ Name }}',
- '{{ OutpostArn }}',
- '{{ PreferredInstanceType }}',
- '{{ Protocols }}',
- '{{ ResolverEndpointType }}',
- '{{ SecurityGroupIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ direction }}',
+ '{{ ip_addresses }}',
+ '{{ name }}',
+ '{{ outpost_arn }}',
+ '{{ preferred_instance_type }}',
+ '{{ protocols }}',
+ '{{ resolver_endpoint_type }}',
+ '{{ security_group_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -323,32 +323,31 @@ globals:
 resources:
   - name: resolver_endpoint
     props:
-      - name: Direction
-        value: '{{ Direction }}'
-      - name: IpAddresses
+      - name: direction
+        value: '{{ direction }}'
+      - name: ip_addresses
         value:
-          - Ip: '{{ Ip }}'
-            Ipv6: '{{ Ipv6 }}'
-            SubnetId: '{{ SubnetId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OutpostArn
-        value: '{{ OutpostArn }}'
-      - name: PreferredInstanceType
-        value: '{{ PreferredInstanceType }}'
-      - name: Protocols
+          - ip: '{{ ip }}'
+            ipv6: '{{ ipv6 }}'
+            subnet_id: '{{ subnet_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: outpost_arn
+        value: '{{ outpost_arn }}'
+      - name: preferred_instance_type
+        value: '{{ preferred_instance_type }}'
+      - name: protocols
         value:
-          - '{{ Protocols[0] }}'
-      - name: ResolverEndpointType
-        value: '{{ ResolverEndpointType }}'
-      - name: SecurityGroupIds
+          - '{{ protocols[0] }}'
+      - name: resolver_endpoint_type
+        value: '{{ resolver_endpoint_type }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: Tags
+          - '{{ security_group_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -368,7 +367,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResolverEndpointId>';
+AND Identifier = '{{ resolver_endpoint_id }}';
 ```
 
 
@@ -377,7 +376,7 @@ AND Identifier = '<ResolverEndpointId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_endpoints
-WHERE Identifier = '<ResolverEndpointId>'
+WHERE Identifier = '{{ resolver_endpoint_id }}'
 AND region = 'us-east-1';
 ```
 

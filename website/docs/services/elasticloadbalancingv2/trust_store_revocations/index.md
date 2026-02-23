@@ -195,7 +195,7 @@ trust_store_arn,
 revocation_id,
 trust_store_revocations
 FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE region = 'us-east-1' AND Identifier = '<RevocationId>|<TrustStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ revocation_id }}|{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,9 +233,9 @@ INSERT INTO awscc.elasticloadbalancingv2.trust_store_revocations (
  TrustStoreArn,
  region
 )
-SELECT 
-'{{ RevocationContents }}',
- '{{ TrustStoreArn }}',
+SELECT
+'{{ revocation_contents }}',
+ '{{ trust_store_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,9 +248,9 @@ INSERT INTO awscc.elasticloadbalancingv2.trust_store_revocations (
  TrustStoreArn,
  region
 )
-SELECT 
- '{{ RevocationContents }}',
- '{{ TrustStoreArn }}',
+SELECT
+ '{{ revocation_contents }}',
+ '{{ trust_store_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,15 +268,14 @@ globals:
 resources:
   - name: trust_store_revocation
     props:
-      - name: RevocationContents
+      - name: revocation_contents
         value:
-          - S3Bucket: '{{ S3Bucket }}'
-            S3Key: '{{ S3Key }}'
-            S3ObjectVersion: '{{ S3ObjectVersion }}'
-            RevocationType: '{{ RevocationType }}'
-      - name: TrustStoreArn
-        value: '{{ TrustStoreArn }}'
-
+          - s3_bucket: '{{ s3_bucket }}'
+            s3_key: '{{ s3_key }}'
+            s3_object_version: '{{ s3_object_version }}'
+            revocation_type: '{{ revocation_type }}'
+      - name: trust_store_arn
+        value: '{{ trust_store_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticloadbalancingv2.trust_store_revocations
-WHERE Identifier = '<RevocationId|TrustStoreArn>'
+WHERE Identifier = '{{ revocation_id }}|{{ trust_store_arn }}'
 AND region = 'us-east-1';
 ```
 

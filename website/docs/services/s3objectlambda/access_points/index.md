@@ -245,7 +245,7 @@ public_access_block_configuration,
 policy_status,
 object_lambda_configuration
 FROM awscc.s3objectlambda.access_points
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -281,8 +281,8 @@ INSERT INTO awscc.s3objectlambda.access_points (
  ObjectLambdaConfiguration,
  region
 )
-SELECT 
-'{{ ObjectLambdaConfiguration }}',
+SELECT
+'{{ object_lambda_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -295,9 +295,9 @@ INSERT INTO awscc.s3objectlambda.access_points (
  ObjectLambdaConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ObjectLambdaConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ object_lambda_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,19 +315,18 @@ globals:
 resources:
   - name: access_point
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ObjectLambdaConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: object_lambda_configuration
         value:
-          SupportingAccessPoint: '{{ SupportingAccessPoint }}'
-          AllowedFeatures:
-            - '{{ AllowedFeatures[0] }}'
-          CloudWatchMetricsEnabled: '{{ CloudWatchMetricsEnabled }}'
-          TransformationConfigurations:
-            - Actions:
-                - '{{ Actions[0] }}'
-              ContentTransformation: {}
-
+          supporting_access_point: '{{ supporting_access_point }}'
+          allowed_features:
+            - '{{ allowed_features[0] }}'
+          cloud_watch_metrics_enabled: '{{ cloud_watch_metrics_enabled }}'
+          transformation_configurations:
+            - actions:
+                - '{{ actions[0] }}'
+              content_transformation: {}
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "ObjectLambdaConfiguration": object_lambda_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3objectlambda.access_points
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

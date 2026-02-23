@@ -164,7 +164,7 @@ description,
 attributes,
 tags
 FROM awscc.servicecatalogappregistry.attribute_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.servicecatalogappregistry.attribute_groups (
  Attributes,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Attributes }}',
+SELECT
+'{{ name }}',
+ '{{ attributes }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,11 @@ INSERT INTO awscc.servicecatalogappregistry.attribute_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Attributes }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ attributes }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,14 @@ globals:
 resources:
   - name: attribute_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Attributes
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: attributes
         value: {}
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -276,7 +275,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalogappregistry.attribute_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

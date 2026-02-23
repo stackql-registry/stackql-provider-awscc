@@ -124,7 +124,7 @@ channel_name,
 origin_endpoint_name,
 policy
 FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE region = 'us-east-1' AND Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
 ```
 
 ## `INSERT` example
@@ -150,11 +150,11 @@ INSERT INTO awscc.mediapackagev2.origin_endpoint_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ OriginEndpointName }}',
- '{{ Policy }}',
+SELECT
+'{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ origin_endpoint_name }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -170,12 +170,12 @@ INSERT INTO awscc.mediapackagev2.origin_endpoint_policies (
  Policy,
  region
 )
-SELECT 
- '{{ CdnAuthConfiguration }}',
- '{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ OriginEndpointName }}',
- '{{ Policy }}',
+SELECT
+ '{{ cdn_auth_configuration }}',
+ '{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ origin_endpoint_name }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -193,20 +193,19 @@ globals:
 resources:
   - name: origin_endpoint_policy
     props:
-      - name: CdnAuthConfiguration
+      - name: cdn_auth_configuration
         value:
-          CdnIdentifierSecretArns:
-            - '{{ CdnIdentifierSecretArns[0] }}'
-          SecretsRoleArn: '{{ SecretsRoleArn }}'
-      - name: ChannelGroupName
-        value: '{{ ChannelGroupName }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: OriginEndpointName
-        value: '{{ OriginEndpointName }}'
-      - name: Policy
+          cdn_identifier_secret_arns:
+            - '{{ cdn_identifier_secret_arns[0] }}'
+          secrets_role_arn: '{{ secrets_role_arn }}'
+      - name: channel_group_name
+        value: '{{ channel_group_name }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: origin_endpoint_name
+        value: '{{ origin_endpoint_name }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -223,7 +222,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
+AND Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}';
 ```
 
 
@@ -232,7 +231,7 @@ AND Identifier = '<ChannelGroupName>|<ChannelName>|<OriginEndpointName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.origin_endpoint_policies
-WHERE Identifier = '<ChannelGroupName|ChannelName|OriginEndpointName>'
+WHERE Identifier = '{{ channel_group_name }}|{{ channel_name }}|{{ origin_endpoint_name }}'
 AND region = 'us-east-1';
 ```
 

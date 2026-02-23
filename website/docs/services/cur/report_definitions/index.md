@@ -200,7 +200,7 @@ refresh_closed_reports,
 report_versioning,
 billing_view_arn
 FROM awscc.cur.report_definitions
-WHERE region = 'us-east-1' AND Identifier = '<ReportName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ report_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,16 +244,16 @@ INSERT INTO awscc.cur.report_definitions (
  ReportVersioning,
  region
 )
-SELECT 
-'{{ ReportName }}',
- '{{ TimeUnit }}',
- '{{ Format }}',
- '{{ Compression }}',
- '{{ S3Bucket }}',
- '{{ S3Prefix }}',
- '{{ S3Region }}',
- '{{ RefreshClosedReports }}',
- '{{ ReportVersioning }}',
+SELECT
+'{{ report_name }}',
+ '{{ time_unit }}',
+ '{{ format }}',
+ '{{ compression }}',
+ '{{ s3_bucket }}',
+ '{{ s3_prefix }}',
+ '{{ s3_region }}',
+ '{{ refresh_closed_reports }}',
+ '{{ report_versioning }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,19 +276,19 @@ INSERT INTO awscc.cur.report_definitions (
  BillingViewArn,
  region
 )
-SELECT 
- '{{ ReportName }}',
- '{{ TimeUnit }}',
- '{{ Format }}',
- '{{ Compression }}',
- '{{ AdditionalSchemaElements }}',
- '{{ S3Bucket }}',
- '{{ S3Prefix }}',
- '{{ S3Region }}',
- '{{ AdditionalArtifacts }}',
- '{{ RefreshClosedReports }}',
- '{{ ReportVersioning }}',
- '{{ BillingViewArn }}',
+SELECT
+ '{{ report_name }}',
+ '{{ time_unit }}',
+ '{{ format }}',
+ '{{ compression }}',
+ '{{ additional_schema_elements }}',
+ '{{ s3_bucket }}',
+ '{{ s3_prefix }}',
+ '{{ s3_region }}',
+ '{{ additional_artifacts }}',
+ '{{ refresh_closed_reports }}',
+ '{{ report_versioning }}',
+ '{{ billing_view_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,33 +306,32 @@ globals:
 resources:
   - name: report_definition
     props:
-      - name: ReportName
-        value: '{{ ReportName }}'
-      - name: TimeUnit
-        value: '{{ TimeUnit }}'
-      - name: Format
-        value: '{{ Format }}'
-      - name: Compression
-        value: '{{ Compression }}'
-      - name: AdditionalSchemaElements
+      - name: report_name
+        value: '{{ report_name }}'
+      - name: time_unit
+        value: '{{ time_unit }}'
+      - name: format
+        value: '{{ format }}'
+      - name: compression
+        value: '{{ compression }}'
+      - name: additional_schema_elements
         value:
-          - '{{ AdditionalSchemaElements[0] }}'
-      - name: S3Bucket
-        value: '{{ S3Bucket }}'
-      - name: S3Prefix
-        value: '{{ S3Prefix }}'
-      - name: S3Region
-        value: '{{ S3Region }}'
-      - name: AdditionalArtifacts
+          - '{{ additional_schema_elements[0] }}'
+      - name: s3_bucket
+        value: '{{ s3_bucket }}'
+      - name: s3_prefix
+        value: '{{ s3_prefix }}'
+      - name: s3_region
+        value: '{{ s3_region }}'
+      - name: additional_artifacts
         value:
-          - '{{ AdditionalArtifacts[0] }}'
-      - name: RefreshClosedReports
-        value: '{{ RefreshClosedReports }}'
-      - name: ReportVersioning
-        value: '{{ ReportVersioning }}'
-      - name: BillingViewArn
-        value: '{{ BillingViewArn }}'
-
+          - '{{ additional_artifacts[0] }}'
+      - name: refresh_closed_reports
+        value: '{{ refresh_closed_reports }}'
+      - name: report_versioning
+        value: '{{ report_versioning }}'
+      - name: billing_view_arn
+        value: '{{ billing_view_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -354,7 +353,7 @@ SET PatchDocument = string('{{ {
     "RefreshClosedReports": refresh_closed_reports
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ReportName>';
+AND Identifier = '{{ report_name }}';
 ```
 
 
@@ -363,7 +362,7 @@ AND Identifier = '<ReportName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cur.report_definitions
-WHERE Identifier = '<ReportName>'
+WHERE Identifier = '{{ report_name }}'
 AND region = 'us-east-1';
 ```
 

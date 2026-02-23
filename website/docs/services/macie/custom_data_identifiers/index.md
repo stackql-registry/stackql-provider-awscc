@@ -194,7 +194,7 @@ id,
 arn,
 tags
 FROM awscc.macie.custom_data_identifiers
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.macie.custom_data_identifiers (
  Regex,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Regex }}',
+SELECT
+'{{ name }}',
+ '{{ regex }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,14 +251,14 @@ INSERT INTO awscc.macie.custom_data_identifiers (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Regex }}',
- '{{ MaximumMatchDistance }}',
- '{{ Keywords }}',
- '{{ IgnoreWords }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ regex }}',
+ '{{ maximum_match_distance }}',
+ '{{ keywords }}',
+ '{{ ignore_words }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,25 +276,24 @@ globals:
 resources:
   - name: custom_data_identifier
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Regex
-        value: '{{ Regex }}'
-      - name: MaximumMatchDistance
-        value: '{{ MaximumMatchDistance }}'
-      - name: Keywords
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: regex
+        value: '{{ regex }}'
+      - name: maximum_match_distance
+        value: '{{ maximum_match_distance }}'
+      - name: keywords
         value:
-          - '{{ Keywords[0] }}'
-      - name: IgnoreWords
+          - '{{ keywords[0] }}'
+      - name: ignore_words
         value:
-          - '{{ IgnoreWords[0] }}'
-      - name: Tags
+          - '{{ ignore_words[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +309,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -319,7 +318,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.macie.custom_data_identifiers
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

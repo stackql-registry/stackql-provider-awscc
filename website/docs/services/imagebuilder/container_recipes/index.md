@@ -336,7 +336,7 @@ parent_image,
 working_directory,
 tags
 FROM awscc.imagebuilder.container_recipes
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -386,22 +386,22 @@ INSERT INTO awscc.imagebuilder.container_recipes (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Description }}',
- '{{ Version }}',
- '{{ Components }}',
- '{{ InstanceConfiguration }}',
- '{{ DockerfileTemplateData }}',
- '{{ DockerfileTemplateUri }}',
- '{{ PlatformOverride }}',
- '{{ ContainerType }}',
- '{{ ImageOsVersionOverride }}',
- '{{ TargetRepository }}',
- '{{ KmsKeyId }}',
- '{{ ParentImage }}',
- '{{ WorkingDirectory }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ description }}',
+ '{{ version }}',
+ '{{ components }}',
+ '{{ instance_configuration }}',
+ '{{ dockerfile_template_data }}',
+ '{{ dockerfile_template_uri }}',
+ '{{ platform_override }}',
+ '{{ container_type }}',
+ '{{ image_os_version_override }}',
+ '{{ target_repository }}',
+ '{{ kms_key_id }}',
+ '{{ parent_image }}',
+ '{{ working_directory }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -427,22 +427,22 @@ INSERT INTO awscc.imagebuilder.container_recipes (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Version }}',
- '{{ Components }}',
- '{{ InstanceConfiguration }}',
- '{{ DockerfileTemplateData }}',
- '{{ DockerfileTemplateUri }}',
- '{{ PlatformOverride }}',
- '{{ ContainerType }}',
- '{{ ImageOsVersionOverride }}',
- '{{ TargetRepository }}',
- '{{ KmsKeyId }}',
- '{{ ParentImage }}',
- '{{ WorkingDirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ version }}',
+ '{{ components }}',
+ '{{ instance_configuration }}',
+ '{{ dockerfile_template_data }}',
+ '{{ dockerfile_template_uri }}',
+ '{{ platform_override }}',
+ '{{ container_type }}',
+ '{{ image_os_version_override }}',
+ '{{ target_repository }}',
+ '{{ kms_key_id }}',
+ '{{ parent_image }}',
+ '{{ working_directory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -460,58 +460,57 @@ globals:
 resources:
   - name: container_recipe
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Components
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: version
+        value: '{{ version }}'
+      - name: components
         value:
-          - ComponentArn: '{{ ComponentArn }}'
-            Parameters:
-              - Name: '{{ Name }}'
-                Value:
-                  - '{{ Value[0] }}'
-      - name: InstanceConfiguration
+          - component_arn: '{{ component_arn }}'
+            parameters:
+              - name: '{{ name }}'
+                value:
+                  - '{{ value[0] }}'
+      - name: instance_configuration
         value:
-          Image: '{{ Image }}'
-          BlockDeviceMappings:
-            - DeviceName: '{{ DeviceName }}'
-              VirtualName: '{{ VirtualName }}'
-              NoDevice: '{{ NoDevice }}'
-              Ebs:
-                Encrypted: '{{ Encrypted }}'
-                DeleteOnTermination: '{{ DeleteOnTermination }}'
-                Iops: '{{ Iops }}'
-                KmsKeyId: '{{ KmsKeyId }}'
-                SnapshotId: '{{ SnapshotId }}'
-                Throughput: '{{ Throughput }}'
-                VolumeSize: '{{ VolumeSize }}'
-                VolumeType: '{{ VolumeType }}'
-      - name: DockerfileTemplateData
-        value: '{{ DockerfileTemplateData }}'
-      - name: DockerfileTemplateUri
-        value: '{{ DockerfileTemplateUri }}'
-      - name: PlatformOverride
-        value: '{{ PlatformOverride }}'
-      - name: ContainerType
-        value: '{{ ContainerType }}'
-      - name: ImageOsVersionOverride
-        value: '{{ ImageOsVersionOverride }}'
-      - name: TargetRepository
+          image: '{{ image }}'
+          block_device_mappings:
+            - device_name: '{{ device_name }}'
+              virtual_name: '{{ virtual_name }}'
+              no_device: '{{ no_device }}'
+              ebs:
+                encrypted: '{{ encrypted }}'
+                delete_on_termination: '{{ delete_on_termination }}'
+                iops: '{{ iops }}'
+                kms_key_id: '{{ kms_key_id }}'
+                snapshot_id: '{{ snapshot_id }}'
+                throughput: '{{ throughput }}'
+                volume_size: '{{ volume_size }}'
+                volume_type: '{{ volume_type }}'
+      - name: dockerfile_template_data
+        value: '{{ dockerfile_template_data }}'
+      - name: dockerfile_template_uri
+        value: '{{ dockerfile_template_uri }}'
+      - name: platform_override
+        value: '{{ platform_override }}'
+      - name: container_type
+        value: '{{ container_type }}'
+      - name: image_os_version_override
+        value: '{{ image_os_version_override }}'
+      - name: target_repository
         value:
-          Service: '{{ Service }}'
-          RepositoryName: '{{ RepositoryName }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: ParentImage
-        value: '{{ ParentImage }}'
-      - name: WorkingDirectory
-        value: '{{ WorkingDirectory }}'
-      - name: Tags
+          service: '{{ service }}'
+          repository_name: '{{ repository_name }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: parent_image
+        value: '{{ parent_image }}'
+      - name: working_directory
+        value: '{{ working_directory }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -527,7 +526,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -536,7 +535,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.container_recipes
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

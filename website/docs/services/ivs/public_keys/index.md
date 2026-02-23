@@ -170,7 +170,7 @@ fingerprint,
 arn,
 tags
 FROM awscc.ivs.public_keys
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,10 +208,10 @@ INSERT INTO awscc.ivs.public_keys (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ PublicKeyMaterial }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ public_key_material }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,10 +225,10 @@ INSERT INTO awscc.ivs.public_keys (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ PublicKeyMaterial }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ public_key_material }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,15 +246,14 @@ globals:
 resources:
   - name: public_key
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: PublicKeyMaterial
-        value: '{{ PublicKeyMaterial }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: public_key_material
+        value: '{{ public_key_material }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -270,7 +269,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -279,7 +278,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.public_keys
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

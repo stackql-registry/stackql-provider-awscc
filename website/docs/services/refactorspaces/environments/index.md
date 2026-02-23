@@ -182,7 +182,7 @@ arn,
 transit_gateway_id,
 tags
 FROM awscc.refactorspaces.environments
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,11 +221,11 @@ INSERT INTO awscc.refactorspaces.environments (
  Tags,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Name }}',
- '{{ NetworkFabricType }}',
- '{{ Tags }}',
+SELECT
+'{{ description }}',
+ '{{ name }}',
+ '{{ network_fabric_type }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.refactorspaces.environments (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ NetworkFabricType }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ network_fabric_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,17 +262,16 @@ globals:
 resources:
   - name: environment
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NetworkFabricType
-        value: '{{ NetworkFabricType }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: network_fabric_type
+        value: '{{ network_fabric_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentIdentifier>';
+AND Identifier = '{{ environment_identifier }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<EnvironmentIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.environments
-WHERE Identifier = '<EnvironmentIdentifier>'
+WHERE Identifier = '{{ environment_identifier }}'
 AND region = 'us-east-1';
 ```
 

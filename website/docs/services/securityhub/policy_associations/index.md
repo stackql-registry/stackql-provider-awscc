@@ -176,7 +176,7 @@ target_type,
 updated_at,
 association_identifier
 FROM awscc.securityhub.policy_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.securityhub.policy_associations (
  TargetType,
  region
 )
-SELECT 
-'{{ ConfigurationPolicyId }}',
- '{{ TargetId }}',
- '{{ TargetType }}',
+SELECT
+'{{ configuration_policy_id }}',
+ '{{ target_id }}',
+ '{{ target_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,10 +231,10 @@ INSERT INTO awscc.securityhub.policy_associations (
  TargetType,
  region
 )
-SELECT 
- '{{ ConfigurationPolicyId }}',
- '{{ TargetId }}',
- '{{ TargetType }}',
+SELECT
+ '{{ configuration_policy_id }}',
+ '{{ target_id }}',
+ '{{ target_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,13 +252,12 @@ globals:
 resources:
   - name: policy_association
     props:
-      - name: ConfigurationPolicyId
-        value: '{{ ConfigurationPolicyId }}'
-      - name: TargetId
-        value: '{{ TargetId }}'
-      - name: TargetType
-        value: '{{ TargetType }}'
-
+      - name: configuration_policy_id
+        value: '{{ configuration_policy_id }}'
+      - name: target_id
+        value: '{{ target_id }}'
+      - name: target_type
+        value: '{{ target_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -274,7 +273,7 @@ SET PatchDocument = string('{{ {
     "ConfigurationPolicyId": configuration_policy_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociationIdentifier>';
+AND Identifier = '{{ association_identifier }}';
 ```
 
 
@@ -283,7 +282,7 @@ AND Identifier = '<AssociationIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.policy_associations
-WHERE Identifier = '<AssociationIdentifier>'
+WHERE Identifier = '{{ association_identifier }}'
 AND region = 'us-east-1';
 ```
 

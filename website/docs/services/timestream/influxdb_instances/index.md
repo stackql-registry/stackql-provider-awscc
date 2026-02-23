@@ -303,7 +303,7 @@ id,
 deployment_type,
 tags
 FROM awscc.timestream.influxdb_instances
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -355,24 +355,24 @@ INSERT INTO awscc.timestream.influxdb_instances (
  Tags,
  region
 )
-SELECT 
-'{{ Username }}',
- '{{ Password }}',
- '{{ Organization }}',
- '{{ Bucket }}',
- '{{ DbInstanceType }}',
- '{{ VpcSubnetIds }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ PubliclyAccessible }}',
- '{{ DbStorageType }}',
- '{{ AllocatedStorage }}',
- '{{ DbParameterGroupIdentifier }}',
- '{{ Port }}',
- '{{ NetworkType }}',
- '{{ LogDeliveryConfiguration }}',
- '{{ Name }}',
- '{{ DeploymentType }}',
- '{{ Tags }}',
+SELECT
+'{{ username }}',
+ '{{ password }}',
+ '{{ organization }}',
+ '{{ bucket }}',
+ '{{ db_instance_type }}',
+ '{{ vpc_subnet_ids }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ publicly_accessible }}',
+ '{{ db_storage_type }}',
+ '{{ allocated_storage }}',
+ '{{ db_parameter_group_identifier }}',
+ '{{ port }}',
+ '{{ network_type }}',
+ '{{ log_delivery_configuration }}',
+ '{{ name }}',
+ '{{ deployment_type }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -400,24 +400,24 @@ INSERT INTO awscc.timestream.influxdb_instances (
  Tags,
  region
 )
-SELECT 
- '{{ Username }}',
- '{{ Password }}',
- '{{ Organization }}',
- '{{ Bucket }}',
- '{{ DbInstanceType }}',
- '{{ VpcSubnetIds }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ PubliclyAccessible }}',
- '{{ DbStorageType }}',
- '{{ AllocatedStorage }}',
- '{{ DbParameterGroupIdentifier }}',
- '{{ Port }}',
- '{{ NetworkType }}',
- '{{ LogDeliveryConfiguration }}',
- '{{ Name }}',
- '{{ DeploymentType }}',
- '{{ Tags }}',
+SELECT
+ '{{ username }}',
+ '{{ password }}',
+ '{{ organization }}',
+ '{{ bucket }}',
+ '{{ db_instance_type }}',
+ '{{ vpc_subnet_ids }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ publicly_accessible }}',
+ '{{ db_storage_type }}',
+ '{{ allocated_storage }}',
+ '{{ db_parameter_group_identifier }}',
+ '{{ port }}',
+ '{{ network_type }}',
+ '{{ log_delivery_configuration }}',
+ '{{ name }}',
+ '{{ deployment_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -435,48 +435,47 @@ globals:
 resources:
   - name: influxdb_instance
     props:
-      - name: Username
-        value: '{{ Username }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: Organization
-        value: '{{ Organization }}'
-      - name: Bucket
-        value: '{{ Bucket }}'
-      - name: DbInstanceType
-        value: '{{ DbInstanceType }}'
-      - name: VpcSubnetIds
+      - name: username
+        value: '{{ username }}'
+      - name: password
+        value: '{{ password }}'
+      - name: organization
+        value: '{{ organization }}'
+      - name: bucket
+        value: '{{ bucket }}'
+      - name: db_instance_type
+        value: '{{ db_instance_type }}'
+      - name: vpc_subnet_ids
         value:
-          - '{{ VpcSubnetIds[0] }}'
-      - name: VpcSecurityGroupIds
+          - '{{ vpc_subnet_ids[0] }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: PubliclyAccessible
-        value: '{{ PubliclyAccessible }}'
-      - name: DbStorageType
-        value: '{{ DbStorageType }}'
-      - name: AllocatedStorage
-        value: '{{ AllocatedStorage }}'
-      - name: DbParameterGroupIdentifier
-        value: '{{ DbParameterGroupIdentifier }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: LogDeliveryConfiguration
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: publicly_accessible
+        value: '{{ publicly_accessible }}'
+      - name: db_storage_type
+        value: '{{ db_storage_type }}'
+      - name: allocated_storage
+        value: '{{ allocated_storage }}'
+      - name: db_parameter_group_identifier
+        value: '{{ db_parameter_group_identifier }}'
+      - name: port
+        value: '{{ port }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: log_delivery_configuration
         value:
-          S3Configuration:
-            BucketName: '{{ BucketName }}'
-            Enabled: '{{ Enabled }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: DeploymentType
-        value: '{{ DeploymentType }}'
-      - name: Tags
+          s3_configuration:
+            bucket_name: '{{ bucket_name }}'
+            enabled: '{{ enabled }}'
+      - name: name
+        value: '{{ name }}'
+      - name: deployment_type
+        value: '{{ deployment_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -499,7 +498,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -508,7 +507,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.influxdb_instances
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

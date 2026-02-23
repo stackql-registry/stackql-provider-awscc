@@ -231,7 +231,7 @@ tags,
 attribute_mappings,
 accept_role_session_name
 FROM awscc.rolesanywhere.profiles
-WHERE region = 'us-east-1' AND Identifier = '<ProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,9 +268,9 @@ INSERT INTO awscc.rolesanywhere.profiles (
  RoleArns,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoleArns }}',
+SELECT
+'{{ name }}',
+ '{{ role_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -291,17 +291,17 @@ INSERT INTO awscc.rolesanywhere.profiles (
  AcceptRoleSessionName,
  region
 )
-SELECT 
- '{{ DurationSeconds }}',
- '{{ Enabled }}',
- '{{ ManagedPolicyArns }}',
- '{{ Name }}',
- '{{ RequireInstanceProperties }}',
- '{{ RoleArns }}',
- '{{ SessionPolicy }}',
- '{{ Tags }}',
- '{{ AttributeMappings }}',
- '{{ AcceptRoleSessionName }}',
+SELECT
+ '{{ duration_seconds }}',
+ '{{ enabled }}',
+ '{{ managed_policy_arns }}',
+ '{{ name }}',
+ '{{ require_instance_properties }}',
+ '{{ role_arns }}',
+ '{{ session_policy }}',
+ '{{ tags }}',
+ '{{ attribute_mappings }}',
+ '{{ accept_role_session_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -319,34 +319,33 @@ globals:
 resources:
   - name: profile
     props:
-      - name: DurationSeconds
+      - name: duration_seconds
         value: null
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: ManagedPolicyArns
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: managed_policy_arns
         value:
-          - '{{ ManagedPolicyArns[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RequireInstanceProperties
-        value: '{{ RequireInstanceProperties }}'
-      - name: RoleArns
+          - '{{ managed_policy_arns[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: require_instance_properties
+        value: '{{ require_instance_properties }}'
+      - name: role_arns
         value:
-          - '{{ RoleArns[0] }}'
-      - name: SessionPolicy
-        value: '{{ SessionPolicy }}'
-      - name: Tags
+          - '{{ role_arns[0] }}'
+      - name: session_policy
+        value: '{{ session_policy }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AttributeMappings
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: attribute_mappings
         value:
-          - MappingRules:
-              - Specifier: '{{ Specifier }}'
-            CertificateField: '{{ CertificateField }}'
-      - name: AcceptRoleSessionName
-        value: '{{ AcceptRoleSessionName }}'
-
+          - mapping_rules:
+              - specifier: '{{ specifier }}'
+            certificate_field: '{{ certificate_field }}'
+      - name: accept_role_session_name
+        value: '{{ accept_role_session_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -370,7 +369,7 @@ SET PatchDocument = string('{{ {
     "AcceptRoleSessionName": accept_role_session_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProfileId>';
+AND Identifier = '{{ profile_id }}';
 ```
 
 
@@ -379,7 +378,7 @@ AND Identifier = '<ProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rolesanywhere.profiles
-WHERE Identifier = '<ProfileId>'
+WHERE Identifier = '{{ profile_id }}'
 AND region = 'us-east-1';
 ```
 

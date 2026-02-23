@@ -236,7 +236,7 @@ kms_key_id,
 tags,
 auth_type
 FROM awscc.docdbelastic.clusters
-WHERE region = 'us-east-1' AND Identifier = '<ClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -276,12 +276,12 @@ INSERT INTO awscc.docdbelastic.clusters (
  AuthType,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ AdminUserName }}',
- '{{ ShardCapacity }}',
- '{{ ShardCount }}',
- '{{ AuthType }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ admin_user_name }}',
+ '{{ shard_capacity }}',
+ '{{ shard_count }}',
+ '{{ auth_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -306,21 +306,21 @@ INSERT INTO awscc.docdbelastic.clusters (
  AuthType,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ AdminUserName }}',
- '{{ AdminUserPassword }}',
- '{{ ShardCapacity }}',
- '{{ ShardCount }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ PreferredMaintenanceWindow }}',
- '{{ PreferredBackupWindow }}',
- '{{ BackupRetentionPeriod }}',
- '{{ ShardInstanceCount }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
- '{{ AuthType }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ admin_user_name }}',
+ '{{ admin_user_password }}',
+ '{{ shard_capacity }}',
+ '{{ shard_count }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ preferred_maintenance_window }}',
+ '{{ preferred_backup_window }}',
+ '{{ backup_retention_period }}',
+ '{{ shard_instance_count }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
+ '{{ auth_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -338,39 +338,38 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: AdminUserName
-        value: '{{ AdminUserName }}'
-      - name: AdminUserPassword
-        value: '{{ AdminUserPassword }}'
-      - name: ShardCapacity
-        value: '{{ ShardCapacity }}'
-      - name: ShardCount
-        value: '{{ ShardCount }}'
-      - name: VpcSecurityGroupIds
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: admin_user_name
+        value: '{{ admin_user_name }}'
+      - name: admin_user_password
+        value: '{{ admin_user_password }}'
+      - name: shard_capacity
+        value: '{{ shard_capacity }}'
+      - name: shard_count
+        value: '{{ shard_count }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: PreferredMaintenanceWindow
-        value: '{{ PreferredMaintenanceWindow }}'
-      - name: PreferredBackupWindow
-        value: '{{ PreferredBackupWindow }}'
-      - name: BackupRetentionPeriod
-        value: '{{ BackupRetentionPeriod }}'
-      - name: ShardInstanceCount
-        value: '{{ ShardInstanceCount }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: preferred_maintenance_window
+        value: '{{ preferred_maintenance_window }}'
+      - name: preferred_backup_window
+        value: '{{ preferred_backup_window }}'
+      - name: backup_retention_period
+        value: '{{ backup_retention_period }}'
+      - name: shard_instance_count
+        value: '{{ shard_instance_count }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AuthType
-        value: '{{ AuthType }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: auth_type
+        value: '{{ auth_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -395,7 +394,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterArn>';
+AND Identifier = '{{ cluster_arn }}';
 ```
 
 
@@ -404,7 +403,7 @@ AND Identifier = '<ClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.docdbelastic.clusters
-WHERE Identifier = '<ClusterArn>'
+WHERE Identifier = '{{ cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -170,7 +170,7 @@ vpc_id,
 subnet_id,
 tags
 FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE region = 'us-east-1' AND Identifier = '<ExclusionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ exclusion_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.ec2.vpc_block_public_access_exclusions (
  InternetGatewayExclusionMode,
  region
 )
-SELECT 
-'{{ InternetGatewayExclusionMode }}',
+SELECT
+'{{ internet_gateway_exclusion_mode }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.ec2.vpc_block_public_access_exclusions (
  Tags,
  region
 )
-SELECT 
- '{{ InternetGatewayExclusionMode }}',
- '{{ VpcId }}',
- '{{ SubnetId }}',
- '{{ Tags }}',
+SELECT
+ '{{ internet_gateway_exclusion_mode }}',
+ '{{ vpc_id }}',
+ '{{ subnet_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: vpc_block_public_access_exclusion
     props:
-      - name: InternetGatewayExclusionMode
-        value: '{{ InternetGatewayExclusionMode }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: Tags
+      - name: internet_gateway_exclusion_mode
+        value: '{{ internet_gateway_exclusion_mode }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ExclusionId>';
+AND Identifier = '{{ exclusion_id }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<ExclusionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_block_public_access_exclusions
-WHERE Identifier = '<ExclusionId>'
+WHERE Identifier = '{{ exclusion_id }}'
 AND region = 'us-east-1';
 ```
 

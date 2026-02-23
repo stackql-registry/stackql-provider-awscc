@@ -282,7 +282,7 @@ permission_model,
 event_subscriptions,
 drift_status
 FROM awscc.resiliencehub.apps
-WHERE region = 'us-east-1' AND Identifier = '<AppArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,10 +320,10 @@ INSERT INTO awscc.resiliencehub.apps (
  ResourceMappings,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ AppTemplateBody }}',
- '{{ ResourceMappings }}',
+SELECT
+'{{ name }}',
+ '{{ app_template_body }}',
+ '{{ resource_mappings }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,16 +343,16 @@ INSERT INTO awscc.resiliencehub.apps (
  EventSubscriptions,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ResiliencyPolicyArn }}',
- '{{ Tags }}',
- '{{ AppTemplateBody }}',
- '{{ ResourceMappings }}',
- '{{ AppAssessmentSchedule }}',
- '{{ PermissionModel }}',
- '{{ EventSubscriptions }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ resiliency_policy_arn }}',
+ '{{ tags }}',
+ '{{ app_template_body }}',
+ '{{ resource_mappings }}',
+ '{{ app_assessment_schedule }}',
+ '{{ permission_model }}',
+ '{{ event_subscriptions }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -370,42 +370,41 @@ globals:
 resources:
   - name: app
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ResiliencyPolicyArn
-        value: '{{ ResiliencyPolicyArn }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: resiliency_policy_arn
+        value: '{{ resiliency_policy_arn }}'
+      - name: tags
         value: {}
-      - name: AppTemplateBody
-        value: '{{ AppTemplateBody }}'
-      - name: ResourceMappings
+      - name: app_template_body
+        value: '{{ app_template_body }}'
+      - name: resource_mappings
         value:
-          - LogicalStackName: '{{ LogicalStackName }}'
-            MappingType: '{{ MappingType }}'
-            ResourceName: '{{ ResourceName }}'
-            TerraformSourceName: '{{ TerraformSourceName }}'
-            EksSourceName: '{{ EksSourceName }}'
-            PhysicalResourceId:
-              AwsAccountId: '{{ AwsAccountId }}'
-              AwsRegion: '{{ AwsRegion }}'
-              Identifier: '{{ Identifier }}'
-              Type: '{{ Type }}'
-      - name: AppAssessmentSchedule
-        value: '{{ AppAssessmentSchedule }}'
-      - name: PermissionModel
+          - logical_stack_name: '{{ logical_stack_name }}'
+            mapping_type: '{{ mapping_type }}'
+            resource_name: '{{ resource_name }}'
+            terraform_source_name: '{{ terraform_source_name }}'
+            eks_source_name: '{{ eks_source_name }}'
+            physical_resource_id:
+              aws_account_id: '{{ aws_account_id }}'
+              aws_region: '{{ aws_region }}'
+              identifier: '{{ identifier }}'
+              type: '{{ type }}'
+      - name: app_assessment_schedule
+        value: '{{ app_assessment_schedule }}'
+      - name: permission_model
         value:
-          Type: '{{ Type }}'
-          InvokerRoleName: '{{ InvokerRoleName }}'
-          CrossAccountRoleArns:
-            - '{{ CrossAccountRoleArns[0] }}'
-      - name: EventSubscriptions
+          type: '{{ type }}'
+          invoker_role_name: '{{ invoker_role_name }}'
+          cross_account_role_arns:
+            - '{{ cross_account_role_arns[0] }}'
+      - name: event_subscriptions
         value:
-          - Name: '{{ Name }}'
-            EventType: '{{ EventType }}'
-            SnsTopicArn: '{{ SnsTopicArn }}'
-
+          - name: '{{ name }}'
+            event_type: '{{ event_type }}'
+            sns_topic_arn: '{{ sns_topic_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -428,7 +427,7 @@ SET PatchDocument = string('{{ {
     "EventSubscriptions": event_subscriptions
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppArn>';
+AND Identifier = '{{ app_arn }}';
 ```
 
 
@@ -437,7 +436,7 @@ AND Identifier = '<AppArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resiliencehub.apps
-WHERE Identifier = '<AppArn>'
+WHERE Identifier = '{{ app_arn }}'
 AND region = 'us-east-1';
 ```
 

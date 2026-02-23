@@ -308,7 +308,7 @@ reader_endpoint,
 arn,
 final_snapshot_name
 FROM awscc.elasticache.serverless_caches
-WHERE region = 'us-east-1' AND Identifier = '<ServerlessCacheName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ serverless_cache_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -345,9 +345,9 @@ INSERT INTO awscc.elasticache.serverless_caches (
  Engine,
  region
 )
-SELECT 
-'{{ ServerlessCacheName }}',
- '{{ Engine }}',
+SELECT
+'{{ serverless_cache_name }}',
+ '{{ engine }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -374,23 +374,23 @@ INSERT INTO awscc.elasticache.serverless_caches (
  FinalSnapshotName,
  region
 )
-SELECT 
- '{{ ServerlessCacheName }}',
- '{{ Description }}',
- '{{ Engine }}',
- '{{ MajorEngineVersion }}',
- '{{ CacheUsageLimits }}',
- '{{ KmsKeyId }}',
- '{{ SecurityGroupIds }}',
- '{{ SnapshotArnsToRestore }}',
- '{{ Tags }}',
- '{{ UserGroupId }}',
- '{{ SubnetIds }}',
- '{{ SnapshotRetentionLimit }}',
- '{{ DailySnapshotTime }}',
- '{{ Endpoint }}',
- '{{ ReaderEndpoint }}',
- '{{ FinalSnapshotName }}',
+SELECT
+ '{{ serverless_cache_name }}',
+ '{{ description }}',
+ '{{ engine }}',
+ '{{ major_engine_version }}',
+ '{{ cache_usage_limits }}',
+ '{{ kms_key_id }}',
+ '{{ security_group_ids }}',
+ '{{ snapshot_arns_to_restore }}',
+ '{{ tags }}',
+ '{{ user_group_id }}',
+ '{{ subnet_ids }}',
+ '{{ snapshot_retention_limit }}',
+ '{{ daily_snapshot_time }}',
+ '{{ endpoint }}',
+ '{{ reader_endpoint }}',
+ '{{ final_snapshot_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -408,53 +408,52 @@ globals:
 resources:
   - name: serverless_cach
     props:
-      - name: ServerlessCacheName
-        value: '{{ ServerlessCacheName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: MajorEngineVersion
-        value: '{{ MajorEngineVersion }}'
-      - name: CacheUsageLimits
+      - name: serverless_cache_name
+        value: '{{ serverless_cache_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: major_engine_version
+        value: '{{ major_engine_version }}'
+      - name: cache_usage_limits
         value:
-          DataStorage:
-            Minimum: '{{ Minimum }}'
-            Maximum: '{{ Maximum }}'
-            Unit: '{{ Unit }}'
-          ECPUPerSecond:
-            Minimum: '{{ Minimum }}'
-            Maximum: '{{ Maximum }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: SecurityGroupIds
+          data_storage:
+            minimum: '{{ minimum }}'
+            maximum: '{{ maximum }}'
+            unit: '{{ unit }}'
+          e_cp_uper_second:
+            minimum: '{{ minimum }}'
+            maximum: '{{ maximum }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SnapshotArnsToRestore
+          - '{{ security_group_ids[0] }}'
+      - name: snapshot_arns_to_restore
         value:
-          - '{{ SnapshotArnsToRestore[0] }}'
-      - name: Tags
+          - '{{ snapshot_arns_to_restore[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: UserGroupId
-        value: '{{ UserGroupId }}'
-      - name: SubnetIds
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: user_group_id
+        value: '{{ user_group_id }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: SnapshotRetentionLimit
-        value: '{{ SnapshotRetentionLimit }}'
-      - name: DailySnapshotTime
-        value: '{{ DailySnapshotTime }}'
-      - name: Endpoint
+          - '{{ subnet_ids[0] }}'
+      - name: snapshot_retention_limit
+        value: '{{ snapshot_retention_limit }}'
+      - name: daily_snapshot_time
+        value: '{{ daily_snapshot_time }}'
+      - name: endpoint
         value:
-          Address: '{{ Address }}'
-          Port: '{{ Port }}'
-      - name: ReaderEndpoint
+          address: '{{ address }}'
+          port: '{{ port }}'
+      - name: reader_endpoint
         value: null
-      - name: FinalSnapshotName
-        value: '{{ FinalSnapshotName }}'
-
+      - name: final_snapshot_name
+        value: '{{ final_snapshot_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -479,7 +478,7 @@ SET PatchDocument = string('{{ {
     "FinalSnapshotName": final_snapshot_name
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServerlessCacheName>';
+AND Identifier = '{{ serverless_cache_name }}';
 ```
 
 
@@ -488,7 +487,7 @@ AND Identifier = '<ServerlessCacheName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.elasticache.serverless_caches
-WHERE Identifier = '<ServerlessCacheName>'
+WHERE Identifier = '{{ serverless_cache_name }}'
 AND region = 'us-east-1';
 ```
 

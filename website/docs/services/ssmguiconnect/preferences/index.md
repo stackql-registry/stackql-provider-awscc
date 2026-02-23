@@ -171,7 +171,7 @@ region,
 account_id,
 connection_recording_preferences
 FROM awscc.ssmguiconnect.preferences
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,8 +207,8 @@ INSERT INTO awscc.ssmguiconnect.preferences (
  ConnectionRecordingPreferences,
  region
 )
-SELECT 
-'{{ ConnectionRecordingPreferences }}',
+SELECT
+'{{ connection_recording_preferences }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -220,8 +220,8 @@ INSERT INTO awscc.ssmguiconnect.preferences (
  ConnectionRecordingPreferences,
  region
 )
-SELECT 
- '{{ ConnectionRecordingPreferences }}',
+SELECT
+ '{{ connection_recording_preferences }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -239,14 +239,13 @@ globals:
 resources:
   - name: preference
     props:
-      - name: ConnectionRecordingPreferences
+      - name: connection_recording_preferences
         value:
-          RecordingDestinations:
-            S3Buckets:
-              - BucketOwner: '{{ BucketOwner }}'
-                BucketName: '{{ BucketName }}'
-          KMSKeyArn: '{{ KMSKeyArn }}'
-
+          recording_destinations:
+            s3_buckets:
+              - bucket_owner: '{{ bucket_owner }}'
+                bucket_name: '{{ bucket_name }}'
+          kms_key_arn: '{{ kms_key_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ SET PatchDocument = string('{{ {
     "ConnectionRecordingPreferences": connection_recording_preferences
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -271,7 +270,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmguiconnect.preferences
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

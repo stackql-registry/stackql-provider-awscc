@@ -218,7 +218,7 @@ engine_version,
 tags,
 update_strategy
 FROM awscc.memorydb.multi_region_clusters
-WHERE region = 'us-east-1' AND Identifier = '<MultiRegionClusterName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ multi_region_cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,8 +254,8 @@ INSERT INTO awscc.memorydb.multi_region_clusters (
  NodeType,
  region
 )
-SELECT 
-'{{ NodeType }}',
+SELECT
+'{{ node_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -276,17 +276,17 @@ INSERT INTO awscc.memorydb.multi_region_clusters (
  UpdateStrategy,
  region
 )
-SELECT 
- '{{ MultiRegionClusterNameSuffix }}',
- '{{ Description }}',
- '{{ NodeType }}',
- '{{ NumShards }}',
- '{{ MultiRegionParameterGroupName }}',
- '{{ TLSEnabled }}',
- '{{ Engine }}',
- '{{ EngineVersion }}',
- '{{ Tags }}',
- '{{ UpdateStrategy }}',
+SELECT
+ '{{ multi_region_cluster_name_suffix }}',
+ '{{ description }}',
+ '{{ node_type }}',
+ '{{ num_shards }}',
+ '{{ multi_region_parameter_group_name }}',
+ '{{ tls_enabled }}',
+ '{{ engine }}',
+ '{{ engine_version }}',
+ '{{ tags }}',
+ '{{ update_strategy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,29 +304,28 @@ globals:
 resources:
   - name: multi_region_cluster
     props:
-      - name: MultiRegionClusterNameSuffix
-        value: '{{ MultiRegionClusterNameSuffix }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: NodeType
-        value: '{{ NodeType }}'
-      - name: NumShards
-        value: '{{ NumShards }}'
-      - name: MultiRegionParameterGroupName
-        value: '{{ MultiRegionParameterGroupName }}'
-      - name: TLSEnabled
-        value: '{{ TLSEnabled }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: Tags
+      - name: multi_region_cluster_name_suffix
+        value: '{{ multi_region_cluster_name_suffix }}'
+      - name: description
+        value: '{{ description }}'
+      - name: node_type
+        value: '{{ node_type }}'
+      - name: num_shards
+        value: '{{ num_shards }}'
+      - name: multi_region_parameter_group_name
+        value: '{{ multi_region_parameter_group_name }}'
+      - name: tls_enabled
+        value: '{{ tls_enabled }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: UpdateStrategy
-        value: '{{ UpdateStrategy }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: update_strategy
+        value: '{{ update_strategy }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ SET PatchDocument = string('{{ {
     "UpdateStrategy": update_strategy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MultiRegionClusterName>';
+AND Identifier = '{{ multi_region_cluster_name }}';
 ```
 
 
@@ -356,7 +355,7 @@ AND Identifier = '<MultiRegionClusterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.multi_region_clusters
-WHERE Identifier = '<MultiRegionClusterName>'
+WHERE Identifier = '{{ multi_region_cluster_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -369,7 +369,7 @@ url,
 principal_arn,
 tags
 FROM awscc.lightsail.containers
-WHERE region = 'us-east-1' AND Identifier = '<ServiceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -407,10 +407,10 @@ INSERT INTO awscc.lightsail.containers (
  Scale,
  region
 )
-SELECT 
-'{{ ServiceName }}',
- '{{ Power }}',
- '{{ Scale }}',
+SELECT
+'{{ service_name }}',
+ '{{ power }}',
+ '{{ scale }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -429,15 +429,15 @@ INSERT INTO awscc.lightsail.containers (
  Tags,
  region
 )
-SELECT 
- '{{ ServiceName }}',
- '{{ Power }}',
- '{{ Scale }}',
- '{{ PublicDomainNames }}',
- '{{ ContainerServiceDeployment }}',
- '{{ IsDisabled }}',
- '{{ PrivateRegistryAccess }}',
- '{{ Tags }}',
+SELECT
+ '{{ service_name }}',
+ '{{ power }}',
+ '{{ scale }}',
+ '{{ public_domain_names }}',
+ '{{ container_service_deployment }}',
+ '{{ is_disabled }}',
+ '{{ private_registry_access }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -455,52 +455,51 @@ globals:
 resources:
   - name: container
     props:
-      - name: ServiceName
-        value: '{{ ServiceName }}'
-      - name: Power
-        value: '{{ Power }}'
-      - name: Scale
-        value: '{{ Scale }}'
-      - name: PublicDomainNames
+      - name: service_name
+        value: '{{ service_name }}'
+      - name: power
+        value: '{{ power }}'
+      - name: scale
+        value: '{{ scale }}'
+      - name: public_domain_names
         value:
-          - CertificateName: '{{ CertificateName }}'
-            DomainNames:
-              - '{{ DomainNames[0] }}'
-      - name: ContainerServiceDeployment
+          - certificate_name: '{{ certificate_name }}'
+            domain_names:
+              - '{{ domain_names[0] }}'
+      - name: container_service_deployment
         value:
-          Containers:
-            - ServiceName: '{{ ServiceName }}'
-              Power: '{{ Power }}'
-              Scale: '{{ Scale }}'
-              PublicDomainNames:
+          containers:
+            - service_name: '{{ service_name }}'
+              power: '{{ power }}'
+              scale: '{{ scale }}'
+              public_domain_names:
                 - null
-              ContainerServiceDeployment: null
-              IsDisabled: '{{ IsDisabled }}'
-              PrivateRegistryAccess:
-                EcrImagePullerRole:
-                  IsActive: '{{ IsActive }}'
-                  PrincipalArn: '{{ PrincipalArn }}'
-              Tags:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-          PublicEndpoint:
-            ContainerName: '{{ ContainerName }}'
-            ContainerPort: '{{ ContainerPort }}'
-            HealthCheckConfig:
-              HealthyThreshold: '{{ HealthyThreshold }}'
-              IntervalSeconds: '{{ IntervalSeconds }}'
-              Path: '{{ Path }}'
-              SuccessCodes: '{{ SuccessCodes }}'
-              TimeoutSeconds: '{{ TimeoutSeconds }}'
-              UnhealthyThreshold: '{{ UnhealthyThreshold }}'
-      - name: IsDisabled
-        value: '{{ IsDisabled }}'
-      - name: PrivateRegistryAccess
+              container_service_deployment: null
+              is_disabled: '{{ is_disabled }}'
+              private_registry_access:
+                ecr_image_puller_role:
+                  is_active: '{{ is_active }}'
+                  principal_arn: '{{ principal_arn }}'
+              tags:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+          public_endpoint:
+            container_name: '{{ container_name }}'
+            container_port: '{{ container_port }}'
+            health_check_config:
+              healthy_threshold: '{{ healthy_threshold }}'
+              interval_seconds: '{{ interval_seconds }}'
+              path: '{{ path }}'
+              success_codes: '{{ success_codes }}'
+              timeout_seconds: '{{ timeout_seconds }}'
+              unhealthy_threshold: '{{ unhealthy_threshold }}'
+      - name: is_disabled
+        value: '{{ is_disabled }}'
+      - name: private_registry_access
         value: null
-      - name: Tags
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -521,7 +520,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceName>';
+AND Identifier = '{{ service_name }}';
 ```
 
 
@@ -530,7 +529,7 @@ AND Identifier = '<ServiceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.containers
-WHERE Identifier = '<ServiceName>'
+WHERE Identifier = '{{ service_name }}'
 AND region = 'us-east-1';
 ```
 

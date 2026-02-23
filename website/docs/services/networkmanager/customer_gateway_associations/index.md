@@ -151,7 +151,7 @@ customer_gateway_arn,
 device_id,
 link_id
 FROM awscc.networkmanager.customer_gateway_associations
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<CustomerGatewayArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ customer_gateway_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.networkmanager.customer_gateway_associations (
  DeviceId,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
- '{{ CustomerGatewayArn }}',
- '{{ DeviceId }}',
+SELECT
+'{{ global_network_id }}',
+ '{{ customer_gateway_arn }}',
+ '{{ device_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,11 +208,11 @@ INSERT INTO awscc.networkmanager.customer_gateway_associations (
  LinkId,
  region
 )
-SELECT 
- '{{ GlobalNetworkId }}',
- '{{ CustomerGatewayArn }}',
- '{{ DeviceId }}',
- '{{ LinkId }}',
+SELECT
+ '{{ global_network_id }}',
+ '{{ customer_gateway_arn }}',
+ '{{ device_id }}',
+ '{{ link_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,15 +230,14 @@ globals:
 resources:
   - name: customer_gateway_association
     props:
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: CustomerGatewayArn
-        value: '{{ CustomerGatewayArn }}'
-      - name: DeviceId
-        value: '{{ DeviceId }}'
-      - name: LinkId
-        value: '{{ LinkId }}'
-
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: customer_gateway_arn
+        value: '{{ customer_gateway_arn }}'
+      - name: device_id
+        value: '{{ device_id }}'
+      - name: link_id
+        value: '{{ link_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +248,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.customer_gateway_associations
-WHERE Identifier = '<GlobalNetworkId|CustomerGatewayArn>'
+WHERE Identifier = '{{ global_network_id }}|{{ customer_gateway_arn }}'
 AND region = 'us-east-1';
 ```
 

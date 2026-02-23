@@ -190,7 +190,7 @@ code_signing_config_id,
 code_signing_config_arn,
 tags
 FROM awscc.lambda.code_signing_configs
-WHERE region = 'us-east-1' AND Identifier = '<CodeSigningConfigArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ code_signing_config_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,8 +226,8 @@ INSERT INTO awscc.lambda.code_signing_configs (
  AllowedPublishers,
  region
 )
-SELECT 
-'{{ AllowedPublishers }}',
+SELECT
+'{{ allowed_publishers }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,11 +242,11 @@ INSERT INTO awscc.lambda.code_signing_configs (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ AllowedPublishers }}',
- '{{ CodeSigningPolicies }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ allowed_publishers }}',
+ '{{ code_signing_policies }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -264,20 +264,19 @@ globals:
 resources:
   - name: code_signing_config
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: AllowedPublishers
+      - name: description
+        value: '{{ description }}'
+      - name: allowed_publishers
         value:
-          SigningProfileVersionArns:
-            - '{{ SigningProfileVersionArns[0] }}'
-      - name: CodeSigningPolicies
+          signing_profile_version_arns:
+            - '{{ signing_profile_version_arns[0] }}'
+      - name: code_signing_policies
         value:
-          UntrustedArtifactOnDeployment: '{{ UntrustedArtifactOnDeployment }}'
-      - name: Tags
+          untrusted_artifact_on_deployment: '{{ untrusted_artifact_on_deployment }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -296,7 +295,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CodeSigningConfigArn>';
+AND Identifier = '{{ code_signing_config_arn }}';
 ```
 
 
@@ -305,7 +304,7 @@ AND Identifier = '<CodeSigningConfigArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.code_signing_configs
-WHERE Identifier = '<CodeSigningConfigArn>'
+WHERE Identifier = '{{ code_signing_config_arn }}'
 AND region = 'us-east-1';
 ```
 

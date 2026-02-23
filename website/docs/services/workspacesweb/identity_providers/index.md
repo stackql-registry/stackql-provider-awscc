@@ -176,7 +176,7 @@ identity_provider_type,
 portal_arn,
 tags
 FROM awscc.workspacesweb.identity_providers
-WHERE region = 'us-east-1' AND Identifier = '<IdentityProviderArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identity_provider_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.workspacesweb.identity_providers (
  IdentityProviderType,
  region
 )
-SELECT 
-'{{ IdentityProviderDetails }}',
- '{{ IdentityProviderName }}',
- '{{ IdentityProviderType }}',
+SELECT
+'{{ identity_provider_details }}',
+ '{{ identity_provider_name }}',
+ '{{ identity_provider_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.workspacesweb.identity_providers (
  Tags,
  region
 )
-SELECT 
- '{{ IdentityProviderDetails }}',
- '{{ IdentityProviderName }}',
- '{{ IdentityProviderType }}',
- '{{ PortalArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ identity_provider_details }}',
+ '{{ identity_provider_name }}',
+ '{{ identity_provider_type }}',
+ '{{ portal_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: identity_provider
     props:
-      - name: IdentityProviderDetails
+      - name: identity_provider_details
         value: {}
-      - name: IdentityProviderName
-        value: '{{ IdentityProviderName }}'
-      - name: IdentityProviderType
-        value: '{{ IdentityProviderType }}'
-      - name: PortalArn
-        value: '{{ PortalArn }}'
-      - name: Tags
+      - name: identity_provider_name
+        value: '{{ identity_provider_name }}'
+      - name: identity_provider_type
+        value: '{{ identity_provider_type }}'
+      - name: portal_arn
+        value: '{{ portal_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdentityProviderArn>';
+AND Identifier = '{{ identity_provider_arn }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<IdentityProviderArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.identity_providers
-WHERE Identifier = '<IdentityProviderArn>'
+WHERE Identifier = '{{ identity_provider_arn }}'
 AND region = 'us-east-1';
 ```
 

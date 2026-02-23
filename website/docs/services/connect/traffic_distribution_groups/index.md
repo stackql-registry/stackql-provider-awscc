@@ -182,7 +182,7 @@ status,
 tags,
 is_default
 FROM awscc.connect.traffic_distribution_groups
-WHERE region = 'us-east-1' AND Identifier = '<TrafficDistributionGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ traffic_distribution_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.connect.traffic_distribution_groups (
  Name,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,11 +236,11 @@ INSERT INTO awscc.connect.traffic_distribution_groups (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -258,17 +258,16 @@ globals:
 resources:
   - name: traffic_distribution_group
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrafficDistributionGroupArn>';
+AND Identifier = '{{ traffic_distribution_group_arn }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<TrafficDistributionGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.traffic_distribution_groups
-WHERE Identifier = '<TrafficDistributionGroupArn>'
+WHERE Identifier = '{{ traffic_distribution_group_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -139,7 +139,7 @@ region,
 connector_arn,
 directory_registration_arn
 FROM awscc.pcaconnectorad.service_principal_names
-WHERE region = 'us-east-1' AND Identifier = '<ConnectorArn>|<DirectoryRegistrationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.pcaconnectorad.service_principal_names (
  DirectoryRegistrationArn,
  region
 )
-SELECT 
-'{{ ConnectorArn }}',
- '{{ DirectoryRegistrationArn }}',
+SELECT
+'{{ connector_arn }}',
+ '{{ directory_registration_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.pcaconnectorad.service_principal_names (
  DirectoryRegistrationArn,
  region
 )
-SELECT 
- '{{ ConnectorArn }}',
- '{{ DirectoryRegistrationArn }}',
+SELECT
+ '{{ connector_arn }}',
+ '{{ directory_registration_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: service_principal_name
     props:
-      - name: ConnectorArn
-        value: '{{ ConnectorArn }}'
-      - name: DirectoryRegistrationArn
-        value: '{{ DirectoryRegistrationArn }}'
-
+      - name: connector_arn
+        value: '{{ connector_arn }}'
+      - name: directory_registration_arn
+        value: '{{ directory_registration_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.service_principal_names
-WHERE Identifier = '<ConnectorArn|DirectoryRegistrationArn>'
+WHERE Identifier = '{{ connector_arn }}|{{ directory_registration_arn }}'
 AND region = 'us-east-1';
 ```
 

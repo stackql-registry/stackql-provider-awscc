@@ -137,7 +137,7 @@ time_created,
 version_id,
 visibility
 FROM awscc.cloudformation.module_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -161,9 +161,9 @@ INSERT INTO awscc.cloudformation.module_versions (
  ModulePackage,
  region
 )
-SELECT 
-'{{ ModuleName }}',
- '{{ ModulePackage }}',
+SELECT
+'{{ module_name }}',
+ '{{ module_package }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -176,9 +176,9 @@ INSERT INTO awscc.cloudformation.module_versions (
  ModulePackage,
  region
 )
-SELECT 
- '{{ ModuleName }}',
- '{{ ModulePackage }}',
+SELECT
+ '{{ module_name }}',
+ '{{ module_package }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -196,11 +196,10 @@ globals:
 resources:
   - name: module_version
     props:
-      - name: ModuleName
-        value: '{{ ModuleName }}'
-      - name: ModulePackage
-        value: '{{ ModulePackage }}'
-
+      - name: module_name
+        value: '{{ module_name }}'
+      - name: module_package
+        value: '{{ module_package }}'
 ```
 </TabItem>
 </Tabs>
@@ -211,7 +210,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.module_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

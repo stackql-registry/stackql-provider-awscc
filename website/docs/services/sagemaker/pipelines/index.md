@@ -189,7 +189,7 @@ role_arn,
 tags,
 parallelism_configuration
 FROM awscc.sagemaker.pipelines
-WHERE region = 'us-east-1' AND Identifier = '<PipelineName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pipeline_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,10 +227,10 @@ INSERT INTO awscc.sagemaker.pipelines (
  RoleArn,
  region
 )
-SELECT 
-'{{ PipelineName }}',
- '{{ PipelineDefinition }}',
- '{{ RoleArn }}',
+SELECT
+'{{ pipeline_name }}',
+ '{{ pipeline_definition }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,14 +248,14 @@ INSERT INTO awscc.sagemaker.pipelines (
  ParallelismConfiguration,
  region
 )
-SELECT 
- '{{ PipelineName }}',
- '{{ PipelineDisplayName }}',
- '{{ PipelineDescription }}',
- '{{ PipelineDefinition }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ ParallelismConfiguration }}',
+SELECT
+ '{{ pipeline_name }}',
+ '{{ pipeline_display_name }}',
+ '{{ pipeline_description }}',
+ '{{ pipeline_definition }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ parallelism_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -273,24 +273,23 @@ globals:
 resources:
   - name: pipeline
     props:
-      - name: PipelineName
-        value: '{{ PipelineName }}'
-      - name: PipelineDisplayName
-        value: '{{ PipelineDisplayName }}'
-      - name: PipelineDescription
-        value: '{{ PipelineDescription }}'
-      - name: PipelineDefinition
+      - name: pipeline_name
+        value: '{{ pipeline_name }}'
+      - name: pipeline_display_name
+        value: '{{ pipeline_display_name }}'
+      - name: pipeline_description
+        value: '{{ pipeline_description }}'
+      - name: pipeline_definition
         value: {}
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ParallelismConfiguration
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: parallelism_configuration
         value:
-          MaxParallelExecutionSteps: '{{ MaxParallelExecutionSteps }}'
-
+          max_parallel_execution_steps: '{{ max_parallel_execution_steps }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "ParallelismConfiguration": parallelism_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PipelineName>';
+AND Identifier = '{{ pipeline_name }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<PipelineName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.pipelines
-WHERE Identifier = '<PipelineName>'
+WHERE Identifier = '{{ pipeline_name }}'
 AND region = 'us-east-1';
 ```
 

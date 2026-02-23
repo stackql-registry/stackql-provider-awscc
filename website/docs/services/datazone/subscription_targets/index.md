@@ -252,7 +252,7 @@ type,
 updated_at,
 updated_by
 FROM awscc.datazone.subscription_targets
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,14 +296,14 @@ INSERT INTO awscc.datazone.subscription_targets (
  Type,
  region
 )
-SELECT 
-'{{ ApplicableAssetTypes }}',
- '{{ AuthorizedPrincipals }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Name }}',
- '{{ SubscriptionTargetConfig }}',
- '{{ Type }}',
+SELECT
+'{{ applicable_asset_types }}',
+ '{{ authorized_principals }}',
+ '{{ domain_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ name }}',
+ '{{ subscription_target_config }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -323,16 +323,16 @@ INSERT INTO awscc.datazone.subscription_targets (
  Type,
  region
 )
-SELECT 
- '{{ ApplicableAssetTypes }}',
- '{{ AuthorizedPrincipals }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ ManageAccessRole }}',
- '{{ Name }}',
- '{{ Provider }}',
- '{{ SubscriptionTargetConfig }}',
- '{{ Type }}',
+SELECT
+ '{{ applicable_asset_types }}',
+ '{{ authorized_principals }}',
+ '{{ domain_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ manage_access_role }}',
+ '{{ name }}',
+ '{{ provider }}',
+ '{{ subscription_target_config }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -350,29 +350,28 @@ globals:
 resources:
   - name: subscription_target
     props:
-      - name: ApplicableAssetTypes
+      - name: applicable_asset_types
         value:
-          - '{{ ApplicableAssetTypes[0] }}'
-      - name: AuthorizedPrincipals
+          - '{{ applicable_asset_types[0] }}'
+      - name: authorized_principals
         value:
-          - '{{ AuthorizedPrincipals[0] }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: ManageAccessRole
-        value: '{{ ManageAccessRole }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Provider
-        value: '{{ Provider }}'
-      - name: SubscriptionTargetConfig
+          - '{{ authorized_principals[0] }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: manage_access_role
+        value: '{{ manage_access_role }}'
+      - name: name
+        value: '{{ name }}'
+      - name: provider
+        value: '{{ provider }}'
+      - name: subscription_target_config
         value:
-          - FormName: '{{ FormName }}'
-            Content: '{{ Content }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - form_name: '{{ form_name }}'
+            content: '{{ content }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +392,7 @@ SET PatchDocument = string('{{ {
     "SubscriptionTargetConfig": subscription_target_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 
 
@@ -402,7 +401,7 @@ AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.subscription_targets
-WHERE Identifier = '<DomainId|EnvironmentId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

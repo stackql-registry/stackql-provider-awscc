@@ -229,7 +229,7 @@ url_endpoint,
 vpc_id,
 tags
 FROM awscc.refactorspaces.services
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<ServiceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,11 +270,11 @@ INSERT INTO awscc.refactorspaces.services (
  Name,
  region
 )
-SELECT 
-'{{ ApplicationIdentifier }}',
- '{{ EndpointType }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Name }}',
+SELECT
+'{{ application_identifier }}',
+ '{{ endpoint_type }}',
+ '{{ environment_identifier }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -294,16 +294,16 @@ INSERT INTO awscc.refactorspaces.services (
  Tags,
  region
 )
-SELECT 
- '{{ ApplicationIdentifier }}',
- '{{ Description }}',
- '{{ EndpointType }}',
- '{{ EnvironmentIdentifier }}',
- '{{ LambdaEndpoint }}',
- '{{ Name }}',
- '{{ UrlEndpoint }}',
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ application_identifier }}',
+ '{{ description }}',
+ '{{ endpoint_type }}',
+ '{{ environment_identifier }}',
+ '{{ lambda_endpoint }}',
+ '{{ name }}',
+ '{{ url_endpoint }}',
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -321,30 +321,29 @@ globals:
 resources:
   - name: service
     props:
-      - name: ApplicationIdentifier
-        value: '{{ ApplicationIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EndpointType
-        value: '{{ EndpointType }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: LambdaEndpoint
+      - name: application_identifier
+        value: '{{ application_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: endpoint_type
+        value: '{{ endpoint_type }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: lambda_endpoint
         value:
-          Arn: '{{ Arn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: UrlEndpoint
+          arn: '{{ arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: url_endpoint
         value:
-          HealthUrl: '{{ HealthUrl }}'
-          Url: '{{ Url }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+          health_url: '{{ health_url }}'
+          url: '{{ url }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +354,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.services
-WHERE Identifier = '<EnvironmentIdentifier|ApplicationIdentifier|ServiceIdentifier>'
+WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ service_identifier }}'
 AND region = 'us-east-1';
 ```
 

@@ -209,7 +209,7 @@ suite_definition_arn,
 suite_definition_version,
 tags
 FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE region = 'us-east-1' AND Identifier = '<SuiteDefinitionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ suite_definition_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,8 +245,8 @@ INSERT INTO awscc.iotcoredeviceadvisor.suite_definitions (
  SuiteDefinitionConfiguration,
  region
 )
-SELECT 
-'{{ SuiteDefinitionConfiguration }}',
+SELECT
+'{{ suite_definition_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -259,9 +259,9 @@ INSERT INTO awscc.iotcoredeviceadvisor.suite_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ SuiteDefinitionConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ suite_definition_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -279,20 +279,19 @@ globals:
 resources:
   - name: suite_definition
     props:
-      - name: SuiteDefinitionConfiguration
+      - name: suite_definition_configuration
         value:
-          DevicePermissionRoleArn: '{{ DevicePermissionRoleArn }}'
-          Devices:
-            - CertificateArn: '{{ CertificateArn }}'
-              ThingArn: '{{ ThingArn }}'
-          IntendedForQualification: '{{ IntendedForQualification }}'
-          RootGroup: '{{ RootGroup }}'
-          SuiteDefinitionName: '{{ SuiteDefinitionName }}'
-      - name: Tags
+          device_permission_role_arn: '{{ device_permission_role_arn }}'
+          devices:
+            - certificate_arn: '{{ certificate_arn }}'
+              thing_arn: '{{ thing_arn }}'
+          intended_for_qualification: '{{ intended_for_qualification }}'
+          root_group: '{{ root_group }}'
+          suite_definition_name: '{{ suite_definition_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SuiteDefinitionId>';
+AND Identifier = '{{ suite_definition_id }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<SuiteDefinitionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE Identifier = '<SuiteDefinitionId>'
+WHERE Identifier = '{{ suite_definition_id }}'
 AND region = 'us-east-1';
 ```
 

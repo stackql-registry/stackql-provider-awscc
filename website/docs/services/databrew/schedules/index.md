@@ -164,7 +164,7 @@ cron_expression,
 name,
 tags
 FROM awscc.databrew.schedules
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.databrew.schedules (
  Name,
  region
 )
-SELECT 
-'{{ CronExpression }}',
- '{{ Name }}',
+SELECT
+'{{ cron_expression }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,11 @@ INSERT INTO awscc.databrew.schedules (
  Tags,
  region
 )
-SELECT 
- '{{ JobNames }}',
- '{{ CronExpression }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ job_names }}',
+ '{{ cron_expression }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,18 +240,17 @@ globals:
 resources:
   - name: schedule
     props:
-      - name: JobNames
+      - name: job_names
         value:
-          - '{{ JobNames[0] }}'
-      - name: CronExpression
-        value: '{{ CronExpression }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          - '{{ job_names[0] }}'
+      - name: cron_expression
+        value: '{{ cron_expression }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.schedules
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

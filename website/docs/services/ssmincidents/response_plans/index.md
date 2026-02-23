@@ -334,7 +334,7 @@ integrations,
 tags,
 incident_template
 FROM awscc.ssmincidents.response_plans
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,9 +371,9 @@ INSERT INTO awscc.ssmincidents.response_plans (
  IncidentTemplate,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ IncidentTemplate }}',
+SELECT
+'{{ name }}',
+ '{{ incident_template }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -392,15 +392,15 @@ INSERT INTO awscc.ssmincidents.response_plans (
  IncidentTemplate,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DisplayName }}',
- '{{ ChatChannel }}',
- '{{ Engagements }}',
- '{{ Actions }}',
- '{{ Integrations }}',
- '{{ Tags }}',
- '{{ IncidentTemplate }}',
+SELECT
+ '{{ name }}',
+ '{{ display_name }}',
+ '{{ chat_channel }}',
+ '{{ engagements }}',
+ '{{ actions }}',
+ '{{ integrations }}',
+ '{{ tags }}',
+ '{{ incident_template }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -418,54 +418,53 @@ globals:
 resources:
   - name: response_plan
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: ChatChannel
+      - name: name
+        value: '{{ name }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: chat_channel
         value:
-          ChatbotSns:
-            - '{{ ChatbotSns[0] }}'
-      - name: Engagements
+          chatbot_sns:
+            - '{{ chatbot_sns[0] }}'
+      - name: engagements
         value:
-          - '{{ Engagements[0] }}'
-      - name: Actions
+          - '{{ engagements[0] }}'
+      - name: actions
         value:
-          - SsmAutomation:
-              RoleArn: '{{ RoleArn }}'
-              DocumentName: '{{ DocumentName }}'
-              DocumentVersion: '{{ DocumentVersion }}'
-              TargetAccount: '{{ TargetAccount }}'
-              Parameters:
-                - Key: '{{ Key }}'
-                  Values:
-                    - '{{ Values[0] }}'
-              DynamicParameters:
-                - Key: '{{ Key }}'
-                  Value:
-                    Variable: '{{ Variable }}'
-      - name: Integrations
+          - ssm_automation:
+              role_arn: '{{ role_arn }}'
+              document_name: '{{ document_name }}'
+              document_version: '{{ document_version }}'
+              target_account: '{{ target_account }}'
+              parameters:
+                - key: '{{ key }}'
+                  values:
+                    - '{{ values[0] }}'
+              dynamic_parameters:
+                - key: '{{ key }}'
+                  value:
+                    variable: '{{ variable }}'
+      - name: integrations
         value:
-          - PagerDutyConfiguration:
-              Name: '{{ Name }}'
-              SecretId: '{{ SecretId }}'
-              PagerDutyIncidentConfiguration:
-                ServiceId: '{{ ServiceId }}'
-      - name: Tags
+          - pager_duty_configuration:
+              name: '{{ name }}'
+              secret_id: '{{ secret_id }}'
+              pager_duty_incident_configuration:
+                service_id: '{{ service_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: IncidentTemplate
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: incident_template
         value:
-          DedupeString: '{{ DedupeString }}'
-          Impact: '{{ Impact }}'
-          NotificationTargets:
-            - SnsTopicArn: null
-          Summary: '{{ Summary }}'
-          Title: '{{ Title }}'
-          IncidentTags:
+          dedupe_string: '{{ dedupe_string }}'
+          impact: '{{ impact }}'
+          notification_targets:
+            - sns_topic_arn: null
+          summary: '{{ summary }}'
+          title: '{{ title }}'
+          incident_tags:
             - null
-
 ```
 </TabItem>
 </Tabs>
@@ -487,7 +486,7 @@ SET PatchDocument = string('{{ {
     "IncidentTemplate": incident_template
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -496,7 +495,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmincidents.response_plans
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

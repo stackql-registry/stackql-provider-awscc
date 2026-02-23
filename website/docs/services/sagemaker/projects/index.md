@@ -287,7 +287,7 @@ service_catalog_provisioned_product_details,
 template_provider_details,
 project_status
 FROM awscc.sagemaker.projects
-WHERE region = 'us-east-1' AND Identifier = '<ProjectArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ project_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,8 +323,8 @@ INSERT INTO awscc.sagemaker.projects (
  ProjectName,
  region
 )
-SELECT 
-'{{ ProjectName }}',
+SELECT
+'{{ project_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -341,13 +341,13 @@ INSERT INTO awscc.sagemaker.projects (
  TemplateProviderDetails,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ ProjectName }}',
- '{{ ProjectDescription }}',
- '{{ ServiceCatalogProvisioningDetails }}',
- '{{ ServiceCatalogProvisionedProductDetails }}',
- '{{ TemplateProviderDetails }}',
+SELECT
+ '{{ tags }}',
+ '{{ project_name }}',
+ '{{ project_description }}',
+ '{{ service_catalog_provisioning_details }}',
+ '{{ service_catalog_provisioned_product_details }}',
+ '{{ template_provider_details }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -365,36 +365,35 @@ globals:
 resources:
   - name: project
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ProjectName
-        value: '{{ ProjectName }}'
-      - name: ProjectDescription
-        value: '{{ ProjectDescription }}'
-      - name: ServiceCatalogProvisioningDetails
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: project_name
+        value: '{{ project_name }}'
+      - name: project_description
+        value: '{{ project_description }}'
+      - name: service_catalog_provisioning_details
         value:
-          ProductId: '{{ ProductId }}'
-          ProvisioningArtifactId: '{{ ProvisioningArtifactId }}'
-          PathId: '{{ PathId }}'
-          ProvisioningParameters:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: ServiceCatalogProvisionedProductDetails
+          product_id: '{{ product_id }}'
+          provisioning_artifact_id: '{{ provisioning_artifact_id }}'
+          path_id: '{{ path_id }}'
+          provisioning_parameters:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: service_catalog_provisioned_product_details
         value:
-          ProvisionedProductId: null
-          ProvisionedProductStatusMessage: '{{ ProvisionedProductStatusMessage }}'
-      - name: TemplateProviderDetails
+          provisioned_product_id: null
+          provisioned_product_status_message: '{{ provisioned_product_status_message }}'
+      - name: template_provider_details
         value:
-          - CfnTemplateProviderDetail:
-              Parameters:
-                - Key: '{{ Key }}'
-                  Value: '{{ Value }}'
-              RoleARN: '{{ RoleARN }}'
-              TemplateName: '{{ TemplateName }}'
-              TemplateURL: '{{ TemplateURL }}'
-
+          - cfn_template_provider_detail:
+              parameters:
+                - key: '{{ key }}'
+                  value: '{{ value }}'
+              role_arn: '{{ role_arn }}'
+              template_name: '{{ template_name }}'
+              template_url: '{{ template_url }}'
 ```
 </TabItem>
 </Tabs>
@@ -410,7 +409,7 @@ SET PatchDocument = string('{{ {
     "ServiceCatalogProvisionedProductDetails": service_catalog_provisioned_product_details
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProjectArn>';
+AND Identifier = '{{ project_arn }}';
 ```
 
 
@@ -419,7 +418,7 @@ AND Identifier = '<ProjectArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.projects
-WHERE Identifier = '<ProjectArn>'
+WHERE Identifier = '{{ project_arn }}'
 AND region = 'us-east-1';
 ```
 

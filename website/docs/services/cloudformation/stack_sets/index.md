@@ -355,7 +355,7 @@ template_url,
 call_as,
 managed_execution
 FROM awscc.cloudformation.stack_sets
-WHERE region = 'us-east-1' AND Identifier = '<StackSetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ stack_set_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -392,9 +392,9 @@ INSERT INTO awscc.cloudformation.stack_sets (
  PermissionModel,
  region
 )
-SELECT 
-'{{ StackSetName }}',
- '{{ PermissionModel }}',
+SELECT
+'{{ stack_set_name }}',
+ '{{ permission_model }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -420,22 +420,22 @@ INSERT INTO awscc.cloudformation.stack_sets (
  ManagedExecution,
  region
 )
-SELECT 
- '{{ StackSetName }}',
- '{{ AdministrationRoleARN }}',
- '{{ AutoDeployment }}',
- '{{ Capabilities }}',
- '{{ Description }}',
- '{{ ExecutionRoleName }}',
- '{{ OperationPreferences }}',
- '{{ StackInstancesGroup }}',
- '{{ Parameters }}',
- '{{ PermissionModel }}',
- '{{ Tags }}',
- '{{ TemplateBody }}',
- '{{ TemplateURL }}',
- '{{ CallAs }}',
- '{{ ManagedExecution }}',
+SELECT
+ '{{ stack_set_name }}',
+ '{{ administration_role_arn }}',
+ '{{ auto_deployment }}',
+ '{{ capabilities }}',
+ '{{ description }}',
+ '{{ execution_role_name }}',
+ '{{ operation_preferences }}',
+ '{{ stack_instances_group }}',
+ '{{ parameters }}',
+ '{{ permission_model }}',
+ '{{ tags }}',
+ '{{ template_body }}',
+ '{{ template_url }}',
+ '{{ call_as }}',
+ '{{ managed_execution }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -453,64 +453,63 @@ globals:
 resources:
   - name: stack_set
     props:
-      - name: StackSetName
-        value: '{{ StackSetName }}'
-      - name: AdministrationRoleARN
-        value: '{{ AdministrationRoleARN }}'
-      - name: AutoDeployment
+      - name: stack_set_name
+        value: '{{ stack_set_name }}'
+      - name: administration_role_arn
+        value: '{{ administration_role_arn }}'
+      - name: auto_deployment
         value:
-          Enabled: '{{ Enabled }}'
-          RetainStacksOnAccountRemoval: '{{ RetainStacksOnAccountRemoval }}'
-      - name: Capabilities
+          enabled: '{{ enabled }}'
+          retain_stacks_on_account_removal: '{{ retain_stacks_on_account_removal }}'
+      - name: capabilities
         value:
-          - '{{ Capabilities[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExecutionRoleName
-        value: '{{ ExecutionRoleName }}'
-      - name: OperationPreferences
+          - '{{ capabilities[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: execution_role_name
+        value: '{{ execution_role_name }}'
+      - name: operation_preferences
         value:
-          FailureToleranceCount: '{{ FailureToleranceCount }}'
-          FailureTolerancePercentage: '{{ FailureTolerancePercentage }}'
-          MaxConcurrentCount: '{{ MaxConcurrentCount }}'
-          MaxConcurrentPercentage: '{{ MaxConcurrentPercentage }}'
-          RegionOrder:
-            - '{{ RegionOrder[0] }}'
-          RegionConcurrencyType: '{{ RegionConcurrencyType }}'
-          ConcurrencyMode: '{{ ConcurrencyMode }}'
-      - name: StackInstancesGroup
+          failure_tolerance_count: '{{ failure_tolerance_count }}'
+          failure_tolerance_percentage: '{{ failure_tolerance_percentage }}'
+          max_concurrent_count: '{{ max_concurrent_count }}'
+          max_concurrent_percentage: '{{ max_concurrent_percentage }}'
+          region_order:
+            - '{{ region_order[0] }}'
+          region_concurrency_type: '{{ region_concurrency_type }}'
+          concurrency_mode: '{{ concurrency_mode }}'
+      - name: stack_instances_group
         value:
-          - DeploymentTargets:
-              Accounts:
-                - '{{ Accounts[0] }}'
-              AccountsUrl: '{{ AccountsUrl }}'
-              OrganizationalUnitIds:
-                - '{{ OrganizationalUnitIds[0] }}'
-              AccountFilterType: '{{ AccountFilterType }}'
-            Regions:
+          - deployment_targets:
+              accounts:
+                - '{{ accounts[0] }}'
+              accounts_url: '{{ accounts_url }}'
+              organizational_unit_ids:
+                - '{{ organizational_unit_ids[0] }}'
+              account_filter_type: '{{ account_filter_type }}'
+            regions:
               - null
-            ParameterOverrides:
-              - ParameterKey: '{{ ParameterKey }}'
-                ParameterValue: '{{ ParameterValue }}'
-      - name: Parameters
+            parameter_overrides:
+              - parameter_key: '{{ parameter_key }}'
+                parameter_value: '{{ parameter_value }}'
+      - name: parameters
         value:
           - null
-      - name: PermissionModel
-        value: '{{ PermissionModel }}'
-      - name: Tags
+      - name: permission_model
+        value: '{{ permission_model }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TemplateBody
-        value: '{{ TemplateBody }}'
-      - name: TemplateURL
-        value: '{{ TemplateURL }}'
-      - name: CallAs
-        value: '{{ CallAs }}'
-      - name: ManagedExecution
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: template_body
+        value: '{{ template_body }}'
+      - name: template_url
+        value: '{{ template_url }}'
+      - name: call_as
+        value: '{{ call_as }}'
+      - name: managed_execution
         value:
-          Active: '{{ Active }}'
-
+          active: '{{ active }}'
 ```
 </TabItem>
 </Tabs>
@@ -538,7 +537,7 @@ SET PatchDocument = string('{{ {
     "ManagedExecution": managed_execution
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<StackSetId>';
+AND Identifier = '{{ stack_set_id }}';
 ```
 
 
@@ -547,7 +546,7 @@ AND Identifier = '<StackSetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.stack_sets
-WHERE Identifier = '<StackSetId>'
+WHERE Identifier = '{{ stack_set_id }}'
 AND region = 'us-east-1';
 ```
 

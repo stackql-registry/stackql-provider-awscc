@@ -283,7 +283,7 @@ worker_count,
 arn,
 tags
 FROM awscc.deadline.fleets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,12 +323,12 @@ INSERT INTO awscc.deadline.fleets (
  RoleArn,
  region
 )
-SELECT 
-'{{ Configuration }}',
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ MaxWorkerCount }}',
- '{{ RoleArn }}',
+SELECT
+'{{ configuration }}',
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ max_worker_count }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -348,16 +348,16 @@ INSERT INTO awscc.deadline.fleets (
  Tags,
  region
 )
-SELECT 
- '{{ Configuration }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ HostConfiguration }}',
- '{{ MaxWorkerCount }}',
- '{{ MinWorkerCount }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ configuration }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ host_configuration }}',
+ '{{ max_worker_count }}',
+ '{{ min_worker_count }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -375,29 +375,28 @@ globals:
 resources:
   - name: fleet
     props:
-      - name: Configuration
+      - name: configuration
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: HostConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: host_configuration
         value:
-          ScriptBody: '{{ ScriptBody }}'
-          ScriptTimeoutSeconds: '{{ ScriptTimeoutSeconds }}'
-      - name: MaxWorkerCount
-        value: '{{ MaxWorkerCount }}'
-      - name: MinWorkerCount
-        value: '{{ MinWorkerCount }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          script_body: '{{ script_body }}'
+          script_timeout_seconds: '{{ script_timeout_seconds }}'
+      - name: max_worker_count
+        value: '{{ max_worker_count }}'
+      - name: min_worker_count
+        value: '{{ min_worker_count }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -420,7 +419,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -429,7 +428,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.fleets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

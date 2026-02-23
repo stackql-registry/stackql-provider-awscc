@@ -188,7 +188,7 @@ resource_identifier,
 service_network_log_type,
 tags
 FROM awscc.vpclattice.access_log_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.vpclattice.access_log_subscriptions (
  DestinationArn,
  region
 )
-SELECT 
-'{{ DestinationArn }}',
+SELECT
+'{{ destination_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.vpclattice.access_log_subscriptions (
  Tags,
  region
 )
-SELECT 
- '{{ DestinationArn }}',
- '{{ ResourceIdentifier }}',
- '{{ ServiceNetworkLogType }}',
- '{{ Tags }}',
+SELECT
+ '{{ destination_arn }}',
+ '{{ resource_identifier }}',
+ '{{ service_network_log_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,17 +262,16 @@ globals:
 resources:
   - name: access_log_subscription
     props:
-      - name: DestinationArn
-        value: '{{ DestinationArn }}'
-      - name: ResourceIdentifier
-        value: '{{ ResourceIdentifier }}'
-      - name: ServiceNetworkLogType
-        value: '{{ ServiceNetworkLogType }}'
-      - name: Tags
+      - name: destination_arn
+        value: '{{ destination_arn }}'
+      - name: resource_identifier
+        value: '{{ resource_identifier }}'
+      - name: service_network_log_type
+        value: '{{ service_network_log_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +289,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -299,7 +298,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.access_log_subscriptions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -176,7 +176,7 @@ tags,
 arn,
 supported_network_types
 FROM awscc.memorydb.subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '<SubnetGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.memorydb.subnet_groups (
  SubnetIds,
  region
 )
-SELECT 
-'{{ SubnetGroupName }}',
- '{{ SubnetIds }}',
+SELECT
+'{{ subnet_group_name }}',
+ '{{ subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.memorydb.subnet_groups (
  Tags,
  region
 )
-SELECT 
- '{{ SubnetGroupName }}',
- '{{ Description }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ subnet_group_name }}',
+ '{{ description }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,18 +252,17 @@ globals:
 resources:
   - name: subnet_group
     props:
-      - name: SubnetGroupName
-        value: '{{ SubnetGroupName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SubnetIds
+      - name: subnet_group_name
+        value: '{{ subnet_group_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubnetGroupName>';
+AND Identifier = '{{ subnet_group_name }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<SubnetGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.subnet_groups
-WHERE Identifier = '<SubnetGroupName>'
+WHERE Identifier = '{{ subnet_group_name }}'
 AND region = 'us-east-1';
 ```
 

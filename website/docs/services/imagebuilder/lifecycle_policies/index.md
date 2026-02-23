@@ -313,7 +313,7 @@ policy_details,
 resource_selection,
 tags
 FROM awscc.imagebuilder.lifecycle_policies
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -353,12 +353,12 @@ INSERT INTO awscc.imagebuilder.lifecycle_policies (
  ResourceSelection,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ExecutionRole }}',
- '{{ ResourceType }}',
- '{{ PolicyDetails }}',
- '{{ ResourceSelection }}',
+SELECT
+'{{ name }}',
+ '{{ execution_role }}',
+ '{{ resource_type }}',
+ '{{ policy_details }}',
+ '{{ resource_selection }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -377,15 +377,15 @@ INSERT INTO awscc.imagebuilder.lifecycle_policies (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Status }}',
- '{{ ExecutionRole }}',
- '{{ ResourceType }}',
- '{{ PolicyDetails }}',
- '{{ ResourceSelection }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ status }}',
+ '{{ execution_role }}',
+ '{{ resource_type }}',
+ '{{ policy_details }}',
+ '{{ resource_selection }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -403,50 +403,49 @@ globals:
 resources:
   - name: lifecycle_policy
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: ExecutionRole
-        value: '{{ ExecutionRole }}'
-      - name: ResourceType
-        value: '{{ ResourceType }}'
-      - name: PolicyDetails
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: status
+        value: '{{ status }}'
+      - name: execution_role
+        value: '{{ execution_role }}'
+      - name: resource_type
+        value: '{{ resource_type }}'
+      - name: policy_details
         value:
-          - Action:
-              Type: '{{ Type }}'
-              IncludeResources:
-                Amis: '{{ Amis }}'
-                Containers: '{{ Containers }}'
-                Snapshots: '{{ Snapshots }}'
-            Filter:
-              Type: '{{ Type }}'
-              Value: '{{ Value }}'
-              Unit: '{{ Unit }}'
-              RetainAtLeast: '{{ RetainAtLeast }}'
-            ExclusionRules:
-              TagMap: {}
-              Amis:
-                IsPublic: '{{ IsPublic }}'
-                Regions:
-                  - '{{ Regions[0] }}'
-                SharedAccounts:
-                  - '{{ SharedAccounts[0] }}'
-                LastLaunched:
-                  Value: '{{ Value }}'
-                  Unit: null
-                TagMap: {}
-      - name: ResourceSelection
+          - action:
+              type: '{{ type }}'
+              include_resources:
+                amis: '{{ amis }}'
+                containers: '{{ containers }}'
+                snapshots: '{{ snapshots }}'
+            filter:
+              type: '{{ type }}'
+              value: '{{ value }}'
+              unit: '{{ unit }}'
+              retain_at_least: '{{ retain_at_least }}'
+            exclusion_rules:
+              tag_map: {}
+              amis:
+                is_public: '{{ is_public }}'
+                regions:
+                  - '{{ regions[0] }}'
+                shared_accounts:
+                  - '{{ shared_accounts[0] }}'
+                last_launched:
+                  value: '{{ value }}'
+                  unit: null
+                tag_map: {}
+      - name: resource_selection
         value:
-          Recipes:
-            - Name: '{{ Name }}'
-              SemanticVersion: '{{ SemanticVersion }}'
-          TagMap: {}
-      - name: Tags
+          recipes:
+            - name: '{{ name }}'
+              semantic_version: '{{ semantic_version }}'
+          tag_map: {}
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -468,7 +467,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -477,7 +476,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.lifecycle_policies
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

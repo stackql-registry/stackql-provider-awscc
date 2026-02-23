@@ -194,7 +194,7 @@ security_group_ids,
 tags,
 name
 FROM awscc.vpclattice.resource_gateways
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.vpclattice.resource_gateways (
  Name,
  region
 )
-SELECT 
-'{{ VpcIdentifier }}',
- '{{ SubnetIds }}',
- '{{ Name }}',
+SELECT
+'{{ vpc_identifier }}',
+ '{{ subnet_ids }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,14 +253,14 @@ INSERT INTO awscc.vpclattice.resource_gateways (
  Name,
  region
 )
-SELECT 
- '{{ IpAddressType }}',
- '{{ VpcIdentifier }}',
- '{{ Ipv4AddressesPerEni }}',
- '{{ SubnetIds }}',
- '{{ SecurityGroupIds }}',
- '{{ Tags }}',
- '{{ Name }}',
+SELECT
+ '{{ ip_address_type }}',
+ '{{ vpc_identifier }}',
+ '{{ ipv4_addresses_per_eni }}',
+ '{{ subnet_ids }}',
+ '{{ security_group_ids }}',
+ '{{ tags }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,25 +278,24 @@ globals:
 resources:
   - name: resource_gateway
     props:
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: VpcIdentifier
-        value: '{{ VpcIdentifier }}'
-      - name: Ipv4AddressesPerEni
-        value: '{{ Ipv4AddressesPerEni }}'
-      - name: SubnetIds
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: vpc_identifier
+        value: '{{ vpc_identifier }}'
+      - name: ipv4_addresses_per_eni
+        value: '{{ ipv4_addresses_per_eni }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: SecurityGroupIds
+          - '{{ subnet_ids[0] }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: Tags
+          - '{{ security_group_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.resource_gateways
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

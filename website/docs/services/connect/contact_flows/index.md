@@ -188,7 +188,7 @@ state,
 type,
 tags
 FROM awscc.connect.contact_flows
-WHERE region = 'us-east-1' AND Identifier = '<ContactFlowArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ contact_flow_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -227,11 +227,11 @@ INSERT INTO awscc.connect.contact_flows (
  Type,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Content }}',
- '{{ Type }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ content }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,14 +249,14 @@ INSERT INTO awscc.connect.contact_flows (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Content }}',
- '{{ Description }}',
- '{{ State }}',
- '{{ Type }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ content }}',
+ '{{ description }}',
+ '{{ state }}',
+ '{{ type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,23 +274,22 @@ globals:
 resources:
   - name: contact_flow
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Content
-        value: '{{ Content }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: State
-        value: '{{ State }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: content
+        value: '{{ content }}'
+      - name: description
+        value: '{{ description }}'
+      - name: state
+        value: '{{ state }}'
+      - name: type
+        value: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ContactFlowArn>';
+AND Identifier = '{{ contact_flow_arn }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<ContactFlowArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.contact_flows
-WHERE Identifier = '<ContactFlowArn>'
+WHERE Identifier = '{{ contact_flow_arn }}'
 AND region = 'us-east-1';
 ```
 

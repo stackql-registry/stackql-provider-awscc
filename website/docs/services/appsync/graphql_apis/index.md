@@ -463,7 +463,7 @@ user_pool_config,
 visibility,
 xray_enabled
 FROM awscc.appsync.graphql_apis
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -500,9 +500,9 @@ INSERT INTO awscc.appsync.graphql_apis (
  Name,
  region
 )
-SELECT 
-'{{ AuthenticationType }}',
- '{{ Name }}',
+SELECT
+'{{ authentication_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -531,25 +531,25 @@ INSERT INTO awscc.appsync.graphql_apis (
  XrayEnabled,
  region
 )
-SELECT 
- '{{ AdditionalAuthenticationProviders }}',
- '{{ ApiType }}',
- '{{ AuthenticationType }}',
- '{{ EnhancedMetricsConfig }}',
- '{{ EnvironmentVariables }}',
- '{{ IntrospectionConfig }}',
- '{{ LambdaAuthorizerConfig }}',
- '{{ LogConfig }}',
- '{{ MergedApiExecutionRoleArn }}',
- '{{ Name }}',
- '{{ OpenIDConnectConfig }}',
- '{{ OwnerContact }}',
- '{{ QueryDepthLimit }}',
- '{{ ResolverCountLimit }}',
- '{{ Tags }}',
- '{{ UserPoolConfig }}',
- '{{ Visibility }}',
- '{{ XrayEnabled }}',
+SELECT
+ '{{ additional_authentication_providers }}',
+ '{{ api_type }}',
+ '{{ authentication_type }}',
+ '{{ enhanced_metrics_config }}',
+ '{{ environment_variables }}',
+ '{{ introspection_config }}',
+ '{{ lambda_authorizer_config }}',
+ '{{ log_config }}',
+ '{{ merged_api_execution_role_arn }}',
+ '{{ name }}',
+ '{{ open_id_connect_config }}',
+ '{{ owner_contact }}',
+ '{{ query_depth_limit }}',
+ '{{ resolver_count_limit }}',
+ '{{ tags }}',
+ '{{ user_pool_config }}',
+ '{{ visibility }}',
+ '{{ xray_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -567,69 +567,68 @@ globals:
 resources:
   - name: graphql_api
     props:
-      - name: AdditionalAuthenticationProviders
+      - name: additional_authentication_providers
         value:
-          - LambdaAuthorizerConfig:
-              IdentityValidationExpression: '{{ IdentityValidationExpression }}'
-              AuthorizerUri: '{{ AuthorizerUri }}'
-              AuthorizerResultTtlInSeconds: '{{ AuthorizerResultTtlInSeconds }}'
-            OpenIDConnectConfig:
-              ClientId: '{{ ClientId }}'
-              AuthTTL: null
-              Issuer: '{{ Issuer }}'
-              IatTTL: null
-            UserPoolConfig:
-              AppIdClientRegex: '{{ AppIdClientRegex }}'
-              UserPoolId: '{{ UserPoolId }}'
-              AwsRegion: '{{ AwsRegion }}'
-            AuthenticationType: '{{ AuthenticationType }}'
-      - name: ApiType
-        value: '{{ ApiType }}'
-      - name: AuthenticationType
-        value: '{{ AuthenticationType }}'
-      - name: EnhancedMetricsConfig
+          - lambda_authorizer_config:
+              identity_validation_expression: '{{ identity_validation_expression }}'
+              authorizer_uri: '{{ authorizer_uri }}'
+              authorizer_result_ttl_in_seconds: '{{ authorizer_result_ttl_in_seconds }}'
+            open_id_connect_config:
+              client_id: '{{ client_id }}'
+              auth_ttl: null
+              issuer: '{{ issuer }}'
+              iat_ttl: null
+            user_pool_config:
+              app_id_client_regex: '{{ app_id_client_regex }}'
+              user_pool_id: '{{ user_pool_id }}'
+              aws_region: '{{ aws_region }}'
+            authentication_type: '{{ authentication_type }}'
+      - name: api_type
+        value: '{{ api_type }}'
+      - name: authentication_type
+        value: '{{ authentication_type }}'
+      - name: enhanced_metrics_config
         value:
-          OperationLevelMetricsConfig: '{{ OperationLevelMetricsConfig }}'
-          ResolverLevelMetricsBehavior: '{{ ResolverLevelMetricsBehavior }}'
-          DataSourceLevelMetricsBehavior: '{{ DataSourceLevelMetricsBehavior }}'
-      - name: EnvironmentVariables
+          operation_level_metrics_config: '{{ operation_level_metrics_config }}'
+          resolver_level_metrics_behavior: '{{ resolver_level_metrics_behavior }}'
+          data_source_level_metrics_behavior: '{{ data_source_level_metrics_behavior }}'
+      - name: environment_variables
         value: {}
-      - name: IntrospectionConfig
-        value: '{{ IntrospectionConfig }}'
-      - name: LambdaAuthorizerConfig
+      - name: introspection_config
+        value: '{{ introspection_config }}'
+      - name: lambda_authorizer_config
         value: null
-      - name: LogConfig
+      - name: log_config
         value:
-          ExcludeVerboseContent: '{{ ExcludeVerboseContent }}'
-          FieldLogLevel: '{{ FieldLogLevel }}'
-          CloudWatchLogsRoleArn: '{{ CloudWatchLogsRoleArn }}'
-      - name: MergedApiExecutionRoleArn
-        value: '{{ MergedApiExecutionRoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: OpenIDConnectConfig
+          exclude_verbose_content: '{{ exclude_verbose_content }}'
+          field_log_level: '{{ field_log_level }}'
+          cloud_watch_logs_role_arn: '{{ cloud_watch_logs_role_arn }}'
+      - name: merged_api_execution_role_arn
+        value: '{{ merged_api_execution_role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: open_id_connect_config
         value: null
-      - name: OwnerContact
-        value: '{{ OwnerContact }}'
-      - name: QueryDepthLimit
-        value: '{{ QueryDepthLimit }}'
-      - name: ResolverCountLimit
-        value: '{{ ResolverCountLimit }}'
-      - name: Tags
+      - name: owner_contact
+        value: '{{ owner_contact }}'
+      - name: query_depth_limit
+        value: '{{ query_depth_limit }}'
+      - name: resolver_count_limit
+        value: '{{ resolver_count_limit }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: UserPoolConfig
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: user_pool_config
         value:
-          AppIdClientRegex: '{{ AppIdClientRegex }}'
-          UserPoolId: '{{ UserPoolId }}'
-          AwsRegion: '{{ AwsRegion }}'
-          DefaultAction: '{{ DefaultAction }}'
-      - name: Visibility
-        value: '{{ Visibility }}'
-      - name: XrayEnabled
-        value: '{{ XrayEnabled }}'
-
+          app_id_client_regex: '{{ app_id_client_regex }}'
+          user_pool_id: '{{ user_pool_id }}'
+          aws_region: '{{ aws_region }}'
+          default_action: '{{ default_action }}'
+      - name: visibility
+        value: '{{ visibility }}'
+      - name: xray_enabled
+        value: '{{ xray_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -662,7 +661,7 @@ SET PatchDocument = string('{{ {
     "XrayEnabled": xray_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>';
+AND Identifier = '{{ api_id }}';
 ```
 
 
@@ -671,7 +670,7 @@ AND Identifier = '<ApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.graphql_apis
-WHERE Identifier = '<ApiId>'
+WHERE Identifier = '{{ api_id }}'
 AND region = 'us-east-1';
 ```
 

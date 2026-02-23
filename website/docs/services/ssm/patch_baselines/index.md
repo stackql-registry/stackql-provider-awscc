@@ -313,7 +313,7 @@ global_filters,
 available_security_updates_compliance_status,
 tags
 FROM awscc.ssm.patch_baselines
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -349,8 +349,8 @@ INSERT INTO awscc.ssm.patch_baselines (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -376,22 +376,22 @@ INSERT INTO awscc.ssm.patch_baselines (
  Tags,
  region
 )
-SELECT 
- '{{ DefaultBaseline }}',
- '{{ OperatingSystem }}',
- '{{ Description }}',
- '{{ ApprovalRules }}',
- '{{ Sources }}',
- '{{ Name }}',
- '{{ RejectedPatches }}',
- '{{ ApprovedPatches }}',
- '{{ RejectedPatchesAction }}',
- '{{ PatchGroups }}',
- '{{ ApprovedPatchesComplianceLevel }}',
- '{{ ApprovedPatchesEnableNonSecurity }}',
- '{{ GlobalFilters }}',
- '{{ AvailableSecurityUpdatesComplianceStatus }}',
- '{{ Tags }}',
+SELECT
+ '{{ default_baseline }}',
+ '{{ operating_system }}',
+ '{{ description }}',
+ '{{ approval_rules }}',
+ '{{ sources }}',
+ '{{ name }}',
+ '{{ rejected_patches }}',
+ '{{ approved_patches }}',
+ '{{ rejected_patches_action }}',
+ '{{ patch_groups }}',
+ '{{ approved_patches_compliance_level }}',
+ '{{ approved_patches_enable_non_security }}',
+ '{{ global_filters }}',
+ '{{ available_security_updates_compliance_status }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -409,56 +409,55 @@ globals:
 resources:
   - name: patch_baseline
     props:
-      - name: DefaultBaseline
-        value: '{{ DefaultBaseline }}'
-      - name: OperatingSystem
-        value: '{{ OperatingSystem }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ApprovalRules
+      - name: default_baseline
+        value: '{{ default_baseline }}'
+      - name: operating_system
+        value: '{{ operating_system }}'
+      - name: description
+        value: '{{ description }}'
+      - name: approval_rules
         value:
-          PatchRules:
-            - ApproveUntilDate: '{{ ApproveUntilDate }}'
-              EnableNonSecurity: '{{ EnableNonSecurity }}'
-              PatchFilterGroup:
-                PatchFilters:
-                  - Values:
-                      - '{{ Values[0] }}'
-                    Key: '{{ Key }}'
-              ApproveAfterDays: '{{ ApproveAfterDays }}'
-              ComplianceLevel: '{{ ComplianceLevel }}'
-      - name: Sources
+          patch_rules:
+            - approve_until_date: '{{ approve_until_date }}'
+              enable_non_security: '{{ enable_non_security }}'
+              patch_filter_group:
+                patch_filters:
+                  - values:
+                      - '{{ values[0] }}'
+                    key: '{{ key }}'
+              approve_after_days: '{{ approve_after_days }}'
+              compliance_level: '{{ compliance_level }}'
+      - name: sources
         value:
-          - Products:
-              - '{{ Products[0] }}'
-            Configuration: '{{ Configuration }}'
-            Name: '{{ Name }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RejectedPatches
+          - products:
+              - '{{ products[0] }}'
+            configuration: '{{ configuration }}'
+            name: '{{ name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: rejected_patches
         value:
-          - '{{ RejectedPatches[0] }}'
-      - name: ApprovedPatches
+          - '{{ rejected_patches[0] }}'
+      - name: approved_patches
         value:
-          - '{{ ApprovedPatches[0] }}'
-      - name: RejectedPatchesAction
-        value: '{{ RejectedPatchesAction }}'
-      - name: PatchGroups
+          - '{{ approved_patches[0] }}'
+      - name: rejected_patches_action
+        value: '{{ rejected_patches_action }}'
+      - name: patch_groups
         value:
-          - '{{ PatchGroups[0] }}'
-      - name: ApprovedPatchesComplianceLevel
-        value: '{{ ApprovedPatchesComplianceLevel }}'
-      - name: ApprovedPatchesEnableNonSecurity
-        value: '{{ ApprovedPatchesEnableNonSecurity }}'
-      - name: GlobalFilters
+          - '{{ patch_groups[0] }}'
+      - name: approved_patches_compliance_level
+        value: '{{ approved_patches_compliance_level }}'
+      - name: approved_patches_enable_non_security
+        value: '{{ approved_patches_enable_non_security }}'
+      - name: global_filters
         value: null
-      - name: AvailableSecurityUpdatesComplianceStatus
-        value: '{{ AvailableSecurityUpdatesComplianceStatus }}'
-      - name: Tags
+      - name: available_security_updates_compliance_status
+        value: '{{ available_security_updates_compliance_status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -487,7 +486,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -496,7 +495,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.patch_baselines
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

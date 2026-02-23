@@ -333,7 +333,7 @@ creation_time,
 feature_group_status,
 tags
 FROM awscc.sagemaker.feature_groups
-WHERE region = 'us-east-1' AND Identifier = '<FeatureGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ feature_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -372,11 +372,11 @@ INSERT INTO awscc.sagemaker.feature_groups (
  FeatureDefinitions,
  region
 )
-SELECT 
-'{{ FeatureGroupName }}',
- '{{ RecordIdentifierFeatureName }}',
- '{{ EventTimeFeatureName }}',
- '{{ FeatureDefinitions }}',
+SELECT
+'{{ feature_group_name }}',
+ '{{ record_identifier_feature_name }}',
+ '{{ event_time_feature_name }}',
+ '{{ feature_definitions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -397,17 +397,17 @@ INSERT INTO awscc.sagemaker.feature_groups (
  Tags,
  region
 )
-SELECT 
- '{{ FeatureGroupName }}',
- '{{ RecordIdentifierFeatureName }}',
- '{{ EventTimeFeatureName }}',
- '{{ FeatureDefinitions }}',
- '{{ OnlineStoreConfig }}',
- '{{ OfflineStoreConfig }}',
- '{{ ThroughputConfig }}',
- '{{ RoleArn }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ feature_group_name }}',
+ '{{ record_identifier_feature_name }}',
+ '{{ event_time_feature_name }}',
+ '{{ feature_definitions }}',
+ '{{ online_store_config }}',
+ '{{ offline_store_config }}',
+ '{{ throughput_config }}',
+ '{{ role_arn }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -425,50 +425,49 @@ globals:
 resources:
   - name: feature_group
     props:
-      - name: FeatureGroupName
-        value: '{{ FeatureGroupName }}'
-      - name: RecordIdentifierFeatureName
-        value: '{{ RecordIdentifierFeatureName }}'
-      - name: EventTimeFeatureName
-        value: '{{ EventTimeFeatureName }}'
-      - name: FeatureDefinitions
+      - name: feature_group_name
+        value: '{{ feature_group_name }}'
+      - name: record_identifier_feature_name
+        value: '{{ record_identifier_feature_name }}'
+      - name: event_time_feature_name
+        value: '{{ event_time_feature_name }}'
+      - name: feature_definitions
         value:
-          - FeatureName: '{{ FeatureName }}'
-            FeatureType: '{{ FeatureType }}'
-      - name: OnlineStoreConfig
+          - feature_name: '{{ feature_name }}'
+            feature_type: '{{ feature_type }}'
+      - name: online_store_config
         value:
-          SecurityConfig:
-            KmsKeyId: '{{ KmsKeyId }}'
-          EnableOnlineStore: '{{ EnableOnlineStore }}'
-          StorageType: '{{ StorageType }}'
-          TtlDuration:
-            Unit: '{{ Unit }}'
-            Value: '{{ Value }}'
-      - name: OfflineStoreConfig
+          security_config:
+            kms_key_id: '{{ kms_key_id }}'
+          enable_online_store: '{{ enable_online_store }}'
+          storage_type: '{{ storage_type }}'
+          ttl_duration:
+            unit: '{{ unit }}'
+            value: '{{ value }}'
+      - name: offline_store_config
         value:
-          S3StorageConfig:
-            S3Uri: '{{ S3Uri }}'
-            KmsKeyId: null
-          DisableGlueTableCreation: '{{ DisableGlueTableCreation }}'
-          DataCatalogConfig:
-            TableName: '{{ TableName }}'
-            Catalog: '{{ Catalog }}'
-            Database: '{{ Database }}'
-          TableFormat: '{{ TableFormat }}'
-      - name: ThroughputConfig
+          s3_storage_config:
+            s3_uri: '{{ s3_uri }}'
+            kms_key_id: null
+          disable_glue_table_creation: '{{ disable_glue_table_creation }}'
+          data_catalog_config:
+            table_name: '{{ table_name }}'
+            catalog: '{{ catalog }}'
+            database: '{{ database }}'
+          table_format: '{{ table_format }}'
+      - name: throughput_config
         value:
-          ThroughputMode: '{{ ThroughputMode }}'
-          ProvisionedReadCapacityUnits: '{{ ProvisionedReadCapacityUnits }}'
-          ProvisionedWriteCapacityUnits: '{{ ProvisionedWriteCapacityUnits }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          throughput_mode: '{{ throughput_mode }}'
+          provisioned_read_capacity_units: '{{ provisioned_read_capacity_units }}'
+          provisioned_write_capacity_units: '{{ provisioned_write_capacity_units }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -485,7 +484,7 @@ SET PatchDocument = string('{{ {
     "ThroughputConfig": throughput_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FeatureGroupName>';
+AND Identifier = '{{ feature_group_name }}';
 ```
 
 
@@ -494,7 +493,7 @@ AND Identifier = '<FeatureGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.feature_groups
-WHERE Identifier = '<FeatureGroupName>'
+WHERE Identifier = '{{ feature_group_name }}'
 AND region = 'us-east-1';
 ```
 

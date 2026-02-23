@@ -282,7 +282,7 @@ tags,
 tier,
 time_shift_configuration
 FROM awscc.mediatailor.channels
-WHERE region = 'us-east-1' AND Identifier = '<ChannelName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -320,10 +320,10 @@ INSERT INTO awscc.mediatailor.channels (
  PlaybackMode,
  region
 )
-SELECT 
-'{{ ChannelName }}',
- '{{ Outputs }}',
- '{{ PlaybackMode }}',
+SELECT
+'{{ channel_name }}',
+ '{{ outputs }}',
+ '{{ playback_mode }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -343,16 +343,16 @@ INSERT INTO awscc.mediatailor.channels (
  TimeShiftConfiguration,
  region
 )
-SELECT 
- '{{ Audiences }}',
- '{{ ChannelName }}',
- '{{ FillerSlate }}',
- '{{ LogConfiguration }}',
- '{{ Outputs }}',
- '{{ PlaybackMode }}',
- '{{ Tags }}',
- '{{ Tier }}',
- '{{ TimeShiftConfiguration }}',
+SELECT
+ '{{ audiences }}',
+ '{{ channel_name }}',
+ '{{ filler_slate }}',
+ '{{ log_configuration }}',
+ '{{ outputs }}',
+ '{{ playback_mode }}',
+ '{{ tags }}',
+ '{{ tier }}',
+ '{{ time_shift_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -370,44 +370,43 @@ globals:
 resources:
   - name: channel
     props:
-      - name: Audiences
+      - name: audiences
         value:
-          - '{{ Audiences[0] }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: FillerSlate
+          - '{{ audiences[0] }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: filler_slate
         value:
-          SourceLocationName: '{{ SourceLocationName }}'
-          VodSourceName: '{{ VodSourceName }}'
-      - name: LogConfiguration
+          source_location_name: '{{ source_location_name }}'
+          vod_source_name: '{{ vod_source_name }}'
+      - name: log_configuration
         value:
-          LogTypes:
-            - '{{ LogTypes[0] }}'
-      - name: Outputs
+          log_types:
+            - '{{ log_types[0] }}'
+      - name: outputs
         value:
-          - DashPlaylistSettings:
-              ManifestWindowSeconds: null
-              MinBufferTimeSeconds: null
-              MinUpdatePeriodSeconds: null
-              SuggestedPresentationDelaySeconds: null
-            HlsPlaylistSettings:
-              ManifestWindowSeconds: null
-              AdMarkupType:
-                - '{{ AdMarkupType[0] }}'
-            ManifestName: '{{ ManifestName }}'
-            SourceGroup: '{{ SourceGroup }}'
-      - name: PlaybackMode
-        value: '{{ PlaybackMode }}'
-      - name: Tags
+          - dash_playlist_settings:
+              manifest_window_seconds: null
+              min_buffer_time_seconds: null
+              min_update_period_seconds: null
+              suggested_presentation_delay_seconds: null
+            hls_playlist_settings:
+              manifest_window_seconds: null
+              ad_markup_type:
+                - '{{ ad_markup_type[0] }}'
+            manifest_name: '{{ manifest_name }}'
+            source_group: '{{ source_group }}'
+      - name: playback_mode
+        value: '{{ playback_mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Tier
-        value: '{{ Tier }}'
-      - name: TimeShiftConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: tier
+        value: '{{ tier }}'
+      - name: time_shift_configuration
         value:
-          MaxTimeDelaySeconds: null
-
+          max_time_delay_seconds: null
 ```
 </TabItem>
 </Tabs>
@@ -429,7 +428,7 @@ SET PatchDocument = string('{{ {
     "TimeShiftConfiguration": time_shift_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelName>';
+AND Identifier = '{{ channel_name }}';
 ```
 
 
@@ -438,7 +437,7 @@ AND Identifier = '<ChannelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.channels
-WHERE Identifier = '<ChannelName>'
+WHERE Identifier = '{{ channel_name }}'
 AND region = 'us-east-1';
 ```
 

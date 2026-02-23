@@ -187,7 +187,7 @@ default_variation,
 entity_overrides,
 tags
 FROM awscc.evidently.features
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -212,10 +212,10 @@ INSERT INTO awscc.evidently.features (
  Variations,
  region
 )
-SELECT 
-'{{ Project }}',
- '{{ Name }}',
- '{{ Variations }}',
+SELECT
+'{{ project }}',
+ '{{ name }}',
+ '{{ variations }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,15 +234,15 @@ INSERT INTO awscc.evidently.features (
  Tags,
  region
 )
-SELECT 
- '{{ Project }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ EvaluationStrategy }}',
- '{{ Variations }}',
- '{{ DefaultVariation }}',
- '{{ EntityOverrides }}',
- '{{ Tags }}',
+SELECT
+ '{{ project }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ evaluation_strategy }}',
+ '{{ variations }}',
+ '{{ default_variation }}',
+ '{{ entity_overrides }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,32 +260,31 @@ globals:
 resources:
   - name: feature
     props:
-      - name: Project
-        value: '{{ Project }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EvaluationStrategy
-        value: '{{ EvaluationStrategy }}'
-      - name: Variations
+      - name: project
+        value: '{{ project }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: evaluation_strategy
+        value: '{{ evaluation_strategy }}'
+      - name: variations
         value:
-          - VariationName: '{{ VariationName }}'
-            BooleanValue: '{{ BooleanValue }}'
-            StringValue: '{{ StringValue }}'
-            LongValue: null
-            DoubleValue: null
-      - name: DefaultVariation
-        value: '{{ DefaultVariation }}'
-      - name: EntityOverrides
+          - variation_name: '{{ variation_name }}'
+            boolean_value: '{{ boolean_value }}'
+            string_value: '{{ string_value }}'
+            long_value: null
+            double_value: null
+      - name: default_variation
+        value: '{{ default_variation }}'
+      - name: entity_overrides
         value:
-          - EntityId: '{{ EntityId }}'
-            Variation: '{{ Variation }}'
-      - name: Tags
+          - entity_id: '{{ entity_id }}'
+            variation: '{{ variation }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -306,7 +305,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -315,7 +314,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.features
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

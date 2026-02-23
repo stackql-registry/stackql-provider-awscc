@@ -176,7 +176,7 @@ s3_uri,
 prompt_arn,
 tags
 FROM awscc.connect.prompts
-WHERE region = 'us-east-1' AND Identifier = '<PromptArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ prompt_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.connect.prompts (
  Name,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.connect.prompts (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ S3Uri }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ s3_uri }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: prompt
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: S3Uri
-        value: '{{ S3Uri }}'
-      - name: Tags
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: s3_uri
+        value: '{{ s3_uri }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PromptArn>';
+AND Identifier = '{{ prompt_arn }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<PromptArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.prompts
-WHERE Identifier = '<PromptArn>'
+WHERE Identifier = '{{ prompt_arn }}'
 AND region = 'us-east-1';
 ```
 

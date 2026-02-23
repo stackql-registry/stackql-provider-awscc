@@ -164,7 +164,7 @@ address_list_id,
 address_list_name,
 tags
 FROM awscc.ses.mail_manager_address_lists
-WHERE region = 'us-east-1' AND Identifier = '<AddressListId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ address_list_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.ses.mail_manager_address_lists (
  Tags,
  region
 )
-SELECT 
-'{{ AddressListName }}',
- '{{ Tags }}',
+SELECT
+'{{ address_list_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,9 +216,9 @@ INSERT INTO awscc.ses.mail_manager_address_lists (
  Tags,
  region
 )
-SELECT 
- '{{ AddressListName }}',
- '{{ Tags }}',
+SELECT
+ '{{ address_list_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,13 +236,12 @@ globals:
 resources:
   - name: mail_manager_address_list
     props:
-      - name: AddressListName
-        value: '{{ AddressListName }}'
-      - name: Tags
+      - name: address_list_name
+        value: '{{ address_list_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -258,7 +257,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AddressListId>';
+AND Identifier = '{{ address_list_id }}';
 ```
 
 
@@ -267,7 +266,7 @@ AND Identifier = '<AddressListId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ses.mail_manager_address_lists
-WHERE Identifier = '<AddressListId>'
+WHERE Identifier = '{{ address_list_id }}'
 AND region = 'us-east-1';
 ```
 

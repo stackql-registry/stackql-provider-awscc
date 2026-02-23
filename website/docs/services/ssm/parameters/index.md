@@ -182,7 +182,7 @@ tags,
 data_type,
 name
 FROM awscc.ssm.parameters
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.ssm.parameters (
  Value,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ Value }}',
+SELECT
+'{{ type }}',
+ '{{ value }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -241,16 +241,16 @@ INSERT INTO awscc.ssm.parameters (
  Name,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ Value }}',
- '{{ Description }}',
- '{{ Policies }}',
- '{{ AllowedPattern }}',
- '{{ Tier }}',
- '{{ Tags }}',
- '{{ DataType }}',
- '{{ Name }}',
+SELECT
+ '{{ type }}',
+ '{{ value }}',
+ '{{ description }}',
+ '{{ policies }}',
+ '{{ allowed_pattern }}',
+ '{{ tier }}',
+ '{{ tags }}',
+ '{{ data_type }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,25 +268,24 @@ globals:
 resources:
   - name: parameter
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: Value
-        value: '{{ Value }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Policies
-        value: '{{ Policies }}'
-      - name: AllowedPattern
-        value: '{{ AllowedPattern }}'
-      - name: Tier
-        value: '{{ Tier }}'
-      - name: Tags
+      - name: type
+        value: '{{ type }}'
+      - name: value
+        value: '{{ value }}'
+      - name: description
+        value: '{{ description }}'
+      - name: policies
+        value: '{{ policies }}'
+      - name: allowed_pattern
+        value: '{{ allowed_pattern }}'
+      - name: tier
+        value: '{{ tier }}'
+      - name: tags
         value: {}
-      - name: DataType
-        value: '{{ DataType }}'
-      - name: Name
-        value: '{{ Name }}'
-
+      - name: data_type
+        value: '{{ data_type }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "DataType": data_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.parameters
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

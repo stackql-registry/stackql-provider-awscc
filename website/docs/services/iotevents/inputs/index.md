@@ -178,7 +178,7 @@ input_description,
 input_name,
 tags
 FROM awscc.iotevents.inputs
-WHERE region = 'us-east-1' AND Identifier = '<InputName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ input_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,8 +214,8 @@ INSERT INTO awscc.iotevents.inputs (
  InputDefinition,
  region
 )
-SELECT 
-'{{ InputDefinition }}',
+SELECT
+'{{ input_definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.iotevents.inputs (
  Tags,
  region
 )
-SELECT 
- '{{ InputDefinition }}',
- '{{ InputDescription }}',
- '{{ InputName }}',
- '{{ Tags }}',
+SELECT
+ '{{ input_definition }}',
+ '{{ input_description }}',
+ '{{ input_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,19 +252,18 @@ globals:
 resources:
   - name: input
     props:
-      - name: InputDefinition
+      - name: input_definition
         value:
-          Attributes:
-            - JsonPath: '{{ JsonPath }}'
-      - name: InputDescription
-        value: '{{ InputDescription }}'
-      - name: InputName
-        value: '{{ InputName }}'
-      - name: Tags
+          attributes:
+            - json_path: '{{ json_path }}'
+      - name: input_description
+        value: '{{ input_description }}'
+      - name: input_name
+        value: '{{ input_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -282,7 +281,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InputName>';
+AND Identifier = '{{ input_name }}';
 ```
 
 
@@ -291,7 +290,7 @@ AND Identifier = '<InputName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotevents.inputs
-WHERE Identifier = '<InputName>'
+WHERE Identifier = '{{ input_name }}'
 AND region = 'us-east-1';
 ```
 

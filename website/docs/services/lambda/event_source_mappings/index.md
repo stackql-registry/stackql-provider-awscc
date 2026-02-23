@@ -517,7 +517,7 @@ document_db_event_source_config,
 provisioned_poller_config,
 metrics_config
 FROM awscc.lambda.event_source_mappings
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -553,8 +553,8 @@ INSERT INTO awscc.lambda.event_source_mappings (
  FunctionName,
  region
 )
-SELECT 
-'{{ FunctionName }}',
+SELECT
+'{{ function_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -592,34 +592,34 @@ INSERT INTO awscc.lambda.event_source_mappings (
  MetricsConfig,
  region
 )
-SELECT 
- '{{ BatchSize }}',
- '{{ BisectBatchOnFunctionError }}',
- '{{ DestinationConfig }}',
- '{{ Enabled }}',
- '{{ EventSourceArn }}',
- '{{ FilterCriteria }}',
- '{{ KmsKeyArn }}',
- '{{ FunctionName }}',
- '{{ MaximumBatchingWindowInSeconds }}',
- '{{ MaximumRecordAgeInSeconds }}',
- '{{ MaximumRetryAttempts }}',
- '{{ ParallelizationFactor }}',
- '{{ StartingPosition }}',
- '{{ StartingPositionTimestamp }}',
- '{{ Tags }}',
- '{{ Topics }}',
- '{{ Queues }}',
- '{{ SourceAccessConfigurations }}',
- '{{ TumblingWindowInSeconds }}',
- '{{ FunctionResponseTypes }}',
- '{{ SelfManagedEventSource }}',
- '{{ AmazonManagedKafkaEventSourceConfig }}',
- '{{ SelfManagedKafkaEventSourceConfig }}',
- '{{ ScalingConfig }}',
- '{{ DocumentDBEventSourceConfig }}',
- '{{ ProvisionedPollerConfig }}',
- '{{ MetricsConfig }}',
+SELECT
+ '{{ batch_size }}',
+ '{{ bisect_batch_on_function_error }}',
+ '{{ destination_config }}',
+ '{{ enabled }}',
+ '{{ event_source_arn }}',
+ '{{ filter_criteria }}',
+ '{{ kms_key_arn }}',
+ '{{ function_name }}',
+ '{{ maximum_batching_window_in_seconds }}',
+ '{{ maximum_record_age_in_seconds }}',
+ '{{ maximum_retry_attempts }}',
+ '{{ parallelization_factor }}',
+ '{{ starting_position }}',
+ '{{ starting_position_timestamp }}',
+ '{{ tags }}',
+ '{{ topics }}',
+ '{{ queues }}',
+ '{{ source_access_configurations }}',
+ '{{ tumbling_window_in_seconds }}',
+ '{{ function_response_types }}',
+ '{{ self_managed_event_source }}',
+ '{{ amazon_managed_kafka_event_source_config }}',
+ '{{ self_managed_kafka_event_source_config }}',
+ '{{ scaling_config }}',
+ '{{ document_db_event_source_config }}',
+ '{{ provisioned_poller_config }}',
+ '{{ metrics_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -637,94 +637,93 @@ globals:
 resources:
   - name: event_source_mapping
     props:
-      - name: BatchSize
-        value: '{{ BatchSize }}'
-      - name: BisectBatchOnFunctionError
-        value: '{{ BisectBatchOnFunctionError }}'
-      - name: DestinationConfig
+      - name: batch_size
+        value: '{{ batch_size }}'
+      - name: bisect_batch_on_function_error
+        value: '{{ bisect_batch_on_function_error }}'
+      - name: destination_config
         value:
-          OnFailure:
-            Destination: '{{ Destination }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: EventSourceArn
-        value: '{{ EventSourceArn }}'
-      - name: FilterCriteria
+          on_failure:
+            destination: '{{ destination }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: event_source_arn
+        value: '{{ event_source_arn }}'
+      - name: filter_criteria
         value:
-          Filters:
-            - Pattern: '{{ Pattern }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: MaximumBatchingWindowInSeconds
-        value: '{{ MaximumBatchingWindowInSeconds }}'
-      - name: MaximumRecordAgeInSeconds
-        value: '{{ MaximumRecordAgeInSeconds }}'
-      - name: MaximumRetryAttempts
-        value: '{{ MaximumRetryAttempts }}'
-      - name: ParallelizationFactor
-        value: '{{ ParallelizationFactor }}'
-      - name: StartingPosition
-        value: '{{ StartingPosition }}'
-      - name: StartingPositionTimestamp
+          filters:
+            - pattern: '{{ pattern }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: maximum_batching_window_in_seconds
+        value: '{{ maximum_batching_window_in_seconds }}'
+      - name: maximum_record_age_in_seconds
+        value: '{{ maximum_record_age_in_seconds }}'
+      - name: maximum_retry_attempts
+        value: '{{ maximum_retry_attempts }}'
+      - name: parallelization_factor
+        value: '{{ parallelization_factor }}'
+      - name: starting_position
+        value: '{{ starting_position }}'
+      - name: starting_position_timestamp
         value: null
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Topics
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: topics
         value:
-          - '{{ Topics[0] }}'
-      - name: Queues
+          - '{{ topics[0] }}'
+      - name: queues
         value:
-          - '{{ Queues[0] }}'
-      - name: SourceAccessConfigurations
+          - '{{ queues[0] }}'
+      - name: source_access_configurations
         value:
-          - Type: '{{ Type }}'
-            URI: '{{ URI }}'
-      - name: TumblingWindowInSeconds
-        value: '{{ TumblingWindowInSeconds }}'
-      - name: FunctionResponseTypes
+          - type: '{{ type }}'
+            uri: '{{ uri }}'
+      - name: tumbling_window_in_seconds
+        value: '{{ tumbling_window_in_seconds }}'
+      - name: function_response_types
         value:
-          - '{{ FunctionResponseTypes[0] }}'
-      - name: SelfManagedEventSource
+          - '{{ function_response_types[0] }}'
+      - name: self_managed_event_source
         value:
-          Endpoints:
-            KafkaBootstrapServers:
-              - '{{ KafkaBootstrapServers[0] }}'
-      - name: AmazonManagedKafkaEventSourceConfig
+          endpoints:
+            kafka_bootstrap_servers:
+              - '{{ kafka_bootstrap_servers[0] }}'
+      - name: amazon_managed_kafka_event_source_config
         value:
-          ConsumerGroupId: '{{ ConsumerGroupId }}'
-          SchemaRegistryConfig:
-            SchemaRegistryURI: '{{ SchemaRegistryURI }}'
-            EventRecordFormat: '{{ EventRecordFormat }}'
-            AccessConfigs:
-              - Type: '{{ Type }}'
-                URI: '{{ URI }}'
-            SchemaValidationConfigs:
-              - Attribute: '{{ Attribute }}'
-      - name: SelfManagedKafkaEventSourceConfig
+          consumer_group_id: '{{ consumer_group_id }}'
+          schema_registry_config:
+            schema_registry_uri: '{{ schema_registry_uri }}'
+            event_record_format: '{{ event_record_format }}'
+            access_configs:
+              - type: '{{ type }}'
+                uri: '{{ uri }}'
+            schema_validation_configs:
+              - attribute: '{{ attribute }}'
+      - name: self_managed_kafka_event_source_config
         value:
-          ConsumerGroupId: null
-          SchemaRegistryConfig: null
-      - name: ScalingConfig
+          consumer_group_id: null
+          schema_registry_config: null
+      - name: scaling_config
         value:
-          MaximumConcurrency: '{{ MaximumConcurrency }}'
-      - name: DocumentDBEventSourceConfig
+          maximum_concurrency: '{{ maximum_concurrency }}'
+      - name: document_db_event_source_config
         value:
-          DatabaseName: '{{ DatabaseName }}'
-          CollectionName: '{{ CollectionName }}'
-          FullDocument: '{{ FullDocument }}'
-      - name: ProvisionedPollerConfig
+          database_name: '{{ database_name }}'
+          collection_name: '{{ collection_name }}'
+          full_document: '{{ full_document }}'
+      - name: provisioned_poller_config
         value:
-          MinimumPollers: '{{ MinimumPollers }}'
-          MaximumPollers: '{{ MaximumPollers }}'
-      - name: MetricsConfig
+          minimum_pollers: '{{ minimum_pollers }}'
+          maximum_pollers: '{{ maximum_pollers }}'
+      - name: metrics_config
         value:
-          Metrics:
-            - '{{ Metrics[0] }}'
-
+          metrics:
+            - '{{ metrics[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -762,7 +761,7 @@ SET PatchDocument = string('{{ {
     "MetricsConfig": metrics_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -771,7 +770,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_source_mappings
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

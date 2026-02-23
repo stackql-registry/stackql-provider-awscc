@@ -217,7 +217,7 @@ tags,
 arn,
 language_code
 FROM awscc.kendra.faqs
-WHERE region = 'us-east-1' AND Identifier = '<Id>|<IndexId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ index_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,11 +257,11 @@ INSERT INTO awscc.kendra.faqs (
  RoleArn,
  region
 )
-SELECT 
-'{{ IndexId }}',
- '{{ Name }}',
- '{{ S3Path }}',
- '{{ RoleArn }}',
+SELECT
+'{{ index_id }}',
+ '{{ name }}',
+ '{{ s3_path }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -280,15 +280,15 @@ INSERT INTO awscc.kendra.faqs (
  LanguageCode,
  region
 )
-SELECT 
- '{{ IndexId }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ FileFormat }}',
- '{{ S3Path }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ LanguageCode }}',
+SELECT
+ '{{ index_id }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ file_format }}',
+ '{{ s3_path }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ language_code }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -306,27 +306,26 @@ globals:
 resources:
   - name: faq
     props:
-      - name: IndexId
-        value: '{{ IndexId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FileFormat
-        value: '{{ FileFormat }}'
-      - name: S3Path
+      - name: index_id
+        value: '{{ index_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: file_format
+        value: '{{ file_format }}'
+      - name: s3_path
         value:
-          Bucket: '{{ Bucket }}'
-          Key: '{{ Key }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          bucket: '{{ bucket }}'
+          key: '{{ key }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: LanguageCode
-        value: '{{ LanguageCode }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: language_code
+        value: '{{ language_code }}'
 ```
 </TabItem>
 </Tabs>
@@ -343,7 +342,7 @@ SET PatchDocument = string('{{ {
     "LanguageCode": language_code
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>|<IndexId>';
+AND Identifier = '{{ id }}|{{ index_id }}';
 ```
 
 
@@ -352,7 +351,7 @@ AND Identifier = '<Id>|<IndexId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendra.faqs
-WHERE Identifier = '<Id|IndexId>'
+WHERE Identifier = '{{ id }}|{{ index_id }}'
 AND region = 'us-east-1';
 ```
 

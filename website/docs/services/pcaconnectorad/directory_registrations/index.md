@@ -146,7 +146,7 @@ directory_id,
 directory_registration_arn,
 tags
 FROM awscc.pcaconnectorad.directory_registrations
-WHERE region = 'us-east-1' AND Identifier = '<DirectoryRegistrationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ directory_registration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,8 +182,8 @@ INSERT INTO awscc.pcaconnectorad.directory_registrations (
  DirectoryId,
  region
 )
-SELECT 
-'{{ DirectoryId }}',
+SELECT
+'{{ directory_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,9 +196,9 @@ INSERT INTO awscc.pcaconnectorad.directory_registrations (
  Tags,
  region
 )
-SELECT 
- '{{ DirectoryId }}',
- '{{ Tags }}',
+SELECT
+ '{{ directory_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,10 @@ globals:
 resources:
   - name: directory_registration
     props:
-      - name: DirectoryId
-        value: '{{ DirectoryId }}'
-      - name: Tags
+      - name: directory_id
+        value: '{{ directory_id }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -236,7 +235,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DirectoryRegistrationArn>';
+AND Identifier = '{{ directory_registration_arn }}';
 ```
 
 
@@ -245,7 +244,7 @@ AND Identifier = '<DirectoryRegistrationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.directory_registrations
-WHERE Identifier = '<DirectoryRegistrationArn>'
+WHERE Identifier = '{{ directory_registration_arn }}'
 AND region = 'us-east-1';
 ```
 

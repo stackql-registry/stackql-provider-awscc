@@ -285,7 +285,7 @@ priority,
 service_identifier,
 tags
 FROM awscc.vpclattice.rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,10 +323,10 @@ INSERT INTO awscc.vpclattice.rules (
  Priority,
  region
 )
-SELECT 
-'{{ Action }}',
- '{{ Match }}',
- '{{ Priority }}',
+SELECT
+'{{ action }}',
+ '{{ match }}',
+ '{{ priority }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -344,14 +344,14 @@ INSERT INTO awscc.vpclattice.rules (
  Tags,
  region
 )
-SELECT 
- '{{ Action }}',
- '{{ ListenerIdentifier }}',
- '{{ Match }}',
- '{{ Name }}',
- '{{ Priority }}',
- '{{ ServiceIdentifier }}',
- '{{ Tags }}',
+SELECT
+ '{{ action }}',
+ '{{ listener_identifier }}',
+ '{{ match }}',
+ '{{ name }}',
+ '{{ priority }}',
+ '{{ service_identifier }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -369,43 +369,42 @@ globals:
 resources:
   - name: rule
     props:
-      - name: Action
+      - name: action
         value:
-          Forward:
-            TargetGroups:
-              - TargetGroupIdentifier: '{{ TargetGroupIdentifier }}'
-                Weight: '{{ Weight }}'
-          FixedResponse:
-            StatusCode: '{{ StatusCode }}'
-      - name: ListenerIdentifier
-        value: '{{ ListenerIdentifier }}'
-      - name: Match
+          forward:
+            target_groups:
+              - target_group_identifier: '{{ target_group_identifier }}'
+                weight: '{{ weight }}'
+          fixed_response:
+            status_code: '{{ status_code }}'
+      - name: listener_identifier
+        value: '{{ listener_identifier }}'
+      - name: match
         value:
-          HttpMatch:
-            Method: '{{ Method }}'
-            PathMatch:
-              Match:
-                Exact: '{{ Exact }}'
-                Prefix: '{{ Prefix }}'
-              CaseSensitive: '{{ CaseSensitive }}'
-            HeaderMatches:
-              - Name: '{{ Name }}'
-                Match:
-                  Exact: '{{ Exact }}'
-                  Prefix: '{{ Prefix }}'
-                  Contains: '{{ Contains }}'
-                CaseSensitive: '{{ CaseSensitive }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: ServiceIdentifier
-        value: '{{ ServiceIdentifier }}'
-      - name: Tags
+          http_match:
+            method: '{{ method }}'
+            path_match:
+              match:
+                exact: '{{ exact }}'
+                prefix: '{{ prefix }}'
+              case_sensitive: '{{ case_sensitive }}'
+            header_matches:
+              - name: '{{ name }}'
+                match:
+                  exact: '{{ exact }}'
+                  prefix: '{{ prefix }}'
+                  contains: '{{ contains }}'
+                case_sensitive: '{{ case_sensitive }}'
+      - name: name
+        value: '{{ name }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: service_identifier
+        value: '{{ service_identifier }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +423,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -433,7 +432,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

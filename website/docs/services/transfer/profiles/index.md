@@ -176,7 +176,7 @@ certificate_ids,
 arn,
 profile_id
 FROM awscc.transfer.profiles
-WHERE region = 'us-east-1' AND Identifier = '<ProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.transfer.profiles (
  ProfileType,
  region
 )
-SELECT 
-'{{ As2Id }}',
- '{{ ProfileType }}',
+SELECT
+'{{ as2_id }}',
+ '{{ profile_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.transfer.profiles (
  CertificateIds,
  region
 )
-SELECT 
- '{{ As2Id }}',
- '{{ ProfileType }}',
- '{{ Tags }}',
- '{{ CertificateIds }}',
+SELECT
+ '{{ as2_id }}',
+ '{{ profile_type }}',
+ '{{ tags }}',
+ '{{ certificate_ids }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,18 +252,17 @@ globals:
 resources:
   - name: profile
     props:
-      - name: As2Id
-        value: '{{ As2Id }}'
-      - name: ProfileType
-        value: '{{ ProfileType }}'
-      - name: Tags
+      - name: as2_id
+        value: '{{ as2_id }}'
+      - name: profile_type
+        value: '{{ profile_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CertificateIds
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: certificate_ids
         value:
-          - '{{ CertificateIds[0] }}'
-
+          - '{{ certificate_ids[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "CertificateIds": certificate_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ProfileId>';
+AND Identifier = '{{ profile_id }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<ProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.profiles
-WHERE Identifier = '<ProfileId>'
+WHERE Identifier = '{{ profile_id }}'
 AND region = 'us-east-1';
 ```
 

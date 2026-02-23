@@ -192,7 +192,7 @@ regular_expression_list,
 scope,
 tags
 FROM awscc.wafv2.regex_pattern_sets
-WHERE Identifier = '<Name>|<Id>|<Scope>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -205,7 +205,7 @@ name,
 id,
 scope
 FROM awscc.wafv2.regex_pattern_sets_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -231,9 +231,9 @@ INSERT INTO awscc.wafv2.regex_pattern_sets (
  Scope,
  region
 )
-SELECT 
-'{{ RegularExpressionList }}',
- '{{ Scope }}',
+SELECT
+'{{ regular_expression_list }}',
+ '{{ scope }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,12 +249,12 @@ INSERT INTO awscc.wafv2.regex_pattern_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ RegularExpressionList }}',
- '{{ Scope }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ regular_expression_list }}',
+ '{{ scope }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,20 +272,19 @@ globals:
 resources:
   - name: regex_pattern_set
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RegularExpressionList
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: regular_expression_list
         value:
-          - '{{ RegularExpressionList[0] }}'
-      - name: Scope
-        value: '{{ Scope }}'
-      - name: Tags
+          - '{{ regular_expression_list[0] }}'
+      - name: scope
+        value: '{{ scope }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +302,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>|<Id>|<Scope>';
+AND Identifier = '{{ name }}|{{ id }}|{{ scope }}';
 ```
 
 
@@ -312,7 +311,7 @@ AND Identifier = '<Name>|<Id>|<Scope>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wafv2.regex_pattern_sets
-WHERE Identifier = '<Name|Id|Scope>'
+WHERE Identifier = '{{ name }}|{{ id }}|{{ scope }}'
 AND region = 'us-east-1';
 ```
 

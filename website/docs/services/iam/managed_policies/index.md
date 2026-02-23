@@ -218,7 +218,7 @@ is_attachable,
 permissions_boundary_usage_count,
 policy_id
 FROM awscc.iam.managed_policies
-WHERE Identifier = '<PolicyArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,7 +229,7 @@ SELECT
 region,
 policy_arn
 FROM awscc.iam.managed_policies_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -254,8 +254,8 @@ INSERT INTO awscc.iam.managed_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ PolicyDocument }}',
+SELECT
+'{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -273,14 +273,14 @@ INSERT INTO awscc.iam.managed_policies (
  Users,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Groups }}',
- '{{ ManagedPolicyName }}',
- '{{ Path }}',
- '{{ PolicyDocument }}',
- '{{ Roles }}',
- '{{ Users }}',
+SELECT
+ '{{ description }}',
+ '{{ groups }}',
+ '{{ managed_policy_name }}',
+ '{{ path }}',
+ '{{ policy_document }}',
+ '{{ roles }}',
+ '{{ users }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,24 +298,23 @@ globals:
 resources:
   - name: managed_policy
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Groups
+      - name: description
+        value: '{{ description }}'
+      - name: groups
         value:
-          - '{{ Groups[0] }}'
-      - name: ManagedPolicyName
-        value: '{{ ManagedPolicyName }}'
-      - name: Path
-        value: '{{ Path }}'
-      - name: PolicyDocument
+          - '{{ groups[0] }}'
+      - name: managed_policy_name
+        value: '{{ managed_policy_name }}'
+      - name: path
+        value: '{{ path }}'
+      - name: policy_document
         value: {}
-      - name: Roles
+      - name: roles
         value:
-          - '{{ Roles[0] }}'
-      - name: Users
+          - '{{ roles[0] }}'
+      - name: users
         value:
-          - '{{ Users[0] }}'
-
+          - '{{ users[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -334,7 +333,7 @@ SET PatchDocument = string('{{ {
     "Users": users
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyArn>';
+AND Identifier = '{{ policy_arn }}';
 ```
 
 
@@ -343,7 +342,7 @@ AND Identifier = '<PolicyArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.managed_policies
-WHERE Identifier = '<PolicyArn>'
+WHERE Identifier = '{{ policy_arn }}'
 AND region = 'us-east-1';
 ```
 

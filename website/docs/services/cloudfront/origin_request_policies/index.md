@@ -209,7 +209,7 @@ id,
 last_modified_time,
 origin_request_policy_config
 FROM awscc.cloudfront.origin_request_policies
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,7 +220,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.origin_request_policies_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -245,8 +245,8 @@ INSERT INTO awscc.cloudfront.origin_request_policies (
  OriginRequestPolicyConfig,
  region
 )
-SELECT 
-'{{ OriginRequestPolicyConfig }}',
+SELECT
+'{{ origin_request_policy_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,8 +258,8 @@ INSERT INTO awscc.cloudfront.origin_request_policies (
  OriginRequestPolicyConfig,
  region
 )
-SELECT 
- '{{ OriginRequestPolicyConfig }}',
+SELECT
+ '{{ origin_request_policy_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,23 +277,22 @@ globals:
 resources:
   - name: origin_request_policy
     props:
-      - name: OriginRequestPolicyConfig
+      - name: origin_request_policy_config
         value:
-          Comment: '{{ Comment }}'
-          CookiesConfig:
-            CookieBehavior: '{{ CookieBehavior }}'
-            Cookies:
-              - '{{ Cookies[0] }}'
-          HeadersConfig:
-            HeaderBehavior: '{{ HeaderBehavior }}'
-            Headers:
-              - '{{ Headers[0] }}'
-          Name: '{{ Name }}'
-          QueryStringsConfig:
-            QueryStringBehavior: '{{ QueryStringBehavior }}'
-            QueryStrings:
-              - '{{ QueryStrings[0] }}'
-
+          comment: '{{ comment }}'
+          cookies_config:
+            cookie_behavior: '{{ cookie_behavior }}'
+            cookies:
+              - '{{ cookies[0] }}'
+          headers_config:
+            header_behavior: '{{ header_behavior }}'
+            headers:
+              - '{{ headers[0] }}'
+          name: '{{ name }}'
+          query_strings_config:
+            query_string_behavior: '{{ query_string_behavior }}'
+            query_strings:
+              - '{{ query_strings[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "OriginRequestPolicyConfig": origin_request_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.origin_request_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

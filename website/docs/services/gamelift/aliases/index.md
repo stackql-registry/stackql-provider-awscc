@@ -193,7 +193,7 @@ alias_id,
 alias_arn,
 tags
 FROM awscc.gamelift.aliases
-WHERE region = 'us-east-1' AND Identifier = '<AliasId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alias_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,9 +230,9 @@ INSERT INTO awscc.gamelift.aliases (
  RoutingStrategy,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoutingStrategy }}',
+SELECT
+'{{ name }}',
+ '{{ routing_strategy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,11 +247,11 @@ INSERT INTO awscc.gamelift.aliases (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ RoutingStrategy }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ routing_strategy }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -269,20 +269,19 @@ globals:
 resources:
   - name: alias
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoutingStrategy
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: routing_strategy
         value:
-          Message: '{{ Message }}'
-          FleetId: '{{ FleetId }}'
-          Type: '{{ Type }}'
-      - name: Tags
+          message: '{{ message }}'
+          fleet_id: '{{ fleet_id }}'
+          type: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AliasId>';
+AND Identifier = '{{ alias_id }}';
 ```
 
 
@@ -310,7 +309,7 @@ AND Identifier = '<AliasId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.aliases
-WHERE Identifier = '<AliasId>'
+WHERE Identifier = '{{ alias_id }}'
 AND region = 'us-east-1';
 ```
 

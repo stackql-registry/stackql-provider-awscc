@@ -118,7 +118,7 @@ firewall_arn,
 logging_configuration,
 enable_monitoring_dashboard
 FROM awscc.networkfirewall.logging_configurations
-WHERE region = 'us-east-1' AND Identifier = '<FirewallArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ firewall_arn }}';
 ```
 
 ## `INSERT` example
@@ -142,9 +142,9 @@ INSERT INTO awscc.networkfirewall.logging_configurations (
  LoggingConfiguration,
  region
 )
-SELECT 
-'{{ FirewallArn }}',
- '{{ LoggingConfiguration }}',
+SELECT
+'{{ firewall_arn }}',
+ '{{ logging_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -159,11 +159,11 @@ INSERT INTO awscc.networkfirewall.logging_configurations (
  EnableMonitoringDashboard,
  region
 )
-SELECT 
- '{{ FirewallName }}',
- '{{ FirewallArn }}',
- '{{ LoggingConfiguration }}',
- '{{ EnableMonitoringDashboard }}',
+SELECT
+ '{{ firewall_name }}',
+ '{{ firewall_arn }}',
+ '{{ logging_configuration }}',
+ '{{ enable_monitoring_dashboard }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -181,19 +181,18 @@ globals:
 resources:
   - name: logging_configuration
     props:
-      - name: FirewallName
-        value: '{{ FirewallName }}'
-      - name: FirewallArn
-        value: '{{ FirewallArn }}'
-      - name: LoggingConfiguration
+      - name: firewall_name
+        value: '{{ firewall_name }}'
+      - name: firewall_arn
+        value: '{{ firewall_arn }}'
+      - name: logging_configuration
         value:
-          FirewallName: '{{ FirewallName }}'
-          FirewallArn: null
-          LoggingConfiguration: null
-          EnableMonitoringDashboard: '{{ EnableMonitoringDashboard }}'
-      - name: EnableMonitoringDashboard
-        value: '{{ EnableMonitoringDashboard }}'
-
+          firewall_name: '{{ firewall_name }}'
+          firewall_arn: null
+          logging_configuration: null
+          enable_monitoring_dashboard: '{{ enable_monitoring_dashboard }}'
+      - name: enable_monitoring_dashboard
+        value: '{{ enable_monitoring_dashboard }}'
 ```
 </TabItem>
 </Tabs>
@@ -210,7 +209,7 @@ SET PatchDocument = string('{{ {
     "EnableMonitoringDashboard": enable_monitoring_dashboard
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FirewallArn>';
+AND Identifier = '{{ firewall_arn }}';
 ```
 
 
@@ -219,7 +218,7 @@ AND Identifier = '<FirewallArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.logging_configurations
-WHERE Identifier = '<FirewallArn>'
+WHERE Identifier = '{{ firewall_arn }}'
 AND region = 'us-east-1';
 ```
 

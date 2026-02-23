@@ -170,7 +170,7 @@ tags,
 target_arns,
 vpc_link_id
 FROM awscc.apigateway.vpc_links
-WHERE region = 'us-east-1' AND Identifier = '<VpcLinkId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.apigateway.vpc_links (
  TargetArns,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ TargetArns }}',
+SELECT
+'{{ name }}',
+ '{{ target_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,11 @@ INSERT INTO awscc.apigateway.vpc_links (
  TargetArns,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ TargetArns }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ target_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,18 +246,17 @@ globals:
 resources:
   - name: vpc_link
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: TargetArns
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: target_arns
         value:
-          - '{{ TargetArns[0] }}'
-
+          - '{{ target_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VpcLinkId>';
+AND Identifier = '{{ vpc_link_id }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<VpcLinkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.vpc_links
-WHERE Identifier = '<VpcLinkId>'
+WHERE Identifier = '{{ vpc_link_id }}'
 AND region = 'us-east-1';
 ```
 

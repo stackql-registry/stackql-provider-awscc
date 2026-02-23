@@ -206,7 +206,7 @@ ip_access_settings_arn,
 ip_rules,
 tags
 FROM awscc.workspacesweb.ip_access_settings
-WHERE region = 'us-east-1' AND Identifier = '<IpAccessSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ip_access_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.workspacesweb.ip_access_settings (
  IpRules,
  region
 )
-SELECT 
-'{{ IpRules }}',
+SELECT
+'{{ ip_rules }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -260,13 +260,13 @@ INSERT INTO awscc.workspacesweb.ip_access_settings (
  Tags,
  region
 )
-SELECT 
- '{{ AdditionalEncryptionContext }}',
- '{{ CustomerManagedKey }}',
- '{{ Description }}',
- '{{ DisplayName }}',
- '{{ IpRules }}',
- '{{ Tags }}',
+SELECT
+ '{{ additional_encryption_context }}',
+ '{{ customer_managed_key }}',
+ '{{ description }}',
+ '{{ display_name }}',
+ '{{ ip_rules }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,23 +284,22 @@ globals:
 resources:
   - name: ip_access_setting
     props:
-      - name: AdditionalEncryptionContext
+      - name: additional_encryption_context
         value: {}
-      - name: CustomerManagedKey
-        value: '{{ CustomerManagedKey }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: IpRules
+      - name: customer_managed_key
+        value: '{{ customer_managed_key }}'
+      - name: description
+        value: '{{ description }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: ip_rules
         value:
-          - IpRange: '{{ IpRange }}'
-            Description: '{{ Description }}'
-      - name: Tags
+          - ip_range: '{{ ip_range }}'
+            description: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -319,7 +318,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpAccessSettingsArn>';
+AND Identifier = '{{ ip_access_settings_arn }}';
 ```
 
 
@@ -328,7 +327,7 @@ AND Identifier = '<IpAccessSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.ip_access_settings
-WHERE Identifier = '<IpAccessSettingsArn>'
+WHERE Identifier = '{{ ip_access_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

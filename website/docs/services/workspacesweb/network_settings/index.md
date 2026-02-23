@@ -176,7 +176,7 @@ subnet_ids,
 tags,
 vpc_id
 FROM awscc.workspacesweb.network_settings
-WHERE region = 'us-east-1' AND Identifier = '<NetworkSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ network_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.workspacesweb.network_settings (
  VpcId,
  region
 )
-SELECT 
-'{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ VpcId }}',
+SELECT
+'{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,11 +232,11 @@ INSERT INTO awscc.workspacesweb.network_settings (
  VpcId,
  region
 )
-SELECT 
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
- '{{ VpcId }}',
+SELECT
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: network_setting
     props:
-      - name: SecurityGroupIds
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "VpcId": vpc_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NetworkSettingsArn>';
+AND Identifier = '{{ network_settings_arn }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<NetworkSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.network_settings
-WHERE Identifier = '<NetworkSettingsArn>'
+WHERE Identifier = '{{ network_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

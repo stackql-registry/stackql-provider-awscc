@@ -170,7 +170,7 @@ managed_policy_arns,
 path,
 policies
 FROM awscc.iam.groups
-WHERE Identifier = '<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -181,7 +181,7 @@ SELECT
 region,
 group_name
 FROM awscc.iam.groups_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -209,11 +209,11 @@ INSERT INTO awscc.iam.groups (
  Policies,
  region
 )
-SELECT 
-'{{ GroupName }}',
- '{{ ManagedPolicyArns }}',
- '{{ Path }}',
- '{{ Policies }}',
+SELECT
+'{{ group_name }}',
+ '{{ managed_policy_arns }}',
+ '{{ path }}',
+ '{{ policies }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.iam.groups (
  Policies,
  region
 )
-SELECT 
- '{{ GroupName }}',
- '{{ ManagedPolicyArns }}',
- '{{ Path }}',
- '{{ Policies }}',
+SELECT
+ '{{ group_name }}',
+ '{{ managed_policy_arns }}',
+ '{{ path }}',
+ '{{ policies }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,18 +250,17 @@ globals:
 resources:
   - name: group
     props:
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: ManagedPolicyArns
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: managed_policy_arns
         value:
-          - '{{ ManagedPolicyArns[0] }}'
-      - name: Path
-        value: '{{ Path }}'
-      - name: Policies
+          - '{{ managed_policy_arns[0] }}'
+      - name: path
+        value: '{{ path }}'
+      - name: policies
         value:
-          - PolicyDocument: {}
-            PolicyName: '{{ PolicyName }}'
-
+          - policy_document: {}
+            policy_name: '{{ policy_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Policies": policies
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GroupName>';
+AND Identifier = '{{ group_name }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<GroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.groups
-WHERE Identifier = '<GroupName>'
+WHERE Identifier = '{{ group_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -224,7 +224,7 @@ support_code,
 location,
 tags
 FROM awscc.lightsail.instance_snapshots
-WHERE region = 'us-east-1' AND Identifier = '<InstanceSnapshotName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_snapshot_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -261,9 +261,9 @@ INSERT INTO awscc.lightsail.instance_snapshots (
  InstanceName,
  region
 )
-SELECT 
-'{{ InstanceSnapshotName }}',
- '{{ InstanceName }}',
+SELECT
+'{{ instance_snapshot_name }}',
+ '{{ instance_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,10 +277,10 @@ INSERT INTO awscc.lightsail.instance_snapshots (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceSnapshotName }}',
- '{{ InstanceName }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_snapshot_name }}',
+ '{{ instance_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,15 +298,14 @@ globals:
 resources:
   - name: instance_snapshot
     props:
-      - name: InstanceSnapshotName
-        value: '{{ InstanceSnapshotName }}'
-      - name: InstanceName
-        value: '{{ InstanceName }}'
-      - name: Tags
+      - name: instance_snapshot_name
+        value: '{{ instance_snapshot_name }}'
+      - name: instance_name
+        value: '{{ instance_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -322,7 +321,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<InstanceSnapshotName>';
+AND Identifier = '{{ instance_snapshot_name }}';
 ```
 
 
@@ -331,7 +330,7 @@ AND Identifier = '<InstanceSnapshotName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.instance_snapshots
-WHERE Identifier = '<InstanceSnapshotName>'
+WHERE Identifier = '{{ instance_snapshot_name }}'
 AND region = 'us-east-1';
 ```
 

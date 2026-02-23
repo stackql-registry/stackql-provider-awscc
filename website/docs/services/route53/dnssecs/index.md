@@ -128,7 +128,7 @@ SELECT
 region,
 hosted_zone_id
 FROM awscc.route53.dnssecs
-WHERE Identifier = '<HostedZoneId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ hosted_zone_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -139,7 +139,7 @@ SELECT
 region,
 hosted_zone_id
 FROM awscc.route53.dnssecs_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -164,8 +164,8 @@ INSERT INTO awscc.route53.dnssecs (
  HostedZoneId,
  region
 )
-SELECT 
-'{{ HostedZoneId }}',
+SELECT
+'{{ hosted_zone_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -177,8 +177,8 @@ INSERT INTO awscc.route53.dnssecs (
  HostedZoneId,
  region
 )
-SELECT 
- '{{ HostedZoneId }}',
+SELECT
+ '{{ hosted_zone_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -196,9 +196,8 @@ globals:
 resources:
   - name: dnssec
     props:
-      - name: HostedZoneId
-        value: '{{ HostedZoneId }}'
-
+      - name: hosted_zone_id
+        value: '{{ hosted_zone_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -209,7 +208,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53.dnssecs
-WHERE Identifier = '<HostedZoneId>'
+WHERE Identifier = '{{ hosted_zone_id }}'
 AND region = 'us-east-1';
 ```
 

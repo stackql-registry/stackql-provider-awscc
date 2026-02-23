@@ -170,7 +170,7 @@ rules,
 scan_type,
 registry_id
 FROM awscc.ecr.registry_scanning_configurations
-WHERE region = 'us-east-1' AND Identifier = '<RegistryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ registry_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.ecr.registry_scanning_configurations (
  ScanType,
  region
 )
-SELECT 
-'{{ Rules }}',
- '{{ ScanType }}',
+SELECT
+'{{ rules }}',
+ '{{ scan_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,9 +222,9 @@ INSERT INTO awscc.ecr.registry_scanning_configurations (
  ScanType,
  region
 )
-SELECT 
- '{{ Rules }}',
- '{{ ScanType }}',
+SELECT
+ '{{ rules }}',
+ '{{ scan_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,15 +242,14 @@ globals:
 resources:
   - name: registry_scanning_configuration
     props:
-      - name: Rules
+      - name: rules
         value:
-          - RepositoryFilters:
-              - Filter: '{{ Filter }}'
-                FilterType: '{{ FilterType }}'
-            ScanFrequency: '{{ ScanFrequency }}'
-      - name: ScanType
-        value: '{{ ScanType }}'
-
+          - repository_filters:
+              - filter: '{{ filter }}'
+                filter_type: '{{ filter_type }}'
+            scan_frequency: '{{ scan_frequency }}'
+      - name: scan_type
+        value: '{{ scan_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -267,7 +266,7 @@ SET PatchDocument = string('{{ {
     "ScanType": scan_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RegistryId>';
+AND Identifier = '{{ registry_id }}';
 ```
 
 
@@ -276,7 +275,7 @@ AND Identifier = '<RegistryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecr.registry_scanning_configurations
-WHERE Identifier = '<RegistryId>'
+WHERE Identifier = '{{ registry_id }}'
 AND region = 'us-east-1';
 ```
 

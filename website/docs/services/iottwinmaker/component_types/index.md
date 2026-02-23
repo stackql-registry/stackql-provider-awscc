@@ -236,7 +236,7 @@ is_abstract,
 is_schema_initialized,
 tags
 FROM awscc.iottwinmaker.component_types
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<ComponentTypeId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,9 +274,9 @@ INSERT INTO awscc.iottwinmaker.component_types (
  ComponentTypeId,
  region
 )
-SELECT 
-'{{ WorkspaceId }}',
- '{{ ComponentTypeId }}',
+SELECT
+'{{ workspace_id }}',
+ '{{ component_type_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,17 +297,17 @@ INSERT INTO awscc.iottwinmaker.component_types (
  Tags,
  region
 )
-SELECT 
- '{{ WorkspaceId }}',
- '{{ ComponentTypeId }}',
- '{{ Description }}',
- '{{ ExtendsFrom }}',
- '{{ Functions }}',
- '{{ IsSingleton }}',
- '{{ PropertyDefinitions }}',
- '{{ PropertyGroups }}',
- '{{ CompositeComponentTypes }}',
- '{{ Tags }}',
+SELECT
+ '{{ workspace_id }}',
+ '{{ component_type_id }}',
+ '{{ description }}',
+ '{{ extends_from }}',
+ '{{ functions }}',
+ '{{ is_singleton }}',
+ '{{ property_definitions }}',
+ '{{ property_groups }}',
+ '{{ composite_component_types }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,28 +325,27 @@ globals:
 resources:
   - name: component_type
     props:
-      - name: WorkspaceId
-        value: '{{ WorkspaceId }}'
-      - name: ComponentTypeId
-        value: '{{ ComponentTypeId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExtendsFrom
+      - name: workspace_id
+        value: '{{ workspace_id }}'
+      - name: component_type_id
+        value: '{{ component_type_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: extends_from
         value:
-          - '{{ ExtendsFrom[0] }}'
-      - name: Functions
+          - '{{ extends_from[0] }}'
+      - name: functions
         value: {}
-      - name: IsSingleton
-        value: '{{ IsSingleton }}'
-      - name: PropertyDefinitions
+      - name: is_singleton
+        value: '{{ is_singleton }}'
+      - name: property_definitions
         value: {}
-      - name: PropertyGroups
+      - name: property_groups
         value: {}
-      - name: CompositeComponentTypes
+      - name: composite_component_types
         value: {}
-      - name: Tags
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceId>|<ComponentTypeId>';
+AND Identifier = '{{ workspace_id }}|{{ component_type_id }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<WorkspaceId>|<ComponentTypeId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.component_types
-WHERE Identifier = '<WorkspaceId|ComponentTypeId>'
+WHERE Identifier = '{{ workspace_id }}|{{ component_type_id }}'
 AND region = 'us-east-1';
 ```
 

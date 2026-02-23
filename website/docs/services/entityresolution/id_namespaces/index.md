@@ -270,7 +270,7 @@ created_at,
 updated_at,
 tags
 FROM awscc.entityresolution.id_namespaces
-WHERE region = 'us-east-1' AND Identifier = '<IdNamespaceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id_namespace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -307,9 +307,9 @@ INSERT INTO awscc.entityresolution.id_namespaces (
  Type,
  region
 )
-SELECT 
-'{{ IdNamespaceName }}',
- '{{ Type }}',
+SELECT
+'{{ id_namespace_name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -327,14 +327,14 @@ INSERT INTO awscc.entityresolution.id_namespaces (
  Tags,
  region
 )
-SELECT 
- '{{ IdNamespaceName }}',
- '{{ Description }}',
- '{{ InputSourceConfig }}',
- '{{ IdMappingWorkflowProperties }}',
- '{{ Type }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ id_namespace_name }}',
+ '{{ description }}',
+ '{{ input_source_config }}',
+ '{{ id_mapping_workflow_properties }}',
+ '{{ type }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -352,39 +352,38 @@ globals:
 resources:
   - name: id_namespace
     props:
-      - name: IdNamespaceName
-        value: '{{ IdNamespaceName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InputSourceConfig
+      - name: id_namespace_name
+        value: '{{ id_namespace_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: input_source_config
         value:
-          - InputSourceARN: '{{ InputSourceARN }}'
-            SchemaName: null
-      - name: IdMappingWorkflowProperties
+          - input_source_arn: '{{ input_source_arn }}'
+            schema_name: null
+      - name: id_mapping_workflow_properties
         value:
-          - IdMappingType: '{{ IdMappingType }}'
-            RuleBasedProperties:
-              Rules:
-                - RuleName: '{{ RuleName }}'
-                  MatchingKeys:
-                    - '{{ MatchingKeys[0] }}'
-              RuleDefinitionTypes:
-                - '{{ RuleDefinitionTypes[0] }}'
-              AttributeMatchingModel: '{{ AttributeMatchingModel }}'
-              RecordMatchingModels:
-                - '{{ RecordMatchingModels[0] }}'
-            ProviderProperties:
-              ProviderServiceArn: '{{ ProviderServiceArn }}'
-              ProviderConfiguration: {}
-      - name: Type
-        value: '{{ Type }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          - id_mapping_type: '{{ id_mapping_type }}'
+            rule_based_properties:
+              rules:
+                - rule_name: '{{ rule_name }}'
+                  matching_keys:
+                    - '{{ matching_keys[0] }}'
+              rule_definition_types:
+                - '{{ rule_definition_types[0] }}'
+              attribute_matching_model: '{{ attribute_matching_model }}'
+              record_matching_models:
+                - '{{ record_matching_models[0] }}'
+            provider_properties:
+              provider_service_arn: '{{ provider_service_arn }}'
+              provider_configuration: {}
+      - name: type
+        value: '{{ type }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -405,7 +404,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IdNamespaceName>';
+AND Identifier = '{{ id_namespace_name }}';
 ```
 
 
@@ -414,7 +413,7 @@ AND Identifier = '<IdNamespaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.id_namespaces
-WHERE Identifier = '<IdNamespaceName>'
+WHERE Identifier = '{{ id_namespace_name }}'
 AND region = 'us-east-1';
 ```
 

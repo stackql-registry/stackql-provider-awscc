@@ -164,7 +164,7 @@ package_arn,
 package_name,
 tags
 FROM awscc.iot.software_packages
-WHERE region = 'us-east-1' AND Identifier = '<PackageName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ package_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.iot.software_packages (
  Tags,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ PackageName }}',
- '{{ Tags }}',
+SELECT
+'{{ description }}',
+ '{{ package_name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.iot.software_packages (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ PackageName }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ package_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,15 +240,14 @@ globals:
 resources:
   - name: software_package
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: PackageName
-        value: '{{ PackageName }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: package_name
+        value: '{{ package_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -265,7 +264,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PackageName>';
+AND Identifier = '{{ package_name }}';
 ```
 
 
@@ -274,7 +273,7 @@ AND Identifier = '<PackageName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.software_packages
-WHERE Identifier = '<PackageName>'
+WHERE Identifier = '{{ package_name }}'
 AND region = 'us-east-1';
 ```
 

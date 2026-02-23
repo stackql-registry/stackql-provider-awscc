@@ -206,7 +206,7 @@ template_type,
 pre_provisioning_hook,
 tags
 FROM awscc.iot.provisioning_templates
-WHERE region = 'us-east-1' AND Identifier = '<TemplateName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ template_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,9 +243,9 @@ INSERT INTO awscc.iot.provisioning_templates (
  TemplateBody,
  region
 )
-SELECT 
-'{{ ProvisioningRoleArn }}',
- '{{ TemplateBody }}',
+SELECT
+'{{ provisioning_role_arn }}',
+ '{{ template_body }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,15 +264,15 @@ INSERT INTO awscc.iot.provisioning_templates (
  Tags,
  region
 )
-SELECT 
- '{{ TemplateName }}',
- '{{ Description }}',
- '{{ Enabled }}',
- '{{ ProvisioningRoleArn }}',
- '{{ TemplateBody }}',
- '{{ TemplateType }}',
- '{{ PreProvisioningHook }}',
- '{{ Tags }}',
+SELECT
+ '{{ template_name }}',
+ '{{ description }}',
+ '{{ enabled }}',
+ '{{ provisioning_role_arn }}',
+ '{{ template_body }}',
+ '{{ template_type }}',
+ '{{ pre_provisioning_hook }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,27 +290,26 @@ globals:
 resources:
   - name: provisioning_template
     props:
-      - name: TemplateName
-        value: '{{ TemplateName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: ProvisioningRoleArn
-        value: '{{ ProvisioningRoleArn }}'
-      - name: TemplateBody
-        value: '{{ TemplateBody }}'
-      - name: TemplateType
-        value: '{{ TemplateType }}'
-      - name: PreProvisioningHook
+      - name: template_name
+        value: '{{ template_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: provisioning_role_arn
+        value: '{{ provisioning_role_arn }}'
+      - name: template_body
+        value: '{{ template_body }}'
+      - name: template_type
+        value: '{{ template_type }}'
+      - name: pre_provisioning_hook
         value:
-          TargetArn: '{{ TargetArn }}'
-          PayloadVersion: '{{ PayloadVersion }}'
-      - name: Tags
+          target_arn: '{{ target_arn }}'
+          payload_version: '{{ payload_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -331,7 +330,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TemplateName>';
+AND Identifier = '{{ template_name }}';
 ```
 
 
@@ -340,7 +339,7 @@ AND Identifier = '<TemplateName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.provisioning_templates
-WHERE Identifier = '<TemplateName>'
+WHERE Identifier = '{{ template_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -207,7 +207,7 @@ stream_mode_details,
 stream_encryption,
 tags
 FROM awscc.kinesis.streams
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,14 +249,14 @@ INSERT INTO awscc.kinesis.streams (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DesiredShardLevelMetrics }}',
- '{{ RetentionPeriodHours }}',
- '{{ ShardCount }}',
- '{{ StreamModeDetails }}',
- '{{ StreamEncryption }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ desired_shard_level_metrics }}',
+ '{{ retention_period_hours }}',
+ '{{ shard_count }}',
+ '{{ stream_mode_details }}',
+ '{{ stream_encryption }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -274,14 +274,14 @@ INSERT INTO awscc.kinesis.streams (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DesiredShardLevelMetrics }}',
- '{{ RetentionPeriodHours }}',
- '{{ ShardCount }}',
- '{{ StreamModeDetails }}',
- '{{ StreamEncryption }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ desired_shard_level_metrics }}',
+ '{{ retention_period_hours }}',
+ '{{ shard_count }}',
+ '{{ stream_mode_details }}',
+ '{{ stream_encryption }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,27 +299,26 @@ globals:
 resources:
   - name: stream
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DesiredShardLevelMetrics
+      - name: name
+        value: '{{ name }}'
+      - name: desired_shard_level_metrics
         value:
-          - '{{ DesiredShardLevelMetrics[0] }}'
-      - name: RetentionPeriodHours
-        value: '{{ RetentionPeriodHours }}'
-      - name: ShardCount
-        value: '{{ ShardCount }}'
-      - name: StreamModeDetails
+          - '{{ desired_shard_level_metrics[0] }}'
+      - name: retention_period_hours
+        value: '{{ retention_period_hours }}'
+      - name: shard_count
+        value: '{{ shard_count }}'
+      - name: stream_mode_details
         value:
-          StreamMode: '{{ StreamMode }}'
-      - name: StreamEncryption
+          stream_mode: '{{ stream_mode }}'
+      - name: stream_encryption
         value:
-          EncryptionType: '{{ EncryptionType }}'
-          KeyId: '{{ KeyId }}'
-      - name: Tags
+          encryption_type: '{{ encryption_type }}'
+          key_id: '{{ key_id }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +339,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -349,7 +348,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.streams
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -194,7 +194,7 @@ signal_catalog_arn,
 status,
 tags
 FROM awscc.iotfleetwise.model_manifests
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.iotfleetwise.model_manifests (
  SignalCatalogArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SignalCatalogArn }}',
+SELECT
+'{{ name }}',
+ '{{ signal_catalog_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,13 +250,13 @@ INSERT INTO awscc.iotfleetwise.model_manifests (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Nodes }}',
- '{{ SignalCatalogArn }}',
- '{{ Status }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ nodes }}',
+ '{{ signal_catalog_arn }}',
+ '{{ status }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,22 +274,21 @@ globals:
 resources:
   - name: model_manifest
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Nodes
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: nodes
         value:
-          - '{{ Nodes[0] }}'
-      - name: SignalCatalogArn
-        value: '{{ SignalCatalogArn }}'
-      - name: Status
-        value: '{{ Status }}'
-      - name: Tags
+          - '{{ nodes[0] }}'
+      - name: signal_catalog_arn
+        value: '{{ signal_catalog_arn }}'
+      - name: status
+        value: '{{ status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -309,7 +308,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -318,7 +317,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.model_manifests
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

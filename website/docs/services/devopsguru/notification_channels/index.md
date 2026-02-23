@@ -165,7 +165,7 @@ region,
 config,
 id
 FROM awscc.devopsguru.notification_channels
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,8 +201,8 @@ INSERT INTO awscc.devopsguru.notification_channels (
  Config,
  region
 )
-SELECT 
-'{{ Config }}',
+SELECT
+'{{ config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,8 +214,8 @@ INSERT INTO awscc.devopsguru.notification_channels (
  Config,
  region
 )
-SELECT 
- '{{ Config }}',
+SELECT
+ '{{ config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -233,16 +233,15 @@ globals:
 resources:
   - name: notification_channel
     props:
-      - name: Config
+      - name: config
         value:
-          Sns:
-            TopicArn: '{{ TopicArn }}'
-          Filters:
-            Severities:
-              - '{{ Severities[0] }}'
-            MessageTypes:
-              - '{{ MessageTypes[0] }}'
-
+          sns:
+            topic_arn: '{{ topic_arn }}'
+          filters:
+            severities:
+              - '{{ severities[0] }}'
+            message_types:
+              - '{{ message_types[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.devopsguru.notification_channels
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -241,7 +241,7 @@ endpoint_url,
 state,
 state_reason
 FROM awscc.events.endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,9 +278,9 @@ INSERT INTO awscc.events.endpoints (
  EventBuses,
  region
 )
-SELECT 
-'{{ RoutingConfig }}',
- '{{ EventBuses }}',
+SELECT
+'{{ routing_config }}',
+ '{{ event_buses }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -297,13 +297,13 @@ INSERT INTO awscc.events.endpoints (
  EventBuses,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ Description }}',
- '{{ RoutingConfig }}',
- '{{ ReplicationConfig }}',
- '{{ EventBuses }}',
+SELECT
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ description }}',
+ '{{ routing_config }}',
+ '{{ replication_config }}',
+ '{{ event_buses }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -321,26 +321,25 @@ globals:
 resources:
   - name: endpoint
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RoutingConfig
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: description
+        value: '{{ description }}'
+      - name: routing_config
         value:
-          FailoverConfig:
-            Primary:
-              HealthCheck: '{{ HealthCheck }}'
-            Secondary:
-              Route: '{{ Route }}'
-      - name: ReplicationConfig
+          failover_config:
+            primary:
+              health_check: '{{ health_check }}'
+            secondary:
+              route: '{{ route }}'
+      - name: replication_config
         value:
-          State: '{{ State }}'
-      - name: EventBuses
+          state: '{{ state }}'
+      - name: event_buses
         value:
-          - EventBusArn: '{{ EventBusArn }}'
-
+          - event_bus_arn: '{{ event_bus_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "EventBuses": event_buses
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.endpoints
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

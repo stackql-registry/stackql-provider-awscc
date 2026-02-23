@@ -231,7 +231,7 @@ user_profile_name,
 built_in_lifecycle_config_arn,
 recovery_mode
 FROM awscc.sagemaker.apps
-WHERE region = 'us-east-1' AND Identifier = '<AppName>|<AppType>|<DomainId>|<UserProfileName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,11 +273,11 @@ INSERT INTO awscc.sagemaker.apps (
  UserProfileName,
  region
 )
-SELECT 
-'{{ AppName }}',
- '{{ AppType }}',
- '{{ DomainId }}',
- '{{ UserProfileName }}',
+SELECT
+'{{ app_name }}',
+ '{{ app_type }}',
+ '{{ domain_id }}',
+ '{{ user_profile_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -295,14 +295,14 @@ INSERT INTO awscc.sagemaker.apps (
  RecoveryMode,
  region
 )
-SELECT 
- '{{ AppName }}',
- '{{ AppType }}',
- '{{ DomainId }}',
- '{{ ResourceSpec }}',
- '{{ Tags }}',
- '{{ UserProfileName }}',
- '{{ RecoveryMode }}',
+SELECT
+ '{{ app_name }}',
+ '{{ app_type }}',
+ '{{ domain_id }}',
+ '{{ resource_spec }}',
+ '{{ tags }}',
+ '{{ user_profile_name }}',
+ '{{ recovery_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,27 +320,26 @@ globals:
 resources:
   - name: app
     props:
-      - name: AppName
-        value: '{{ AppName }}'
-      - name: AppType
-        value: '{{ AppType }}'
-      - name: DomainId
-        value: '{{ DomainId }}'
-      - name: ResourceSpec
+      - name: app_name
+        value: '{{ app_name }}'
+      - name: app_type
+        value: '{{ app_type }}'
+      - name: domain_id
+        value: '{{ domain_id }}'
+      - name: resource_spec
         value:
-          InstanceType: '{{ InstanceType }}'
-          SageMakerImageArn: '{{ SageMakerImageArn }}'
-          SageMakerImageVersionArn: '{{ SageMakerImageVersionArn }}'
-          LifecycleConfigArn: '{{ LifecycleConfigArn }}'
-      - name: Tags
+          instance_type: '{{ instance_type }}'
+          sage_maker_image_arn: '{{ sage_maker_image_arn }}'
+          sage_maker_image_version_arn: '{{ sage_maker_image_version_arn }}'
+          lifecycle_config_arn: '{{ lifecycle_config_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: UserProfileName
-        value: '{{ UserProfileName }}'
-      - name: RecoveryMode
-        value: '{{ RecoveryMode }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: user_profile_name
+        value: '{{ user_profile_name }}'
+      - name: recovery_mode
+        value: '{{ recovery_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +356,7 @@ SET PatchDocument = string('{{ {
     "RecoveryMode": recovery_mode
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppName>|<AppType>|<DomainId>|<UserProfileName>';
+AND Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}';
 ```
 
 
@@ -366,7 +365,7 @@ AND Identifier = '<AppName>|<AppType>|<DomainId>|<UserProfileName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.apps
-WHERE Identifier = '<AppName|AppType|DomainId|UserProfileName>'
+WHERE Identifier = '{{ app_name }}|{{ app_type }}|{{ domain_id }}|{{ user_profile_name }}'
 AND region = 'us-east-1';
 ```
 

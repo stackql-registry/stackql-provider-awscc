@@ -468,7 +468,7 @@ schedule,
 table_prefix,
 tags
 FROM awscc.glue.crawlers
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -505,9 +505,9 @@ INSERT INTO awscc.glue.crawlers (
  Role,
  region
 )
-SELECT 
-'{{ Targets }}',
- '{{ Role }}',
+SELECT
+'{{ targets }}',
+ '{{ role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -532,21 +532,21 @@ INSERT INTO awscc.glue.crawlers (
  Tags,
  region
 )
-SELECT 
- '{{ Classifiers }}',
- '{{ Description }}',
- '{{ SchemaChangePolicy }}',
- '{{ Configuration }}',
- '{{ RecrawlPolicy }}',
- '{{ DatabaseName }}',
- '{{ Targets }}',
- '{{ CrawlerSecurityConfiguration }}',
- '{{ Name }}',
- '{{ Role }}',
- '{{ LakeFormationConfiguration }}',
- '{{ Schedule }}',
- '{{ TablePrefix }}',
- '{{ Tags }}',
+SELECT
+ '{{ classifiers }}',
+ '{{ description }}',
+ '{{ schema_change_policy }}',
+ '{{ configuration }}',
+ '{{ recrawl_policy }}',
+ '{{ database_name }}',
+ '{{ targets }}',
+ '{{ crawler_security_configuration }}',
+ '{{ name }}',
+ '{{ role }}',
+ '{{ lake_formation_configuration }}',
+ '{{ schedule }}',
+ '{{ table_prefix }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -564,91 +564,90 @@ globals:
 resources:
   - name: crawler
     props:
-      - name: Classifiers
+      - name: classifiers
         value:
-          - '{{ Classifiers[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: SchemaChangePolicy
+          - '{{ classifiers[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: schema_change_policy
         value:
-          UpdateBehavior: '{{ UpdateBehavior }}'
-          DeleteBehavior: '{{ DeleteBehavior }}'
-      - name: Configuration
-        value: '{{ Configuration }}'
-      - name: RecrawlPolicy
+          update_behavior: '{{ update_behavior }}'
+          delete_behavior: '{{ delete_behavior }}'
+      - name: configuration
+        value: '{{ configuration }}'
+      - name: recrawl_policy
         value:
-          RecrawlBehavior: '{{ RecrawlBehavior }}'
-      - name: DatabaseName
-        value: '{{ DatabaseName }}'
-      - name: Targets
+          recrawl_behavior: '{{ recrawl_behavior }}'
+      - name: database_name
+        value: '{{ database_name }}'
+      - name: targets
         value:
-          S3Targets:
-            - ConnectionName: '{{ ConnectionName }}'
-              Path: '{{ Path }}'
-              SampleSize: '{{ SampleSize }}'
-              Exclusions:
-                - '{{ Exclusions[0] }}'
-              DlqEventQueueArn: '{{ DlqEventQueueArn }}'
-              EventQueueArn: '{{ EventQueueArn }}'
-          CatalogTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              DatabaseName: '{{ DatabaseName }}'
-              DlqEventQueueArn: '{{ DlqEventQueueArn }}'
-              Tables:
-                - '{{ Tables[0] }}'
-              EventQueueArn: '{{ EventQueueArn }}'
-          DeltaTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              CreateNativeDeltaTable: '{{ CreateNativeDeltaTable }}'
-              WriteManifest: '{{ WriteManifest }}'
-              DeltaTables:
-                - '{{ DeltaTables[0] }}'
-          MongoDBTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              Path: '{{ Path }}'
-          JdbcTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              Path: '{{ Path }}'
-              Exclusions:
-                - '{{ Exclusions[0] }}'
-              EnableAdditionalMetadata:
-                - '{{ EnableAdditionalMetadata[0] }}'
-          DynamoDBTargets:
-            - Path: '{{ Path }}'
-              ScanAll: '{{ ScanAll }}'
-              ScanRate: null
-          IcebergTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              Paths:
-                - '{{ Paths[0] }}'
-              Exclusions:
-                - '{{ Exclusions[0] }}'
-              MaximumTraversalDepth: '{{ MaximumTraversalDepth }}'
-          HudiTargets:
-            - ConnectionName: '{{ ConnectionName }}'
-              Paths:
-                - '{{ Paths[0] }}'
-              Exclusions:
-                - '{{ Exclusions[0] }}'
-              MaximumTraversalDepth: '{{ MaximumTraversalDepth }}'
-      - name: CrawlerSecurityConfiguration
-        value: '{{ CrawlerSecurityConfiguration }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Role
-        value: '{{ Role }}'
-      - name: LakeFormationConfiguration
+          s3_targets:
+            - connection_name: '{{ connection_name }}'
+              path: '{{ path }}'
+              sample_size: '{{ sample_size }}'
+              exclusions:
+                - '{{ exclusions[0] }}'
+              dlq_event_queue_arn: '{{ dlq_event_queue_arn }}'
+              event_queue_arn: '{{ event_queue_arn }}'
+          catalog_targets:
+            - connection_name: '{{ connection_name }}'
+              database_name: '{{ database_name }}'
+              dlq_event_queue_arn: '{{ dlq_event_queue_arn }}'
+              tables:
+                - '{{ tables[0] }}'
+              event_queue_arn: '{{ event_queue_arn }}'
+          delta_targets:
+            - connection_name: '{{ connection_name }}'
+              create_native_delta_table: '{{ create_native_delta_table }}'
+              write_manifest: '{{ write_manifest }}'
+              delta_tables:
+                - '{{ delta_tables[0] }}'
+          mongo_db_targets:
+            - connection_name: '{{ connection_name }}'
+              path: '{{ path }}'
+          jdbc_targets:
+            - connection_name: '{{ connection_name }}'
+              path: '{{ path }}'
+              exclusions:
+                - '{{ exclusions[0] }}'
+              enable_additional_metadata:
+                - '{{ enable_additional_metadata[0] }}'
+          dynamo_db_targets:
+            - path: '{{ path }}'
+              scan_all: '{{ scan_all }}'
+              scan_rate: null
+          iceberg_targets:
+            - connection_name: '{{ connection_name }}'
+              paths:
+                - '{{ paths[0] }}'
+              exclusions:
+                - '{{ exclusions[0] }}'
+              maximum_traversal_depth: '{{ maximum_traversal_depth }}'
+          hudi_targets:
+            - connection_name: '{{ connection_name }}'
+              paths:
+                - '{{ paths[0] }}'
+              exclusions:
+                - '{{ exclusions[0] }}'
+              maximum_traversal_depth: '{{ maximum_traversal_depth }}'
+      - name: crawler_security_configuration
+        value: '{{ crawler_security_configuration }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role
+        value: '{{ role }}'
+      - name: lake_formation_configuration
         value:
-          UseLakeFormationCredentials: '{{ UseLakeFormationCredentials }}'
-          AccountId: '{{ AccountId }}'
-      - name: Schedule
+          use_lake_formation_credentials: '{{ use_lake_formation_credentials }}'
+          account_id: '{{ account_id }}'
+      - name: schedule
         value:
-          ScheduleExpression: '{{ ScheduleExpression }}'
-      - name: TablePrefix
-        value: '{{ TablePrefix }}'
-      - name: Tags
+          schedule_expression: '{{ schedule_expression }}'
+      - name: table_prefix
+        value: '{{ table_prefix }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -676,7 +675,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -685,7 +684,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.crawlers
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

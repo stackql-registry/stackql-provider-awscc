@@ -136,7 +136,7 @@ device_fleet_name,
 device,
 tags
 FROM awscc.sagemaker.devices
-WHERE region = 'us-east-1' AND Identifier = '<Device/DeviceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ device/device_name }}';
 ```
 
 ## `INSERT` example
@@ -159,8 +159,8 @@ INSERT INTO awscc.sagemaker.devices (
  DeviceFleetName,
  region
 )
-SELECT 
-'{{ DeviceFleetName }}',
+SELECT
+'{{ device_fleet_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -174,10 +174,10 @@ INSERT INTO awscc.sagemaker.devices (
  Tags,
  region
 )
-SELECT 
- '{{ DeviceFleetName }}',
- '{{ Device }}',
- '{{ Tags }}',
+SELECT
+ '{{ device_fleet_name }}',
+ '{{ device }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -195,19 +195,18 @@ globals:
 resources:
   - name: device
     props:
-      - name: DeviceFleetName
-        value: '{{ DeviceFleetName }}'
-      - name: Device
+      - name: device_fleet_name
+        value: '{{ device_fleet_name }}'
+      - name: device
         value:
-          DeviceFleetName: '{{ DeviceFleetName }}'
-          Device: null
-          Tags:
-            - Value: '{{ Value }}'
-              Key: '{{ Key }}'
-      - name: Tags
+          device_fleet_name: '{{ device_fleet_name }}'
+          device: null
+          tags:
+            - value: '{{ value }}'
+              key: '{{ key }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -224,7 +223,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Device/DeviceName>';
+AND Identifier = '{{ device/device_name }}';
 ```
 
 
@@ -233,7 +232,7 @@ AND Identifier = '<Device/DeviceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.devices
-WHERE Identifier = '<Device/DeviceName>'
+WHERE Identifier = '{{ device/device_name }}'
 AND region = 'us-east-1';
 ```
 

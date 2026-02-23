@@ -200,7 +200,7 @@ nat_gateway_id,
 tags,
 max_drain_duration_seconds
 FROM awscc.ec2.nat_gateways
-WHERE region = 'us-east-1' AND Identifier = '<NatGatewayId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ nat_gateway_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,16 +244,16 @@ INSERT INTO awscc.ec2.nat_gateways (
  MaxDrainDurationSeconds,
  region
 )
-SELECT 
-'{{ SecondaryAllocationIds }}',
- '{{ PrivateIpAddress }}',
- '{{ SecondaryPrivateIpAddressCount }}',
- '{{ AllocationId }}',
- '{{ SubnetId }}',
- '{{ ConnectivityType }}',
- '{{ SecondaryPrivateIpAddresses }}',
- '{{ Tags }}',
- '{{ MaxDrainDurationSeconds }}',
+SELECT
+'{{ secondary_allocation_ids }}',
+ '{{ private_ip_address }}',
+ '{{ secondary_private_ip_address_count }}',
+ '{{ allocation_id }}',
+ '{{ subnet_id }}',
+ '{{ connectivity_type }}',
+ '{{ secondary_private_ip_addresses }}',
+ '{{ tags }}',
+ '{{ max_drain_duration_seconds }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -273,16 +273,16 @@ INSERT INTO awscc.ec2.nat_gateways (
  MaxDrainDurationSeconds,
  region
 )
-SELECT 
- '{{ SecondaryAllocationIds }}',
- '{{ PrivateIpAddress }}',
- '{{ SecondaryPrivateIpAddressCount }}',
- '{{ AllocationId }}',
- '{{ SubnetId }}',
- '{{ ConnectivityType }}',
- '{{ SecondaryPrivateIpAddresses }}',
- '{{ Tags }}',
- '{{ MaxDrainDurationSeconds }}',
+SELECT
+ '{{ secondary_allocation_ids }}',
+ '{{ private_ip_address }}',
+ '{{ secondary_private_ip_address_count }}',
+ '{{ allocation_id }}',
+ '{{ subnet_id }}',
+ '{{ connectivity_type }}',
+ '{{ secondary_private_ip_addresses }}',
+ '{{ tags }}',
+ '{{ max_drain_duration_seconds }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,29 +300,28 @@ globals:
 resources:
   - name: nat_gateway
     props:
-      - name: SecondaryAllocationIds
+      - name: secondary_allocation_ids
         value:
-          - '{{ SecondaryAllocationIds[0] }}'
-      - name: PrivateIpAddress
-        value: '{{ PrivateIpAddress }}'
-      - name: SecondaryPrivateIpAddressCount
-        value: '{{ SecondaryPrivateIpAddressCount }}'
-      - name: AllocationId
-        value: '{{ AllocationId }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: ConnectivityType
-        value: '{{ ConnectivityType }}'
-      - name: SecondaryPrivateIpAddresses
+          - '{{ secondary_allocation_ids[0] }}'
+      - name: private_ip_address
+        value: '{{ private_ip_address }}'
+      - name: secondary_private_ip_address_count
+        value: '{{ secondary_private_ip_address_count }}'
+      - name: allocation_id
+        value: '{{ allocation_id }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: connectivity_type
+        value: '{{ connectivity_type }}'
+      - name: secondary_private_ip_addresses
         value:
-          - '{{ SecondaryPrivateIpAddresses[0] }}'
-      - name: Tags
+          - '{{ secondary_private_ip_addresses[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: MaxDrainDurationSeconds
-        value: '{{ MaxDrainDurationSeconds }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: max_drain_duration_seconds
+        value: '{{ max_drain_duration_seconds }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "MaxDrainDurationSeconds": max_drain_duration_seconds
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NatGatewayId>';
+AND Identifier = '{{ nat_gateway_id }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<NatGatewayId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.nat_gateways
-WHERE Identifier = '<NatGatewayId>'
+WHERE Identifier = '{{ nat_gateway_id }}'
 AND region = 'us-east-1';
 ```
 

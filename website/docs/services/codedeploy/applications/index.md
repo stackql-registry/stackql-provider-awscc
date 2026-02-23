@@ -158,7 +158,7 @@ application_name,
 compute_platform,
 tags
 FROM awscc.codedeploy.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.codedeploy.applications (
  Tags,
  region
 )
-SELECT 
-'{{ ApplicationName }}',
- '{{ ComputePlatform }}',
- '{{ Tags }}',
+SELECT
+'{{ application_name }}',
+ '{{ compute_platform }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -213,10 +213,10 @@ INSERT INTO awscc.codedeploy.applications (
  Tags,
  region
 )
-SELECT 
- '{{ ApplicationName }}',
- '{{ ComputePlatform }}',
- '{{ Tags }}',
+SELECT
+ '{{ application_name }}',
+ '{{ compute_platform }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,15 +234,14 @@ globals:
 resources:
   - name: application
     props:
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: ComputePlatform
-        value: '{{ ComputePlatform }}'
-      - name: Tags
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: compute_platform
+        value: '{{ compute_platform }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -258,7 +257,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationName>';
+AND Identifier = '{{ application_name }}';
 ```
 
 
@@ -267,7 +266,7 @@ AND Identifier = '<ApplicationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codedeploy.applications
-WHERE Identifier = '<ApplicationName>'
+WHERE Identifier = '{{ application_name }}'
 AND region = 'us-east-1';
 ```
 

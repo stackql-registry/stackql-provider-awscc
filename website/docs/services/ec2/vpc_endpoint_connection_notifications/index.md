@@ -158,7 +158,7 @@ vpc_endpoint_connection_notification_id,
 connection_notification_arn,
 service_id
 FROM awscc.ec2.vpc_endpoint_connection_notifications
-WHERE region = 'us-east-1' AND Identifier = '<VPCEndpointConnectionNotificationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.ec2.vpc_endpoint_connection_notifications (
  ConnectionNotificationArn,
  region
 )
-SELECT 
-'{{ ConnectionEvents }}',
- '{{ ConnectionNotificationArn }}',
+SELECT
+'{{ connection_events }}',
+ '{{ connection_notification_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,11 @@ INSERT INTO awscc.ec2.vpc_endpoint_connection_notifications (
  ServiceId,
  region
 )
-SELECT 
- '{{ ConnectionEvents }}',
- '{{ VPCEndpointId }}',
- '{{ ConnectionNotificationArn }}',
- '{{ ServiceId }}',
+SELECT
+ '{{ connection_events }}',
+ '{{ vpc_endpoint_id }}',
+ '{{ connection_notification_arn }}',
+ '{{ service_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,16 +234,15 @@ globals:
 resources:
   - name: vpc_endpoint_connection_notification
     props:
-      - name: ConnectionEvents
+      - name: connection_events
         value:
-          - '{{ ConnectionEvents[0] }}'
-      - name: VPCEndpointId
-        value: '{{ VPCEndpointId }}'
-      - name: ConnectionNotificationArn
-        value: '{{ ConnectionNotificationArn }}'
-      - name: ServiceId
-        value: '{{ ServiceId }}'
-
+          - '{{ connection_events[0] }}'
+      - name: vpc_endpoint_id
+        value: '{{ vpc_endpoint_id }}'
+      - name: connection_notification_arn
+        value: '{{ connection_notification_arn }}'
+      - name: service_id
+        value: '{{ service_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -260,7 +259,7 @@ SET PatchDocument = string('{{ {
     "ConnectionNotificationArn": connection_notification_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<VPCEndpointConnectionNotificationId>';
+AND Identifier = '{{ vpc_endpoint_connection_notification_id }}';
 ```
 
 
@@ -269,7 +268,7 @@ AND Identifier = '<VPCEndpointConnectionNotificationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_connection_notifications
-WHERE Identifier = '<VPCEndpointConnectionNotificationId>'
+WHERE Identifier = '{{ vpc_endpoint_connection_notification_id }}'
 AND region = 'us-east-1';
 ```
 

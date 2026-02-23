@@ -192,7 +192,7 @@ group_member,
 group_source,
 member_type
 FROM awscc.ec2.transit_gateway_multicast_group_members
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayMulticastDomainId>|<GroupIpAddress>|<NetworkInterfaceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,10 +232,10 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_group_members (
  NetworkInterfaceId,
  region
 )
-SELECT 
-'{{ GroupIpAddress }}',
- '{{ TransitGatewayMulticastDomainId }}',
- '{{ NetworkInterfaceId }}',
+SELECT
+'{{ group_ip_address }}',
+ '{{ transit_gateway_multicast_domain_id }}',
+ '{{ network_interface_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,10 +249,10 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_group_members (
  NetworkInterfaceId,
  region
 )
-SELECT 
- '{{ GroupIpAddress }}',
- '{{ TransitGatewayMulticastDomainId }}',
- '{{ NetworkInterfaceId }}',
+SELECT
+ '{{ group_ip_address }}',
+ '{{ transit_gateway_multicast_domain_id }}',
+ '{{ network_interface_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,13 +270,12 @@ globals:
 resources:
   - name: transit_gateway_multicast_group_member
     props:
-      - name: GroupIpAddress
-        value: '{{ GroupIpAddress }}'
-      - name: TransitGatewayMulticastDomainId
-        value: '{{ TransitGatewayMulticastDomainId }}'
-      - name: NetworkInterfaceId
-        value: '{{ NetworkInterfaceId }}'
-
+      - name: group_ip_address
+        value: '{{ group_ip_address }}'
+      - name: transit_gateway_multicast_domain_id
+        value: '{{ transit_gateway_multicast_domain_id }}'
+      - name: network_interface_id
+        value: '{{ network_interface_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_group_members
-WHERE Identifier = '<TransitGatewayMulticastDomainId|GroupIpAddress|NetworkInterfaceId>'
+WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}|{{ group_ip_address }}|{{ network_interface_id }}'
 AND region = 'us-east-1';
 ```
 

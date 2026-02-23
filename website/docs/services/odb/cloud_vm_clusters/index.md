@@ -367,7 +367,7 @@ tags,
 time_zone,
 vip_ids
 FROM awscc.odb.cloud_vm_clusters
-WHERE region = 'us-east-1' AND Identifier = '<CloudVmClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cloud_vm_cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -422,27 +422,27 @@ INSERT INTO awscc.odb.cloud_vm_clusters (
  TimeZone,
  region
 )
-SELECT 
-'{{ CloudExadataInfrastructureId }}',
- '{{ ClusterName }}',
- '{{ CpuCoreCount }}',
- '{{ DataCollectionOptions }}',
- '{{ DataStorageSizeInTBs }}',
- '{{ DbNodeStorageSizeInGBs }}',
- '{{ DbServers }}',
- '{{ DisplayName }}',
- '{{ GiVersion }}',
- '{{ Hostname }}',
- '{{ IsLocalBackupEnabled }}',
- '{{ IsSparseDiskgroupEnabled }}',
- '{{ LicenseModel }}',
- '{{ MemorySizeInGBs }}',
- '{{ OdbNetworkId }}',
- '{{ ScanListenerPortTcp }}',
- '{{ SshPublicKeys }}',
- '{{ SystemVersion }}',
- '{{ Tags }}',
- '{{ TimeZone }}',
+SELECT
+'{{ cloud_exadata_infrastructure_id }}',
+ '{{ cluster_name }}',
+ '{{ cpu_core_count }}',
+ '{{ data_collection_options }}',
+ '{{ data_storage_size_in_tbs }}',
+ '{{ db_node_storage_size_in_gbs }}',
+ '{{ db_servers }}',
+ '{{ display_name }}',
+ '{{ gi_version }}',
+ '{{ hostname }}',
+ '{{ is_local_backup_enabled }}',
+ '{{ is_sparse_diskgroup_enabled }}',
+ '{{ license_model }}',
+ '{{ memory_size_in_gbs }}',
+ '{{ odb_network_id }}',
+ '{{ scan_listener_port_tcp }}',
+ '{{ ssh_public_keys }}',
+ '{{ system_version }}',
+ '{{ tags }}',
+ '{{ time_zone }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -473,27 +473,27 @@ INSERT INTO awscc.odb.cloud_vm_clusters (
  TimeZone,
  region
 )
-SELECT 
- '{{ CloudExadataInfrastructureId }}',
- '{{ ClusterName }}',
- '{{ CpuCoreCount }}',
- '{{ DataCollectionOptions }}',
- '{{ DataStorageSizeInTBs }}',
- '{{ DbNodeStorageSizeInGBs }}',
- '{{ DbServers }}',
- '{{ DisplayName }}',
- '{{ GiVersion }}',
- '{{ Hostname }}',
- '{{ IsLocalBackupEnabled }}',
- '{{ IsSparseDiskgroupEnabled }}',
- '{{ LicenseModel }}',
- '{{ MemorySizeInGBs }}',
- '{{ OdbNetworkId }}',
- '{{ ScanListenerPortTcp }}',
- '{{ SshPublicKeys }}',
- '{{ SystemVersion }}',
- '{{ Tags }}',
- '{{ TimeZone }}',
+SELECT
+ '{{ cloud_exadata_infrastructure_id }}',
+ '{{ cluster_name }}',
+ '{{ cpu_core_count }}',
+ '{{ data_collection_options }}',
+ '{{ data_storage_size_in_tbs }}',
+ '{{ db_node_storage_size_in_gbs }}',
+ '{{ db_servers }}',
+ '{{ display_name }}',
+ '{{ gi_version }}',
+ '{{ hostname }}',
+ '{{ is_local_backup_enabled }}',
+ '{{ is_sparse_diskgroup_enabled }}',
+ '{{ license_model }}',
+ '{{ memory_size_in_gbs }}',
+ '{{ odb_network_id }}',
+ '{{ scan_listener_port_tcp }}',
+ '{{ ssh_public_keys }}',
+ '{{ system_version }}',
+ '{{ tags }}',
+ '{{ time_zone }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -511,54 +511,53 @@ globals:
 resources:
   - name: cloud_vm_cluster
     props:
-      - name: CloudExadataInfrastructureId
-        value: '{{ CloudExadataInfrastructureId }}'
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: CpuCoreCount
-        value: '{{ CpuCoreCount }}'
-      - name: DataCollectionOptions
+      - name: cloud_exadata_infrastructure_id
+        value: '{{ cloud_exadata_infrastructure_id }}'
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: cpu_core_count
+        value: '{{ cpu_core_count }}'
+      - name: data_collection_options
         value:
-          IsDiagnosticsEventsEnabled: '{{ IsDiagnosticsEventsEnabled }}'
-          IsHealthMonitoringEnabled: '{{ IsHealthMonitoringEnabled }}'
-          IsIncidentLogsEnabled: '{{ IsIncidentLogsEnabled }}'
-      - name: DataStorageSizeInTBs
+          is_diagnostics_events_enabled: '{{ is_diagnostics_events_enabled }}'
+          is_health_monitoring_enabled: '{{ is_health_monitoring_enabled }}'
+          is_incident_logs_enabled: '{{ is_incident_logs_enabled }}'
+      - name: data_storage_size_in_tbs
         value: null
-      - name: DbNodeStorageSizeInGBs
-        value: '{{ DbNodeStorageSizeInGBs }}'
-      - name: DbServers
+      - name: db_node_storage_size_in_gbs
+        value: '{{ db_node_storage_size_in_gbs }}'
+      - name: db_servers
         value:
-          - '{{ DbServers[0] }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: GiVersion
-        value: '{{ GiVersion }}'
-      - name: Hostname
-        value: '{{ Hostname }}'
-      - name: IsLocalBackupEnabled
-        value: '{{ IsLocalBackupEnabled }}'
-      - name: IsSparseDiskgroupEnabled
-        value: '{{ IsSparseDiskgroupEnabled }}'
-      - name: LicenseModel
-        value: '{{ LicenseModel }}'
-      - name: MemorySizeInGBs
-        value: '{{ MemorySizeInGBs }}'
-      - name: OdbNetworkId
-        value: '{{ OdbNetworkId }}'
-      - name: ScanListenerPortTcp
-        value: '{{ ScanListenerPortTcp }}'
-      - name: SshPublicKeys
+          - '{{ db_servers[0] }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: gi_version
+        value: '{{ gi_version }}'
+      - name: hostname
+        value: '{{ hostname }}'
+      - name: is_local_backup_enabled
+        value: '{{ is_local_backup_enabled }}'
+      - name: is_sparse_diskgroup_enabled
+        value: '{{ is_sparse_diskgroup_enabled }}'
+      - name: license_model
+        value: '{{ license_model }}'
+      - name: memory_size_in_gbs
+        value: '{{ memory_size_in_gbs }}'
+      - name: odb_network_id
+        value: '{{ odb_network_id }}'
+      - name: scan_listener_port_tcp
+        value: '{{ scan_listener_port_tcp }}'
+      - name: ssh_public_keys
         value:
-          - '{{ SshPublicKeys[0] }}'
-      - name: SystemVersion
-        value: '{{ SystemVersion }}'
-      - name: Tags
+          - '{{ ssh_public_keys[0] }}'
+      - name: system_version
+        value: '{{ system_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TimeZone
-        value: '{{ TimeZone }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: time_zone
+        value: '{{ time_zone }}'
 ```
 </TabItem>
 </Tabs>
@@ -574,7 +573,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CloudVmClusterArn>';
+AND Identifier = '{{ cloud_vm_cluster_arn }}';
 ```
 
 
@@ -583,7 +582,7 @@ AND Identifier = '<CloudVmClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_vm_clusters
-WHERE Identifier = '<CloudVmClusterArn>'
+WHERE Identifier = '{{ cloud_vm_cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -407,7 +407,7 @@ backup_plan_arn,
 backup_plan_id,
 version_id
 FROM awscc.backup.backup_plans
-WHERE region = 'us-east-1' AND Identifier = '<BackupPlanId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ backup_plan_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -443,8 +443,8 @@ INSERT INTO awscc.backup.backup_plans (
  BackupPlan,
  region
 )
-SELECT 
-'{{ BackupPlan }}',
+SELECT
+'{{ backup_plan }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -457,9 +457,9 @@ INSERT INTO awscc.backup.backup_plans (
  BackupPlanTags,
  region
 )
-SELECT 
- '{{ BackupPlan }}',
- '{{ BackupPlanTags }}',
+SELECT
+ '{{ backup_plan }}',
+ '{{ backup_plan_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -477,34 +477,33 @@ globals:
 resources:
   - name: backup_plan
     props:
-      - name: BackupPlan
+      - name: backup_plan
         value:
-          BackupPlanName: '{{ BackupPlanName }}'
-          AdvancedBackupSettings:
-            - BackupOptions: {}
-              ResourceType: '{{ ResourceType }}'
-          BackupPlanRule:
-            - RuleName: '{{ RuleName }}'
-              TargetBackupVault: '{{ TargetBackupVault }}'
-              StartWindowMinutes: null
-              CompletionWindowMinutes: null
-              ScheduleExpression: '{{ ScheduleExpression }}'
-              ScheduleExpressionTimezone: '{{ ScheduleExpressionTimezone }}'
-              IndexActions:
-                - ResourceTypes:
-                    - '{{ ResourceTypes[0] }}'
-              RecoveryPointTags: {}
-              CopyActions:
-                - Lifecycle:
-                    MoveToColdStorageAfterDays: null
-                    DeleteAfterDays: null
-                    OptInToArchiveForSupportedResources: '{{ OptInToArchiveForSupportedResources }}'
-                  DestinationBackupVaultArn: '{{ DestinationBackupVaultArn }}'
-              Lifecycle: null
-              EnableContinuousBackup: '{{ EnableContinuousBackup }}'
-      - name: BackupPlanTags
+          backup_plan_name: '{{ backup_plan_name }}'
+          advanced_backup_settings:
+            - backup_options: {}
+              resource_type: '{{ resource_type }}'
+          backup_plan_rule:
+            - rule_name: '{{ rule_name }}'
+              target_backup_vault: '{{ target_backup_vault }}'
+              start_window_minutes: null
+              completion_window_minutes: null
+              schedule_expression: '{{ schedule_expression }}'
+              schedule_expression_timezone: '{{ schedule_expression_timezone }}'
+              index_actions:
+                - resource_types:
+                    - '{{ resource_types[0] }}'
+              recovery_point_tags: {}
+              copy_actions:
+                - lifecycle:
+                    move_to_cold_storage_after_days: null
+                    delete_after_days: null
+                    opt_in_to_archive_for_supported_resources: '{{ opt_in_to_archive_for_supported_resources }}'
+                  destination_backup_vault_arn: '{{ destination_backup_vault_arn }}'
+              lifecycle: null
+              enable_continuous_backup: '{{ enable_continuous_backup }}'
+      - name: backup_plan_tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -521,7 +520,7 @@ SET PatchDocument = string('{{ {
     "BackupPlanTags": backup_plan_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BackupPlanId>';
+AND Identifier = '{{ backup_plan_id }}';
 ```
 
 
@@ -530,7 +529,7 @@ AND Identifier = '<BackupPlanId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_plans
-WHERE Identifier = '<BackupPlanId>'
+WHERE Identifier = '{{ backup_plan_id }}'
 AND region = 'us-east-1';
 ```
 

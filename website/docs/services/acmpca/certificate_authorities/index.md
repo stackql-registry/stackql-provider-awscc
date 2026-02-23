@@ -488,7 +488,7 @@ csr_extensions,
 key_storage_security_standard,
 usage_mode
 FROM awscc.acmpca.certificate_authorities
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -527,11 +527,11 @@ INSERT INTO awscc.acmpca.certificate_authorities (
  Subject,
  region
 )
-SELECT 
-'{{ Type }}',
- '{{ KeyAlgorithm }}',
- '{{ SigningAlgorithm }}',
- '{{ Subject }}',
+SELECT
+'{{ type }}',
+ '{{ key_algorithm }}',
+ '{{ signing_algorithm }}',
+ '{{ subject }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -551,16 +551,16 @@ INSERT INTO awscc.acmpca.certificate_authorities (
  UsageMode,
  region
 )
-SELECT 
- '{{ Type }}',
- '{{ KeyAlgorithm }}',
- '{{ SigningAlgorithm }}',
- '{{ Subject }}',
- '{{ RevocationConfiguration }}',
- '{{ Tags }}',
- '{{ CsrExtensions }}',
- '{{ KeyStorageSecurityStandard }}',
- '{{ UsageMode }}',
+SELECT
+ '{{ type }}',
+ '{{ key_algorithm }}',
+ '{{ signing_algorithm }}',
+ '{{ subject }}',
+ '{{ revocation_configuration }}',
+ '{{ tags }}',
+ '{{ csr_extensions }}',
+ '{{ key_storage_security_standard }}',
+ '{{ usage_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -578,84 +578,83 @@ globals:
 resources:
   - name: certificate_authority
     props:
-      - name: Type
-        value: '{{ Type }}'
-      - name: KeyAlgorithm
-        value: '{{ KeyAlgorithm }}'
-      - name: SigningAlgorithm
-        value: '{{ SigningAlgorithm }}'
-      - name: Subject
+      - name: type
+        value: '{{ type }}'
+      - name: key_algorithm
+        value: '{{ key_algorithm }}'
+      - name: signing_algorithm
+        value: '{{ signing_algorithm }}'
+      - name: subject
         value:
-          Country: '{{ Country }}'
-          Organization: '{{ Organization }}'
-          OrganizationalUnit: '{{ OrganizationalUnit }}'
-          DistinguishedNameQualifier: '{{ DistinguishedNameQualifier }}'
-          State: '{{ State }}'
-          CommonName: '{{ CommonName }}'
-          SerialNumber: '{{ SerialNumber }}'
-          Locality: '{{ Locality }}'
-          Title: '{{ Title }}'
-          Surname: '{{ Surname }}'
-          GivenName: '{{ GivenName }}'
-          Initials: '{{ Initials }}'
-          Pseudonym: '{{ Pseudonym }}'
-          GenerationQualifier: '{{ GenerationQualifier }}'
-          CustomAttributes:
-            - ObjectIdentifier: '{{ ObjectIdentifier }}'
-              Value: '{{ Value }}'
-      - name: RevocationConfiguration
+          country: '{{ country }}'
+          organization: '{{ organization }}'
+          organizational_unit: '{{ organizational_unit }}'
+          distinguished_name_qualifier: '{{ distinguished_name_qualifier }}'
+          state: '{{ state }}'
+          common_name: '{{ common_name }}'
+          serial_number: '{{ serial_number }}'
+          locality: '{{ locality }}'
+          title: '{{ title }}'
+          surname: '{{ surname }}'
+          given_name: '{{ given_name }}'
+          initials: '{{ initials }}'
+          pseudonym: '{{ pseudonym }}'
+          generation_qualifier: '{{ generation_qualifier }}'
+          custom_attributes:
+            - object_identifier: '{{ object_identifier }}'
+              value: '{{ value }}'
+      - name: revocation_configuration
         value:
-          CrlConfiguration:
-            Enabled: '{{ Enabled }}'
-            ExpirationInDays: '{{ ExpirationInDays }}'
-            CustomCname: '{{ CustomCname }}'
-            S3BucketName: '{{ S3BucketName }}'
-            S3ObjectAcl: '{{ S3ObjectAcl }}'
-            CrlDistributionPointExtensionConfiguration:
-              OmitExtension: '{{ OmitExtension }}'
-            CrlType: '{{ CrlType }}'
-            CustomPath: '{{ CustomPath }}'
-          OcspConfiguration:
-            Enabled: '{{ Enabled }}'
-            OcspCustomCname: '{{ OcspCustomCname }}'
-      - name: Tags
+          crl_configuration:
+            enabled: '{{ enabled }}'
+            expiration_in_days: '{{ expiration_in_days }}'
+            custom_cname: '{{ custom_cname }}'
+            s3_bucket_name: '{{ s3_bucket_name }}'
+            s3_object_acl: '{{ s3_object_acl }}'
+            crl_distribution_point_extension_configuration:
+              omit_extension: '{{ omit_extension }}'
+            crl_type: '{{ crl_type }}'
+            custom_path: '{{ custom_path }}'
+          ocsp_configuration:
+            enabled: '{{ enabled }}'
+            ocsp_custom_cname: '{{ ocsp_custom_cname }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: CsrExtensions
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: csr_extensions
         value:
-          KeyUsage:
-            DigitalSignature: '{{ DigitalSignature }}'
-            NonRepudiation: '{{ NonRepudiation }}'
-            KeyEncipherment: '{{ KeyEncipherment }}'
-            DataEncipherment: '{{ DataEncipherment }}'
-            KeyAgreement: '{{ KeyAgreement }}'
-            KeyCertSign: '{{ KeyCertSign }}'
-            CRLSign: '{{ CRLSign }}'
-            EncipherOnly: '{{ EncipherOnly }}'
-            DecipherOnly: '{{ DecipherOnly }}'
-          SubjectInformationAccess:
-            - AccessMethod:
-                CustomObjectIdentifier: null
-                AccessMethodType: '{{ AccessMethodType }}'
-              AccessLocation:
-                OtherName:
-                  TypeId: null
-                  Value: '{{ Value }}'
-                Rfc822Name: '{{ Rfc822Name }}'
-                DnsName: '{{ DnsName }}'
-                DirectoryName: null
-                EdiPartyName:
-                  PartyName: '{{ PartyName }}'
-                  NameAssigner: '{{ NameAssigner }}'
-                UniformResourceIdentifier: '{{ UniformResourceIdentifier }}'
-                IpAddress: '{{ IpAddress }}'
-                RegisteredId: null
-      - name: KeyStorageSecurityStandard
-        value: '{{ KeyStorageSecurityStandard }}'
-      - name: UsageMode
-        value: '{{ UsageMode }}'
-
+          key_usage:
+            digital_signature: '{{ digital_signature }}'
+            non_repudiation: '{{ non_repudiation }}'
+            key_encipherment: '{{ key_encipherment }}'
+            data_encipherment: '{{ data_encipherment }}'
+            key_agreement: '{{ key_agreement }}'
+            key_cert_sign: '{{ key_cert_sign }}'
+            c_rl_sign: '{{ c_rl_sign }}'
+            encipher_only: '{{ encipher_only }}'
+            decipher_only: '{{ decipher_only }}'
+          subject_information_access:
+            - access_method:
+                custom_object_identifier: null
+                access_method_type: '{{ access_method_type }}'
+              access_location:
+                other_name:
+                  type_id: null
+                  value: '{{ value }}'
+                rfc822_name: '{{ rfc822_name }}'
+                dns_name: '{{ dns_name }}'
+                directory_name: null
+                edi_party_name:
+                  party_name: '{{ party_name }}'
+                  name_assigner: '{{ name_assigner }}'
+                uniform_resource_identifier: '{{ uniform_resource_identifier }}'
+                ip_address: '{{ ip_address }}'
+                registered_id: null
+      - name: key_storage_security_standard
+        value: '{{ key_storage_security_standard }}'
+      - name: usage_mode
+        value: '{{ usage_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -672,7 +671,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -681,7 +680,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.acmpca.certificate_authorities
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

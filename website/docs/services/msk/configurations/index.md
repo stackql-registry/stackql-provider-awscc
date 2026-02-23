@@ -181,7 +181,7 @@ kafka_versions_list,
 arn,
 latest_revision
 FROM awscc.msk.configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,9 +218,9 @@ INSERT INTO awscc.msk.configurations (
  ServerProperties,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ServerProperties }}',
+SELECT
+'{{ name }}',
+ '{{ server_properties }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -236,12 +236,12 @@ INSERT INTO awscc.msk.configurations (
  LatestRevision,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ ServerProperties }}',
- '{{ KafkaVersionsList }}',
- '{{ LatestRevision }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ server_properties }}',
+ '{{ kafka_versions_list }}',
+ '{{ latest_revision }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,21 +259,20 @@ globals:
 resources:
   - name: configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ServerProperties
-        value: '{{ ServerProperties }}'
-      - name: KafkaVersionsList
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: server_properties
+        value: '{{ server_properties }}'
+      - name: kafka_versions_list
         value:
-          - '{{ KafkaVersionsList[0] }}'
-      - name: LatestRevision
+          - '{{ kafka_versions_list[0] }}'
+      - name: latest_revision
         value:
-          CreationTime: '{{ CreationTime }}'
-          Description: '{{ Description }}'
-          Revision: '{{ Revision }}'
-
+          creation_time: '{{ creation_time }}'
+          description: '{{ description }}'
+          revision: '{{ revision }}'
 ```
 </TabItem>
 </Tabs>
@@ -290,7 +289,7 @@ SET PatchDocument = string('{{ {
     "ServerProperties": server_properties
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -299,7 +298,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

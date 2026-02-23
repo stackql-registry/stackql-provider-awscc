@@ -192,7 +192,7 @@ live_source_name,
 source_location_name,
 tags
 FROM awscc.mediatailor.live_sources
-WHERE region = 'us-east-1' AND Identifier = '<LiveSourceName>|<SourceLocationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ live_source_name }}|{{ source_location_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +231,10 @@ INSERT INTO awscc.mediatailor.live_sources (
  SourceLocationName,
  region
 )
-SELECT 
-'{{ HttpPackageConfigurations }}',
- '{{ LiveSourceName }}',
- '{{ SourceLocationName }}',
+SELECT
+'{{ http_package_configurations }}',
+ '{{ live_source_name }}',
+ '{{ source_location_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,11 +249,11 @@ INSERT INTO awscc.mediatailor.live_sources (
  Tags,
  region
 )
-SELECT 
- '{{ HttpPackageConfigurations }}',
- '{{ LiveSourceName }}',
- '{{ SourceLocationName }}',
- '{{ Tags }}',
+SELECT
+ '{{ http_package_configurations }}',
+ '{{ live_source_name }}',
+ '{{ source_location_name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -271,20 +271,19 @@ globals:
 resources:
   - name: live_source
     props:
-      - name: HttpPackageConfigurations
+      - name: http_package_configurations
         value:
-          - Path: '{{ Path }}'
-            SourceGroup: '{{ SourceGroup }}'
-            Type: '{{ Type }}'
-      - name: LiveSourceName
-        value: '{{ LiveSourceName }}'
-      - name: SourceLocationName
-        value: '{{ SourceLocationName }}'
-      - name: Tags
+          - path: '{{ path }}'
+            source_group: '{{ source_group }}'
+            type: '{{ type }}'
+      - name: live_source_name
+        value: '{{ live_source_name }}'
+      - name: source_location_name
+        value: '{{ source_location_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LiveSourceName>|<SourceLocationName>';
+AND Identifier = '{{ live_source_name }}|{{ source_location_name }}';
 ```
 
 
@@ -310,7 +309,7 @@ AND Identifier = '<LiveSourceName>|<SourceLocationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.live_sources
-WHERE Identifier = '<LiveSourceName|SourceLocationName>'
+WHERE Identifier = '{{ live_source_name }}|{{ source_location_name }}'
 AND region = 'us-east-1';
 ```
 

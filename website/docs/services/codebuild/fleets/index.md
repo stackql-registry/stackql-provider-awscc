@@ -320,7 +320,7 @@ image_id,
 scaling_configuration,
 compute_configuration
 FROM awscc.codebuild.fleets
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -367,19 +367,19 @@ INSERT INTO awscc.codebuild.fleets (
  ComputeConfiguration,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ BaseCapacity }}',
- '{{ EnvironmentType }}',
- '{{ ComputeType }}',
- '{{ OverflowBehavior }}',
- '{{ FleetServiceRole }}',
- '{{ FleetVpcConfig }}',
- '{{ FleetProxyConfiguration }}',
- '{{ Tags }}',
- '{{ ImageId }}',
- '{{ ScalingConfiguration }}',
- '{{ ComputeConfiguration }}',
+SELECT
+'{{ name }}',
+ '{{ base_capacity }}',
+ '{{ environment_type }}',
+ '{{ compute_type }}',
+ '{{ overflow_behavior }}',
+ '{{ fleet_service_role }}',
+ '{{ fleet_vpc_config }}',
+ '{{ fleet_proxy_configuration }}',
+ '{{ tags }}',
+ '{{ image_id }}',
+ '{{ scaling_configuration }}',
+ '{{ compute_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -402,19 +402,19 @@ INSERT INTO awscc.codebuild.fleets (
  ComputeConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ BaseCapacity }}',
- '{{ EnvironmentType }}',
- '{{ ComputeType }}',
- '{{ OverflowBehavior }}',
- '{{ FleetServiceRole }}',
- '{{ FleetVpcConfig }}',
- '{{ FleetProxyConfiguration }}',
- '{{ Tags }}',
- '{{ ImageId }}',
- '{{ ScalingConfiguration }}',
- '{{ ComputeConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ base_capacity }}',
+ '{{ environment_type }}',
+ '{{ compute_type }}',
+ '{{ overflow_behavior }}',
+ '{{ fleet_service_role }}',
+ '{{ fleet_vpc_config }}',
+ '{{ fleet_proxy_configuration }}',
+ '{{ tags }}',
+ '{{ image_id }}',
+ '{{ scaling_configuration }}',
+ '{{ compute_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -432,54 +432,53 @@ globals:
 resources:
   - name: fleet
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: BaseCapacity
-        value: '{{ BaseCapacity }}'
-      - name: EnvironmentType
-        value: '{{ EnvironmentType }}'
-      - name: ComputeType
-        value: '{{ ComputeType }}'
-      - name: OverflowBehavior
-        value: '{{ OverflowBehavior }}'
-      - name: FleetServiceRole
-        value: '{{ FleetServiceRole }}'
-      - name: FleetVpcConfig
+      - name: name
+        value: '{{ name }}'
+      - name: base_capacity
+        value: '{{ base_capacity }}'
+      - name: environment_type
+        value: '{{ environment_type }}'
+      - name: compute_type
+        value: '{{ compute_type }}'
+      - name: overflow_behavior
+        value: '{{ overflow_behavior }}'
+      - name: fleet_service_role
+        value: '{{ fleet_service_role }}'
+      - name: fleet_vpc_config
         value:
-          VpcId: '{{ VpcId }}'
-          Subnets:
-            - '{{ Subnets[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-      - name: FleetProxyConfiguration
+          vpc_id: '{{ vpc_id }}'
+          subnets:
+            - '{{ subnets[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+      - name: fleet_proxy_configuration
         value:
-          DefaultBehavior: '{{ DefaultBehavior }}'
-          OrderedProxyRules:
-            - Type: '{{ Type }}'
-              Effect: '{{ Effect }}'
-              Entities:
-                - '{{ Entities[0] }}'
-      - name: Tags
+          default_behavior: '{{ default_behavior }}'
+          ordered_proxy_rules:
+            - type: '{{ type }}'
+              effect: '{{ effect }}'
+              entities:
+                - '{{ entities[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ImageId
-        value: '{{ ImageId }}'
-      - name: ScalingConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: image_id
+        value: '{{ image_id }}'
+      - name: scaling_configuration
         value:
-          MaxCapacity: '{{ MaxCapacity }}'
-          ScalingType: '{{ ScalingType }}'
-          TargetTrackingScalingConfigs:
-            - MetricType: '{{ MetricType }}'
-              TargetValue: null
-      - name: ComputeConfiguration
+          max_capacity: '{{ max_capacity }}'
+          scaling_type: '{{ scaling_type }}'
+          target_tracking_scaling_configs:
+            - metric_type: '{{ metric_type }}'
+              target_value: null
+      - name: compute_configuration
         value:
-          vCpu: '{{ vCpu }}'
+          v_cpu: '{{ v_cpu }}'
           memory: '{{ memory }}'
           disk: '{{ disk }}'
-          machineType: '{{ machineType }}'
-          instanceType: '{{ instanceType }}'
-
+          machine_type: '{{ machine_type }}'
+          instance_type: '{{ instance_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -506,7 +505,7 @@ SET PatchDocument = string('{{ {
     "ComputeConfiguration": compute_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -515,7 +514,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codebuild.fleets
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -219,7 +219,7 @@ access_grant_arn,
 grantee,
 access_grants_location_configuration
 FROM awscc.s3.access_grants
-WHERE region = 'us-east-1' AND Identifier = '<AccessGrantId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ access_grant_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,10 +257,10 @@ INSERT INTO awscc.s3.access_grants (
  Grantee,
  region
 )
-SELECT 
-'{{ AccessGrantsLocationId }}',
- '{{ Permission }}',
- '{{ Grantee }}',
+SELECT
+'{{ access_grants_location_id }}',
+ '{{ permission }}',
+ '{{ grantee }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -278,14 +278,14 @@ INSERT INTO awscc.s3.access_grants (
  AccessGrantsLocationConfiguration,
  region
 )
-SELECT 
- '{{ AccessGrantsLocationId }}',
- '{{ Tags }}',
- '{{ Permission }}',
- '{{ ApplicationArn }}',
- '{{ S3PrefixType }}',
- '{{ Grantee }}',
- '{{ AccessGrantsLocationConfiguration }}',
+SELECT
+ '{{ access_grants_location_id }}',
+ '{{ tags }}',
+ '{{ permission }}',
+ '{{ application_arn }}',
+ '{{ s3_prefix_type }}',
+ '{{ grantee }}',
+ '{{ access_grants_location_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -303,26 +303,25 @@ globals:
 resources:
   - name: access_grant
     props:
-      - name: AccessGrantsLocationId
-        value: '{{ AccessGrantsLocationId }}'
-      - name: Tags
+      - name: access_grants_location_id
+        value: '{{ access_grants_location_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Permission
-        value: '{{ Permission }}'
-      - name: ApplicationArn
-        value: '{{ ApplicationArn }}'
-      - name: S3PrefixType
-        value: '{{ S3PrefixType }}'
-      - name: Grantee
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: permission
+        value: '{{ permission }}'
+      - name: application_arn
+        value: '{{ application_arn }}'
+      - name: s3_prefix_type
+        value: '{{ s3_prefix_type }}'
+      - name: grantee
         value:
-          GranteeType: '{{ GranteeType }}'
-          GranteeIdentifier: '{{ GranteeIdentifier }}'
-      - name: AccessGrantsLocationConfiguration
+          grantee_type: '{{ grantee_type }}'
+          grantee_identifier: '{{ grantee_identifier }}'
+      - name: access_grants_location_configuration
         value:
-          S3SubPrefix: '{{ S3SubPrefix }}'
-
+          s3_sub_prefix: '{{ s3_sub_prefix }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "AccessGrantsLocationConfiguration": access_grants_location_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccessGrantId>';
+AND Identifier = '{{ access_grant_id }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<AccessGrantId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.access_grants
-WHERE Identifier = '<AccessGrantId>'
+WHERE Identifier = '{{ access_grant_id }}'
 AND region = 'us-east-1';
 ```
 

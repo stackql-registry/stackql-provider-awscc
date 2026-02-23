@@ -156,7 +156,7 @@ volume_id,
 device,
 disassociate_mode
 FROM awscc.workspacesinstances.volume_associations
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceInstanceId>|<VolumeId>|<Device>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.workspacesinstances.volume_associations (
  Device,
  region
 )
-SELECT 
-'{{ WorkspaceInstanceId }}',
- '{{ VolumeId }}',
- '{{ Device }}',
+SELECT
+'{{ workspace_instance_id }}',
+ '{{ volume_id }}',
+ '{{ device }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,11 +214,11 @@ INSERT INTO awscc.workspacesinstances.volume_associations (
  DisassociateMode,
  region
 )
-SELECT 
- '{{ WorkspaceInstanceId }}',
- '{{ VolumeId }}',
- '{{ Device }}',
- '{{ DisassociateMode }}',
+SELECT
+ '{{ workspace_instance_id }}',
+ '{{ volume_id }}',
+ '{{ device }}',
+ '{{ disassociate_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,15 +236,14 @@ globals:
 resources:
   - name: volume_association
     props:
-      - name: WorkspaceInstanceId
-        value: '{{ WorkspaceInstanceId }}'
-      - name: VolumeId
-        value: '{{ VolumeId }}'
-      - name: Device
-        value: '{{ Device }}'
-      - name: DisassociateMode
-        value: '{{ DisassociateMode }}'
-
+      - name: workspace_instance_id
+        value: '{{ workspace_instance_id }}'
+      - name: volume_id
+        value: '{{ volume_id }}'
+      - name: device
+        value: '{{ device }}'
+      - name: disassociate_mode
+        value: '{{ disassociate_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -255,7 +254,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volume_associations
-WHERE Identifier = '<WorkspaceInstanceId|VolumeId|Device>'
+WHERE Identifier = '{{ workspace_instance_id }}|{{ volume_id }}|{{ device }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ reenroll_all_certificate_holders,
 tags,
 template_arn
 FROM awscc.pcaconnectorad.templates
-WHERE region = 'us-east-1' AND Identifier = '<TemplateArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ template_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.pcaconnectorad.templates (
  Name,
  region
 )
-SELECT 
-'{{ ConnectorArn }}',
- '{{ Definition }}',
- '{{ Name }}',
+SELECT
+'{{ connector_arn }}',
+ '{{ definition }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,12 +221,12 @@ INSERT INTO awscc.pcaconnectorad.templates (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectorArn }}',
- '{{ Definition }}',
- '{{ Name }}',
- '{{ ReenrollAllCertificateHolders }}',
- '{{ Tags }}',
+SELECT
+ '{{ connector_arn }}',
+ '{{ definition }}',
+ '{{ name }}',
+ '{{ reenroll_all_certificate_holders }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,17 +244,16 @@ globals:
 resources:
   - name: template
     props:
-      - name: ConnectorArn
-        value: '{{ ConnectorArn }}'
-      - name: Definition
+      - name: connector_arn
+        value: '{{ connector_arn }}'
+      - name: definition
         value: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: ReenrollAllCertificateHolders
-        value: '{{ ReenrollAllCertificateHolders }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: reenroll_all_certificate_holders
+        value: '{{ reenroll_all_certificate_holders }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TemplateArn>';
+AND Identifier = '{{ template_arn }}';
 ```
 
 
@@ -281,7 +280,7 @@ AND Identifier = '<TemplateArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorad.templates
-WHERE Identifier = '<TemplateArn>'
+WHERE Identifier = '{{ template_arn }}'
 AND region = 'us-east-1';
 ```
 

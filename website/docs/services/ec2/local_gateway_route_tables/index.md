@@ -188,7 +188,7 @@ state,
 mode,
 tags
 FROM awscc.ec2.local_gateway_route_tables
-WHERE region = 'us-east-1' AND Identifier = '<LocalGatewayRouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ local_gateway_route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.ec2.local_gateway_route_tables (
  LocalGatewayId,
  region
 )
-SELECT 
-'{{ LocalGatewayId }}',
+SELECT
+'{{ local_gateway_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,10 +239,10 @@ INSERT INTO awscc.ec2.local_gateway_route_tables (
  Tags,
  region
 )
-SELECT 
- '{{ LocalGatewayId }}',
- '{{ Mode }}',
- '{{ Tags }}',
+SELECT
+ '{{ local_gateway_id }}',
+ '{{ mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,15 +260,14 @@ globals:
 resources:
   - name: local_gateway_route_table
     props:
-      - name: LocalGatewayId
-        value: '{{ LocalGatewayId }}'
-      - name: Mode
-        value: '{{ Mode }}'
-      - name: Tags
+      - name: local_gateway_id
+        value: '{{ local_gateway_id }}'
+      - name: mode
+        value: '{{ mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocalGatewayRouteTableId>';
+AND Identifier = '{{ local_gateway_route_table_id }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<LocalGatewayRouteTableId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.local_gateway_route_tables
-WHERE Identifier = '<LocalGatewayRouteTableId>'
+WHERE Identifier = '{{ local_gateway_route_table_id }}'
 AND region = 'us-east-1';
 ```
 

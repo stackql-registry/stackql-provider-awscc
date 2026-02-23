@@ -139,7 +139,7 @@ region,
 route_server_id,
 route_table_id
 FROM awscc.ec2.route_server_propagations
-WHERE region = 'us-east-1' AND Identifier = '<RouteServerId>|<RouteTableId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ route_server_id }}|{{ route_table_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.route_server_propagations (
  RouteTableId,
  region
 )
-SELECT 
-'{{ RouteServerId }}',
- '{{ RouteTableId }}',
+SELECT
+'{{ route_server_id }}',
+ '{{ route_table_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.route_server_propagations (
  RouteTableId,
  region
 )
-SELECT 
- '{{ RouteServerId }}',
- '{{ RouteTableId }}',
+SELECT
+ '{{ route_server_id }}',
+ '{{ route_table_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: route_server_propagation
     props:
-      - name: RouteServerId
-        value: '{{ RouteServerId }}'
-      - name: RouteTableId
-        value: '{{ RouteTableId }}'
-
+      - name: route_server_id
+        value: '{{ route_server_id }}'
+      - name: route_table_id
+        value: '{{ route_table_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.route_server_propagations
-WHERE Identifier = '<RouteServerId|RouteTableId>'
+WHERE Identifier = '{{ route_server_id }}|{{ route_table_id }}'
 AND region = 'us-east-1';
 ```
 

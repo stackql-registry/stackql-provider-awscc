@@ -236,7 +236,7 @@ tags,
 source_views,
 updated_at
 FROM awscc.billing.billing_views
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,9 +273,9 @@ INSERT INTO awscc.billing.billing_views (
  SourceViews,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SourceViews }}',
+SELECT
+'{{ name }}',
+ '{{ source_views }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -291,12 +291,12 @@ INSERT INTO awscc.billing.billing_views (
  SourceViews,
  region
 )
-SELECT 
- '{{ DataFilterExpression }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ SourceViews }}',
+SELECT
+ '{{ data_filter_expression }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ source_views }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -314,28 +314,27 @@ globals:
 resources:
   - name: billing_view
     props:
-      - name: DataFilterExpression
+      - name: data_filter_expression
         value:
-          Dimensions:
-            Key: '{{ Key }}'
-            Values:
-              - '{{ Values[0] }}'
-          Tags:
-            Key: '{{ Key }}'
-            Values:
-              - '{{ Values[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          dimensions:
+            key: '{{ key }}'
+            values:
+              - '{{ values[0] }}'
+          tags:
+            key: '{{ key }}'
+            values:
+              - '{{ values[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SourceViews
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: source_views
         value:
-          - '{{ SourceViews[0] }}'
-
+          - '{{ source_views[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -352,7 +351,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -361,7 +360,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billing.billing_views
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

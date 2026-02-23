@@ -269,7 +269,7 @@ sectional_elements,
 style,
 tags
 FROM awscc.amplifyuibuilder.forms
-WHERE region = 'us-east-1' AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -318,19 +318,19 @@ INSERT INTO awscc.amplifyuibuilder.forms (
  Tags,
  region
 )
-SELECT 
-'{{ AppId }}',
- '{{ Cta }}',
- '{{ DataType }}',
- '{{ EnvironmentName }}',
- '{{ Fields }}',
- '{{ FormActionType }}',
- '{{ LabelDecorator }}',
- '{{ Name }}',
- '{{ SchemaVersion }}',
- '{{ SectionalElements }}',
- '{{ Style }}',
- '{{ Tags }}',
+SELECT
+'{{ app_id }}',
+ '{{ cta }}',
+ '{{ data_type }}',
+ '{{ environment_name }}',
+ '{{ fields }}',
+ '{{ form_action_type }}',
+ '{{ label_decorator }}',
+ '{{ name }}',
+ '{{ schema_version }}',
+ '{{ sectional_elements }}',
+ '{{ style }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -353,19 +353,19 @@ INSERT INTO awscc.amplifyuibuilder.forms (
  Tags,
  region
 )
-SELECT 
- '{{ AppId }}',
- '{{ Cta }}',
- '{{ DataType }}',
- '{{ EnvironmentName }}',
- '{{ Fields }}',
- '{{ FormActionType }}',
- '{{ LabelDecorator }}',
- '{{ Name }}',
- '{{ SchemaVersion }}',
- '{{ SectionalElements }}',
- '{{ Style }}',
- '{{ Tags }}',
+SELECT
+ '{{ app_id }}',
+ '{{ cta }}',
+ '{{ data_type }}',
+ '{{ environment_name }}',
+ '{{ fields }}',
+ '{{ form_action_type }}',
+ '{{ label_decorator }}',
+ '{{ name }}',
+ '{{ schema_version }}',
+ '{{ sectional_elements }}',
+ '{{ style }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -383,43 +383,42 @@ globals:
 resources:
   - name: form
     props:
-      - name: AppId
-        value: '{{ AppId }}'
-      - name: Cta
+      - name: app_id
+        value: '{{ app_id }}'
+      - name: cta
         value:
-          Position: '{{ Position }}'
-          Clear:
-            Excluded: '{{ Excluded }}'
-            Children: '{{ Children }}'
-            Position: null
-          Cancel: null
-          Submit: null
-      - name: DataType
+          position: '{{ position }}'
+          clear:
+            excluded: '{{ excluded }}'
+            children: '{{ children }}'
+            position: null
+          cancel: null
+          submit: null
+      - name: data_type
         value:
-          DataSourceType: '{{ DataSourceType }}'
-          DataTypeName: '{{ DataTypeName }}'
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: Fields
+          data_source_type: '{{ data_source_type }}'
+          data_type_name: '{{ data_type_name }}'
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: fields
         value: {}
-      - name: FormActionType
-        value: '{{ FormActionType }}'
-      - name: LabelDecorator
-        value: '{{ LabelDecorator }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SchemaVersion
-        value: '{{ SchemaVersion }}'
-      - name: SectionalElements
+      - name: form_action_type
+        value: '{{ form_action_type }}'
+      - name: label_decorator
+        value: '{{ label_decorator }}'
+      - name: name
+        value: '{{ name }}'
+      - name: schema_version
+        value: '{{ schema_version }}'
+      - name: sectional_elements
         value: {}
-      - name: Style
+      - name: style
         value:
-          HorizontalGap: null
-          VerticalGap: null
-          OuterPadding: null
-      - name: Tags
+          horizontal_gap: null
+          vertical_gap: null
+          outer_padding: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -444,7 +443,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -453,7 +452,7 @@ AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.forms
-WHERE Identifier = '<AppId|EnvironmentName|Id>'
+WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -159,7 +159,7 @@ bridge_arn,
 flow_source,
 network_source
 FROM awscc.mediaconnect.bridge_sources
-WHERE region = 'us-east-1' AND Identifier = '<BridgeArn>|<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 ## `INSERT` example
@@ -183,9 +183,9 @@ INSERT INTO awscc.mediaconnect.bridge_sources (
  BridgeArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ BridgeArn }}',
+SELECT
+'{{ name }}',
+ '{{ bridge_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -200,11 +200,11 @@ INSERT INTO awscc.mediaconnect.bridge_sources (
  NetworkSource,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ BridgeArn }}',
- '{{ FlowSource }}',
- '{{ NetworkSource }}',
+SELECT
+ '{{ name }}',
+ '{{ bridge_arn }}',
+ '{{ flow_source }}',
+ '{{ network_source }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -222,24 +222,23 @@ globals:
 resources:
   - name: bridge_source
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: BridgeArn
-        value: '{{ BridgeArn }}'
-      - name: FlowSource
+      - name: name
+        value: '{{ name }}'
+      - name: bridge_arn
+        value: '{{ bridge_arn }}'
+      - name: flow_source
         value:
-          FlowArn: '{{ FlowArn }}'
-          FlowVpcInterfaceAttachment:
-            VpcInterfaceName: '{{ VpcInterfaceName }}'
-      - name: NetworkSource
+          flow_arn: '{{ flow_arn }}'
+          flow_vpc_interface_attachment:
+            vpc_interface_name: '{{ vpc_interface_name }}'
+      - name: network_source
         value:
-          Protocol: '{{ Protocol }}'
-          MulticastIp: '{{ MulticastIp }}'
-          MulticastSourceSettings:
-            MulticastSourceIp: '{{ MulticastSourceIp }}'
-          Port: '{{ Port }}'
-          NetworkName: '{{ NetworkName }}'
-
+          protocol: '{{ protocol }}'
+          multicast_ip: '{{ multicast_ip }}'
+          multicast_source_settings:
+            multicast_source_ip: '{{ multicast_source_ip }}'
+          port: '{{ port }}'
+          network_name: '{{ network_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -256,7 +255,7 @@ SET PatchDocument = string('{{ {
     "NetworkSource": network_source
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BridgeArn>|<Name>';
+AND Identifier = '{{ bridge_arn }}|{{ name }}';
 ```
 
 
@@ -265,7 +264,7 @@ AND Identifier = '<BridgeArn>|<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediaconnect.bridge_sources
-WHERE Identifier = '<BridgeArn|Name>'
+WHERE Identifier = '{{ bridge_arn }}|{{ name }}'
 AND region = 'us-east-1';
 ```
 

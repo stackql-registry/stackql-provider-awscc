@@ -151,7 +151,7 @@ description,
 documentation_version,
 rest_api_id
 FROM awscc.apigateway.documentation_versions
-WHERE region = 'us-east-1' AND Identifier = '<DocumentationVersion>|<RestApiId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -189,9 +189,9 @@ INSERT INTO awscc.apigateway.documentation_versions (
  RestApiId,
  region
 )
-SELECT 
-'{{ DocumentationVersion }}',
- '{{ RestApiId }}',
+SELECT
+'{{ documentation_version }}',
+ '{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -205,10 +205,10 @@ INSERT INTO awscc.apigateway.documentation_versions (
  RestApiId,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DocumentationVersion }}',
- '{{ RestApiId }}',
+SELECT
+ '{{ description }}',
+ '{{ documentation_version }}',
+ '{{ rest_api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -226,13 +226,12 @@ globals:
 resources:
   - name: documentation_version
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DocumentationVersion
-        value: '{{ DocumentationVersion }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: documentation_version
+        value: '{{ documentation_version }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -248,7 +247,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DocumentationVersion>|<RestApiId>';
+AND Identifier = '{{ documentation_version }}|{{ rest_api_id }}';
 ```
 
 
@@ -257,7 +256,7 @@ AND Identifier = '<DocumentationVersion>|<RestApiId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.documentation_versions
-WHERE Identifier = '<DocumentationVersion|RestApiId>'
+WHERE Identifier = '{{ documentation_version }}|{{ rest_api_id }}'
 AND region = 'us-east-1';
 ```
 

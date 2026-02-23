@@ -158,7 +158,7 @@ arn,
 collection_id,
 tags
 FROM awscc.rekognition.collections
-WHERE region = 'us-east-1' AND Identifier = '<CollectionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ collection_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.rekognition.collections (
  CollectionId,
  region
 )
-SELECT 
-'{{ CollectionId }}',
+SELECT
+'{{ collection_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,9 +208,9 @@ INSERT INTO awscc.rekognition.collections (
  Tags,
  region
 )
-SELECT 
- '{{ CollectionId }}',
- '{{ Tags }}',
+SELECT
+ '{{ collection_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: collection
     props:
-      - name: CollectionId
-        value: '{{ CollectionId }}'
-      - name: Tags
+      - name: collection_id
+        value: '{{ collection_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -250,7 +249,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CollectionId>';
+AND Identifier = '{{ collection_id }}';
 ```
 
 
@@ -259,7 +258,7 @@ AND Identifier = '<CollectionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rekognition.collections
-WHERE Identifier = '<CollectionId>'
+WHERE Identifier = '{{ collection_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -587,7 +587,7 @@ hls_package,
 mss_package,
 tags
 FROM awscc.mediapackage.packaging_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -624,9 +624,9 @@ INSERT INTO awscc.mediapackage.packaging_configurations (
  PackagingGroupId,
  region
 )
-SELECT 
-'{{ Id }}',
- '{{ PackagingGroupId }}',
+SELECT
+'{{ id }}',
+ '{{ packaging_group_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -644,14 +644,14 @@ INSERT INTO awscc.mediapackage.packaging_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Id }}',
- '{{ PackagingGroupId }}',
- '{{ CmafPackage }}',
- '{{ DashPackage }}',
- '{{ HlsPackage }}',
- '{{ MssPackage }}',
- '{{ Tags }}',
+SELECT
+ '{{ id }}',
+ '{{ packaging_group_id }}',
+ '{{ cmaf_package }}',
+ '{{ dash_package }}',
+ '{{ hls_package }}',
+ '{{ mss_package }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -669,74 +669,73 @@ globals:
 resources:
   - name: packaging_configuration
     props:
-      - name: Id
-        value: '{{ Id }}'
-      - name: PackagingGroupId
-        value: '{{ PackagingGroupId }}'
-      - name: CmafPackage
+      - name: id
+        value: '{{ id }}'
+      - name: packaging_group_id
+        value: '{{ packaging_group_id }}'
+      - name: cmaf_package
         value:
-          Encryption:
-            SpekeKeyProvider:
-              EncryptionContractConfiguration:
-                PresetSpeke20Audio: '{{ PresetSpeke20Audio }}'
-                PresetSpeke20Video: '{{ PresetSpeke20Video }}'
-              RoleArn: '{{ RoleArn }}'
-              SystemIds:
-                - '{{ SystemIds[0] }}'
-              Url: '{{ Url }}'
-          HlsManifests:
-            - AdMarkers: '{{ AdMarkers }}'
-              IncludeIframeOnlyStream: '{{ IncludeIframeOnlyStream }}'
-              ManifestName: '{{ ManifestName }}'
-              ProgramDateTimeIntervalSeconds: '{{ ProgramDateTimeIntervalSeconds }}'
-              RepeatExtXKey: '{{ RepeatExtXKey }}'
-              StreamSelection:
-                MaxVideoBitsPerSecond: '{{ MaxVideoBitsPerSecond }}'
-                MinVideoBitsPerSecond: '{{ MinVideoBitsPerSecond }}'
-                StreamOrder: '{{ StreamOrder }}'
-          SegmentDurationSeconds: '{{ SegmentDurationSeconds }}'
-          IncludeEncoderConfigurationInSegments: '{{ IncludeEncoderConfigurationInSegments }}'
-      - name: DashPackage
+          encryption:
+            speke_key_provider:
+              encryption_contract_configuration:
+                preset_speke20_audio: '{{ preset_speke20_audio }}'
+                preset_speke20_video: '{{ preset_speke20_video }}'
+              role_arn: '{{ role_arn }}'
+              system_ids:
+                - '{{ system_ids[0] }}'
+              url: '{{ url }}'
+          hls_manifests:
+            - ad_markers: '{{ ad_markers }}'
+              include_iframe_only_stream: '{{ include_iframe_only_stream }}'
+              manifest_name: '{{ manifest_name }}'
+              program_date_time_interval_seconds: '{{ program_date_time_interval_seconds }}'
+              repeat_ext_xkey: '{{ repeat_ext_xkey }}'
+              stream_selection:
+                max_video_bits_per_second: '{{ max_video_bits_per_second }}'
+                min_video_bits_per_second: '{{ min_video_bits_per_second }}'
+                stream_order: '{{ stream_order }}'
+          segment_duration_seconds: '{{ segment_duration_seconds }}'
+          include_encoder_configuration_in_segments: '{{ include_encoder_configuration_in_segments }}'
+      - name: dash_package
         value:
-          DashManifests:
-            - ManifestLayout: '{{ ManifestLayout }}'
-              ManifestName: null
-              MinBufferTimeSeconds: '{{ MinBufferTimeSeconds }}'
-              Profile: '{{ Profile }}'
-              ScteMarkersSource: '{{ ScteMarkersSource }}'
-              StreamSelection: null
-          Encryption:
-            SpekeKeyProvider: null
-          PeriodTriggers:
-            - '{{ PeriodTriggers[0] }}'
-          SegmentDurationSeconds: null
-          SegmentTemplateFormat: '{{ SegmentTemplateFormat }}'
-          IncludeEncoderConfigurationInSegments: '{{ IncludeEncoderConfigurationInSegments }}'
-          IncludeIframeOnlyStream: '{{ IncludeIframeOnlyStream }}'
-      - name: HlsPackage
+          dash_manifests:
+            - manifest_layout: '{{ manifest_layout }}'
+              manifest_name: null
+              min_buffer_time_seconds: '{{ min_buffer_time_seconds }}'
+              profile: '{{ profile }}'
+              scte_markers_source: '{{ scte_markers_source }}'
+              stream_selection: null
+          encryption:
+            speke_key_provider: null
+          period_triggers:
+            - '{{ period_triggers[0] }}'
+          segment_duration_seconds: null
+          segment_template_format: '{{ segment_template_format }}'
+          include_encoder_configuration_in_segments: '{{ include_encoder_configuration_in_segments }}'
+          include_iframe_only_stream: '{{ include_iframe_only_stream }}'
+      - name: hls_package
         value:
-          Encryption:
-            ConstantInitializationVector: '{{ ConstantInitializationVector }}'
-            EncryptionMethod: '{{ EncryptionMethod }}'
-            SpekeKeyProvider: null
-          HlsManifests:
+          encryption:
+            constant_initialization_vector: '{{ constant_initialization_vector }}'
+            encryption_method: '{{ encryption_method }}'
+            speke_key_provider: null
+          hls_manifests:
             - null
-          IncludeDvbSubtitles: '{{ IncludeDvbSubtitles }}'
-          SegmentDurationSeconds: null
-          UseAudioRenditionGroup: '{{ UseAudioRenditionGroup }}'
-      - name: MssPackage
+          include_dvb_subtitles: '{{ include_dvb_subtitles }}'
+          segment_duration_seconds: null
+          use_audio_rendition_group: '{{ use_audio_rendition_group }}'
+      - name: mss_package
         value:
-          Encryption:
-            SpekeKeyProvider: null
-          MssManifests:
-            - ManifestName: null
-              StreamSelection: null
-          SegmentDurationSeconds: null
-      - name: Tags
+          encryption:
+            speke_key_provider: null
+          mss_manifests:
+            - manifest_name: null
+              stream_selection: null
+          segment_duration_seconds: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -747,7 +746,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackage.packaging_configurations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

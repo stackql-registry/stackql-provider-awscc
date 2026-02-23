@@ -318,7 +318,7 @@ summary_configuration,
 description,
 tags
 FROM awscc.networkfirewall.rule_groups
-WHERE region = 'us-east-1' AND Identifier = '<RuleGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -356,10 +356,10 @@ INSERT INTO awscc.networkfirewall.rule_groups (
  Capacity,
  region
 )
-SELECT 
-'{{ RuleGroupName }}',
- '{{ Type }}',
- '{{ Capacity }}',
+SELECT
+'{{ rule_group_name }}',
+ '{{ type }}',
+ '{{ capacity }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -377,14 +377,14 @@ INSERT INTO awscc.networkfirewall.rule_groups (
  Tags,
  region
 )
-SELECT 
- '{{ RuleGroupName }}',
- '{{ RuleGroup }}',
- '{{ Type }}',
- '{{ Capacity }}',
- '{{ SummaryConfiguration }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_group_name }}',
+ '{{ rule_group }}',
+ '{{ type }}',
+ '{{ capacity }}',
+ '{{ summary_configuration }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -402,35 +402,34 @@ globals:
 resources:
   - name: rule_group
     props:
-      - name: RuleGroupName
-        value: '{{ RuleGroupName }}'
-      - name: RuleGroup
+      - name: rule_group_name
+        value: '{{ rule_group_name }}'
+      - name: rule_group
         value:
-          RuleGroupName: '{{ RuleGroupName }}'
-          RuleGroup: null
-          Type: '{{ Type }}'
-          Capacity: '{{ Capacity }}'
-          SummaryConfiguration:
-            RuleOptions:
-              - '{{ RuleOptions[0] }}'
-          Description: '{{ Description }}'
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Capacity
-        value: '{{ Capacity }}'
-      - name: SummaryConfiguration
+          rule_group_name: '{{ rule_group_name }}'
+          rule_group: null
+          type: '{{ type }}'
+          capacity: '{{ capacity }}'
+          summary_configuration:
+            rule_options:
+              - '{{ rule_options[0] }}'
+          description: '{{ description }}'
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
+      - name: capacity
+        value: '{{ capacity }}'
+      - name: summary_configuration
         value:
-          RuleOptions:
+          rule_options:
             - null
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -449,7 +448,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleGroupArn>';
+AND Identifier = '{{ rule_group_arn }}';
 ```
 
 
@@ -458,7 +457,7 @@ AND Identifier = '<RuleGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.rule_groups
-WHERE Identifier = '<RuleGroupArn>'
+WHERE Identifier = '{{ rule_group_arn }}'
 AND region = 'us-east-1';
 ```
 

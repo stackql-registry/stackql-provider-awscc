@@ -751,7 +751,7 @@ task_definition,
 service_name,
 deployment_configuration
 FROM awscc.ecs.services
-WHERE region = 'us-east-1' AND Identifier = '<ServiceArn>|<Cluster>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_arn }}|{{ cluster }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -813,33 +813,33 @@ INSERT INTO awscc.ecs.services (
  DeploymentConfiguration,
  region
 )
-SELECT 
-'{{ PlatformVersion }}',
- '{{ PropagateTags }}',
- '{{ PlacementStrategies }}',
- '{{ ServiceRegistries }}',
- '{{ VolumeConfigurations }}',
- '{{ CapacityProviderStrategy }}',
- '{{ LaunchType }}',
- '{{ AvailabilityZoneRebalancing }}',
- '{{ SchedulingStrategy }}',
- '{{ NetworkConfiguration }}',
- '{{ Tags }}',
- '{{ ForceNewDeployment }}',
- '{{ HealthCheckGracePeriodSeconds }}',
- '{{ EnableECSManagedTags }}',
- '{{ EnableExecuteCommand }}',
- '{{ PlacementConstraints }}',
- '{{ Cluster }}',
- '{{ LoadBalancers }}',
- '{{ ServiceConnectConfiguration }}',
- '{{ DesiredCount }}',
- '{{ VpcLatticeConfigurations }}',
- '{{ DeploymentController }}',
- '{{ Role }}',
- '{{ TaskDefinition }}',
- '{{ ServiceName }}',
- '{{ DeploymentConfiguration }}',
+SELECT
+'{{ platform_version }}',
+ '{{ propagate_tags }}',
+ '{{ placement_strategies }}',
+ '{{ service_registries }}',
+ '{{ volume_configurations }}',
+ '{{ capacity_provider_strategy }}',
+ '{{ launch_type }}',
+ '{{ availability_zone_rebalancing }}',
+ '{{ scheduling_strategy }}',
+ '{{ network_configuration }}',
+ '{{ tags }}',
+ '{{ force_new_deployment }}',
+ '{{ health_check_grace_period_seconds }}',
+ '{{ enable_ecs_managed_tags }}',
+ '{{ enable_execute_command }}',
+ '{{ placement_constraints }}',
+ '{{ cluster }}',
+ '{{ load_balancers }}',
+ '{{ service_connect_configuration }}',
+ '{{ desired_count }}',
+ '{{ vpc_lattice_configurations }}',
+ '{{ deployment_controller }}',
+ '{{ role }}',
+ '{{ task_definition }}',
+ '{{ service_name }}',
+ '{{ deployment_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -876,33 +876,33 @@ INSERT INTO awscc.ecs.services (
  DeploymentConfiguration,
  region
 )
-SELECT 
- '{{ PlatformVersion }}',
- '{{ PropagateTags }}',
- '{{ PlacementStrategies }}',
- '{{ ServiceRegistries }}',
- '{{ VolumeConfigurations }}',
- '{{ CapacityProviderStrategy }}',
- '{{ LaunchType }}',
- '{{ AvailabilityZoneRebalancing }}',
- '{{ SchedulingStrategy }}',
- '{{ NetworkConfiguration }}',
- '{{ Tags }}',
- '{{ ForceNewDeployment }}',
- '{{ HealthCheckGracePeriodSeconds }}',
- '{{ EnableECSManagedTags }}',
- '{{ EnableExecuteCommand }}',
- '{{ PlacementConstraints }}',
- '{{ Cluster }}',
- '{{ LoadBalancers }}',
- '{{ ServiceConnectConfiguration }}',
- '{{ DesiredCount }}',
- '{{ VpcLatticeConfigurations }}',
- '{{ DeploymentController }}',
- '{{ Role }}',
- '{{ TaskDefinition }}',
- '{{ ServiceName }}',
- '{{ DeploymentConfiguration }}',
+SELECT
+ '{{ platform_version }}',
+ '{{ propagate_tags }}',
+ '{{ placement_strategies }}',
+ '{{ service_registries }}',
+ '{{ volume_configurations }}',
+ '{{ capacity_provider_strategy }}',
+ '{{ launch_type }}',
+ '{{ availability_zone_rebalancing }}',
+ '{{ scheduling_strategy }}',
+ '{{ network_configuration }}',
+ '{{ tags }}',
+ '{{ force_new_deployment }}',
+ '{{ health_check_grace_period_seconds }}',
+ '{{ enable_ecs_managed_tags }}',
+ '{{ enable_execute_command }}',
+ '{{ placement_constraints }}',
+ '{{ cluster }}',
+ '{{ load_balancers }}',
+ '{{ service_connect_configuration }}',
+ '{{ desired_count }}',
+ '{{ vpc_lattice_configurations }}',
+ '{{ deployment_controller }}',
+ '{{ role }}',
+ '{{ task_definition }}',
+ '{{ service_name }}',
+ '{{ deployment_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -920,149 +920,148 @@ globals:
 resources:
   - name: service
     props:
-      - name: PlatformVersion
-        value: '{{ PlatformVersion }}'
-      - name: PropagateTags
-        value: '{{ PropagateTags }}'
-      - name: PlacementStrategies
+      - name: platform_version
+        value: '{{ platform_version }}'
+      - name: propagate_tags
+        value: '{{ propagate_tags }}'
+      - name: placement_strategies
         value:
-          - Field: '{{ Field }}'
-            Type: '{{ Type }}'
-      - name: ServiceRegistries
+          - field: '{{ field }}'
+            type: '{{ type }}'
+      - name: service_registries
         value:
-          - ContainerName: '{{ ContainerName }}'
-            Port: '{{ Port }}'
-            ContainerPort: '{{ ContainerPort }}'
-            RegistryArn: '{{ RegistryArn }}'
-      - name: VolumeConfigurations
+          - container_name: '{{ container_name }}'
+            port: '{{ port }}'
+            container_port: '{{ container_port }}'
+            registry_arn: '{{ registry_arn }}'
+      - name: volume_configurations
         value:
-          - ManagedEBSVolume:
-              SnapshotId: '{{ SnapshotId }}'
-              VolumeType: '{{ VolumeType }}'
-              KmsKeyId: '{{ KmsKeyId }}'
-              TagSpecifications:
-                - PropagateTags: '{{ PropagateTags }}'
-                  ResourceType: '{{ ResourceType }}'
-                  Tags:
-                    - Value: '{{ Value }}'
-                      Key: '{{ Key }}'
-              FilesystemType: '{{ FilesystemType }}'
-              Encrypted: '{{ Encrypted }}'
-              Throughput: '{{ Throughput }}'
-              VolumeInitializationRate: '{{ VolumeInitializationRate }}'
-              Iops: '{{ Iops }}'
-              SizeInGiB: '{{ SizeInGiB }}'
-              RoleArn: '{{ RoleArn }}'
-            Name: '{{ Name }}'
-      - name: CapacityProviderStrategy
+          - managed_ebs_volume:
+              snapshot_id: '{{ snapshot_id }}'
+              volume_type: '{{ volume_type }}'
+              kms_key_id: '{{ kms_key_id }}'
+              tag_specifications:
+                - propagate_tags: '{{ propagate_tags }}'
+                  resource_type: '{{ resource_type }}'
+                  tags:
+                    - value: '{{ value }}'
+                      key: '{{ key }}'
+              filesystem_type: '{{ filesystem_type }}'
+              encrypted: '{{ encrypted }}'
+              throughput: '{{ throughput }}'
+              volume_initialization_rate: '{{ volume_initialization_rate }}'
+              iops: '{{ iops }}'
+              size_in_gi_b: '{{ size_in_gi_b }}'
+              role_arn: '{{ role_arn }}'
+            name: '{{ name }}'
+      - name: capacity_provider_strategy
         value:
-          - CapacityProvider: '{{ CapacityProvider }}'
-            Base: '{{ Base }}'
-            Weight: '{{ Weight }}'
-      - name: LaunchType
-        value: '{{ LaunchType }}'
-      - name: AvailabilityZoneRebalancing
-        value: '{{ AvailabilityZoneRebalancing }}'
-      - name: SchedulingStrategy
-        value: '{{ SchedulingStrategy }}'
-      - name: NetworkConfiguration
+          - capacity_provider: '{{ capacity_provider }}'
+            base: '{{ base }}'
+            weight: '{{ weight }}'
+      - name: launch_type
+        value: '{{ launch_type }}'
+      - name: availability_zone_rebalancing
+        value: '{{ availability_zone_rebalancing }}'
+      - name: scheduling_strategy
+        value: '{{ scheduling_strategy }}'
+      - name: network_configuration
         value:
-          AwsVpcConfiguration:
-            SecurityGroups:
-              - '{{ SecurityGroups[0] }}'
-            Subnets:
-              - '{{ Subnets[0] }}'
-            AssignPublicIp: '{{ AssignPublicIp }}'
-      - name: Tags
+          aws_vpc_configuration:
+            security_groups:
+              - '{{ security_groups[0] }}'
+            subnets:
+              - '{{ subnets[0] }}'
+            assign_public_ip: '{{ assign_public_ip }}'
+      - name: tags
         value:
           - null
-      - name: ForceNewDeployment
+      - name: force_new_deployment
         value:
-          EnableForceNewDeployment: '{{ EnableForceNewDeployment }}'
-          ForceNewDeploymentNonce: '{{ ForceNewDeploymentNonce }}'
-      - name: HealthCheckGracePeriodSeconds
-        value: '{{ HealthCheckGracePeriodSeconds }}'
-      - name: EnableECSManagedTags
-        value: '{{ EnableECSManagedTags }}'
-      - name: EnableExecuteCommand
-        value: '{{ EnableExecuteCommand }}'
-      - name: PlacementConstraints
+          enable_force_new_deployment: '{{ enable_force_new_deployment }}'
+          force_new_deployment_nonce: '{{ force_new_deployment_nonce }}'
+      - name: health_check_grace_period_seconds
+        value: '{{ health_check_grace_period_seconds }}'
+      - name: enable_ecs_managed_tags
+        value: '{{ enable_ecs_managed_tags }}'
+      - name: enable_execute_command
+        value: '{{ enable_execute_command }}'
+      - name: placement_constraints
         value:
-          - Type: '{{ Type }}'
-            Expression: '{{ Expression }}'
-      - name: Cluster
-        value: '{{ Cluster }}'
-      - name: LoadBalancers
+          - type: '{{ type }}'
+            expression: '{{ expression }}'
+      - name: cluster
+        value: '{{ cluster }}'
+      - name: load_balancers
         value:
-          - TargetGroupArn: '{{ TargetGroupArn }}'
-            ContainerName: '{{ ContainerName }}'
-            ContainerPort: '{{ ContainerPort }}'
-      - name: ServiceConnectConfiguration
+          - target_group_arn: '{{ target_group_arn }}'
+            container_name: '{{ container_name }}'
+            container_port: '{{ container_port }}'
+      - name: service_connect_configuration
         value:
-          Services:
-            - Timeout:
-                PerRequestTimeoutSeconds: '{{ PerRequestTimeoutSeconds }}'
-                IdleTimeoutSeconds: '{{ IdleTimeoutSeconds }}'
-              IngressPortOverride: '{{ IngressPortOverride }}'
-              ClientAliases:
-                - DnsName: '{{ DnsName }}'
-                  TestTrafficRules:
-                    Header:
-                      Value:
-                        Exact: '{{ Exact }}'
-                      Name: '{{ Name }}'
-                  Port: '{{ Port }}'
-              Tls:
-                IssuerCertificateAuthority:
-                  AwsPcaAuthorityArn: '{{ AwsPcaAuthorityArn }}'
-                KmsKey: '{{ KmsKey }}'
-                RoleArn: '{{ RoleArn }}'
-              DiscoveryName: '{{ DiscoveryName }}'
-              PortName: '{{ PortName }}'
-          Enabled: '{{ Enabled }}'
-          LogConfiguration:
-            SecretOptions:
-              - ValueFrom: '{{ ValueFrom }}'
-                Name: '{{ Name }}'
-            Options: {}
-            LogDriver: '{{ LogDriver }}'
-          Namespace: '{{ Namespace }}'
-      - name: DesiredCount
-        value: '{{ DesiredCount }}'
-      - name: VpcLatticeConfigurations
+          services:
+            - timeout:
+                per_request_timeout_seconds: '{{ per_request_timeout_seconds }}'
+                idle_timeout_seconds: '{{ idle_timeout_seconds }}'
+              ingress_port_override: '{{ ingress_port_override }}'
+              client_aliases:
+                - dns_name: '{{ dns_name }}'
+                  test_traffic_rules:
+                    header:
+                      value:
+                        exact: '{{ exact }}'
+                      name: '{{ name }}'
+                  port: '{{ port }}'
+              tls:
+                issuer_certificate_authority:
+                  aws_pca_authority_arn: '{{ aws_pca_authority_arn }}'
+                kms_key: '{{ kms_key }}'
+                role_arn: '{{ role_arn }}'
+              discovery_name: '{{ discovery_name }}'
+              port_name: '{{ port_name }}'
+          enabled: '{{ enabled }}'
+          log_configuration:
+            secret_options:
+              - value_from: '{{ value_from }}'
+                name: '{{ name }}'
+            options: {}
+            log_driver: '{{ log_driver }}'
+          namespace: '{{ namespace }}'
+      - name: desired_count
+        value: '{{ desired_count }}'
+      - name: vpc_lattice_configurations
         value:
-          - TargetGroupArn: '{{ TargetGroupArn }}'
-            PortName: '{{ PortName }}'
-            RoleArn: '{{ RoleArn }}'
-      - name: DeploymentController
+          - target_group_arn: '{{ target_group_arn }}'
+            port_name: '{{ port_name }}'
+            role_arn: '{{ role_arn }}'
+      - name: deployment_controller
         value:
-          Type: '{{ Type }}'
-      - name: Role
-        value: '{{ Role }}'
-      - name: TaskDefinition
-        value: '{{ TaskDefinition }}'
-      - name: ServiceName
-        value: '{{ ServiceName }}'
-      - name: DeploymentConfiguration
+          type: '{{ type }}'
+      - name: role
+        value: '{{ role }}'
+      - name: task_definition
+        value: '{{ task_definition }}'
+      - name: service_name
+        value: '{{ service_name }}'
+      - name: deployment_configuration
         value:
-          BakeTimeInMinutes: '{{ BakeTimeInMinutes }}'
-          LifecycleHooks:
-            - LifecycleStages:
-                - '{{ LifecycleStages[0] }}'
-              HookTargetArn: '{{ HookTargetArn }}'
-              RoleArn: '{{ RoleArn }}'
-          Alarms:
-            AlarmNames:
-              - '{{ AlarmNames[0] }}'
-            Enable: '{{ Enable }}'
-            Rollback: '{{ Rollback }}'
-          Strategy: '{{ Strategy }}'
-          DeploymentCircuitBreaker:
-            Enable: '{{ Enable }}'
-            Rollback: '{{ Rollback }}'
-          MaximumPercent: '{{ MaximumPercent }}'
-          MinimumHealthyPercent: '{{ MinimumHealthyPercent }}'
-
+          bake_time_in_minutes: '{{ bake_time_in_minutes }}'
+          lifecycle_hooks:
+            - lifecycle_stages:
+                - '{{ lifecycle_stages[0] }}'
+              hook_target_arn: '{{ hook_target_arn }}'
+              role_arn: '{{ role_arn }}'
+          alarms:
+            alarm_names:
+              - '{{ alarm_names[0] }}'
+            enable: '{{ enable }}'
+            rollback: '{{ rollback }}'
+          strategy: '{{ strategy }}'
+          deployment_circuit_breaker:
+            enable: '{{ enable }}'
+            rollback: '{{ rollback }}'
+          maximum_percent: '{{ maximum_percent }}'
+          minimum_healthy_percent: '{{ minimum_healthy_percent }}'
 ```
 </TabItem>
 </Tabs>
@@ -1098,7 +1097,7 @@ SET PatchDocument = string('{{ {
     "DeploymentConfiguration": deployment_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceArn>|<Cluster>';
+AND Identifier = '{{ service_arn }}|{{ cluster }}';
 ```
 
 
@@ -1107,7 +1106,7 @@ AND Identifier = '<ServiceArn>|<Cluster>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ecs.services
-WHERE Identifier = '<ServiceArn|Cluster>'
+WHERE Identifier = '{{ service_arn }}|{{ cluster }}'
 AND region = 'us-east-1';
 ```
 

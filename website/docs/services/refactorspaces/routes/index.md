@@ -244,7 +244,7 @@ default_route,
 uri_path_route,
 tags
 FROM awscc.refactorspaces.routes
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,11 +285,11 @@ INSERT INTO awscc.refactorspaces.routes (
  ServiceIdentifier,
  region
 )
-SELECT 
-'{{ ApplicationIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ RouteType }}',
- '{{ ServiceIdentifier }}',
+SELECT
+'{{ application_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ route_type }}',
+ '{{ service_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -307,14 +307,14 @@ INSERT INTO awscc.refactorspaces.routes (
  Tags,
  region
 )
-SELECT 
- '{{ ApplicationIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ RouteType }}',
- '{{ ServiceIdentifier }}',
- '{{ DefaultRoute }}',
- '{{ UriPathRoute }}',
- '{{ Tags }}',
+SELECT
+ '{{ application_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ route_type }}',
+ '{{ service_identifier }}',
+ '{{ default_route }}',
+ '{{ uri_path_route }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -332,30 +332,29 @@ globals:
 resources:
   - name: route
     props:
-      - name: ApplicationIdentifier
-        value: '{{ ApplicationIdentifier }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: RouteType
-        value: '{{ RouteType }}'
-      - name: ServiceIdentifier
-        value: '{{ ServiceIdentifier }}'
-      - name: DefaultRoute
+      - name: application_identifier
+        value: '{{ application_identifier }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: route_type
+        value: '{{ route_type }}'
+      - name: service_identifier
+        value: '{{ service_identifier }}'
+      - name: default_route
         value:
-          ActivationState: '{{ ActivationState }}'
-      - name: UriPathRoute
+          activation_state: '{{ activation_state }}'
+      - name: uri_path_route
         value:
-          SourcePath: '{{ SourcePath }}'
-          ActivationState: null
-          Methods:
-            - '{{ Methods[0] }}'
-          IncludeChildPaths: '{{ IncludeChildPaths }}'
-          AppendSourcePath: '{{ AppendSourcePath }}'
-      - name: Tags
+          source_path: '{{ source_path }}'
+          activation_state: null
+          methods:
+            - '{{ methods[0] }}'
+          include_child_paths: '{{ include_child_paths }}'
+          append_source_path: '{{ append_source_path }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -372,7 +371,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifier>';
+AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}';
 ```
 
 
@@ -381,7 +380,7 @@ AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>|<RouteIdentifi
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.routes
-WHERE Identifier = '<EnvironmentIdentifier|ApplicationIdentifier|RouteIdentifier>'
+WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}|{{ route_identifier }}'
 AND region = 'us-east-1';
 ```
 

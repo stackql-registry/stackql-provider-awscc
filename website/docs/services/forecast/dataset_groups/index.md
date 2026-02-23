@@ -170,7 +170,7 @@ domain,
 tags,
 dataset_group_arn
 FROM awscc.forecast.dataset_groups
-WHERE region = 'us-east-1' AND Identifier = '<DatasetGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dataset_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.forecast.dataset_groups (
  Domain,
  region
 )
-SELECT 
-'{{ DatasetGroupName }}',
- '{{ Domain }}',
+SELECT
+'{{ dataset_group_name }}',
+ '{{ domain }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,11 @@ INSERT INTO awscc.forecast.dataset_groups (
  Tags,
  region
 )
-SELECT 
- '{{ DatasetArns }}',
- '{{ DatasetGroupName }}',
- '{{ Domain }}',
- '{{ Tags }}',
+SELECT
+ '{{ dataset_arns }}',
+ '{{ dataset_group_name }}',
+ '{{ domain }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,18 +246,17 @@ globals:
 resources:
   - name: dataset_group
     props:
-      - name: DatasetArns
+      - name: dataset_arns
         value:
-          - '{{ DatasetArns[0] }}'
-      - name: DatasetGroupName
-        value: '{{ DatasetGroupName }}'
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: Tags
+          - '{{ dataset_arns[0] }}'
+      - name: dataset_group_name
+        value: '{{ dataset_group_name }}'
+      - name: domain
+        value: '{{ domain }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatasetGroupArn>';
+AND Identifier = '{{ dataset_group_arn }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<DatasetGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.forecast.dataset_groups
-WHERE Identifier = '<DatasetGroupArn>'
+WHERE Identifier = '{{ dataset_group_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -260,7 +260,7 @@ action_params,
 mitigation_action_arn,
 mitigation_action_id
 FROM awscc.iot.mitigation_actions
-WHERE region = 'us-east-1' AND Identifier = '<ActionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ action_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -297,9 +297,9 @@ INSERT INTO awscc.iot.mitigation_actions (
  ActionParams,
  region
 )
-SELECT 
-'{{ RoleArn }}',
- '{{ ActionParams }}',
+SELECT
+'{{ role_arn }}',
+ '{{ action_params }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -314,11 +314,11 @@ INSERT INTO awscc.iot.mitigation_actions (
  ActionParams,
  region
 )
-SELECT 
- '{{ ActionName }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ ActionParams }}',
+SELECT
+ '{{ action_name }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ action_params }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,32 +336,31 @@ globals:
 resources:
   - name: mitigation_action
     props:
-      - name: ActionName
-        value: '{{ ActionName }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+      - name: action_name
+        value: '{{ action_name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ActionParams
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: action_params
         value:
-          AddThingsToThingGroupParams:
-            OverrideDynamicGroups: '{{ OverrideDynamicGroups }}'
-            ThingGroupNames:
-              - '{{ ThingGroupNames[0] }}'
-          EnableIoTLoggingParams:
-            LogLevel: '{{ LogLevel }}'
-            RoleArnForLogging: '{{ RoleArnForLogging }}'
-          PublishFindingToSnsParams:
-            TopicArn: '{{ TopicArn }}'
-          ReplaceDefaultPolicyVersionParams:
-            TemplateName: '{{ TemplateName }}'
-          UpdateCACertificateParams:
-            Action: '{{ Action }}'
-          UpdateDeviceCertificateParams:
-            Action: '{{ Action }}'
-
+          add_things_to_thing_group_params:
+            override_dynamic_groups: '{{ override_dynamic_groups }}'
+            thing_group_names:
+              - '{{ thing_group_names[0] }}'
+          enable_io_tlogging_params:
+            log_level: '{{ log_level }}'
+            role_arn_for_logging: '{{ role_arn_for_logging }}'
+          publish_finding_to_sns_params:
+            topic_arn: '{{ topic_arn }}'
+          replace_default_policy_version_params:
+            template_name: '{{ template_name }}'
+          update_ca_certificate_params:
+            action: '{{ action }}'
+          update_device_certificate_params:
+            action: '{{ action }}'
 ```
 </TabItem>
 </Tabs>
@@ -379,7 +378,7 @@ SET PatchDocument = string('{{ {
     "ActionParams": action_params
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ActionName>';
+AND Identifier = '{{ action_name }}';
 ```
 
 
@@ -388,7 +387,7 @@ AND Identifier = '<ActionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.mitigation_actions
-WHERE Identifier = '<ActionName>'
+WHERE Identifier = '{{ action_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -150,7 +150,7 @@ application_arn,
 principal_type,
 principal_id
 FROM awscc.sso.application_assignments
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationArn>|<PrincipalType>|<PrincipalId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.sso.application_assignments (
  PrincipalId,
  region
 )
-SELECT 
-'{{ ApplicationArn }}',
- '{{ PrincipalType }}',
- '{{ PrincipalId }}',
+SELECT
+'{{ application_arn }}',
+ '{{ principal_type }}',
+ '{{ principal_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.sso.application_assignments (
  PrincipalId,
  region
 )
-SELECT 
- '{{ ApplicationArn }}',
- '{{ PrincipalType }}',
- '{{ PrincipalId }}',
+SELECT
+ '{{ application_arn }}',
+ '{{ principal_type }}',
+ '{{ principal_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: application_assignment
     props:
-      - name: ApplicationArn
-        value: '{{ ApplicationArn }}'
-      - name: PrincipalType
-        value: '{{ PrincipalType }}'
-      - name: PrincipalId
-        value: '{{ PrincipalId }}'
-
+      - name: application_arn
+        value: '{{ application_arn }}'
+      - name: principal_type
+        value: '{{ principal_type }}'
+      - name: principal_id
+        value: '{{ principal_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sso.application_assignments
-WHERE Identifier = '<ApplicationArn|PrincipalType|PrincipalId>'
+WHERE Identifier = '{{ application_arn }}|{{ principal_type }}|{{ principal_id }}'
 AND region = 'us-east-1';
 ```
 

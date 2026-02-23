@@ -164,7 +164,7 @@ kinesis_stream_arn,
 tags,
 user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings
-WHERE region = 'us-east-1' AND Identifier = '<UserAccessLoggingSettingsArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_access_logging_settings_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.workspacesweb.user_access_logging_settings (
  KinesisStreamArn,
  region
 )
-SELECT 
-'{{ KinesisStreamArn }}',
+SELECT
+'{{ kinesis_stream_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.workspacesweb.user_access_logging_settings (
  Tags,
  region
 )
-SELECT 
- '{{ KinesisStreamArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ kinesis_stream_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: user_access_logging_setting
     props:
-      - name: KinesisStreamArn
-        value: '{{ KinesisStreamArn }}'
-      - name: Tags
+      - name: kinesis_stream_arn
+        value: '{{ kinesis_stream_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserAccessLoggingSettingsArn>';
+AND Identifier = '{{ user_access_logging_settings_arn }}';
 ```
 
 
@@ -266,7 +265,7 @@ AND Identifier = '<UserAccessLoggingSettingsArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.user_access_logging_settings
-WHERE Identifier = '<UserAccessLoggingSettingsArn>'
+WHERE Identifier = '{{ user_access_logging_settings_arn }}'
 AND region = 'us-east-1';
 ```
 

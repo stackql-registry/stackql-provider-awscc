@@ -235,7 +235,7 @@ sources,
 environment,
 tags
 FROM awscc.robomaker.simulation_applications
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,9 +272,9 @@ INSERT INTO awscc.robomaker.simulation_applications (
  SimulationSoftwareSuite,
  region
 )
-SELECT 
-'{{ RobotSoftwareSuite }}',
- '{{ SimulationSoftwareSuite }}',
+SELECT
+'{{ robot_software_suite }}',
+ '{{ simulation_software_suite }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,15 +293,15 @@ INSERT INTO awscc.robomaker.simulation_applications (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ CurrentRevisionId }}',
- '{{ RenderingEngine }}',
- '{{ RobotSoftwareSuite }}',
- '{{ SimulationSoftwareSuite }}',
- '{{ Sources }}',
- '{{ Environment }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ current_revision_id }}',
+ '{{ rendering_engine }}',
+ '{{ robot_software_suite }}',
+ '{{ simulation_software_suite }}',
+ '{{ sources }}',
+ '{{ environment }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -319,32 +319,31 @@ globals:
 resources:
   - name: simulation_application
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: CurrentRevisionId
-        value: '{{ CurrentRevisionId }}'
-      - name: RenderingEngine
+      - name: name
+        value: '{{ name }}'
+      - name: current_revision_id
+        value: '{{ current_revision_id }}'
+      - name: rendering_engine
         value:
-          Name: '{{ Name }}'
-          Version: '{{ Version }}'
-      - name: RobotSoftwareSuite
+          name: '{{ name }}'
+          version: '{{ version }}'
+      - name: robot_software_suite
         value:
-          Name: '{{ Name }}'
-          Version: '{{ Version }}'
-      - name: SimulationSoftwareSuite
+          name: '{{ name }}'
+          version: '{{ version }}'
+      - name: simulation_software_suite
         value:
-          Name: '{{ Name }}'
-          Version: '{{ Version }}'
-      - name: Sources
+          name: '{{ name }}'
+          version: '{{ version }}'
+      - name: sources
         value:
-          - S3Bucket: '{{ S3Bucket }}'
-            S3Key: '{{ S3Key }}'
-            Architecture: '{{ Architecture }}'
-      - name: Environment
-        value: '{{ Environment }}'
-      - name: Tags
+          - s3_bucket: '{{ s3_bucket }}'
+            s3_key: '{{ s3_key }}'
+            architecture: '{{ architecture }}'
+      - name: environment
+        value: '{{ environment }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.robomaker.simulation_applications
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

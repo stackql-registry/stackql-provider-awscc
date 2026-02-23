@@ -187,7 +187,7 @@ http_url_properties,
 status_reason,
 vpc_properties
 FROM awscc.iot.topic_rule_destinations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,10 +225,10 @@ INSERT INTO awscc.iot.topic_rule_destinations (
  VpcProperties,
  region
 )
-SELECT 
-'{{ Status }}',
- '{{ HttpUrlProperties }}',
- '{{ VpcProperties }}',
+SELECT
+'{{ status }}',
+ '{{ http_url_properties }}',
+ '{{ vpc_properties }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -242,10 +242,10 @@ INSERT INTO awscc.iot.topic_rule_destinations (
  VpcProperties,
  region
 )
-SELECT 
- '{{ Status }}',
- '{{ HttpUrlProperties }}',
- '{{ VpcProperties }}',
+SELECT
+ '{{ status }}',
+ '{{ http_url_properties }}',
+ '{{ vpc_properties }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -263,20 +263,19 @@ globals:
 resources:
   - name: topic_rule_destination
     props:
-      - name: Status
-        value: '{{ Status }}'
-      - name: HttpUrlProperties
+      - name: status
+        value: '{{ status }}'
+      - name: http_url_properties
         value:
-          ConfirmationUrl: '{{ ConfirmationUrl }}'
-      - name: VpcProperties
+          confirmation_url: '{{ confirmation_url }}'
+      - name: vpc_properties
         value:
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          SecurityGroups:
-            - '{{ SecurityGroups[0] }}'
-          VpcId: '{{ VpcId }}'
-          RoleArn: '{{ RoleArn }}'
-
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          security_groups:
+            - '{{ security_groups[0] }}'
+          vpc_id: '{{ vpc_id }}'
+          role_arn: '{{ role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Status": status
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.topic_rule_destinations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

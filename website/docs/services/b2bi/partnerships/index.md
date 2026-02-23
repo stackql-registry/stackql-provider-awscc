@@ -238,7 +238,7 @@ profile_id,
 tags,
 trading_partner_id
 FROM awscc.b2bi.partnerships
-WHERE region = 'us-east-1' AND Identifier = '<PartnershipId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ partnership_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,11 +277,11 @@ INSERT INTO awscc.b2bi.partnerships (
  ProfileId,
  region
 )
-SELECT 
-'{{ Capabilities }}',
- '{{ Email }}',
- '{{ Name }}',
- '{{ ProfileId }}',
+SELECT
+'{{ capabilities }}',
+ '{{ email }}',
+ '{{ name }}',
+ '{{ profile_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -299,14 +299,14 @@ INSERT INTO awscc.b2bi.partnerships (
  Tags,
  region
 )
-SELECT 
- '{{ Capabilities }}',
- '{{ CapabilityOptions }}',
- '{{ Email }}',
- '{{ Name }}',
- '{{ Phone }}',
- '{{ ProfileId }}',
- '{{ Tags }}',
+SELECT
+ '{{ capabilities }}',
+ '{{ capability_options }}',
+ '{{ email }}',
+ '{{ name }}',
+ '{{ phone }}',
+ '{{ profile_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -324,30 +324,29 @@ globals:
 resources:
   - name: partnership
     props:
-      - name: Capabilities
+      - name: capabilities
         value:
-          - '{{ Capabilities[0] }}'
-      - name: CapabilityOptions
+          - '{{ capabilities[0] }}'
+      - name: capability_options
         value:
-          OutboundEdi: null
-          InboundEdi:
-            X12:
-              AcknowledgmentOptions:
-                FunctionalAcknowledgment: '{{ FunctionalAcknowledgment }}'
-                TechnicalAcknowledgment: '{{ TechnicalAcknowledgment }}'
-      - name: Email
-        value: '{{ Email }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Phone
-        value: '{{ Phone }}'
-      - name: ProfileId
-        value: '{{ ProfileId }}'
-      - name: Tags
+          outbound_edi: null
+          inbound_edi:
+            x12:
+              acknowledgment_options:
+                functional_acknowledgment: '{{ functional_acknowledgment }}'
+                technical_acknowledgment: '{{ technical_acknowledgment }}'
+      - name: email
+        value: '{{ email }}'
+      - name: name
+        value: '{{ name }}'
+      - name: phone
+        value: '{{ phone }}'
+      - name: profile_id
+        value: '{{ profile_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PartnershipId>';
+AND Identifier = '{{ partnership_id }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<PartnershipId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.b2bi.partnerships
-WHERE Identifier = '<PartnershipId>'
+WHERE Identifier = '{{ partnership_id }}'
 AND region = 'us-east-1';
 ```
 

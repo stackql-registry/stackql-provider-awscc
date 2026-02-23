@@ -171,7 +171,7 @@ describe_payload,
 maximum_duration,
 snapshot_s3_location
 FROM awscc.simspaceweaver.simulations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -208,9 +208,9 @@ INSERT INTO awscc.simspaceweaver.simulations (
  RoleArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RoleArn }}',
+SELECT
+'{{ name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,12 +226,12 @@ INSERT INTO awscc.simspaceweaver.simulations (
  SnapshotS3Location,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ SchemaS3Location }}',
- '{{ MaximumDuration }}',
- '{{ SnapshotS3Location }}',
+SELECT
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ schema_s3_location }}',
+ '{{ maximum_duration }}',
+ '{{ snapshot_s3_location }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -249,19 +249,18 @@ globals:
 resources:
   - name: simulation
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: SchemaS3Location
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: schema_s3_location
         value:
-          BucketName: '{{ BucketName }}'
-          ObjectKey: '{{ ObjectKey }}'
-      - name: MaximumDuration
-        value: '{{ MaximumDuration }}'
-      - name: SnapshotS3Location
+          bucket_name: '{{ bucket_name }}'
+          object_key: '{{ object_key }}'
+      - name: maximum_duration
+        value: '{{ maximum_duration }}'
+      - name: snapshot_s3_location
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -272,7 +271,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.simspaceweaver.simulations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

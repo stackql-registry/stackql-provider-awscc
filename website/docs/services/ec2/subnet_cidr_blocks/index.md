@@ -164,7 +164,7 @@ subnet_id,
 ipv6_address_attribute,
 ip_source
 FROM awscc.ec2.subnet_cidr_blocks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.ec2.subnet_cidr_blocks (
  SubnetId,
  region
 )
-SELECT 
-'{{ SubnetId }}',
+SELECT
+'{{ subnet_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,11 @@ INSERT INTO awscc.ec2.subnet_cidr_blocks (
  SubnetId,
  region
 )
-SELECT 
- '{{ Ipv6CidrBlock }}',
- '{{ Ipv6IpamPoolId }}',
- '{{ Ipv6NetmaskLength }}',
- '{{ SubnetId }}',
+SELECT
+ '{{ ipv6_cidr_block }}',
+ '{{ ipv6_ipam_pool_id }}',
+ '{{ ipv6_netmask_length }}',
+ '{{ subnet_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -238,15 +238,14 @@ globals:
 resources:
   - name: subnet_cidr_block
     props:
-      - name: Ipv6CidrBlock
-        value: '{{ Ipv6CidrBlock }}'
-      - name: Ipv6IpamPoolId
-        value: '{{ Ipv6IpamPoolId }}'
-      - name: Ipv6NetmaskLength
-        value: '{{ Ipv6NetmaskLength }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-
+      - name: ipv6_cidr_block
+        value: '{{ ipv6_cidr_block }}'
+      - name: ipv6_ipam_pool_id
+        value: '{{ ipv6_ipam_pool_id }}'
+      - name: ipv6_netmask_length
+        value: '{{ ipv6_netmask_length }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -257,7 +256,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnet_cidr_blocks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

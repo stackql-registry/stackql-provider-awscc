@@ -218,7 +218,7 @@ workspace_id,
 components,
 composite_components
 FROM awscc.iottwinmaker.entities
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<EntityId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -256,9 +256,9 @@ INSERT INTO awscc.iottwinmaker.entities (
  WorkspaceId,
  region
 )
-SELECT 
-'{{ EntityName }}',
- '{{ WorkspaceId }}',
+SELECT
+'{{ entity_name }}',
+ '{{ workspace_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -277,15 +277,15 @@ INSERT INTO awscc.iottwinmaker.entities (
  CompositeComponents,
  region
 )
-SELECT 
- '{{ EntityId }}',
- '{{ EntityName }}',
- '{{ ParentEntityId }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ WorkspaceId }}',
- '{{ Components }}',
- '{{ CompositeComponents }}',
+SELECT
+ '{{ entity_id }}',
+ '{{ entity_name }}',
+ '{{ parent_entity_id }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ workspace_id }}',
+ '{{ components }}',
+ '{{ composite_components }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -303,23 +303,22 @@ globals:
 resources:
   - name: entity
     props:
-      - name: EntityId
-        value: '{{ EntityId }}'
-      - name: EntityName
-        value: '{{ EntityName }}'
-      - name: ParentEntityId
-        value: '{{ ParentEntityId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: entity_id
+        value: '{{ entity_id }}'
+      - name: entity_name
+        value: '{{ entity_name }}'
+      - name: parent_entity_id
+        value: '{{ parent_entity_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value: {}
-      - name: WorkspaceId
-        value: '{{ WorkspaceId }}'
-      - name: Components
+      - name: workspace_id
+        value: '{{ workspace_id }}'
+      - name: components
         value: {}
-      - name: CompositeComponents
+      - name: composite_components
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -340,7 +339,7 @@ SET PatchDocument = string('{{ {
     "CompositeComponents": composite_components
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkspaceId>|<EntityId>';
+AND Identifier = '{{ workspace_id }}|{{ entity_id }}';
 ```
 
 
@@ -349,7 +348,7 @@ AND Identifier = '<WorkspaceId>|<EntityId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.entities
-WHERE Identifier = '<WorkspaceId|EntityId>'
+WHERE Identifier = '{{ workspace_id }}|{{ entity_id }}'
 AND region = 'us-east-1';
 ```
 

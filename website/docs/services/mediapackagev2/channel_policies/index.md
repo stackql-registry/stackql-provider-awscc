@@ -100,7 +100,7 @@ channel_group_name,
 channel_name,
 policy
 FROM awscc.mediapackagev2.channel_policies
-WHERE region = 'us-east-1' AND Identifier = '<ChannelGroupName>|<ChannelName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ channel_group_name }}|{{ channel_name }}';
 ```
 
 ## `INSERT` example
@@ -125,10 +125,10 @@ INSERT INTO awscc.mediapackagev2.channel_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ Policy }}',
+SELECT
+'{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -142,10 +142,10 @@ INSERT INTO awscc.mediapackagev2.channel_policies (
  Policy,
  region
 )
-SELECT 
- '{{ ChannelGroupName }}',
- '{{ ChannelName }}',
- '{{ Policy }}',
+SELECT
+ '{{ channel_group_name }}',
+ '{{ channel_name }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -163,13 +163,12 @@ globals:
 resources:
   - name: channel_policy
     props:
-      - name: ChannelGroupName
-        value: '{{ ChannelGroupName }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: Policy
+      - name: channel_group_name
+        value: '{{ channel_group_name }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -185,7 +184,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChannelGroupName>|<ChannelName>';
+AND Identifier = '{{ channel_group_name }}|{{ channel_name }}';
 ```
 
 
@@ -194,7 +193,7 @@ AND Identifier = '<ChannelGroupName>|<ChannelName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.channel_policies
-WHERE Identifier = '<ChannelGroupName|ChannelName>'
+WHERE Identifier = '{{ channel_group_name }}|{{ channel_name }}'
 AND region = 'us-east-1';
 ```
 

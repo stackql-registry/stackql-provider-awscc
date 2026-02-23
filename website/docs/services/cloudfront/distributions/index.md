@@ -940,7 +940,7 @@ domain_name,
 id,
 tags
 FROM awscc.cloudfront.distributions
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -951,7 +951,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.distributions_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -976,8 +976,8 @@ INSERT INTO awscc.cloudfront.distributions (
  DistributionConfig,
  region
 )
-SELECT 
-'{{ DistributionConfig }}',
+SELECT
+'{{ distribution_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -990,9 +990,9 @@ INSERT INTO awscc.cloudfront.distributions (
  Tags,
  region
 )
-SELECT 
- '{{ DistributionConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ distribution_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1010,178 +1010,177 @@ globals:
 resources:
   - name: distribution
     props:
-      - name: DistributionConfig
+      - name: distribution_config
         value:
-          Aliases:
-            - '{{ Aliases[0] }}'
-          AnycastIpListId: '{{ AnycastIpListId }}'
-          CNAMEs:
-            - '{{ CNAMEs[0] }}'
-          CacheBehaviors:
-            - AllowedMethods:
-                - '{{ AllowedMethods[0] }}'
-              CachePolicyId: '{{ CachePolicyId }}'
-              CachedMethods:
-                - '{{ CachedMethods[0] }}'
-              Compress: '{{ Compress }}'
-              DefaultTTL: null
-              FieldLevelEncryptionId: '{{ FieldLevelEncryptionId }}'
-              ForwardedValues:
-                Cookies:
-                  Forward: '{{ Forward }}'
-                  WhitelistedNames:
-                    - '{{ WhitelistedNames[0] }}'
-                Headers:
-                  - '{{ Headers[0] }}'
-                QueryString: '{{ QueryString }}'
-                QueryStringCacheKeys:
-                  - '{{ QueryStringCacheKeys[0] }}'
-              FunctionAssociations:
-                - EventType: '{{ EventType }}'
-                  FunctionARN: '{{ FunctionARN }}'
-              GrpcConfig:
-                Enabled: '{{ Enabled }}'
-              LambdaFunctionAssociations:
-                - EventType: '{{ EventType }}'
-                  IncludeBody: '{{ IncludeBody }}'
-                  LambdaFunctionARN: '{{ LambdaFunctionARN }}'
-              MaxTTL: null
-              MinTTL: null
-              OriginRequestPolicyId: '{{ OriginRequestPolicyId }}'
-              PathPattern: '{{ PathPattern }}'
-              RealtimeLogConfigArn: '{{ RealtimeLogConfigArn }}'
-              ResponseHeadersPolicyId: '{{ ResponseHeadersPolicyId }}'
-              SmoothStreaming: '{{ SmoothStreaming }}'
-              TargetOriginId: '{{ TargetOriginId }}'
-              TrustedKeyGroups:
-                - '{{ TrustedKeyGroups[0] }}'
-              TrustedSigners:
-                - '{{ TrustedSigners[0] }}'
-              ViewerProtocolPolicy: '{{ ViewerProtocolPolicy }}'
-          Comment: '{{ Comment }}'
-          ConnectionMode: '{{ ConnectionMode }}'
-          ContinuousDeploymentPolicyId: '{{ ContinuousDeploymentPolicyId }}'
-          CustomErrorResponses:
-            - ErrorCachingMinTTL: null
-              ErrorCode: '{{ ErrorCode }}'
-              ResponseCode: '{{ ResponseCode }}'
-              ResponsePagePath: '{{ ResponsePagePath }}'
-          CustomOrigin:
-            DNSName: '{{ DNSName }}'
-            HTTPPort: '{{ HTTPPort }}'
-            HTTPSPort: '{{ HTTPSPort }}'
-            OriginProtocolPolicy: '{{ OriginProtocolPolicy }}'
-            OriginSSLProtocols:
-              - '{{ OriginSSLProtocols[0] }}'
-          DefaultCacheBehavior:
-            AllowedMethods:
-              - '{{ AllowedMethods[0] }}'
-            CachePolicyId: '{{ CachePolicyId }}'
-            CachedMethods:
-              - '{{ CachedMethods[0] }}'
-            Compress: '{{ Compress }}'
-            DefaultTTL: null
-            FieldLevelEncryptionId: '{{ FieldLevelEncryptionId }}'
-            ForwardedValues: null
-            FunctionAssociations:
+          aliases:
+            - '{{ aliases[0] }}'
+          anycast_ip_list_id: '{{ anycast_ip_list_id }}'
+          cnames:
+            - '{{ cnames[0] }}'
+          cache_behaviors:
+            - allowed_methods:
+                - '{{ allowed_methods[0] }}'
+              cache_policy_id: '{{ cache_policy_id }}'
+              cached_methods:
+                - '{{ cached_methods[0] }}'
+              compress: '{{ compress }}'
+              default_ttl: null
+              field_level_encryption_id: '{{ field_level_encryption_id }}'
+              forwarded_values:
+                cookies:
+                  forward: '{{ forward }}'
+                  whitelisted_names:
+                    - '{{ whitelisted_names[0] }}'
+                headers:
+                  - '{{ headers[0] }}'
+                query_string: '{{ query_string }}'
+                query_string_cache_keys:
+                  - '{{ query_string_cache_keys[0] }}'
+              function_associations:
+                - event_type: '{{ event_type }}'
+                  function_arn: '{{ function_arn }}'
+              grpc_config:
+                enabled: '{{ enabled }}'
+              lambda_function_associations:
+                - event_type: '{{ event_type }}'
+                  include_body: '{{ include_body }}'
+                  lambda_function_arn: '{{ lambda_function_arn }}'
+              max_ttl: null
+              min_ttl: null
+              origin_request_policy_id: '{{ origin_request_policy_id }}'
+              path_pattern: '{{ path_pattern }}'
+              realtime_log_config_arn: '{{ realtime_log_config_arn }}'
+              response_headers_policy_id: '{{ response_headers_policy_id }}'
+              smooth_streaming: '{{ smooth_streaming }}'
+              target_origin_id: '{{ target_origin_id }}'
+              trusted_key_groups:
+                - '{{ trusted_key_groups[0] }}'
+              trusted_signers:
+                - '{{ trusted_signers[0] }}'
+              viewer_protocol_policy: '{{ viewer_protocol_policy }}'
+          comment: '{{ comment }}'
+          connection_mode: '{{ connection_mode }}'
+          continuous_deployment_policy_id: '{{ continuous_deployment_policy_id }}'
+          custom_error_responses:
+            - error_caching_min_ttl: null
+              error_code: '{{ error_code }}'
+              response_code: '{{ response_code }}'
+              response_page_path: '{{ response_page_path }}'
+          custom_origin:
+            dns_name: '{{ dns_name }}'
+            h_tt_pport: '{{ h_tt_pport }}'
+            h_tt_ps_port: '{{ h_tt_ps_port }}'
+            origin_protocol_policy: '{{ origin_protocol_policy }}'
+            origin_ss_lprotocols:
+              - '{{ origin_ss_lprotocols[0] }}'
+          default_cache_behavior:
+            allowed_methods:
+              - '{{ allowed_methods[0] }}'
+            cache_policy_id: '{{ cache_policy_id }}'
+            cached_methods:
+              - '{{ cached_methods[0] }}'
+            compress: '{{ compress }}'
+            default_ttl: null
+            field_level_encryption_id: '{{ field_level_encryption_id }}'
+            forwarded_values: null
+            function_associations:
               - null
-            GrpcConfig: null
-            LambdaFunctionAssociations:
+            grpc_config: null
+            lambda_function_associations:
               - null
-            MaxTTL: null
-            MinTTL: null
-            OriginRequestPolicyId: '{{ OriginRequestPolicyId }}'
-            RealtimeLogConfigArn: '{{ RealtimeLogConfigArn }}'
-            ResponseHeadersPolicyId: '{{ ResponseHeadersPolicyId }}'
-            SmoothStreaming: '{{ SmoothStreaming }}'
-            TargetOriginId: '{{ TargetOriginId }}'
-            TrustedKeyGroups:
-              - '{{ TrustedKeyGroups[0] }}'
-            TrustedSigners:
-              - '{{ TrustedSigners[0] }}'
-            ViewerProtocolPolicy: '{{ ViewerProtocolPolicy }}'
-          DefaultRootObject: '{{ DefaultRootObject }}'
-          Enabled: '{{ Enabled }}'
-          HttpVersion: '{{ HttpVersion }}'
-          IPV6Enabled: '{{ IPV6Enabled }}'
-          Logging:
-            Bucket: '{{ Bucket }}'
-            IncludeCookies: '{{ IncludeCookies }}'
-            Prefix: '{{ Prefix }}'
-          OriginGroups:
-            Items:
-              - FailoverCriteria:
-                  StatusCodes:
-                    Items:
-                      - '{{ Items[0] }}'
-                    Quantity: '{{ Quantity }}'
-                Id: '{{ Id }}'
-                Members:
-                  Items:
-                    - OriginId: '{{ OriginId }}'
-                  Quantity: '{{ Quantity }}'
-                SelectionCriteria: '{{ SelectionCriteria }}'
-            Quantity: '{{ Quantity }}'
-          Origins:
-            - ConnectionAttempts: '{{ ConnectionAttempts }}'
-              ConnectionTimeout: '{{ ConnectionTimeout }}'
-              ResponseCompletionTimeout: '{{ ResponseCompletionTimeout }}'
-              CustomOriginConfig:
-                HTTPPort: '{{ HTTPPort }}'
-                HTTPSPort: '{{ HTTPSPort }}'
-                OriginKeepaliveTimeout: '{{ OriginKeepaliveTimeout }}'
-                OriginProtocolPolicy: '{{ OriginProtocolPolicy }}'
-                OriginReadTimeout: '{{ OriginReadTimeout }}'
-                OriginSSLProtocols:
-                  - '{{ OriginSSLProtocols[0] }}'
-                IpAddressType: '{{ IpAddressType }}'
-              DomainName: '{{ DomainName }}'
-              Id: '{{ Id }}'
-              OriginAccessControlId: '{{ OriginAccessControlId }}'
-              OriginCustomHeaders:
-                - HeaderName: '{{ HeaderName }}'
-                  HeaderValue: '{{ HeaderValue }}'
-              OriginPath: '{{ OriginPath }}'
-              OriginShield:
-                Enabled: '{{ Enabled }}'
-                OriginShieldRegion: '{{ OriginShieldRegion }}'
-              S3OriginConfig:
-                OriginAccessIdentity: '{{ OriginAccessIdentity }}'
-                OriginReadTimeout: '{{ OriginReadTimeout }}'
-              VpcOriginConfig:
-                OriginKeepaliveTimeout: '{{ OriginKeepaliveTimeout }}'
-                OriginReadTimeout: '{{ OriginReadTimeout }}'
-                VpcOriginId: '{{ VpcOriginId }}'
-          PriceClass: '{{ PriceClass }}'
-          Restrictions:
-            GeoRestriction:
-              Locations:
-                - '{{ Locations[0] }}'
-              RestrictionType: '{{ RestrictionType }}'
-          S3Origin:
-            DNSName: '{{ DNSName }}'
-            OriginAccessIdentity: '{{ OriginAccessIdentity }}'
-          Staging: '{{ Staging }}'
-          TenantConfig:
-            ParameterDefinitions:
-              - Name: '{{ Name }}'
-                Definition:
-                  StringSchema:
-                    Comment: '{{ Comment }}'
-                    DefaultValue: '{{ DefaultValue }}'
-                    Required: '{{ Required }}'
-          ViewerCertificate:
-            AcmCertificateArn: '{{ AcmCertificateArn }}'
-            CloudFrontDefaultCertificate: '{{ CloudFrontDefaultCertificate }}'
-            IamCertificateId: '{{ IamCertificateId }}'
-            MinimumProtocolVersion: '{{ MinimumProtocolVersion }}'
-            SslSupportMethod: '{{ SslSupportMethod }}'
-          WebACLId: '{{ WebACLId }}'
-      - name: Tags
+            max_ttl: null
+            min_ttl: null
+            origin_request_policy_id: '{{ origin_request_policy_id }}'
+            realtime_log_config_arn: '{{ realtime_log_config_arn }}'
+            response_headers_policy_id: '{{ response_headers_policy_id }}'
+            smooth_streaming: '{{ smooth_streaming }}'
+            target_origin_id: '{{ target_origin_id }}'
+            trusted_key_groups:
+              - '{{ trusted_key_groups[0] }}'
+            trusted_signers:
+              - '{{ trusted_signers[0] }}'
+            viewer_protocol_policy: '{{ viewer_protocol_policy }}'
+          default_root_object: '{{ default_root_object }}'
+          enabled: '{{ enabled }}'
+          http_version: '{{ http_version }}'
+          ip_v6_enabled: '{{ ip_v6_enabled }}'
+          logging:
+            bucket: '{{ bucket }}'
+            include_cookies: '{{ include_cookies }}'
+            prefix: '{{ prefix }}'
+          origin_groups:
+            items:
+              - failover_criteria:
+                  status_codes:
+                    items:
+                      - '{{ items[0] }}'
+                    quantity: '{{ quantity }}'
+                id: '{{ id }}'
+                members:
+                  items:
+                    - origin_id: '{{ origin_id }}'
+                  quantity: '{{ quantity }}'
+                selection_criteria: '{{ selection_criteria }}'
+            quantity: '{{ quantity }}'
+          origins:
+            - connection_attempts: '{{ connection_attempts }}'
+              connection_timeout: '{{ connection_timeout }}'
+              response_completion_timeout: '{{ response_completion_timeout }}'
+              custom_origin_config:
+                h_tt_pport: '{{ h_tt_pport }}'
+                h_tt_ps_port: '{{ h_tt_ps_port }}'
+                origin_keepalive_timeout: '{{ origin_keepalive_timeout }}'
+                origin_protocol_policy: '{{ origin_protocol_policy }}'
+                origin_read_timeout: '{{ origin_read_timeout }}'
+                origin_ss_lprotocols:
+                  - '{{ origin_ss_lprotocols[0] }}'
+                ip_address_type: '{{ ip_address_type }}'
+              domain_name: '{{ domain_name }}'
+              id: '{{ id }}'
+              origin_access_control_id: '{{ origin_access_control_id }}'
+              origin_custom_headers:
+                - header_name: '{{ header_name }}'
+                  header_value: '{{ header_value }}'
+              origin_path: '{{ origin_path }}'
+              origin_shield:
+                enabled: '{{ enabled }}'
+                origin_shield_region: '{{ origin_shield_region }}'
+              s3_origin_config:
+                origin_access_identity: '{{ origin_access_identity }}'
+                origin_read_timeout: '{{ origin_read_timeout }}'
+              vpc_origin_config:
+                origin_keepalive_timeout: '{{ origin_keepalive_timeout }}'
+                origin_read_timeout: '{{ origin_read_timeout }}'
+                vpc_origin_id: '{{ vpc_origin_id }}'
+          price_class: '{{ price_class }}'
+          restrictions:
+            geo_restriction:
+              locations:
+                - '{{ locations[0] }}'
+              restriction_type: '{{ restriction_type }}'
+          s3_origin:
+            dns_name: '{{ dns_name }}'
+            origin_access_identity: '{{ origin_access_identity }}'
+          staging: '{{ staging }}'
+          tenant_config:
+            parameter_definitions:
+              - name: '{{ name }}'
+                definition:
+                  string_schema:
+                    comment: '{{ comment }}'
+                    default_value: '{{ default_value }}'
+                    required: '{{ required }}'
+          viewer_certificate:
+            acm_certificate_arn: '{{ acm_certificate_arn }}'
+            cloud_front_default_certificate: '{{ cloud_front_default_certificate }}'
+            iam_certificate_id: '{{ iam_certificate_id }}'
+            minimum_protocol_version: '{{ minimum_protocol_version }}'
+            ssl_support_method: '{{ ssl_support_method }}'
+          web_acl_id: '{{ web_acl_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -1198,7 +1197,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -1207,7 +1206,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.distributions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

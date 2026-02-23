@@ -176,7 +176,7 @@ tags,
 replication_specification,
 client_side_timestamps_enabled
 FROM awscc.cassandra.keyspaces
-WHERE region = 'us-east-1' AND Identifier = '<KeyspaceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ keyspace_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,7 +212,7 @@ INSERT INTO awscc.cassandra.keyspaces (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -228,11 +228,11 @@ INSERT INTO awscc.cassandra.keyspaces (
  ClientSideTimestampsEnabled,
  region
 )
-SELECT 
- '{{ KeyspaceName }}',
- '{{ Tags }}',
- '{{ ReplicationSpecification }}',
- '{{ ClientSideTimestampsEnabled }}',
+SELECT
+ '{{ keyspace_name }}',
+ '{{ tags }}',
+ '{{ replication_specification }}',
+ '{{ client_side_timestamps_enabled }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,20 +250,19 @@ globals:
 resources:
   - name: keyspace
     props:
-      - name: KeyspaceName
-        value: '{{ KeyspaceName }}'
-      - name: Tags
+      - name: keyspace_name
+        value: '{{ keyspace_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ReplicationSpecification
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: replication_specification
         value:
-          ReplicationStrategy: '{{ ReplicationStrategy }}'
-          RegionList:
-            - '{{ RegionList[0] }}'
-      - name: ClientSideTimestampsEnabled
-        value: '{{ ClientSideTimestampsEnabled }}'
-
+          replication_strategy: '{{ replication_strategy }}'
+          region_list:
+            - '{{ region_list[0] }}'
+      - name: client_side_timestamps_enabled
+        value: '{{ client_side_timestamps_enabled }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ SET PatchDocument = string('{{ {
     "ClientSideTimestampsEnabled": client_side_timestamps_enabled
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KeyspaceName>';
+AND Identifier = '{{ keyspace_name }}';
 ```
 
 
@@ -290,7 +289,7 @@ AND Identifier = '<KeyspaceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cassandra.keyspaces
-WHERE Identifier = '<KeyspaceName>'
+WHERE Identifier = '{{ keyspace_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -240,7 +240,7 @@ disassociate_wireless_device,
 associate_multicast_group,
 disassociate_multicast_group
 FROM awscc.iotwireless.fuota_tasks
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -278,10 +278,10 @@ INSERT INTO awscc.iotwireless.fuota_tasks (
  FirmwareUpdateRole,
  region
 )
-SELECT 
-'{{ LoRaWAN }}',
- '{{ FirmwareUpdateImage }}',
- '{{ FirmwareUpdateRole }}',
+SELECT
+'{{ lo_ra_wan }}',
+ '{{ firmware_update_image }}',
+ '{{ firmware_update_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -302,17 +302,17 @@ INSERT INTO awscc.iotwireless.fuota_tasks (
  DisassociateMulticastGroup,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ LoRaWAN }}',
- '{{ FirmwareUpdateImage }}',
- '{{ FirmwareUpdateRole }}',
- '{{ Tags }}',
- '{{ AssociateWirelessDevice }}',
- '{{ DisassociateWirelessDevice }}',
- '{{ AssociateMulticastGroup }}',
- '{{ DisassociateMulticastGroup }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ lo_ra_wan }}',
+ '{{ firmware_update_image }}',
+ '{{ firmware_update_role }}',
+ '{{ tags }}',
+ '{{ associate_wireless_device }}',
+ '{{ disassociate_wireless_device }}',
+ '{{ associate_multicast_group }}',
+ '{{ disassociate_multicast_group }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -330,33 +330,32 @@ globals:
 resources:
   - name: fuota_task
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: LoRaWAN
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: lo_ra_wan
         value:
-          RfRegion: '{{ RfRegion }}'
-          DlClass: '{{ DlClass }}'
-          NumberOfDevicesRequested: '{{ NumberOfDevicesRequested }}'
-          NumberOfDevicesInGroup: '{{ NumberOfDevicesInGroup }}'
-      - name: FirmwareUpdateImage
-        value: '{{ FirmwareUpdateImage }}'
-      - name: FirmwareUpdateRole
-        value: '{{ FirmwareUpdateRole }}'
-      - name: Tags
+          rf_region: '{{ rf_region }}'
+          dl_class: '{{ dl_class }}'
+          number_of_devices_requested: '{{ number_of_devices_requested }}'
+          number_of_devices_in_group: '{{ number_of_devices_in_group }}'
+      - name: firmware_update_image
+        value: '{{ firmware_update_image }}'
+      - name: firmware_update_role
+        value: '{{ firmware_update_role }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AssociateWirelessDevice
-        value: '{{ AssociateWirelessDevice }}'
-      - name: DisassociateWirelessDevice
-        value: '{{ DisassociateWirelessDevice }}'
-      - name: AssociateMulticastGroup
-        value: '{{ AssociateMulticastGroup }}'
-      - name: DisassociateMulticastGroup
-        value: '{{ DisassociateMulticastGroup }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: associate_wireless_device
+        value: '{{ associate_wireless_device }}'
+      - name: disassociate_wireless_device
+        value: '{{ disassociate_wireless_device }}'
+      - name: associate_multicast_group
+        value: '{{ associate_multicast_group }}'
+      - name: disassociate_multicast_group
+        value: '{{ disassociate_multicast_group }}'
 ```
 </TabItem>
 </Tabs>
@@ -380,7 +379,7 @@ SET PatchDocument = string('{{ {
     "DisassociateMulticastGroup": disassociate_multicast_group
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -389,7 +388,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.fuota_tasks
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

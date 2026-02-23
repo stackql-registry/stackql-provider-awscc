@@ -207,7 +207,7 @@ endpoint,
 graph_arn,
 graph_id
 FROM awscc.neptunegraph.graphs
-WHERE region = 'us-east-1' AND Identifier = '<GraphId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ graph_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,8 +243,8 @@ INSERT INTO awscc.neptunegraph.graphs (
  ProvisionedMemory,
  region
 )
-SELECT 
-'{{ ProvisionedMemory }}',
+SELECT
+'{{ provisioned_memory }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,14 +262,14 @@ INSERT INTO awscc.neptunegraph.graphs (
  VectorSearchConfiguration,
  region
 )
-SELECT 
- '{{ DeletionProtection }}',
- '{{ GraphName }}',
- '{{ ProvisionedMemory }}',
- '{{ PublicConnectivity }}',
- '{{ ReplicaCount }}',
- '{{ Tags }}',
- '{{ VectorSearchConfiguration }}',
+SELECT
+ '{{ deletion_protection }}',
+ '{{ graph_name }}',
+ '{{ provisioned_memory }}',
+ '{{ public_connectivity }}',
+ '{{ replica_count }}',
+ '{{ tags }}',
+ '{{ vector_search_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -287,24 +287,23 @@ globals:
 resources:
   - name: graph
     props:
-      - name: DeletionProtection
-        value: '{{ DeletionProtection }}'
-      - name: GraphName
-        value: '{{ GraphName }}'
-      - name: ProvisionedMemory
-        value: '{{ ProvisionedMemory }}'
-      - name: PublicConnectivity
-        value: '{{ PublicConnectivity }}'
-      - name: ReplicaCount
-        value: '{{ ReplicaCount }}'
-      - name: Tags
+      - name: deletion_protection
+        value: '{{ deletion_protection }}'
+      - name: graph_name
+        value: '{{ graph_name }}'
+      - name: provisioned_memory
+        value: '{{ provisioned_memory }}'
+      - name: public_connectivity
+        value: '{{ public_connectivity }}'
+      - name: replica_count
+        value: '{{ replica_count }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VectorSearchConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vector_search_configuration
         value:
-          VectorSearchDimension: '{{ VectorSearchDimension }}'
-
+          vector_search_dimension: '{{ vector_search_dimension }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GraphId>';
+AND Identifier = '{{ graph_id }}';
 ```
 
 
@@ -332,7 +331,7 @@ AND Identifier = '<GraphId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.neptunegraph.graphs
-WHERE Identifier = '<GraphId>'
+WHERE Identifier = '{{ graph_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -186,7 +186,7 @@ lf_tags,
 resource_identifier,
 tags_identifier
 FROM awscc.lakeformation.tag_associations
-WHERE region = 'us-east-1' AND Identifier = '<ResourceIdentifier>|<TagsIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}|{{ tags_identifier }}';
 ```
 
 ## `INSERT` example
@@ -210,9 +210,9 @@ INSERT INTO awscc.lakeformation.tag_associations (
  LFTags,
  region
 )
-SELECT 
-'{{ Resource }}',
- '{{ LFTags }}',
+SELECT
+'{{ resource }}',
+ '{{ lf_tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -225,9 +225,9 @@ INSERT INTO awscc.lakeformation.tag_associations (
  LFTags,
  region
 )
-SELECT 
- '{{ Resource }}',
- '{{ LFTags }}',
+SELECT
+ '{{ resource }}',
+ '{{ lf_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -245,30 +245,29 @@ globals:
 resources:
   - name: tag_association
     props:
-      - name: Resource
+      - name: resource
         value:
-          Catalog: {}
-          Database:
-            CatalogId: '{{ CatalogId }}'
-            Name: '{{ Name }}'
-          Table:
-            CatalogId: null
-            DatabaseName: null
-            Name: null
-            TableWildcard: {}
-          TableWithColumns:
-            CatalogId: null
-            DatabaseName: null
-            Name: null
-            ColumnNames:
+          catalog: {}
+          database:
+            catalog_id: '{{ catalog_id }}'
+            name: '{{ name }}'
+          table:
+            catalog_id: null
+            database_name: null
+            name: null
+            table_wildcard: {}
+          table_with_columns:
+            catalog_id: null
+            database_name: null
+            name: null
+            column_names:
               - null
-      - name: LFTags
+      - name: lf_tags
         value:
-          - CatalogId: null
-            TagKey: '{{ TagKey }}'
-            TagValues:
-              - '{{ TagValues[0] }}'
-
+          - catalog_id: null
+            tag_key: '{{ tag_key }}'
+            tag_values:
+              - '{{ tag_values[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tag_associations
-WHERE Identifier = '<ResourceIdentifier|TagsIdentifier>'
+WHERE Identifier = '{{ resource_identifier }}|{{ tags_identifier }}'
 AND region = 'us-east-1';
 ```
 

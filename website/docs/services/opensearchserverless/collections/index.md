@@ -194,7 +194,7 @@ dashboard_endpoint,
 type,
 standby_replicas
 FROM awscc.opensearchserverless.collections
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,8 +230,8 @@ INSERT INTO awscc.opensearchserverless.collections (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,12 +247,12 @@ INSERT INTO awscc.opensearchserverless.collections (
  StandbyReplicas,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Type }}',
- '{{ StandbyReplicas }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ type }}',
+ '{{ standby_replicas }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,19 +270,18 @@ globals:
 resources:
   - name: collection
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: StandbyReplicas
-        value: '{{ StandbyReplicas }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
+      - name: standby_replicas
+        value: '{{ standby_replicas }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ SET PatchDocument = string('{{ {
     "StandbyReplicas": standby_replicas
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -308,7 +307,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.collections
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

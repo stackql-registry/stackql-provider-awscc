@@ -260,7 +260,7 @@ subscriber_role_arn,
 s3_bucket_arn,
 subscriber_arn
 FROM awscc.securitylake.subscribers
-WHERE region = 'us-east-1' AND Identifier = '<SubscriberArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subscriber_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -300,12 +300,12 @@ INSERT INTO awscc.securitylake.subscribers (
  Sources,
  region
 )
-SELECT 
-'{{ AccessTypes }}',
- '{{ DataLakeArn }}',
- '{{ SubscriberIdentity }}',
- '{{ SubscriberName }}',
- '{{ Sources }}',
+SELECT
+'{{ access_types }}',
+ '{{ data_lake_arn }}',
+ '{{ subscriber_identity }}',
+ '{{ subscriber_name }}',
+ '{{ sources }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -323,14 +323,14 @@ INSERT INTO awscc.securitylake.subscribers (
  Sources,
  region
 )
-SELECT 
- '{{ AccessTypes }}',
- '{{ DataLakeArn }}',
- '{{ SubscriberIdentity }}',
- '{{ SubscriberName }}',
- '{{ SubscriberDescription }}',
- '{{ Tags }}',
- '{{ Sources }}',
+SELECT
+ '{{ access_types }}',
+ '{{ data_lake_arn }}',
+ '{{ subscriber_identity }}',
+ '{{ subscriber_name }}',
+ '{{ subscriber_description }}',
+ '{{ tags }}',
+ '{{ sources }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -348,27 +348,26 @@ globals:
 resources:
   - name: subscriber
     props:
-      - name: AccessTypes
+      - name: access_types
         value:
-          - '{{ AccessTypes[0] }}'
-      - name: DataLakeArn
-        value: '{{ DataLakeArn }}'
-      - name: SubscriberIdentity
+          - '{{ access_types[0] }}'
+      - name: data_lake_arn
+        value: '{{ data_lake_arn }}'
+      - name: subscriber_identity
         value:
-          ExternalId: '{{ ExternalId }}'
-          Principal: '{{ Principal }}'
-      - name: SubscriberName
-        value: '{{ SubscriberName }}'
-      - name: SubscriberDescription
-        value: '{{ SubscriberDescription }}'
-      - name: Tags
+          external_id: '{{ external_id }}'
+          principal: '{{ principal }}'
+      - name: subscriber_name
+        value: '{{ subscriber_name }}'
+      - name: subscriber_description
+        value: '{{ subscriber_description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Sources
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: sources
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -389,7 +388,7 @@ SET PatchDocument = string('{{ {
     "Sources": sources
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubscriberArn>';
+AND Identifier = '{{ subscriber_arn }}';
 ```
 
 
@@ -398,7 +397,7 @@ AND Identifier = '<SubscriberArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securitylake.subscribers
-WHERE Identifier = '<SubscriberArn>'
+WHERE Identifier = '{{ subscriber_arn }}'
 AND region = 'us-east-1';
 ```
 

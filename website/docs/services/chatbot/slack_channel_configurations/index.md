@@ -206,7 +206,7 @@ tags,
 user_role_required,
 customization_resource_arns
 FROM awscc.chatbot.slack_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,11 +245,11 @@ INSERT INTO awscc.chatbot.slack_channel_configurations (
  IamRoleArn,
  region
 )
-SELECT 
-'{{ SlackWorkspaceId }}',
- '{{ SlackChannelId }}',
- '{{ ConfigurationName }}',
- '{{ IamRoleArn }}',
+SELECT
+'{{ slack_workspace_id }}',
+ '{{ slack_channel_id }}',
+ '{{ configuration_name }}',
+ '{{ iam_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -270,17 +270,17 @@ INSERT INTO awscc.chatbot.slack_channel_configurations (
  CustomizationResourceArns,
  region
 )
-SELECT 
- '{{ SlackWorkspaceId }}',
- '{{ SlackChannelId }}',
- '{{ ConfigurationName }}',
- '{{ IamRoleArn }}',
- '{{ SnsTopicArns }}',
- '{{ LoggingLevel }}',
- '{{ GuardrailPolicies }}',
- '{{ Tags }}',
- '{{ UserRoleRequired }}',
- '{{ CustomizationResourceArns }}',
+SELECT
+ '{{ slack_workspace_id }}',
+ '{{ slack_channel_id }}',
+ '{{ configuration_name }}',
+ '{{ iam_role_arn }}',
+ '{{ sns_topic_arns }}',
+ '{{ logging_level }}',
+ '{{ guardrail_policies }}',
+ '{{ tags }}',
+ '{{ user_role_required }}',
+ '{{ customization_resource_arns }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,32 +298,31 @@ globals:
 resources:
   - name: slack_channel_configuration
     props:
-      - name: SlackWorkspaceId
-        value: '{{ SlackWorkspaceId }}'
-      - name: SlackChannelId
-        value: '{{ SlackChannelId }}'
-      - name: ConfigurationName
-        value: '{{ ConfigurationName }}'
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: SnsTopicArns
+      - name: slack_workspace_id
+        value: '{{ slack_workspace_id }}'
+      - name: slack_channel_id
+        value: '{{ slack_channel_id }}'
+      - name: configuration_name
+        value: '{{ configuration_name }}'
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: sns_topic_arns
         value:
-          - '{{ SnsTopicArns[0] }}'
-      - name: LoggingLevel
-        value: '{{ LoggingLevel }}'
-      - name: GuardrailPolicies
+          - '{{ sns_topic_arns[0] }}'
+      - name: logging_level
+        value: '{{ logging_level }}'
+      - name: guardrail_policies
         value:
-          - '{{ GuardrailPolicies[0] }}'
-      - name: Tags
+          - '{{ guardrail_policies[0] }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: UserRoleRequired
-        value: '{{ UserRoleRequired }}'
-      - name: CustomizationResourceArns
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: user_role_required
+        value: '{{ user_role_required }}'
+      - name: customization_resource_arns
         value:
-          - '{{ CustomizationResourceArns[0] }}'
-
+          - '{{ customization_resource_arns[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -346,7 +345,7 @@ SET PatchDocument = string('{{ {
     "CustomizationResourceArns": customization_resource_arns
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -355,7 +354,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.chatbot.slack_channel_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

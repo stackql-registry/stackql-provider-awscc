@@ -213,7 +213,7 @@ arn,
 dead_letter_config,
 log_config
 FROM awscc.events.event_buses
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,8 +249,8 @@ INSERT INTO awscc.events.event_buses (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -269,15 +269,15 @@ INSERT INTO awscc.events.event_buses (
  LogConfig,
  region
 )
-SELECT 
- '{{ EventSourceName }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Description }}',
- '{{ KmsKeyIdentifier }}',
- '{{ Policy }}',
- '{{ DeadLetterConfig }}',
- '{{ LogConfig }}',
+SELECT
+ '{{ event_source_name }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ description }}',
+ '{{ kms_key_identifier }}',
+ '{{ policy }}',
+ '{{ dead_letter_config }}',
+ '{{ log_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -295,28 +295,27 @@ globals:
 resources:
   - name: event_bus
     props:
-      - name: EventSourceName
-        value: '{{ EventSourceName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: event_source_name
+        value: '{{ event_source_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-      - name: Policy
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: description
+        value: '{{ description }}'
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
+      - name: policy
         value: {}
-      - name: DeadLetterConfig
+      - name: dead_letter_config
         value:
-          Arn: '{{ Arn }}'
-      - name: LogConfig
+          arn: '{{ arn }}'
+      - name: log_config
         value:
-          IncludeDetail: '{{ IncludeDetail }}'
-          Level: '{{ Level }}'
-
+          include_detail: '{{ include_detail }}'
+          level: '{{ level }}'
 ```
 </TabItem>
 </Tabs>
@@ -338,7 +337,7 @@ SET PatchDocument = string('{{ {
     "LogConfig": log_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -347,7 +346,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.events.event_buses
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

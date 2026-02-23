@@ -254,7 +254,7 @@ iceberg_metadata,
 warehouse_location,
 snapshot_management
 FROM awscc.s3tables.tables
-WHERE region = 'us-east-1' AND Identifier = '<TableARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ table_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -293,11 +293,11 @@ INSERT INTO awscc.s3tables.tables (
  OpenTableFormat,
  region
 )
-SELECT 
-'{{ Namespace }}',
- '{{ TableName }}',
- '{{ TableBucketARN }}',
- '{{ OpenTableFormat }}',
+SELECT
+'{{ namespace }}',
+ '{{ table_name }}',
+ '{{ table_bucket_arn }}',
+ '{{ open_table_format }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -316,15 +316,15 @@ INSERT INTO awscc.s3tables.tables (
  SnapshotManagement,
  region
 )
-SELECT 
- '{{ WithoutMetadata }}',
- '{{ Compaction }}',
- '{{ Namespace }}',
- '{{ TableName }}',
- '{{ TableBucketARN }}',
- '{{ OpenTableFormat }}',
- '{{ IcebergMetadata }}',
- '{{ SnapshotManagement }}',
+SELECT
+ '{{ without_metadata }}',
+ '{{ compaction }}',
+ '{{ namespace }}',
+ '{{ table_name }}',
+ '{{ table_bucket_arn }}',
+ '{{ open_table_format }}',
+ '{{ iceberg_metadata }}',
+ '{{ snapshot_management }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -342,33 +342,32 @@ globals:
 resources:
   - name: table
     props:
-      - name: WithoutMetadata
-        value: '{{ WithoutMetadata }}'
-      - name: Compaction
+      - name: without_metadata
+        value: '{{ without_metadata }}'
+      - name: compaction
         value:
-          Status: '{{ Status }}'
-          TargetFileSizeMB: '{{ TargetFileSizeMB }}'
-      - name: Namespace
-        value: '{{ Namespace }}'
-      - name: TableName
-        value: '{{ TableName }}'
-      - name: TableBucketARN
-        value: '{{ TableBucketARN }}'
-      - name: OpenTableFormat
-        value: '{{ OpenTableFormat }}'
-      - name: IcebergMetadata
+          status: '{{ status }}'
+          target_file_size_mb: '{{ target_file_size_mb }}'
+      - name: namespace
+        value: '{{ namespace }}'
+      - name: table_name
+        value: '{{ table_name }}'
+      - name: table_bucket_arn
+        value: '{{ table_bucket_arn }}'
+      - name: open_table_format
+        value: '{{ open_table_format }}'
+      - name: iceberg_metadata
         value:
-          IcebergSchema:
-            SchemaFieldList:
-              - Type: '{{ Type }}'
-                Required: '{{ Required }}'
-                Name: '{{ Name }}'
-      - name: SnapshotManagement
+          iceberg_schema:
+            schema_field_list:
+              - type: '{{ type }}'
+                required: '{{ required }}'
+                name: '{{ name }}'
+      - name: snapshot_management
         value:
-          Status: '{{ Status }}'
-          MinSnapshotsToKeep: '{{ MinSnapshotsToKeep }}'
-          MaxSnapshotAgeHours: '{{ MaxSnapshotAgeHours }}'
-
+          status: '{{ status }}'
+          min_snapshots_to_keep: '{{ min_snapshots_to_keep }}'
+          max_snapshot_age_hours: '{{ max_snapshot_age_hours }}'
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +386,7 @@ SET PatchDocument = string('{{ {
     "SnapshotManagement": snapshot_management
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TableARN>';
+AND Identifier = '{{ table_arn }}';
 ```
 
 
@@ -396,7 +395,7 @@ AND Identifier = '<TableARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3tables.tables
-WHERE Identifier = '<TableARN>'
+WHERE Identifier = '{{ table_arn }}'
 AND region = 'us-east-1';
 ```
 

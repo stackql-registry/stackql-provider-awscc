@@ -176,7 +176,7 @@ key_fingerprint,
 key_pair_id,
 tags
 FROM awscc.ec2.key_pairs
-WHERE region = 'us-east-1' AND Identifier = '<KeyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ key_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.ec2.key_pairs (
  KeyName,
  region
 )
-SELECT 
-'{{ KeyName }}',
+SELECT
+'{{ key_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -229,12 +229,12 @@ INSERT INTO awscc.ec2.key_pairs (
  Tags,
  region
 )
-SELECT 
- '{{ KeyName }}',
- '{{ KeyType }}',
- '{{ KeyFormat }}',
- '{{ PublicKeyMaterial }}',
- '{{ Tags }}',
+SELECT
+ '{{ key_name }}',
+ '{{ key_type }}',
+ '{{ key_format }}',
+ '{{ public_key_material }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,19 +252,18 @@ globals:
 resources:
   - name: key_pair
     props:
-      - name: KeyName
-        value: '{{ KeyName }}'
-      - name: KeyType
-        value: '{{ KeyType }}'
-      - name: KeyFormat
-        value: '{{ KeyFormat }}'
-      - name: PublicKeyMaterial
-        value: '{{ PublicKeyMaterial }}'
-      - name: Tags
+      - name: key_name
+        value: '{{ key_name }}'
+      - name: key_type
+        value: '{{ key_type }}'
+      - name: key_format
+        value: '{{ key_format }}'
+      - name: public_key_material
+        value: '{{ public_key_material }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.key_pairs
-WHERE Identifier = '<KeyName>'
+WHERE Identifier = '{{ key_name }}'
 AND region = 'us-east-1';
 ```
 

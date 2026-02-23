@@ -218,7 +218,7 @@ network_settings,
 state,
 tags
 FROM awscc.medialive.clusters
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,12 +258,12 @@ INSERT INTO awscc.medialive.clusters (
  Tags,
  region
 )
-SELECT 
-'{{ ClusterType }}',
- '{{ InstanceRoleArn }}',
- '{{ Name }}',
- '{{ NetworkSettings }}',
- '{{ Tags }}',
+SELECT
+'{{ cluster_type }}',
+ '{{ instance_role_arn }}',
+ '{{ name }}',
+ '{{ network_settings }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -279,12 +279,12 @@ INSERT INTO awscc.medialive.clusters (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterType }}',
- '{{ InstanceRoleArn }}',
- '{{ Name }}',
- '{{ NetworkSettings }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_type }}',
+ '{{ instance_role_arn }}',
+ '{{ name }}',
+ '{{ network_settings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -302,23 +302,22 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: ClusterType
-        value: '{{ ClusterType }}'
-      - name: InstanceRoleArn
-        value: '{{ InstanceRoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: NetworkSettings
+      - name: cluster_type
+        value: '{{ cluster_type }}'
+      - name: instance_role_arn
+        value: '{{ instance_role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: network_settings
         value:
-          DefaultRoute: '{{ DefaultRoute }}'
-          InterfaceMappings:
-            - LogicalInterfaceName: '{{ LogicalInterfaceName }}'
-              NetworkId: '{{ NetworkId }}'
-      - name: Tags
+          default_route: '{{ default_route }}'
+          interface_mappings:
+            - logical_interface_name: '{{ logical_interface_name }}'
+              network_id: '{{ network_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.clusters
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

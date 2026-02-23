@@ -163,7 +163,7 @@ rest_api_id,
 stage,
 base_path_mapping_arn
 FROM awscc.apigateway.base_path_mapping_v2s
-WHERE region = 'us-east-1' AND Identifier = '<BasePathMappingArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ base_path_mapping_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,9 +200,9 @@ INSERT INTO awscc.apigateway.base_path_mapping_v2s (
  RestApiId,
  region
 )
-SELECT 
-'{{ DomainNameArn }}',
- '{{ RestApiId }}',
+SELECT
+'{{ domain_name_arn }}',
+ '{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,11 +217,11 @@ INSERT INTO awscc.apigateway.base_path_mapping_v2s (
  Stage,
  region
 )
-SELECT 
- '{{ BasePath }}',
- '{{ DomainNameArn }}',
- '{{ RestApiId }}',
- '{{ Stage }}',
+SELECT
+ '{{ base_path }}',
+ '{{ domain_name_arn }}',
+ '{{ rest_api_id }}',
+ '{{ stage }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -239,15 +239,14 @@ globals:
 resources:
   - name: base_path_mapping_v2
     props:
-      - name: BasePath
-        value: '{{ BasePath }}'
-      - name: DomainNameArn
-        value: '{{ DomainNameArn }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: Stage
-        value: '{{ Stage }}'
-
+      - name: base_path
+        value: '{{ base_path }}'
+      - name: domain_name_arn
+        value: '{{ domain_name_arn }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: stage
+        value: '{{ stage }}'
 ```
 </TabItem>
 </Tabs>
@@ -264,7 +263,7 @@ SET PatchDocument = string('{{ {
     "Stage": stage
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BasePathMappingArn>';
+AND Identifier = '{{ base_path_mapping_arn }}';
 ```
 
 
@@ -273,7 +272,7 @@ AND Identifier = '<BasePathMappingArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.base_path_mapping_v2s
-WHERE Identifier = '<BasePathMappingArn>'
+WHERE Identifier = '{{ base_path_mapping_arn }}'
 AND region = 'us-east-1';
 ```
 

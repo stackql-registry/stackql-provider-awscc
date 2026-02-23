@@ -170,7 +170,7 @@ arn,
 state,
 tags
 FROM awscc.iottwinmaker.sync_jobs
-WHERE region = 'us-east-1' AND Identifier = '<WorkspaceId>|<SyncSource>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workspace_id }}|{{ sync_source }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -209,10 +209,10 @@ INSERT INTO awscc.iottwinmaker.sync_jobs (
  SyncRole,
  region
 )
-SELECT 
-'{{ WorkspaceId }}',
- '{{ SyncSource }}',
- '{{ SyncRole }}',
+SELECT
+'{{ workspace_id }}',
+ '{{ sync_source }}',
+ '{{ sync_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -227,11 +227,11 @@ INSERT INTO awscc.iottwinmaker.sync_jobs (
  Tags,
  region
 )
-SELECT 
- '{{ WorkspaceId }}',
- '{{ SyncSource }}',
- '{{ SyncRole }}',
- '{{ Tags }}',
+SELECT
+ '{{ workspace_id }}',
+ '{{ sync_source }}',
+ '{{ sync_role }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -249,15 +249,14 @@ globals:
 resources:
   - name: sync_job
     props:
-      - name: WorkspaceId
-        value: '{{ WorkspaceId }}'
-      - name: SyncSource
-        value: '{{ SyncSource }}'
-      - name: SyncRole
-        value: '{{ SyncRole }}'
-      - name: Tags
+      - name: workspace_id
+        value: '{{ workspace_id }}'
+      - name: sync_source
+        value: '{{ sync_source }}'
+      - name: sync_role
+        value: '{{ sync_role }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.iottwinmaker.sync_jobs
-WHERE Identifier = '<WorkspaceId|SyncSource>'
+WHERE Identifier = '{{ workspace_id }}|{{ sync_source }}'
 AND region = 'us-east-1';
 ```
 

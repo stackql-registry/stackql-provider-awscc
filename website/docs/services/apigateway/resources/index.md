@@ -157,7 +157,7 @@ path_part,
 resource_id,
 rest_api_id
 FROM awscc.apigateway.resources
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<ResourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,10 +196,10 @@ INSERT INTO awscc.apigateway.resources (
  RestApiId,
  region
 )
-SELECT 
-'{{ ParentId }}',
- '{{ PathPart }}',
- '{{ RestApiId }}',
+SELECT
+'{{ parent_id }}',
+ '{{ path_part }}',
+ '{{ rest_api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -213,10 +213,10 @@ INSERT INTO awscc.apigateway.resources (
  RestApiId,
  region
 )
-SELECT 
- '{{ ParentId }}',
- '{{ PathPart }}',
- '{{ RestApiId }}',
+SELECT
+ '{{ parent_id }}',
+ '{{ path_part }}',
+ '{{ rest_api_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,13 +234,12 @@ globals:
 resources:
   - name: resource
     props:
-      - name: ParentId
-        value: '{{ ParentId }}'
-      - name: PathPart
-        value: '{{ PathPart }}'
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-
+      - name: parent_id
+        value: '{{ parent_id }}'
+      - name: path_part
+        value: '{{ path_part }}'
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +250,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.resources
-WHERE Identifier = '<RestApiId|ResourceId>'
+WHERE Identifier = '{{ rest_api_id }}|{{ resource_id }}'
 AND region = 'us-east-1';
 ```
 

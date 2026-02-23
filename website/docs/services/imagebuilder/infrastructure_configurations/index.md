@@ -271,7 +271,7 @@ resource_tags,
 tags,
 placement
 FROM awscc.imagebuilder.infrastructure_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -308,9 +308,9 @@ INSERT INTO awscc.imagebuilder.infrastructure_configurations (
  InstanceProfileName,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ InstanceProfileName }}',
+SELECT
+'{{ name }}',
+ '{{ instance_profile_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -335,21 +335,21 @@ INSERT INTO awscc.imagebuilder.infrastructure_configurations (
  Placement,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ InstanceTypes }}',
- '{{ SecurityGroupIds }}',
- '{{ Logging }}',
- '{{ SubnetId }}',
- '{{ KeyPair }}',
- '{{ TerminateInstanceOnFailure }}',
- '{{ InstanceProfileName }}',
- '{{ InstanceMetadataOptions }}',
- '{{ SnsTopicArn }}',
- '{{ ResourceTags }}',
- '{{ Tags }}',
- '{{ Placement }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ instance_types }}',
+ '{{ security_group_ids }}',
+ '{{ logging }}',
+ '{{ subnet_id }}',
+ '{{ key_pair }}',
+ '{{ terminate_instance_on_failure }}',
+ '{{ instance_profile_name }}',
+ '{{ instance_metadata_options }}',
+ '{{ sns_topic_arn }}',
+ '{{ resource_tags }}',
+ '{{ tags }}',
+ '{{ placement }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -367,46 +367,45 @@ globals:
 resources:
   - name: infrastructure_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InstanceTypes
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: instance_types
         value:
-          - '{{ InstanceTypes[0] }}'
-      - name: SecurityGroupIds
+          - '{{ instance_types[0] }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: Logging
+          - '{{ security_group_ids[0] }}'
+      - name: logging
         value:
-          S3Logs:
-            S3BucketName: '{{ S3BucketName }}'
-            S3KeyPrefix: '{{ S3KeyPrefix }}'
-      - name: SubnetId
-        value: '{{ SubnetId }}'
-      - name: KeyPair
-        value: '{{ KeyPair }}'
-      - name: TerminateInstanceOnFailure
-        value: '{{ TerminateInstanceOnFailure }}'
-      - name: InstanceProfileName
-        value: '{{ InstanceProfileName }}'
-      - name: InstanceMetadataOptions
+          s3_logs:
+            s3_bucket_name: '{{ s3_bucket_name }}'
+            s3_key_prefix: '{{ s3_key_prefix }}'
+      - name: subnet_id
+        value: '{{ subnet_id }}'
+      - name: key_pair
+        value: '{{ key_pair }}'
+      - name: terminate_instance_on_failure
+        value: '{{ terminate_instance_on_failure }}'
+      - name: instance_profile_name
+        value: '{{ instance_profile_name }}'
+      - name: instance_metadata_options
         value:
-          HttpPutResponseHopLimit: '{{ HttpPutResponseHopLimit }}'
-          HttpTokens: '{{ HttpTokens }}'
-      - name: SnsTopicArn
-        value: '{{ SnsTopicArn }}'
-      - name: ResourceTags
+          http_put_response_hop_limit: '{{ http_put_response_hop_limit }}'
+          http_tokens: '{{ http_tokens }}'
+      - name: sns_topic_arn
+        value: '{{ sns_topic_arn }}'
+      - name: resource_tags
         value: {}
-      - name: Tags
+      - name: tags
         value: {}
-      - name: Placement
+      - name: placement
         value:
-          AvailabilityZone: '{{ AvailabilityZone }}'
-          Tenancy: '{{ Tenancy }}'
-          HostId: '{{ HostId }}'
-          HostResourceGroupArn: '{{ HostResourceGroupArn }}'
-
+          availability_zone: '{{ availability_zone }}'
+          tenancy: '{{ tenancy }}'
+          host_id: '{{ host_id }}'
+          host_resource_group_arn: '{{ host_resource_group_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -434,7 +433,7 @@ SET PatchDocument = string('{{ {
     "Placement": placement
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -443,7 +442,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.infrastructure_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

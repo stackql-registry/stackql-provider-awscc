@@ -250,7 +250,7 @@ endpoint_ids,
 enabled_analysis_types,
 tags
 FROM awscc.networkfirewall.firewalls
-WHERE region = 'us-east-1' AND Identifier = '<FirewallArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ firewall_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,9 +287,9 @@ INSERT INTO awscc.networkfirewall.firewalls (
  FirewallPolicyArn,
  region
 )
-SELECT 
-'{{ FirewallName }}',
- '{{ FirewallPolicyArn }}',
+SELECT
+'{{ firewall_name }}',
+ '{{ firewall_policy_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -313,20 +313,20 @@ INSERT INTO awscc.networkfirewall.firewalls (
  Tags,
  region
 )
-SELECT 
- '{{ FirewallName }}',
- '{{ FirewallPolicyArn }}',
- '{{ VpcId }}',
- '{{ SubnetMappings }}',
- '{{ AvailabilityZoneMappings }}',
- '{{ DeleteProtection }}',
- '{{ SubnetChangeProtection }}',
- '{{ AvailabilityZoneChangeProtection }}',
- '{{ FirewallPolicyChangeProtection }}',
- '{{ TransitGatewayId }}',
- '{{ Description }}',
- '{{ EnabledAnalysisTypes }}',
- '{{ Tags }}',
+SELECT
+ '{{ firewall_name }}',
+ '{{ firewall_policy_arn }}',
+ '{{ vpc_id }}',
+ '{{ subnet_mappings }}',
+ '{{ availability_zone_mappings }}',
+ '{{ delete_protection }}',
+ '{{ subnet_change_protection }}',
+ '{{ availability_zone_change_protection }}',
+ '{{ firewall_policy_change_protection }}',
+ '{{ transit_gateway_id }}',
+ '{{ description }}',
+ '{{ enabled_analysis_types }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -344,39 +344,38 @@ globals:
 resources:
   - name: firewall
     props:
-      - name: FirewallName
-        value: '{{ FirewallName }}'
-      - name: FirewallPolicyArn
-        value: '{{ FirewallPolicyArn }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: SubnetMappings
+      - name: firewall_name
+        value: '{{ firewall_name }}'
+      - name: firewall_policy_arn
+        value: '{{ firewall_policy_arn }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: subnet_mappings
         value:
-          - SubnetId: '{{ SubnetId }}'
-            IPAddressType: '{{ IPAddressType }}'
-      - name: AvailabilityZoneMappings
+          - subnet_id: '{{ subnet_id }}'
+            ip_address_type: '{{ ip_address_type }}'
+      - name: availability_zone_mappings
         value:
-          - AvailabilityZone: '{{ AvailabilityZone }}'
-      - name: DeleteProtection
-        value: '{{ DeleteProtection }}'
-      - name: SubnetChangeProtection
-        value: '{{ SubnetChangeProtection }}'
-      - name: AvailabilityZoneChangeProtection
-        value: '{{ AvailabilityZoneChangeProtection }}'
-      - name: FirewallPolicyChangeProtection
-        value: '{{ FirewallPolicyChangeProtection }}'
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: EnabledAnalysisTypes
+          - availability_zone: '{{ availability_zone }}'
+      - name: delete_protection
+        value: '{{ delete_protection }}'
+      - name: subnet_change_protection
+        value: '{{ subnet_change_protection }}'
+      - name: availability_zone_change_protection
+        value: '{{ availability_zone_change_protection }}'
+      - name: firewall_policy_change_protection
+        value: '{{ firewall_policy_change_protection }}'
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: enabled_analysis_types
         value:
-          - '{{ EnabledAnalysisTypes[0] }}'
-      - name: Tags
+          - '{{ enabled_analysis_types[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -402,7 +401,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FirewallArn>';
+AND Identifier = '{{ firewall_arn }}';
 ```
 
 
@@ -411,7 +410,7 @@ AND Identifier = '<FirewallArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkfirewall.firewalls
-WHERE Identifier = '<FirewallArn>'
+WHERE Identifier = '{{ firewall_arn }}'
 AND region = 'us-east-1';
 ```
 

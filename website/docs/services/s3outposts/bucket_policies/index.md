@@ -94,7 +94,7 @@ region,
 bucket,
 policy_document
 FROM awscc.s3outposts.bucket_policies
-WHERE region = 'us-east-1' AND Identifier = '<Bucket>';
+WHERE region = 'us-east-1' AND Identifier = '{{ bucket }}';
 ```
 
 ## `INSERT` example
@@ -118,9 +118,9 @@ INSERT INTO awscc.s3outposts.bucket_policies (
  PolicyDocument,
  region
 )
-SELECT 
-'{{ Bucket }}',
- '{{ PolicyDocument }}',
+SELECT
+'{{ bucket }}',
+ '{{ policy_document }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -133,9 +133,9 @@ INSERT INTO awscc.s3outposts.bucket_policies (
  PolicyDocument,
  region
 )
-SELECT 
- '{{ Bucket }}',
- '{{ PolicyDocument }}',
+SELECT
+ '{{ bucket }}',
+ '{{ policy_document }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -153,11 +153,10 @@ globals:
 resources:
   - name: bucket_policy
     props:
-      - name: Bucket
-        value: '{{ Bucket }}'
-      - name: PolicyDocument
+      - name: bucket
+        value: '{{ bucket }}'
+      - name: policy_document
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Bucket>';
+AND Identifier = '{{ bucket }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<Bucket>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3outposts.bucket_policies
-WHERE Identifier = '<Bucket>'
+WHERE Identifier = '{{ bucket }}'
 AND region = 'us-east-1';
 ```
 

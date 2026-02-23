@@ -195,7 +195,7 @@ field_delimiter,
 s3_suffix_path,
 s3_enable_hive_compatible_path
 FROM awscc.logs.deliveries
-WHERE region = 'us-east-1' AND Identifier = '<DeliveryId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ delivery_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,9 +232,9 @@ INSERT INTO awscc.logs.deliveries (
  DeliveryDestinationArn,
  region
 )
-SELECT 
-'{{ DeliverySourceName }}',
- '{{ DeliveryDestinationArn }}',
+SELECT
+'{{ delivery_source_name }}',
+ '{{ delivery_destination_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -252,14 +252,14 @@ INSERT INTO awscc.logs.deliveries (
  S3EnableHiveCompatiblePath,
  region
 )
-SELECT 
- '{{ DeliverySourceName }}',
- '{{ DeliveryDestinationArn }}',
- '{{ Tags }}',
- '{{ RecordFields }}',
- '{{ FieldDelimiter }}',
- '{{ S3SuffixPath }}',
- '{{ S3EnableHiveCompatiblePath }}',
+SELECT
+ '{{ delivery_source_name }}',
+ '{{ delivery_destination_arn }}',
+ '{{ tags }}',
+ '{{ record_fields }}',
+ '{{ field_delimiter }}',
+ '{{ s3_suffix_path }}',
+ '{{ s3_enable_hive_compatible_path }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,24 +277,23 @@ globals:
 resources:
   - name: delivery
     props:
-      - name: DeliverySourceName
-        value: '{{ DeliverySourceName }}'
-      - name: DeliveryDestinationArn
-        value: '{{ DeliveryDestinationArn }}'
-      - name: Tags
+      - name: delivery_source_name
+        value: '{{ delivery_source_name }}'
+      - name: delivery_destination_arn
+        value: '{{ delivery_destination_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: RecordFields
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: record_fields
         value:
-          - '{{ RecordFields[0] }}'
-      - name: FieldDelimiter
-        value: '{{ FieldDelimiter }}'
-      - name: S3SuffixPath
-        value: '{{ S3SuffixPath }}'
-      - name: S3EnableHiveCompatiblePath
-        value: '{{ S3EnableHiveCompatiblePath }}'
-
+          - '{{ record_fields[0] }}'
+      - name: field_delimiter
+        value: '{{ field_delimiter }}'
+      - name: s3_suffix_path
+        value: '{{ s3_suffix_path }}'
+      - name: s3_enable_hive_compatible_path
+        value: '{{ s3_enable_hive_compatible_path }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "S3EnableHiveCompatiblePath": s3_enable_hive_compatible_path
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DeliveryId>';
+AND Identifier = '{{ delivery_id }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<DeliveryId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.deliveries
-WHERE Identifier = '<DeliveryId>'
+WHERE Identifier = '{{ delivery_id }}'
 AND region = 'us-east-1';
 ```
 

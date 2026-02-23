@@ -177,7 +177,7 @@ maximum_event_age_in_seconds,
 maximum_retry_attempts,
 qualifier
 FROM awscc.lambda.event_invoke_configs
-WHERE region = 'us-east-1' AND Identifier = '<FunctionName>|<Qualifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_name }}|{{ qualifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -215,9 +215,9 @@ INSERT INTO awscc.lambda.event_invoke_configs (
  Qualifier,
  region
 )
-SELECT 
-'{{ FunctionName }}',
- '{{ Qualifier }}',
+SELECT
+'{{ function_name }}',
+ '{{ qualifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.lambda.event_invoke_configs (
  Qualifier,
  region
 )
-SELECT 
- '{{ DestinationConfig }}',
- '{{ FunctionName }}',
- '{{ MaximumEventAgeInSeconds }}',
- '{{ MaximumRetryAttempts }}',
- '{{ Qualifier }}',
+SELECT
+ '{{ destination_config }}',
+ '{{ function_name }}',
+ '{{ maximum_event_age_in_seconds }}',
+ '{{ maximum_retry_attempts }}',
+ '{{ qualifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: event_invoke_config
     props:
-      - name: DestinationConfig
+      - name: destination_config
         value:
-          OnFailure:
-            Destination: '{{ Destination }}'
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: MaximumEventAgeInSeconds
-        value: '{{ MaximumEventAgeInSeconds }}'
-      - name: MaximumRetryAttempts
-        value: '{{ MaximumRetryAttempts }}'
-      - name: Qualifier
-        value: '{{ Qualifier }}'
-
+          on_failure:
+            destination: '{{ destination }}'
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: maximum_event_age_in_seconds
+        value: '{{ maximum_event_age_in_seconds }}'
+      - name: maximum_retry_attempts
+        value: '{{ maximum_retry_attempts }}'
+      - name: qualifier
+        value: '{{ qualifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -286,7 +285,7 @@ SET PatchDocument = string('{{ {
     "MaximumRetryAttempts": maximum_retry_attempts
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FunctionName>|<Qualifier>';
+AND Identifier = '{{ function_name }}|{{ qualifier }}';
 ```
 
 
@@ -295,7 +294,7 @@ AND Identifier = '<FunctionName>|<Qualifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.event_invoke_configs
-WHERE Identifier = '<FunctionName|Qualifier>'
+WHERE Identifier = '{{ function_name }}|{{ qualifier }}'
 AND region = 'us-east-1';
 ```
 

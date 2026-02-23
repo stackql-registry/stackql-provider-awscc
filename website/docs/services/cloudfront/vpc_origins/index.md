@@ -214,7 +214,7 @@ status,
 tags,
 vpc_origin_endpoint_config
 FROM awscc.cloudfront.vpc_origins
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,7 +225,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.vpc_origins_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -250,8 +250,8 @@ INSERT INTO awscc.cloudfront.vpc_origins (
  VpcOriginEndpointConfig,
  region
 )
-SELECT 
-'{{ VpcOriginEndpointConfig }}',
+SELECT
+'{{ vpc_origin_endpoint_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,9 +264,9 @@ INSERT INTO awscc.cloudfront.vpc_origins (
  VpcOriginEndpointConfig,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ VpcOriginEndpointConfig }}',
+SELECT
+ '{{ tags }}',
+ '{{ vpc_origin_endpoint_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,20 +284,19 @@ globals:
 resources:
   - name: vpc_origin
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcOriginEndpointConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_origin_endpoint_config
         value:
-          Arn: '{{ Arn }}'
-          HTTPPort: '{{ HTTPPort }}'
-          HTTPSPort: '{{ HTTPSPort }}'
-          Name: '{{ Name }}'
-          OriginProtocolPolicy: '{{ OriginProtocolPolicy }}'
-          OriginSSLProtocols:
-            - '{{ OriginSSLProtocols[0] }}'
-
+          arn: '{{ arn }}'
+          h_tt_pport: '{{ h_tt_pport }}'
+          h_tt_ps_port: '{{ h_tt_ps_port }}'
+          name: '{{ name }}'
+          origin_protocol_policy: '{{ origin_protocol_policy }}'
+          origin_ss_lprotocols:
+            - '{{ origin_ss_lprotocols[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "VpcOriginEndpointConfig": vpc_origin_endpoint_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.vpc_origins
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

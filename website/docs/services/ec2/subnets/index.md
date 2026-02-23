@@ -290,7 +290,7 @@ ipv6_ipam_pool_id,
 ipv6_netmask_length,
 block_public_access_states
 FROM awscc.ec2.subnets
-WHERE region = 'us-east-1' AND Identifier = '<SubnetId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ subnet_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -326,8 +326,8 @@ INSERT INTO awscc.ec2.subnets (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -355,24 +355,24 @@ INSERT INTO awscc.ec2.subnets (
  Ipv6NetmaskLength,
  region
 )
-SELECT 
- '{{ AssignIpv6AddressOnCreation }}',
- '{{ VpcId }}',
- '{{ MapPublicIpOnLaunch }}',
- '{{ EnableLniAtDeviceIndex }}',
- '{{ AvailabilityZone }}',
- '{{ AvailabilityZoneId }}',
- '{{ CidrBlock }}',
- '{{ Ipv6CidrBlock }}',
- '{{ OutpostArn }}',
- '{{ Ipv6Native }}',
- '{{ EnableDns64 }}',
- '{{ PrivateDnsNameOptionsOnLaunch }}',
- '{{ Tags }}',
- '{{ Ipv4IpamPoolId }}',
- '{{ Ipv4NetmaskLength }}',
- '{{ Ipv6IpamPoolId }}',
- '{{ Ipv6NetmaskLength }}',
+SELECT
+ '{{ assign_ipv6_address_on_creation }}',
+ '{{ vpc_id }}',
+ '{{ map_public_ip_on_launch }}',
+ '{{ enable_lni_at_device_index }}',
+ '{{ availability_zone }}',
+ '{{ availability_zone_id }}',
+ '{{ cidr_block }}',
+ '{{ ipv6_cidr_block }}',
+ '{{ outpost_arn }}',
+ '{{ ipv6_native }}',
+ '{{ enable_dns64 }}',
+ '{{ private_dns_name_options_on_launch }}',
+ '{{ tags }}',
+ '{{ ipv4_ipam_pool_id }}',
+ '{{ ipv4_netmask_length }}',
+ '{{ ipv6_ipam_pool_id }}',
+ '{{ ipv6_netmask_length }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -390,46 +390,45 @@ globals:
 resources:
   - name: subnet
     props:
-      - name: AssignIpv6AddressOnCreation
-        value: '{{ AssignIpv6AddressOnCreation }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: MapPublicIpOnLaunch
-        value: '{{ MapPublicIpOnLaunch }}'
-      - name: EnableLniAtDeviceIndex
-        value: '{{ EnableLniAtDeviceIndex }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: AvailabilityZoneId
-        value: '{{ AvailabilityZoneId }}'
-      - name: CidrBlock
-        value: '{{ CidrBlock }}'
-      - name: Ipv6CidrBlock
-        value: '{{ Ipv6CidrBlock }}'
-      - name: OutpostArn
-        value: '{{ OutpostArn }}'
-      - name: Ipv6Native
-        value: '{{ Ipv6Native }}'
-      - name: EnableDns64
-        value: '{{ EnableDns64 }}'
-      - name: PrivateDnsNameOptionsOnLaunch
+      - name: assign_ipv6_address_on_creation
+        value: '{{ assign_ipv6_address_on_creation }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: map_public_ip_on_launch
+        value: '{{ map_public_ip_on_launch }}'
+      - name: enable_lni_at_device_index
+        value: '{{ enable_lni_at_device_index }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: availability_zone_id
+        value: '{{ availability_zone_id }}'
+      - name: cidr_block
+        value: '{{ cidr_block }}'
+      - name: ipv6_cidr_block
+        value: '{{ ipv6_cidr_block }}'
+      - name: outpost_arn
+        value: '{{ outpost_arn }}'
+      - name: ipv6_native
+        value: '{{ ipv6_native }}'
+      - name: enable_dns64
+        value: '{{ enable_dns64 }}'
+      - name: private_dns_name_options_on_launch
         value:
-          HostnameType: '{{ HostnameType }}'
-          EnableResourceNameDnsARecord: '{{ EnableResourceNameDnsARecord }}'
-          EnableResourceNameDnsAAAARecord: '{{ EnableResourceNameDnsAAAARecord }}'
-      - name: Tags
+          hostname_type: '{{ hostname_type }}'
+          enable_resource_name_dns_arecord: '{{ enable_resource_name_dns_arecord }}'
+          enable_resource_name_dns_aa_aa_record: '{{ enable_resource_name_dns_aa_aa_record }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Ipv4IpamPoolId
-        value: '{{ Ipv4IpamPoolId }}'
-      - name: Ipv4NetmaskLength
-        value: '{{ Ipv4NetmaskLength }}'
-      - name: Ipv6IpamPoolId
-        value: '{{ Ipv6IpamPoolId }}'
-      - name: Ipv6NetmaskLength
-        value: '{{ Ipv6NetmaskLength }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: ipv4_ipam_pool_id
+        value: '{{ ipv4_ipam_pool_id }}'
+      - name: ipv4_netmask_length
+        value: '{{ ipv4_netmask_length }}'
+      - name: ipv6_ipam_pool_id
+        value: '{{ ipv6_ipam_pool_id }}'
+      - name: ipv6_netmask_length
+        value: '{{ ipv6_netmask_length }}'
 ```
 </TabItem>
 </Tabs>
@@ -451,7 +450,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SubnetId>';
+AND Identifier = '{{ subnet_id }}';
 ```
 
 
@@ -460,7 +459,7 @@ AND Identifier = '<SubnetId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.subnets
-WHERE Identifier = '<SubnetId>'
+WHERE Identifier = '{{ subnet_id }}'
 AND region = 'us-east-1';
 ```
 

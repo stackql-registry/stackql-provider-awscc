@@ -216,7 +216,7 @@ type,
 open_zf_sconfiguration,
 s3_access_point
 FROM awscc.fsx.s3access_point_attachments
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -254,10 +254,10 @@ INSERT INTO awscc.fsx.s3access_point_attachments (
  OpenZFSConfiguration,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
- '{{ OpenZFSConfiguration }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
+ '{{ open_zf_sconfiguration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -272,11 +272,11 @@ INSERT INTO awscc.fsx.s3access_point_attachments (
  S3AccessPoint,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ OpenZFSConfiguration }}',
- '{{ S3AccessPoint }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ open_zf_sconfiguration }}',
+ '{{ s3_access_point }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,28 +294,27 @@ globals:
 resources:
   - name: s3access_point_attachment
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: OpenZFSConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: open_zf_sconfiguration
         value:
-          VolumeId: '{{ VolumeId }}'
-          FileSystemIdentity:
-            Type: '{{ Type }}'
-            PosixUser:
-              Uid: null
-              Gid: null
-              SecondaryGids:
-                - Gid: null
-      - name: S3AccessPoint
+          volume_id: '{{ volume_id }}'
+          file_system_identity:
+            type: '{{ type }}'
+            posix_user:
+              uid: null
+              gid: null
+              secondary_gids:
+                - gid: null
+      - name: s3_access_point
         value:
-          ResourceARN: '{{ ResourceARN }}'
-          Alias: '{{ Alias }}'
-          VpcConfiguration:
-            VpcId: '{{ VpcId }}'
-          Policy: {}
-
+          resource_arn: '{{ resource_arn }}'
+          alias: '{{ alias }}'
+          vpc_configuration:
+            vpc_id: '{{ vpc_id }}'
+          policy: {}
 ```
 </TabItem>
 </Tabs>
@@ -326,7 +325,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.fsx.s3access_point_attachments
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

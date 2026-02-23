@@ -235,7 +235,7 @@ stage_name,
 proxy_url,
 tags
 FROM awscc.refactorspaces.applications
-WHERE region = 'us-east-1' AND Identifier = '<EnvironmentIdentifier>|<ApplicationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ environment_identifier }}|{{ application_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -275,11 +275,11 @@ INSERT INTO awscc.refactorspaces.applications (
  VpcId,
  region
 )
-SELECT 
-'{{ EnvironmentIdentifier }}',
- '{{ Name }}',
- '{{ ProxyType }}',
- '{{ VpcId }}',
+SELECT
+'{{ environment_identifier }}',
+ '{{ name }}',
+ '{{ proxy_type }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -296,13 +296,13 @@ INSERT INTO awscc.refactorspaces.applications (
  Tags,
  region
 )
-SELECT 
- '{{ ApiGatewayProxy }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Name }}',
- '{{ ProxyType }}',
- '{{ VpcId }}',
- '{{ Tags }}',
+SELECT
+ '{{ api_gateway_proxy }}',
+ '{{ environment_identifier }}',
+ '{{ name }}',
+ '{{ proxy_type }}',
+ '{{ vpc_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,23 +320,22 @@ globals:
 resources:
   - name: application
     props:
-      - name: ApiGatewayProxy
+      - name: api_gateway_proxy
         value:
-          StageName: '{{ StageName }}'
-          EndpointType: '{{ EndpointType }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProxyType
-        value: '{{ ProxyType }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: Tags
+          stage_name: '{{ stage_name }}'
+          endpoint_type: '{{ endpoint_type }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: proxy_type
+        value: '{{ proxy_type }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -347,7 +346,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.refactorspaces.applications
-WHERE Identifier = '<EnvironmentIdentifier|ApplicationIdentifier>'
+WHERE Identifier = '{{ environment_identifier }}|{{ application_identifier }}'
 AND region = 'us-east-1';
 ```
 

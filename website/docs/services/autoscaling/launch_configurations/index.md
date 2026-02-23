@@ -312,7 +312,7 @@ instance_type,
 ram_disk_id,
 instance_monitoring
 FROM awscc.autoscaling.launch_configurations
-WHERE region = 'us-east-1' AND Identifier = '<LaunchConfigurationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ launch_configuration_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -349,9 +349,9 @@ INSERT INTO awscc.autoscaling.launch_configurations (
  InstanceType,
  region
 )
-SELECT 
-'{{ ImageId }}',
- '{{ InstanceType }}',
+SELECT
+'{{ image_id }}',
+ '{{ instance_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -381,26 +381,26 @@ INSERT INTO awscc.autoscaling.launch_configurations (
  InstanceMonitoring,
  region
 )
-SELECT 
- '{{ PlacementTenancy }}',
- '{{ SecurityGroups }}',
- '{{ LaunchConfigurationName }}',
- '{{ MetadataOptions }}',
- '{{ InstanceId }}',
- '{{ UserData }}',
- '{{ ClassicLinkVPCSecurityGroups }}',
- '{{ BlockDeviceMappings }}',
- '{{ IamInstanceProfile }}',
- '{{ KernelId }}',
- '{{ AssociatePublicIpAddress }}',
- '{{ ClassicLinkVPCId }}',
- '{{ EbsOptimized }}',
- '{{ KeyName }}',
- '{{ SpotPrice }}',
- '{{ ImageId }}',
- '{{ InstanceType }}',
- '{{ RamDiskId }}',
- '{{ InstanceMonitoring }}',
+SELECT
+ '{{ placement_tenancy }}',
+ '{{ security_groups }}',
+ '{{ launch_configuration_name }}',
+ '{{ metadata_options }}',
+ '{{ instance_id }}',
+ '{{ user_data }}',
+ '{{ classic_link_vpc_security_groups }}',
+ '{{ block_device_mappings }}',
+ '{{ iam_instance_profile }}',
+ '{{ kernel_id }}',
+ '{{ associate_public_ip_address }}',
+ '{{ classic_link_vpc_id }}',
+ '{{ ebs_optimized }}',
+ '{{ key_name }}',
+ '{{ spot_price }}',
+ '{{ image_id }}',
+ '{{ instance_type }}',
+ '{{ ram_disk_id }}',
+ '{{ instance_monitoring }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -418,61 +418,60 @@ globals:
 resources:
   - name: launch_configuration
     props:
-      - name: PlacementTenancy
-        value: '{{ PlacementTenancy }}'
-      - name: SecurityGroups
+      - name: placement_tenancy
+        value: '{{ placement_tenancy }}'
+      - name: security_groups
         value:
-          - '{{ SecurityGroups[0] }}'
-      - name: LaunchConfigurationName
-        value: '{{ LaunchConfigurationName }}'
-      - name: MetadataOptions
+          - '{{ security_groups[0] }}'
+      - name: launch_configuration_name
+        value: '{{ launch_configuration_name }}'
+      - name: metadata_options
         value:
-          HttpPutResponseHopLimit: '{{ HttpPutResponseHopLimit }}'
-          HttpTokens: '{{ HttpTokens }}'
-          HttpEndpoint: '{{ HttpEndpoint }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: UserData
-        value: '{{ UserData }}'
-      - name: ClassicLinkVPCSecurityGroups
+          http_put_response_hop_limit: '{{ http_put_response_hop_limit }}'
+          http_tokens: '{{ http_tokens }}'
+          http_endpoint: '{{ http_endpoint }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: user_data
+        value: '{{ user_data }}'
+      - name: classic_link_vpc_security_groups
         value:
-          - '{{ ClassicLinkVPCSecurityGroups[0] }}'
-      - name: BlockDeviceMappings
+          - '{{ classic_link_vpc_security_groups[0] }}'
+      - name: block_device_mappings
         value:
-          - Ebs:
-              SnapshotId: '{{ SnapshotId }}'
-              VolumeType: '{{ VolumeType }}'
-              Encrypted: '{{ Encrypted }}'
-              Throughput: '{{ Throughput }}'
-              Iops: '{{ Iops }}'
-              VolumeSize: '{{ VolumeSize }}'
-              DeleteOnTermination: '{{ DeleteOnTermination }}'
-            NoDevice: '{{ NoDevice }}'
-            VirtualName: '{{ VirtualName }}'
-            DeviceName: '{{ DeviceName }}'
-      - name: IamInstanceProfile
-        value: '{{ IamInstanceProfile }}'
-      - name: KernelId
-        value: '{{ KernelId }}'
-      - name: AssociatePublicIpAddress
-        value: '{{ AssociatePublicIpAddress }}'
-      - name: ClassicLinkVPCId
-        value: '{{ ClassicLinkVPCId }}'
-      - name: EbsOptimized
-        value: '{{ EbsOptimized }}'
-      - name: KeyName
-        value: '{{ KeyName }}'
-      - name: SpotPrice
-        value: '{{ SpotPrice }}'
-      - name: ImageId
-        value: '{{ ImageId }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: RamDiskId
-        value: '{{ RamDiskId }}'
-      - name: InstanceMonitoring
-        value: '{{ InstanceMonitoring }}'
-
+          - ebs:
+              snapshot_id: '{{ snapshot_id }}'
+              volume_type: '{{ volume_type }}'
+              encrypted: '{{ encrypted }}'
+              throughput: '{{ throughput }}'
+              iops: '{{ iops }}'
+              volume_size: '{{ volume_size }}'
+              delete_on_termination: '{{ delete_on_termination }}'
+            no_device: '{{ no_device }}'
+            virtual_name: '{{ virtual_name }}'
+            device_name: '{{ device_name }}'
+      - name: iam_instance_profile
+        value: '{{ iam_instance_profile }}'
+      - name: kernel_id
+        value: '{{ kernel_id }}'
+      - name: associate_public_ip_address
+        value: '{{ associate_public_ip_address }}'
+      - name: classic_link_vpc_id
+        value: '{{ classic_link_vpc_id }}'
+      - name: ebs_optimized
+        value: '{{ ebs_optimized }}'
+      - name: key_name
+        value: '{{ key_name }}'
+      - name: spot_price
+        value: '{{ spot_price }}'
+      - name: image_id
+        value: '{{ image_id }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: ram_disk_id
+        value: '{{ ram_disk_id }}'
+      - name: instance_monitoring
+        value: '{{ instance_monitoring }}'
 ```
 </TabItem>
 </Tabs>
@@ -483,7 +482,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.autoscaling.launch_configurations
-WHERE Identifier = '<LaunchConfigurationName>'
+WHERE Identifier = '{{ launch_configuration_name }}'
 AND region = 'us-east-1';
 ```
 

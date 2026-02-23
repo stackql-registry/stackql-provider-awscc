@@ -200,7 +200,7 @@ host_maintenance,
 asset_id,
 tags
 FROM awscc.ec2.hosts
-WHERE region = 'us-east-1' AND Identifier = '<HostId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ host_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -236,8 +236,8 @@ INSERT INTO awscc.ec2.hosts (
  AvailabilityZone,
  region
 )
-SELECT 
-'{{ AvailabilityZone }}',
+SELECT
+'{{ availability_zone }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,16 +257,16 @@ INSERT INTO awscc.ec2.hosts (
  Tags,
  region
 )
-SELECT 
- '{{ AutoPlacement }}',
- '{{ AvailabilityZone }}',
- '{{ HostRecovery }}',
- '{{ InstanceType }}',
- '{{ InstanceFamily }}',
- '{{ OutpostArn }}',
- '{{ HostMaintenance }}',
- '{{ AssetId }}',
- '{{ Tags }}',
+SELECT
+ '{{ auto_placement }}',
+ '{{ availability_zone }}',
+ '{{ host_recovery }}',
+ '{{ instance_type }}',
+ '{{ instance_family }}',
+ '{{ outpost_arn }}',
+ '{{ host_maintenance }}',
+ '{{ asset_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,27 +284,26 @@ globals:
 resources:
   - name: host
     props:
-      - name: AutoPlacement
-        value: '{{ AutoPlacement }}'
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: HostRecovery
-        value: '{{ HostRecovery }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: InstanceFamily
-        value: '{{ InstanceFamily }}'
-      - name: OutpostArn
-        value: '{{ OutpostArn }}'
-      - name: HostMaintenance
-        value: '{{ HostMaintenance }}'
-      - name: AssetId
-        value: '{{ AssetId }}'
-      - name: Tags
+      - name: auto_placement
+        value: '{{ auto_placement }}'
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: host_recovery
+        value: '{{ host_recovery }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: instance_family
+        value: '{{ instance_family }}'
+      - name: outpost_arn
+        value: '{{ outpost_arn }}'
+      - name: host_maintenance
+        value: '{{ host_maintenance }}'
+      - name: asset_id
+        value: '{{ asset_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<HostId>';
+AND Identifier = '{{ host_id }}';
 ```
 
 
@@ -332,7 +331,7 @@ AND Identifier = '<HostId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.hosts
-WHERE Identifier = '<HostId>'
+WHERE Identifier = '{{ host_id }}'
 AND region = 'us-east-1';
 ```
 

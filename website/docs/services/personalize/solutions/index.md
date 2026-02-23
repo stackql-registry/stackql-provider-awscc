@@ -272,7 +272,7 @@ perform_hpo,
 recipe_arn,
 solution_config
 FROM awscc.personalize.solutions
-WHERE region = 'us-east-1' AND Identifier = '<SolutionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ solution_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -309,9 +309,9 @@ INSERT INTO awscc.personalize.solutions (
  DatasetGroupArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DatasetGroupArn }}',
+SELECT
+'{{ name }}',
+ '{{ dataset_group_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -329,14 +329,14 @@ INSERT INTO awscc.personalize.solutions (
  SolutionConfig,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ EventType }}',
- '{{ DatasetGroupArn }}',
- '{{ PerformAutoML }}',
- '{{ PerformHPO }}',
- '{{ RecipeArn }}',
- '{{ SolutionConfig }}',
+SELECT
+ '{{ name }}',
+ '{{ event_type }}',
+ '{{ dataset_group_arn }}',
+ '{{ perform_auto_ml }}',
+ '{{ perform_hpo }}',
+ '{{ recipe_arn }}',
+ '{{ solution_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -354,49 +354,48 @@ globals:
 resources:
   - name: solution
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: EventType
-        value: '{{ EventType }}'
-      - name: DatasetGroupArn
-        value: '{{ DatasetGroupArn }}'
-      - name: PerformAutoML
-        value: '{{ PerformAutoML }}'
-      - name: PerformHPO
-        value: '{{ PerformHPO }}'
-      - name: RecipeArn
-        value: '{{ RecipeArn }}'
-      - name: SolutionConfig
+      - name: name
+        value: '{{ name }}'
+      - name: event_type
+        value: '{{ event_type }}'
+      - name: dataset_group_arn
+        value: '{{ dataset_group_arn }}'
+      - name: perform_auto_ml
+        value: '{{ perform_auto_ml }}'
+      - name: perform_hpo
+        value: '{{ perform_hpo }}'
+      - name: recipe_arn
+        value: '{{ recipe_arn }}'
+      - name: solution_config
         value:
-          AlgorithmHyperParameters: {}
-          AutoMLConfig:
-            MetricName: '{{ MetricName }}'
-            RecipeList:
-              - '{{ RecipeList[0] }}'
-          EventValueThreshold: '{{ EventValueThreshold }}'
-          FeatureTransformationParameters: {}
-          HpoConfig:
-            AlgorithmHyperParameterRanges:
-              CategoricalHyperParameterRanges:
-                - Name: '{{ Name }}'
-                  Values:
-                    - '{{ Values[0] }}'
-              ContinuousHyperParameterRanges:
-                - Name: '{{ Name }}'
-                  MinValue: null
-                  MaxValue: null
-              IntegerHyperParameterRanges:
-                - Name: '{{ Name }}'
-                  MinValue: '{{ MinValue }}'
-                  MaxValue: '{{ MaxValue }}'
-            HpoObjective:
-              MetricName: '{{ MetricName }}'
-              Type: '{{ Type }}'
-              MetricRegex: '{{ MetricRegex }}'
-            HpoResourceConfig:
-              MaxNumberOfTrainingJobs: '{{ MaxNumberOfTrainingJobs }}'
-              MaxParallelTrainingJobs: '{{ MaxParallelTrainingJobs }}'
-
+          algorithm_hyper_parameters: {}
+          auto_ml_config:
+            metric_name: '{{ metric_name }}'
+            recipe_list:
+              - '{{ recipe_list[0] }}'
+          event_value_threshold: '{{ event_value_threshold }}'
+          feature_transformation_parameters: {}
+          hpo_config:
+            algorithm_hyper_parameter_ranges:
+              categorical_hyper_parameter_ranges:
+                - name: '{{ name }}'
+                  values:
+                    - '{{ values[0] }}'
+              continuous_hyper_parameter_ranges:
+                - name: '{{ name }}'
+                  min_value: null
+                  max_value: null
+              integer_hyper_parameter_ranges:
+                - name: '{{ name }}'
+                  min_value: '{{ min_value }}'
+                  max_value: '{{ max_value }}'
+            hpo_objective:
+              metric_name: '{{ metric_name }}'
+              type: '{{ type }}'
+              metric_regex: '{{ metric_regex }}'
+            hpo_resource_config:
+              max_number_of_training_jobs: '{{ max_number_of_training_jobs }}'
+              max_parallel_training_jobs: '{{ max_parallel_training_jobs }}'
 ```
 </TabItem>
 </Tabs>
@@ -407,7 +406,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.personalize.solutions
-WHERE Identifier = '<SolutionArn>'
+WHERE Identifier = '{{ solution_arn }}'
 AND region = 'us-east-1';
 ```
 

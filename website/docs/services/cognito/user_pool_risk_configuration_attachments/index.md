@@ -213,7 +213,7 @@ risk_exception_configuration,
 compromised_credentials_risk_configuration,
 account_takeover_risk_configuration
 FROM awscc.cognito.user_pool_risk_configuration_attachments
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ClientId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 ## `INSERT` example
@@ -237,9 +237,9 @@ INSERT INTO awscc.cognito.user_pool_risk_configuration_attachments (
  ClientId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
- '{{ ClientId }}',
+SELECT
+'{{ user_pool_id }}',
+ '{{ client_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,12 +255,12 @@ INSERT INTO awscc.cognito.user_pool_risk_configuration_attachments (
  AccountTakeoverRiskConfiguration,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ ClientId }}',
- '{{ RiskExceptionConfiguration }}',
- '{{ CompromisedCredentialsRiskConfiguration }}',
- '{{ AccountTakeoverRiskConfiguration }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ client_id }}',
+ '{{ risk_exception_configuration }}',
+ '{{ compromised_credentials_risk_configuration }}',
+ '{{ account_takeover_risk_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,41 +278,40 @@ globals:
 resources:
   - name: user_pool_risk_configuration_attachment
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: ClientId
-        value: '{{ ClientId }}'
-      - name: RiskExceptionConfiguration
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: client_id
+        value: '{{ client_id }}'
+      - name: risk_exception_configuration
         value:
-          BlockedIPRangeList:
-            - '{{ BlockedIPRangeList[0] }}'
-          SkippedIPRangeList:
-            - '{{ SkippedIPRangeList[0] }}'
-      - name: CompromisedCredentialsRiskConfiguration
+          blocked_ip_range_list:
+            - '{{ blocked_ip_range_list[0] }}'
+          skipped_ip_range_list:
+            - '{{ skipped_ip_range_list[0] }}'
+      - name: compromised_credentials_risk_configuration
         value:
-          Actions:
-            EventAction: '{{ EventAction }}'
-          EventFilter:
-            - '{{ EventFilter[0] }}'
-      - name: AccountTakeoverRiskConfiguration
+          actions:
+            event_action: '{{ event_action }}'
+          event_filter:
+            - '{{ event_filter[0] }}'
+      - name: account_takeover_risk_configuration
         value:
-          Actions:
-            HighAction:
-              EventAction: '{{ EventAction }}'
-              Notify: '{{ Notify }}'
-            LowAction: null
-            MediumAction: null
-          NotifyConfiguration:
-            BlockEmail:
-              HtmlBody: '{{ HtmlBody }}'
-              Subject: '{{ Subject }}'
-              TextBody: '{{ TextBody }}'
-            MfaEmail: null
-            NoActionEmail: null
-            From: '{{ From }}'
-            ReplyTo: '{{ ReplyTo }}'
-            SourceArn: '{{ SourceArn }}'
-
+          actions:
+            high_action:
+              event_action: '{{ event_action }}'
+              notify: '{{ notify }}'
+            low_action: null
+            medium_action: null
+          notify_configuration:
+            block_email:
+              html_body: '{{ html_body }}'
+              subject: '{{ subject }}'
+              text_body: '{{ text_body }}'
+            mfa_email: null
+            no_action_email: null
+            from: '{{ from }}'
+            reply_to: '{{ reply_to }}'
+            source_arn: '{{ source_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +329,7 @@ SET PatchDocument = string('{{ {
     "AccountTakeoverRiskConfiguration": account_takeover_risk_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<ClientId>';
+AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -339,7 +338,7 @@ AND Identifier = '<UserPoolId>|<ClientId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_risk_configuration_attachments
-WHERE Identifier = '<UserPoolId|ClientId>'
+WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
 AND region = 'us-east-1';
 ```
 

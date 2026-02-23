@@ -248,7 +248,7 @@ tags,
 customer_encryption_key_arn,
 version
 FROM awscc.bedrock.prompts
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -284,8 +284,8 @@ INSERT INTO awscc.bedrock.prompts (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -302,13 +302,13 @@ INSERT INTO awscc.bedrock.prompts (
  CustomerEncryptionKeyArn,
  region
 )
-SELECT 
- '{{ DefaultVariant }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Variants }}',
- '{{ Tags }}',
- '{{ CustomerEncryptionKeyArn }}',
+SELECT
+ '{{ default_variant }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ variants }}',
+ '{{ tags }}',
+ '{{ customer_encryption_key_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -326,29 +326,28 @@ globals:
 resources:
   - name: prompt
     props:
-      - name: DefaultVariant
-        value: '{{ DefaultVariant }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Variants
+      - name: default_variant
+        value: '{{ default_variant }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: variants
         value:
-          - Name: '{{ Name }}'
-            TemplateType: '{{ TemplateType }}'
-            TemplateConfiguration: null
-            ModelId: '{{ ModelId }}'
-            InferenceConfiguration: null
-            GenAiResource: null
-            AdditionalModelRequestFields: {}
-            Metadata:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-      - name: Tags
+          - name: '{{ name }}'
+            template_type: '{{ template_type }}'
+            template_configuration: null
+            model_id: '{{ model_id }}'
+            inference_configuration: null
+            gen_ai_resource: null
+            additional_model_request_fields: {}
+            metadata:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+      - name: tags
         value: {}
-      - name: CustomerEncryptionKeyArn
-        value: '{{ CustomerEncryptionKeyArn }}'
-
+      - name: customer_encryption_key_arn
+        value: '{{ customer_encryption_key_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -369,7 +368,7 @@ SET PatchDocument = string('{{ {
     "CustomerEncryptionKeyArn": customer_encryption_key_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -378,7 +377,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.prompts
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

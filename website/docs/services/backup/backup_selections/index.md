@@ -229,7 +229,7 @@ backup_plan_id,
 backup_selection,
 selection_id
 FROM awscc.backup.backup_selections
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,9 +266,9 @@ INSERT INTO awscc.backup.backup_selections (
  BackupSelection,
  region
 )
-SELECT 
-'{{ BackupPlanId }}',
- '{{ BackupSelection }}',
+SELECT
+'{{ backup_plan_id }}',
+ '{{ backup_selection }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,9 +281,9 @@ INSERT INTO awscc.backup.backup_selections (
  BackupSelection,
  region
 )
-SELECT 
- '{{ BackupPlanId }}',
- '{{ BackupSelection }}',
+SELECT
+ '{{ backup_plan_id }}',
+ '{{ backup_selection }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -301,31 +301,30 @@ globals:
 resources:
   - name: backup_selection
     props:
-      - name: BackupPlanId
-        value: '{{ BackupPlanId }}'
-      - name: BackupSelection
+      - name: backup_plan_id
+        value: '{{ backup_plan_id }}'
+      - name: backup_selection
         value:
-          IamRoleArn: '{{ IamRoleArn }}'
-          ListOfTags:
-            - ConditionKey: '{{ ConditionKey }}'
-              ConditionValue: '{{ ConditionValue }}'
-              ConditionType: '{{ ConditionType }}'
-          Resources:
-            - '{{ Resources[0] }}'
-          SelectionName: '{{ SelectionName }}'
-          NotResources:
-            - '{{ NotResources[0] }}'
-          Conditions:
-            StringEquals:
-              - ConditionKey: '{{ ConditionKey }}'
-                ConditionValue: '{{ ConditionValue }}'
-            StringNotEquals:
+          iam_role_arn: '{{ iam_role_arn }}'
+          list_of_tags:
+            - condition_key: '{{ condition_key }}'
+              condition_value: '{{ condition_value }}'
+              condition_type: '{{ condition_type }}'
+          resources:
+            - '{{ resources[0] }}'
+          selection_name: '{{ selection_name }}'
+          not_resources:
+            - '{{ not_resources[0] }}'
+          conditions:
+            string_equals:
+              - condition_key: '{{ condition_key }}'
+                condition_value: '{{ condition_value }}'
+            string_not_equals:
               - null
-            StringLike:
+            string_like:
               - null
-            StringNotLike:
+            string_not_like:
               - null
-
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_selections
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -289,7 +289,7 @@ inline_recipe,
 lambda_function,
 tags
 FROM awscc.greengrassv2.component_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -327,10 +327,10 @@ INSERT INTO awscc.greengrassv2.component_versions (
  Tags,
  region
 )
-SELECT 
-'{{ InlineRecipe }}',
- '{{ LambdaFunction }}',
- '{{ Tags }}',
+SELECT
+'{{ inline_recipe }}',
+ '{{ lambda_function }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -344,10 +344,10 @@ INSERT INTO awscc.greengrassv2.component_versions (
  Tags,
  region
 )
-SELECT 
- '{{ InlineRecipe }}',
- '{{ LambdaFunction }}',
- '{{ Tags }}',
+SELECT
+ '{{ inline_recipe }}',
+ '{{ lambda_function }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -365,48 +365,47 @@ globals:
 resources:
   - name: component_version
     props:
-      - name: InlineRecipe
-        value: '{{ InlineRecipe }}'
-      - name: LambdaFunction
+      - name: inline_recipe
+        value: '{{ inline_recipe }}'
+      - name: lambda_function
         value:
-          LambdaArn: '{{ LambdaArn }}'
-          ComponentName: '{{ ComponentName }}'
-          ComponentVersion: '{{ ComponentVersion }}'
-          ComponentPlatforms:
-            - Name: '{{ Name }}'
-              Attributes: {}
-          ComponentDependencies: {}
-          ComponentLambdaParameters:
-            EventSources:
-              - Topic: '{{ Topic }}'
-                Type: '{{ Type }}'
-            MaxQueueSize: '{{ MaxQueueSize }}'
-            MaxInstancesCount: '{{ MaxInstancesCount }}'
-            MaxIdleTimeInSeconds: '{{ MaxIdleTimeInSeconds }}'
-            TimeoutInSeconds: '{{ TimeoutInSeconds }}'
-            StatusTimeoutInSeconds: '{{ StatusTimeoutInSeconds }}'
-            Pinned: '{{ Pinned }}'
-            InputPayloadEncodingType: '{{ InputPayloadEncodingType }}'
-            ExecArgs:
-              - '{{ ExecArgs[0] }}'
-            EnvironmentVariables: {}
-            LinuxProcessParams:
-              IsolationMode: '{{ IsolationMode }}'
-              ContainerParams:
-                MemorySizeInKB: '{{ MemorySizeInKB }}'
-                MountROSysfs: '{{ MountROSysfs }}'
-                Volumes:
-                  - SourcePath: '{{ SourcePath }}'
-                    DestinationPath: null
-                    Permission: '{{ Permission }}'
-                    AddGroupOwner: '{{ AddGroupOwner }}'
-                Devices:
-                  - Path: null
-                    Permission: null
-                    AddGroupOwner: null
-      - name: Tags
+          lambda_arn: '{{ lambda_arn }}'
+          component_name: '{{ component_name }}'
+          component_version: '{{ component_version }}'
+          component_platforms:
+            - name: '{{ name }}'
+              attributes: {}
+          component_dependencies: {}
+          component_lambda_parameters:
+            event_sources:
+              - topic: '{{ topic }}'
+                type: '{{ type }}'
+            max_queue_size: '{{ max_queue_size }}'
+            max_instances_count: '{{ max_instances_count }}'
+            max_idle_time_in_seconds: '{{ max_idle_time_in_seconds }}'
+            timeout_in_seconds: '{{ timeout_in_seconds }}'
+            status_timeout_in_seconds: '{{ status_timeout_in_seconds }}'
+            pinned: '{{ pinned }}'
+            input_payload_encoding_type: '{{ input_payload_encoding_type }}'
+            exec_args:
+              - '{{ exec_args[0] }}'
+            environment_variables: {}
+            linux_process_params:
+              isolation_mode: '{{ isolation_mode }}'
+              container_params:
+                memory_size_in_kb: '{{ memory_size_in_kb }}'
+                mount_ro_sysfs: '{{ mount_ro_sysfs }}'
+                volumes:
+                  - source_path: '{{ source_path }}'
+                    destination_path: null
+                    permission: '{{ permission }}'
+                    add_group_owner: '{{ add_group_owner }}'
+                devices:
+                  - path: null
+                    permission: null
+                    add_group_owner: null
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +421,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -431,7 +430,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.greengrassv2.component_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

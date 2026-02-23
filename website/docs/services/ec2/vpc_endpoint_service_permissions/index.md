@@ -140,7 +140,7 @@ region,
 allowed_principals,
 service_id
 FROM awscc.ec2.vpc_endpoint_service_permissions
-WHERE region = 'us-east-1' AND Identifier = '<ServiceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ service_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.ec2.vpc_endpoint_service_permissions (
  ServiceId,
  region
 )
-SELECT 
-'{{ ServiceId }}',
+SELECT
+'{{ service_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.ec2.vpc_endpoint_service_permissions (
  ServiceId,
  region
 )
-SELECT 
- '{{ AllowedPrincipals }}',
- '{{ ServiceId }}',
+SELECT
+ '{{ allowed_principals }}',
+ '{{ service_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,12 +210,11 @@ globals:
 resources:
   - name: vpc_endpoint_service_permission
     props:
-      - name: AllowedPrincipals
+      - name: allowed_principals
         value:
-          - '{{ AllowedPrincipals[0] }}'
-      - name: ServiceId
-        value: '{{ ServiceId }}'
-
+          - '{{ allowed_principals[0] }}'
+      - name: service_id
+        value: '{{ service_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -231,7 +230,7 @@ SET PatchDocument = string('{{ {
     "AllowedPrincipals": allowed_principals
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ServiceId>';
+AND Identifier = '{{ service_id }}';
 ```
 
 
@@ -240,7 +239,7 @@ AND Identifier = '<ServiceId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoint_service_permissions
-WHERE Identifier = '<ServiceId>'
+WHERE Identifier = '{{ service_id }}'
 AND region = 'us-east-1';
 ```
 

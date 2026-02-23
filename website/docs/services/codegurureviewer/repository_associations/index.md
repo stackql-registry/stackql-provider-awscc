@@ -176,7 +176,7 @@ connection_arn,
 association_arn,
 tags
 FROM awscc.codegurureviewer.repository_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.codegurureviewer.repository_associations (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,13 +232,13 @@ INSERT INTO awscc.codegurureviewer.repository_associations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Type }}',
- '{{ Owner }}',
- '{{ BucketName }}',
- '{{ ConnectionArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ type }}',
+ '{{ owner }}',
+ '{{ bucket_name }}',
+ '{{ connection_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,21 +256,20 @@ globals:
 resources:
   - name: repository_association
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Owner
-        value: '{{ Owner }}'
-      - name: BucketName
-        value: '{{ BucketName }}'
-      - name: ConnectionArn
-        value: '{{ ConnectionArn }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: type
+        value: '{{ type }}'
+      - name: owner
+        value: '{{ owner }}'
+      - name: bucket_name
+        value: '{{ bucket_name }}'
+      - name: connection_arn
+        value: '{{ connection_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -281,7 +280,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.codegurureviewer.repository_associations
-WHERE Identifier = '<AssociationArn>'
+WHERE Identifier = '{{ association_arn }}'
 AND region = 'us-east-1';
 ```
 

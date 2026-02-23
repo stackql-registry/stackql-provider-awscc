@@ -174,7 +174,7 @@ policy_type,
 scope,
 selection_criteria
 FROM awscc.logs.account_policies
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,10 +214,10 @@ INSERT INTO awscc.logs.account_policies (
  PolicyType,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ PolicyDocument }}',
- '{{ PolicyType }}',
+SELECT
+'{{ policy_name }}',
+ '{{ policy_document }}',
+ '{{ policy_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,12 +233,12 @@ INSERT INTO awscc.logs.account_policies (
  SelectionCriteria,
  region
 )
-SELECT 
- '{{ PolicyName }}',
- '{{ PolicyDocument }}',
- '{{ PolicyType }}',
- '{{ Scope }}',
- '{{ SelectionCriteria }}',
+SELECT
+ '{{ policy_name }}',
+ '{{ policy_document }}',
+ '{{ policy_type }}',
+ '{{ scope }}',
+ '{{ selection_criteria }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: account_policy
     props:
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: PolicyDocument
-        value: '{{ PolicyDocument }}'
-      - name: PolicyType
-        value: '{{ PolicyType }}'
-      - name: Scope
-        value: '{{ Scope }}'
-      - name: SelectionCriteria
-        value: '{{ SelectionCriteria }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: policy_document
+        value: '{{ policy_document }}'
+      - name: policy_type
+        value: '{{ policy_type }}'
+      - name: scope
+        value: '{{ scope }}'
+      - name: selection_criteria
+        value: '{{ selection_criteria }}'
 ```
 </TabItem>
 </Tabs>
@@ -284,7 +283,7 @@ SET PatchDocument = string('{{ {
     "SelectionCriteria": selection_criteria
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
+AND Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}';
 ```
 
 
@@ -293,7 +292,7 @@ AND Identifier = '<AccountId>|<PolicyType>|<PolicyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.account_policies
-WHERE Identifier = '<AccountId|PolicyType|PolicyName>'
+WHERE Identifier = '{{ account_id }}|{{ policy_type }}|{{ policy_name }}'
 AND region = 'us-east-1';
 ```
 

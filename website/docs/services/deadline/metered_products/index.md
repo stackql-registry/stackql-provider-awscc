@@ -158,7 +158,7 @@ family,
 vendor,
 arn
 FROM awscc.deadline.metered_products
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.deadline.metered_products (
  ProductId,
  region
 )
-SELECT 
-'{{ LicenseEndpointId }}',
- '{{ ProductId }}',
+SELECT
+'{{ license_endpoint_id }}',
+ '{{ product_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -210,9 +210,9 @@ INSERT INTO awscc.deadline.metered_products (
  ProductId,
  region
 )
-SELECT 
- '{{ LicenseEndpointId }}',
- '{{ ProductId }}',
+SELECT
+ '{{ license_endpoint_id }}',
+ '{{ product_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,10 @@ globals:
 resources:
   - name: metered_product
     props:
-      - name: LicenseEndpointId
-        value: '{{ LicenseEndpointId }}'
-      - name: ProductId
-        value: '{{ ProductId }}'
-
+      - name: license_endpoint_id
+        value: '{{ license_endpoint_id }}'
+      - name: product_id
+        value: '{{ product_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.metered_products
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

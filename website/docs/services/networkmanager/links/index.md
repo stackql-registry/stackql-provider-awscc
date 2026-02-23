@@ -223,7 +223,7 @@ type,
 created_at,
 state
 FROM awscc.networkmanager.links
-WHERE region = 'us-east-1' AND Identifier = '<GlobalNetworkId>|<LinkId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ global_network_id }}|{{ link_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -262,10 +262,10 @@ INSERT INTO awscc.networkmanager.links (
  Bandwidth,
  region
 )
-SELECT 
-'{{ GlobalNetworkId }}',
- '{{ SiteId }}',
- '{{ Bandwidth }}',
+SELECT
+'{{ global_network_id }}',
+ '{{ site_id }}',
+ '{{ bandwidth }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -283,14 +283,14 @@ INSERT INTO awscc.networkmanager.links (
  Type,
  region
 )
-SELECT 
- '{{ GlobalNetworkId }}',
- '{{ SiteId }}',
- '{{ Bandwidth }}',
- '{{ Provider }}',
- '{{ Description }}',
- '{{ Tags }}',
- '{{ Type }}',
+SELECT
+ '{{ global_network_id }}',
+ '{{ site_id }}',
+ '{{ bandwidth }}',
+ '{{ provider }}',
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -308,25 +308,24 @@ globals:
 resources:
   - name: link
     props:
-      - name: GlobalNetworkId
-        value: '{{ GlobalNetworkId }}'
-      - name: SiteId
-        value: '{{ SiteId }}'
-      - name: Bandwidth
+      - name: global_network_id
+        value: '{{ global_network_id }}'
+      - name: site_id
+        value: '{{ site_id }}'
+      - name: bandwidth
         value:
-          DownloadSpeed: '{{ DownloadSpeed }}'
-          UploadSpeed: '{{ UploadSpeed }}'
-      - name: Provider
-        value: '{{ Provider }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          download_speed: '{{ download_speed }}'
+          upload_speed: '{{ upload_speed }}'
+      - name: provider
+        value: '{{ provider }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -346,7 +345,7 @@ SET PatchDocument = string('{{ {
     "Type": type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GlobalNetworkId>|<LinkId>';
+AND Identifier = '{{ global_network_id }}|{{ link_id }}';
 ```
 
 
@@ -355,7 +354,7 @@ AND Identifier = '<GlobalNetworkId>|<LinkId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.links
-WHERE Identifier = '<GlobalNetworkId|LinkId>'
+WHERE Identifier = '{{ global_network_id }}|{{ link_id }}'
 AND region = 'us-east-1';
 ```
 

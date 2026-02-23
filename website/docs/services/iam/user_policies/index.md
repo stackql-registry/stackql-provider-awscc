@@ -100,7 +100,7 @@ policy_document,
 policy_name,
 user_name
 FROM awscc.iam.user_policies
-WHERE Identifier = '<PolicyName>|<UserName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ policy_name }}|{{ user_name }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.iam.user_policies (
  UserName,
  region
 )
-SELECT 
-'{{ PolicyName }}',
- '{{ UserName }}',
+SELECT
+'{{ policy_name }}',
+ '{{ user_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -140,10 +140,10 @@ INSERT INTO awscc.iam.user_policies (
  UserName,
  region
 )
-SELECT 
- '{{ PolicyDocument }}',
- '{{ PolicyName }}',
- '{{ UserName }}',
+SELECT
+ '{{ policy_document }}',
+ '{{ policy_name }}',
+ '{{ user_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -161,13 +161,12 @@ globals:
 resources:
   - name: user_policy
     props:
-      - name: PolicyDocument
+      - name: policy_document
         value: {}
-      - name: PolicyName
-        value: '{{ PolicyName }}'
-      - name: UserName
-        value: '{{ UserName }}'
-
+      - name: policy_name
+        value: '{{ policy_name }}'
+      - name: user_name
+        value: '{{ user_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -183,7 +182,7 @@ SET PatchDocument = string('{{ {
     "PolicyDocument": policy_document
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PolicyName>|<UserName>';
+AND Identifier = '{{ policy_name }}|{{ user_name }}';
 ```
 
 
@@ -192,7 +191,7 @@ AND Identifier = '<PolicyName>|<UserName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.user_policies
-WHERE Identifier = '<PolicyName|UserName>'
+WHERE Identifier = '{{ policy_name }}|{{ user_name }}'
 AND region = 'us-east-1';
 ```
 

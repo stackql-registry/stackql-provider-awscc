@@ -219,7 +219,7 @@ name,
 analysis_rules,
 table_reference
 FROM awscc.cleanrooms.configured_tables
-WHERE region = 'us-east-1' AND Identifier = '<ConfiguredTableIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ configured_table_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -258,11 +258,11 @@ INSERT INTO awscc.cleanrooms.configured_tables (
  TableReference,
  region
 )
-SELECT 
-'{{ AllowedColumns }}',
- '{{ AnalysisMethod }}',
- '{{ Name }}',
- '{{ TableReference }}',
+SELECT
+'{{ allowed_columns }}',
+ '{{ analysis_method }}',
+ '{{ name }}',
+ '{{ table_reference }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -281,15 +281,15 @@ INSERT INTO awscc.cleanrooms.configured_tables (
  TableReference,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ AllowedColumns }}',
- '{{ AnalysisMethod }}',
- '{{ SelectedAnalysisMethods }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ AnalysisRules }}',
- '{{ TableReference }}',
+SELECT
+ '{{ tags }}',
+ '{{ allowed_columns }}',
+ '{{ analysis_method }}',
+ '{{ selected_analysis_methods }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ analysis_rules }}',
+ '{{ table_reference }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -307,30 +307,29 @@ globals:
 resources:
   - name: configured_table
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AllowedColumns
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: allowed_columns
         value:
-          - '{{ AllowedColumns[0] }}'
-      - name: AnalysisMethod
-        value: '{{ AnalysisMethod }}'
-      - name: SelectedAnalysisMethods
+          - '{{ allowed_columns[0] }}'
+      - name: analysis_method
+        value: '{{ analysis_method }}'
+      - name: selected_analysis_methods
         value:
-          - '{{ SelectedAnalysisMethods[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: AnalysisRules
+          - '{{ selected_analysis_methods[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: analysis_rules
         value:
-          - Type: '{{ Type }}'
-            Policy:
-              V1: null
-      - name: TableReference
+          - type: '{{ type }}'
+            policy:
+              v1: null
+      - name: table_reference
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +352,7 @@ SET PatchDocument = string('{{ {
     "TableReference": table_reference
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ConfiguredTableIdentifier>';
+AND Identifier = '{{ configured_table_identifier }}';
 ```
 
 
@@ -362,7 +361,7 @@ AND Identifier = '<ConfiguredTableIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cleanrooms.configured_tables
-WHERE Identifier = '<ConfiguredTableIdentifier>'
+WHERE Identifier = '{{ configured_table_identifier }}'
 AND region = 'us-east-1';
 ```
 

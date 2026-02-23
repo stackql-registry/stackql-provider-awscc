@@ -358,7 +358,7 @@ created_at,
 updated_at,
 incremental_run_config
 FROM awscc.entityresolution.matching_workflows
-WHERE region = 'us-east-1' AND Identifier = '<WorkflowName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ workflow_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -398,12 +398,12 @@ INSERT INTO awscc.entityresolution.matching_workflows (
  RoleArn,
  region
 )
-SELECT 
-'{{ WorkflowName }}',
- '{{ InputSourceConfig }}',
- '{{ OutputSourceConfig }}',
- '{{ ResolutionTechniques }}',
- '{{ RoleArn }}',
+SELECT
+'{{ workflow_name }}',
+ '{{ input_source_config }}',
+ '{{ output_source_config }}',
+ '{{ resolution_techniques }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -422,15 +422,15 @@ INSERT INTO awscc.entityresolution.matching_workflows (
  IncrementalRunConfig,
  region
 )
-SELECT 
- '{{ WorkflowName }}',
- '{{ Description }}',
- '{{ InputSourceConfig }}',
- '{{ OutputSourceConfig }}',
- '{{ ResolutionTechniques }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ IncrementalRunConfig }}',
+SELECT
+ '{{ workflow_name }}',
+ '{{ description }}',
+ '{{ input_source_config }}',
+ '{{ output_source_config }}',
+ '{{ resolution_techniques }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ incremental_run_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -448,52 +448,51 @@ globals:
 resources:
   - name: matching_workflow
     props:
-      - name: WorkflowName
-        value: '{{ WorkflowName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: InputSourceConfig
+      - name: workflow_name
+        value: '{{ workflow_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: input_source_config
         value:
-          - InputSourceARN: '{{ InputSourceARN }}'
-            SchemaArn: '{{ SchemaArn }}'
-            ApplyNormalization: '{{ ApplyNormalization }}'
-      - name: OutputSourceConfig
+          - input_source_arn: '{{ input_source_arn }}'
+            schema_arn: '{{ schema_arn }}'
+            apply_normalization: '{{ apply_normalization }}'
+      - name: output_source_config
         value:
-          - OutputS3Path: '{{ OutputS3Path }}'
-            Output:
-              - Name: '{{ Name }}'
-                Hashed: '{{ Hashed }}'
-            KMSArn: '{{ KMSArn }}'
-            ApplyNormalization: '{{ ApplyNormalization }}'
-      - name: ResolutionTechniques
+          - output_s3_path: '{{ output_s3_path }}'
+            output:
+              - name: '{{ name }}'
+                hashed: '{{ hashed }}'
+            kms_arn: '{{ kms_arn }}'
+            apply_normalization: '{{ apply_normalization }}'
+      - name: resolution_techniques
         value:
-          ResolutionType: '{{ ResolutionType }}'
-          RuleBasedProperties:
-            Rules:
-              - RuleName: '{{ RuleName }}'
-                MatchingKeys:
+          resolution_type: '{{ resolution_type }}'
+          rule_based_properties:
+            rules:
+              - rule_name: '{{ rule_name }}'
+                matching_keys:
                   - null
-            AttributeMatchingModel: '{{ AttributeMatchingModel }}'
-            MatchPurpose: '{{ MatchPurpose }}'
-          RuleConditionProperties:
-            Rules:
-              - RuleName: null
-                Condition: '{{ Condition }}'
-          ProviderProperties:
-            ProviderServiceArn: '{{ ProviderServiceArn }}'
-            ProviderConfiguration: {}
-            IntermediateSourceConfiguration:
-              IntermediateS3Path: '{{ IntermediateS3Path }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+            attribute_matching_model: '{{ attribute_matching_model }}'
+            match_purpose: '{{ match_purpose }}'
+          rule_condition_properties:
+            rules:
+              - rule_name: null
+                condition: '{{ condition }}'
+          provider_properties:
+            provider_service_arn: '{{ provider_service_arn }}'
+            provider_configuration: {}
+            intermediate_source_configuration:
+              intermediate_s3_path: '{{ intermediate_s3_path }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: IncrementalRunConfig
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: incremental_run_config
         value:
-          IncrementalRunType: '{{ IncrementalRunType }}'
-
+          incremental_run_type: '{{ incremental_run_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -515,7 +514,7 @@ SET PatchDocument = string('{{ {
     "IncrementalRunConfig": incremental_run_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkflowName>';
+AND Identifier = '{{ workflow_name }}';
 ```
 
 
@@ -524,7 +523,7 @@ AND Identifier = '<WorkflowName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.matching_workflows
-WHERE Identifier = '<WorkflowName>'
+WHERE Identifier = '{{ workflow_name }}'
 AND region = 'us-east-1';
 ```
 

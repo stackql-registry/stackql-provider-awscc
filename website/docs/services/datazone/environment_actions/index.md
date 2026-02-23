@@ -199,7 +199,7 @@ identifier,
 name,
 parameters
 FROM awscc.datazone.environment_actions
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,8 +237,8 @@ INSERT INTO awscc.datazone.environment_actions (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,13 +255,13 @@ INSERT INTO awscc.datazone.environment_actions (
  Parameters,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Identifier }}',
- '{{ Name }}',
- '{{ Parameters }}',
+SELECT
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ environment_identifier }}',
+ '{{ identifier }}',
+ '{{ name }}',
+ '{{ parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -279,20 +279,19 @@ globals:
 resources:
   - name: environment_action
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: Identifier
-        value: '{{ Identifier }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Parameters
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: identifier
+        value: '{{ identifier }}'
+      - name: name
+        value: '{{ name }}'
+      - name: parameters
         value:
-          Uri: '{{ Uri }}'
-
+          uri: '{{ uri }}'
 ```
 </TabItem>
 </Tabs>
@@ -311,7 +310,7 @@ SET PatchDocument = string('{{ {
     "Parameters": parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}';
 ```
 
 
@@ -320,7 +319,7 @@ AND Identifier = '<DomainId>|<EnvironmentId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.environment_actions
-WHERE Identifier = '<DomainId|EnvironmentId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ environment_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

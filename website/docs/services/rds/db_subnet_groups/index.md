@@ -164,7 +164,7 @@ db_subnet_group_name,
 subnet_ids,
 tags
 FROM awscc.rds.db_subnet_groups
-WHERE region = 'us-east-1' AND Identifier = '<DBSubnetGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_subnet_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -201,9 +201,9 @@ INSERT INTO awscc.rds.db_subnet_groups (
  SubnetIds,
  region
 )
-SELECT 
-'{{ DBSubnetGroupDescription }}',
- '{{ SubnetIds }}',
+SELECT
+'{{ db_subnet_group_description }}',
+ '{{ subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,11 @@ INSERT INTO awscc.rds.db_subnet_groups (
  Tags,
  region
 )
-SELECT 
- '{{ DBSubnetGroupDescription }}',
- '{{ DBSubnetGroupName }}',
- '{{ SubnetIds }}',
- '{{ Tags }}',
+SELECT
+ '{{ db_subnet_group_description }}',
+ '{{ db_subnet_group_name }}',
+ '{{ subnet_ids }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,18 +240,17 @@ globals:
 resources:
   - name: db_subnet_group
     props:
-      - name: DBSubnetGroupDescription
-        value: '{{ DBSubnetGroupDescription }}'
-      - name: DBSubnetGroupName
-        value: '{{ DBSubnetGroupName }}'
-      - name: SubnetIds
+      - name: db_subnet_group_description
+        value: '{{ db_subnet_group_description }}'
+      - name: db_subnet_group_name
+        value: '{{ db_subnet_group_name }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: Tags
+          - '{{ subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -269,7 +268,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBSubnetGroupName>';
+AND Identifier = '{{ db_subnet_group_name }}';
 ```
 
 
@@ -278,7 +277,7 @@ AND Identifier = '<DBSubnetGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_subnet_groups
-WHERE Identifier = '<DBSubnetGroupName>'
+WHERE Identifier = '{{ db_subnet_group_name }}'
 AND region = 'us-east-1';
 ```
 

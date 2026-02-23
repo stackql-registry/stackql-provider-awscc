@@ -201,7 +201,7 @@ function_metadata,
 name,
 stage
 FROM awscc.cloudfront.functions
-WHERE Identifier = '<FunctionARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ function_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,7 +212,7 @@ SELECT
 region,
 function_arn
 FROM awscc.cloudfront.functions_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -239,10 +239,10 @@ INSERT INTO awscc.cloudfront.functions (
  Name,
  region
 )
-SELECT 
-'{{ FunctionCode }}',
- '{{ FunctionConfig }}',
- '{{ Name }}',
+SELECT
+'{{ function_code }}',
+ '{{ function_config }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -258,12 +258,12 @@ INSERT INTO awscc.cloudfront.functions (
  Name,
  region
 )
-SELECT 
- '{{ AutoPublish }}',
- '{{ FunctionCode }}',
- '{{ FunctionConfig }}',
- '{{ FunctionMetadata }}',
- '{{ Name }}',
+SELECT
+ '{{ auto_publish }}',
+ '{{ function_code }}',
+ '{{ function_config }}',
+ '{{ function_metadata }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -281,22 +281,21 @@ globals:
 resources:
   - name: function
     props:
-      - name: AutoPublish
-        value: '{{ AutoPublish }}'
-      - name: FunctionCode
-        value: '{{ FunctionCode }}'
-      - name: FunctionConfig
+      - name: auto_publish
+        value: '{{ auto_publish }}'
+      - name: function_code
+        value: '{{ function_code }}'
+      - name: function_config
         value:
-          Comment: '{{ Comment }}'
-          Runtime: '{{ Runtime }}'
-          KeyValueStoreAssociations:
-            - KeyValueStoreARN: '{{ KeyValueStoreARN }}'
-      - name: FunctionMetadata
+          comment: '{{ comment }}'
+          runtime: '{{ runtime }}'
+          key_value_store_associations:
+            - key_value_store_arn: '{{ key_value_store_arn }}'
+      - name: function_metadata
         value:
-          FunctionARN: '{{ FunctionARN }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          function_arn: '{{ function_arn }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "FunctionConfig": function_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FunctionARN>';
+AND Identifier = '{{ function_arn }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<FunctionARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.functions
-WHERE Identifier = '<FunctionARN>'
+WHERE Identifier = '{{ function_arn }}'
 AND region = 'us-east-1';
 ```
 

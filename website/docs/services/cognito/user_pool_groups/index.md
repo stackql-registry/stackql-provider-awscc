@@ -163,7 +163,7 @@ precedence,
 role_arn,
 user_pool_id
 FROM awscc.cognito.user_pool_groups
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<GroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.cognito.user_pool_groups (
  UserPoolId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
+SELECT
+'{{ user_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,12 +217,12 @@ INSERT INTO awscc.cognito.user_pool_groups (
  UserPoolId,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ GroupName }}',
- '{{ Precedence }}',
- '{{ RoleArn }}',
- '{{ UserPoolId }}',
+SELECT
+ '{{ description }}',
+ '{{ group_name }}',
+ '{{ precedence }}',
+ '{{ role_arn }}',
+ '{{ user_pool_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,17 +240,16 @@ globals:
 resources:
   - name: user_pool_group
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: Precedence
-        value: '{{ Precedence }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: precedence
+        value: '{{ precedence }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "RoleArn": role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<GroupName>';
+AND Identifier = '{{ user_pool_id }}|{{ group_name }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<UserPoolId>|<GroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_groups
-WHERE Identifier = '<UserPoolId|GroupName>'
+WHERE Identifier = '{{ user_pool_id }}|{{ group_name }}'
 AND region = 'us-east-1';
 ```
 

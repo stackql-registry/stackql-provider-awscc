@@ -206,7 +206,7 @@ source_security_group_name,
 source_security_group_owner_id,
 to_port
 FROM awscc.ec2.security_group_ingresses
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.ec2.security_group_ingresses (
  IpProtocol,
  region
 )
-SELECT 
-'{{ IpProtocol }}',
+SELECT
+'{{ ip_protocol }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -266,19 +266,19 @@ INSERT INTO awscc.ec2.security_group_ingresses (
  ToPort,
  region
 )
-SELECT 
- '{{ CidrIp }}',
- '{{ CidrIpv6 }}',
- '{{ Description }}',
- '{{ FromPort }}',
- '{{ GroupId }}',
- '{{ GroupName }}',
- '{{ IpProtocol }}',
- '{{ SourcePrefixListId }}',
- '{{ SourceSecurityGroupId }}',
- '{{ SourceSecurityGroupName }}',
- '{{ SourceSecurityGroupOwnerId }}',
- '{{ ToPort }}',
+SELECT
+ '{{ cidr_ip }}',
+ '{{ cidr_ipv6 }}',
+ '{{ description }}',
+ '{{ from_port }}',
+ '{{ group_id }}',
+ '{{ group_name }}',
+ '{{ ip_protocol }}',
+ '{{ source_prefix_list_id }}',
+ '{{ source_security_group_id }}',
+ '{{ source_security_group_name }}',
+ '{{ source_security_group_owner_id }}',
+ '{{ to_port }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -296,31 +296,30 @@ globals:
 resources:
   - name: security_group_ingress
     props:
-      - name: CidrIp
-        value: '{{ CidrIp }}'
-      - name: CidrIpv6
-        value: '{{ CidrIpv6 }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FromPort
-        value: '{{ FromPort }}'
-      - name: GroupId
-        value: '{{ GroupId }}'
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: IpProtocol
-        value: '{{ IpProtocol }}'
-      - name: SourcePrefixListId
-        value: '{{ SourcePrefixListId }}'
-      - name: SourceSecurityGroupId
-        value: '{{ SourceSecurityGroupId }}'
-      - name: SourceSecurityGroupName
-        value: '{{ SourceSecurityGroupName }}'
-      - name: SourceSecurityGroupOwnerId
-        value: '{{ SourceSecurityGroupOwnerId }}'
-      - name: ToPort
-        value: '{{ ToPort }}'
-
+      - name: cidr_ip
+        value: '{{ cidr_ip }}'
+      - name: cidr_ipv6
+        value: '{{ cidr_ipv6 }}'
+      - name: description
+        value: '{{ description }}'
+      - name: from_port
+        value: '{{ from_port }}'
+      - name: group_id
+        value: '{{ group_id }}'
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: ip_protocol
+        value: '{{ ip_protocol }}'
+      - name: source_prefix_list_id
+        value: '{{ source_prefix_list_id }}'
+      - name: source_security_group_id
+        value: '{{ source_security_group_id }}'
+      - name: source_security_group_name
+        value: '{{ source_security_group_name }}'
+      - name: source_security_group_owner_id
+        value: '{{ source_security_group_owner_id }}'
+      - name: to_port
+        value: '{{ to_port }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_ingresses
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

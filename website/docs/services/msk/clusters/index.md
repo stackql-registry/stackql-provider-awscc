@@ -451,7 +451,7 @@ tags,
 configuration_info,
 storage_mode
 FROM awscc.msk.clusters
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -490,11 +490,11 @@ INSERT INTO awscc.msk.clusters (
  ClusterName,
  region
 )
-SELECT 
-'{{ BrokerNodeGroupInfo }}',
- '{{ KafkaVersion }}',
- '{{ NumberOfBrokerNodes }}',
- '{{ ClusterName }}',
+SELECT
+'{{ broker_node_group_info }}',
+ '{{ kafka_version }}',
+ '{{ number_of_broker_nodes }}',
+ '{{ cluster_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -518,20 +518,20 @@ INSERT INTO awscc.msk.clusters (
  StorageMode,
  region
 )
-SELECT 
- '{{ BrokerNodeGroupInfo }}',
- '{{ EnhancedMonitoring }}',
- '{{ KafkaVersion }}',
- '{{ NumberOfBrokerNodes }}',
- '{{ EncryptionInfo }}',
- '{{ OpenMonitoring }}',
- '{{ ClusterName }}',
- '{{ CurrentVersion }}',
- '{{ ClientAuthentication }}',
- '{{ LoggingInfo }}',
- '{{ Tags }}',
- '{{ ConfigurationInfo }}',
- '{{ StorageMode }}',
+SELECT
+ '{{ broker_node_group_info }}',
+ '{{ enhanced_monitoring }}',
+ '{{ kafka_version }}',
+ '{{ number_of_broker_nodes }}',
+ '{{ encryption_info }}',
+ '{{ open_monitoring }}',
+ '{{ cluster_name }}',
+ '{{ current_version }}',
+ '{{ client_authentication }}',
+ '{{ logging_info }}',
+ '{{ tags }}',
+ '{{ configuration_info }}',
+ '{{ storage_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -549,83 +549,82 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: BrokerNodeGroupInfo
+      - name: broker_node_group_info
         value:
-          StorageInfo:
-            EBSStorageInfo:
-              VolumeSize: '{{ VolumeSize }}'
-              ProvisionedThroughput:
-                Enabled: '{{ Enabled }}'
-                VolumeThroughput: '{{ VolumeThroughput }}'
-          ConnectivityInfo:
-            PublicAccess:
-              Type: '{{ Type }}'
-            VpcConnectivity:
-              ClientAuthentication:
-                Tls:
-                  Enabled: '{{ Enabled }}'
-                Sasl:
-                  Scram:
-                    Enabled: '{{ Enabled }}'
-                  Iam:
-                    Enabled: '{{ Enabled }}'
-          SecurityGroups:
-            - '{{ SecurityGroups[0] }}'
-          BrokerAZDistribution: '{{ BrokerAZDistribution }}'
-          ClientSubnets:
-            - '{{ ClientSubnets[0] }}'
-          InstanceType: '{{ InstanceType }}'
-      - name: EnhancedMonitoring
-        value: '{{ EnhancedMonitoring }}'
-      - name: KafkaVersion
-        value: '{{ KafkaVersion }}'
-      - name: NumberOfBrokerNodes
-        value: '{{ NumberOfBrokerNodes }}'
-      - name: EncryptionInfo
+          storage_info:
+            ebs_storage_info:
+              volume_size: '{{ volume_size }}'
+              provisioned_throughput:
+                enabled: '{{ enabled }}'
+                volume_throughput: '{{ volume_throughput }}'
+          connectivity_info:
+            public_access:
+              type: '{{ type }}'
+            vpc_connectivity:
+              client_authentication:
+                tls:
+                  enabled: '{{ enabled }}'
+                sasl:
+                  scram:
+                    enabled: '{{ enabled }}'
+                  iam:
+                    enabled: '{{ enabled }}'
+          security_groups:
+            - '{{ security_groups[0] }}'
+          broker_az_distribution: '{{ broker_az_distribution }}'
+          client_subnets:
+            - '{{ client_subnets[0] }}'
+          instance_type: '{{ instance_type }}'
+      - name: enhanced_monitoring
+        value: '{{ enhanced_monitoring }}'
+      - name: kafka_version
+        value: '{{ kafka_version }}'
+      - name: number_of_broker_nodes
+        value: '{{ number_of_broker_nodes }}'
+      - name: encryption_info
         value:
-          EncryptionAtRest:
-            DataVolumeKMSKeyId: '{{ DataVolumeKMSKeyId }}'
-          EncryptionInTransit:
-            InCluster: '{{ InCluster }}'
-            ClientBroker: '{{ ClientBroker }}'
-      - name: OpenMonitoring
+          encryption_at_rest:
+            data_volume_kms_key_id: '{{ data_volume_kms_key_id }}'
+          encryption_in_transit:
+            in_cluster: '{{ in_cluster }}'
+            client_broker: '{{ client_broker }}'
+      - name: open_monitoring
         value:
-          Prometheus:
-            JmxExporter:
-              EnabledInBroker: '{{ EnabledInBroker }}'
-            NodeExporter:
-              EnabledInBroker: '{{ EnabledInBroker }}'
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: CurrentVersion
-        value: '{{ CurrentVersion }}'
-      - name: ClientAuthentication
+          prometheus:
+            jmx_exporter:
+              enabled_in_broker: '{{ enabled_in_broker }}'
+            node_exporter:
+              enabled_in_broker: '{{ enabled_in_broker }}'
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: current_version
+        value: '{{ current_version }}'
+      - name: client_authentication
         value:
-          Sasl:
-            Iam:
-              Enabled: '{{ Enabled }}'
-      - name: LoggingInfo
+          sasl:
+            iam:
+              enabled: '{{ enabled }}'
+      - name: logging_info
         value:
-          BrokerLogs:
-            S3:
-              Enabled: '{{ Enabled }}'
-              Prefix: '{{ Prefix }}'
-              Bucket: '{{ Bucket }}'
-            CloudWatchLogs:
-              LogGroup: '{{ LogGroup }}'
-              Enabled: '{{ Enabled }}'
-            Firehose:
-              Enabled: '{{ Enabled }}'
-              DeliveryStream: '{{ DeliveryStream }}'
-      - name: Tags
+          broker_logs:
+            s3:
+              enabled: '{{ enabled }}'
+              prefix: '{{ prefix }}'
+              bucket: '{{ bucket }}'
+            cloud_watch_logs:
+              log_group: '{{ log_group }}'
+              enabled: '{{ enabled }}'
+            firehose:
+              enabled: '{{ enabled }}'
+              delivery_stream: '{{ delivery_stream }}'
+      - name: tags
         value: {}
-      - name: ConfigurationInfo
+      - name: configuration_info
         value:
-          Revision: '{{ Revision }}'
-          Arn: '{{ Arn }}'
-      - name: StorageMode
-        value: '{{ StorageMode }}'
-
+          revision: '{{ revision }}'
+          arn: '{{ arn }}'
+      - name: storage_mode
+        value: '{{ storage_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -650,7 +649,7 @@ SET PatchDocument = string('{{ {
     "StorageMode": storage_mode
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -659,7 +658,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.msk.clusters
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

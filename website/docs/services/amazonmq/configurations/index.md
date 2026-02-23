@@ -200,7 +200,7 @@ name,
 revision,
 tags
 FROM awscc.amazonmq.configurations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -237,9 +237,9 @@ INSERT INTO awscc.amazonmq.configurations (
  Name,
  region
 )
-SELECT 
-'{{ EngineType }}',
- '{{ Name }}',
+SELECT
+'{{ engine_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -257,14 +257,14 @@ INSERT INTO awscc.amazonmq.configurations (
  Tags,
  region
 )
-SELECT 
- '{{ AuthenticationStrategy }}',
- '{{ EngineType }}',
- '{{ EngineVersion }}',
- '{{ Data }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ authentication_strategy }}',
+ '{{ engine_type }}',
+ '{{ engine_version }}',
+ '{{ data }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -282,23 +282,22 @@ globals:
 resources:
   - name: configuration
     props:
-      - name: AuthenticationStrategy
-        value: '{{ AuthenticationStrategy }}'
-      - name: EngineType
-        value: '{{ EngineType }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: Data
-        value: '{{ Data }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: authentication_strategy
+        value: '{{ authentication_strategy }}'
+      - name: engine_type
+        value: '{{ engine_type }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: data
+        value: '{{ data }}'
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amazonmq.configurations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

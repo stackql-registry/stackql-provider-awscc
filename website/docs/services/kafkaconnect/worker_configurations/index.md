@@ -176,7 +176,7 @@ properties_file_content,
 revision,
 tags
 FROM awscc.kafkaconnect.worker_configurations
-WHERE region = 'us-east-1' AND Identifier = '<WorkerConfigurationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ worker_configuration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.kafkaconnect.worker_configurations (
  PropertiesFileContent,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ PropertiesFileContent }}',
+SELECT
+'{{ name }}',
+ '{{ properties_file_content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -230,11 +230,11 @@ INSERT INTO awscc.kafkaconnect.worker_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ PropertiesFileContent }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ properties_file_content }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -252,17 +252,16 @@ globals:
 resources:
   - name: worker_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PropertiesFileContent
-        value: '{{ PropertiesFileContent }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: properties_file_content
+        value: '{{ properties_file_content }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +277,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<WorkerConfigurationArn>';
+AND Identifier = '{{ worker_configuration_arn }}';
 ```
 
 
@@ -287,7 +286,7 @@ AND Identifier = '<WorkerConfigurationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kafkaconnect.worker_configurations
-WHERE Identifier = '<WorkerConfigurationArn>'
+WHERE Identifier = '{{ worker_configuration_arn }}'
 AND region = 'us-east-1';
 ```
 

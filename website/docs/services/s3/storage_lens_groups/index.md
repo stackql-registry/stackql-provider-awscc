@@ -237,7 +237,7 @@ filter,
 storage_lens_group_arn,
 tags
 FROM awscc.s3.storage_lens_groups
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,9 +274,9 @@ INSERT INTO awscc.s3.storage_lens_groups (
  Filter,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Filter }}',
+SELECT
+'{{ name }}',
+ '{{ filter }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,10 +290,10 @@ INSERT INTO awscc.s3.storage_lens_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Filter }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ filter }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -311,39 +311,38 @@ globals:
 resources:
   - name: storage_lens_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Filter
+      - name: name
+        value: '{{ name }}'
+      - name: filter
         value:
-          MatchAnyPrefix:
-            - '{{ MatchAnyPrefix[0] }}'
-          MatchAnySuffix:
-            - '{{ MatchAnySuffix[0] }}'
-          MatchAnyTag:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          MatchObjectSize:
-            BytesGreaterThan: '{{ BytesGreaterThan }}'
-            BytesLessThan: '{{ BytesLessThan }}'
-          MatchObjectAge:
-            DaysGreaterThan: '{{ DaysGreaterThan }}'
-            DaysLessThan: '{{ DaysLessThan }}'
-          And:
-            MatchAnyPrefix: null
-            MatchAnySuffix: null
-            MatchAnyTag: null
-            MatchObjectSize: null
-            MatchObjectAge: null
-          Or:
-            MatchAnyPrefix: null
-            MatchAnySuffix: null
-            MatchAnyTag: null
-            MatchObjectSize: null
-            MatchObjectAge: null
-      - name: Tags
+          match_any_prefix:
+            - '{{ match_any_prefix[0] }}'
+          match_any_suffix:
+            - '{{ match_any_suffix[0] }}'
+          match_any_tag:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          match_object_size:
+            bytes_greater_than: '{{ bytes_greater_than }}'
+            bytes_less_than: '{{ bytes_less_than }}'
+          match_object_age:
+            days_greater_than: '{{ days_greater_than }}'
+            days_less_than: '{{ days_less_than }}'
+          and:
+            match_any_prefix: null
+            match_any_suffix: null
+            match_any_tag: null
+            match_object_size: null
+            match_object_age: null
+          or:
+            match_any_prefix: null
+            match_any_suffix: null
+            match_any_tag: null
+            match_object_size: null
+            match_object_age: null
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.s3.storage_lens_groups
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

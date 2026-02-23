@@ -182,7 +182,7 @@ delivery_s3_key_prefix,
 conformance_pack_input_parameters,
 excluded_accounts
 FROM awscc.config.organization_conformance_packs
-WHERE region = 'us-east-1' AND Identifier = '<OrganizationConformancePackName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ organization_conformance_pack_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.config.organization_conformance_packs (
  OrganizationConformancePackName,
  region
 )
-SELECT 
-'{{ OrganizationConformancePackName }}',
+SELECT
+'{{ organization_conformance_pack_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,14 +237,14 @@ INSERT INTO awscc.config.organization_conformance_packs (
  ExcludedAccounts,
  region
 )
-SELECT 
- '{{ OrganizationConformancePackName }}',
- '{{ TemplateS3Uri }}',
- '{{ TemplateBody }}',
- '{{ DeliveryS3Bucket }}',
- '{{ DeliveryS3KeyPrefix }}',
- '{{ ConformancePackInputParameters }}',
- '{{ ExcludedAccounts }}',
+SELECT
+ '{{ organization_conformance_pack_name }}',
+ '{{ template_s3_uri }}',
+ '{{ template_body }}',
+ '{{ delivery_s3_bucket }}',
+ '{{ delivery_s3_key_prefix }}',
+ '{{ conformance_pack_input_parameters }}',
+ '{{ excluded_accounts }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,24 +262,23 @@ globals:
 resources:
   - name: organization_conformance_pack
     props:
-      - name: OrganizationConformancePackName
-        value: '{{ OrganizationConformancePackName }}'
-      - name: TemplateS3Uri
-        value: '{{ TemplateS3Uri }}'
-      - name: TemplateBody
-        value: '{{ TemplateBody }}'
-      - name: DeliveryS3Bucket
-        value: '{{ DeliveryS3Bucket }}'
-      - name: DeliveryS3KeyPrefix
-        value: '{{ DeliveryS3KeyPrefix }}'
-      - name: ConformancePackInputParameters
+      - name: organization_conformance_pack_name
+        value: '{{ organization_conformance_pack_name }}'
+      - name: template_s3_uri
+        value: '{{ template_s3_uri }}'
+      - name: template_body
+        value: '{{ template_body }}'
+      - name: delivery_s3_bucket
+        value: '{{ delivery_s3_bucket }}'
+      - name: delivery_s3_key_prefix
+        value: '{{ delivery_s3_key_prefix }}'
+      - name: conformance_pack_input_parameters
         value:
-          - ParameterName: '{{ ParameterName }}'
-            ParameterValue: '{{ ParameterValue }}'
-      - name: ExcludedAccounts
+          - parameter_name: '{{ parameter_name }}'
+            parameter_value: '{{ parameter_value }}'
+      - name: excluded_accounts
         value:
-          - '{{ ExcludedAccounts[0] }}'
-
+          - '{{ excluded_accounts[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -300,7 +299,7 @@ SET PatchDocument = string('{{ {
     "ExcludedAccounts": excluded_accounts
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<OrganizationConformancePackName>';
+AND Identifier = '{{ organization_conformance_pack_name }}';
 ```
 
 
@@ -309,7 +308,7 @@ AND Identifier = '<OrganizationConformancePackName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.config.organization_conformance_packs
-WHERE Identifier = '<OrganizationConformancePackName>'
+WHERE Identifier = '{{ organization_conformance_pack_name }}'
 AND region = 'us-east-1';
 ```
 

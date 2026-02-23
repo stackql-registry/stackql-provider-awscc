@@ -260,7 +260,7 @@ tags,
 type,
 analyzer_configuration
 FROM awscc.accessanalyzer.analyzers
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,8 +296,8 @@ INSERT INTO awscc.accessanalyzer.analyzers (
  Type,
  region
 )
-SELECT 
-'{{ Type }}',
+SELECT
+'{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -313,12 +313,12 @@ INSERT INTO awscc.accessanalyzer.analyzers (
  AnalyzerConfiguration,
  region
 )
-SELECT 
- '{{ AnalyzerName }}',
- '{{ ArchiveRules }}',
- '{{ Tags }}',
- '{{ Type }}',
- '{{ AnalyzerConfiguration }}',
+SELECT
+ '{{ analyzer_name }}',
+ '{{ archive_rules }}',
+ '{{ tags }}',
+ '{{ type }}',
+ '{{ analyzer_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,46 +336,45 @@ globals:
 resources:
   - name: analyzer
     props:
-      - name: AnalyzerName
-        value: '{{ AnalyzerName }}'
-      - name: ArchiveRules
+      - name: analyzer_name
+        value: '{{ analyzer_name }}'
+      - name: archive_rules
         value:
-          - Filter:
-              - Contains:
-                  - '{{ Contains[0] }}'
-                Eq:
-                  - '{{ Eq[0] }}'
-                Exists: '{{ Exists }}'
-                Property: '{{ Property }}'
-                Neq:
-                  - '{{ Neq[0] }}'
-            RuleName: '{{ RuleName }}'
-      - name: Tags
+          - filter:
+              - contains:
+                  - '{{ contains[0] }}'
+                eq:
+                  - '{{ eq[0] }}'
+                exists: '{{ exists }}'
+                property: '{{ property }}'
+                neq:
+                  - '{{ neq[0] }}'
+            rule_name: '{{ rule_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: AnalyzerConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: type
+        value: '{{ type }}'
+      - name: analyzer_configuration
         value:
-          UnusedAccessConfiguration:
-            UnusedAccessAge: '{{ UnusedAccessAge }}'
-            AnalysisRule:
-              Exclusions:
-                - AccountIds:
-                    - '{{ AccountIds[0] }}'
-                  ResourceTags:
+          unused_access_configuration:
+            unused_access_age: '{{ unused_access_age }}'
+            analysis_rule:
+              exclusions:
+                - account_ids:
+                    - '{{ account_ids[0] }}'
+                  resource_tags:
                     - - null
-          InternalAccessConfiguration:
-            InternalAccessAnalysisRule:
-              Inclusions:
-                - AccountIds:
-                    - '{{ AccountIds[0] }}'
-                  ResourceArns:
-                    - '{{ ResourceArns[0] }}'
-                  ResourceTypes:
-                    - '{{ ResourceTypes[0] }}'
-
+          internal_access_configuration:
+            internal_access_analysis_rule:
+              inclusions:
+                - account_ids:
+                    - '{{ account_ids[0] }}'
+                  resource_arns:
+                    - '{{ resource_arns[0] }}'
+                  resource_types:
+                    - '{{ resource_types[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -393,7 +392,7 @@ SET PatchDocument = string('{{ {
     "AnalyzerConfiguration": analyzer_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -402,7 +401,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.accessanalyzer.analyzers
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

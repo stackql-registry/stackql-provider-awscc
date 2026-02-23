@@ -152,7 +152,7 @@ region,
 notification_hub_status_summary,
 creation_time
 FROM awscc.notifications.notification_hubs
-WHERE region = 'us-east-1' AND Identifier = '<Region>';
+WHERE region = 'us-east-1' AND Identifier = '{{ region }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -188,8 +188,8 @@ INSERT INTO awscc.notifications.notification_hubs (
  Region,
  region
 )
-SELECT 
-'{{ Region }}',
+SELECT
+'{{ region }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -201,8 +201,8 @@ INSERT INTO awscc.notifications.notification_hubs (
  Region,
  region
 )
-SELECT 
- '{{ Region }}',
+SELECT
+ '{{ region }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,9 +220,8 @@ globals:
 resources:
   - name: notification_hub
     props:
-      - name: Region
-        value: '{{ Region }}'
-
+      - name: region
+        value: '{{ region }}'
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +232,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.notification_hubs
-WHERE Identifier = '<Region>'
+WHERE Identifier = '{{ region }}'
 AND region = 'us-east-1';
 ```
 

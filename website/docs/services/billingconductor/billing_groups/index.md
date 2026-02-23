@@ -231,7 +231,7 @@ creation_time,
 last_modified_time,
 tags
 FROM awscc.billingconductor.billing_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -270,11 +270,11 @@ INSERT INTO awscc.billingconductor.billing_groups (
  AccountGrouping,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ PrimaryAccountId }}',
- '{{ ComputationPreference }}',
- '{{ AccountGrouping }}',
+SELECT
+'{{ name }}',
+ '{{ primary_account_id }}',
+ '{{ computation_preference }}',
+ '{{ account_grouping }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -291,13 +291,13 @@ INSERT INTO awscc.billingconductor.billing_groups (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ PrimaryAccountId }}',
- '{{ ComputationPreference }}',
- '{{ AccountGrouping }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ primary_account_id }}',
+ '{{ computation_preference }}',
+ '{{ account_grouping }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,25 +315,24 @@ globals:
 resources:
   - name: billing_group
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: PrimaryAccountId
-        value: '{{ PrimaryAccountId }}'
-      - name: ComputationPreference
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: primary_account_id
+        value: '{{ primary_account_id }}'
+      - name: computation_preference
         value:
-          PricingPlanArn: '{{ PricingPlanArn }}'
-      - name: AccountGrouping
+          pricing_plan_arn: '{{ pricing_plan_arn }}'
+      - name: account_grouping
         value:
-          LinkedAccountIds:
-            - '{{ LinkedAccountIds[0] }}'
-          AutoAssociate: '{{ AutoAssociate }}'
-      - name: Tags
+          linked_account_ids:
+            - '{{ linked_account_ids[0] }}'
+          auto_associate: '{{ auto_associate }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -353,7 +352,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -362,7 +361,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billingconductor.billing_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

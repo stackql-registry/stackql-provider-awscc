@@ -176,7 +176,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.locationf_sx_lustres
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -212,8 +212,8 @@ INSERT INTO awscc.datasync.locationf_sx_lustres (
  SecurityGroupArns,
  region
 )
-SELECT 
-'{{ SecurityGroupArns }}',
+SELECT
+'{{ security_group_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -228,11 +228,11 @@ INSERT INTO awscc.datasync.locationf_sx_lustres (
  Tags,
  region
 )
-SELECT 
- '{{ FsxFilesystemArn }}',
- '{{ SecurityGroupArns }}',
- '{{ Subdirectory }}',
- '{{ Tags }}',
+SELECT
+ '{{ fsx_filesystem_arn }}',
+ '{{ security_group_arns }}',
+ '{{ subdirectory }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,18 +250,17 @@ globals:
 resources:
   - name: locationf_sx_lustre
     props:
-      - name: FsxFilesystemArn
-        value: '{{ FsxFilesystemArn }}'
-      - name: SecurityGroupArns
+      - name: fsx_filesystem_arn
+        value: '{{ fsx_filesystem_arn }}'
+      - name: security_group_arns
         value:
-          - '{{ SecurityGroupArns[0] }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: Tags
+          - '{{ security_group_arns[0] }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -278,7 +277,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -287,7 +286,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.locationf_sx_lustres
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

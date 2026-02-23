@@ -207,7 +207,7 @@ name,
 tags,
 security_configuration_id
 FROM awscc.emrcontainers.virtual_clusters
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,9 +244,9 @@ INSERT INTO awscc.emrcontainers.virtual_clusters (
  Name,
  region
 )
-SELECT 
-'{{ ContainerProvider }}',
- '{{ Name }}',
+SELECT
+'{{ container_provider }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,11 +261,11 @@ INSERT INTO awscc.emrcontainers.virtual_clusters (
  SecurityConfigurationId,
  region
 )
-SELECT 
- '{{ ContainerProvider }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ SecurityConfigurationId }}',
+SELECT
+ '{{ container_provider }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ security_configuration_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -283,22 +283,21 @@ globals:
 resources:
   - name: virtual_cluster
     props:
-      - name: ContainerProvider
+      - name: container_provider
         value:
-          Type: '{{ Type }}'
-          Id: '{{ Id }}'
-          Info:
-            EksInfo:
-              Namespace: '{{ Namespace }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          type: '{{ type }}'
+          id: '{{ id }}'
+          info:
+            eks_info:
+              namespace: '{{ namespace }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: SecurityConfigurationId
-        value: '{{ SecurityConfigurationId }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: security_configuration_id
+        value: '{{ security_configuration_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "SecurityConfigurationId": security_configuration_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emrcontainers.virtual_clusters
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

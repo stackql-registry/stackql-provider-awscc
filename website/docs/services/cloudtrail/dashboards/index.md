@@ -241,7 +241,7 @@ type,
 updated_timestamp,
 tags
 FROM awscc.cloudtrail.dashboards
-WHERE region = 'us-east-1' AND Identifier = '<DashboardArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,7 +277,7 @@ INSERT INTO awscc.cloudtrail.dashboards (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -294,12 +294,12 @@ INSERT INTO awscc.cloudtrail.dashboards (
  Tags,
  region
 )
-SELECT 
- '{{ Widgets }}',
- '{{ RefreshSchedule }}',
- '{{ Name }}',
- '{{ TerminationProtectionEnabled }}',
- '{{ Tags }}',
+SELECT
+ '{{ widgets }}',
+ '{{ refresh_schedule }}',
+ '{{ name }}',
+ '{{ termination_protection_enabled }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -317,28 +317,27 @@ globals:
 resources:
   - name: dashboard
     props:
-      - name: Widgets
+      - name: widgets
         value:
-          - QueryStatement: '{{ QueryStatement }}'
-            QueryParameters:
-              - '{{ QueryParameters[0] }}'
-            ViewProperties: {}
-      - name: RefreshSchedule
+          - query_statement: '{{ query_statement }}'
+            query_parameters:
+              - '{{ query_parameters[0] }}'
+            view_properties: {}
+      - name: refresh_schedule
         value:
-          Frequency:
-            Unit: '{{ Unit }}'
-            Value: '{{ Value }}'
-          TimeOfDay: '{{ TimeOfDay }}'
-          Status: '{{ Status }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: TerminationProtectionEnabled
-        value: '{{ TerminationProtectionEnabled }}'
-      - name: Tags
+          frequency:
+            unit: '{{ unit }}'
+            value: '{{ value }}'
+          time_of_day: '{{ time_of_day }}'
+          status: '{{ status }}'
+      - name: name
+        value: '{{ name }}'
+      - name: termination_protection_enabled
+        value: '{{ termination_protection_enabled }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -358,7 +357,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DashboardArn>';
+AND Identifier = '{{ dashboard_arn }}';
 ```
 
 
@@ -367,7 +366,7 @@ AND Identifier = '<DashboardArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudtrail.dashboards
-WHERE Identifier = '<DashboardArn>'
+WHERE Identifier = '{{ dashboard_arn }}'
 AND region = 'us-east-1';
 ```
 

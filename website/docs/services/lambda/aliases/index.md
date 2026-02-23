@@ -196,7 +196,7 @@ function_version,
 routing_config,
 name
 FROM awscc.lambda.aliases
-WHERE region = 'us-east-1' AND Identifier = '<AliasArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alias_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,10 +234,10 @@ INSERT INTO awscc.lambda.aliases (
  Name,
  region
 )
-SELECT 
-'{{ FunctionName }}',
- '{{ FunctionVersion }}',
- '{{ Name }}',
+SELECT
+'{{ function_name }}',
+ '{{ function_version }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,13 +254,13 @@ INSERT INTO awscc.lambda.aliases (
  Name,
  region
 )
-SELECT 
- '{{ FunctionName }}',
- '{{ ProvisionedConcurrencyConfig }}',
- '{{ Description }}',
- '{{ FunctionVersion }}',
- '{{ RoutingConfig }}',
- '{{ Name }}',
+SELECT
+ '{{ function_name }}',
+ '{{ provisioned_concurrency_config }}',
+ '{{ description }}',
+ '{{ function_version }}',
+ '{{ routing_config }}',
+ '{{ name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,23 +278,22 @@ globals:
 resources:
   - name: alias
     props:
-      - name: FunctionName
-        value: '{{ FunctionName }}'
-      - name: ProvisionedConcurrencyConfig
+      - name: function_name
+        value: '{{ function_name }}'
+      - name: provisioned_concurrency_config
         value:
-          ProvisionedConcurrentExecutions: '{{ ProvisionedConcurrentExecutions }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FunctionVersion
-        value: '{{ FunctionVersion }}'
-      - name: RoutingConfig
+          provisioned_concurrent_executions: '{{ provisioned_concurrent_executions }}'
+      - name: description
+        value: '{{ description }}'
+      - name: function_version
+        value: '{{ function_version }}'
+      - name: routing_config
         value:
-          AdditionalVersionWeights:
-            - FunctionWeight: null
-              FunctionVersion: '{{ FunctionVersion }}'
-      - name: Name
-        value: '{{ Name }}'
-
+          additional_version_weights:
+            - function_weight: null
+              function_version: '{{ function_version }}'
+      - name: name
+        value: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +312,7 @@ SET PatchDocument = string('{{ {
     "RoutingConfig": routing_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AliasArn>';
+AND Identifier = '{{ alias_arn }}';
 ```
 
 
@@ -322,7 +321,7 @@ AND Identifier = '<AliasArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.aliases
-WHERE Identifier = '<AliasArn>'
+WHERE Identifier = '{{ alias_arn }}'
 AND region = 'us-east-1';
 ```
 

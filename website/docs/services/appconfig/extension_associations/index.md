@@ -194,7 +194,7 @@ extension_version_number,
 parameters,
 tags
 FROM awscc.appconfig.extension_associations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,12 +234,12 @@ INSERT INTO awscc.appconfig.extension_associations (
  Tags,
  region
 )
-SELECT 
-'{{ ExtensionIdentifier }}',
- '{{ ResourceIdentifier }}',
- '{{ ExtensionVersionNumber }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+'{{ extension_identifier }}',
+ '{{ resource_identifier }}',
+ '{{ extension_version_number }}',
+ '{{ parameters }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,12 +255,12 @@ INSERT INTO awscc.appconfig.extension_associations (
  Tags,
  region
 )
-SELECT 
- '{{ ExtensionIdentifier }}',
- '{{ ResourceIdentifier }}',
- '{{ ExtensionVersionNumber }}',
- '{{ Parameters }}',
- '{{ Tags }}',
+SELECT
+ '{{ extension_identifier }}',
+ '{{ resource_identifier }}',
+ '{{ extension_version_number }}',
+ '{{ parameters }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,19 +278,18 @@ globals:
 resources:
   - name: extension_association
     props:
-      - name: ExtensionIdentifier
-        value: '{{ ExtensionIdentifier }}'
-      - name: ResourceIdentifier
-        value: '{{ ResourceIdentifier }}'
-      - name: ExtensionVersionNumber
-        value: '{{ ExtensionVersionNumber }}'
-      - name: Parameters
+      - name: extension_identifier
+        value: '{{ extension_identifier }}'
+      - name: resource_identifier
+        value: '{{ resource_identifier }}'
+      - name: extension_version_number
+        value: '{{ extension_version_number }}'
+      - name: parameters
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -316,7 +315,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appconfig.extension_associations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

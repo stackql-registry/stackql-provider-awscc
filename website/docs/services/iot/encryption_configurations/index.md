@@ -181,7 +181,7 @@ kms_key_arn,
 configuration_details,
 last_modified_date
 FROM awscc.iot.encryption_configurations
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -217,8 +217,8 @@ INSERT INTO awscc.iot.encryption_configurations (
  EncryptionType,
  region
 )
-SELECT 
-'{{ EncryptionType }}',
+SELECT
+'{{ encryption_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -232,10 +232,10 @@ INSERT INTO awscc.iot.encryption_configurations (
  KmsKeyArn,
  region
 )
-SELECT 
- '{{ EncryptionType }}',
- '{{ KmsAccessRoleArn }}',
- '{{ KmsKeyArn }}',
+SELECT
+ '{{ encryption_type }}',
+ '{{ kms_access_role_arn }}',
+ '{{ kms_key_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,13 +253,12 @@ globals:
 resources:
   - name: encryption_configuration
     props:
-      - name: EncryptionType
-        value: '{{ EncryptionType }}'
-      - name: KmsAccessRoleArn
-        value: '{{ KmsAccessRoleArn }}'
-      - name: KmsKeyArn
-        value: '{{ KmsKeyArn }}'
-
+      - name: encryption_type
+        value: '{{ encryption_type }}'
+      - name: kms_access_role_arn
+        value: '{{ kms_access_role_arn }}'
+      - name: kms_key_arn
+        value: '{{ kms_key_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -277,7 +276,7 @@ SET PatchDocument = string('{{ {
     "KmsKeyArn": kms_key_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -286,7 +285,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.encryption_configurations
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

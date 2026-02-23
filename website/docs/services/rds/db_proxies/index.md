@@ -245,7 +245,7 @@ vpc_id,
 vpc_security_group_ids,
 vpc_subnet_ids
 FROM awscc.rds.db_proxies
-WHERE region = 'us-east-1' AND Identifier = '<DBProxyName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ db_proxy_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -285,12 +285,12 @@ INSERT INTO awscc.rds.db_proxies (
  VpcSubnetIds,
  region
 )
-SELECT 
-'{{ Auth }}',
- '{{ DBProxyName }}',
- '{{ EngineFamily }}',
- '{{ RoleArn }}',
- '{{ VpcSubnetIds }}',
+SELECT
+'{{ auth }}',
+ '{{ db_proxy_name }}',
+ '{{ engine_family }}',
+ '{{ role_arn }}',
+ '{{ vpc_subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -311,17 +311,17 @@ INSERT INTO awscc.rds.db_proxies (
  VpcSubnetIds,
  region
 )
-SELECT 
- '{{ Auth }}',
- '{{ DBProxyName }}',
- '{{ DebugLogging }}',
- '{{ EngineFamily }}',
- '{{ IdleClientTimeout }}',
- '{{ RequireTLS }}',
- '{{ RoleArn }}',
- '{{ Tags }}',
- '{{ VpcSecurityGroupIds }}',
- '{{ VpcSubnetIds }}',
+SELECT
+ '{{ auth }}',
+ '{{ db_proxy_name }}',
+ '{{ debug_logging }}',
+ '{{ engine_family }}',
+ '{{ idle_client_timeout }}',
+ '{{ require_tls }}',
+ '{{ role_arn }}',
+ '{{ tags }}',
+ '{{ vpc_security_group_ids }}',
+ '{{ vpc_subnet_ids }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -339,36 +339,35 @@ globals:
 resources:
   - name: db_proxy
     props:
-      - name: Auth
+      - name: auth
         value:
-          - AuthScheme: '{{ AuthScheme }}'
-            Description: '{{ Description }}'
-            IAMAuth: '{{ IAMAuth }}'
-            SecretArn: '{{ SecretArn }}'
-            ClientPasswordAuthType: '{{ ClientPasswordAuthType }}'
-      - name: DBProxyName
-        value: '{{ DBProxyName }}'
-      - name: DebugLogging
-        value: '{{ DebugLogging }}'
-      - name: EngineFamily
-        value: '{{ EngineFamily }}'
-      - name: IdleClientTimeout
-        value: '{{ IdleClientTimeout }}'
-      - name: RequireTLS
-        value: '{{ RequireTLS }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Tags
+          - auth_scheme: '{{ auth_scheme }}'
+            description: '{{ description }}'
+            iam_auth: '{{ iam_auth }}'
+            secret_arn: '{{ secret_arn }}'
+            client_password_auth_type: '{{ client_password_auth_type }}'
+      - name: db_proxy_name
+        value: '{{ db_proxy_name }}'
+      - name: debug_logging
+        value: '{{ debug_logging }}'
+      - name: engine_family
+        value: '{{ engine_family }}'
+      - name: idle_client_timeout
+        value: '{{ idle_client_timeout }}'
+      - name: require_tls
+        value: '{{ require_tls }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VpcSecurityGroupIds
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vpc_security_group_ids
         value:
-          - '{{ VpcSecurityGroupIds[0] }}'
-      - name: VpcSubnetIds
+          - '{{ vpc_security_group_ids[0] }}'
+      - name: vpc_subnet_ids
         value:
-          - '{{ VpcSubnetIds[0] }}'
-
+          - '{{ vpc_subnet_ids[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -390,7 +389,7 @@ SET PatchDocument = string('{{ {
     "VpcSecurityGroupIds": vpc_security_group_ids
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DBProxyName>';
+AND Identifier = '{{ db_proxy_name }}';
 ```
 
 
@@ -399,7 +398,7 @@ AND Identifier = '<DBProxyName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.rds.db_proxies
-WHERE Identifier = '<DBProxyName>'
+WHERE Identifier = '{{ db_proxy_name }}'
 AND region = 'us-east-1';
 ```
 

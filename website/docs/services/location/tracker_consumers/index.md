@@ -139,7 +139,7 @@ region,
 consumer_arn,
 tracker_name
 FROM awscc.location.tracker_consumers
-WHERE region = 'us-east-1' AND Identifier = '<TrackerName>|<ConsumerArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ tracker_name }}|{{ consumer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.location.tracker_consumers (
  TrackerName,
  region
 )
-SELECT 
-'{{ ConsumerArn }}',
- '{{ TrackerName }}',
+SELECT
+'{{ consumer_arn }}',
+ '{{ tracker_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.location.tracker_consumers (
  TrackerName,
  region
 )
-SELECT 
- '{{ ConsumerArn }}',
- '{{ TrackerName }}',
+SELECT
+ '{{ consumer_arn }}',
+ '{{ tracker_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: tracker_consumer
     props:
-      - name: ConsumerArn
-        value: '{{ ConsumerArn }}'
-      - name: TrackerName
-        value: '{{ TrackerName }}'
-
+      - name: consumer_arn
+        value: '{{ consumer_arn }}'
+      - name: tracker_name
+        value: '{{ tracker_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.tracker_consumers
-WHERE Identifier = '<TrackerName|ConsumerArn>'
+WHERE Identifier = '{{ tracker_name }}|{{ consumer_arn }}'
 AND region = 'us-east-1';
 ```
 

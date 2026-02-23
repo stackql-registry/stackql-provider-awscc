@@ -157,7 +157,7 @@ resource_id,
 autodefined_reverse,
 autodefined_reverse_flag
 FROM awscc.route53resolver.resolver_configs
-WHERE region = 'us-east-1' AND Identifier = '<ResourceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,9 +194,9 @@ INSERT INTO awscc.route53resolver.resolver_configs (
  AutodefinedReverseFlag,
  region
 )
-SELECT 
-'{{ ResourceId }}',
- '{{ AutodefinedReverseFlag }}',
+SELECT
+'{{ resource_id }}',
+ '{{ autodefined_reverse_flag }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -209,9 +209,9 @@ INSERT INTO awscc.route53resolver.resolver_configs (
  AutodefinedReverseFlag,
  region
 )
-SELECT 
- '{{ ResourceId }}',
- '{{ AutodefinedReverseFlag }}',
+SELECT
+ '{{ resource_id }}',
+ '{{ autodefined_reverse_flag }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -229,11 +229,10 @@ globals:
 resources:
   - name: resolver_config
     props:
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: AutodefinedReverseFlag
-        value: '{{ AutodefinedReverseFlag }}'
-
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: autodefined_reverse_flag
+        value: '{{ autodefined_reverse_flag }}'
 ```
 </TabItem>
 </Tabs>
@@ -244,7 +243,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_configs
-WHERE Identifier = '<ResourceId>'
+WHERE Identifier = '{{ resource_id }}'
 AND region = 'us-east-1';
 ```
 

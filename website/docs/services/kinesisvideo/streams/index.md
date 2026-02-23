@@ -182,7 +182,7 @@ kms_key_id,
 media_type,
 tags
 FROM awscc.kinesisvideo.streams
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,7 +218,7 @@ INSERT INTO awscc.kinesisvideo.streams (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -236,13 +236,13 @@ INSERT INTO awscc.kinesisvideo.streams (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DataRetentionInHours }}',
- '{{ DeviceName }}',
- '{{ KmsKeyId }}',
- '{{ MediaType }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ data_retention_in_hours }}',
+ '{{ device_name }}',
+ '{{ kms_key_id }}',
+ '{{ media_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -260,21 +260,20 @@ globals:
 resources:
   - name: stream
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DataRetentionInHours
-        value: '{{ DataRetentionInHours }}'
-      - name: DeviceName
-        value: '{{ DeviceName }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: MediaType
-        value: '{{ MediaType }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: data_retention_in_hours
+        value: '{{ data_retention_in_hours }}'
+      - name: device_name
+        value: '{{ device_name }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: media_type
+        value: '{{ media_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisvideo.streams
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

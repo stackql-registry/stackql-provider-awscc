@@ -221,7 +221,7 @@ overrides,
 tags,
 values
 FROM awscc.amplifyuibuilder.themes
-WHERE region = 'us-east-1' AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,13 +264,13 @@ INSERT INTO awscc.amplifyuibuilder.themes (
  Values,
  region
 )
-SELECT 
-'{{ AppId }}',
- '{{ EnvironmentName }}',
- '{{ Name }}',
- '{{ Overrides }}',
- '{{ Tags }}',
- '{{ Values }}',
+SELECT
+'{{ app_id }}',
+ '{{ environment_name }}',
+ '{{ name }}',
+ '{{ overrides }}',
+ '{{ tags }}',
+ '{{ values }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,13 +287,13 @@ INSERT INTO awscc.amplifyuibuilder.themes (
  Values,
  region
 )
-SELECT 
- '{{ AppId }}',
- '{{ EnvironmentName }}',
- '{{ Name }}',
- '{{ Overrides }}',
- '{{ Tags }}',
- '{{ Values }}',
+SELECT
+ '{{ app_id }}',
+ '{{ environment_name }}',
+ '{{ name }}',
+ '{{ overrides }}',
+ '{{ tags }}',
+ '{{ values }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -311,25 +311,24 @@ globals:
 resources:
   - name: theme
     props:
-      - name: AppId
-        value: '{{ AppId }}'
-      - name: EnvironmentName
-        value: '{{ EnvironmentName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Overrides
+      - name: app_id
+        value: '{{ app_id }}'
+      - name: environment_name
+        value: '{{ environment_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: overrides
         value:
-          - Key: '{{ Key }}'
-            Value:
-              Value: '{{ Value }}'
-              Children:
+          - key: '{{ key }}'
+            value:
+              value: '{{ value }}'
+              children:
                 - null
-      - name: Tags
+      - name: tags
         value: {}
-      - name: Values
+      - name: values
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -348,7 +347,7 @@ SET PatchDocument = string('{{ {
     "Values": values
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
+AND Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}';
 ```
 
 
@@ -357,7 +356,7 @@ AND Identifier = '<AppId>|<EnvironmentName>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.amplifyuibuilder.themes
-WHERE Identifier = '<AppId|EnvironmentName|Id>'
+WHERE Identifier = '{{ app_id }}|{{ environment_name }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

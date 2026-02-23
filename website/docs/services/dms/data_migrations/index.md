@@ -239,7 +239,7 @@ data_migration_settings,
 source_data_settings,
 tags
 FROM awscc.dms.data_migrations
-WHERE region = 'us-east-1' AND Identifier = '<DataMigrationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ data_migration_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -277,10 +277,10 @@ INSERT INTO awscc.dms.data_migrations (
  DataMigrationType,
  region
 )
-SELECT 
-'{{ ServiceAccessRoleArn }}',
- '{{ MigrationProjectIdentifier }}',
- '{{ DataMigrationType }}',
+SELECT
+'{{ service_access_role_arn }}',
+ '{{ migration_project_identifier }}',
+ '{{ data_migration_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -299,15 +299,15 @@ INSERT INTO awscc.dms.data_migrations (
  Tags,
  region
 )
-SELECT 
- '{{ DataMigrationName }}',
- '{{ DataMigrationIdentifier }}',
- '{{ ServiceAccessRoleArn }}',
- '{{ MigrationProjectIdentifier }}',
- '{{ DataMigrationType }}',
- '{{ DataMigrationSettings }}',
- '{{ SourceDataSettings }}',
- '{{ Tags }}',
+SELECT
+ '{{ data_migration_name }}',
+ '{{ data_migration_identifier }}',
+ '{{ service_access_role_arn }}',
+ '{{ migration_project_identifier }}',
+ '{{ data_migration_type }}',
+ '{{ data_migration_settings }}',
+ '{{ source_data_settings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -325,32 +325,31 @@ globals:
 resources:
   - name: data_migration
     props:
-      - name: DataMigrationName
-        value: '{{ DataMigrationName }}'
-      - name: DataMigrationIdentifier
-        value: '{{ DataMigrationIdentifier }}'
-      - name: ServiceAccessRoleArn
-        value: '{{ ServiceAccessRoleArn }}'
-      - name: MigrationProjectIdentifier
-        value: '{{ MigrationProjectIdentifier }}'
-      - name: DataMigrationType
-        value: '{{ DataMigrationType }}'
-      - name: DataMigrationSettings
+      - name: data_migration_name
+        value: '{{ data_migration_name }}'
+      - name: data_migration_identifier
+        value: '{{ data_migration_identifier }}'
+      - name: service_access_role_arn
+        value: '{{ service_access_role_arn }}'
+      - name: migration_project_identifier
+        value: '{{ migration_project_identifier }}'
+      - name: data_migration_type
+        value: '{{ data_migration_type }}'
+      - name: data_migration_settings
         value:
-          CloudwatchLogsEnabled: '{{ CloudwatchLogsEnabled }}'
-          NumberOfJobs: '{{ NumberOfJobs }}'
-          SelectionRules: '{{ SelectionRules }}'
-      - name: SourceDataSettings
+          cloudwatch_logs_enabled: '{{ cloudwatch_logs_enabled }}'
+          number_of_jobs: '{{ number_of_jobs }}'
+          selection_rules: '{{ selection_rules }}'
+      - name: source_data_settings
         value:
-          - CDCStartPosition: '{{ CDCStartPosition }}'
-            CDCStartTime: '{{ CDCStartTime }}'
-            CDCStopTime: '{{ CDCStopTime }}'
-            SlotName: '{{ SlotName }}'
-      - name: Tags
+          - c_dc_start_position: '{{ c_dc_start_position }}'
+            c_dc_start_time: '{{ c_dc_start_time }}'
+            c_dc_stop_time: '{{ c_dc_stop_time }}'
+            slot_name: '{{ slot_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -373,7 +372,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DataMigrationArn>';
+AND Identifier = '{{ data_migration_arn }}';
 ```
 
 
@@ -382,7 +381,7 @@ AND Identifier = '<DataMigrationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.data_migrations
-WHERE Identifier = '<DataMigrationArn>'
+WHERE Identifier = '{{ data_migration_arn }}'
 AND region = 'us-east-1';
 ```
 

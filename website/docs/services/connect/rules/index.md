@@ -334,7 +334,7 @@ actions,
 publish_status,
 tags
 FROM awscc.connect.rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 
 ## `INSERT` example
@@ -362,13 +362,13 @@ INSERT INTO awscc.connect.rules (
  PublishStatus,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ InstanceArn }}',
- '{{ TriggerEventSource }}',
- '{{ Function }}',
- '{{ Actions }}',
- '{{ PublishStatus }}',
+SELECT
+'{{ name }}',
+ '{{ instance_arn }}',
+ '{{ trigger_event_source }}',
+ '{{ function }}',
+ '{{ actions }}',
+ '{{ publish_status }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -386,14 +386,14 @@ INSERT INTO awscc.connect.rules (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ InstanceArn }}',
- '{{ TriggerEventSource }}',
- '{{ Function }}',
- '{{ Actions }}',
- '{{ PublishStatus }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ instance_arn }}',
+ '{{ trigger_event_source }}',
+ '{{ function }}',
+ '{{ actions }}',
+ '{{ publish_status }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -411,58 +411,57 @@ globals:
 resources:
   - name: rule
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: TriggerEventSource
+      - name: name
+        value: '{{ name }}'
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: trigger_event_source
         value:
-          EventSourceName: '{{ EventSourceName }}'
-          IntegrationAssociationArn: '{{ IntegrationAssociationArn }}'
-      - name: Function
-        value: '{{ Function }}'
-      - name: Actions
+          event_source_name: '{{ event_source_name }}'
+          integration_association_arn: '{{ integration_association_arn }}'
+      - name: function
+        value: '{{ function }}'
+      - name: actions
         value:
-          AssignContactCategoryActions:
+          assign_contact_category_actions:
             - {}
-          EventBridgeActions:
-            - Name: '{{ Name }}'
-          TaskActions:
-            - Name: '{{ Name }}'
-              Description: '{{ Description }}'
-              ContactFlowArn: '{{ ContactFlowArn }}'
-              References: null
-          SendNotificationActions:
-            - DeliveryMethod: '{{ DeliveryMethod }}'
-              Subject: '{{ Subject }}'
-              Content: '{{ Content }}'
-              ContentType: '{{ ContentType }}'
-              Recipient:
-                UserTags: null
-                UserArns:
-                  - '{{ UserArns[0] }}'
-          CreateCaseActions:
-            - Fields:
-                - Id:
-                    Name: '{{ Name }}'
-                  Description: '{{ Description }}'
-                  Type: '{{ Type }}'
-                  SingleSelectOptions:
-                    - '{{ SingleSelectOptions[0] }}'
-              TemplateId: '{{ TemplateId }}'
-          UpdateCaseActions:
-            - Fields: null
-          EndAssociatedTasksActions:
+          event_bridge_actions:
+            - name: '{{ name }}'
+          task_actions:
+            - name: '{{ name }}'
+              description: '{{ description }}'
+              contact_flow_arn: '{{ contact_flow_arn }}'
+              references: null
+          send_notification_actions:
+            - delivery_method: '{{ delivery_method }}'
+              subject: '{{ subject }}'
+              content: '{{ content }}'
+              content_type: '{{ content_type }}'
+              recipient:
+                user_tags: null
+                user_arns:
+                  - '{{ user_arns[0] }}'
+          create_case_actions:
+            - fields:
+                - id:
+                    name: '{{ name }}'
+                  description: '{{ description }}'
+                  type: '{{ type }}'
+                  single_select_options:
+                    - '{{ single_select_options[0] }}'
+              template_id: '{{ template_id }}'
+          update_case_actions:
+            - fields: null
+          end_associated_tasks_actions:
             - {}
-          SubmitAutoEvaluationActions:
-            - EvaluationFormArn: '{{ EvaluationFormArn }}'
-      - name: PublishStatus
-        value: '{{ PublishStatus }}'
-      - name: Tags
+          submit_auto_evaluation_actions:
+            - evaluation_form_arn: '{{ evaluation_form_arn }}'
+      - name: publish_status
+        value: '{{ publish_status }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -482,7 +481,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleArn>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -491,7 +490,7 @@ AND Identifier = '<RuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.rules
-WHERE Identifier = '<RuleArn>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

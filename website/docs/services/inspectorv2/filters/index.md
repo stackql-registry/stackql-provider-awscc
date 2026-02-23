@@ -251,7 +251,7 @@ filter_action,
 arn,
 tags
 FROM awscc.inspectorv2.filters
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -289,10 +289,10 @@ INSERT INTO awscc.inspectorv2.filters (
  FilterAction,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ FilterCriteria }}',
- '{{ FilterAction }}',
+SELECT
+'{{ name }}',
+ '{{ filter_criteria }}',
+ '{{ filter_action }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -308,12 +308,12 @@ INSERT INTO awscc.inspectorv2.filters (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ FilterCriteria }}',
- '{{ FilterAction }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ filter_criteria }}',
+ '{{ filter_action }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -331,78 +331,77 @@ globals:
 resources:
   - name: filter
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FilterCriteria
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: filter_criteria
         value:
-          AwsAccountId:
-            - Comparison: '{{ Comparison }}'
-              Value: '{{ Value }}'
-          CodeVulnerabilityDetectorName: null
-          CodeVulnerabilityDetectorTags: null
-          CodeVulnerabilityFilePath: null
-          ComponentId: null
-          ComponentType: null
-          Ec2InstanceImageId: null
-          Ec2InstanceSubnetId: null
-          Ec2InstanceVpcId: null
-          EcrImageArchitecture: null
-          EcrImageHash: null
-          EcrImagePushedAt:
-            - EndInclusive: '{{ EndInclusive }}'
-              StartInclusive: null
-          EcrImageRegistry: null
-          EcrImageRepositoryName: null
-          EcrImageTags: null
-          EpssScore:
-            - LowerInclusive: null
-              UpperInclusive: null
-          ExploitAvailable: null
-          FindingArn: null
-          FindingStatus: null
-          FindingType: null
-          FirstObservedAt: null
-          FixAvailable: null
-          InspectorScore: null
-          LambdaFunctionExecutionRoleArn: null
-          LambdaFunctionLastModifiedAt: null
-          LambdaFunctionLayers: null
-          LambdaFunctionName: null
-          LambdaFunctionRuntime: null
-          LastObservedAt: null
-          NetworkProtocol: null
-          PortRange:
-            - BeginInclusive: '{{ BeginInclusive }}'
-              EndInclusive: null
-          RelatedVulnerabilities: null
-          ResourceId: null
-          ResourceTags:
-            - Comparison: '{{ Comparison }}'
-              Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          ResourceType: null
-          Severity: null
-          Title: null
-          UpdatedAt: null
-          VendorSeverity: null
-          VulnerabilityId: null
-          VulnerabilitySource: null
-          VulnerablePackages:
-            - Architecture: null
-              Epoch: null
-              FilePath: null
-              Name: null
-              Release: null
-              SourceLambdaLayerArn: null
-              SourceLayerHash: null
-              Version: null
-      - name: FilterAction
-        value: '{{ FilterAction }}'
-      - name: Tags
+          aws_account_id:
+            - comparison: '{{ comparison }}'
+              value: '{{ value }}'
+          code_vulnerability_detector_name: null
+          code_vulnerability_detector_tags: null
+          code_vulnerability_file_path: null
+          component_id: null
+          component_type: null
+          ec2_instance_image_id: null
+          ec2_instance_subnet_id: null
+          ec2_instance_vpc_id: null
+          ecr_image_architecture: null
+          ecr_image_hash: null
+          ecr_image_pushed_at:
+            - end_inclusive: '{{ end_inclusive }}'
+              start_inclusive: null
+          ecr_image_registry: null
+          ecr_image_repository_name: null
+          ecr_image_tags: null
+          epss_score:
+            - lower_inclusive: null
+              upper_inclusive: null
+          exploit_available: null
+          finding_arn: null
+          finding_status: null
+          finding_type: null
+          first_observed_at: null
+          fix_available: null
+          inspector_score: null
+          lambda_function_execution_role_arn: null
+          lambda_function_last_modified_at: null
+          lambda_function_layers: null
+          lambda_function_name: null
+          lambda_function_runtime: null
+          last_observed_at: null
+          network_protocol: null
+          port_range:
+            - begin_inclusive: '{{ begin_inclusive }}'
+              end_inclusive: null
+          related_vulnerabilities: null
+          resource_id: null
+          resource_tags:
+            - comparison: '{{ comparison }}'
+              key: '{{ key }}'
+              value: '{{ value }}'
+          resource_type: null
+          severity: null
+          title: null
+          updated_at: null
+          vendor_severity: null
+          vulnerability_id: null
+          vulnerability_source: null
+          vulnerable_packages:
+            - architecture: null
+              epoch: null
+              file_path: null
+              name: null
+              release: null
+              source_lambda_layer_arn: null
+              source_layer_hash: null
+              version: null
+      - name: filter_action
+        value: '{{ filter_action }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -422,7 +421,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -431,7 +430,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.inspectorv2.filters
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

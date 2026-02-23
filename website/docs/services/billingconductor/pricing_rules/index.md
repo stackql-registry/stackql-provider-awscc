@@ -244,7 +244,7 @@ creation_time,
 last_modified_time,
 tags
 FROM awscc.billingconductor.pricing_rules
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,10 +282,10 @@ INSERT INTO awscc.billingconductor.pricing_rules (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Scope }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ scope }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -307,18 +307,18 @@ INSERT INTO awscc.billingconductor.pricing_rules (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ Scope }}',
- '{{ Type }}',
- '{{ ModifierPercentage }}',
- '{{ Service }}',
- '{{ BillingEntity }}',
- '{{ Tiering }}',
- '{{ UsageType }}',
- '{{ Operation }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ scope }}',
+ '{{ type }}',
+ '{{ modifier_percentage }}',
+ '{{ service }}',
+ '{{ billing_entity }}',
+ '{{ tiering }}',
+ '{{ usage_type }}',
+ '{{ operation }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -336,33 +336,32 @@ globals:
 resources:
   - name: pricing_rule
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Scope
-        value: '{{ Scope }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: ModifierPercentage
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: scope
+        value: '{{ scope }}'
+      - name: type
+        value: '{{ type }}'
+      - name: modifier_percentage
         value: null
-      - name: Service
-        value: '{{ Service }}'
-      - name: BillingEntity
-        value: '{{ BillingEntity }}'
-      - name: Tiering
+      - name: service
+        value: '{{ service }}'
+      - name: billing_entity
+        value: '{{ billing_entity }}'
+      - name: tiering
         value:
-          FreeTier:
-            Activated: '{{ Activated }}'
-      - name: UsageType
-        value: '{{ UsageType }}'
-      - name: Operation
-        value: '{{ Operation }}'
-      - name: Tags
+          free_tier:
+            activated: '{{ activated }}'
+      - name: usage_type
+        value: '{{ usage_type }}'
+      - name: operation
+        value: '{{ operation }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -383,7 +382,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -392,7 +391,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billingconductor.pricing_rules
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

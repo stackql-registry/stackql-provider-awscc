@@ -276,7 +276,7 @@ api_key_required,
 authorization_type,
 http_method
 FROM awscc.apigateway.methods
-WHERE region = 'us-east-1' AND Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```
 
 ## `INSERT` example
@@ -301,10 +301,10 @@ INSERT INTO awscc.apigateway.methods (
  HttpMethod,
  region
 )
-SELECT 
-'{{ RestApiId }}',
- '{{ ResourceId }}',
- '{{ HttpMethod }}',
+SELECT
+'{{ rest_api_id }}',
+ '{{ resource_id }}',
+ '{{ http_method }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -328,20 +328,20 @@ INSERT INTO awscc.apigateway.methods (
  HttpMethod,
  region
 )
-SELECT 
- '{{ Integration }}',
- '{{ OperationName }}',
- '{{ RequestModels }}',
- '{{ RestApiId }}',
- '{{ AuthorizationScopes }}',
- '{{ RequestValidatorId }}',
- '{{ RequestParameters }}',
- '{{ MethodResponses }}',
- '{{ AuthorizerId }}',
- '{{ ResourceId }}',
- '{{ ApiKeyRequired }}',
- '{{ AuthorizationType }}',
- '{{ HttpMethod }}',
+SELECT
+ '{{ integration }}',
+ '{{ operation_name }}',
+ '{{ request_models }}',
+ '{{ rest_api_id }}',
+ '{{ authorization_scopes }}',
+ '{{ request_validator_id }}',
+ '{{ request_parameters }}',
+ '{{ method_responses }}',
+ '{{ authorizer_id }}',
+ '{{ resource_id }}',
+ '{{ api_key_required }}',
+ '{{ authorization_type }}',
+ '{{ http_method }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,57 +359,56 @@ globals:
 resources:
   - name: method
     props:
-      - name: Integration
+      - name: integration
         value:
-          CacheNamespace: '{{ CacheNamespace }}'
-          ConnectionType: '{{ ConnectionType }}'
-          IntegrationResponses:
-            - ResponseTemplates: {}
-              SelectionPattern: '{{ SelectionPattern }}'
-              ContentHandling: '{{ ContentHandling }}'
-              ResponseParameters: {}
-              StatusCode: '{{ StatusCode }}'
-          IntegrationHttpMethod: '{{ IntegrationHttpMethod }}'
-          Uri: '{{ Uri }}'
-          PassthroughBehavior: '{{ PassthroughBehavior }}'
-          RequestParameters: {}
-          ConnectionId: '{{ ConnectionId }}'
-          Type: '{{ Type }}'
-          CacheKeyParameters:
-            - '{{ CacheKeyParameters[0] }}'
-          ContentHandling: '{{ ContentHandling }}'
-          RequestTemplates: {}
-          TimeoutInMillis: '{{ TimeoutInMillis }}'
-          Credentials: '{{ Credentials }}'
-      - name: OperationName
-        value: '{{ OperationName }}'
-      - name: RequestModels
+          cache_namespace: '{{ cache_namespace }}'
+          connection_type: '{{ connection_type }}'
+          integration_responses:
+            - response_templates: {}
+              selection_pattern: '{{ selection_pattern }}'
+              content_handling: '{{ content_handling }}'
+              response_parameters: {}
+              status_code: '{{ status_code }}'
+          integration_http_method: '{{ integration_http_method }}'
+          uri: '{{ uri }}'
+          passthrough_behavior: '{{ passthrough_behavior }}'
+          request_parameters: {}
+          connection_id: '{{ connection_id }}'
+          type: '{{ type }}'
+          cache_key_parameters:
+            - '{{ cache_key_parameters[0] }}'
+          content_handling: '{{ content_handling }}'
+          request_templates: {}
+          timeout_in_millis: '{{ timeout_in_millis }}'
+          credentials: '{{ credentials }}'
+      - name: operation_name
+        value: '{{ operation_name }}'
+      - name: request_models
         value: {}
-      - name: RestApiId
-        value: '{{ RestApiId }}'
-      - name: AuthorizationScopes
+      - name: rest_api_id
+        value: '{{ rest_api_id }}'
+      - name: authorization_scopes
         value:
-          - '{{ AuthorizationScopes[0] }}'
-      - name: RequestValidatorId
-        value: '{{ RequestValidatorId }}'
-      - name: RequestParameters
+          - '{{ authorization_scopes[0] }}'
+      - name: request_validator_id
+        value: '{{ request_validator_id }}'
+      - name: request_parameters
         value: {}
-      - name: MethodResponses
+      - name: method_responses
         value:
-          - ResponseParameters: {}
-            StatusCode: '{{ StatusCode }}'
-            ResponseModels: {}
-      - name: AuthorizerId
-        value: '{{ AuthorizerId }}'
-      - name: ResourceId
-        value: '{{ ResourceId }}'
-      - name: ApiKeyRequired
-        value: '{{ ApiKeyRequired }}'
-      - name: AuthorizationType
-        value: '{{ AuthorizationType }}'
-      - name: HttpMethod
-        value: '{{ HttpMethod }}'
-
+          - response_parameters: {}
+            status_code: '{{ status_code }}'
+            response_models: {}
+      - name: authorizer_id
+        value: '{{ authorizer_id }}'
+      - name: resource_id
+        value: '{{ resource_id }}'
+      - name: api_key_required
+        value: '{{ api_key_required }}'
+      - name: authorization_type
+        value: '{{ authorization_type }}'
+      - name: http_method
+        value: '{{ http_method }}'
 ```
 </TabItem>
 </Tabs>
@@ -434,7 +433,7 @@ SET PatchDocument = string('{{ {
     "AuthorizationType": authorization_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
+AND Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}';
 ```
 
 
@@ -443,7 +442,7 @@ AND Identifier = '<RestApiId>|<ResourceId>|<HttpMethod>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigateway.methods
-WHERE Identifier = '<RestApiId|ResourceId|HttpMethod>'
+WHERE Identifier = '{{ rest_api_id }}|{{ resource_id }}|{{ http_method }}'
 AND region = 'us-east-1';
 ```
 

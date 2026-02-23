@@ -223,7 +223,7 @@ threshold_count,
 endpoint_group_arn,
 port_overrides
 FROM awscc.globalaccelerator.endpoint_groups
-WHERE Identifier = '<EndpointGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ endpoint_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -234,7 +234,7 @@ SELECT
 region,
 endpoint_group_arn
 FROM awscc.globalaccelerator.endpoint_groups_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -260,9 +260,9 @@ INSERT INTO awscc.globalaccelerator.endpoint_groups (
  EndpointGroupRegion,
  region
 )
-SELECT 
-'{{ ListenerArn }}',
- '{{ EndpointGroupRegion }}',
+SELECT
+'{{ listener_arn }}',
+ '{{ endpoint_group_region }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -283,17 +283,17 @@ INSERT INTO awscc.globalaccelerator.endpoint_groups (
  PortOverrides,
  region
 )
-SELECT 
- '{{ ListenerArn }}',
- '{{ EndpointGroupRegion }}',
- '{{ EndpointConfigurations }}',
- '{{ TrafficDialPercentage }}',
- '{{ HealthCheckPort }}',
- '{{ HealthCheckProtocol }}',
- '{{ HealthCheckPath }}',
- '{{ HealthCheckIntervalSeconds }}',
- '{{ ThresholdCount }}',
- '{{ PortOverrides }}',
+SELECT
+ '{{ listener_arn }}',
+ '{{ endpoint_group_region }}',
+ '{{ endpoint_configurations }}',
+ '{{ traffic_dial_percentage }}',
+ '{{ health_check_port }}',
+ '{{ health_check_protocol }}',
+ '{{ health_check_path }}',
+ '{{ health_check_interval_seconds }}',
+ '{{ threshold_count }}',
+ '{{ port_overrides }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -311,33 +311,32 @@ globals:
 resources:
   - name: endpoint_group
     props:
-      - name: ListenerArn
-        value: '{{ ListenerArn }}'
-      - name: EndpointGroupRegion
-        value: '{{ EndpointGroupRegion }}'
-      - name: EndpointConfigurations
+      - name: listener_arn
+        value: '{{ listener_arn }}'
+      - name: endpoint_group_region
+        value: '{{ endpoint_group_region }}'
+      - name: endpoint_configurations
         value:
-          - EndpointId: '{{ EndpointId }}'
-            AttachmentArn: '{{ AttachmentArn }}'
-            Weight: '{{ Weight }}'
-            ClientIPPreservationEnabled: '{{ ClientIPPreservationEnabled }}'
-      - name: TrafficDialPercentage
+          - endpoint_id: '{{ endpoint_id }}'
+            attachment_arn: '{{ attachment_arn }}'
+            weight: '{{ weight }}'
+            client_ip_preservation_enabled: '{{ client_ip_preservation_enabled }}'
+      - name: traffic_dial_percentage
         value: null
-      - name: HealthCheckPort
-        value: '{{ HealthCheckPort }}'
-      - name: HealthCheckProtocol
-        value: '{{ HealthCheckProtocol }}'
-      - name: HealthCheckPath
-        value: '{{ HealthCheckPath }}'
-      - name: HealthCheckIntervalSeconds
-        value: '{{ HealthCheckIntervalSeconds }}'
-      - name: ThresholdCount
-        value: '{{ ThresholdCount }}'
-      - name: PortOverrides
+      - name: health_check_port
+        value: '{{ health_check_port }}'
+      - name: health_check_protocol
+        value: '{{ health_check_protocol }}'
+      - name: health_check_path
+        value: '{{ health_check_path }}'
+      - name: health_check_interval_seconds
+        value: '{{ health_check_interval_seconds }}'
+      - name: threshold_count
+        value: '{{ threshold_count }}'
+      - name: port_overrides
         value:
-          - ListenerPort: '{{ ListenerPort }}'
-            EndpointPort: null
-
+          - listener_port: '{{ listener_port }}'
+            endpoint_port: null
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "PortOverrides": port_overrides
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<EndpointGroupArn>';
+AND Identifier = '{{ endpoint_group_arn }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<EndpointGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.globalaccelerator.endpoint_groups
-WHERE Identifier = '<EndpointGroupArn>'
+WHERE Identifier = '{{ endpoint_group_arn }}'
 AND region = 'us-east-1';
 ```
 

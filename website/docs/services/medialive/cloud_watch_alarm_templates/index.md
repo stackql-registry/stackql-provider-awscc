@@ -247,7 +247,7 @@ target_resource_type,
 threshold,
 treat_missing_data
 FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE region = 'us-east-1' AND Identifier = '<Identifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -291,16 +291,16 @@ INSERT INTO awscc.medialive.cloud_watch_alarm_templates (
  TreatMissingData,
  region
 )
-SELECT 
-'{{ ComparisonOperator }}',
- '{{ EvaluationPeriods }}',
- '{{ MetricName }}',
- '{{ Name }}',
- '{{ Period }}',
- '{{ Statistic }}',
- '{{ TargetResourceType }}',
- '{{ Threshold }}',
- '{{ TreatMissingData }}',
+SELECT
+'{{ comparison_operator }}',
+ '{{ evaluation_periods }}',
+ '{{ metric_name }}',
+ '{{ name }}',
+ '{{ period }}',
+ '{{ statistic }}',
+ '{{ target_resource_type }}',
+ '{{ threshold }}',
+ '{{ treat_missing_data }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -324,20 +324,20 @@ INSERT INTO awscc.medialive.cloud_watch_alarm_templates (
  TreatMissingData,
  region
 )
-SELECT 
- '{{ ComparisonOperator }}',
- '{{ DatapointsToAlarm }}',
- '{{ Description }}',
- '{{ EvaluationPeriods }}',
- '{{ GroupIdentifier }}',
- '{{ MetricName }}',
- '{{ Name }}',
- '{{ Period }}',
- '{{ Statistic }}',
- '{{ Tags }}',
- '{{ TargetResourceType }}',
- '{{ Threshold }}',
- '{{ TreatMissingData }}',
+SELECT
+ '{{ comparison_operator }}',
+ '{{ datapoints_to_alarm }}',
+ '{{ description }}',
+ '{{ evaluation_periods }}',
+ '{{ group_identifier }}',
+ '{{ metric_name }}',
+ '{{ name }}',
+ '{{ period }}',
+ '{{ statistic }}',
+ '{{ tags }}',
+ '{{ target_resource_type }}',
+ '{{ threshold }}',
+ '{{ treat_missing_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -355,33 +355,32 @@ globals:
 resources:
   - name: cloud_watch_alarm_template
     props:
-      - name: ComparisonOperator
-        value: '{{ ComparisonOperator }}'
-      - name: DatapointsToAlarm
+      - name: comparison_operator
+        value: '{{ comparison_operator }}'
+      - name: datapoints_to_alarm
         value: null
-      - name: Description
-        value: '{{ Description }}'
-      - name: EvaluationPeriods
+      - name: description
+        value: '{{ description }}'
+      - name: evaluation_periods
         value: null
-      - name: GroupIdentifier
-        value: '{{ GroupIdentifier }}'
-      - name: MetricName
-        value: '{{ MetricName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Period
+      - name: group_identifier
+        value: '{{ group_identifier }}'
+      - name: metric_name
+        value: '{{ metric_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: period
         value: null
-      - name: Statistic
-        value: '{{ Statistic }}'
-      - name: Tags
+      - name: statistic
+        value: '{{ statistic }}'
+      - name: tags
         value: {}
-      - name: TargetResourceType
-        value: '{{ TargetResourceType }}'
-      - name: Threshold
+      - name: target_resource_type
+        value: '{{ target_resource_type }}'
+      - name: threshold
         value: null
-      - name: TreatMissingData
-        value: '{{ TreatMissingData }}'
-
+      - name: treat_missing_data
+        value: '{{ treat_missing_data }}'
 ```
 </TabItem>
 </Tabs>
@@ -408,7 +407,7 @@ SET PatchDocument = string('{{ {
     "TreatMissingData": treat_missing_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Identifier>';
+AND Identifier = '{{ identifier }}';
 ```
 
 
@@ -417,7 +416,7 @@ AND Identifier = '<Identifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.cloud_watch_alarm_templates
-WHERE Identifier = '<Identifier>'
+WHERE Identifier = '{{ identifier }}'
 AND region = 'us-east-1';
 ```
 

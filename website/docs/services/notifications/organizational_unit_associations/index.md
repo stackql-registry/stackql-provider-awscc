@@ -139,7 +139,7 @@ region,
 notification_configuration_arn,
 organizational_unit_id
 FROM awscc.notifications.organizational_unit_associations
-WHERE region = 'us-east-1' AND Identifier = '<NotificationConfigurationArn>|<OrganizationalUnitId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.notifications.organizational_unit_associations (
  OrganizationalUnitId,
  region
 )
-SELECT 
-'{{ NotificationConfigurationArn }}',
- '{{ OrganizationalUnitId }}',
+SELECT
+'{{ notification_configuration_arn }}',
+ '{{ organizational_unit_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.notifications.organizational_unit_associations (
  OrganizationalUnitId,
  region
 )
-SELECT 
- '{{ NotificationConfigurationArn }}',
- '{{ OrganizationalUnitId }}',
+SELECT
+ '{{ notification_configuration_arn }}',
+ '{{ organizational_unit_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: organizational_unit_association
     props:
-      - name: NotificationConfigurationArn
-        value: '{{ NotificationConfigurationArn }}'
-      - name: OrganizationalUnitId
-        value: '{{ OrganizationalUnitId }}'
-
+      - name: notification_configuration_arn
+        value: '{{ notification_configuration_arn }}'
+      - name: organizational_unit_id
+        value: '{{ organizational_unit_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.notifications.organizational_unit_associations
-WHERE Identifier = '<NotificationConfigurationArn|OrganizationalUnitId>'
+WHERE Identifier = '{{ notification_configuration_arn }}|{{ organizational_unit_id }}'
 AND region = 'us-east-1';
 ```
 

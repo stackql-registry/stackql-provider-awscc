@@ -205,7 +205,7 @@ restore_testing_plan_name,
 restore_testing_selection_name,
 validation_window_hours
 FROM awscc.backup.restore_testing_selections
-WHERE region = 'us-east-1' AND Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -245,11 +245,11 @@ INSERT INTO awscc.backup.restore_testing_selections (
  RestoreTestingSelectionName,
  region
 )
-SELECT 
-'{{ IamRoleArn }}',
- '{{ ProtectedResourceType }}',
- '{{ RestoreTestingPlanName }}',
- '{{ RestoreTestingSelectionName }}',
+SELECT
+'{{ iam_role_arn }}',
+ '{{ protected_resource_type }}',
+ '{{ restore_testing_plan_name }}',
+ '{{ restore_testing_selection_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -268,15 +268,15 @@ INSERT INTO awscc.backup.restore_testing_selections (
  ValidationWindowHours,
  region
 )
-SELECT 
- '{{ IamRoleArn }}',
- '{{ ProtectedResourceArns }}',
- '{{ ProtectedResourceConditions }}',
- '{{ ProtectedResourceType }}',
- '{{ RestoreMetadataOverrides }}',
- '{{ RestoreTestingPlanName }}',
- '{{ RestoreTestingSelectionName }}',
- '{{ ValidationWindowHours }}',
+SELECT
+ '{{ iam_role_arn }}',
+ '{{ protected_resource_arns }}',
+ '{{ protected_resource_conditions }}',
+ '{{ protected_resource_type }}',
+ '{{ restore_metadata_overrides }}',
+ '{{ restore_testing_plan_name }}',
+ '{{ restore_testing_selection_name }}',
+ '{{ validation_window_hours }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,29 +294,28 @@ globals:
 resources:
   - name: restore_testing_selection
     props:
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: ProtectedResourceArns
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: protected_resource_arns
         value:
-          - '{{ ProtectedResourceArns[0] }}'
-      - name: ProtectedResourceConditions
+          - '{{ protected_resource_arns[0] }}'
+      - name: protected_resource_conditions
         value:
-          StringEquals:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          StringNotEquals:
+          string_equals:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          string_not_equals:
             - null
-      - name: ProtectedResourceType
-        value: '{{ ProtectedResourceType }}'
-      - name: RestoreMetadataOverrides
+      - name: protected_resource_type
+        value: '{{ protected_resource_type }}'
+      - name: restore_metadata_overrides
         value: {}
-      - name: RestoreTestingPlanName
-        value: '{{ RestoreTestingPlanName }}'
-      - name: RestoreTestingSelectionName
-        value: '{{ RestoreTestingSelectionName }}'
-      - name: ValidationWindowHours
-        value: '{{ ValidationWindowHours }}'
-
+      - name: restore_testing_plan_name
+        value: '{{ restore_testing_plan_name }}'
+      - name: restore_testing_selection_name
+        value: '{{ restore_testing_selection_name }}'
+      - name: validation_window_hours
+        value: '{{ validation_window_hours }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "ValidationWindowHours": validation_window_hours
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
+AND Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<RestoreTestingPlanName>|<RestoreTestingSelectionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.restore_testing_selections
-WHERE Identifier = '<RestoreTestingPlanName|RestoreTestingSelectionName>'
+WHERE Identifier = '{{ restore_testing_plan_name }}|{{ restore_testing_selection_name }}'
 AND region = 'us-east-1';
 ```
 

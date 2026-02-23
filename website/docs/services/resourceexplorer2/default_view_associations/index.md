@@ -94,7 +94,7 @@ region,
 view_arn,
 associated_aws_principal
 FROM awscc.resourceexplorer2.default_view_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociatedAwsPrincipal>';
+WHERE region = 'us-east-1' AND Identifier = '{{ associated_aws_principal }}';
 ```
 
 ## `INSERT` example
@@ -117,8 +117,8 @@ INSERT INTO awscc.resourceexplorer2.default_view_associations (
  ViewArn,
  region
 )
-SELECT 
-'{{ ViewArn }}',
+SELECT
+'{{ view_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -130,8 +130,8 @@ INSERT INTO awscc.resourceexplorer2.default_view_associations (
  ViewArn,
  region
 )
-SELECT 
- '{{ ViewArn }}',
+SELECT
+ '{{ view_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -149,9 +149,8 @@ globals:
 resources:
   - name: default_view_association
     props:
-      - name: ViewArn
-        value: '{{ ViewArn }}'
-
+      - name: view_arn
+        value: '{{ view_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -167,7 +166,7 @@ SET PatchDocument = string('{{ {
     "ViewArn": view_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AssociatedAwsPrincipal>';
+AND Identifier = '{{ associated_aws_principal }}';
 ```
 
 
@@ -176,7 +175,7 @@ AND Identifier = '<AssociatedAwsPrincipal>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.resourceexplorer2.default_view_associations
-WHERE Identifier = '<AssociatedAwsPrincipal>'
+WHERE Identifier = '{{ associated_aws_principal }}'
 AND region = 'us-east-1';
 ```
 

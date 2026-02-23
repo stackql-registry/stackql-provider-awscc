@@ -334,7 +334,7 @@ updated_at,
 subnet_arns,
 options
 FROM awscc.networkmanager.vpc_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -372,10 +372,10 @@ INSERT INTO awscc.networkmanager.vpc_attachments (
  SubnetArns,
  region
 )
-SELECT 
-'{{ CoreNetworkId }}',
- '{{ VpcArn }}',
- '{{ SubnetArns }}',
+SELECT
+'{{ core_network_id }}',
+ '{{ vpc_arn }}',
+ '{{ subnet_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -393,14 +393,14 @@ INSERT INTO awscc.networkmanager.vpc_attachments (
  Options,
  region
 )
-SELECT 
- '{{ CoreNetworkId }}',
- '{{ VpcArn }}',
- '{{ ProposedSegmentChange }}',
- '{{ ProposedNetworkFunctionGroupChange }}',
- '{{ Tags }}',
- '{{ SubnetArns }}',
- '{{ Options }}',
+SELECT
+ '{{ core_network_id }}',
+ '{{ vpc_arn }}',
+ '{{ proposed_segment_change }}',
+ '{{ proposed_network_function_group_change }}',
+ '{{ tags }}',
+ '{{ subnet_arns }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -418,36 +418,35 @@ globals:
 resources:
   - name: vpc_attachment
     props:
-      - name: CoreNetworkId
-        value: '{{ CoreNetworkId }}'
-      - name: VpcArn
-        value: '{{ VpcArn }}'
-      - name: ProposedSegmentChange
+      - name: core_network_id
+        value: '{{ core_network_id }}'
+      - name: vpc_arn
+        value: '{{ vpc_arn }}'
+      - name: proposed_segment_change
         value:
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          SegmentName: '{{ SegmentName }}'
-      - name: ProposedNetworkFunctionGroupChange
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          segment_name: '{{ segment_name }}'
+      - name: proposed_network_function_group_change
         value:
-          Tags:
+          tags:
             - null
-          AttachmentPolicyRuleNumber: '{{ AttachmentPolicyRuleNumber }}'
-          NetworkFunctionGroupName: '{{ NetworkFunctionGroupName }}'
-      - name: Tags
+          attachment_policy_rule_number: '{{ attachment_policy_rule_number }}'
+          network_function_group_name: '{{ network_function_group_name }}'
+      - name: tags
         value:
           - null
-      - name: SubnetArns
+      - name: subnet_arns
         value:
-          - '{{ SubnetArns[0] }}'
-      - name: Options
+          - '{{ subnet_arns[0] }}'
+      - name: options
         value:
-          Ipv6Support: '{{ Ipv6Support }}'
-          ApplianceModeSupport: '{{ ApplianceModeSupport }}'
-          DnsSupport: '{{ DnsSupport }}'
-          SecurityGroupReferencingSupport: '{{ SecurityGroupReferencingSupport }}'
-
+          ipv6_support: '{{ ipv6_support }}'
+          appliance_mode_support: '{{ appliance_mode_support }}'
+          dns_support: '{{ dns_support }}'
+          security_group_referencing_support: '{{ security_group_referencing_support }}'
 ```
 </TabItem>
 </Tabs>
@@ -467,7 +466,7 @@ SET PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentId>';
+AND Identifier = '{{ attachment_id }}';
 ```
 
 
@@ -476,7 +475,7 @@ AND Identifier = '<AttachmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.networkmanager.vpc_attachments
-WHERE Identifier = '<AttachmentId>'
+WHERE Identifier = '{{ attachment_id }}'
 AND region = 'us-east-1';
 ```
 

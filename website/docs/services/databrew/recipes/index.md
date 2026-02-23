@@ -205,7 +205,7 @@ name,
 steps,
 tags
 FROM awscc.databrew.recipes
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,9 +242,9 @@ INSERT INTO awscc.databrew.recipes (
  Steps,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Steps }}',
+SELECT
+'{{ name }}',
+ '{{ steps }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -259,11 +259,11 @@ INSERT INTO awscc.databrew.recipes (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ Steps }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ steps }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -281,24 +281,23 @@ globals:
 resources:
   - name: recipe
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Steps
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: steps
         value:
-          - Action:
-              Operation: '{{ Operation }}'
-              Parameters: null
-            ConditionExpressions:
-              - Condition: '{{ Condition }}'
-                Value: '{{ Value }}'
-                TargetColumn: '{{ TargetColumn }}'
-      - name: Tags
+          - action:
+              operation: '{{ operation }}'
+              parameters: null
+            condition_expressions:
+              - condition: '{{ condition }}'
+                value: '{{ value }}'
+                target_column: '{{ target_column }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -316,7 +315,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -325,7 +324,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.recipes
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

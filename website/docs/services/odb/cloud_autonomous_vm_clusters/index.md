@@ -436,7 +436,7 @@ tags,
 time_zone,
 total_container_databases
 FROM awscc.odb.cloud_autonomous_vm_clusters
-WHERE region = 'us-east-1' AND Identifier = '<CloudAutonomousVmClusterArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -487,23 +487,23 @@ INSERT INTO awscc.odb.cloud_autonomous_vm_clusters (
  TotalContainerDatabases,
  region
 )
-SELECT 
-'{{ OdbNetworkId }}',
- '{{ DisplayName }}',
- '{{ CloudExadataInfrastructureId }}',
- '{{ AutonomousDataStorageSizeInTBs }}',
- '{{ CpuCoreCountPerNode }}',
- '{{ DbServers }}',
- '{{ Description }}',
- '{{ IsMtlsEnabledVmCluster }}',
- '{{ LicenseModel }}',
- '{{ MaintenanceWindow }}',
- '{{ MemoryPerOracleComputeUnitInGBs }}',
- '{{ ScanListenerPortNonTls }}',
- '{{ ScanListenerPortTls }}',
- '{{ Tags }}',
- '{{ TimeZone }}',
- '{{ TotalContainerDatabases }}',
+SELECT
+'{{ odb_network_id }}',
+ '{{ display_name }}',
+ '{{ cloud_exadata_infrastructure_id }}',
+ '{{ autonomous_data_storage_size_in_tbs }}',
+ '{{ cpu_core_count_per_node }}',
+ '{{ db_servers }}',
+ '{{ description }}',
+ '{{ is_mtls_enabled_vm_cluster }}',
+ '{{ license_model }}',
+ '{{ maintenance_window }}',
+ '{{ memory_per_oracle_compute_unit_in_gbs }}',
+ '{{ scan_listener_port_non_tls }}',
+ '{{ scan_listener_port_tls }}',
+ '{{ tags }}',
+ '{{ time_zone }}',
+ '{{ total_container_databases }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -530,23 +530,23 @@ INSERT INTO awscc.odb.cloud_autonomous_vm_clusters (
  TotalContainerDatabases,
  region
 )
-SELECT 
- '{{ OdbNetworkId }}',
- '{{ DisplayName }}',
- '{{ CloudExadataInfrastructureId }}',
- '{{ AutonomousDataStorageSizeInTBs }}',
- '{{ CpuCoreCountPerNode }}',
- '{{ DbServers }}',
- '{{ Description }}',
- '{{ IsMtlsEnabledVmCluster }}',
- '{{ LicenseModel }}',
- '{{ MaintenanceWindow }}',
- '{{ MemoryPerOracleComputeUnitInGBs }}',
- '{{ ScanListenerPortNonTls }}',
- '{{ ScanListenerPortTls }}',
- '{{ Tags }}',
- '{{ TimeZone }}',
- '{{ TotalContainerDatabases }}',
+SELECT
+ '{{ odb_network_id }}',
+ '{{ display_name }}',
+ '{{ cloud_exadata_infrastructure_id }}',
+ '{{ autonomous_data_storage_size_in_tbs }}',
+ '{{ cpu_core_count_per_node }}',
+ '{{ db_servers }}',
+ '{{ description }}',
+ '{{ is_mtls_enabled_vm_cluster }}',
+ '{{ license_model }}',
+ '{{ maintenance_window }}',
+ '{{ memory_per_oracle_compute_unit_in_gbs }}',
+ '{{ scan_listener_port_non_tls }}',
+ '{{ scan_listener_port_tls }}',
+ '{{ tags }}',
+ '{{ time_zone }}',
+ '{{ total_container_databases }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -564,52 +564,51 @@ globals:
 resources:
   - name: cloud_autonomous_vm_cluster
     props:
-      - name: OdbNetworkId
-        value: '{{ OdbNetworkId }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: CloudExadataInfrastructureId
-        value: '{{ CloudExadataInfrastructureId }}'
-      - name: AutonomousDataStorageSizeInTBs
+      - name: odb_network_id
+        value: '{{ odb_network_id }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: cloud_exadata_infrastructure_id
+        value: '{{ cloud_exadata_infrastructure_id }}'
+      - name: autonomous_data_storage_size_in_tbs
         value: null
-      - name: CpuCoreCountPerNode
-        value: '{{ CpuCoreCountPerNode }}'
-      - name: DbServers
+      - name: cpu_core_count_per_node
+        value: '{{ cpu_core_count_per_node }}'
+      - name: db_servers
         value:
-          - '{{ DbServers[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: IsMtlsEnabledVmCluster
-        value: '{{ IsMtlsEnabledVmCluster }}'
-      - name: LicenseModel
-        value: '{{ LicenseModel }}'
-      - name: MaintenanceWindow
+          - '{{ db_servers[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: is_mtls_enabled_vm_cluster
+        value: '{{ is_mtls_enabled_vm_cluster }}'
+      - name: license_model
+        value: '{{ license_model }}'
+      - name: maintenance_window
         value:
-          DaysOfWeek:
-            - '{{ DaysOfWeek[0] }}'
-          HoursOfDay:
-            - '{{ HoursOfDay[0] }}'
-          LeadTimeInWeeks: '{{ LeadTimeInWeeks }}'
-          Months:
-            - '{{ Months[0] }}'
-          Preference: '{{ Preference }}'
-          WeeksOfMonth:
-            - '{{ WeeksOfMonth[0] }}'
-      - name: MemoryPerOracleComputeUnitInGBs
-        value: '{{ MemoryPerOracleComputeUnitInGBs }}'
-      - name: ScanListenerPortNonTls
-        value: '{{ ScanListenerPortNonTls }}'
-      - name: ScanListenerPortTls
-        value: '{{ ScanListenerPortTls }}'
-      - name: Tags
+          days_of_week:
+            - '{{ days_of_week[0] }}'
+          hours_of_day:
+            - '{{ hours_of_day[0] }}'
+          lead_time_in_weeks: '{{ lead_time_in_weeks }}'
+          months:
+            - '{{ months[0] }}'
+          preference: '{{ preference }}'
+          weeks_of_month:
+            - '{{ weeks_of_month[0] }}'
+      - name: memory_per_oracle_compute_unit_in_gbs
+        value: '{{ memory_per_oracle_compute_unit_in_gbs }}'
+      - name: scan_listener_port_non_tls
+        value: '{{ scan_listener_port_non_tls }}'
+      - name: scan_listener_port_tls
+        value: '{{ scan_listener_port_tls }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: TimeZone
-        value: '{{ TimeZone }}'
-      - name: TotalContainerDatabases
-        value: '{{ TotalContainerDatabases }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: time_zone
+        value: '{{ time_zone }}'
+      - name: total_container_databases
+        value: '{{ total_container_databases }}'
 ```
 </TabItem>
 </Tabs>
@@ -625,7 +624,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CloudAutonomousVmClusterArn>';
+AND Identifier = '{{ cloud_autonomous_vm_cluster_arn }}';
 ```
 
 
@@ -634,7 +633,7 @@ AND Identifier = '<CloudAutonomousVmClusterArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.odb.cloud_autonomous_vm_clusters
-WHERE Identifier = '<CloudAutonomousVmClusterArn>'
+WHERE Identifier = '{{ cloud_autonomous_vm_cluster_arn }}'
 AND region = 'us-east-1';
 ```
 

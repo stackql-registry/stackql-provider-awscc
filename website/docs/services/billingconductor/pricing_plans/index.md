@@ -188,7 +188,7 @@ creation_time,
 last_modified_time,
 tags
 FROM awscc.billingconductor.pricing_plans
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.billingconductor.pricing_plans (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -240,11 +240,11 @@ INSERT INTO awscc.billingconductor.pricing_plans (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ PricingRuleArns }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ pricing_rule_arns }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,18 +262,17 @@ globals:
 resources:
   - name: pricing_plan
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: PricingRuleArns
+      - name: name
+        value: '{{ name }}'
+      - name: pricing_rule_arns
         value:
-          - '{{ PricingRuleArns[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          - '{{ pricing_rule_arns[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -292,7 +291,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -301,7 +300,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.billingconductor.pricing_plans
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

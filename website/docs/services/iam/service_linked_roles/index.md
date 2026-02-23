@@ -106,7 +106,7 @@ custom_suffix,
 description,
 aws_service_name
 FROM awscc.iam.service_linked_roles
-WHERE Identifier = '<RoleName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ role_name }}';
 ```
 
 ## `INSERT` example
@@ -129,7 +129,7 @@ INSERT INTO awscc.iam.service_linked_roles (
  ,
  region
 )
-SELECT 
+SELECT
 '{{  }}',
 '{{ region }}';
 ```
@@ -144,10 +144,10 @@ INSERT INTO awscc.iam.service_linked_roles (
  AWSServiceName,
  region
 )
-SELECT 
- '{{ CustomSuffix }}',
- '{{ Description }}',
- '{{ AWSServiceName }}',
+SELECT
+ '{{ custom_suffix }}',
+ '{{ description }}',
+ '{{ aws_service_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -165,13 +165,12 @@ globals:
 resources:
   - name: service_linked_role
     props:
-      - name: CustomSuffix
-        value: '{{ CustomSuffix }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: AWSServiceName
-        value: '{{ AWSServiceName }}'
-
+      - name: custom_suffix
+        value: '{{ custom_suffix }}'
+      - name: description
+        value: '{{ description }}'
+      - name: aws_service_name
+        value: '{{ aws_service_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -187,7 +186,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RoleName>';
+AND Identifier = '{{ role_name }}';
 ```
 
 
@@ -196,7 +195,7 @@ AND Identifier = '<RoleName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.service_linked_roles
-WHERE Identifier = '<RoleName>'
+WHERE Identifier = '{{ role_name }}'
 AND region = 'us-east-1';
 ```
 

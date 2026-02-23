@@ -260,7 +260,7 @@ vpc_endpoint_type,
 id,
 tags
 FROM awscc.ec2.vpc_endpoints
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -296,8 +296,8 @@ INSERT INTO awscc.ec2.vpc_endpoints (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -322,21 +322,21 @@ INSERT INTO awscc.ec2.vpc_endpoints (
  Tags,
  region
 )
-SELECT 
- '{{ PrivateDnsEnabled }}',
- '{{ IpAddressType }}',
- '{{ ServiceRegion }}',
- '{{ DnsOptions }}',
- '{{ ResourceConfigurationArn }}',
- '{{ SecurityGroupIds }}',
- '{{ SubnetIds }}',
- '{{ ServiceNetworkArn }}',
- '{{ VpcId }}',
- '{{ RouteTableIds }}',
- '{{ ServiceName }}',
- '{{ PolicyDocument }}',
- '{{ VpcEndpointType }}',
- '{{ Tags }}',
+SELECT
+ '{{ private_dns_enabled }}',
+ '{{ ip_address_type }}',
+ '{{ service_region }}',
+ '{{ dns_options }}',
+ '{{ resource_configuration_arn }}',
+ '{{ security_group_ids }}',
+ '{{ subnet_ids }}',
+ '{{ service_network_arn }}',
+ '{{ vpc_id }}',
+ '{{ route_table_ids }}',
+ '{{ service_name }}',
+ '{{ policy_document }}',
+ '{{ vpc_endpoint_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -354,42 +354,41 @@ globals:
 resources:
   - name: vpc_endpoint
     props:
-      - name: PrivateDnsEnabled
-        value: '{{ PrivateDnsEnabled }}'
-      - name: IpAddressType
-        value: '{{ IpAddressType }}'
-      - name: ServiceRegion
-        value: '{{ ServiceRegion }}'
-      - name: DnsOptions
+      - name: private_dns_enabled
+        value: '{{ private_dns_enabled }}'
+      - name: ip_address_type
+        value: '{{ ip_address_type }}'
+      - name: service_region
+        value: '{{ service_region }}'
+      - name: dns_options
         value:
-          PrivateDnsOnlyForInboundResolverEndpoint: '{{ PrivateDnsOnlyForInboundResolverEndpoint }}'
-          DnsRecordIpType: '{{ DnsRecordIpType }}'
-      - name: ResourceConfigurationArn
-        value: '{{ ResourceConfigurationArn }}'
-      - name: SecurityGroupIds
+          private_dns_only_for_inbound_resolver_endpoint: '{{ private_dns_only_for_inbound_resolver_endpoint }}'
+          dns_record_ip_type: '{{ dns_record_ip_type }}'
+      - name: resource_configuration_arn
+        value: '{{ resource_configuration_arn }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: SubnetIds
+          - '{{ security_group_ids[0] }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: ServiceNetworkArn
-        value: '{{ ServiceNetworkArn }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: RouteTableIds
+          - '{{ subnet_ids[0] }}'
+      - name: service_network_arn
+        value: '{{ service_network_arn }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: route_table_ids
         value:
-          - '{{ RouteTableIds[0] }}'
-      - name: ServiceName
-        value: '{{ ServiceName }}'
-      - name: PolicyDocument
+          - '{{ route_table_ids[0] }}'
+      - name: service_name
+        value: '{{ service_name }}'
+      - name: policy_document
         value: {}
-      - name: VpcEndpointType
-        value: '{{ VpcEndpointType }}'
-      - name: Tags
+      - name: vpc_endpoint_type
+        value: '{{ vpc_endpoint_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -412,7 +411,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -421,7 +420,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_endpoints
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

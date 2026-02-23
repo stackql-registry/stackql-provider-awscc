@@ -200,7 +200,7 @@ destination_arn,
 creation_time,
 tags
 FROM awscc.route53resolver.resolver_query_logging_configs
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.route53resolver.resolver_query_logging_configs (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ DestinationArn }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ destination_arn }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -255,10 +255,10 @@ INSERT INTO awscc.route53resolver.resolver_query_logging_configs (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ DestinationArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ destination_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,15 +276,14 @@ globals:
 resources:
   - name: resolver_query_logging_config
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: DestinationArn
-        value: '{{ DestinationArn }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: destination_arn
+        value: '{{ destination_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -295,7 +294,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53resolver.resolver_query_logging_configs
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

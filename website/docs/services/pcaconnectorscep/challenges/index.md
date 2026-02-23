@@ -146,7 +146,7 @@ challenge_arn,
 connector_arn,
 tags
 FROM awscc.pcaconnectorscep.challenges
-WHERE region = 'us-east-1' AND Identifier = '<ChallengeArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ challenge_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,8 +182,8 @@ INSERT INTO awscc.pcaconnectorscep.challenges (
  ConnectorArn,
  region
 )
-SELECT 
-'{{ ConnectorArn }}',
+SELECT
+'{{ connector_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -196,9 +196,9 @@ INSERT INTO awscc.pcaconnectorscep.challenges (
  Tags,
  region
 )
-SELECT 
- '{{ ConnectorArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ connector_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -216,11 +216,10 @@ globals:
 resources:
   - name: challenge
     props:
-      - name: ConnectorArn
-        value: '{{ ConnectorArn }}'
-      - name: Tags
+      - name: connector_arn
+        value: '{{ connector_arn }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -236,7 +235,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ChallengeArn>';
+AND Identifier = '{{ challenge_arn }}';
 ```
 
 
@@ -245,7 +244,7 @@ AND Identifier = '<ChallengeArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pcaconnectorscep.challenges
-WHERE Identifier = '<ChallengeArn>'
+WHERE Identifier = '{{ challenge_arn }}'
 AND region = 'us-east-1';
 ```
 

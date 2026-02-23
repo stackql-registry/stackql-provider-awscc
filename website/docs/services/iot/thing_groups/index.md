@@ -201,7 +201,7 @@ query_string,
 thing_group_properties,
 tags
 FROM awscc.iot.thing_groups
-WHERE region = 'us-east-1' AND Identifier = '<ThingGroupName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ thing_group_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -241,12 +241,12 @@ INSERT INTO awscc.iot.thing_groups (
  Tags,
  region
 )
-SELECT 
-'{{ ThingGroupName }}',
- '{{ ParentGroupName }}',
- '{{ QueryString }}',
- '{{ ThingGroupProperties }}',
- '{{ Tags }}',
+SELECT
+'{{ thing_group_name }}',
+ '{{ parent_group_name }}',
+ '{{ query_string }}',
+ '{{ thing_group_properties }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -262,12 +262,12 @@ INSERT INTO awscc.iot.thing_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ThingGroupName }}',
- '{{ ParentGroupName }}',
- '{{ QueryString }}',
- '{{ ThingGroupProperties }}',
- '{{ Tags }}',
+SELECT
+ '{{ thing_group_name }}',
+ '{{ parent_group_name }}',
+ '{{ query_string }}',
+ '{{ thing_group_properties }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -285,22 +285,21 @@ globals:
 resources:
   - name: thing_group
     props:
-      - name: ThingGroupName
-        value: '{{ ThingGroupName }}'
-      - name: ParentGroupName
-        value: '{{ ParentGroupName }}'
-      - name: QueryString
-        value: '{{ QueryString }}'
-      - name: ThingGroupProperties
+      - name: thing_group_name
+        value: '{{ thing_group_name }}'
+      - name: parent_group_name
+        value: '{{ parent_group_name }}'
+      - name: query_string
+        value: '{{ query_string }}'
+      - name: thing_group_properties
         value:
-          AttributePayload:
-            Attributes: {}
-          ThingGroupDescription: '{{ ThingGroupDescription }}'
-      - name: Tags
+          attribute_payload:
+            attributes: {}
+          thing_group_description: '{{ thing_group_description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ThingGroupName>';
+AND Identifier = '{{ thing_group_name }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<ThingGroupName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.thing_groups
-WHERE Identifier = '<ThingGroupName>'
+WHERE Identifier = '{{ thing_group_name }}'
 AND region = 'us-east-1';
 ```
 

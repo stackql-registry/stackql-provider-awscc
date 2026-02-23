@@ -231,7 +231,7 @@ resource_set_arn,
 resource_set_type,
 tags
 FROM awscc.route53recoveryreadiness.resource_sets
-WHERE region = 'us-east-1' AND Identifier = '<ResourceSetName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_set_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,9 +268,9 @@ INSERT INTO awscc.route53recoveryreadiness.resource_sets (
  ResourceSetType,
  region
 )
-SELECT 
-'{{ Resources }}',
- '{{ ResourceSetType }}',
+SELECT
+'{{ resources }}',
+ '{{ resource_set_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -285,11 +285,11 @@ INSERT INTO awscc.route53recoveryreadiness.resource_sets (
  Tags,
  region
 )
-SELECT 
- '{{ ResourceSetName }}',
- '{{ Resources }}',
- '{{ ResourceSetType }}',
- '{{ Tags }}',
+SELECT
+ '{{ resource_set_name }}',
+ '{{ resources }}',
+ '{{ resource_set_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -307,32 +307,31 @@ globals:
 resources:
   - name: resource_set
     props:
-      - name: ResourceSetName
-        value: '{{ ResourceSetName }}'
-      - name: Resources
+      - name: resource_set_name
+        value: '{{ resource_set_name }}'
+      - name: resources
         value:
-          - ResourceArn: '{{ ResourceArn }}'
-            ComponentId: '{{ ComponentId }}'
-            DnsTargetResource:
-              DomainName: '{{ DomainName }}'
-              RecordSetId: '{{ RecordSetId }}'
-              HostedZoneArn: '{{ HostedZoneArn }}'
-              RecordType: '{{ RecordType }}'
-              TargetResource:
-                NLBResource:
-                  Arn: '{{ Arn }}'
-                R53Resource:
-                  DomainName: '{{ DomainName }}'
-                  RecordSetId: '{{ RecordSetId }}'
-            ReadinessScopes:
-              - '{{ ReadinessScopes[0] }}'
-      - name: ResourceSetType
-        value: '{{ ResourceSetType }}'
-      - name: Tags
+          - resource_arn: '{{ resource_arn }}'
+            component_id: '{{ component_id }}'
+            dns_target_resource:
+              domain_name: '{{ domain_name }}'
+              record_set_id: '{{ record_set_id }}'
+              hosted_zone_arn: '{{ hosted_zone_arn }}'
+              record_type: '{{ record_type }}'
+              target_resource:
+                n_lb_resource:
+                  arn: '{{ arn }}'
+                r53_resource:
+                  domain_name: '{{ domain_name }}'
+                  record_set_id: '{{ record_set_id }}'
+            readiness_scopes:
+              - '{{ readiness_scopes[0] }}'
+      - name: resource_set_type
+        value: '{{ resource_set_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -349,7 +348,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceSetName>';
+AND Identifier = '{{ resource_set_name }}';
 ```
 
 
@@ -358,7 +357,7 @@ AND Identifier = '<ResourceSetName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.route53recoveryreadiness.resource_sets
-WHERE Identifier = '<ResourceSetName>'
+WHERE Identifier = '{{ resource_set_name }}'
 AND region = 'us-east-1';
 ```
 

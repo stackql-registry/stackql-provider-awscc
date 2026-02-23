@@ -238,7 +238,7 @@ rotate_immediately_on_update,
 rotation_lambda_arn,
 rotation_rules
 FROM awscc.secretsmanager.rotation_schedules
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,8 +274,8 @@ INSERT INTO awscc.secretsmanager.rotation_schedules (
  SecretId,
  region
 )
-SELECT 
-'{{ SecretId }}',
+SELECT
+'{{ secret_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -291,12 +291,12 @@ INSERT INTO awscc.secretsmanager.rotation_schedules (
  RotationRules,
  region
 )
-SELECT 
- '{{ HostedRotationLambda }}',
- '{{ SecretId }}',
- '{{ RotateImmediatelyOnUpdate }}',
- '{{ RotationLambdaARN }}',
- '{{ RotationRules }}',
+SELECT
+ '{{ hosted_rotation_lambda }}',
+ '{{ secret_id }}',
+ '{{ rotate_immediately_on_update }}',
+ '{{ rotation_lambda_arn }}',
+ '{{ rotation_rules }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -314,31 +314,30 @@ globals:
 resources:
   - name: rotation_schedule
     props:
-      - name: HostedRotationLambda
+      - name: hosted_rotation_lambda
         value:
-          Runtime: '{{ Runtime }}'
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          MasterSecretArn: '{{ MasterSecretArn }}'
-          RotationLambdaName: '{{ RotationLambdaName }}'
-          RotationType: '{{ RotationType }}'
-          ExcludeCharacters: '{{ ExcludeCharacters }}'
-          VpcSecurityGroupIds: '{{ VpcSecurityGroupIds }}'
-          MasterSecretKmsKeyArn: '{{ MasterSecretKmsKeyArn }}'
-          SuperuserSecretArn: '{{ SuperuserSecretArn }}'
-          SuperuserSecretKmsKeyArn: '{{ SuperuserSecretKmsKeyArn }}'
-          VpcSubnetIds: '{{ VpcSubnetIds }}'
-      - name: SecretId
-        value: '{{ SecretId }}'
-      - name: RotateImmediatelyOnUpdate
-        value: '{{ RotateImmediatelyOnUpdate }}'
-      - name: RotationLambdaARN
-        value: '{{ RotationLambdaARN }}'
-      - name: RotationRules
+          runtime: '{{ runtime }}'
+          kms_key_arn: '{{ kms_key_arn }}'
+          master_secret_arn: '{{ master_secret_arn }}'
+          rotation_lambda_name: '{{ rotation_lambda_name }}'
+          rotation_type: '{{ rotation_type }}'
+          exclude_characters: '{{ exclude_characters }}'
+          vpc_security_group_ids: '{{ vpc_security_group_ids }}'
+          master_secret_kms_key_arn: '{{ master_secret_kms_key_arn }}'
+          superuser_secret_arn: '{{ superuser_secret_arn }}'
+          superuser_secret_kms_key_arn: '{{ superuser_secret_kms_key_arn }}'
+          vpc_subnet_ids: '{{ vpc_subnet_ids }}'
+      - name: secret_id
+        value: '{{ secret_id }}'
+      - name: rotate_immediately_on_update
+        value: '{{ rotate_immediately_on_update }}'
+      - name: rotation_lambda_arn
+        value: '{{ rotation_lambda_arn }}'
+      - name: rotation_rules
         value:
-          ScheduleExpression: '{{ ScheduleExpression }}'
-          Duration: '{{ Duration }}'
-          AutomaticallyAfterDays: '{{ AutomaticallyAfterDays }}'
-
+          schedule_expression: '{{ schedule_expression }}'
+          duration: '{{ duration }}'
+          automatically_after_days: '{{ automatically_after_days }}'
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +356,7 @@ SET PatchDocument = string('{{ {
     "RotationRules": rotation_rules
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -366,7 +365,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.rotation_schedules
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

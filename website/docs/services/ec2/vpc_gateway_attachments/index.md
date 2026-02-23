@@ -157,7 +157,7 @@ internet_gateway_id,
 vpc_id,
 vpn_gateway_id
 FROM awscc.ec2.vpc_gateway_attachments
-WHERE region = 'us-east-1' AND Identifier = '<AttachmentType>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,8 +194,8 @@ INSERT INTO awscc.ec2.vpc_gateway_attachments (
  VpcId,
  region
 )
-SELECT 
-'{{ VpcId }}',
+SELECT
+'{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -209,10 +209,10 @@ INSERT INTO awscc.ec2.vpc_gateway_attachments (
  VpnGatewayId,
  region
 )
-SELECT 
- '{{ InternetGatewayId }}',
- '{{ VpcId }}',
- '{{ VpnGatewayId }}',
+SELECT
+ '{{ internet_gateway_id }}',
+ '{{ vpc_id }}',
+ '{{ vpn_gateway_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,13 +230,12 @@ globals:
 resources:
   - name: vpc_gateway_attachment
     props:
-      - name: InternetGatewayId
-        value: '{{ InternetGatewayId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: VpnGatewayId
-        value: '{{ VpnGatewayId }}'
-
+      - name: internet_gateway_id
+        value: '{{ internet_gateway_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: vpn_gateway_id
+        value: '{{ vpn_gateway_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -253,7 +252,7 @@ SET PatchDocument = string('{{ {
     "VpnGatewayId": vpn_gateway_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AttachmentType>|<VpcId>';
+AND Identifier = '{{ attachment_type }}|{{ vpc_id }}';
 ```
 
 
@@ -262,7 +261,7 @@ AND Identifier = '<AttachmentType>|<VpcId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_gateway_attachments
-WHERE Identifier = '<AttachmentType|VpcId>'
+WHERE Identifier = '{{ attachment_type }}|{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

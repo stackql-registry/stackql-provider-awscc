@@ -100,7 +100,7 @@ user_pool_id,
 client_id,
 c_ss
 FROM awscc.cognito.user_poolui_customization_attachments
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ClientId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.cognito.user_poolui_customization_attachments (
  ClientId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
- '{{ ClientId }}',
+SELECT
+'{{ user_pool_id }}',
+ '{{ client_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -140,10 +140,10 @@ INSERT INTO awscc.cognito.user_poolui_customization_attachments (
  CSS,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ ClientId }}',
- '{{ CSS }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ client_id }}',
+ '{{ c_ss }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -161,13 +161,12 @@ globals:
 resources:
   - name: user_poolui_customization_attachment
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: ClientId
-        value: '{{ ClientId }}'
-      - name: CSS
-        value: '{{ CSS }}'
-
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: client_id
+        value: '{{ client_id }}'
+      - name: c_ss
+        value: '{{ c_ss }}'
 ```
 </TabItem>
 </Tabs>
@@ -183,7 +182,7 @@ SET PatchDocument = string('{{ {
     "CSS": c_ss
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<ClientId>';
+AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -192,7 +191,7 @@ AND Identifier = '<UserPoolId>|<ClientId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_poolui_customization_attachments
-WHERE Identifier = '<UserPoolId|ClientId>'
+WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
 AND region = 'us-east-1';
 ```
 

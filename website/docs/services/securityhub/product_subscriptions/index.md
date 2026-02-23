@@ -134,7 +134,7 @@ region,
 product_arn,
 product_subscription_arn
 FROM awscc.securityhub.product_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<ProductSubscriptionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ product_subscription_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -170,8 +170,8 @@ INSERT INTO awscc.securityhub.product_subscriptions (
  ProductArn,
  region
 )
-SELECT 
-'{{ ProductArn }}',
+SELECT
+'{{ product_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -183,8 +183,8 @@ INSERT INTO awscc.securityhub.product_subscriptions (
  ProductArn,
  region
 )
-SELECT 
- '{{ ProductArn }}',
+SELECT
+ '{{ product_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -202,9 +202,8 @@ globals:
 resources:
   - name: product_subscription
     props:
-      - name: ProductArn
-        value: '{{ ProductArn }}'
-
+      - name: product_arn
+        value: '{{ product_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -215,7 +214,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.product_subscriptions
-WHERE Identifier = '<ProductSubscriptionArn>'
+WHERE Identifier = '{{ product_subscription_arn }}'
 AND region = 'us-east-1';
 ```
 

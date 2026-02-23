@@ -194,7 +194,7 @@ tags,
 location_arn,
 location_uri
 FROM awscc.datasync.locationf_sx_windows
-WHERE region = 'us-east-1' AND Identifier = '<LocationArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ location_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,9 +231,9 @@ INSERT INTO awscc.datasync.locationf_sx_windows (
  User,
  region
 )
-SELECT 
-'{{ SecurityGroupArns }}',
- '{{ User }}',
+SELECT
+'{{ security_group_arns }}',
+ '{{ user }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -251,14 +251,14 @@ INSERT INTO awscc.datasync.locationf_sx_windows (
  Tags,
  region
 )
-SELECT 
- '{{ Domain }}',
- '{{ FsxFilesystemArn }}',
- '{{ Password }}',
- '{{ SecurityGroupArns }}',
- '{{ Subdirectory }}',
- '{{ User }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain }}',
+ '{{ fsx_filesystem_arn }}',
+ '{{ password }}',
+ '{{ security_group_arns }}',
+ '{{ subdirectory }}',
+ '{{ user }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,24 +276,23 @@ globals:
 resources:
   - name: locationf_sx_window
     props:
-      - name: Domain
-        value: '{{ Domain }}'
-      - name: FsxFilesystemArn
-        value: '{{ FsxFilesystemArn }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: SecurityGroupArns
+      - name: domain
+        value: '{{ domain }}'
+      - name: fsx_filesystem_arn
+        value: '{{ fsx_filesystem_arn }}'
+      - name: password
+        value: '{{ password }}'
+      - name: security_group_arns
         value:
-          - '{{ SecurityGroupArns[0] }}'
-      - name: Subdirectory
-        value: '{{ Subdirectory }}'
-      - name: User
-        value: '{{ User }}'
-      - name: Tags
+          - '{{ security_group_arns[0] }}'
+      - name: subdirectory
+        value: '{{ subdirectory }}'
+      - name: user
+        value: '{{ user }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -313,7 +312,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<LocationArn>';
+AND Identifier = '{{ location_arn }}';
 ```
 
 
@@ -322,7 +321,7 @@ AND Identifier = '<LocationArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datasync.locationf_sx_windows
-WHERE Identifier = '<LocationArn>'
+WHERE Identifier = '{{ location_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -542,7 +542,7 @@ run_configuration,
 application_maintenance_configuration,
 tags
 FROM awscc.kinesisanalyticsv2.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -579,9 +579,9 @@ INSERT INTO awscc.kinesisanalyticsv2.applications (
  ServiceExecutionRole,
  region
 )
-SELECT 
-'{{ RuntimeEnvironment }}',
- '{{ ServiceExecutionRole }}',
+SELECT
+'{{ runtime_environment }}',
+ '{{ service_execution_role }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -601,16 +601,16 @@ INSERT INTO awscc.kinesisanalyticsv2.applications (
  Tags,
  region
 )
-SELECT 
- '{{ ApplicationConfiguration }}',
- '{{ ApplicationDescription }}',
- '{{ ApplicationMode }}',
- '{{ ApplicationName }}',
- '{{ RuntimeEnvironment }}',
- '{{ ServiceExecutionRole }}',
- '{{ RunConfiguration }}',
- '{{ ApplicationMaintenanceConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ application_configuration }}',
+ '{{ application_description }}',
+ '{{ application_mode }}',
+ '{{ application_name }}',
+ '{{ runtime_environment }}',
+ '{{ service_execution_role }}',
+ '{{ run_configuration }}',
+ '{{ application_maintenance_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -628,116 +628,115 @@ globals:
 resources:
   - name: application
     props:
-      - name: ApplicationConfiguration
+      - name: application_configuration
         value:
-          ApplicationCodeConfiguration:
-            CodeContent:
-              ZipFileContent: '{{ ZipFileContent }}'
-              S3ContentLocation:
-                BucketARN: '{{ BucketARN }}'
-                FileKey: '{{ FileKey }}'
-                ObjectVersion: '{{ ObjectVersion }}'
-              TextContent: '{{ TextContent }}'
-            CodeContentType: '{{ CodeContentType }}'
-          ApplicationEncryptionConfiguration:
-            KeyId: '{{ KeyId }}'
-            KeyType: '{{ KeyType }}'
-          ApplicationSnapshotConfiguration:
-            SnapshotsEnabled: '{{ SnapshotsEnabled }}'
-          ApplicationSystemRollbackConfiguration:
-            RollbackEnabled: '{{ RollbackEnabled }}'
-          EnvironmentProperties:
-            PropertyGroups:
-              - PropertyGroupId: '{{ PropertyGroupId }}'
-                PropertyMap: {}
-          FlinkApplicationConfiguration:
-            CheckpointConfiguration:
-              ConfigurationType: '{{ ConfigurationType }}'
-              CheckpointingEnabled: '{{ CheckpointingEnabled }}'
-              CheckpointInterval: '{{ CheckpointInterval }}'
-              MinPauseBetweenCheckpoints: '{{ MinPauseBetweenCheckpoints }}'
-            MonitoringConfiguration:
-              ConfigurationType: '{{ ConfigurationType }}'
-              MetricsLevel: '{{ MetricsLevel }}'
-              LogLevel: '{{ LogLevel }}'
-            ParallelismConfiguration:
-              ConfigurationType: '{{ ConfigurationType }}'
-              ParallelismPerKPU: '{{ ParallelismPerKPU }}'
-              Parallelism: '{{ Parallelism }}'
-              AutoScalingEnabled: '{{ AutoScalingEnabled }}'
-          SqlApplicationConfiguration:
-            Inputs:
-              - NamePrefix: '{{ NamePrefix }}'
-                InputSchema:
-                  RecordEncoding: '{{ RecordEncoding }}'
-                  RecordColumns:
-                    - Mapping: '{{ Mapping }}'
-                      Name: '{{ Name }}'
-                      SqlType: '{{ SqlType }}'
-                  RecordFormat:
-                    RecordFormatType: '{{ RecordFormatType }}'
-                    MappingParameters:
-                      CSVMappingParameters:
-                        RecordColumnDelimiter: '{{ RecordColumnDelimiter }}'
-                        RecordRowDelimiter: '{{ RecordRowDelimiter }}'
-                      JSONMappingParameters:
-                        RecordRowPath: '{{ RecordRowPath }}'
-                KinesisStreamsInput:
-                  ResourceARN: null
-                KinesisFirehoseInput:
-                  ResourceARN: null
-                InputProcessingConfiguration:
-                  InputLambdaProcessor:
-                    ResourceARN: null
-                InputParallelism:
-                  Count: '{{ Count }}'
-          ZeppelinApplicationConfiguration:
-            CatalogConfiguration:
-              GlueDataCatalogConfiguration:
-                DatabaseARN: null
-            MonitoringConfiguration:
-              LogLevel: '{{ LogLevel }}'
-            DeployAsApplicationConfiguration:
-              S3ContentLocation:
-                BucketARN: null
-                BasePath: '{{ BasePath }}'
-            CustomArtifactsConfiguration:
-              - ArtifactType: '{{ ArtifactType }}'
-                MavenReference:
-                  ArtifactId: '{{ ArtifactId }}'
-                  GroupId: '{{ GroupId }}'
-                  Version: '{{ Version }}'
-                S3ContentLocation: null
-          VpcConfigurations:
-            - SecurityGroupIds:
-                - '{{ SecurityGroupIds[0] }}'
-              SubnetIds:
-                - '{{ SubnetIds[0] }}'
-      - name: ApplicationDescription
-        value: '{{ ApplicationDescription }}'
-      - name: ApplicationMode
-        value: '{{ ApplicationMode }}'
-      - name: ApplicationName
-        value: '{{ ApplicationName }}'
-      - name: RuntimeEnvironment
-        value: '{{ RuntimeEnvironment }}'
-      - name: ServiceExecutionRole
+          application_code_configuration:
+            code_content:
+              zip_file_content: '{{ zip_file_content }}'
+              s3_content_location:
+                bucket_arn: '{{ bucket_arn }}'
+                file_key: '{{ file_key }}'
+                object_version: '{{ object_version }}'
+              text_content: '{{ text_content }}'
+            code_content_type: '{{ code_content_type }}'
+          application_encryption_configuration:
+            key_id: '{{ key_id }}'
+            key_type: '{{ key_type }}'
+          application_snapshot_configuration:
+            snapshots_enabled: '{{ snapshots_enabled }}'
+          application_system_rollback_configuration:
+            rollback_enabled: '{{ rollback_enabled }}'
+          environment_properties:
+            property_groups:
+              - property_group_id: '{{ property_group_id }}'
+                property_map: {}
+          flink_application_configuration:
+            checkpoint_configuration:
+              configuration_type: '{{ configuration_type }}'
+              checkpointing_enabled: '{{ checkpointing_enabled }}'
+              checkpoint_interval: '{{ checkpoint_interval }}'
+              min_pause_between_checkpoints: '{{ min_pause_between_checkpoints }}'
+            monitoring_configuration:
+              configuration_type: '{{ configuration_type }}'
+              metrics_level: '{{ metrics_level }}'
+              log_level: '{{ log_level }}'
+            parallelism_configuration:
+              configuration_type: '{{ configuration_type }}'
+              parallelism_per_kp_u: '{{ parallelism_per_kp_u }}'
+              parallelism: '{{ parallelism }}'
+              auto_scaling_enabled: '{{ auto_scaling_enabled }}'
+          sql_application_configuration:
+            inputs:
+              - name_prefix: '{{ name_prefix }}'
+                input_schema:
+                  record_encoding: '{{ record_encoding }}'
+                  record_columns:
+                    - mapping: '{{ mapping }}'
+                      name: '{{ name }}'
+                      sql_type: '{{ sql_type }}'
+                  record_format:
+                    record_format_type: '{{ record_format_type }}'
+                    mapping_parameters:
+                      c_sv_mapping_parameters:
+                        record_column_delimiter: '{{ record_column_delimiter }}'
+                        record_row_delimiter: '{{ record_row_delimiter }}'
+                      j_so_nmapping_parameters:
+                        record_row_path: '{{ record_row_path }}'
+                kinesis_streams_input:
+                  resource_arn: null
+                kinesis_firehose_input:
+                  resource_arn: null
+                input_processing_configuration:
+                  input_lambda_processor:
+                    resource_arn: null
+                input_parallelism:
+                  count: '{{ count }}'
+          zeppelin_application_configuration:
+            catalog_configuration:
+              glue_data_catalog_configuration:
+                database_arn: null
+            monitoring_configuration:
+              log_level: '{{ log_level }}'
+            deploy_as_application_configuration:
+              s3_content_location:
+                bucket_arn: null
+                base_path: '{{ base_path }}'
+            custom_artifacts_configuration:
+              - artifact_type: '{{ artifact_type }}'
+                maven_reference:
+                  artifact_id: '{{ artifact_id }}'
+                  group_id: '{{ group_id }}'
+                  version: '{{ version }}'
+                s3_content_location: null
+          vpc_configurations:
+            - security_group_ids:
+                - '{{ security_group_ids[0] }}'
+              subnet_ids:
+                - '{{ subnet_ids[0] }}'
+      - name: application_description
+        value: '{{ application_description }}'
+      - name: application_mode
+        value: '{{ application_mode }}'
+      - name: application_name
+        value: '{{ application_name }}'
+      - name: runtime_environment
+        value: '{{ runtime_environment }}'
+      - name: service_execution_role
         value: null
-      - name: RunConfiguration
+      - name: run_configuration
         value:
-          ApplicationRestoreConfiguration:
-            ApplicationRestoreType: '{{ ApplicationRestoreType }}'
-            SnapshotName: '{{ SnapshotName }}'
-          FlinkRunConfiguration:
-            AllowNonRestoredState: '{{ AllowNonRestoredState }}'
-      - name: ApplicationMaintenanceConfiguration
+          application_restore_configuration:
+            application_restore_type: '{{ application_restore_type }}'
+            snapshot_name: '{{ snapshot_name }}'
+          flink_run_configuration:
+            allow_non_restored_state: '{{ allow_non_restored_state }}'
+      - name: application_maintenance_configuration
         value:
-          ApplicationMaintenanceWindowStartTime: '{{ ApplicationMaintenanceWindowStartTime }}'
-      - name: Tags
+          application_maintenance_window_start_time: '{{ application_maintenance_window_start_time }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -759,7 +758,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationName>';
+AND Identifier = '{{ application_name }}';
 ```
 
 
@@ -768,7 +767,7 @@ AND Identifier = '<ApplicationName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesisanalyticsv2.applications
-WHERE Identifier = '<ApplicationName>'
+WHERE Identifier = '{{ application_name }}'
 AND region = 'us-east-1';
 ```
 

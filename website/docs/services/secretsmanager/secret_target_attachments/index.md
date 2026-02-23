@@ -152,7 +152,7 @@ secret_id,
 target_type,
 target_id
 FROM awscc.secretsmanager.secret_target_attachments
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.secretsmanager.secret_target_attachments (
  TargetId,
  region
 )
-SELECT 
-'{{ SecretId }}',
- '{{ TargetType }}',
- '{{ TargetId }}',
+SELECT
+'{{ secret_id }}',
+ '{{ target_type }}',
+ '{{ target_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.secretsmanager.secret_target_attachments (
  TargetId,
  region
 )
-SELECT 
- '{{ SecretId }}',
- '{{ TargetType }}',
- '{{ TargetId }}',
+SELECT
+ '{{ secret_id }}',
+ '{{ target_type }}',
+ '{{ target_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: secret_target_attachment
     props:
-      - name: SecretId
-        value: '{{ SecretId }}'
-      - name: TargetType
-        value: '{{ TargetType }}'
-      - name: TargetId
-        value: '{{ TargetId }}'
-
+      - name: secret_id
+        value: '{{ secret_id }}'
+      - name: target_type
+        value: '{{ target_type }}'
+      - name: target_id
+        value: '{{ target_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -251,7 +250,7 @@ SET PatchDocument = string('{{ {
     "TargetId": target_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -260,7 +259,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.secretsmanager.secret_target_attachments
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

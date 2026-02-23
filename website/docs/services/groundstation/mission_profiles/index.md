@@ -251,7 +251,7 @@ id,
 arn,
 region
 FROM awscc.groundstation.mission_profiles
-WHERE region = 'us-east-1' AND Identifier = '<Id>|<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}|{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -291,11 +291,11 @@ INSERT INTO awscc.groundstation.mission_profiles (
  TrackingConfigArn,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ MinimumViableContactDurationSeconds }}',
- '{{ DataflowEdges }}',
- '{{ TrackingConfigArn }}',
+SELECT
+'{{ name }}',
+ '{{ minimum_viable_contact_duration_seconds }}',
+ '{{ dataflow_edges }}',
+ '{{ tracking_config_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -315,16 +315,16 @@ INSERT INTO awscc.groundstation.mission_profiles (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ ContactPrePassDurationSeconds }}',
- '{{ ContactPostPassDurationSeconds }}',
- '{{ MinimumViableContactDurationSeconds }}',
- '{{ StreamsKmsKey }}',
- '{{ StreamsKmsRole }}',
- '{{ DataflowEdges }}',
- '{{ TrackingConfigArn }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ contact_pre_pass_duration_seconds }}',
+ '{{ contact_post_pass_duration_seconds }}',
+ '{{ minimum_viable_contact_duration_seconds }}',
+ '{{ streams_kms_key }}',
+ '{{ streams_kms_role }}',
+ '{{ dataflow_edges }}',
+ '{{ tracking_config_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -342,32 +342,31 @@ globals:
 resources:
   - name: mission_profile
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: ContactPrePassDurationSeconds
-        value: '{{ ContactPrePassDurationSeconds }}'
-      - name: ContactPostPassDurationSeconds
-        value: '{{ ContactPostPassDurationSeconds }}'
-      - name: MinimumViableContactDurationSeconds
-        value: '{{ MinimumViableContactDurationSeconds }}'
-      - name: StreamsKmsKey
+      - name: name
+        value: '{{ name }}'
+      - name: contact_pre_pass_duration_seconds
+        value: '{{ contact_pre_pass_duration_seconds }}'
+      - name: contact_post_pass_duration_seconds
+        value: '{{ contact_post_pass_duration_seconds }}'
+      - name: minimum_viable_contact_duration_seconds
+        value: '{{ minimum_viable_contact_duration_seconds }}'
+      - name: streams_kms_key
         value:
-          KmsKeyArn: '{{ KmsKeyArn }}'
-          KmsAliasArn: '{{ KmsAliasArn }}'
-          KmsAliasName: '{{ KmsAliasName }}'
-      - name: StreamsKmsRole
-        value: '{{ StreamsKmsRole }}'
-      - name: DataflowEdges
+          kms_key_arn: '{{ kms_key_arn }}'
+          kms_alias_arn: '{{ kms_alias_arn }}'
+          kms_alias_name: '{{ kms_alias_name }}'
+      - name: streams_kms_role
+        value: '{{ streams_kms_role }}'
+      - name: dataflow_edges
         value:
-          - Source: '{{ Source }}'
-            Destination: '{{ Destination }}'
-      - name: TrackingConfigArn
-        value: '{{ TrackingConfigArn }}'
-      - name: Tags
+          - source: '{{ source }}'
+            destination: '{{ destination }}'
+      - name: tracking_config_arn
+        value: '{{ tracking_config_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -391,7 +390,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>|<Arn>';
+AND Identifier = '{{ id }}|{{ arn }}';
 ```
 
 
@@ -400,7 +399,7 @@ AND Identifier = '<Id>|<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.groundstation.mission_profiles
-WHERE Identifier = '<Id|Arn>'
+WHERE Identifier = '{{ id }}|{{ arn }}'
 AND region = 'us-east-1';
 ```
 

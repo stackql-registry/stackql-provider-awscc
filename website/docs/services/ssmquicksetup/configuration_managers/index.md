@@ -235,7 +235,7 @@ name,
 status_summaries,
 tags
 FROM awscc.ssmquicksetup.configuration_managers
-WHERE region = 'us-east-1' AND Identifier = '<ManagerArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ manager_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,8 +271,8 @@ INSERT INTO awscc.ssmquicksetup.configuration_managers (
  ConfigurationDefinitions,
  region
 )
-SELECT 
-'{{ ConfigurationDefinitions }}',
+SELECT
+'{{ configuration_definitions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,11 +287,11 @@ INSERT INTO awscc.ssmquicksetup.configuration_managers (
  Tags,
  region
 )
-SELECT 
- '{{ ConfigurationDefinitions }}',
- '{{ Description }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ configuration_definitions }}',
+ '{{ description }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,21 +309,20 @@ globals:
 resources:
   - name: configuration_manager
     props:
-      - name: ConfigurationDefinitions
+      - name: configuration_definitions
         value:
-          - Type: '{{ Type }}'
-            Parameters: {}
-            TypeVersion: '{{ TypeVersion }}'
-            LocalDeploymentExecutionRoleName: '{{ LocalDeploymentExecutionRoleName }}'
-            LocalDeploymentAdministrationRoleArn: '{{ LocalDeploymentAdministrationRoleArn }}'
+          - type: '{{ type }}'
+            parameters: {}
+            type_version: '{{ type_version }}'
+            local_deployment_execution_role_name: '{{ local_deployment_execution_role_name }}'
+            local_deployment_administration_role_arn: '{{ local_deployment_administration_role_arn }}'
             id: '{{ id }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -341,7 +340,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ManagerArn>';
+AND Identifier = '{{ manager_arn }}';
 ```
 
 
@@ -350,7 +349,7 @@ AND Identifier = '<ManagerArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssmquicksetup.configuration_managers
-WHERE Identifier = '<ManagerArn>'
+WHERE Identifier = '{{ manager_arn }}'
 AND region = 'us-east-1';
 ```
 

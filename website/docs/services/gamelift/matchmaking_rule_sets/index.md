@@ -170,7 +170,7 @@ creation_time,
 arn,
 tags
 FROM awscc.gamelift.matchmaking_rule_sets
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.gamelift.matchmaking_rule_sets (
  RuleSetBody,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ RuleSetBody }}',
+SELECT
+'{{ name }}',
+ '{{ rule_set_body }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.gamelift.matchmaking_rule_sets (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RuleSetBody }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ rule_set_body }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: matchmaking_rule_set
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RuleSetBody
-        value: '{{ RuleSetBody }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: rule_set_body
+        value: '{{ rule_set_body }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.gamelift.matchmaking_rule_sets
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

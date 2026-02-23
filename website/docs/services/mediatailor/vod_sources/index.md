@@ -192,7 +192,7 @@ source_location_name,
 tags,
 vod_source_name
 FROM awscc.mediatailor.vod_sources
-WHERE region = 'us-east-1' AND Identifier = '<SourceLocationName>|<VodSourceName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -231,10 +231,10 @@ INSERT INTO awscc.mediatailor.vod_sources (
  VodSourceName,
  region
 )
-SELECT 
-'{{ HttpPackageConfigurations }}',
- '{{ SourceLocationName }}',
- '{{ VodSourceName }}',
+SELECT
+'{{ http_package_configurations }}',
+ '{{ source_location_name }}',
+ '{{ vod_source_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,11 +249,11 @@ INSERT INTO awscc.mediatailor.vod_sources (
  VodSourceName,
  region
 )
-SELECT 
- '{{ HttpPackageConfigurations }}',
- '{{ SourceLocationName }}',
- '{{ Tags }}',
- '{{ VodSourceName }}',
+SELECT
+ '{{ http_package_configurations }}',
+ '{{ source_location_name }}',
+ '{{ tags }}',
+ '{{ vod_source_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -271,20 +271,19 @@ globals:
 resources:
   - name: vod_source
     props:
-      - name: HttpPackageConfigurations
+      - name: http_package_configurations
         value:
-          - Path: '{{ Path }}'
-            SourceGroup: '{{ SourceGroup }}'
-            Type: '{{ Type }}'
-      - name: SourceLocationName
-        value: '{{ SourceLocationName }}'
-      - name: Tags
+          - path: '{{ path }}'
+            source_group: '{{ source_group }}'
+            type: '{{ type }}'
+      - name: source_location_name
+        value: '{{ source_location_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: VodSourceName
-        value: '{{ VodSourceName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: vod_source_name
+        value: '{{ vod_source_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SourceLocationName>|<VodSourceName>';
+AND Identifier = '{{ source_location_name }}|{{ vod_source_name }}';
 ```
 
 
@@ -310,7 +309,7 @@ AND Identifier = '<SourceLocationName>|<VodSourceName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediatailor.vod_sources
-WHERE Identifier = '<SourceLocationName|VodSourceName>'
+WHERE Identifier = '{{ source_location_name }}|{{ vod_source_name }}'
 AND region = 'us-east-1';
 ```
 

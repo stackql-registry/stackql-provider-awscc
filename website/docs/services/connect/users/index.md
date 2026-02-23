@@ -283,7 +283,7 @@ user_arn,
 tags,
 user_proficiencies
 FROM awscc.connect.users
-WHERE region = 'us-east-1' AND Identifier = '<UserArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -323,12 +323,12 @@ INSERT INTO awscc.connect.users (
  SecurityProfileArns,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Username }}',
- '{{ RoutingProfileArn }}',
- '{{ PhoneConfig }}',
- '{{ SecurityProfileArns }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ username }}',
+ '{{ routing_profile_arn }}',
+ '{{ phone_config }}',
+ '{{ security_profile_arns }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -350,18 +350,18 @@ INSERT INTO awscc.connect.users (
  UserProficiencies,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ DirectoryUserId }}',
- '{{ HierarchyGroupArn }}',
- '{{ Username }}',
- '{{ Password }}',
- '{{ RoutingProfileArn }}',
- '{{ IdentityInfo }}',
- '{{ PhoneConfig }}',
- '{{ SecurityProfileArns }}',
- '{{ Tags }}',
- '{{ UserProficiencies }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ directory_user_id }}',
+ '{{ hierarchy_group_arn }}',
+ '{{ username }}',
+ '{{ password }}',
+ '{{ routing_profile_arn }}',
+ '{{ identity_info }}',
+ '{{ phone_config }}',
+ '{{ security_profile_arns }}',
+ '{{ tags }}',
+ '{{ user_proficiencies }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -379,45 +379,44 @@ globals:
 resources:
   - name: user
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: DirectoryUserId
-        value: '{{ DirectoryUserId }}'
-      - name: HierarchyGroupArn
-        value: '{{ HierarchyGroupArn }}'
-      - name: Username
-        value: '{{ Username }}'
-      - name: Password
-        value: '{{ Password }}'
-      - name: RoutingProfileArn
-        value: '{{ RoutingProfileArn }}'
-      - name: IdentityInfo
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: directory_user_id
+        value: '{{ directory_user_id }}'
+      - name: hierarchy_group_arn
+        value: '{{ hierarchy_group_arn }}'
+      - name: username
+        value: '{{ username }}'
+      - name: password
+        value: '{{ password }}'
+      - name: routing_profile_arn
+        value: '{{ routing_profile_arn }}'
+      - name: identity_info
         value:
-          FirstName: '{{ FirstName }}'
-          LastName: '{{ LastName }}'
-          Email: '{{ Email }}'
-          SecondaryEmail: '{{ SecondaryEmail }}'
-          Mobile: '{{ Mobile }}'
-      - name: PhoneConfig
+          first_name: '{{ first_name }}'
+          last_name: '{{ last_name }}'
+          email: '{{ email }}'
+          secondary_email: '{{ secondary_email }}'
+          mobile: '{{ mobile }}'
+      - name: phone_config
         value:
-          AfterContactWorkTimeLimit: '{{ AfterContactWorkTimeLimit }}'
-          AutoAccept: '{{ AutoAccept }}'
-          DeskPhoneNumber: '{{ DeskPhoneNumber }}'
-          PhoneType: '{{ PhoneType }}'
-          PersistentConnection: '{{ PersistentConnection }}'
-      - name: SecurityProfileArns
+          after_contact_work_time_limit: '{{ after_contact_work_time_limit }}'
+          auto_accept: '{{ auto_accept }}'
+          desk_phone_number: '{{ desk_phone_number }}'
+          phone_type: '{{ phone_type }}'
+          persistent_connection: '{{ persistent_connection }}'
+      - name: security_profile_arns
         value:
-          - '{{ SecurityProfileArns[0] }}'
-      - name: Tags
+          - '{{ security_profile_arns[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: UserProficiencies
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: user_proficiencies
         value:
-          - AttributeName: '{{ AttributeName }}'
-            AttributeValue: '{{ AttributeValue }}'
-            Level: null
-
+          - attribute_name: '{{ attribute_name }}'
+            attribute_value: '{{ attribute_value }}'
+            level: null
 ```
 </TabItem>
 </Tabs>
@@ -443,7 +442,7 @@ SET PatchDocument = string('{{ {
     "UserProficiencies": user_proficiencies
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserArn>';
+AND Identifier = '{{ user_arn }}';
 ```
 
 
@@ -452,7 +451,7 @@ AND Identifier = '<UserArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.users
-WHERE Identifier = '<UserArn>'
+WHERE Identifier = '{{ user_arn }}'
 AND region = 'us-east-1';
 ```
 

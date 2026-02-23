@@ -164,7 +164,7 @@ certificate_list,
 tags,
 trust_store_arn
 FROM awscc.workspacesweb.trust_stores
-WHERE region = 'us-east-1' AND Identifier = '<TrustStoreArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ trust_store_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -200,8 +200,8 @@ INSERT INTO awscc.workspacesweb.trust_stores (
  CertificateList,
  region
 )
-SELECT 
-'{{ CertificateList }}',
+SELECT
+'{{ certificate_list }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -214,9 +214,9 @@ INSERT INTO awscc.workspacesweb.trust_stores (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateList }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_list }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,14 +234,13 @@ globals:
 resources:
   - name: trust_store
     props:
-      - name: CertificateList
+      - name: certificate_list
         value:
-          - '{{ CertificateList[0] }}'
-      - name: Tags
+          - '{{ certificate_list[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -258,7 +257,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TrustStoreArn>';
+AND Identifier = '{{ trust_store_arn }}';
 ```
 
 
@@ -267,7 +266,7 @@ AND Identifier = '<TrustStoreArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesweb.trust_stores
-WHERE Identifier = '<TrustStoreArn>'
+WHERE Identifier = '{{ trust_store_arn }}'
 AND region = 'us-east-1';
 ```
 

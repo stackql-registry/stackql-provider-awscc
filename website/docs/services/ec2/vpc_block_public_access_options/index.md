@@ -100,7 +100,7 @@ internet_gateway_block_mode,
 account_id,
 exclusions_allowed
 FROM awscc.ec2.vpc_block_public_access_options
-WHERE region = 'us-east-1' AND Identifier = '<AccountId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ account_id }}';
 ```
 
 ## `INSERT` example
@@ -123,8 +123,8 @@ INSERT INTO awscc.ec2.vpc_block_public_access_options (
  InternetGatewayBlockMode,
  region
 )
-SELECT 
-'{{ InternetGatewayBlockMode }}',
+SELECT
+'{{ internet_gateway_block_mode }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -136,8 +136,8 @@ INSERT INTO awscc.ec2.vpc_block_public_access_options (
  InternetGatewayBlockMode,
  region
 )
-SELECT 
- '{{ InternetGatewayBlockMode }}',
+SELECT
+ '{{ internet_gateway_block_mode }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -155,9 +155,8 @@ globals:
 resources:
   - name: vpc_block_public_access_option
     props:
-      - name: InternetGatewayBlockMode
-        value: '{{ InternetGatewayBlockMode }}'
-
+      - name: internet_gateway_block_mode
+        value: '{{ internet_gateway_block_mode }}'
 ```
 </TabItem>
 </Tabs>
@@ -173,7 +172,7 @@ SET PatchDocument = string('{{ {
     "InternetGatewayBlockMode": internet_gateway_block_mode
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AccountId>';
+AND Identifier = '{{ account_id }}';
 ```
 
 
@@ -182,7 +181,7 @@ AND Identifier = '<AccountId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpc_block_public_access_options
-WHERE Identifier = '<AccountId>'
+WHERE Identifier = '{{ account_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -152,7 +152,7 @@ layer_version_arn,
 organization_id,
 principal
 FROM awscc.lambda.layer_version_permissions
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.lambda.layer_version_permissions (
  Principal,
  region
 )
-SELECT 
-'{{ Action }}',
- '{{ LayerVersionArn }}',
- '{{ Principal }}',
+SELECT
+'{{ action }}',
+ '{{ layer_version_arn }}',
+ '{{ principal }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -208,11 +208,11 @@ INSERT INTO awscc.lambda.layer_version_permissions (
  Principal,
  region
 )
-SELECT 
- '{{ Action }}',
- '{{ LayerVersionArn }}',
- '{{ OrganizationId }}',
- '{{ Principal }}',
+SELECT
+ '{{ action }}',
+ '{{ layer_version_arn }}',
+ '{{ organization_id }}',
+ '{{ principal }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -230,15 +230,14 @@ globals:
 resources:
   - name: layer_version_permission
     props:
-      - name: Action
-        value: '{{ Action }}'
-      - name: LayerVersionArn
-        value: '{{ LayerVersionArn }}'
-      - name: OrganizationId
-        value: '{{ OrganizationId }}'
-      - name: Principal
-        value: '{{ Principal }}'
-
+      - name: action
+        value: '{{ action }}'
+      - name: layer_version_arn
+        value: '{{ layer_version_arn }}'
+      - name: organization_id
+        value: '{{ organization_id }}'
+      - name: principal
+        value: '{{ principal }}'
 ```
 </TabItem>
 </Tabs>
@@ -249,7 +248,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.lambda.layer_version_permissions
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

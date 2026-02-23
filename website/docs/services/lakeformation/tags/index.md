@@ -146,7 +146,7 @@ catalog_id,
 tag_key,
 tag_values
 FROM awscc.lakeformation.tags
-WHERE region = 'us-east-1' AND Identifier = '<TagKey>';
+WHERE region = 'us-east-1' AND Identifier = '{{ tag_key }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.lakeformation.tags (
  TagValues,
  region
 )
-SELECT 
-'{{ TagKey }}',
- '{{ TagValues }}',
+SELECT
+'{{ tag_key }}',
+ '{{ tag_values }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,10 +199,10 @@ INSERT INTO awscc.lakeformation.tags (
  TagValues,
  region
 )
-SELECT 
- '{{ CatalogId }}',
- '{{ TagKey }}',
- '{{ TagValues }}',
+SELECT
+ '{{ catalog_id }}',
+ '{{ tag_key }}',
+ '{{ tag_values }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,14 +220,13 @@ globals:
 resources:
   - name: tag
     props:
-      - name: CatalogId
-        value: '{{ CatalogId }}'
-      - name: TagKey
-        value: '{{ TagKey }}'
-      - name: TagValues
+      - name: catalog_id
+        value: '{{ catalog_id }}'
+      - name: tag_key
+        value: '{{ tag_key }}'
+      - name: tag_values
         value:
-          - '{{ TagValues[0] }}'
-
+          - '{{ tag_values[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -243,7 +242,7 @@ SET PatchDocument = string('{{ {
     "TagValues": tag_values
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TagKey>';
+AND Identifier = '{{ tag_key }}';
 ```
 
 
@@ -252,7 +251,7 @@ AND Identifier = '<TagKey>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lakeformation.tags
-WHERE Identifier = '<TagKey>'
+WHERE Identifier = '{{ tag_key }}'
 AND region = 'us-east-1';
 ```
 

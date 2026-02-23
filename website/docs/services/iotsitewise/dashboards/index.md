@@ -182,7 +182,7 @@ dashboard_definition,
 dashboard_arn,
 tags
 FROM awscc.iotsitewise.dashboards
-WHERE region = 'us-east-1' AND Identifier = '<DashboardId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dashboard_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -220,10 +220,10 @@ INSERT INTO awscc.iotsitewise.dashboards (
  DashboardDefinition,
  region
 )
-SELECT 
-'{{ DashboardName }}',
- '{{ DashboardDescription }}',
- '{{ DashboardDefinition }}',
+SELECT
+'{{ dashboard_name }}',
+ '{{ dashboard_description }}',
+ '{{ dashboard_definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -239,12 +239,12 @@ INSERT INTO awscc.iotsitewise.dashboards (
  Tags,
  region
 )
-SELECT 
- '{{ ProjectId }}',
- '{{ DashboardName }}',
- '{{ DashboardDescription }}',
- '{{ DashboardDefinition }}',
- '{{ Tags }}',
+SELECT
+ '{{ project_id }}',
+ '{{ dashboard_name }}',
+ '{{ dashboard_description }}',
+ '{{ dashboard_definition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -262,19 +262,18 @@ globals:
 resources:
   - name: dashboard
     props:
-      - name: ProjectId
-        value: '{{ ProjectId }}'
-      - name: DashboardName
-        value: '{{ DashboardName }}'
-      - name: DashboardDescription
-        value: '{{ DashboardDescription }}'
-      - name: DashboardDefinition
-        value: '{{ DashboardDefinition }}'
-      - name: Tags
+      - name: project_id
+        value: '{{ project_id }}'
+      - name: dashboard_name
+        value: '{{ dashboard_name }}'
+      - name: dashboard_description
+        value: '{{ dashboard_description }}'
+      - name: dashboard_definition
+        value: '{{ dashboard_definition }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -293,7 +292,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DashboardId>';
+AND Identifier = '{{ dashboard_id }}';
 ```
 
 
@@ -302,7 +301,7 @@ AND Identifier = '<DashboardId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotsitewise.dashboards
-WHERE Identifier = '<DashboardId>'
+WHERE Identifier = '{{ dashboard_id }}'
 AND region = 'us-east-1';
 ```
 

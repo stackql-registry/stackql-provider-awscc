@@ -246,7 +246,7 @@ framework_controls,
 framework_status,
 framework_tags
 FROM awscc.backup.frameworks
-WHERE region = 'us-east-1' AND Identifier = '<FrameworkArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ framework_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -282,8 +282,8 @@ INSERT INTO awscc.backup.frameworks (
  FrameworkControls,
  region
 )
-SELECT 
-'{{ FrameworkControls }}',
+SELECT
+'{{ framework_controls }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -298,11 +298,11 @@ INSERT INTO awscc.backup.frameworks (
  FrameworkTags,
  region
 )
-SELECT 
- '{{ FrameworkName }}',
- '{{ FrameworkDescription }}',
- '{{ FrameworkControls }}',
- '{{ FrameworkTags }}',
+SELECT
+ '{{ framework_name }}',
+ '{{ framework_description }}',
+ '{{ framework_controls }}',
+ '{{ framework_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -320,28 +320,27 @@ globals:
 resources:
   - name: framework
     props:
-      - name: FrameworkName
-        value: '{{ FrameworkName }}'
-      - name: FrameworkDescription
-        value: '{{ FrameworkDescription }}'
-      - name: FrameworkControls
+      - name: framework_name
+        value: '{{ framework_name }}'
+      - name: framework_description
+        value: '{{ framework_description }}'
+      - name: framework_controls
         value:
-          - ControlName: '{{ ControlName }}'
-            ControlInputParameters:
-              - ParameterName: '{{ ParameterName }}'
-                ParameterValue: '{{ ParameterValue }}'
-            ControlScope:
-              ComplianceResourceIds:
-                - '{{ ComplianceResourceIds[0] }}'
-              ComplianceResourceTypes:
-                - '{{ ComplianceResourceTypes[0] }}'
-              Tags:
-                - Value: '{{ Value }}'
-                  Key: '{{ Key }}'
-      - name: FrameworkTags
+          - control_name: '{{ control_name }}'
+            control_input_parameters:
+              - parameter_name: '{{ parameter_name }}'
+                parameter_value: '{{ parameter_value }}'
+            control_scope:
+              compliance_resource_ids:
+                - '{{ compliance_resource_ids[0] }}'
+              compliance_resource_types:
+                - '{{ compliance_resource_types[0] }}'
+              tags:
+                - value: '{{ value }}'
+                  key: '{{ key }}'
+      - name: framework_tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -359,7 +358,7 @@ SET PatchDocument = string('{{ {
     "FrameworkTags": framework_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FrameworkArn>';
+AND Identifier = '{{ framework_arn }}';
 ```
 
 
@@ -368,7 +367,7 @@ AND Identifier = '<FrameworkArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.frameworks
-WHERE Identifier = '<FrameworkArn>'
+WHERE Identifier = '{{ framework_arn }}'
 AND region = 'us-east-1';
 ```
 

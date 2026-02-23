@@ -199,7 +199,7 @@ status,
 publishing_failure_start_timestamp,
 tags
 FROM awscc.guardduty.publishing_destinations
-WHERE region = 'us-east-1' AND Identifier = '<DetectorId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -238,10 +238,10 @@ INSERT INTO awscc.guardduty.publishing_destinations (
  DestinationProperties,
  region
 )
-SELECT 
-'{{ DetectorId }}',
- '{{ DestinationType }}',
- '{{ DestinationProperties }}',
+SELECT
+'{{ detector_id }}',
+ '{{ destination_type }}',
+ '{{ destination_properties }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -256,11 +256,11 @@ INSERT INTO awscc.guardduty.publishing_destinations (
  Tags,
  region
 )
-SELECT 
- '{{ DetectorId }}',
- '{{ DestinationType }}',
- '{{ DestinationProperties }}',
- '{{ Tags }}',
+SELECT
+ '{{ detector_id }}',
+ '{{ destination_type }}',
+ '{{ destination_properties }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,19 +278,18 @@ globals:
 resources:
   - name: publishing_destination
     props:
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-      - name: DestinationType
-        value: '{{ DestinationType }}'
-      - name: DestinationProperties
+      - name: detector_id
+        value: '{{ detector_id }}'
+      - name: destination_type
+        value: '{{ destination_type }}'
+      - name: destination_properties
         value:
-          DestinationArn: '{{ DestinationArn }}'
-          KmsKeyArn: '{{ KmsKeyArn }}'
-      - name: Tags
+          destination_arn: '{{ destination_arn }}'
+          kms_key_arn: '{{ kms_key_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DetectorId>|<Id>';
+AND Identifier = '{{ detector_id }}|{{ id }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<DetectorId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.publishing_destinations
-WHERE Identifier = '<DetectorId|Id>'
+WHERE Identifier = '{{ detector_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

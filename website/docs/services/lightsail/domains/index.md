@@ -227,7 +227,7 @@ location,
 resource_type,
 tags
 FROM awscc.lightsail.domains
-WHERE region = 'us-east-1' AND Identifier = '<DomainName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,8 +263,8 @@ INSERT INTO awscc.lightsail.domains (
  DomainName,
  region
 )
-SELECT 
-'{{ DomainName }}',
+SELECT
+'{{ domain_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -278,10 +278,10 @@ INSERT INTO awscc.lightsail.domains (
  Tags,
  region
 )
-SELECT 
- '{{ DomainName }}',
- '{{ DomainEntries }}',
- '{{ Tags }}',
+SELECT
+ '{{ domain_name }}',
+ '{{ domain_entries }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -299,20 +299,19 @@ globals:
 resources:
   - name: domain
     props:
-      - name: DomainName
-        value: '{{ DomainName }}'
-      - name: DomainEntries
+      - name: domain_name
+        value: '{{ domain_name }}'
+      - name: domain_entries
         value:
-          - Id: '{{ Id }}'
-            Name: '{{ Name }}'
-            Target: '{{ Target }}'
-            IsAlias: '{{ IsAlias }}'
-            Type: '{{ Type }}'
-      - name: Tags
+          - id: '{{ id }}'
+            name: '{{ name }}'
+            target: '{{ target }}'
+            is_alias: '{{ is_alias }}'
+            type: '{{ type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -328,7 +327,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainName>';
+AND Identifier = '{{ domain_name }}';
 ```
 
 
@@ -337,7 +336,7 @@ AND Identifier = '<DomainName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.lightsail.domains
-WHERE Identifier = '<DomainName>'
+WHERE Identifier = '{{ domain_name }}'
 AND region = 'us-east-1';
 ```
 

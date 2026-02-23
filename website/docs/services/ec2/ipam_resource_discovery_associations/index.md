@@ -206,7 +206,7 @@ state,
 resource_discovery_status,
 tags
 FROM awscc.ec2.ipam_resource_discovery_associations
-WHERE region = 'us-east-1' AND Identifier = '<IpamResourceDiscoveryAssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,9 +243,9 @@ INSERT INTO awscc.ec2.ipam_resource_discovery_associations (
  IpamId,
  region
 )
-SELECT 
-'{{ IpamResourceDiscoveryId }}',
- '{{ IpamId }}',
+SELECT
+'{{ ipam_resource_discovery_id }}',
+ '{{ ipam_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -259,10 +259,10 @@ INSERT INTO awscc.ec2.ipam_resource_discovery_associations (
  Tags,
  region
 )
-SELECT 
- '{{ IpamResourceDiscoveryId }}',
- '{{ IpamId }}',
- '{{ Tags }}',
+SELECT
+ '{{ ipam_resource_discovery_id }}',
+ '{{ ipam_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -280,15 +280,14 @@ globals:
 resources:
   - name: ipam_resource_discovery_association
     props:
-      - name: IpamResourceDiscoveryId
-        value: '{{ IpamResourceDiscoveryId }}'
-      - name: IpamId
-        value: '{{ IpamId }}'
-      - name: Tags
+      - name: ipam_resource_discovery_id
+        value: '{{ ipam_resource_discovery_id }}'
+      - name: ipam_id
+        value: '{{ ipam_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -304,7 +303,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IpamResourceDiscoveryAssociationId>';
+AND Identifier = '{{ ipam_resource_discovery_association_id }}';
 ```
 
 
@@ -313,7 +312,7 @@ AND Identifier = '<IpamResourceDiscoveryAssociationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ipam_resource_discovery_associations
-WHERE Identifier = '<IpamResourceDiscoveryAssociationId>'
+WHERE Identifier = '{{ ipam_resource_discovery_association_id }}'
 AND region = 'us-east-1';
 ```
 

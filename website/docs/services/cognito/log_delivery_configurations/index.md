@@ -148,7 +148,7 @@ id,
 user_pool_id,
 log_configurations
 FROM awscc.cognito.log_delivery_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 
 ## `INSERT` example
@@ -171,8 +171,8 @@ INSERT INTO awscc.cognito.log_delivery_configurations (
  UserPoolId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
+SELECT
+'{{ user_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -185,9 +185,9 @@ INSERT INTO awscc.cognito.log_delivery_configurations (
  LogConfigurations,
  region
 )
-SELECT 
- '{{ UserPoolId }}',
- '{{ LogConfigurations }}',
+SELECT
+ '{{ user_pool_id }}',
+ '{{ log_configurations }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -205,19 +205,18 @@ globals:
 resources:
   - name: log_delivery_configuration
     props:
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: LogConfigurations
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: log_configurations
         value:
-          - LogLevel: '{{ LogLevel }}'
-            EventSource: '{{ EventSource }}'
-            CloudWatchLogsConfiguration:
-              LogGroupArn: '{{ LogGroupArn }}'
-            S3Configuration:
-              BucketArn: '{{ BucketArn }}'
-            FirehoseConfiguration:
-              StreamArn: '{{ StreamArn }}'
-
+          - log_level: '{{ log_level }}'
+            event_source: '{{ event_source }}'
+            cloud_watch_logs_configuration:
+              log_group_arn: '{{ log_group_arn }}'
+            s3_configuration:
+              bucket_arn: '{{ bucket_arn }}'
+            firehose_configuration:
+              stream_arn: '{{ stream_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +232,7 @@ SET PatchDocument = string('{{ {
     "LogConfigurations": log_configurations
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -242,7 +241,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.log_delivery_configurations
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

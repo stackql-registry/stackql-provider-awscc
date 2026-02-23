@@ -318,7 +318,7 @@ status,
 type,
 updated_at
 FROM awscc.datazone.data_sources
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>|<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -358,11 +358,11 @@ INSERT INTO awscc.datazone.data_sources (
  Type,
  region
 )
-SELECT 
-'{{ DomainIdentifier }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
- '{{ Type }}',
+SELECT
+'{{ domain_identifier }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -386,20 +386,20 @@ INSERT INTO awscc.datazone.data_sources (
  Type,
  region
 )
-SELECT 
- '{{ AssetFormsInput }}',
- '{{ ConnectionIdentifier }}',
- '{{ Description }}',
- '{{ DomainIdentifier }}',
- '{{ EnableSetting }}',
- '{{ EnvironmentIdentifier }}',
- '{{ Configuration }}',
- '{{ Name }}',
- '{{ ProjectIdentifier }}',
- '{{ PublishOnImport }}',
- '{{ Recommendation }}',
- '{{ Schedule }}',
- '{{ Type }}',
+SELECT
+ '{{ asset_forms_input }}',
+ '{{ connection_identifier }}',
+ '{{ description }}',
+ '{{ domain_identifier }}',
+ '{{ enable_setting }}',
+ '{{ environment_identifier }}',
+ '{{ configuration }}',
+ '{{ name }}',
+ '{{ project_identifier }}',
+ '{{ publish_on_import }}',
+ '{{ recommendation }}',
+ '{{ schedule }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -417,40 +417,39 @@ globals:
 resources:
   - name: data_source
     props:
-      - name: AssetFormsInput
+      - name: asset_forms_input
         value:
-          - FormName: '{{ FormName }}'
-            TypeIdentifier: '{{ TypeIdentifier }}'
-            TypeRevision: '{{ TypeRevision }}'
-            Content: '{{ Content }}'
-      - name: ConnectionIdentifier
-        value: '{{ ConnectionIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DomainIdentifier
-        value: '{{ DomainIdentifier }}'
-      - name: EnableSetting
-        value: '{{ EnableSetting }}'
-      - name: EnvironmentIdentifier
-        value: '{{ EnvironmentIdentifier }}'
-      - name: Configuration
+          - form_name: '{{ form_name }}'
+            type_identifier: '{{ type_identifier }}'
+            type_revision: '{{ type_revision }}'
+            content: '{{ content }}'
+      - name: connection_identifier
+        value: '{{ connection_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: domain_identifier
+        value: '{{ domain_identifier }}'
+      - name: enable_setting
+        value: '{{ enable_setting }}'
+      - name: environment_identifier
+        value: '{{ environment_identifier }}'
+      - name: configuration
         value: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: ProjectIdentifier
-        value: '{{ ProjectIdentifier }}'
-      - name: PublishOnImport
-        value: '{{ PublishOnImport }}'
-      - name: Recommendation
+      - name: name
+        value: '{{ name }}'
+      - name: project_identifier
+        value: '{{ project_identifier }}'
+      - name: publish_on_import
+        value: '{{ publish_on_import }}'
+      - name: recommendation
         value:
-          EnableBusinessNameGeneration: '{{ EnableBusinessNameGeneration }}'
-      - name: Schedule
+          enable_business_name_generation: '{{ enable_business_name_generation }}'
+      - name: schedule
         value:
-          Timezone: '{{ Timezone }}'
-          Schedule: '{{ Schedule }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          timezone: '{{ timezone }}'
+          schedule: '{{ schedule }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -473,7 +472,7 @@ SET PatchDocument = string('{{ {
     "Schedule": schedule
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>|<Id>';
+AND Identifier = '{{ domain_id }}|{{ id }}';
 ```
 
 
@@ -482,7 +481,7 @@ AND Identifier = '<DomainId>|<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.datazone.data_sources
-WHERE Identifier = '<DomainId|Id>'
+WHERE Identifier = '{{ domain_id }}|{{ id }}'
 AND region = 'us-east-1';
 ```
 

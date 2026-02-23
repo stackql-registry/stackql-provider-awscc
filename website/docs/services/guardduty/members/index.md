@@ -169,7 +169,7 @@ message,
 disable_email_notification,
 detector_id
 FROM awscc.guardduty.members
-WHERE region = 'us-east-1' AND Identifier = '<DetectorId>|<MemberId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ detector_id }}|{{ member_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.guardduty.members (
  Email,
  region
 )
-SELECT 
-'{{ Email }}',
+SELECT
+'{{ email }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,13 +224,13 @@ INSERT INTO awscc.guardduty.members (
  DetectorId,
  region
 )
-SELECT 
- '{{ Status }}',
- '{{ MemberId }}',
- '{{ Email }}',
- '{{ Message }}',
- '{{ DisableEmailNotification }}',
- '{{ DetectorId }}',
+SELECT
+ '{{ status }}',
+ '{{ member_id }}',
+ '{{ email }}',
+ '{{ message }}',
+ '{{ disable_email_notification }}',
+ '{{ detector_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -248,19 +248,18 @@ globals:
 resources:
   - name: member
     props:
-      - name: Status
-        value: '{{ Status }}'
-      - name: MemberId
-        value: '{{ MemberId }}'
-      - name: Email
-        value: '{{ Email }}'
-      - name: Message
-        value: '{{ Message }}'
-      - name: DisableEmailNotification
-        value: '{{ DisableEmailNotification }}'
-      - name: DetectorId
-        value: '{{ DetectorId }}'
-
+      - name: status
+        value: '{{ status }}'
+      - name: member_id
+        value: '{{ member_id }}'
+      - name: email
+        value: '{{ email }}'
+      - name: message
+        value: '{{ message }}'
+      - name: disable_email_notification
+        value: '{{ disable_email_notification }}'
+      - name: detector_id
+        value: '{{ detector_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "DisableEmailNotification": disable_email_notification
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DetectorId>|<MemberId>';
+AND Identifier = '{{ detector_id }}|{{ member_id }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<DetectorId>|<MemberId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.guardduty.members
-WHERE Identifier = '<DetectorId|MemberId>'
+WHERE Identifier = '{{ detector_id }}|{{ member_id }}'
 AND region = 'us-east-1';
 ```
 

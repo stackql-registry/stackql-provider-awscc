@@ -177,7 +177,7 @@ name,
 server_side_encryption_configuration,
 tags
 FROM awscc.voiceid.domains
-WHERE region = 'us-east-1' AND Identifier = '<DomainId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -214,9 +214,9 @@ INSERT INTO awscc.voiceid.domains (
  ServerSideEncryptionConfiguration,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ ServerSideEncryptionConfiguration }}',
+SELECT
+'{{ name }}',
+ '{{ server_side_encryption_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,11 +231,11 @@ INSERT INTO awscc.voiceid.domains (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ ServerSideEncryptionConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ server_side_encryption_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -253,18 +253,17 @@ globals:
 resources:
   - name: domain
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ServerSideEncryptionConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: server_side_encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: Tags
+          kms_key_id: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DomainId>';
+AND Identifier = '{{ domain_id }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<DomainId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.voiceid.domains
-WHERE Identifier = '<DomainId>'
+WHERE Identifier = '{{ domain_id }}'
 AND region = 'us-east-1';
 ```
 

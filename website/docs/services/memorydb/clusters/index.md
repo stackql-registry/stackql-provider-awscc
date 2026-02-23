@@ -344,7 +344,7 @@ cluster_endpoint,
 auto_minor_version_upgrade,
 tags
 FROM awscc.memorydb.clusters
-WHERE region = 'us-east-1' AND Identifier = '<ClusterName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ cluster_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -382,10 +382,10 @@ INSERT INTO awscc.memorydb.clusters (
  ACLName,
  region
 )
-SELECT 
-'{{ ClusterName }}',
- '{{ NodeType }}',
- '{{ ACLName }}',
+SELECT
+'{{ cluster_name }}',
+ '{{ node_type }}',
+ '{{ acl_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -425,36 +425,36 @@ INSERT INTO awscc.memorydb.clusters (
  Tags,
  region
 )
-SELECT 
- '{{ ClusterName }}',
- '{{ Description }}',
- '{{ MultiRegionClusterName }}',
- '{{ NodeType }}',
- '{{ NumShards }}',
- '{{ NumReplicasPerShard }}',
- '{{ SubnetGroupName }}',
- '{{ SecurityGroupIds }}',
- '{{ MaintenanceWindow }}',
- '{{ ParameterGroupName }}',
- '{{ Port }}',
- '{{ SnapshotRetentionLimit }}',
- '{{ SnapshotWindow }}',
- '{{ ACLName }}',
- '{{ SnsTopicArn }}',
- '{{ SnsTopicStatus }}',
- '{{ TLSEnabled }}',
- '{{ DataTiering }}',
- '{{ NetworkType }}',
- '{{ IpDiscovery }}',
- '{{ KmsKeyId }}',
- '{{ SnapshotArns }}',
- '{{ SnapshotName }}',
- '{{ FinalSnapshotName }}',
- '{{ Engine }}',
- '{{ EngineVersion }}',
- '{{ ClusterEndpoint }}',
- '{{ AutoMinorVersionUpgrade }}',
- '{{ Tags }}',
+SELECT
+ '{{ cluster_name }}',
+ '{{ description }}',
+ '{{ multi_region_cluster_name }}',
+ '{{ node_type }}',
+ '{{ num_shards }}',
+ '{{ num_replicas_per_shard }}',
+ '{{ subnet_group_name }}',
+ '{{ security_group_ids }}',
+ '{{ maintenance_window }}',
+ '{{ parameter_group_name }}',
+ '{{ port }}',
+ '{{ snapshot_retention_limit }}',
+ '{{ snapshot_window }}',
+ '{{ acl_name }}',
+ '{{ sns_topic_arn }}',
+ '{{ sns_topic_status }}',
+ '{{ tls_enabled }}',
+ '{{ data_tiering }}',
+ '{{ network_type }}',
+ '{{ ip_discovery }}',
+ '{{ kms_key_id }}',
+ '{{ snapshot_arns }}',
+ '{{ snapshot_name }}',
+ '{{ final_snapshot_name }}',
+ '{{ engine }}',
+ '{{ engine_version }}',
+ '{{ cluster_endpoint }}',
+ '{{ auto_minor_version_upgrade }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -472,71 +472,70 @@ globals:
 resources:
   - name: cluster
     props:
-      - name: ClusterName
-        value: '{{ ClusterName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MultiRegionClusterName
-        value: '{{ MultiRegionClusterName }}'
-      - name: NodeType
-        value: '{{ NodeType }}'
-      - name: NumShards
-        value: '{{ NumShards }}'
-      - name: NumReplicasPerShard
-        value: '{{ NumReplicasPerShard }}'
-      - name: SubnetGroupName
-        value: '{{ SubnetGroupName }}'
-      - name: SecurityGroupIds
+      - name: cluster_name
+        value: '{{ cluster_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: multi_region_cluster_name
+        value: '{{ multi_region_cluster_name }}'
+      - name: node_type
+        value: '{{ node_type }}'
+      - name: num_shards
+        value: '{{ num_shards }}'
+      - name: num_replicas_per_shard
+        value: '{{ num_replicas_per_shard }}'
+      - name: subnet_group_name
+        value: '{{ subnet_group_name }}'
+      - name: security_group_ids
         value:
-          - '{{ SecurityGroupIds[0] }}'
-      - name: MaintenanceWindow
-        value: '{{ MaintenanceWindow }}'
-      - name: ParameterGroupName
-        value: '{{ ParameterGroupName }}'
-      - name: Port
-        value: '{{ Port }}'
-      - name: SnapshotRetentionLimit
-        value: '{{ SnapshotRetentionLimit }}'
-      - name: SnapshotWindow
-        value: '{{ SnapshotWindow }}'
-      - name: ACLName
-        value: '{{ ACLName }}'
-      - name: SnsTopicArn
-        value: '{{ SnsTopicArn }}'
-      - name: SnsTopicStatus
-        value: '{{ SnsTopicStatus }}'
-      - name: TLSEnabled
-        value: '{{ TLSEnabled }}'
-      - name: DataTiering
-        value: '{{ DataTiering }}'
-      - name: NetworkType
-        value: '{{ NetworkType }}'
-      - name: IpDiscovery
-        value: '{{ IpDiscovery }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: SnapshotArns
+          - '{{ security_group_ids[0] }}'
+      - name: maintenance_window
+        value: '{{ maintenance_window }}'
+      - name: parameter_group_name
+        value: '{{ parameter_group_name }}'
+      - name: port
+        value: '{{ port }}'
+      - name: snapshot_retention_limit
+        value: '{{ snapshot_retention_limit }}'
+      - name: snapshot_window
+        value: '{{ snapshot_window }}'
+      - name: acl_name
+        value: '{{ acl_name }}'
+      - name: sns_topic_arn
+        value: '{{ sns_topic_arn }}'
+      - name: sns_topic_status
+        value: '{{ sns_topic_status }}'
+      - name: tls_enabled
+        value: '{{ tls_enabled }}'
+      - name: data_tiering
+        value: '{{ data_tiering }}'
+      - name: network_type
+        value: '{{ network_type }}'
+      - name: ip_discovery
+        value: '{{ ip_discovery }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: snapshot_arns
         value:
-          - '{{ SnapshotArns[0] }}'
-      - name: SnapshotName
-        value: '{{ SnapshotName }}'
-      - name: FinalSnapshotName
-        value: '{{ FinalSnapshotName }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: EngineVersion
-        value: '{{ EngineVersion }}'
-      - name: ClusterEndpoint
+          - '{{ snapshot_arns[0] }}'
+      - name: snapshot_name
+        value: '{{ snapshot_name }}'
+      - name: final_snapshot_name
+        value: '{{ final_snapshot_name }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: engine_version
+        value: '{{ engine_version }}'
+      - name: cluster_endpoint
         value:
-          Address: '{{ Address }}'
-          Port: '{{ Port }}'
-      - name: AutoMinorVersionUpgrade
-        value: '{{ AutoMinorVersionUpgrade }}'
-      - name: Tags
+          address: '{{ address }}'
+          port: '{{ port }}'
+      - name: auto_minor_version_upgrade
+        value: '{{ auto_minor_version_upgrade }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -569,7 +568,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ClusterName>';
+AND Identifier = '{{ cluster_name }}';
 ```
 
 
@@ -578,7 +577,7 @@ AND Identifier = '<ClusterName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.memorydb.clusters
-WHERE Identifier = '<ClusterName>'
+WHERE Identifier = '{{ cluster_name }}'
 AND region = 'us-east-1';
 ```
 

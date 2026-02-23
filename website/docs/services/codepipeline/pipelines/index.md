@@ -623,7 +623,7 @@ artifact_store,
 pipeline_type,
 tags
 FROM awscc.codepipeline.pipelines
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -660,9 +660,9 @@ INSERT INTO awscc.codepipeline.pipelines (
  RoleArn,
  region
 )
-SELECT 
-'{{ Stages }}',
- '{{ RoleArn }}',
+SELECT
+'{{ stages }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -685,19 +685,19 @@ INSERT INTO awscc.codepipeline.pipelines (
  Tags,
  region
 )
-SELECT 
- '{{ ArtifactStores }}',
- '{{ DisableInboundStageTransitions }}',
- '{{ Stages }}',
- '{{ ExecutionMode }}',
- '{{ RestartExecutionOnUpdate }}',
- '{{ Triggers }}',
- '{{ RoleArn }}',
- '{{ Name }}',
- '{{ Variables }}',
- '{{ ArtifactStore }}',
- '{{ PipelineType }}',
- '{{ Tags }}',
+SELECT
+ '{{ artifact_stores }}',
+ '{{ disable_inbound_stage_transitions }}',
+ '{{ stages }}',
+ '{{ execution_mode }}',
+ '{{ restart_execution_on_update }}',
+ '{{ triggers }}',
+ '{{ role_arn }}',
+ '{{ name }}',
+ '{{ variables }}',
+ '{{ artifact_store }}',
+ '{{ pipeline_type }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -715,126 +715,125 @@ globals:
 resources:
   - name: pipeline
     props:
-      - name: ArtifactStores
+      - name: artifact_stores
         value:
-          - ArtifactStore:
-              Type: '{{ Type }}'
-              EncryptionKey:
-                Type: '{{ Type }}'
-                Id: '{{ Id }}'
-              Location: '{{ Location }}'
-            Region: '{{ Region }}'
-      - name: DisableInboundStageTransitions
+          - artifact_store:
+              type: '{{ type }}'
+              encryption_key:
+                type: '{{ type }}'
+                id: '{{ id }}'
+              location: '{{ location }}'
+            region: '{{ region }}'
+      - name: disable_inbound_stage_transitions
         value:
-          - StageName: '{{ StageName }}'
-            Reason: '{{ Reason }}'
-      - name: Stages
+          - stage_name: '{{ stage_name }}'
+            reason: '{{ reason }}'
+      - name: stages
         value:
-          - Blockers:
-              - Name: '{{ Name }}'
-                Type: '{{ Type }}'
-            Actions:
-              - ActionTypeId:
-                  Owner: '{{ Owner }}'
-                  Category: '{{ Category }}'
-                  Version: '{{ Version }}'
-                  Provider: '{{ Provider }}'
-                Configuration: {}
-                InputArtifacts:
-                  - Name: '{{ Name }}'
-                OutputArtifacts:
-                  - Name: '{{ Name }}'
-                    Files:
-                      - '{{ Files[0] }}'
-                Commands:
-                  - '{{ Commands[0] }}'
-                OutputVariables:
-                  - '{{ OutputVariables[0] }}'
-                EnvironmentVariables:
-                  - Name: '{{ Name }}'
-                    Value: '{{ Value }}'
-                    Type: '{{ Type }}'
-                Region: '{{ Region }}'
-                Namespace: '{{ Namespace }}'
-                RoleArn: '{{ RoleArn }}'
-                RunOrder: '{{ RunOrder }}'
-                Name: '{{ Name }}'
-                TimeoutInMinutes: '{{ TimeoutInMinutes }}'
-            Name: '{{ Name }}'
-            OnFailure:
-              Result: '{{ Result }}'
-              RetryConfiguration:
-                RetryMode: '{{ RetryMode }}'
-              Conditions:
-                - Result: '{{ Result }}'
-                  Rules:
-                    - RuleTypeId:
-                        Owner: '{{ Owner }}'
-                        Category: '{{ Category }}'
-                        Version: '{{ Version }}'
-                        Provider: '{{ Provider }}'
-                      Configuration: {}
-                      Commands:
-                        - '{{ Commands[0] }}'
-                      InputArtifacts:
+          - blockers:
+              - name: '{{ name }}'
+                type: '{{ type }}'
+            actions:
+              - action_type_id:
+                  owner: '{{ owner }}'
+                  category: '{{ category }}'
+                  version: '{{ version }}'
+                  provider: '{{ provider }}'
+                configuration: {}
+                input_artifacts:
+                  - name: '{{ name }}'
+                output_artifacts:
+                  - name: '{{ name }}'
+                    files:
+                      - '{{ files[0] }}'
+                commands:
+                  - '{{ commands[0] }}'
+                output_variables:
+                  - '{{ output_variables[0] }}'
+                environment_variables:
+                  - name: '{{ name }}'
+                    value: '{{ value }}'
+                    type: '{{ type }}'
+                region: '{{ region }}'
+                namespace: '{{ namespace }}'
+                role_arn: '{{ role_arn }}'
+                run_order: '{{ run_order }}'
+                name: '{{ name }}'
+                timeout_in_minutes: '{{ timeout_in_minutes }}'
+            name: '{{ name }}'
+            on_failure:
+              result: '{{ result }}'
+              retry_configuration:
+                retry_mode: '{{ retry_mode }}'
+              conditions:
+                - result: '{{ result }}'
+                  rules:
+                    - rule_type_id:
+                        owner: '{{ owner }}'
+                        category: '{{ category }}'
+                        version: '{{ version }}'
+                        provider: '{{ provider }}'
+                      configuration: {}
+                      commands:
+                        - '{{ commands[0] }}'
+                      input_artifacts:
                         - null
-                      Region: '{{ Region }}'
-                      RoleArn: '{{ RoleArn }}'
-                      Name: '{{ Name }}'
-            OnSuccess:
-              Conditions:
+                      region: '{{ region }}'
+                      role_arn: '{{ role_arn }}'
+                      name: '{{ name }}'
+            on_success:
+              conditions:
                 - null
-            BeforeEntry:
-              Conditions:
+            before_entry:
+              conditions:
                 - null
-      - name: ExecutionMode
-        value: '{{ ExecutionMode }}'
-      - name: RestartExecutionOnUpdate
-        value: '{{ RestartExecutionOnUpdate }}'
-      - name: Triggers
+      - name: execution_mode
+        value: '{{ execution_mode }}'
+      - name: restart_execution_on_update
+        value: '{{ restart_execution_on_update }}'
+      - name: triggers
         value:
-          - GitConfiguration:
-              Push:
-                - FilePaths:
-                    Includes:
-                      - '{{ Includes[0] }}'
-                    Excludes:
-                      - '{{ Excludes[0] }}'
-                  Branches:
-                    Includes:
-                      - '{{ Includes[0] }}'
-                    Excludes:
-                      - '{{ Excludes[0] }}'
-                  Tags:
-                    Includes:
-                      - '{{ Includes[0] }}'
-                    Excludes:
-                      - '{{ Excludes[0] }}'
-              SourceActionName: '{{ SourceActionName }}'
-              PullRequest:
-                - FilePaths: null
-                  Events:
-                    - '{{ Events[0] }}'
-                  Branches: null
-            ProviderType: '{{ ProviderType }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Variables
+          - git_configuration:
+              push:
+                - file_paths:
+                    includes:
+                      - '{{ includes[0] }}'
+                    excludes:
+                      - '{{ excludes[0] }}'
+                  branches:
+                    includes:
+                      - '{{ includes[0] }}'
+                    excludes:
+                      - '{{ excludes[0] }}'
+                  tags:
+                    includes:
+                      - '{{ includes[0] }}'
+                    excludes:
+                      - '{{ excludes[0] }}'
+              source_action_name: '{{ source_action_name }}'
+              pull_request:
+                - file_paths: null
+                  events:
+                    - '{{ events[0] }}'
+                  branches: null
+            provider_type: '{{ provider_type }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: variables
         value:
-          - DefaultValue: '{{ DefaultValue }}'
-            Description: '{{ Description }}'
-            Name: '{{ Name }}'
-      - name: ArtifactStore
+          - default_value: '{{ default_value }}'
+            description: '{{ description }}'
+            name: '{{ name }}'
+      - name: artifact_store
         value: null
-      - name: PipelineType
-        value: '{{ PipelineType }}'
-      - name: Tags
+      - name: pipeline_type
+        value: '{{ pipeline_type }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -860,7 +859,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -869,7 +868,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.pipelines
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

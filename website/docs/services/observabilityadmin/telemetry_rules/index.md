@@ -227,7 +227,7 @@ rule,
 rule_arn,
 tags
 FROM awscc.observabilityadmin.telemetry_rules
-WHERE region = 'us-east-1' AND Identifier = '<RuleArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ rule_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -264,9 +264,9 @@ INSERT INTO awscc.observabilityadmin.telemetry_rules (
  Rule,
  region
 )
-SELECT 
-'{{ RuleName }}',
- '{{ Rule }}',
+SELECT
+'{{ rule_name }}',
+ '{{ rule }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -280,10 +280,10 @@ INSERT INTO awscc.observabilityadmin.telemetry_rules (
  Tags,
  region
 )
-SELECT 
- '{{ RuleName }}',
- '{{ Rule }}',
- '{{ Tags }}',
+SELECT
+ '{{ rule_name }}',
+ '{{ rule }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -301,19 +301,18 @@ globals:
 resources:
   - name: telemetry_rule
     props:
-      - name: RuleName
-        value: '{{ RuleName }}'
-      - name: Rule
+      - name: rule_name
+        value: '{{ rule_name }}'
+      - name: rule
         value:
-          RuleName: '{{ RuleName }}'
-          Rule: null
-          Tags:
-            - Key: '{{ Key }}'
-              Value: '{{ Value }}'
-      - name: Tags
+          rule_name: '{{ rule_name }}'
+          rule: null
+          tags:
+            - key: '{{ key }}'
+              value: '{{ value }}'
+      - name: tags
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -330,7 +329,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<RuleArn>';
+AND Identifier = '{{ rule_arn }}';
 ```
 
 
@@ -339,7 +338,7 @@ AND Identifier = '<RuleArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.observabilityadmin.telemetry_rules
-WHERE Identifier = '<RuleArn>'
+WHERE Identifier = '{{ rule_arn }}'
 AND region = 'us-east-1';
 ```
 

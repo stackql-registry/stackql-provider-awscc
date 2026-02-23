@@ -145,7 +145,7 @@ region,
 dhcp_options_id,
 vpc_id
 FROM awscc.ec2.vpcdhcp_options_associations
-WHERE region = 'us-east-1' AND Identifier = '<DhcpOptionsId>|<VpcId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ dhcp_options_id }}|{{ vpc_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.ec2.vpcdhcp_options_associations (
  VpcId,
  region
 )
-SELECT 
-'{{ DhcpOptionsId }}',
- '{{ VpcId }}',
+SELECT
+'{{ dhcp_options_id }}',
+ '{{ vpc_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -198,9 +198,9 @@ INSERT INTO awscc.ec2.vpcdhcp_options_associations (
  VpcId,
  region
 )
-SELECT 
- '{{ DhcpOptionsId }}',
- '{{ VpcId }}',
+SELECT
+ '{{ dhcp_options_id }}',
+ '{{ vpc_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,10 @@ globals:
 resources:
   - name: vpcdhcp_options_association
     props:
-      - name: DhcpOptionsId
-        value: '{{ DhcpOptionsId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-
+      - name: dhcp_options_id
+        value: '{{ dhcp_options_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +232,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.vpcdhcp_options_associations
-WHERE Identifier = '<DhcpOptionsId|VpcId>'
+WHERE Identifier = '{{ dhcp_options_id }}|{{ vpc_id }}'
 AND region = 'us-east-1';
 ```
 

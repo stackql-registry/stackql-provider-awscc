@@ -152,7 +152,7 @@ type_name,
 arn,
 type_version_arn
 FROM awscc.cloudformation.resource_default_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.cloudformation.resource_default_versions (
  TypeVersionArn,
  region
 )
-SELECT 
-'{{ VersionId }}',
- '{{ TypeName }}',
- '{{ TypeVersionArn }}',
+SELECT
+'{{ version_id }}',
+ '{{ type_name }}',
+ '{{ type_version_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.cloudformation.resource_default_versions (
  TypeVersionArn,
  region
 )
-SELECT 
- '{{ VersionId }}',
- '{{ TypeName }}',
- '{{ TypeVersionArn }}',
+SELECT
+ '{{ version_id }}',
+ '{{ type_name }}',
+ '{{ type_version_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: resource_default_version
     props:
-      - name: VersionId
-        value: '{{ VersionId }}'
-      - name: TypeName
-        value: '{{ TypeName }}'
-      - name: TypeVersionArn
-        value: '{{ TypeVersionArn }}'
-
+      - name: version_id
+        value: '{{ version_id }}'
+      - name: type_name
+        value: '{{ type_name }}'
+      - name: type_version_arn
+        value: '{{ type_version_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ SET PatchDocument = string('{{ {
     "TypeVersionArn": type_version_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -261,7 +260,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudformation.resource_default_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

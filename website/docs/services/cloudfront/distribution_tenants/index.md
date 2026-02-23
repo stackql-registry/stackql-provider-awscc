@@ -325,7 +325,7 @@ e_tag,
 domains,
 managed_certificate_request
 FROM awscc.cloudfront.distribution_tenants
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -336,7 +336,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.distribution_tenants_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -363,10 +363,10 @@ INSERT INTO awscc.cloudfront.distribution_tenants (
  Domains,
  region
 )
-SELECT 
-'{{ DistributionId }}',
- '{{ Name }}',
- '{{ Domains }}',
+SELECT
+'{{ distribution_id }}',
+ '{{ name }}',
+ '{{ domains }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -386,16 +386,16 @@ INSERT INTO awscc.cloudfront.distribution_tenants (
  ManagedCertificateRequest,
  region
 )
-SELECT 
- '{{ DistributionId }}',
- '{{ Name }}',
- '{{ Tags }}',
- '{{ Customizations }}',
- '{{ Parameters }}',
- '{{ ConnectionGroupId }}',
- '{{ Enabled }}',
- '{{ Domains }}',
- '{{ ManagedCertificateRequest }}',
+SELECT
+ '{{ distribution_id }}',
+ '{{ name }}',
+ '{{ tags }}',
+ '{{ customizations }}',
+ '{{ parameters }}',
+ '{{ connection_group_id }}',
+ '{{ enabled }}',
+ '{{ domains }}',
+ '{{ managed_certificate_request }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -413,42 +413,41 @@ globals:
 resources:
   - name: distribution_tenant
     props:
-      - name: DistributionId
-        value: '{{ DistributionId }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: distribution_id
+        value: '{{ distribution_id }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Customizations
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: customizations
         value:
-          WebAcl:
-            Action: '{{ Action }}'
-            Arn: '{{ Arn }}'
-          Certificate:
-            Arn: '{{ Arn }}'
-          GeoRestrictions:
-            RestrictionType: '{{ RestrictionType }}'
-            Locations:
-              - '{{ Locations[0] }}'
-      - name: Parameters
+          web_acl:
+            action: '{{ action }}'
+            arn: '{{ arn }}'
+          certificate:
+            arn: '{{ arn }}'
+          geo_restrictions:
+            restriction_type: '{{ restriction_type }}'
+            locations:
+              - '{{ locations[0] }}'
+      - name: parameters
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-      - name: ConnectionGroupId
-        value: '{{ ConnectionGroupId }}'
-      - name: Enabled
-        value: '{{ Enabled }}'
-      - name: Domains
+          - name: '{{ name }}'
+            value: '{{ value }}'
+      - name: connection_group_id
+        value: '{{ connection_group_id }}'
+      - name: enabled
+        value: '{{ enabled }}'
+      - name: domains
         value:
-          - '{{ Domains[0] }}'
-      - name: ManagedCertificateRequest
+          - '{{ domains[0] }}'
+      - name: managed_certificate_request
         value:
-          ValidationTokenHost: '{{ ValidationTokenHost }}'
-          PrimaryDomainName: '{{ PrimaryDomainName }}'
-          CertificateTransparencyLoggingPreference: '{{ CertificateTransparencyLoggingPreference }}'
-
+          validation_token_host: '{{ validation_token_host }}'
+          primary_domain_name: '{{ primary_domain_name }}'
+          certificate_transparency_logging_preference: '{{ certificate_transparency_logging_preference }}'
 ```
 </TabItem>
 </Tabs>
@@ -471,7 +470,7 @@ SET PatchDocument = string('{{ {
     "ManagedCertificateRequest": managed_certificate_request
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -480,7 +479,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.distribution_tenants
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

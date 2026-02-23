@@ -180,7 +180,7 @@ a_iprompt_version_id,
 version_number,
 modified_time_seconds
 FROM awscc.wisdom.ai_prompt_versions
-WHERE region = 'us-east-1' AND Identifier = '<AssistantId>|<AIPromptId>|<VersionNumber>';
+WHERE region = 'us-east-1' AND Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,9 +219,9 @@ INSERT INTO awscc.wisdom.ai_prompt_versions (
  AssistantId,
  region
 )
-SELECT 
-'{{ AIPromptId }}',
- '{{ AssistantId }}',
+SELECT
+'{{ a_iprompt_id }}',
+ '{{ assistant_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,10 +235,10 @@ INSERT INTO awscc.wisdom.ai_prompt_versions (
  ModifiedTimeSeconds,
  region
 )
-SELECT 
- '{{ AIPromptId }}',
- '{{ AssistantId }}',
- '{{ ModifiedTimeSeconds }}',
+SELECT
+ '{{ a_iprompt_id }}',
+ '{{ assistant_id }}',
+ '{{ modified_time_seconds }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,13 +256,12 @@ globals:
 resources:
   - name: ai_prompt_version
     props:
-      - name: AIPromptId
-        value: '{{ AIPromptId }}'
-      - name: AssistantId
-        value: '{{ AssistantId }}'
-      - name: ModifiedTimeSeconds
+      - name: a_iprompt_id
+        value: '{{ a_iprompt_id }}'
+      - name: assistant_id
+        value: '{{ assistant_id }}'
+      - name: modified_time_seconds
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -273,7 +272,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.ai_prompt_versions
-WHERE Identifier = '<AssistantId|AIPromptId|VersionNumber>'
+WHERE Identifier = '{{ assistant_id }}|{{ a_iprompt_id }}|{{ version_number }}'
 AND region = 'us-east-1';
 ```
 

@@ -211,7 +211,7 @@ request_parameters,
 target,
 authorizer_id
 FROM awscc.apigatewayv2.routes
-WHERE region = 'us-east-1' AND Identifier = '<ApiId>|<RouteId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_id }}|{{ route_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -249,9 +249,9 @@ INSERT INTO awscc.apigatewayv2.routes (
  ApiId,
  region
 )
-SELECT 
-'{{ RouteKey }}',
- '{{ ApiId }}',
+SELECT
+'{{ route_key }}',
+ '{{ api_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -274,19 +274,19 @@ INSERT INTO awscc.apigatewayv2.routes (
  AuthorizerId,
  region
 )
-SELECT 
- '{{ RouteResponseSelectionExpression }}',
- '{{ RequestModels }}',
- '{{ OperationName }}',
- '{{ AuthorizationScopes }}',
- '{{ ApiKeyRequired }}',
- '{{ RouteKey }}',
- '{{ AuthorizationType }}',
- '{{ ModelSelectionExpression }}',
- '{{ ApiId }}',
- '{{ RequestParameters }}',
- '{{ Target }}',
- '{{ AuthorizerId }}',
+SELECT
+ '{{ route_response_selection_expression }}',
+ '{{ request_models }}',
+ '{{ operation_name }}',
+ '{{ authorization_scopes }}',
+ '{{ api_key_required }}',
+ '{{ route_key }}',
+ '{{ authorization_type }}',
+ '{{ model_selection_expression }}',
+ '{{ api_id }}',
+ '{{ request_parameters }}',
+ '{{ target }}',
+ '{{ authorizer_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -304,32 +304,31 @@ globals:
 resources:
   - name: route
     props:
-      - name: RouteResponseSelectionExpression
-        value: '{{ RouteResponseSelectionExpression }}'
-      - name: RequestModels
+      - name: route_response_selection_expression
+        value: '{{ route_response_selection_expression }}'
+      - name: request_models
         value: {}
-      - name: OperationName
-        value: '{{ OperationName }}'
-      - name: AuthorizationScopes
+      - name: operation_name
+        value: '{{ operation_name }}'
+      - name: authorization_scopes
         value:
-          - '{{ AuthorizationScopes[0] }}'
-      - name: ApiKeyRequired
-        value: '{{ ApiKeyRequired }}'
-      - name: RouteKey
-        value: '{{ RouteKey }}'
-      - name: AuthorizationType
-        value: '{{ AuthorizationType }}'
-      - name: ModelSelectionExpression
-        value: '{{ ModelSelectionExpression }}'
-      - name: ApiId
-        value: '{{ ApiId }}'
-      - name: RequestParameters
+          - '{{ authorization_scopes[0] }}'
+      - name: api_key_required
+        value: '{{ api_key_required }}'
+      - name: route_key
+        value: '{{ route_key }}'
+      - name: authorization_type
+        value: '{{ authorization_type }}'
+      - name: model_selection_expression
+        value: '{{ model_selection_expression }}'
+      - name: api_id
+        value: '{{ api_id }}'
+      - name: request_parameters
         value: {}
-      - name: Target
-        value: '{{ Target }}'
-      - name: AuthorizerId
-        value: '{{ AuthorizerId }}'
-
+      - name: target
+        value: '{{ target }}'
+      - name: authorizer_id
+        value: '{{ authorizer_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -355,7 +354,7 @@ SET PatchDocument = string('{{ {
     "AuthorizerId": authorizer_id
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiId>|<RouteId>';
+AND Identifier = '{{ api_id }}|{{ route_id }}';
 ```
 
 
@@ -364,7 +363,7 @@ AND Identifier = '<ApiId>|<RouteId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.apigatewayv2.routes
-WHERE Identifier = '<ApiId|RouteId>'
+WHERE Identifier = '{{ api_id }}|{{ route_id }}'
 AND region = 'us-east-1';
 ```
 

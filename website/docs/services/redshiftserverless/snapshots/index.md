@@ -235,7 +235,7 @@ retention_period,
 tags,
 snapshot
 FROM awscc.redshiftserverless.snapshots
-WHERE region = 'us-east-1' AND Identifier = '<SnapshotName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ snapshot_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -271,8 +271,8 @@ INSERT INTO awscc.redshiftserverless.snapshots (
  SnapshotName,
  region
 )
-SELECT 
-'{{ SnapshotName }}',
+SELECT
+'{{ snapshot_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,11 +287,11 @@ INSERT INTO awscc.redshiftserverless.snapshots (
  Tags,
  region
 )
-SELECT 
- '{{ SnapshotName }}',
- '{{ NamespaceName }}',
- '{{ RetentionPeriod }}',
- '{{ Tags }}',
+SELECT
+ '{{ snapshot_name }}',
+ '{{ namespace_name }}',
+ '{{ retention_period }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,17 +309,16 @@ globals:
 resources:
   - name: snapshot
     props:
-      - name: SnapshotName
-        value: '{{ SnapshotName }}'
-      - name: NamespaceName
-        value: '{{ NamespaceName }}'
-      - name: RetentionPeriod
-        value: '{{ RetentionPeriod }}'
-      - name: Tags
+      - name: snapshot_name
+        value: '{{ snapshot_name }}'
+      - name: namespace_name
+        value: '{{ namespace_name }}'
+      - name: retention_period
+        value: '{{ retention_period }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -335,7 +334,7 @@ SET PatchDocument = string('{{ {
     "RetentionPeriod": retention_period
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SnapshotName>';
+AND Identifier = '{{ snapshot_name }}';
 ```
 
 
@@ -344,7 +343,7 @@ AND Identifier = '<SnapshotName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshiftserverless.snapshots
-WHERE Identifier = '<SnapshotName>'
+WHERE Identifier = '{{ snapshot_name }}'
 AND region = 'us-east-1';
 ```
 

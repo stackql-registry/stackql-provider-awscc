@@ -183,7 +183,7 @@ tags,
 name,
 capacity_units
 FROM awscc.kendraranking.execution_plans
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,8 +219,8 @@ INSERT INTO awscc.kendraranking.execution_plans (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -235,11 +235,11 @@ INSERT INTO awscc.kendraranking.execution_plans (
  CapacityUnits,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Tags }}',
- '{{ Name }}',
- '{{ CapacityUnits }}',
+SELECT
+ '{{ description }}',
+ '{{ tags }}',
+ '{{ name }}',
+ '{{ capacity_units }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -257,18 +257,17 @@ globals:
 resources:
   - name: execution_plan
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: CapacityUnits
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: name
+        value: '{{ name }}'
+      - name: capacity_units
         value:
-          RescoreCapacityUnits: '{{ RescoreCapacityUnits }}'
-
+          rescore_capacity_units: '{{ rescore_capacity_units }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "CapacityUnits": capacity_units
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.kendraranking.execution_plans
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

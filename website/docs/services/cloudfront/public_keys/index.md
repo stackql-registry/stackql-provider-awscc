@@ -168,7 +168,7 @@ created_time,
 id,
 public_key_config
 FROM awscc.cloudfront.public_keys
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -179,7 +179,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.public_keys_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -204,8 +204,8 @@ INSERT INTO awscc.cloudfront.public_keys (
  PublicKeyConfig,
  region
 )
-SELECT 
-'{{ PublicKeyConfig }}',
+SELECT
+'{{ public_key_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -217,8 +217,8 @@ INSERT INTO awscc.cloudfront.public_keys (
  PublicKeyConfig,
  region
 )
-SELECT 
- '{{ PublicKeyConfig }}',
+SELECT
+ '{{ public_key_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -236,13 +236,12 @@ globals:
 resources:
   - name: public_key
     props:
-      - name: PublicKeyConfig
+      - name: public_key_config
         value:
-          CallerReference: '{{ CallerReference }}'
-          Comment: '{{ Comment }}'
-          EncodedKey: '{{ EncodedKey }}'
-          Name: '{{ Name }}'
-
+          caller_reference: '{{ caller_reference }}'
+          comment: '{{ comment }}'
+          encoded_key: '{{ encoded_key }}'
+          name: '{{ name }}'
 ```
 </TabItem>
 </Tabs>
@@ -258,7 +257,7 @@ SET PatchDocument = string('{{ {
     "PublicKeyConfig": public_key_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -267,7 +266,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.public_keys
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

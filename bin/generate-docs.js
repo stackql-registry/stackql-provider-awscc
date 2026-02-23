@@ -207,7 +207,7 @@ function createDeleteExample(serviceName, resourceName, resourceData, thisSchema
 ${sqlCodeBlockStart}
 /*+ delete */
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
-WHERE Identifier = '<${resourceData['x-identifiers'].join('|')}>'
+WHERE Identifier = '${resourceData['x-identifiers'].map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|')}'
 AND region = 'us-east-1';
 ${codeBlockEnd}
 `;
@@ -230,7 +230,7 @@ function createUpdateExample(serviceName, resourceName, resourceData, thisSchema
     }
 
     const patchFields = updatableProps.map(p => `    "${p}": ${toSnakeCase(fixCamelCaseIssues(p))}`).join(',\n');
-    const identifierValues = (resourceData['x-identifiers'] || []).map(id => `<${id}>`).join('|');
+    const identifierValues = (resourceData['x-identifiers'] || []).map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|');
 
     return `\n## ${mdCodeAnchor}UPDATE${mdCodeAnchor} example
 
@@ -320,14 +320,15 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
     
     function templateObjectValues(obj) {
         const templatedObj = JSON.parse(JSON.stringify(obj), (key, value) => {
+            const snakeKey = key ? toSnakeCase(fixCamelCaseIssues(key)) : key;
             if (typeof value === 'string') {
-                return `{{ ${key} }}`;
+                return `{{ ${snakeKey} }}`;
             }
             if (typeof value === 'boolean' || typeof value === 'number') {
-                return `{{ ${key} }}`;
+                return `{{ ${snakeKey} }}`;
             }
             if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
-                return [`{{ ${key}[0] }}`];
+                return [`{{ ${snakeKey}[0] }}`];
             }
             return value;
         });
@@ -350,13 +351,13 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
 
       function transformDataToResource(templateData, resourceName, isRoot = true) {
         if (!templateData) return null;
-    
+
         if (isRoot) {
             // If it's the root object, return a structured resource
             return {
                 name: `${pluralize.singular(resourceName)}`,
                 props: Object.entries(templateData).map(([key, value]) => ({
-                    name: key,
+                    name: toSnakeCase(fixCamelCaseIssues(key)),
                     value: transformDataToResource(value, resourceName, false)
                 }))
             };
@@ -367,7 +368,7 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
             // For object values, recursively call transformation for each property
             const transformedObject = {};
             for (const [key, value] of Object.entries(templateData)) {
-                transformedObject[key] = transformDataToResource(value, resourceName, false);
+                transformedObject[toSnakeCase(fixCamelCaseIssues(key))] = transformDataToResource(value, resourceName, false);
             }
             return transformedObject;
         } else {
@@ -377,6 +378,11 @@ function createInsertExample(serviceName, resourceName, resourceData, thisSchema
     };
 
     templateObject.resources.push(transformDataToResource(templateObjectValues(resolveType(thisSchema, false)), resourceName));
+
+    const requiredKeys = getObjectDetails(resolveType(thisSchema, true), 'keys');
+    const allKeys = getObjectDetails(resolveType(thisSchema, false), 'keys');
+    const requiredSnakeKeys = requiredKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
+    const allSnakeKeys = allKeys.map(k => toSnakeCase(fixCamelCaseIssues(k)));
 
     return `\n## ${mdCodeAnchor}INSERT${mdCodeAnchor} example
 
@@ -395,11 +401,11 @@ Use the following StackQL query and manifest file to create a new <code>${plural
 ${sqlCodeBlockStart}
 /*+ create */
 INSERT INTO ${providerName}.${serviceName}.${resourceName} (
- ${getObjectDetails(resolveType(thisSchema, true), 'keys').join(",\n ")},
+ ${requiredKeys.join(",\n ")},
  region
 )
-SELECT 
-'{{ ${getObjectDetails(resolveType(thisSchema, true), 'keys').join(" }}',\n '{{ ")} }}',
+SELECT
+'{{ ${requiredSnakeKeys.join(" }}',\n '{{ ")} }}',
 '{{ region }}';
 ${codeBlockEnd}
 </TabItem>
@@ -408,18 +414,18 @@ ${codeBlockEnd}
 ${sqlCodeBlockStart}
 /*+ create */
 INSERT INTO ${providerName}.${serviceName}.${resourceName} (
- ${getObjectDetails(resolveType(thisSchema, false), 'keys').join(",\n ")},
+ ${allKeys.join(",\n ")},
  region
 )
-SELECT 
- '{{ ${getObjectDetails(resolveType(thisSchema, false), 'keys').join(" }}',\n '{{ ")} }}',
+SELECT
+ '{{ ${allSnakeKeys.join(" }}',\n '{{ ")} }}',
  '{{ region }}';
 ${codeBlockEnd}
 </TabItem>
 <TabItem value="manifest">
 
 ${yamlCodeBlockStart}
-${yaml.dump(templateObject)}
+${yaml.dump(templateObject, { lineWidth: -1 }).trimEnd()}
 ${codeBlockEnd}
 </TabItem>
 </Tabs>`;
@@ -454,8 +460,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
     const sqlExampleSelect = `SELECT`;
     const sqlExampleFrom = `FROM ${providerName}.${serviceName}.${resourceName}`;
 
-    const globalServices = ['iam', 'route53', 'cloudfront', 'wafv2', 'shield', 'globalaccelerator'];
-    sqlExampleWhere = globalServices.includes(serviceName) ? "" : "WHERE region = 'us-east-1'";
+    sqlExampleWhere = "WHERE region = 'us-east-1'";
   
     let fields = resourceIdentifiers;
 
@@ -664,11 +669,11 @@ ${tabItems}
             });
         }
 
-        const identifierValues = resourceIdentifiers.map(id => `<${id}>`).join('|');
+        const identifierValues = resourceIdentifiers.map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|');
         const identifierClause = `Identifier = '${identifierValues}'`;
 
         sqlExampleListWhere = `${sqlExampleWhere};`;
-        globalServices.includes(serviceName) ? sqlExampleGetWhere = `WHERE ${identifierClause};`: sqlExampleGetWhere = `${sqlExampleWhere} AND ${identifierClause};`;
+        sqlExampleGetWhere = `${sqlExampleWhere} AND ${identifierClause};`;
 
     }
    

@@ -249,7 +249,7 @@ shortcut_key,
 status,
 tags
 FROM awscc.wisdom.quick_responses
-WHERE region = 'us-east-1' AND Identifier = '<QuickResponseArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ quick_response_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,10 +287,10 @@ INSERT INTO awscc.wisdom.quick_responses (
  Content,
  region
 )
-SELECT 
-'{{ KnowledgeBaseArn }}',
- '{{ Name }}',
- '{{ Content }}',
+SELECT
+'{{ knowledge_base_arn }}',
+ '{{ name }}',
+ '{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -312,18 +312,18 @@ INSERT INTO awscc.wisdom.quick_responses (
  Tags,
  region
 )
-SELECT 
- '{{ ContentType }}',
- '{{ KnowledgeBaseArn }}',
- '{{ Name }}',
- '{{ Channels }}',
- '{{ Content }}',
- '{{ Description }}',
- '{{ GroupingConfiguration }}',
- '{{ IsActive }}',
- '{{ Language }}',
- '{{ ShortcutKey }}',
- '{{ Tags }}',
+SELECT
+ '{{ content_type }}',
+ '{{ knowledge_base_arn }}',
+ '{{ name }}',
+ '{{ channels }}',
+ '{{ content }}',
+ '{{ description }}',
+ '{{ grouping_configuration }}',
+ '{{ is_active }}',
+ '{{ language }}',
+ '{{ shortcut_key }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -341,36 +341,35 @@ globals:
 resources:
   - name: quick_response
     props:
-      - name: ContentType
-        value: '{{ ContentType }}'
-      - name: KnowledgeBaseArn
-        value: '{{ KnowledgeBaseArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Channels
+      - name: content_type
+        value: '{{ content_type }}'
+      - name: knowledge_base_arn
+        value: '{{ knowledge_base_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: channels
         value:
-          - '{{ Channels[0] }}'
-      - name: Content
+          - '{{ channels[0] }}'
+      - name: content
         value:
-          Content: '{{ Content }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: GroupingConfiguration
+          content: '{{ content }}'
+      - name: description
+        value: '{{ description }}'
+      - name: grouping_configuration
         value:
-          Criteria: '{{ Criteria }}'
-          Values:
-            - '{{ Values[0] }}'
-      - name: IsActive
-        value: '{{ IsActive }}'
-      - name: Language
-        value: '{{ Language }}'
-      - name: ShortcutKey
-        value: '{{ ShortcutKey }}'
-      - name: Tags
+          criteria: '{{ criteria }}'
+          values:
+            - '{{ values[0] }}'
+      - name: is_active
+        value: '{{ is_active }}'
+      - name: language
+        value: '{{ language }}'
+      - name: shortcut_key
+        value: '{{ shortcut_key }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -395,7 +394,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QuickResponseArn>';
+AND Identifier = '{{ quick_response_arn }}';
 ```
 
 
@@ -404,7 +403,7 @@ AND Identifier = '<QuickResponseArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.quick_responses
-WHERE Identifier = '<QuickResponseArn>'
+WHERE Identifier = '{{ quick_response_arn }}'
 AND region = 'us-east-1';
 ```
 

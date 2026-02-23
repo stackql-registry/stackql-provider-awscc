@@ -570,7 +570,7 @@ updated_at,
 storage_configuration,
 tags
 FROM awscc.bedrock.knowledge_bases
-WHERE region = 'us-east-1' AND Identifier = '<KnowledgeBaseId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -608,10 +608,10 @@ INSERT INTO awscc.bedrock.knowledge_bases (
  RoleArn,
  region
 )
-SELECT 
-'{{ KnowledgeBaseConfiguration }}',
- '{{ Name }}',
- '{{ RoleArn }}',
+SELECT
+'{{ knowledge_base_configuration }}',
+ '{{ name }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -628,13 +628,13 @@ INSERT INTO awscc.bedrock.knowledge_bases (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ KnowledgeBaseConfiguration }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ StorageConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ knowledge_base_configuration }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ storage_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -652,121 +652,120 @@ globals:
 resources:
   - name: knowledge_base
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: KnowledgeBaseConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: knowledge_base_configuration
         value:
-          Type: '{{ Type }}'
-          VectorKnowledgeBaseConfiguration:
-            EmbeddingModelArn: '{{ EmbeddingModelArn }}'
-            EmbeddingModelConfiguration:
-              BedrockEmbeddingModelConfiguration:
-                Dimensions: '{{ Dimensions }}'
-                EmbeddingDataType: '{{ EmbeddingDataType }}'
-            SupplementalDataStorageConfiguration:
-              SupplementalDataStorageLocations:
-                - SupplementalDataStorageLocationType: '{{ SupplementalDataStorageLocationType }}'
-                  S3Location:
-                    URI: '{{ URI }}'
-          KendraKnowledgeBaseConfiguration:
-            KendraIndexArn: '{{ KendraIndexArn }}'
-          SqlKnowledgeBaseConfiguration:
-            Type: '{{ Type }}'
-            RedshiftConfiguration:
-              StorageConfigurations:
-                - Type: '{{ Type }}'
-                  AwsDataCatalogConfiguration:
-                    TableNames:
-                      - '{{ TableNames[0] }}'
-                  RedshiftConfiguration:
-                    DatabaseName: '{{ DatabaseName }}'
-              QueryEngineConfiguration:
-                Type: '{{ Type }}'
-                ServerlessConfiguration:
-                  WorkgroupArn: '{{ WorkgroupArn }}'
-                  AuthConfiguration:
-                    Type: '{{ Type }}'
-                    UsernamePasswordSecretArn: '{{ UsernamePasswordSecretArn }}'
-                ProvisionedConfiguration:
-                  ClusterIdentifier: '{{ ClusterIdentifier }}'
-                  AuthConfiguration:
-                    Type: '{{ Type }}'
-                    DatabaseUser: '{{ DatabaseUser }}'
-                    UsernamePasswordSecretArn: null
-              QueryGenerationConfiguration:
-                ExecutionTimeoutSeconds: '{{ ExecutionTimeoutSeconds }}'
-                GenerationContext:
-                  Tables:
-                    - Name: '{{ Name }}'
-                      Description: '{{ Description }}'
-                      Inclusion: '{{ Inclusion }}'
-                      Columns:
-                        - Name: '{{ Name }}'
-                          Description: null
-                          Inclusion: null
-                  CuratedQueries:
-                    - NaturalLanguage: '{{ NaturalLanguage }}'
-                      Sql: '{{ Sql }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: StorageConfiguration
+          type: '{{ type }}'
+          vector_knowledge_base_configuration:
+            embedding_model_arn: '{{ embedding_model_arn }}'
+            embedding_model_configuration:
+              bedrock_embedding_model_configuration:
+                dimensions: '{{ dimensions }}'
+                embedding_data_type: '{{ embedding_data_type }}'
+            supplemental_data_storage_configuration:
+              supplemental_data_storage_locations:
+                - supplemental_data_storage_location_type: '{{ supplemental_data_storage_location_type }}'
+                  s3_location:
+                    uri: '{{ uri }}'
+          kendra_knowledge_base_configuration:
+            kendra_index_arn: '{{ kendra_index_arn }}'
+          sql_knowledge_base_configuration:
+            type: '{{ type }}'
+            redshift_configuration:
+              storage_configurations:
+                - type: '{{ type }}'
+                  aws_data_catalog_configuration:
+                    table_names:
+                      - '{{ table_names[0] }}'
+                  redshift_configuration:
+                    database_name: '{{ database_name }}'
+              query_engine_configuration:
+                type: '{{ type }}'
+                serverless_configuration:
+                  workgroup_arn: '{{ workgroup_arn }}'
+                  auth_configuration:
+                    type: '{{ type }}'
+                    username_password_secret_arn: '{{ username_password_secret_arn }}'
+                provisioned_configuration:
+                  cluster_identifier: '{{ cluster_identifier }}'
+                  auth_configuration:
+                    type: '{{ type }}'
+                    database_user: '{{ database_user }}'
+                    username_password_secret_arn: null
+              query_generation_configuration:
+                execution_timeout_seconds: '{{ execution_timeout_seconds }}'
+                generation_context:
+                  tables:
+                    - name: '{{ name }}'
+                      description: '{{ description }}'
+                      inclusion: '{{ inclusion }}'
+                      columns:
+                        - name: '{{ name }}'
+                          description: null
+                          inclusion: null
+                  curated_queries:
+                    - natural_language: '{{ natural_language }}'
+                      sql: '{{ sql }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: storage_configuration
         value:
-          Type: '{{ Type }}'
-          OpensearchServerlessConfiguration:
-            CollectionArn: '{{ CollectionArn }}'
-            VectorIndexName: '{{ VectorIndexName }}'
-            FieldMapping:
-              VectorField: '{{ VectorField }}'
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-          PineconeConfiguration:
-            ConnectionString: '{{ ConnectionString }}'
-            CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-            Namespace: '{{ Namespace }}'
-            FieldMapping:
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-          RdsConfiguration:
-            ResourceArn: '{{ ResourceArn }}'
-            CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-            DatabaseName: '{{ DatabaseName }}'
-            TableName: '{{ TableName }}'
-            FieldMapping:
-              PrimaryKeyField: '{{ PrimaryKeyField }}'
-              VectorField: '{{ VectorField }}'
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-              CustomMetadataField: '{{ CustomMetadataField }}'
-          MongoDbAtlasConfiguration:
-            Endpoint: '{{ Endpoint }}'
-            CredentialsSecretArn: '{{ CredentialsSecretArn }}'
-            DatabaseName: '{{ DatabaseName }}'
-            CollectionName: '{{ CollectionName }}'
-            VectorIndexName: '{{ VectorIndexName }}'
-            TextIndexName: '{{ TextIndexName }}'
-            EndpointServiceName: '{{ EndpointServiceName }}'
-            FieldMapping:
-              VectorField: '{{ VectorField }}'
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-          NeptuneAnalyticsConfiguration:
-            GraphArn: '{{ GraphArn }}'
-            FieldMapping:
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-          OpensearchManagedClusterConfiguration:
-            DomainArn: '{{ DomainArn }}'
-            DomainEndpoint: '{{ DomainEndpoint }}'
-            VectorIndexName: '{{ VectorIndexName }}'
-            FieldMapping:
-              VectorField: '{{ VectorField }}'
-              TextField: '{{ TextField }}'
-              MetadataField: '{{ MetadataField }}'
-      - name: Tags
+          type: '{{ type }}'
+          opensearch_serverless_configuration:
+            collection_arn: '{{ collection_arn }}'
+            vector_index_name: '{{ vector_index_name }}'
+            field_mapping:
+              vector_field: '{{ vector_field }}'
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+          pinecone_configuration:
+            connection_string: '{{ connection_string }}'
+            credentials_secret_arn: '{{ credentials_secret_arn }}'
+            namespace: '{{ namespace }}'
+            field_mapping:
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+          rds_configuration:
+            resource_arn: '{{ resource_arn }}'
+            credentials_secret_arn: '{{ credentials_secret_arn }}'
+            database_name: '{{ database_name }}'
+            table_name: '{{ table_name }}'
+            field_mapping:
+              primary_key_field: '{{ primary_key_field }}'
+              vector_field: '{{ vector_field }}'
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+              custom_metadata_field: '{{ custom_metadata_field }}'
+          mongo_db_atlas_configuration:
+            endpoint: '{{ endpoint }}'
+            credentials_secret_arn: '{{ credentials_secret_arn }}'
+            database_name: '{{ database_name }}'
+            collection_name: '{{ collection_name }}'
+            vector_index_name: '{{ vector_index_name }}'
+            text_index_name: '{{ text_index_name }}'
+            endpoint_service_name: '{{ endpoint_service_name }}'
+            field_mapping:
+              vector_field: '{{ vector_field }}'
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+          neptune_analytics_configuration:
+            graph_arn: '{{ graph_arn }}'
+            field_mapping:
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+          opensearch_managed_cluster_configuration:
+            domain_arn: '{{ domain_arn }}'
+            domain_endpoint: '{{ domain_endpoint }}'
+            vector_index_name: '{{ vector_index_name }}'
+            field_mapping:
+              vector_field: '{{ vector_field }}'
+              text_field: '{{ text_field }}'
+              metadata_field: '{{ metadata_field }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -785,7 +784,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KnowledgeBaseId>';
+AND Identifier = '{{ knowledge_base_id }}';
 ```
 
 
@@ -794,7 +793,7 @@ AND Identifier = '<KnowledgeBaseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.knowledge_bases
-WHERE Identifier = '<KnowledgeBaseId>'
+WHERE Identifier = '{{ knowledge_base_id }}'
 AND region = 'us-east-1';
 ```
 

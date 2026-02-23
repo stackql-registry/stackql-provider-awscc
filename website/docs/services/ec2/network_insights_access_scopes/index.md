@@ -274,7 +274,7 @@ tags,
 match_paths,
 exclude_paths
 FROM awscc.ec2.network_insights_access_scopes
-WHERE region = 'us-east-1' AND Identifier = '<NetworkInsightsAccessScopeId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ network_insights_access_scope_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -312,10 +312,10 @@ INSERT INTO awscc.ec2.network_insights_access_scopes (
  ExcludePaths,
  region
 )
-SELECT 
-'{{ Tags }}',
- '{{ MatchPaths }}',
- '{{ ExcludePaths }}',
+SELECT
+'{{ tags }}',
+ '{{ match_paths }}',
+ '{{ exclude_paths }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -329,10 +329,10 @@ INSERT INTO awscc.ec2.network_insights_access_scopes (
  ExcludePaths,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ MatchPaths }}',
- '{{ ExcludePaths }}',
+SELECT
+ '{{ tags }}',
+ '{{ match_paths }}',
+ '{{ exclude_paths }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -350,40 +350,39 @@ globals:
 resources:
   - name: network_insights_access_scope
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: MatchPaths
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: match_paths
         value:
-          - Source:
-              PacketHeaderStatement:
-                SourceAddresses:
-                  - '{{ SourceAddresses[0] }}'
-                DestinationAddresses:
-                  - '{{ DestinationAddresses[0] }}'
-                SourcePorts:
-                  - '{{ SourcePorts[0] }}'
-                DestinationPorts:
-                  - '{{ DestinationPorts[0] }}'
-                SourcePrefixLists:
-                  - '{{ SourcePrefixLists[0] }}'
-                DestinationPrefixLists:
-                  - '{{ DestinationPrefixLists[0] }}'
-                Protocols:
-                  - '{{ Protocols[0] }}'
-              ResourceStatement:
-                Resources:
-                  - '{{ Resources[0] }}'
-                ResourceTypes:
-                  - '{{ ResourceTypes[0] }}'
-            Destination: null
-            ThroughResources:
-              - ResourceStatement: null
-      - name: ExcludePaths
+          - source:
+              packet_header_statement:
+                source_addresses:
+                  - '{{ source_addresses[0] }}'
+                destination_addresses:
+                  - '{{ destination_addresses[0] }}'
+                source_ports:
+                  - '{{ source_ports[0] }}'
+                destination_ports:
+                  - '{{ destination_ports[0] }}'
+                source_prefix_lists:
+                  - '{{ source_prefix_lists[0] }}'
+                destination_prefix_lists:
+                  - '{{ destination_prefix_lists[0] }}'
+                protocols:
+                  - '{{ protocols[0] }}'
+              resource_statement:
+                resources:
+                  - '{{ resources[0] }}'
+                resource_types:
+                  - '{{ resource_types[0] }}'
+            destination: null
+            through_resources:
+              - resource_statement: null
+      - name: exclude_paths
         value:
           - null
-
 ```
 </TabItem>
 </Tabs>
@@ -399,7 +398,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<NetworkInsightsAccessScopeId>';
+AND Identifier = '{{ network_insights_access_scope_id }}';
 ```
 
 
@@ -408,7 +407,7 @@ AND Identifier = '<NetworkInsightsAccessScopeId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_insights_access_scopes
-WHERE Identifier = '<NetworkInsightsAccessScopeId>'
+WHERE Identifier = '{{ network_insights_access_scope_id }}'
 AND region = 'us-east-1';
 ```
 

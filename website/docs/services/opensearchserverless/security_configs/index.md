@@ -223,7 +223,7 @@ saml_options,
 iam_identity_center_options,
 type
 FROM awscc.opensearchserverless.security_configs
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -263,12 +263,12 @@ INSERT INTO awscc.opensearchserverless.security_configs (
  Type,
  region
 )
-SELECT 
-'{{ Description }}',
- '{{ Name }}',
- '{{ SamlOptions }}',
- '{{ IamIdentityCenterOptions }}',
- '{{ Type }}',
+SELECT
+'{{ description }}',
+ '{{ name }}',
+ '{{ saml_options }}',
+ '{{ iam_identity_center_options }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -284,12 +284,12 @@ INSERT INTO awscc.opensearchserverless.security_configs (
  Type,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ Name }}',
- '{{ SamlOptions }}',
- '{{ IamIdentityCenterOptions }}',
- '{{ Type }}',
+SELECT
+ '{{ description }}',
+ '{{ name }}',
+ '{{ saml_options }}',
+ '{{ iam_identity_center_options }}',
+ '{{ type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -307,28 +307,27 @@ globals:
 resources:
   - name: security_config
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: SamlOptions
+      - name: description
+        value: '{{ description }}'
+      - name: name
+        value: '{{ name }}'
+      - name: saml_options
         value:
-          Metadata: '{{ Metadata }}'
-          UserAttribute: '{{ UserAttribute }}'
-          GroupAttribute: '{{ GroupAttribute }}'
-          OpenSearchServerlessEntityId: '{{ OpenSearchServerlessEntityId }}'
-          SessionTimeout: '{{ SessionTimeout }}'
-      - name: IamIdentityCenterOptions
+          metadata: '{{ metadata }}'
+          user_attribute: '{{ user_attribute }}'
+          group_attribute: '{{ group_attribute }}'
+          open_search_serverless_entity_id: '{{ open_search_serverless_entity_id }}'
+          session_timeout: '{{ session_timeout }}'
+      - name: iam_identity_center_options
         value:
-          InstanceArn: '{{ InstanceArn }}'
-          ApplicationArn: '{{ ApplicationArn }}'
-          ApplicationName: '{{ ApplicationName }}'
-          ApplicationDescription: '{{ ApplicationDescription }}'
-          UserAttribute: '{{ UserAttribute }}'
-          GroupAttribute: '{{ GroupAttribute }}'
-      - name: Type
-        value: '{{ Type }}'
-
+          instance_arn: '{{ instance_arn }}'
+          application_arn: '{{ application_arn }}'
+          application_name: '{{ application_name }}'
+          application_description: '{{ application_description }}'
+          user_attribute: '{{ user_attribute }}'
+          group_attribute: '{{ group_attribute }}'
+      - name: type
+        value: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -345,7 +344,7 @@ SET PatchDocument = string('{{ {
     "SamlOptions": saml_options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -354,7 +353,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.security_configs
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

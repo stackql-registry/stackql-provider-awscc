@@ -230,7 +230,7 @@ routing_configuration,
 tags,
 updated_at
 FROM awscc.bedrock.agent_aliases
-WHERE region = 'us-east-1' AND Identifier = '<AgentId>|<AgentAliasId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -268,9 +268,9 @@ INSERT INTO awscc.bedrock.agent_aliases (
  AgentId,
  region
 )
-SELECT 
-'{{ AgentAliasName }}',
- '{{ AgentId }}',
+SELECT
+'{{ agent_alias_name }}',
+ '{{ agent_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -286,12 +286,12 @@ INSERT INTO awscc.bedrock.agent_aliases (
  Tags,
  region
 )
-SELECT 
- '{{ AgentAliasName }}',
- '{{ AgentId }}',
- '{{ Description }}',
- '{{ RoutingConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ agent_alias_name }}',
+ '{{ agent_id }}',
+ '{{ description }}',
+ '{{ routing_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,18 +309,17 @@ globals:
 resources:
   - name: agent_alias
     props:
-      - name: AgentAliasName
-        value: '{{ AgentAliasName }}'
-      - name: AgentId
-        value: '{{ AgentId }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: RoutingConfiguration
+      - name: agent_alias_name
+        value: '{{ agent_alias_name }}'
+      - name: agent_id
+        value: '{{ agent_id }}'
+      - name: description
+        value: '{{ description }}'
+      - name: routing_configuration
         value:
-          - AgentVersion: '{{ AgentVersion }}'
-      - name: Tags
+          - agent_version: '{{ agent_version }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -339,7 +338,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AgentId>|<AgentAliasId>';
+AND Identifier = '{{ agent_id }}|{{ agent_alias_id }}';
 ```
 
 
@@ -348,7 +347,7 @@ AND Identifier = '<AgentId>|<AgentAliasId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.agent_aliases
-WHERE Identifier = '<AgentId|AgentAliasId>'
+WHERE Identifier = '{{ agent_id }}|{{ agent_alias_id }}'
 AND region = 'us-east-1';
 ```
 

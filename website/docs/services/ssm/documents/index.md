@@ -229,7 +229,7 @@ tags,
 requires,
 update_method
 FROM awscc.ssm.documents
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -265,8 +265,8 @@ INSERT INTO awscc.ssm.documents (
  Content,
  region
 )
-SELECT 
-'{{ Content }}',
+SELECT
+'{{ content }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -287,17 +287,17 @@ INSERT INTO awscc.ssm.documents (
  UpdateMethod,
  region
 )
-SELECT 
- '{{ Content }}',
- '{{ Attachments }}',
- '{{ Name }}',
- '{{ VersionName }}',
- '{{ DocumentType }}',
- '{{ DocumentFormat }}',
- '{{ TargetType }}',
- '{{ Tags }}',
- '{{ Requires }}',
- '{{ UpdateMethod }}',
+SELECT
+ '{{ content }}',
+ '{{ attachments }}',
+ '{{ name }}',
+ '{{ version_name }}',
+ '{{ document_type }}',
+ '{{ document_format }}',
+ '{{ target_type }}',
+ '{{ tags }}',
+ '{{ requires }}',
+ '{{ update_method }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -315,35 +315,34 @@ globals:
 resources:
   - name: document
     props:
-      - name: Content
+      - name: content
         value: {}
-      - name: Attachments
+      - name: attachments
         value:
-          - Key: '{{ Key }}'
-            Values:
-              - '{{ Values[0] }}'
-            Name: '{{ Name }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: VersionName
-        value: '{{ VersionName }}'
-      - name: DocumentType
-        value: '{{ DocumentType }}'
-      - name: DocumentFormat
-        value: '{{ DocumentFormat }}'
-      - name: TargetType
-        value: '{{ TargetType }}'
-      - name: Tags
+          - key: '{{ key }}'
+            values:
+              - '{{ values[0] }}'
+            name: '{{ name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: version_name
+        value: '{{ version_name }}'
+      - name: document_type
+        value: '{{ document_type }}'
+      - name: document_format
+        value: '{{ document_format }}'
+      - name: target_type
+        value: '{{ target_type }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Requires
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: requires
         value:
-          - Name: '{{ Name }}'
-            Version: '{{ Version }}'
-      - name: UpdateMethod
-        value: '{{ UpdateMethod }}'
-
+          - name: '{{ name }}'
+            version: '{{ version }}'
+      - name: update_method
+        value: '{{ update_method }}'
 ```
 </TabItem>
 </Tabs>
@@ -366,7 +365,7 @@ SET PatchDocument = string('{{ {
     "UpdateMethod": update_method
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -375,7 +374,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ssm.documents
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

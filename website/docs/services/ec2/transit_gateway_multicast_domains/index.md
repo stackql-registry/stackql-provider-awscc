@@ -199,7 +199,7 @@ creation_time,
 tags,
 options
 FROM awscc.ec2.transit_gateway_multicast_domains
-WHERE region = 'us-east-1' AND Identifier = '<TransitGatewayMulticastDomainId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,8 +235,8 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_domains (
  TransitGatewayId,
  region
 )
-SELECT 
-'{{ TransitGatewayId }}',
+SELECT
+'{{ transit_gateway_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -250,10 +250,10 @@ INSERT INTO awscc.ec2.transit_gateway_multicast_domains (
  Options,
  region
 )
-SELECT 
- '{{ TransitGatewayId }}',
- '{{ Tags }}',
- '{{ Options }}',
+SELECT
+ '{{ transit_gateway_id }}',
+ '{{ tags }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -271,18 +271,17 @@ globals:
 resources:
   - name: transit_gateway_multicast_domain
     props:
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: Tags
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Options
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: options
         value:
-          AutoAcceptSharedAssociations: '{{ AutoAcceptSharedAssociations }}'
-          Igmpv2Support: '{{ Igmpv2Support }}'
-          StaticSourcesSupport: '{{ StaticSourcesSupport }}'
-
+          auto_accept_shared_associations: '{{ auto_accept_shared_associations }}'
+          igmpv2_support: '{{ igmpv2_support }}'
+          static_sources_support: '{{ static_sources_support }}'
 ```
 </TabItem>
 </Tabs>
@@ -299,7 +298,7 @@ SET PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TransitGatewayMulticastDomainId>';
+AND Identifier = '{{ transit_gateway_multicast_domain_id }}';
 ```
 
 
@@ -308,7 +307,7 @@ AND Identifier = '<TransitGatewayMulticastDomainId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_multicast_domains
-WHERE Identifier = '<TransitGatewayMulticastDomainId>'
+WHERE Identifier = '{{ transit_gateway_multicast_domain_id }}'
 AND region = 'us-east-1';
 ```
 

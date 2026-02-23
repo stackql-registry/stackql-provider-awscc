@@ -188,7 +188,7 @@ uri,
 kms_key_id,
 tags
 FROM awscc.imagebuilder.workflows
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -226,10 +226,10 @@ INSERT INTO awscc.imagebuilder.workflows (
  Type,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Version }}',
- '{{ Type }}',
+SELECT
+'{{ name }}',
+ '{{ version }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,16 +249,16 @@ INSERT INTO awscc.imagebuilder.workflows (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Version }}',
- '{{ Description }}',
- '{{ ChangeDescription }}',
- '{{ Type }}',
- '{{ Data }}',
- '{{ Uri }}',
- '{{ KmsKeyId }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ version }}',
+ '{{ description }}',
+ '{{ change_description }}',
+ '{{ type }}',
+ '{{ data }}',
+ '{{ uri }}',
+ '{{ kms_key_id }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -276,25 +276,24 @@ globals:
 resources:
   - name: workflow
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Version
-        value: '{{ Version }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: ChangeDescription
-        value: '{{ ChangeDescription }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: Data
-        value: '{{ Data }}'
-      - name: Uri
-        value: '{{ Uri }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: version
+        value: '{{ version }}'
+      - name: description
+        value: '{{ description }}'
+      - name: change_description
+        value: '{{ change_description }}'
+      - name: type
+        value: '{{ type }}'
+      - name: data
+        value: '{{ data }}'
+      - name: uri
+        value: '{{ uri }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +309,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -319,7 +318,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.imagebuilder.workflows
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -146,7 +146,7 @@ state_machine_arn,
 state_machine_revision_id,
 description
 FROM awscc.stepfunctions.state_machine_versions
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -182,8 +182,8 @@ INSERT INTO awscc.stepfunctions.state_machine_versions (
  StateMachineArn,
  region
 )
-SELECT 
-'{{ StateMachineArn }}',
+SELECT
+'{{ state_machine_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -197,10 +197,10 @@ INSERT INTO awscc.stepfunctions.state_machine_versions (
  Description,
  region
 )
-SELECT 
- '{{ StateMachineArn }}',
- '{{ StateMachineRevisionId }}',
- '{{ Description }}',
+SELECT
+ '{{ state_machine_arn }}',
+ '{{ state_machine_revision_id }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,13 +218,12 @@ globals:
 resources:
   - name: state_machine_version
     props:
-      - name: StateMachineArn
-        value: '{{ StateMachineArn }}'
-      - name: StateMachineRevisionId
-        value: '{{ StateMachineRevisionId }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: state_machine_arn
+        value: '{{ state_machine_arn }}'
+      - name: state_machine_revision_id
+        value: '{{ state_machine_revision_id }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -235,7 +234,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.stepfunctions.state_machine_versions
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

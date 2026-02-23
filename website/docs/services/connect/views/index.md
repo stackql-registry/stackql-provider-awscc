@@ -194,7 +194,7 @@ actions,
 view_content_sha256,
 tags
 FROM awscc.connect.views
-WHERE region = 'us-east-1' AND Identifier = '<ViewArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ view_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -233,11 +233,11 @@ INSERT INTO awscc.connect.views (
  Actions,
  region
 )
-SELECT 
-'{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Template }}',
- '{{ Actions }}',
+SELECT
+'{{ instance_arn }}',
+ '{{ name }}',
+ '{{ template }}',
+ '{{ actions }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -254,13 +254,13 @@ INSERT INTO awscc.connect.views (
  Tags,
  region
 )
-SELECT 
- '{{ InstanceArn }}',
- '{{ Name }}',
- '{{ Description }}',
- '{{ Template }}',
- '{{ Actions }}',
- '{{ Tags }}',
+SELECT
+ '{{ instance_arn }}',
+ '{{ name }}',
+ '{{ description }}',
+ '{{ template }}',
+ '{{ actions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -278,22 +278,21 @@ globals:
 resources:
   - name: view
     props:
-      - name: InstanceArn
-        value: '{{ InstanceArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Template
+      - name: instance_arn
+        value: '{{ instance_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: template
         value: {}
-      - name: Actions
+      - name: actions
         value:
-          - '{{ Actions[0] }}'
-      - name: Tags
+          - '{{ actions[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ViewArn>';
+AND Identifier = '{{ view_arn }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<ViewArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.views
-WHERE Identifier = '<ViewArn>'
+WHERE Identifier = '{{ view_arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -1193,7 +1193,7 @@ tags,
 target,
 target_parameters
 FROM awscc.pipes.pipes
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -1231,10 +1231,10 @@ INSERT INTO awscc.pipes.pipes (
  Target,
  region
 )
-SELECT 
-'{{ RoleArn }}',
- '{{ Source }}',
- '{{ Target }}',
+SELECT
+'{{ role_arn }}',
+ '{{ source }}',
+ '{{ target }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -1258,20 +1258,20 @@ INSERT INTO awscc.pipes.pipes (
  TargetParameters,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ DesiredState }}',
- '{{ Enrichment }}',
- '{{ EnrichmentParameters }}',
- '{{ KmsKeyIdentifier }}',
- '{{ LogConfiguration }}',
- '{{ Name }}',
- '{{ RoleArn }}',
- '{{ Source }}',
- '{{ SourceParameters }}',
- '{{ Tags }}',
- '{{ Target }}',
- '{{ TargetParameters }}',
+SELECT
+ '{{ description }}',
+ '{{ desired_state }}',
+ '{{ enrichment }}',
+ '{{ enrichment_parameters }}',
+ '{{ kms_key_identifier }}',
+ '{{ log_configuration }}',
+ '{{ name }}',
+ '{{ role_arn }}',
+ '{{ source }}',
+ '{{ source_parameters }}',
+ '{{ tags }}',
+ '{{ target }}',
+ '{{ target_parameters }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -1289,244 +1289,243 @@ globals:
 resources:
   - name: pipe
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: DesiredState
-        value: '{{ DesiredState }}'
-      - name: Enrichment
-        value: '{{ Enrichment }}'
-      - name: EnrichmentParameters
+      - name: description
+        value: '{{ description }}'
+      - name: desired_state
+        value: '{{ desired_state }}'
+      - name: enrichment
+        value: '{{ enrichment }}'
+      - name: enrichment_parameters
         value:
-          InputTemplate: '{{ InputTemplate }}'
-          HttpParameters:
-            PathParameterValues:
-              - '{{ PathParameterValues[0] }}'
-            HeaderParameters: {}
-            QueryStringParameters: {}
-      - name: KmsKeyIdentifier
-        value: '{{ KmsKeyIdentifier }}'
-      - name: LogConfiguration
+          input_template: '{{ input_template }}'
+          http_parameters:
+            path_parameter_values:
+              - '{{ path_parameter_values[0] }}'
+            header_parameters: {}
+            query_string_parameters: {}
+      - name: kms_key_identifier
+        value: '{{ kms_key_identifier }}'
+      - name: log_configuration
         value:
-          S3LogDestination:
-            BucketName: '{{ BucketName }}'
-            Prefix: '{{ Prefix }}'
-            BucketOwner: '{{ BucketOwner }}'
-            OutputFormat: '{{ OutputFormat }}'
-          FirehoseLogDestination:
-            DeliveryStreamArn: '{{ DeliveryStreamArn }}'
-          CloudwatchLogsLogDestination:
-            LogGroupArn: '{{ LogGroupArn }}'
-          Level: '{{ Level }}'
-          IncludeExecutionData:
-            - '{{ IncludeExecutionData[0] }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: Source
-        value: '{{ Source }}'
-      - name: SourceParameters
+          s3_log_destination:
+            bucket_name: '{{ bucket_name }}'
+            prefix: '{{ prefix }}'
+            bucket_owner: '{{ bucket_owner }}'
+            output_format: '{{ output_format }}'
+          firehose_log_destination:
+            delivery_stream_arn: '{{ delivery_stream_arn }}'
+          cloudwatch_logs_log_destination:
+            log_group_arn: '{{ log_group_arn }}'
+          level: '{{ level }}'
+          include_execution_data:
+            - '{{ include_execution_data[0] }}'
+      - name: name
+        value: '{{ name }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: source
+        value: '{{ source }}'
+      - name: source_parameters
         value:
-          FilterCriteria:
-            Filters:
-              - Pattern: '{{ Pattern }}'
-          KinesisStreamParameters:
-            BatchSize: '{{ BatchSize }}'
-            DeadLetterConfig:
-              Arn: '{{ Arn }}'
-            OnPartialBatchItemFailure: '{{ OnPartialBatchItemFailure }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-            MaximumRecordAgeInSeconds: '{{ MaximumRecordAgeInSeconds }}'
-            MaximumRetryAttempts: '{{ MaximumRetryAttempts }}'
-            ParallelizationFactor: '{{ ParallelizationFactor }}'
-            StartingPosition: '{{ StartingPosition }}'
-            StartingPositionTimestamp: '{{ StartingPositionTimestamp }}'
-          DynamoDBStreamParameters:
-            BatchSize: '{{ BatchSize }}'
-            DeadLetterConfig: null
-            OnPartialBatchItemFailure: null
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-            MaximumRecordAgeInSeconds: '{{ MaximumRecordAgeInSeconds }}'
-            MaximumRetryAttempts: '{{ MaximumRetryAttempts }}'
-            ParallelizationFactor: '{{ ParallelizationFactor }}'
-            StartingPosition: '{{ StartingPosition }}'
-          SqsQueueParameters:
-            BatchSize: '{{ BatchSize }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-          ActiveMQBrokerParameters:
-            Credentials: null
-            QueueName: '{{ QueueName }}'
-            BatchSize: '{{ BatchSize }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-          RabbitMQBrokerParameters:
-            Credentials: null
-            QueueName: '{{ QueueName }}'
-            VirtualHost: '{{ VirtualHost }}'
-            BatchSize: '{{ BatchSize }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-          ManagedStreamingKafkaParameters:
-            TopicName: '{{ TopicName }}'
-            StartingPosition: '{{ StartingPosition }}'
-            BatchSize: '{{ BatchSize }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-            ConsumerGroupID: '{{ ConsumerGroupID }}'
-            Credentials: null
-          SelfManagedKafkaParameters:
-            TopicName: '{{ TopicName }}'
-            StartingPosition: '{{ StartingPosition }}'
-            AdditionalBootstrapServers:
-              - '{{ AdditionalBootstrapServers[0] }}'
-            BatchSize: '{{ BatchSize }}'
-            MaximumBatchingWindowInSeconds: '{{ MaximumBatchingWindowInSeconds }}'
-            ConsumerGroupID: '{{ ConsumerGroupID }}'
-            Credentials: null
-            ServerRootCaCertificate: '{{ ServerRootCaCertificate }}'
-            Vpc:
-              Subnets:
-                - '{{ Subnets[0] }}'
-              SecurityGroup:
-                - '{{ SecurityGroup[0] }}'
-      - name: Tags
+          filter_criteria:
+            filters:
+              - pattern: '{{ pattern }}'
+          kinesis_stream_parameters:
+            batch_size: '{{ batch_size }}'
+            dead_letter_config:
+              arn: '{{ arn }}'
+            on_partial_batch_item_failure: '{{ on_partial_batch_item_failure }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+            maximum_record_age_in_seconds: '{{ maximum_record_age_in_seconds }}'
+            maximum_retry_attempts: '{{ maximum_retry_attempts }}'
+            parallelization_factor: '{{ parallelization_factor }}'
+            starting_position: '{{ starting_position }}'
+            starting_position_timestamp: '{{ starting_position_timestamp }}'
+          dynamo_db_stream_parameters:
+            batch_size: '{{ batch_size }}'
+            dead_letter_config: null
+            on_partial_batch_item_failure: null
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+            maximum_record_age_in_seconds: '{{ maximum_record_age_in_seconds }}'
+            maximum_retry_attempts: '{{ maximum_retry_attempts }}'
+            parallelization_factor: '{{ parallelization_factor }}'
+            starting_position: '{{ starting_position }}'
+          sqs_queue_parameters:
+            batch_size: '{{ batch_size }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+          active_mq_broker_parameters:
+            credentials: null
+            queue_name: '{{ queue_name }}'
+            batch_size: '{{ batch_size }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+          rabbit_mq_broker_parameters:
+            credentials: null
+            queue_name: '{{ queue_name }}'
+            virtual_host: '{{ virtual_host }}'
+            batch_size: '{{ batch_size }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+          managed_streaming_kafka_parameters:
+            topic_name: '{{ topic_name }}'
+            starting_position: '{{ starting_position }}'
+            batch_size: '{{ batch_size }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+            consumer_group_id: '{{ consumer_group_id }}'
+            credentials: null
+          self_managed_kafka_parameters:
+            topic_name: '{{ topic_name }}'
+            starting_position: '{{ starting_position }}'
+            additional_bootstrap_servers:
+              - '{{ additional_bootstrap_servers[0] }}'
+            batch_size: '{{ batch_size }}'
+            maximum_batching_window_in_seconds: '{{ maximum_batching_window_in_seconds }}'
+            consumer_group_id: '{{ consumer_group_id }}'
+            credentials: null
+            server_root_ca_certificate: '{{ server_root_ca_certificate }}'
+            vpc:
+              subnets:
+                - '{{ subnets[0] }}'
+              security_group:
+                - '{{ security_group[0] }}'
+      - name: tags
         value: {}
-      - name: Target
-        value: '{{ Target }}'
-      - name: TargetParameters
+      - name: target
+        value: '{{ target }}'
+      - name: target_parameters
         value:
-          InputTemplate: '{{ InputTemplate }}'
-          LambdaFunctionParameters:
-            InvocationType: '{{ InvocationType }}'
-          StepFunctionStateMachineParameters:
-            InvocationType: null
-          KinesisStreamParameters:
-            PartitionKey: '{{ PartitionKey }}'
-          EcsTaskParameters:
-            TaskDefinitionArn: '{{ TaskDefinitionArn }}'
-            TaskCount: '{{ TaskCount }}'
-            LaunchType: '{{ LaunchType }}'
-            NetworkConfiguration:
-              AwsvpcConfiguration:
-                Subnets:
-                  - '{{ Subnets[0] }}'
-                SecurityGroups:
-                  - '{{ SecurityGroups[0] }}'
-                AssignPublicIp: '{{ AssignPublicIp }}'
-            PlatformVersion: '{{ PlatformVersion }}'
-            Group: '{{ Group }}'
-            CapacityProviderStrategy:
-              - CapacityProvider: '{{ CapacityProvider }}'
-                Weight: '{{ Weight }}'
-                Base: '{{ Base }}'
-            EnableECSManagedTags: '{{ EnableECSManagedTags }}'
-            EnableExecuteCommand: '{{ EnableExecuteCommand }}'
-            PlacementConstraints:
-              - Type: '{{ Type }}'
-                Expression: '{{ Expression }}'
-            PlacementStrategy:
-              - Type: '{{ Type }}'
-                Field: '{{ Field }}'
-            PropagateTags: '{{ PropagateTags }}'
-            ReferenceId: '{{ ReferenceId }}'
-            Overrides:
-              ContainerOverrides:
-                - Command:
-                    - '{{ Command[0] }}'
-                  Cpu: '{{ Cpu }}'
-                  Environment:
-                    - Name: '{{ Name }}'
-                      Value: '{{ Value }}'
-                  EnvironmentFiles:
-                    - Type: '{{ Type }}'
-                      Value: '{{ Value }}'
-                  Memory: '{{ Memory }}'
-                  MemoryReservation: '{{ MemoryReservation }}'
-                  Name: '{{ Name }}'
-                  ResourceRequirements:
-                    - Type: '{{ Type }}'
-                      Value: '{{ Value }}'
-              Cpu: '{{ Cpu }}'
-              EphemeralStorage:
-                SizeInGiB: '{{ SizeInGiB }}'
-              ExecutionRoleArn: '{{ ExecutionRoleArn }}'
-              InferenceAcceleratorOverrides:
-                - DeviceName: '{{ DeviceName }}'
-                  DeviceType: '{{ DeviceType }}'
-              Memory: '{{ Memory }}'
-              TaskRoleArn: '{{ TaskRoleArn }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-          BatchJobParameters:
-            JobDefinition: '{{ JobDefinition }}'
-            JobName: '{{ JobName }}'
-            ArrayProperties:
-              Size: '{{ Size }}'
-            RetryStrategy:
-              Attempts: '{{ Attempts }}'
-            ContainerOverrides:
-              Command:
-                - '{{ Command[0] }}'
-              Environment:
-                - Name: '{{ Name }}'
-                  Value: '{{ Value }}'
-              InstanceType: '{{ InstanceType }}'
-              ResourceRequirements:
-                - Type: '{{ Type }}'
-                  Value: '{{ Value }}'
-            DependsOn:
-              - JobId: '{{ JobId }}'
-                Type: '{{ Type }}'
-            Parameters: {}
-          SqsQueueParameters:
-            MessageGroupId: '{{ MessageGroupId }}'
-            MessageDeduplicationId: '{{ MessageDeduplicationId }}'
-          HttpParameters:
-            PathParameterValues:
-              - '{{ PathParameterValues[0] }}'
-            HeaderParameters: null
-            QueryStringParameters: null
-          RedshiftDataParameters:
-            SecretManagerArn: '{{ SecretManagerArn }}'
-            Database: '{{ Database }}'
-            DbUser: '{{ DbUser }}'
-            StatementName: '{{ StatementName }}'
-            WithEvent: '{{ WithEvent }}'
-            Sqls:
-              - '{{ Sqls[0] }}'
-          SageMakerPipelineParameters:
-            PipelineParameterList:
-              - Name: '{{ Name }}'
-                Value: '{{ Value }}'
-          EventBridgeEventBusParameters:
-            EndpointId: '{{ EndpointId }}'
-            DetailType: '{{ DetailType }}'
-            Source: '{{ Source }}'
-            Resources:
-              - '{{ Resources[0] }}'
-            Time: '{{ Time }}'
-          CloudWatchLogsParameters:
-            LogStreamName: '{{ LogStreamName }}'
-            Timestamp: '{{ Timestamp }}'
-          TimestreamParameters:
-            TimeValue: '{{ TimeValue }}'
-            EpochTimeUnit: '{{ EpochTimeUnit }}'
-            TimeFieldType: '{{ TimeFieldType }}'
-            TimestampFormat: '{{ TimestampFormat }}'
-            VersionValue: '{{ VersionValue }}'
-            DimensionMappings:
-              - DimensionValue: '{{ DimensionValue }}'
-                DimensionValueType: '{{ DimensionValueType }}'
-                DimensionName: '{{ DimensionName }}'
-            SingleMeasureMappings:
-              - MeasureValue: '{{ MeasureValue }}'
-                MeasureValueType: '{{ MeasureValueType }}'
-                MeasureName: '{{ MeasureName }}'
-            MultiMeasureMappings:
-              - MultiMeasureName: '{{ MultiMeasureName }}'
-                MultiMeasureAttributeMappings:
-                  - MeasureValue: '{{ MeasureValue }}'
-                    MeasureValueType: null
-                    MultiMeasureAttributeName: '{{ MultiMeasureAttributeName }}'
-
+          input_template: '{{ input_template }}'
+          lambda_function_parameters:
+            invocation_type: '{{ invocation_type }}'
+          step_function_state_machine_parameters:
+            invocation_type: null
+          kinesis_stream_parameters:
+            partition_key: '{{ partition_key }}'
+          ecs_task_parameters:
+            task_definition_arn: '{{ task_definition_arn }}'
+            task_count: '{{ task_count }}'
+            launch_type: '{{ launch_type }}'
+            network_configuration:
+              awsvpc_configuration:
+                subnets:
+                  - '{{ subnets[0] }}'
+                security_groups:
+                  - '{{ security_groups[0] }}'
+                assign_public_ip: '{{ assign_public_ip }}'
+            platform_version: '{{ platform_version }}'
+            group: '{{ group }}'
+            capacity_provider_strategy:
+              - capacity_provider: '{{ capacity_provider }}'
+                weight: '{{ weight }}'
+                base: '{{ base }}'
+            enable_ecs_managed_tags: '{{ enable_ecs_managed_tags }}'
+            enable_execute_command: '{{ enable_execute_command }}'
+            placement_constraints:
+              - type: '{{ type }}'
+                expression: '{{ expression }}'
+            placement_strategy:
+              - type: '{{ type }}'
+                field: '{{ field }}'
+            propagate_tags: '{{ propagate_tags }}'
+            reference_id: '{{ reference_id }}'
+            overrides:
+              container_overrides:
+                - command:
+                    - '{{ command[0] }}'
+                  cpu: '{{ cpu }}'
+                  environment:
+                    - name: '{{ name }}'
+                      value: '{{ value }}'
+                  environment_files:
+                    - type: '{{ type }}'
+                      value: '{{ value }}'
+                  memory: '{{ memory }}'
+                  memory_reservation: '{{ memory_reservation }}'
+                  name: '{{ name }}'
+                  resource_requirements:
+                    - type: '{{ type }}'
+                      value: '{{ value }}'
+              cpu: '{{ cpu }}'
+              ephemeral_storage:
+                size_in_gi_b: '{{ size_in_gi_b }}'
+              execution_role_arn: '{{ execution_role_arn }}'
+              inference_accelerator_overrides:
+                - device_name: '{{ device_name }}'
+                  device_type: '{{ device_type }}'
+              memory: '{{ memory }}'
+              task_role_arn: '{{ task_role_arn }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
+          batch_job_parameters:
+            job_definition: '{{ job_definition }}'
+            job_name: '{{ job_name }}'
+            array_properties:
+              size: '{{ size }}'
+            retry_strategy:
+              attempts: '{{ attempts }}'
+            container_overrides:
+              command:
+                - '{{ command[0] }}'
+              environment:
+                - name: '{{ name }}'
+                  value: '{{ value }}'
+              instance_type: '{{ instance_type }}'
+              resource_requirements:
+                - type: '{{ type }}'
+                  value: '{{ value }}'
+            depends_on:
+              - job_id: '{{ job_id }}'
+                type: '{{ type }}'
+            parameters: {}
+          sqs_queue_parameters:
+            message_group_id: '{{ message_group_id }}'
+            message_deduplication_id: '{{ message_deduplication_id }}'
+          http_parameters:
+            path_parameter_values:
+              - '{{ path_parameter_values[0] }}'
+            header_parameters: null
+            query_string_parameters: null
+          redshift_data_parameters:
+            secret_manager_arn: '{{ secret_manager_arn }}'
+            database: '{{ database }}'
+            db_user: '{{ db_user }}'
+            statement_name: '{{ statement_name }}'
+            with_event: '{{ with_event }}'
+            sqls:
+              - '{{ sqls[0] }}'
+          sage_maker_pipeline_parameters:
+            pipeline_parameter_list:
+              - name: '{{ name }}'
+                value: '{{ value }}'
+          event_bridge_event_bus_parameters:
+            endpoint_id: '{{ endpoint_id }}'
+            detail_type: '{{ detail_type }}'
+            source: '{{ source }}'
+            resources:
+              - '{{ resources[0] }}'
+            time: '{{ time }}'
+          cloud_watch_logs_parameters:
+            log_stream_name: '{{ log_stream_name }}'
+            timestamp: '{{ timestamp }}'
+          timestream_parameters:
+            time_value: '{{ time_value }}'
+            epoch_time_unit: '{{ epoch_time_unit }}'
+            time_field_type: '{{ time_field_type }}'
+            timestamp_format: '{{ timestamp_format }}'
+            version_value: '{{ version_value }}'
+            dimension_mappings:
+              - dimension_value: '{{ dimension_value }}'
+                dimension_value_type: '{{ dimension_value_type }}'
+                dimension_name: '{{ dimension_name }}'
+            single_measure_mappings:
+              - measure_value: '{{ measure_value }}'
+                measure_value_type: '{{ measure_value_type }}'
+                measure_name: '{{ measure_name }}'
+            multi_measure_mappings:
+              - multi_measure_name: '{{ multi_measure_name }}'
+                multi_measure_attribute_mappings:
+                  - measure_value: '{{ measure_value }}'
+                    measure_value_type: null
+                    multi_measure_attribute_name: '{{ multi_measure_attribute_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -1551,7 +1550,7 @@ SET PatchDocument = string('{{ {
     "TargetParameters": target_parameters
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -1560,7 +1559,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.pipes.pipes
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

@@ -187,7 +187,7 @@ user_pool_id,
 validation_data,
 client_metadata
 FROM awscc.cognito.user_pool_users
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<Username>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ username }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.cognito.user_pool_users (
  UserPoolId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
+SELECT
+'{{ user_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,15 @@ INSERT INTO awscc.cognito.user_pool_users (
  ClientMetadata,
  region
 )
-SELECT 
- '{{ DesiredDeliveryMediums }}',
- '{{ ForceAliasCreation }}',
- '{{ UserAttributes }}',
- '{{ MessageAction }}',
- '{{ Username }}',
- '{{ UserPoolId }}',
- '{{ ValidationData }}',
- '{{ ClientMetadata }}',
+SELECT
+ '{{ desired_delivery_mediums }}',
+ '{{ force_alias_creation }}',
+ '{{ user_attributes }}',
+ '{{ message_action }}',
+ '{{ username }}',
+ '{{ user_pool_id }}',
+ '{{ validation_data }}',
+ '{{ client_metadata }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,27 +270,26 @@ globals:
 resources:
   - name: user_pool_user
     props:
-      - name: DesiredDeliveryMediums
+      - name: desired_delivery_mediums
         value:
-          - '{{ DesiredDeliveryMediums[0] }}'
-      - name: ForceAliasCreation
-        value: '{{ ForceAliasCreation }}'
-      - name: UserAttributes
+          - '{{ desired_delivery_mediums[0] }}'
+      - name: force_alias_creation
+        value: '{{ force_alias_creation }}'
+      - name: user_attributes
         value:
-          - Name: '{{ Name }}'
-            Value: '{{ Value }}'
-      - name: MessageAction
-        value: '{{ MessageAction }}'
-      - name: Username
-        value: '{{ Username }}'
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: ValidationData
+          - name: '{{ name }}'
+            value: '{{ value }}'
+      - name: message_action
+        value: '{{ message_action }}'
+      - name: username
+        value: '{{ username }}'
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: validation_data
         value:
           - null
-      - name: ClientMetadata
+      - name: client_metadata
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_users
-WHERE Identifier = '<UserPoolId|Username>'
+WHERE Identifier = '{{ user_pool_id }}|{{ username }}'
 AND region = 'us-east-1';
 ```
 

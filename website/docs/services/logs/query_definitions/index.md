@@ -158,7 +158,7 @@ log_group_names,
 query_definition_id,
 query_language
 FROM awscc.logs.query_definitions
-WHERE region = 'us-east-1' AND Identifier = '<QueryDefinitionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ query_definition_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -195,9 +195,9 @@ INSERT INTO awscc.logs.query_definitions (
  QueryString,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ QueryString }}',
+SELECT
+'{{ name }}',
+ '{{ query_string }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,11 @@ INSERT INTO awscc.logs.query_definitions (
  QueryLanguage,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ QueryString }}',
- '{{ LogGroupNames }}',
- '{{ QueryLanguage }}',
+SELECT
+ '{{ name }}',
+ '{{ query_string }}',
+ '{{ log_group_names }}',
+ '{{ query_language }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -234,16 +234,15 @@ globals:
 resources:
   - name: query_definition
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: QueryString
-        value: '{{ QueryString }}'
-      - name: LogGroupNames
+      - name: name
+        value: '{{ name }}'
+      - name: query_string
+        value: '{{ query_string }}'
+      - name: log_group_names
         value:
-          - '{{ LogGroupNames[0] }}'
-      - name: QueryLanguage
-        value: '{{ QueryLanguage }}'
-
+          - '{{ log_group_names[0] }}'
+      - name: query_language
+        value: '{{ query_language }}'
 ```
 </TabItem>
 </Tabs>
@@ -262,7 +261,7 @@ SET PatchDocument = string('{{ {
     "QueryLanguage": query_language
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<QueryDefinitionId>';
+AND Identifier = '{{ query_definition_id }}';
 ```
 
 
@@ -271,7 +270,7 @@ AND Identifier = '<QueryDefinitionId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.query_definitions
-WHERE Identifier = '<QueryDefinitionId>'
+WHERE Identifier = '{{ query_definition_id }}'
 AND region = 'us-east-1';
 ```
 

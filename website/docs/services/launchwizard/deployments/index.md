@@ -206,7 +206,7 @@ status,
 tags,
 workload_name
 FROM awscc.launchwizard.deployments
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -244,10 +244,10 @@ INSERT INTO awscc.launchwizard.deployments (
  WorkloadName,
  region
 )
-SELECT 
-'{{ DeploymentPatternName }}',
- '{{ Name }}',
- '{{ WorkloadName }}',
+SELECT
+'{{ deployment_pattern_name }}',
+ '{{ name }}',
+ '{{ workload_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,12 +263,12 @@ INSERT INTO awscc.launchwizard.deployments (
  WorkloadName,
  region
 )
-SELECT 
- '{{ DeploymentPatternName }}',
- '{{ Name }}',
- '{{ Specifications }}',
- '{{ Tags }}',
- '{{ WorkloadName }}',
+SELECT
+ '{{ deployment_pattern_name }}',
+ '{{ name }}',
+ '{{ specifications }}',
+ '{{ tags }}',
+ '{{ workload_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,19 +286,18 @@ globals:
 resources:
   - name: deployment
     props:
-      - name: DeploymentPatternName
-        value: '{{ DeploymentPatternName }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Specifications
+      - name: deployment_pattern_name
+        value: '{{ deployment_pattern_name }}'
+      - name: name
+        value: '{{ name }}'
+      - name: specifications
         value: {}
-      - name: Tags
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: WorkloadName
-        value: '{{ WorkloadName }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: workload_name
+        value: '{{ workload_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -315,7 +314,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -324,7 +323,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.launchwizard.deployments
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

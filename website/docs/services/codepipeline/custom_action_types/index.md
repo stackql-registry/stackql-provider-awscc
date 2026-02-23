@@ -275,7 +275,7 @@ tags,
 version,
 id
 FROM awscc.codepipeline.custom_action_types
-WHERE region = 'us-east-1' AND Identifier = '<Category>|<Provider>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -317,12 +317,12 @@ INSERT INTO awscc.codepipeline.custom_action_types (
  Version,
  region
 )
-SELECT 
-'{{ Category }}',
- '{{ InputArtifactDetails }}',
- '{{ OutputArtifactDetails }}',
- '{{ Provider }}',
- '{{ Version }}',
+SELECT
+'{{ category }}',
+ '{{ input_artifact_details }}',
+ '{{ output_artifact_details }}',
+ '{{ provider }}',
+ '{{ version }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -341,15 +341,15 @@ INSERT INTO awscc.codepipeline.custom_action_types (
  Version,
  region
 )
-SELECT 
- '{{ Category }}',
- '{{ ConfigurationProperties }}',
- '{{ InputArtifactDetails }}',
- '{{ OutputArtifactDetails }}',
- '{{ Provider }}',
- '{{ Settings }}',
- '{{ Tags }}',
- '{{ Version }}',
+SELECT
+ '{{ category }}',
+ '{{ configuration_properties }}',
+ '{{ input_artifact_details }}',
+ '{{ output_artifact_details }}',
+ '{{ provider }}',
+ '{{ settings }}',
+ '{{ tags }}',
+ '{{ version }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -367,38 +367,37 @@ globals:
 resources:
   - name: custom_action_type
     props:
-      - name: Category
-        value: '{{ Category }}'
-      - name: ConfigurationProperties
+      - name: category
+        value: '{{ category }}'
+      - name: configuration_properties
         value:
-          - Description: '{{ Description }}'
-            Key: '{{ Key }}'
-            Name: '{{ Name }}'
-            Queryable: '{{ Queryable }}'
-            Required: '{{ Required }}'
-            Secret: '{{ Secret }}'
-            Type: '{{ Type }}'
-      - name: InputArtifactDetails
+          - description: '{{ description }}'
+            key: '{{ key }}'
+            name: '{{ name }}'
+            queryable: '{{ queryable }}'
+            required: '{{ required }}'
+            secret: '{{ secret }}'
+            type: '{{ type }}'
+      - name: input_artifact_details
         value:
-          MaximumCount: '{{ MaximumCount }}'
-          MinimumCount: '{{ MinimumCount }}'
-      - name: OutputArtifactDetails
+          maximum_count: '{{ maximum_count }}'
+          minimum_count: '{{ minimum_count }}'
+      - name: output_artifact_details
         value: null
-      - name: Provider
-        value: '{{ Provider }}'
-      - name: Settings
+      - name: provider
+        value: '{{ provider }}'
+      - name: settings
         value:
-          EntityUrlTemplate: '{{ EntityUrlTemplate }}'
-          ExecutionUrlTemplate: '{{ ExecutionUrlTemplate }}'
-          RevisionUrlTemplate: '{{ RevisionUrlTemplate }}'
-          ThirdPartyConfigurationUrl: '{{ ThirdPartyConfigurationUrl }}'
-      - name: Tags
+          entity_url_template: '{{ entity_url_template }}'
+          execution_url_template: '{{ execution_url_template }}'
+          revision_url_template: '{{ revision_url_template }}'
+          third_party_configuration_url: '{{ third_party_configuration_url }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: Version
-        value: '{{ Version }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: version
+        value: '{{ version }}'
 ```
 </TabItem>
 </Tabs>
@@ -414,7 +413,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Category>|<Provider>|<Version>';
+AND Identifier = '{{ category }}|{{ provider }}|{{ version }}';
 ```
 
 
@@ -423,7 +422,7 @@ AND Identifier = '<Category>|<Provider>|<Version>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.codepipeline.custom_action_types
-WHERE Identifier = '<Category|Provider|Version>'
+WHERE Identifier = '{{ category }}|{{ provider }}|{{ version }}'
 AND region = 'us-east-1';
 ```
 

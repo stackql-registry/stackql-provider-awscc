@@ -181,7 +181,7 @@ notify_on_resolve_case,
 notify_on_case_severity,
 channel_role_arn
 FROM awscc.supportapp.slack_channel_configurations
-WHERE region = 'us-east-1' AND Identifier = '<TeamId>|<ChannelId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ team_id }}|{{ channel_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -221,11 +221,11 @@ INSERT INTO awscc.supportapp.slack_channel_configurations (
  ChannelRoleArn,
  region
 )
-SELECT 
-'{{ TeamId }}',
- '{{ ChannelId }}',
- '{{ NotifyOnCaseSeverity }}',
- '{{ ChannelRoleArn }}',
+SELECT
+'{{ team_id }}',
+ '{{ channel_id }}',
+ '{{ notify_on_case_severity }}',
+ '{{ channel_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,15 @@ INSERT INTO awscc.supportapp.slack_channel_configurations (
  ChannelRoleArn,
  region
 )
-SELECT 
- '{{ TeamId }}',
- '{{ ChannelId }}',
- '{{ ChannelName }}',
- '{{ NotifyOnCreateOrReopenCase }}',
- '{{ NotifyOnAddCorrespondenceToCase }}',
- '{{ NotifyOnResolveCase }}',
- '{{ NotifyOnCaseSeverity }}',
- '{{ ChannelRoleArn }}',
+SELECT
+ '{{ team_id }}',
+ '{{ channel_id }}',
+ '{{ channel_name }}',
+ '{{ notify_on_create_or_reopen_case }}',
+ '{{ notify_on_add_correspondence_to_case }}',
+ '{{ notify_on_resolve_case }}',
+ '{{ notify_on_case_severity }}',
+ '{{ channel_role_arn }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,23 +270,22 @@ globals:
 resources:
   - name: slack_channel_configuration
     props:
-      - name: TeamId
-        value: '{{ TeamId }}'
-      - name: ChannelId
-        value: '{{ ChannelId }}'
-      - name: ChannelName
-        value: '{{ ChannelName }}'
-      - name: NotifyOnCreateOrReopenCase
-        value: '{{ NotifyOnCreateOrReopenCase }}'
-      - name: NotifyOnAddCorrespondenceToCase
-        value: '{{ NotifyOnAddCorrespondenceToCase }}'
-      - name: NotifyOnResolveCase
-        value: '{{ NotifyOnResolveCase }}'
-      - name: NotifyOnCaseSeverity
-        value: '{{ NotifyOnCaseSeverity }}'
-      - name: ChannelRoleArn
-        value: '{{ ChannelRoleArn }}'
-
+      - name: team_id
+        value: '{{ team_id }}'
+      - name: channel_id
+        value: '{{ channel_id }}'
+      - name: channel_name
+        value: '{{ channel_name }}'
+      - name: notify_on_create_or_reopen_case
+        value: '{{ notify_on_create_or_reopen_case }}'
+      - name: notify_on_add_correspondence_to_case
+        value: '{{ notify_on_add_correspondence_to_case }}'
+      - name: notify_on_resolve_case
+        value: '{{ notify_on_resolve_case }}'
+      - name: notify_on_case_severity
+        value: '{{ notify_on_case_severity }}'
+      - name: channel_role_arn
+        value: '{{ channel_role_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -307,7 +306,7 @@ SET PatchDocument = string('{{ {
     "ChannelRoleArn": channel_role_arn
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<TeamId>|<ChannelId>';
+AND Identifier = '{{ team_id }}|{{ channel_id }}';
 ```
 
 
@@ -316,7 +315,7 @@ AND Identifier = '<TeamId>|<ChannelId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.supportapp.slack_channel_configurations
-WHERE Identifier = '<TeamId|ChannelId>'
+WHERE Identifier = '{{ team_id }}|{{ channel_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -180,7 +180,7 @@ file_system_locations,
 os_family,
 storage_profile_id
 FROM awscc.deadline.storage_profiles
-WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<StorageProfileId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -219,10 +219,10 @@ INSERT INTO awscc.deadline.storage_profiles (
  OsFamily,
  region
 )
-SELECT 
-'{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ OsFamily }}',
+SELECT
+'{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ os_family }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -237,11 +237,11 @@ INSERT INTO awscc.deadline.storage_profiles (
  OsFamily,
  region
 )
-SELECT 
- '{{ DisplayName }}',
- '{{ FarmId }}',
- '{{ FileSystemLocations }}',
- '{{ OsFamily }}',
+SELECT
+ '{{ display_name }}',
+ '{{ farm_id }}',
+ '{{ file_system_locations }}',
+ '{{ os_family }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -259,18 +259,17 @@ globals:
 resources:
   - name: storage_profile
     props:
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: FileSystemLocations
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: file_system_locations
         value:
-          - Name: '{{ Name }}'
-            Path: '{{ Path }}'
-            Type: '{{ Type }}'
-      - name: OsFamily
-        value: '{{ OsFamily }}'
-
+          - name: '{{ name }}'
+            path: '{{ path }}'
+            type: '{{ type }}'
+      - name: os_family
+        value: '{{ os_family }}'
 ```
 </TabItem>
 </Tabs>
@@ -288,7 +287,7 @@ SET PatchDocument = string('{{ {
     "OsFamily": os_family
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FarmId>|<StorageProfileId>';
+AND Identifier = '{{ farm_id }}|{{ storage_profile_id }}';
 ```
 
 
@@ -297,7 +296,7 @@ AND Identifier = '<FarmId>|<StorageProfileId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.storage_profiles
-WHERE Identifier = '<FarmId|StorageProfileId>'
+WHERE Identifier = '{{ farm_id }}|{{ storage_profile_id }}'
 AND region = 'us-east-1';
 ```
 

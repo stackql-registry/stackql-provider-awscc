@@ -536,7 +536,7 @@ exact_settings,
 settings,
 tags
 FROM awscc.dms.data_providers
-WHERE region = 'us-east-1' AND Identifier = '<DataProviderArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ data_provider_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -572,8 +572,8 @@ INSERT INTO awscc.dms.data_providers (
  Engine,
  region
 )
-SELECT 
-'{{ Engine }}',
+SELECT
+'{{ engine }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -591,14 +591,14 @@ INSERT INTO awscc.dms.data_providers (
  Tags,
  region
 )
-SELECT 
- '{{ DataProviderName }}',
- '{{ DataProviderIdentifier }}',
- '{{ Description }}',
- '{{ Engine }}',
- '{{ ExactSettings }}',
- '{{ Settings }}',
- '{{ Tags }}',
+SELECT
+ '{{ data_provider_name }}',
+ '{{ data_provider_identifier }}',
+ '{{ description }}',
+ '{{ engine }}',
+ '{{ exact_settings }}',
+ '{{ settings }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -616,87 +616,86 @@ globals:
 resources:
   - name: data_provider
     props:
-      - name: DataProviderName
-        value: '{{ DataProviderName }}'
-      - name: DataProviderIdentifier
-        value: '{{ DataProviderIdentifier }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Engine
-        value: '{{ Engine }}'
-      - name: ExactSettings
-        value: '{{ ExactSettings }}'
-      - name: Settings
+      - name: data_provider_name
+        value: '{{ data_provider_name }}'
+      - name: data_provider_identifier
+        value: '{{ data_provider_identifier }}'
+      - name: description
+        value: '{{ description }}'
+      - name: engine
+        value: '{{ engine }}'
+      - name: exact_settings
+        value: '{{ exact_settings }}'
+      - name: settings
         value:
-          PostgreSqlSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: '{{ SslMode }}'
-            CertificateArn: '{{ CertificateArn }}'
-          MySqlSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-          OracleSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-            AsmServer: '{{ AsmServer }}'
-            SecretsManagerOracleAsmSecretId: '{{ SecretsManagerOracleAsmSecretId }}'
-            SecretsManagerOracleAsmAccessRoleArn: '{{ SecretsManagerOracleAsmAccessRoleArn }}'
-            SecretsManagerSecurityDbEncryptionSecretId: '{{ SecretsManagerSecurityDbEncryptionSecretId }}'
-            SecretsManagerSecurityDbEncryptionAccessRoleArn: '{{ SecretsManagerSecurityDbEncryptionAccessRoleArn }}'
-          MicrosoftSqlServerSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-          RedshiftSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-          MariaDbSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-          DocDbSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: '{{ SslMode }}'
-            CertificateArn: '{{ CertificateArn }}'
-          MongoDbSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-            AuthType: '{{ AuthType }}'
-            AuthSource: '{{ AuthSource }}'
-            AuthMechanism: '{{ AuthMechanism }}'
-          IbmDb2LuwSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: '{{ SslMode }}'
-            CertificateArn: '{{ CertificateArn }}'
-          IbmDb2zOsSettings:
-            ServerName: '{{ ServerName }}'
-            Port: '{{ Port }}'
-            DatabaseName: '{{ DatabaseName }}'
-            SslMode: null
-            CertificateArn: '{{ CertificateArn }}'
-      - name: Tags
+          postgre_sql_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: '{{ ssl_mode }}'
+            certificate_arn: '{{ certificate_arn }}'
+          my_sql_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+          oracle_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+            asm_server: '{{ asm_server }}'
+            secrets_manager_oracle_asm_secret_id: '{{ secrets_manager_oracle_asm_secret_id }}'
+            secrets_manager_oracle_asm_access_role_arn: '{{ secrets_manager_oracle_asm_access_role_arn }}'
+            secrets_manager_security_db_encryption_secret_id: '{{ secrets_manager_security_db_encryption_secret_id }}'
+            secrets_manager_security_db_encryption_access_role_arn: '{{ secrets_manager_security_db_encryption_access_role_arn }}'
+          microsoft_sql_server_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+          redshift_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+          maria_db_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+          doc_db_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: '{{ ssl_mode }}'
+            certificate_arn: '{{ certificate_arn }}'
+          mongo_db_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+            auth_type: '{{ auth_type }}'
+            auth_source: '{{ auth_source }}'
+            auth_mechanism: '{{ auth_mechanism }}'
+          ibm_db2_luw_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: '{{ ssl_mode }}'
+            certificate_arn: '{{ certificate_arn }}'
+          ibm_db2z_os_settings:
+            server_name: '{{ server_name }}'
+            port: '{{ port }}'
+            database_name: '{{ database_name }}'
+            ssl_mode: null
+            certificate_arn: '{{ certificate_arn }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -718,7 +717,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DataProviderArn>';
+AND Identifier = '{{ data_provider_arn }}';
 ```
 
 
@@ -727,7 +726,7 @@ AND Identifier = '<DataProviderArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.dms.data_providers
-WHERE Identifier = '<DataProviderArn>'
+WHERE Identifier = '{{ data_provider_arn }}'
 AND region = 'us-east-1';
 ```
 

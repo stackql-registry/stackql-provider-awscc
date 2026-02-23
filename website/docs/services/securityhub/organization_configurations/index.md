@@ -170,7 +170,7 @@ status_message,
 member_account_limit_reached,
 organization_configuration_identifier
 FROM awscc.securityhub.organization_configurations
-WHERE region = 'us-east-1' AND Identifier = '<OrganizationConfigurationIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ organization_configuration_identifier }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -206,8 +206,8 @@ INSERT INTO awscc.securityhub.organization_configurations (
  AutoEnable,
  region
 )
-SELECT 
-'{{ AutoEnable }}',
+SELECT
+'{{ auto_enable }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -221,10 +221,10 @@ INSERT INTO awscc.securityhub.organization_configurations (
  ConfigurationType,
  region
 )
-SELECT 
- '{{ AutoEnable }}',
- '{{ AutoEnableStandards }}',
- '{{ ConfigurationType }}',
+SELECT
+ '{{ auto_enable }}',
+ '{{ auto_enable_standards }}',
+ '{{ configuration_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -242,13 +242,12 @@ globals:
 resources:
   - name: organization_configuration
     props:
-      - name: AutoEnable
-        value: '{{ AutoEnable }}'
-      - name: AutoEnableStandards
-        value: '{{ AutoEnableStandards }}'
-      - name: ConfigurationType
-        value: '{{ ConfigurationType }}'
-
+      - name: auto_enable
+        value: '{{ auto_enable }}'
+      - name: auto_enable_standards
+        value: '{{ auto_enable_standards }}'
+      - name: configuration_type
+        value: '{{ configuration_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "ConfigurationType": configuration_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<OrganizationConfigurationIdentifier>';
+AND Identifier = '{{ organization_configuration_identifier }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<OrganizationConfigurationIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.organization_configurations
-WHERE Identifier = '<OrganizationConfigurationIdentifier>'
+WHERE Identifier = '{{ organization_configuration_identifier }}'
 AND region = 'us-east-1';
 ```
 

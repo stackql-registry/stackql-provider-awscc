@@ -313,7 +313,7 @@ source_configuration,
 vector_ingestion_configuration,
 tags
 FROM awscc.wisdom.knowledge_bases
-WHERE region = 'us-east-1' AND Identifier = '<KnowledgeBaseId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ knowledge_base_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -350,9 +350,9 @@ INSERT INTO awscc.wisdom.knowledge_bases (
  Name,
  region
 )
-SELECT 
-'{{ KnowledgeBaseType }}',
- '{{ Name }}',
+SELECT
+'{{ knowledge_base_type }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -371,15 +371,15 @@ INSERT INTO awscc.wisdom.knowledge_bases (
  Tags,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ KnowledgeBaseType }}',
- '{{ Name }}',
- '{{ RenderingConfiguration }}',
- '{{ ServerSideEncryptionConfiguration }}',
- '{{ SourceConfiguration }}',
- '{{ VectorIngestionConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ description }}',
+ '{{ knowledge_base_type }}',
+ '{{ name }}',
+ '{{ rendering_configuration }}',
+ '{{ server_side_encryption_configuration }}',
+ '{{ source_configuration }}',
+ '{{ vector_ingestion_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -397,46 +397,45 @@ globals:
 resources:
   - name: knowledge_base
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: KnowledgeBaseType
-        value: '{{ KnowledgeBaseType }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: RenderingConfiguration
+      - name: description
+        value: '{{ description }}'
+      - name: knowledge_base_type
+        value: '{{ knowledge_base_type }}'
+      - name: name
+        value: '{{ name }}'
+      - name: rendering_configuration
         value:
-          TemplateUri: '{{ TemplateUri }}'
-      - name: ServerSideEncryptionConfiguration
+          template_uri: '{{ template_uri }}'
+      - name: server_side_encryption_configuration
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-      - name: SourceConfiguration
+          kms_key_id: '{{ kms_key_id }}'
+      - name: source_configuration
         value: null
-      - name: VectorIngestionConfiguration
+      - name: vector_ingestion_configuration
         value:
-          ChunkingConfiguration:
-            ChunkingStrategy: '{{ ChunkingStrategy }}'
-            FixedSizeChunkingConfiguration:
-              MaxTokens: null
-              OverlapPercentage: null
-            HierarchicalChunkingConfiguration:
-              LevelConfigurations:
-                - MaxTokens: null
-              OverlapTokens: null
-            SemanticChunkingConfiguration:
-              MaxTokens: null
-              BufferSize: null
-              BreakpointPercentileThreshold: null
-          ParsingConfiguration:
-            ParsingStrategy: '{{ ParsingStrategy }}'
-            BedrockFoundationModelConfiguration:
-              ModelArn: '{{ ModelArn }}'
-              ParsingPrompt:
-                ParsingPromptText: '{{ ParsingPromptText }}'
-      - name: Tags
+          chunking_configuration:
+            chunking_strategy: '{{ chunking_strategy }}'
+            fixed_size_chunking_configuration:
+              max_tokens: null
+              overlap_percentage: null
+            hierarchical_chunking_configuration:
+              level_configurations:
+                - max_tokens: null
+              overlap_tokens: null
+            semantic_chunking_configuration:
+              max_tokens: null
+              buffer_size: null
+              breakpoint_percentile_threshold: null
+          parsing_configuration:
+            parsing_strategy: '{{ parsing_strategy }}'
+            bedrock_foundation_model_configuration:
+              model_arn: '{{ model_arn }}'
+              parsing_prompt:
+                parsing_prompt_text: '{{ parsing_prompt_text }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -453,7 +452,7 @@ SET PatchDocument = string('{{ {
     "VectorIngestionConfiguration": vector_ingestion_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<KnowledgeBaseId>';
+AND Identifier = '{{ knowledge_base_id }}';
 ```
 
 
@@ -462,7 +461,7 @@ AND Identifier = '<KnowledgeBaseId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.wisdom.knowledge_bases
-WHERE Identifier = '<KnowledgeBaseId>'
+WHERE Identifier = '{{ knowledge_base_id }}'
 AND region = 'us-east-1';
 ```
 

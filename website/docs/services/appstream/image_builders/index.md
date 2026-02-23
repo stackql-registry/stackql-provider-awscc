@@ -254,7 +254,7 @@ streaming_url,
 image_arn,
 access_endpoints
 FROM awscc.appstream.image_builders
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -291,9 +291,9 @@ INSERT INTO awscc.appstream.image_builders (
  InstanceType,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ InstanceType }}',
+SELECT
+'{{ name }}',
+ '{{ instance_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -317,20 +317,20 @@ INSERT INTO awscc.appstream.image_builders (
  AccessEndpoints,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ VpcConfig }}',
- '{{ EnableDefaultInternetAccess }}',
- '{{ DomainJoinInfo }}',
- '{{ AppstreamAgentVersion }}',
- '{{ Name }}',
- '{{ ImageName }}',
- '{{ DisplayName }}',
- '{{ IamRoleArn }}',
- '{{ InstanceType }}',
- '{{ Tags }}',
- '{{ ImageArn }}',
- '{{ AccessEndpoints }}',
+SELECT
+ '{{ description }}',
+ '{{ vpc_config }}',
+ '{{ enable_default_internet_access }}',
+ '{{ domain_join_info }}',
+ '{{ appstream_agent_version }}',
+ '{{ name }}',
+ '{{ image_name }}',
+ '{{ display_name }}',
+ '{{ iam_role_arn }}',
+ '{{ instance_type }}',
+ '{{ tags }}',
+ '{{ image_arn }}',
+ '{{ access_endpoints }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -348,43 +348,42 @@ globals:
 resources:
   - name: image_builder
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: VpcConfig
+      - name: description
+        value: '{{ description }}'
+      - name: vpc_config
         value:
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-      - name: EnableDefaultInternetAccess
-        value: '{{ EnableDefaultInternetAccess }}'
-      - name: DomainJoinInfo
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+      - name: enable_default_internet_access
+        value: '{{ enable_default_internet_access }}'
+      - name: domain_join_info
         value:
-          OrganizationalUnitDistinguishedName: '{{ OrganizationalUnitDistinguishedName }}'
-          DirectoryName: '{{ DirectoryName }}'
-      - name: AppstreamAgentVersion
-        value: '{{ AppstreamAgentVersion }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ImageName
-        value: '{{ ImageName }}'
-      - name: DisplayName
-        value: '{{ DisplayName }}'
-      - name: IamRoleArn
-        value: '{{ IamRoleArn }}'
-      - name: InstanceType
-        value: '{{ InstanceType }}'
-      - name: Tags
+          organizational_unit_distinguished_name: '{{ organizational_unit_distinguished_name }}'
+          directory_name: '{{ directory_name }}'
+      - name: appstream_agent_version
+        value: '{{ appstream_agent_version }}'
+      - name: name
+        value: '{{ name }}'
+      - name: image_name
+        value: '{{ image_name }}'
+      - name: display_name
+        value: '{{ display_name }}'
+      - name: iam_role_arn
+        value: '{{ iam_role_arn }}'
+      - name: instance_type
+        value: '{{ instance_type }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ImageArn
-        value: '{{ ImageArn }}'
-      - name: AccessEndpoints
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: image_arn
+        value: '{{ image_arn }}'
+      - name: access_endpoints
         value:
-          - EndpointType: '{{ EndpointType }}'
-            VpceId: '{{ VpceId }}'
-
+          - endpoint_type: '{{ endpoint_type }}'
+            vpce_id: '{{ vpce_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -395,7 +394,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.appstream.image_builders
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

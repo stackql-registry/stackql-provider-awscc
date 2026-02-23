@@ -397,7 +397,7 @@ source,
 path_options,
 tags
 FROM awscc.databrew.datasets
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -434,9 +434,9 @@ INSERT INTO awscc.databrew.datasets (
  Input,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ Input }}',
+SELECT
+'{{ name }}',
+ '{{ input }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -454,14 +454,14 @@ INSERT INTO awscc.databrew.datasets (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Format }}',
- '{{ FormatOptions }}',
- '{{ Input }}',
- '{{ Source }}',
- '{{ PathOptions }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ format }}',
+ '{{ format_options }}',
+ '{{ input }}',
+ '{{ source }}',
+ '{{ path_options }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -479,69 +479,68 @@ globals:
 resources:
   - name: dataset
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Format
-        value: '{{ Format }}'
-      - name: FormatOptions
+      - name: name
+        value: '{{ name }}'
+      - name: format
+        value: '{{ format }}'
+      - name: format_options
         value:
-          Json:
-            MultiLine: '{{ MultiLine }}'
-          Excel:
-            SheetNames:
-              - '{{ SheetNames[0] }}'
-            SheetIndexes:
-              - '{{ SheetIndexes[0] }}'
-            HeaderRow: '{{ HeaderRow }}'
-          Csv:
-            Delimiter: '{{ Delimiter }}'
-            HeaderRow: '{{ HeaderRow }}'
-      - name: Input
+          json:
+            multi_line: '{{ multi_line }}'
+          excel:
+            sheet_names:
+              - '{{ sheet_names[0] }}'
+            sheet_indexes:
+              - '{{ sheet_indexes[0] }}'
+            header_row: '{{ header_row }}'
+          csv:
+            delimiter: '{{ delimiter }}'
+            header_row: '{{ header_row }}'
+      - name: input
         value:
-          S3InputDefinition:
-            Bucket: '{{ Bucket }}'
-            Key: '{{ Key }}'
-          DataCatalogInputDefinition:
-            CatalogId: '{{ CatalogId }}'
-            DatabaseName: '{{ DatabaseName }}'
-            TableName: '{{ TableName }}'
-            TempDirectory: null
-          DatabaseInputDefinition:
-            GlueConnectionName: '{{ GlueConnectionName }}'
-            DatabaseTableName: '{{ DatabaseTableName }}'
-            TempDirectory: null
-            QueryString: '{{ QueryString }}'
-          Metadata:
-            SourceArn: '{{ SourceArn }}'
-      - name: Source
-        value: '{{ Source }}'
-      - name: PathOptions
+          s3_input_definition:
+            bucket: '{{ bucket }}'
+            key: '{{ key }}'
+          data_catalog_input_definition:
+            catalog_id: '{{ catalog_id }}'
+            database_name: '{{ database_name }}'
+            table_name: '{{ table_name }}'
+            temp_directory: null
+          database_input_definition:
+            glue_connection_name: '{{ glue_connection_name }}'
+            database_table_name: '{{ database_table_name }}'
+            temp_directory: null
+            query_string: '{{ query_string }}'
+          metadata:
+            source_arn: '{{ source_arn }}'
+      - name: source
+        value: '{{ source }}'
+      - name: path_options
         value:
-          FilesLimit:
-            MaxFiles: '{{ MaxFiles }}'
-            OrderedBy: '{{ OrderedBy }}'
-            Order: '{{ Order }}'
-          LastModifiedDateCondition:
-            Expression: '{{ Expression }}'
-            ValuesMap:
-              - ValueReference: '{{ ValueReference }}'
-                Value: '{{ Value }}'
-          Parameters:
-            - PathParameterName: '{{ PathParameterName }}'
-              DatasetParameter:
-                Name: null
-                Type: '{{ Type }}'
-                DatetimeOptions:
-                  Format: '{{ Format }}'
-                  TimezoneOffset: '{{ TimezoneOffset }}'
-                  LocaleCode: '{{ LocaleCode }}'
-                CreateColumn: '{{ CreateColumn }}'
-                Filter: null
-      - name: Tags
+          files_limit:
+            max_files: '{{ max_files }}'
+            ordered_by: '{{ ordered_by }}'
+            order: '{{ order }}'
+          last_modified_date_condition:
+            expression: '{{ expression }}'
+            values_map:
+              - value_reference: '{{ value_reference }}'
+                value: '{{ value }}'
+          parameters:
+            - path_parameter_name: '{{ path_parameter_name }}'
+              dataset_parameter:
+                name: null
+                type: '{{ type }}'
+                datetime_options:
+                  format: '{{ format }}'
+                  timezone_offset: '{{ timezone_offset }}'
+                  locale_code: '{{ locale_code }}'
+                create_column: '{{ create_column }}'
+                filter: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -562,7 +561,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -571,7 +570,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.databrew.datasets
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

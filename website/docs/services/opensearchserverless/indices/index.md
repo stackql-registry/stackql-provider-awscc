@@ -194,7 +194,7 @@ settings,
 mappings,
 uuid
 FROM awscc.opensearchserverless.indices
-WHERE region = 'us-east-1' AND Identifier = '<IndexName>|<CollectionEndpoint>';
+WHERE region = 'us-east-1' AND Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -232,9 +232,9 @@ INSERT INTO awscc.opensearchserverless.indices (
  IndexName,
  region
 )
-SELECT 
-'{{ CollectionEndpoint }}',
- '{{ IndexName }}',
+SELECT
+'{{ collection_endpoint }}',
+ '{{ index_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -249,11 +249,11 @@ INSERT INTO awscc.opensearchserverless.indices (
  Mappings,
  region
 )
-SELECT 
- '{{ CollectionEndpoint }}',
- '{{ IndexName }}',
- '{{ Settings }}',
- '{{ Mappings }}',
+SELECT
+ '{{ collection_endpoint }}',
+ '{{ index_name }}',
+ '{{ settings }}',
+ '{{ mappings }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -271,20 +271,19 @@ globals:
 resources:
   - name: index
     props:
-      - name: CollectionEndpoint
-        value: '{{ CollectionEndpoint }}'
-      - name: IndexName
-        value: '{{ IndexName }}'
-      - name: Settings
+      - name: collection_endpoint
+        value: '{{ collection_endpoint }}'
+      - name: index_name
+        value: '{{ index_name }}'
+      - name: settings
         value:
-          Index:
-            RefreshInterval: '{{ RefreshInterval }}'
-            Knn: '{{ Knn }}'
-            KnnAlgoParamEfSearch: '{{ KnnAlgoParamEfSearch }}'
-      - name: Mappings
+          index:
+            refresh_interval: '{{ refresh_interval }}'
+            knn: '{{ knn }}'
+            knn_algo_param_ef_search: '{{ knn_algo_param_ef_search }}'
+      - name: mappings
         value:
-          Properties: {}
-
+          properties: {}
 ```
 </TabItem>
 </Tabs>
@@ -301,7 +300,7 @@ SET PatchDocument = string('{{ {
     "Mappings": mappings
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<IndexName>|<CollectionEndpoint>';
+AND Identifier = '{{ index_name }}|{{ collection_endpoint }}';
 ```
 
 
@@ -310,7 +309,7 @@ AND Identifier = '<IndexName>|<CollectionEndpoint>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.opensearchserverless.indices
-WHERE Identifier = '<IndexName|CollectionEndpoint>'
+WHERE Identifier = '{{ index_name }}|{{ collection_endpoint }}'
 AND region = 'us-east-1';
 ```
 

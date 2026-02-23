@@ -392,7 +392,7 @@ collection_scheme,
 data_partitions,
 tags
 FROM awscc.iotfleetwise.campaigns
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -431,11 +431,11 @@ INSERT INTO awscc.iotfleetwise.campaigns (
  CollectionScheme,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ SignalCatalogArn }}',
- '{{ TargetArn }}',
- '{{ CollectionScheme }}',
+SELECT
+'{{ name }}',
+ '{{ signal_catalog_arn }}',
+ '{{ target_arn }}',
+ '{{ collection_scheme }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -465,26 +465,26 @@ INSERT INTO awscc.iotfleetwise.campaigns (
  Tags,
  region
 )
-SELECT 
- '{{ Action }}',
- '{{ Compression }}',
- '{{ Description }}',
- '{{ Priority }}',
- '{{ SignalsToCollect }}',
- '{{ SignalsToFetch }}',
- '{{ DataDestinationConfigs }}',
- '{{ StartTime }}',
- '{{ Name }}',
- '{{ ExpiryTime }}',
- '{{ SpoolingMode }}',
- '{{ SignalCatalogArn }}',
- '{{ PostTriggerCollectionDuration }}',
- '{{ DataExtraDimensions }}',
- '{{ DiagnosticsMode }}',
- '{{ TargetArn }}',
- '{{ CollectionScheme }}',
- '{{ DataPartitions }}',
- '{{ Tags }}',
+SELECT
+ '{{ action }}',
+ '{{ compression }}',
+ '{{ description }}',
+ '{{ priority }}',
+ '{{ signals_to_collect }}',
+ '{{ signals_to_fetch }}',
+ '{{ data_destination_configs }}',
+ '{{ start_time }}',
+ '{{ name }}',
+ '{{ expiry_time }}',
+ '{{ spooling_mode }}',
+ '{{ signal_catalog_arn }}',
+ '{{ post_trigger_collection_duration }}',
+ '{{ data_extra_dimensions }}',
+ '{{ diagnostics_mode }}',
+ '{{ target_arn }}',
+ '{{ collection_scheme }}',
+ '{{ data_partitions }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -502,70 +502,69 @@ globals:
 resources:
   - name: campaign
     props:
-      - name: Action
-        value: '{{ Action }}'
-      - name: Compression
-        value: '{{ Compression }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: SignalsToCollect
+      - name: action
+        value: '{{ action }}'
+      - name: compression
+        value: '{{ compression }}'
+      - name: description
+        value: '{{ description }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: signals_to_collect
         value:
-          - MaxSampleCount: null
-            Name: '{{ Name }}'
-            MinimumSamplingIntervalMs: null
-            DataPartitionId: '{{ DataPartitionId }}'
-      - name: SignalsToFetch
+          - max_sample_count: null
+            name: '{{ name }}'
+            minimum_sampling_interval_ms: null
+            data_partition_id: '{{ data_partition_id }}'
+      - name: signals_to_fetch
         value:
-          - FullyQualifiedName: '{{ FullyQualifiedName }}'
-            SignalFetchConfig: null
-            ConditionLanguageVersion: null
-            Actions:
-              - '{{ Actions[0] }}'
-      - name: DataDestinationConfigs
+          - fully_qualified_name: '{{ fully_qualified_name }}'
+            signal_fetch_config: null
+            condition_language_version: null
+            actions:
+              - '{{ actions[0] }}'
+      - name: data_destination_configs
         value:
           - null
-      - name: StartTime
-        value: '{{ StartTime }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ExpiryTime
-        value: '{{ ExpiryTime }}'
-      - name: SpoolingMode
-        value: '{{ SpoolingMode }}'
-      - name: SignalCatalogArn
-        value: '{{ SignalCatalogArn }}'
-      - name: PostTriggerCollectionDuration
+      - name: start_time
+        value: '{{ start_time }}'
+      - name: name
+        value: '{{ name }}'
+      - name: expiry_time
+        value: '{{ expiry_time }}'
+      - name: spooling_mode
+        value: '{{ spooling_mode }}'
+      - name: signal_catalog_arn
+        value: '{{ signal_catalog_arn }}'
+      - name: post_trigger_collection_duration
         value: null
-      - name: DataExtraDimensions
+      - name: data_extra_dimensions
         value:
-          - '{{ DataExtraDimensions[0] }}'
-      - name: DiagnosticsMode
-        value: '{{ DiagnosticsMode }}'
-      - name: TargetArn
-        value: '{{ TargetArn }}'
-      - name: CollectionScheme
+          - '{{ data_extra_dimensions[0] }}'
+      - name: diagnostics_mode
+        value: '{{ diagnostics_mode }}'
+      - name: target_arn
+        value: '{{ target_arn }}'
+      - name: collection_scheme
         value: null
-      - name: DataPartitions
+      - name: data_partitions
         value:
-          - Id: null
-            StorageOptions:
-              MaximumSize:
-                Unit: '{{ Unit }}'
-                Value: '{{ Value }}'
-              MinimumTimeToLive:
-                Unit: '{{ Unit }}'
-                Value: '{{ Value }}'
-              StorageLocation: '{{ StorageLocation }}'
-            UploadOptions:
-              Expression: '{{ Expression }}'
-              ConditionLanguageVersion: '{{ ConditionLanguageVersion }}'
-      - name: Tags
+          - id: null
+            storage_options:
+              maximum_size:
+                unit: '{{ unit }}'
+                value: '{{ value }}'
+              minimum_time_to_live:
+                unit: '{{ unit }}'
+                value: '{{ value }}'
+              storage_location: '{{ storage_location }}'
+            upload_options:
+              expression: '{{ expression }}'
+              condition_language_version: '{{ condition_language_version }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -584,7 +583,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -593,7 +592,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotfleetwise.campaigns
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

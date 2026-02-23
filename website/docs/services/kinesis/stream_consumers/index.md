@@ -170,7 +170,7 @@ consumer_status,
 stream_arn,
 tags
 FROM awscc.kinesis.stream_consumers
-WHERE region = 'us-east-1' AND Identifier = '<ConsumerARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ consumer_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.kinesis.stream_consumers (
  StreamARN,
  region
 )
-SELECT 
-'{{ ConsumerName }}',
- '{{ StreamARN }}',
+SELECT
+'{{ consumer_name }}',
+ '{{ stream_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -223,10 +223,10 @@ INSERT INTO awscc.kinesis.stream_consumers (
  Tags,
  region
 )
-SELECT 
- '{{ ConsumerName }}',
- '{{ StreamARN }}',
- '{{ Tags }}',
+SELECT
+ '{{ consumer_name }}',
+ '{{ stream_arn }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: stream_consumer
     props:
-      - name: ConsumerName
-        value: '{{ ConsumerName }}'
-      - name: StreamARN
-        value: '{{ StreamARN }}'
-      - name: Tags
+      - name: consumer_name
+        value: '{{ consumer_name }}'
+      - name: stream_arn
+        value: '{{ stream_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.kinesis.stream_consumers
-WHERE Identifier = '<ConsumerARN>'
+WHERE Identifier = '{{ consumer_arn }}'
 AND region = 'us-east-1';
 ```
 

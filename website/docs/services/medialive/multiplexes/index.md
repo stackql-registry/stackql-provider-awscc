@@ -229,7 +229,7 @@ program_count,
 state,
 tags
 FROM awscc.medialive.multiplexes
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -267,10 +267,10 @@ INSERT INTO awscc.medialive.multiplexes (
  Name,
  region
 )
-SELECT 
-'{{ AvailabilityZones }}',
- '{{ MultiplexSettings }}',
- '{{ Name }}',
+SELECT
+'{{ availability_zones }}',
+ '{{ multiplex_settings }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -286,12 +286,12 @@ INSERT INTO awscc.medialive.multiplexes (
  Tags,
  region
 )
-SELECT 
- '{{ AvailabilityZones }}',
- '{{ Destinations }}',
- '{{ MultiplexSettings }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ availability_zones }}',
+ '{{ destinations }}',
+ '{{ multiplex_settings }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -309,25 +309,24 @@ globals:
 resources:
   - name: multiplex
     props:
-      - name: AvailabilityZones
+      - name: availability_zones
         value:
-          - '{{ AvailabilityZones[0] }}'
-      - name: Destinations
+          - '{{ availability_zones[0] }}'
+      - name: destinations
         value:
-          - MultiplexMediaConnectOutputDestinationSettings: null
-      - name: MultiplexSettings
+          - multiplex_media_connect_output_destination_settings: null
+      - name: multiplex_settings
         value:
-          MaximumVideoBufferDelayMilliseconds: '{{ MaximumVideoBufferDelayMilliseconds }}'
-          TransportStreamBitrate: '{{ TransportStreamBitrate }}'
-          TransportStreamId: '{{ TransportStreamId }}'
-          TransportStreamReservedBitrate: '{{ TransportStreamReservedBitrate }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+          maximum_video_buffer_delay_milliseconds: '{{ maximum_video_buffer_delay_milliseconds }}'
+          transport_stream_bitrate: '{{ transport_stream_bitrate }}'
+          transport_stream_id: '{{ transport_stream_id }}'
+          transport_stream_reserved_bitrate: '{{ transport_stream_reserved_bitrate }}'
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -346,7 +345,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -355,7 +354,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.medialive.multiplexes
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

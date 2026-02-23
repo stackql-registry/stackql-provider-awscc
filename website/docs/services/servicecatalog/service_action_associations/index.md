@@ -150,7 +150,7 @@ product_id,
 provisioning_artifact_id,
 service_action_id
 FROM awscc.servicecatalog.service_action_associations
-WHERE region = 'us-east-1' AND Identifier = '<ProductId>|<ProvisioningArtifactId>|<ServiceActionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -190,10 +190,10 @@ INSERT INTO awscc.servicecatalog.service_action_associations (
  ServiceActionId,
  region
 )
-SELECT 
-'{{ ProductId }}',
- '{{ ProvisioningArtifactId }}',
- '{{ ServiceActionId }}',
+SELECT
+'{{ product_id }}',
+ '{{ provisioning_artifact_id }}',
+ '{{ service_action_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -207,10 +207,10 @@ INSERT INTO awscc.servicecatalog.service_action_associations (
  ServiceActionId,
  region
 )
-SELECT 
- '{{ ProductId }}',
- '{{ ProvisioningArtifactId }}',
- '{{ ServiceActionId }}',
+SELECT
+ '{{ product_id }}',
+ '{{ provisioning_artifact_id }}',
+ '{{ service_action_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -228,13 +228,12 @@ globals:
 resources:
   - name: service_action_association
     props:
-      - name: ProductId
-        value: '{{ ProductId }}'
-      - name: ProvisioningArtifactId
-        value: '{{ ProvisioningArtifactId }}'
-      - name: ServiceActionId
-        value: '{{ ServiceActionId }}'
-
+      - name: product_id
+        value: '{{ product_id }}'
+      - name: provisioning_artifact_id
+        value: '{{ provisioning_artifact_id }}'
+      - name: service_action_id
+        value: '{{ service_action_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -245,7 +244,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.servicecatalog.service_action_associations
-WHERE Identifier = '<ProductId|ProvisioningArtifactId|ServiceActionId>'
+WHERE Identifier = '{{ product_id }}|{{ provisioning_artifact_id }}|{{ service_action_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -308,7 +308,7 @@ dns,
 event_config,
 tags
 FROM awscc.appsync.apis
-WHERE region = 'us-east-1' AND Identifier = '<ApiArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ api_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -344,8 +344,8 @@ INSERT INTO awscc.appsync.apis (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -360,11 +360,11 @@ INSERT INTO awscc.appsync.apis (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ OwnerContact }}',
- '{{ EventConfig }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ owner_contact }}',
+ '{{ event_config }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -382,39 +382,38 @@ globals:
 resources:
   - name: api
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: OwnerContact
-        value: '{{ OwnerContact }}'
-      - name: EventConfig
+      - name: name
+        value: '{{ name }}'
+      - name: owner_contact
+        value: '{{ owner_contact }}'
+      - name: event_config
         value:
-          AuthProviders:
-            - AuthType: '{{ AuthType }}'
-              OpenIDConnectConfig:
-                ClientId: '{{ ClientId }}'
-                AuthTTL: null
-                Issuer: '{{ Issuer }}'
-                IatTTL: null
-              CognitoConfig:
-                AppIdClientRegex: '{{ AppIdClientRegex }}'
-                UserPoolId: '{{ UserPoolId }}'
-                AwsRegion: '{{ AwsRegion }}'
-              LambdaAuthorizerConfig:
-                IdentityValidationExpression: '{{ IdentityValidationExpression }}'
-                AuthorizerUri: '{{ AuthorizerUri }}'
-                AuthorizerResultTtlInSeconds: '{{ AuthorizerResultTtlInSeconds }}'
-          ConnectionAuthModes:
-            - AuthType: null
-          DefaultPublishAuthModes: null
-          DefaultSubscribeAuthModes: null
-          LogConfig:
-            LogLevel: '{{ LogLevel }}'
-            CloudWatchLogsRoleArn: '{{ CloudWatchLogsRoleArn }}'
-      - name: Tags
+          auth_providers:
+            - auth_type: '{{ auth_type }}'
+              open_id_connect_config:
+                client_id: '{{ client_id }}'
+                auth_ttl: null
+                issuer: '{{ issuer }}'
+                iat_ttl: null
+              cognito_config:
+                app_id_client_regex: '{{ app_id_client_regex }}'
+                user_pool_id: '{{ user_pool_id }}'
+                aws_region: '{{ aws_region }}'
+              lambda_authorizer_config:
+                identity_validation_expression: '{{ identity_validation_expression }}'
+                authorizer_uri: '{{ authorizer_uri }}'
+                authorizer_result_ttl_in_seconds: '{{ authorizer_result_ttl_in_seconds }}'
+          connection_auth_modes:
+            - auth_type: null
+          default_publish_auth_modes: null
+          default_subscribe_auth_modes: null
+          log_config:
+            log_level: '{{ log_level }}'
+            cloud_watch_logs_role_arn: '{{ cloud_watch_logs_role_arn }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -433,7 +432,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApiArn>';
+AND Identifier = '{{ api_arn }}';
 ```
 
 
@@ -442,7 +441,7 @@ AND Identifier = '<ApiArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.appsync.apis
-WHERE Identifier = '<ApiArn>'
+WHERE Identifier = '{{ api_arn }}'
 AND region = 'us-east-1';
 ```
 

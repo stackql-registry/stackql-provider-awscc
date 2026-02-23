@@ -182,7 +182,7 @@ egress_domain,
 modified_at,
 tags
 FROM awscc.mediapackagev2.channel_groups
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.mediapackagev2.channel_groups (
  ChannelGroupName,
  region
 )
-SELECT 
-'{{ ChannelGroupName }}',
+SELECT
+'{{ channel_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -233,10 +233,10 @@ INSERT INTO awscc.mediapackagev2.channel_groups (
  Tags,
  region
 )
-SELECT 
- '{{ ChannelGroupName }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ channel_group_name }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,15 +254,14 @@ globals:
 resources:
   - name: channel_group
     props:
-      - name: ChannelGroupName
-        value: '{{ ChannelGroupName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: channel_group_name
+        value: '{{ channel_group_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -279,7 +278,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -288,7 +287,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.mediapackagev2.channel_groups
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

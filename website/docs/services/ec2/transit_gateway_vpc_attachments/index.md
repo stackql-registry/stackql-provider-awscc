@@ -210,7 +210,7 @@ remove_subnet_ids,
 tags,
 options
 FROM awscc.ec2.transit_gateway_vpc_attachments
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,10 +248,10 @@ INSERT INTO awscc.ec2.transit_gateway_vpc_attachments (
  SubnetIds,
  region
 )
-SELECT 
-'{{ TransitGatewayId }}',
- '{{ VpcId }}',
- '{{ SubnetIds }}',
+SELECT
+'{{ transit_gateway_id }}',
+ '{{ vpc_id }}',
+ '{{ subnet_ids }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -269,14 +269,14 @@ INSERT INTO awscc.ec2.transit_gateway_vpc_attachments (
  Options,
  region
 )
-SELECT 
- '{{ TransitGatewayId }}',
- '{{ VpcId }}',
- '{{ SubnetIds }}',
- '{{ AddSubnetIds }}',
- '{{ RemoveSubnetIds }}',
- '{{ Tags }}',
- '{{ Options }}',
+SELECT
+ '{{ transit_gateway_id }}',
+ '{{ vpc_id }}',
+ '{{ subnet_ids }}',
+ '{{ add_subnet_ids }}',
+ '{{ remove_subnet_ids }}',
+ '{{ tags }}',
+ '{{ options }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -294,30 +294,29 @@ globals:
 resources:
   - name: transit_gateway_vpc_attachment
     props:
-      - name: TransitGatewayId
-        value: '{{ TransitGatewayId }}'
-      - name: VpcId
-        value: '{{ VpcId }}'
-      - name: SubnetIds
+      - name: transit_gateway_id
+        value: '{{ transit_gateway_id }}'
+      - name: vpc_id
+        value: '{{ vpc_id }}'
+      - name: subnet_ids
         value:
-          - '{{ SubnetIds[0] }}'
-      - name: AddSubnetIds
+          - '{{ subnet_ids[0] }}'
+      - name: add_subnet_ids
         value:
-          - '{{ AddSubnetIds[0] }}'
-      - name: RemoveSubnetIds
+          - '{{ add_subnet_ids[0] }}'
+      - name: remove_subnet_ids
         value:
-          - '{{ RemoveSubnetIds[0] }}'
-      - name: Tags
+          - '{{ remove_subnet_ids[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: Options
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: options
         value:
-          DnsSupport: '{{ DnsSupport }}'
-          Ipv6Support: '{{ Ipv6Support }}'
-          ApplianceModeSupport: '{{ ApplianceModeSupport }}'
-          SecurityGroupReferencingSupport: '{{ SecurityGroupReferencingSupport }}'
-
+          dns_support: '{{ dns_support }}'
+          ipv6_support: '{{ ipv6_support }}'
+          appliance_mode_support: '{{ appliance_mode_support }}'
+          security_group_referencing_support: '{{ security_group_referencing_support }}'
 ```
 </TabItem>
 </Tabs>
@@ -336,7 +335,7 @@ SET PatchDocument = string('{{ {
     "Options": options
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -345,7 +344,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.transit_gateway_vpc_attachments
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -345,7 +345,7 @@ name,
 client_secret,
 client_id
 FROM awscc.cognito.user_pool_clients
-WHERE region = 'us-east-1' AND Identifier = '<UserPoolId>|<ClientId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -382,8 +382,8 @@ INSERT INTO awscc.cognito.user_pool_clients (
  UserPoolId,
  region
 )
-SELECT 
-'{{ UserPoolId }}',
+SELECT
+'{{ user_pool_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -417,30 +417,30 @@ INSERT INTO awscc.cognito.user_pool_clients (
  EnablePropagateAdditionalUserContextData,
  region
 )
-SELECT 
- '{{ ClientName }}',
- '{{ ExplicitAuthFlows }}',
- '{{ GenerateSecret }}',
- '{{ ReadAttributes }}',
- '{{ AuthSessionValidity }}',
- '{{ RefreshTokenValidity }}',
- '{{ AccessTokenValidity }}',
- '{{ IdTokenValidity }}',
- '{{ TokenValidityUnits }}',
- '{{ RefreshTokenRotation }}',
- '{{ UserPoolId }}',
- '{{ WriteAttributes }}',
- '{{ AllowedOAuthFlows }}',
- '{{ AllowedOAuthFlowsUserPoolClient }}',
- '{{ AllowedOAuthScopes }}',
- '{{ CallbackURLs }}',
- '{{ DefaultRedirectURI }}',
- '{{ LogoutURLs }}',
- '{{ SupportedIdentityProviders }}',
- '{{ AnalyticsConfiguration }}',
- '{{ PreventUserExistenceErrors }}',
- '{{ EnableTokenRevocation }}',
- '{{ EnablePropagateAdditionalUserContextData }}',
+SELECT
+ '{{ client_name }}',
+ '{{ explicit_auth_flows }}',
+ '{{ generate_secret }}',
+ '{{ read_attributes }}',
+ '{{ auth_session_validity }}',
+ '{{ refresh_token_validity }}',
+ '{{ access_token_validity }}',
+ '{{ id_token_validity }}',
+ '{{ token_validity_units }}',
+ '{{ refresh_token_rotation }}',
+ '{{ user_pool_id }}',
+ '{{ write_attributes }}',
+ '{{ allowed_oauth_flows }}',
+ '{{ allowed_oauth_flows_user_pool_client }}',
+ '{{ allowed_oauth_scopes }}',
+ '{{ callback_urls }}',
+ '{{ default_redirect_uri }}',
+ '{{ logout_urls }}',
+ '{{ supported_identity_providers }}',
+ '{{ analytics_configuration }}',
+ '{{ prevent_user_existence_errors }}',
+ '{{ enable_token_revocation }}',
+ '{{ enable_propagate_additional_user_context_data }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -458,71 +458,70 @@ globals:
 resources:
   - name: user_pool_client
     props:
-      - name: ClientName
-        value: '{{ ClientName }}'
-      - name: ExplicitAuthFlows
+      - name: client_name
+        value: '{{ client_name }}'
+      - name: explicit_auth_flows
         value:
-          - '{{ ExplicitAuthFlows[0] }}'
-      - name: GenerateSecret
-        value: '{{ GenerateSecret }}'
-      - name: ReadAttributes
+          - '{{ explicit_auth_flows[0] }}'
+      - name: generate_secret
+        value: '{{ generate_secret }}'
+      - name: read_attributes
         value:
-          - '{{ ReadAttributes[0] }}'
-      - name: AuthSessionValidity
-        value: '{{ AuthSessionValidity }}'
-      - name: RefreshTokenValidity
-        value: '{{ RefreshTokenValidity }}'
-      - name: AccessTokenValidity
-        value: '{{ AccessTokenValidity }}'
-      - name: IdTokenValidity
-        value: '{{ IdTokenValidity }}'
-      - name: TokenValidityUnits
+          - '{{ read_attributes[0] }}'
+      - name: auth_session_validity
+        value: '{{ auth_session_validity }}'
+      - name: refresh_token_validity
+        value: '{{ refresh_token_validity }}'
+      - name: access_token_validity
+        value: '{{ access_token_validity }}'
+      - name: id_token_validity
+        value: '{{ id_token_validity }}'
+      - name: token_validity_units
         value:
-          AccessToken: '{{ AccessToken }}'
-          IdToken: '{{ IdToken }}'
-          RefreshToken: '{{ RefreshToken }}'
-      - name: RefreshTokenRotation
+          access_token: '{{ access_token }}'
+          id_token: '{{ id_token }}'
+          refresh_token: '{{ refresh_token }}'
+      - name: refresh_token_rotation
         value:
-          Feature: '{{ Feature }}'
-          RetryGracePeriodSeconds: '{{ RetryGracePeriodSeconds }}'
-      - name: UserPoolId
-        value: '{{ UserPoolId }}'
-      - name: WriteAttributes
+          feature: '{{ feature }}'
+          retry_grace_period_seconds: '{{ retry_grace_period_seconds }}'
+      - name: user_pool_id
+        value: '{{ user_pool_id }}'
+      - name: write_attributes
         value:
-          - '{{ WriteAttributes[0] }}'
-      - name: AllowedOAuthFlows
+          - '{{ write_attributes[0] }}'
+      - name: allowed_oauth_flows
         value:
-          - '{{ AllowedOAuthFlows[0] }}'
-      - name: AllowedOAuthFlowsUserPoolClient
-        value: '{{ AllowedOAuthFlowsUserPoolClient }}'
-      - name: AllowedOAuthScopes
+          - '{{ allowed_oauth_flows[0] }}'
+      - name: allowed_oauth_flows_user_pool_client
+        value: '{{ allowed_oauth_flows_user_pool_client }}'
+      - name: allowed_oauth_scopes
         value:
-          - '{{ AllowedOAuthScopes[0] }}'
-      - name: CallbackURLs
+          - '{{ allowed_oauth_scopes[0] }}'
+      - name: callback_urls
         value:
-          - '{{ CallbackURLs[0] }}'
-      - name: DefaultRedirectURI
-        value: '{{ DefaultRedirectURI }}'
-      - name: LogoutURLs
+          - '{{ callback_urls[0] }}'
+      - name: default_redirect_uri
+        value: '{{ default_redirect_uri }}'
+      - name: logout_urls
         value:
-          - '{{ LogoutURLs[0] }}'
-      - name: SupportedIdentityProviders
+          - '{{ logout_urls[0] }}'
+      - name: supported_identity_providers
         value:
-          - '{{ SupportedIdentityProviders[0] }}'
-      - name: AnalyticsConfiguration
+          - '{{ supported_identity_providers[0] }}'
+      - name: analytics_configuration
         value:
-          ApplicationArn: '{{ ApplicationArn }}'
-          ApplicationId: '{{ ApplicationId }}'
-          ExternalId: '{{ ExternalId }}'
-          RoleArn: '{{ RoleArn }}'
-          UserDataShared: '{{ UserDataShared }}'
-      - name: PreventUserExistenceErrors
-        value: '{{ PreventUserExistenceErrors }}'
-      - name: EnableTokenRevocation
-        value: '{{ EnableTokenRevocation }}'
-      - name: EnablePropagateAdditionalUserContextData
-        value: '{{ EnablePropagateAdditionalUserContextData }}'
-
+          application_arn: '{{ application_arn }}'
+          application_id: '{{ application_id }}'
+          external_id: '{{ external_id }}'
+          role_arn: '{{ role_arn }}'
+          user_data_shared: '{{ user_data_shared }}'
+      - name: prevent_user_existence_errors
+        value: '{{ prevent_user_existence_errors }}'
+      - name: enable_token_revocation
+        value: '{{ enable_token_revocation }}'
+      - name: enable_propagate_additional_user_context_data
+        value: '{{ enable_propagate_additional_user_context_data }}'
 ```
 </TabItem>
 </Tabs>
@@ -558,7 +557,7 @@ SET PatchDocument = string('{{ {
     "EnablePropagateAdditionalUserContextData": enable_propagate_additional_user_context_data
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserPoolId>|<ClientId>';
+AND Identifier = '{{ user_pool_id }}|{{ client_id }}';
 ```
 
 
@@ -567,7 +566,7 @@ AND Identifier = '<UserPoolId>|<ClientId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cognito.user_pool_clients
-WHERE Identifier = '<UserPoolId|ClientId>'
+WHERE Identifier = '{{ user_pool_id }}|{{ client_id }}'
 AND region = 'us-east-1';
 ```
 

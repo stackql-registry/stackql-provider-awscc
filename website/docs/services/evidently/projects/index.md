@@ -166,7 +166,7 @@ data_delivery,
 app_config_resource,
 tags
 FROM awscc.evidently.projects
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 
 ## `INSERT` example
@@ -189,8 +189,8 @@ INSERT INTO awscc.evidently.projects (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -206,12 +206,12 @@ INSERT INTO awscc.evidently.projects (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ DataDelivery }}',
- '{{ AppConfigResource }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ data_delivery }}',
+ '{{ app_config_resource }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -229,25 +229,24 @@ globals:
 resources:
   - name: project
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: DataDelivery
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: data_delivery
         value:
-          S3:
-            BucketName: '{{ BucketName }}'
-            Prefix: '{{ Prefix }}'
-          LogGroup: '{{ LogGroup }}'
-      - name: AppConfigResource
+          s3:
+            bucket_name: '{{ bucket_name }}'
+            prefix: '{{ prefix }}'
+          log_group: '{{ log_group }}'
+      - name: app_config_resource
         value:
-          ApplicationId: '{{ ApplicationId }}'
-          EnvironmentId: '{{ EnvironmentId }}'
-      - name: Tags
+          application_id: '{{ application_id }}'
+          environment_id: '{{ environment_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.evidently.projects
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

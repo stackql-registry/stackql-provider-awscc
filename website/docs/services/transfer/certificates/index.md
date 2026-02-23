@@ -235,7 +235,7 @@ serial,
 not_before_date,
 not_after_date
 FROM awscc.transfer.certificates
-WHERE region = 'us-east-1' AND Identifier = '<CertificateId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -272,9 +272,9 @@ INSERT INTO awscc.transfer.certificates (
  Certificate,
  region
 )
-SELECT 
-'{{ Usage }}',
- '{{ Certificate }}',
+SELECT
+'{{ usage }}',
+ '{{ certificate }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -293,15 +293,15 @@ INSERT INTO awscc.transfer.certificates (
  Tags,
  region
 )
-SELECT 
- '{{ Usage }}',
- '{{ Certificate }}',
- '{{ CertificateChain }}',
- '{{ PrivateKey }}',
- '{{ ActiveDate }}',
- '{{ InactiveDate }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ usage }}',
+ '{{ certificate }}',
+ '{{ certificate_chain }}',
+ '{{ private_key }}',
+ '{{ active_date }}',
+ '{{ inactive_date }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -319,25 +319,24 @@ globals:
 resources:
   - name: certificate
     props:
-      - name: Usage
-        value: '{{ Usage }}'
-      - name: Certificate
-        value: '{{ Certificate }}'
-      - name: CertificateChain
-        value: '{{ CertificateChain }}'
-      - name: PrivateKey
-        value: '{{ PrivateKey }}'
-      - name: ActiveDate
-        value: '{{ ActiveDate }}'
-      - name: InactiveDate
-        value: '{{ InactiveDate }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+      - name: usage
+        value: '{{ usage }}'
+      - name: certificate
+        value: '{{ certificate }}'
+      - name: certificate_chain
+        value: '{{ certificate_chain }}'
+      - name: private_key
+        value: '{{ private_key }}'
+      - name: active_date
+        value: '{{ active_date }}'
+      - name: inactive_date
+        value: '{{ inactive_date }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -357,7 +356,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CertificateId>';
+AND Identifier = '{{ certificate_id }}';
 ```
 
 
@@ -366,7 +365,7 @@ AND Identifier = '<CertificateId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.transfer.certificates
-WHERE Identifier = '<CertificateId>'
+WHERE Identifier = '{{ certificate_id }}'
 AND region = 'us-east-1';
 ```
 

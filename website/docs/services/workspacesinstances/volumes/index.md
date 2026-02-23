@@ -206,7 +206,7 @@ throughput,
 volume_type,
 tag_specifications
 FROM awscc.workspacesinstances.volumes
-WHERE region = 'us-east-1' AND Identifier = '<VolumeId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -242,8 +242,8 @@ INSERT INTO awscc.workspacesinstances.volumes (
  AvailabilityZone,
  region
 )
-SELECT 
-'{{ AvailabilityZone }}',
+SELECT
+'{{ availability_zone }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -263,16 +263,16 @@ INSERT INTO awscc.workspacesinstances.volumes (
  TagSpecifications,
  region
 )
-SELECT 
- '{{ AvailabilityZone }}',
- '{{ Encrypted }}',
- '{{ Iops }}',
- '{{ KmsKeyId }}',
- '{{ SizeInGB }}',
- '{{ SnapshotId }}',
- '{{ Throughput }}',
- '{{ VolumeType }}',
- '{{ TagSpecifications }}',
+SELECT
+ '{{ availability_zone }}',
+ '{{ encrypted }}',
+ '{{ iops }}',
+ '{{ kms_key_id }}',
+ '{{ size_in_gb }}',
+ '{{ snapshot_id }}',
+ '{{ throughput }}',
+ '{{ volume_type }}',
+ '{{ tag_specifications }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -290,29 +290,28 @@ globals:
 resources:
   - name: volume
     props:
-      - name: AvailabilityZone
-        value: '{{ AvailabilityZone }}'
-      - name: Encrypted
-        value: '{{ Encrypted }}'
-      - name: Iops
-        value: '{{ Iops }}'
-      - name: KmsKeyId
-        value: '{{ KmsKeyId }}'
-      - name: SizeInGB
-        value: '{{ SizeInGB }}'
-      - name: SnapshotId
-        value: '{{ SnapshotId }}'
-      - name: Throughput
-        value: '{{ Throughput }}'
-      - name: VolumeType
-        value: '{{ VolumeType }}'
-      - name: TagSpecifications
+      - name: availability_zone
+        value: '{{ availability_zone }}'
+      - name: encrypted
+        value: '{{ encrypted }}'
+      - name: iops
+        value: '{{ iops }}'
+      - name: kms_key_id
+        value: '{{ kms_key_id }}'
+      - name: size_in_gb
+        value: '{{ size_in_gb }}'
+      - name: snapshot_id
+        value: '{{ snapshot_id }}'
+      - name: throughput
+        value: '{{ throughput }}'
+      - name: volume_type
+        value: '{{ volume_type }}'
+      - name: tag_specifications
         value:
-          - ResourceType: '{{ ResourceType }}'
-            Tags:
-              - Key: '{{ Key }}'
-                Value: '{{ Value }}'
-
+          - resource_type: '{{ resource_type }}'
+            tags:
+              - key: '{{ key }}'
+                value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -323,7 +322,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspacesinstances.volumes
-WHERE Identifier = '<VolumeId>'
+WHERE Identifier = '{{ volume_id }}'
 AND region = 'us-east-1';
 ```
 

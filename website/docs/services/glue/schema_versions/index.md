@@ -157,7 +157,7 @@ schema,
 schema_definition,
 version_id
 FROM awscc.glue.schema_versions
-WHERE region = 'us-east-1' AND Identifier = '<VersionId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ version_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -194,9 +194,9 @@ INSERT INTO awscc.glue.schema_versions (
  SchemaDefinition,
  region
 )
-SELECT 
-'{{ Schema }}',
- '{{ SchemaDefinition }}',
+SELECT
+'{{ schema }}',
+ '{{ schema_definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -209,9 +209,9 @@ INSERT INTO awscc.glue.schema_versions (
  SchemaDefinition,
  region
 )
-SELECT 
- '{{ Schema }}',
- '{{ SchemaDefinition }}',
+SELECT
+ '{{ schema }}',
+ '{{ schema_definition }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -229,14 +229,13 @@ globals:
 resources:
   - name: schema_version
     props:
-      - name: Schema
+      - name: schema
         value:
-          SchemaArn: '{{ SchemaArn }}'
-          SchemaName: '{{ SchemaName }}'
-          RegistryName: '{{ RegistryName }}'
-      - name: SchemaDefinition
-        value: '{{ SchemaDefinition }}'
-
+          schema_arn: '{{ schema_arn }}'
+          schema_name: '{{ schema_name }}'
+          registry_name: '{{ registry_name }}'
+      - name: schema_definition
+        value: '{{ schema_definition }}'
 ```
 </TabItem>
 </Tabs>
@@ -247,7 +246,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.glue.schema_versions
-WHERE Identifier = '<VersionId>'
+WHERE Identifier = '{{ version_id }}'
 AND region = 'us-east-1';
 ```
 

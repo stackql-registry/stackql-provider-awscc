@@ -170,7 +170,7 @@ account_default_for_operations,
 tags,
 arn
 FROM awscc.iot.certificate_providers
-WHERE region = 'us-east-1' AND Identifier = '<CertificateProviderName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ certificate_provider_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.iot.certificate_providers (
  AccountDefaultForOperations,
  region
 )
-SELECT 
-'{{ LambdaFunctionArn }}',
- '{{ AccountDefaultForOperations }}',
+SELECT
+'{{ lambda_function_arn }}',
+ '{{ account_default_for_operations }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -224,11 +224,11 @@ INSERT INTO awscc.iot.certificate_providers (
  Tags,
  region
 )
-SELECT 
- '{{ CertificateProviderName }}',
- '{{ LambdaFunctionArn }}',
- '{{ AccountDefaultForOperations }}',
- '{{ Tags }}',
+SELECT
+ '{{ certificate_provider_name }}',
+ '{{ lambda_function_arn }}',
+ '{{ account_default_for_operations }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -246,18 +246,17 @@ globals:
 resources:
   - name: certificate_provider
     props:
-      - name: CertificateProviderName
-        value: '{{ CertificateProviderName }}'
-      - name: LambdaFunctionArn
-        value: '{{ LambdaFunctionArn }}'
-      - name: AccountDefaultForOperations
+      - name: certificate_provider_name
+        value: '{{ certificate_provider_name }}'
+      - name: lambda_function_arn
+        value: '{{ lambda_function_arn }}'
+      - name: account_default_for_operations
         value:
-          - '{{ AccountDefaultForOperations[0] }}'
-      - name: Tags
+          - '{{ account_default_for_operations[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -275,7 +274,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<CertificateProviderName>';
+AND Identifier = '{{ certificate_provider_name }}';
 ```
 
 
@@ -284,7 +283,7 @@ AND Identifier = '<CertificateProviderName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.certificate_providers
-WHERE Identifier = '<CertificateProviderName>'
+WHERE Identifier = '{{ certificate_provider_name }}'
 AND region = 'us-east-1';
 ```
 

@@ -206,7 +206,7 @@ tags,
 update_time,
 arn
 FROM awscc.location.maps
-WHERE region = 'us-east-1' AND Identifier = '<MapName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ map_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -243,9 +243,9 @@ INSERT INTO awscc.location.maps (
  MapName,
  region
 )
-SELECT 
-'{{ Configuration }}',
- '{{ MapName }}',
+SELECT
+'{{ configuration }}',
+ '{{ map_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -261,12 +261,12 @@ INSERT INTO awscc.location.maps (
  Tags,
  region
 )
-SELECT 
- '{{ Configuration }}',
- '{{ Description }}',
- '{{ MapName }}',
- '{{ PricingPlan }}',
- '{{ Tags }}',
+SELECT
+ '{{ configuration }}',
+ '{{ description }}',
+ '{{ map_name }}',
+ '{{ pricing_plan }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -284,23 +284,22 @@ globals:
 resources:
   - name: map
     props:
-      - name: Configuration
+      - name: configuration
         value:
-          Style: '{{ Style }}'
-          PoliticalView: '{{ PoliticalView }}'
-          CustomLayers:
-            - '{{ CustomLayers[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MapName
-        value: '{{ MapName }}'
-      - name: PricingPlan
-        value: '{{ PricingPlan }}'
-      - name: Tags
+          style: '{{ style }}'
+          political_view: '{{ political_view }}'
+          custom_layers:
+            - '{{ custom_layers[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: map_name
+        value: '{{ map_name }}'
+      - name: pricing_plan
+        value: '{{ pricing_plan }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -318,7 +317,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<MapName>';
+AND Identifier = '{{ map_name }}';
 ```
 
 
@@ -327,7 +326,7 @@ AND Identifier = '<MapName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.location.maps
-WHERE Identifier = '<MapName>'
+WHERE Identifier = '{{ map_name }}'
 AND region = 'us-east-1';
 ```
 

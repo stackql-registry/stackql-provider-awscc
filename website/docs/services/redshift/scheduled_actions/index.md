@@ -188,7 +188,7 @@ enable,
 target_action,
 next_invocations
 FROM awscc.redshift.scheduled_actions
-WHERE region = 'us-east-1' AND Identifier = '<ScheduledActionName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ scheduled_action_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.redshift.scheduled_actions (
  ScheduledActionName,
  region
 )
-SELECT 
-'{{ ScheduledActionName }}',
+SELECT
+'{{ scheduled_action_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,15 @@ INSERT INTO awscc.redshift.scheduled_actions (
  TargetAction,
  region
 )
-SELECT 
- '{{ ScheduledActionDescription }}',
- '{{ ScheduledActionName }}',
- '{{ EndTime }}',
- '{{ Schedule }}',
- '{{ IamRole }}',
- '{{ StartTime }}',
- '{{ Enable }}',
- '{{ TargetAction }}',
+SELECT
+ '{{ scheduled_action_description }}',
+ '{{ scheduled_action_name }}',
+ '{{ end_time }}',
+ '{{ schedule }}',
+ '{{ iam_role }}',
+ '{{ start_time }}',
+ '{{ enable }}',
+ '{{ target_action }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,23 +270,22 @@ globals:
 resources:
   - name: scheduled_action
     props:
-      - name: ScheduledActionDescription
-        value: '{{ ScheduledActionDescription }}'
-      - name: ScheduledActionName
-        value: '{{ ScheduledActionName }}'
-      - name: EndTime
-        value: '{{ EndTime }}'
-      - name: Schedule
-        value: '{{ Schedule }}'
-      - name: IamRole
-        value: '{{ IamRole }}'
-      - name: StartTime
+      - name: scheduled_action_description
+        value: '{{ scheduled_action_description }}'
+      - name: scheduled_action_name
+        value: '{{ scheduled_action_name }}'
+      - name: end_time
+        value: '{{ end_time }}'
+      - name: schedule
+        value: '{{ schedule }}'
+      - name: iam_role
+        value: '{{ iam_role }}'
+      - name: start_time
         value: null
-      - name: Enable
-        value: '{{ Enable }}'
-      - name: TargetAction
+      - name: enable
+        value: '{{ enable }}'
+      - name: target_action
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "TargetAction": target_action
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ScheduledActionName>';
+AND Identifier = '{{ scheduled_action_name }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<ScheduledActionName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.redshift.scheduled_actions
-WHERE Identifier = '<ScheduledActionName>'
+WHERE Identifier = '{{ scheduled_action_name }}'
 AND region = 'us-east-1';
 ```
 

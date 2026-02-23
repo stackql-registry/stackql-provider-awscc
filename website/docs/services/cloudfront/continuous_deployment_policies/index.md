@@ -255,7 +255,7 @@ continuous_deployment_policy_config,
 id,
 last_modified_time
 FROM awscc.cloudfront.continuous_deployment_policies
-WHERE Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -266,7 +266,7 @@ SELECT
 region,
 id
 FROM awscc.cloudfront.continuous_deployment_policies_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -291,8 +291,8 @@ INSERT INTO awscc.cloudfront.continuous_deployment_policies (
  ContinuousDeploymentPolicyConfig,
  region
 )
-SELECT 
-'{{ ContinuousDeploymentPolicyConfig }}',
+SELECT
+'{{ continuous_deployment_policy_config }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -304,8 +304,8 @@ INSERT INTO awscc.cloudfront.continuous_deployment_policies (
  ContinuousDeploymentPolicyConfig,
  region
 )
-SELECT 
- '{{ ContinuousDeploymentPolicyConfig }}',
+SELECT
+ '{{ continuous_deployment_policy_config }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -323,29 +323,28 @@ globals:
 resources:
   - name: continuous_deployment_policy
     props:
-      - name: ContinuousDeploymentPolicyConfig
+      - name: continuous_deployment_policy_config
         value:
-          Enabled: '{{ Enabled }}'
-          SingleHeaderPolicyConfig:
-            Header: '{{ Header }}'
-            Value: '{{ Value }}'
-          SingleWeightPolicyConfig:
-            SessionStickinessConfig:
-              IdleTTL: '{{ IdleTTL }}'
-              MaximumTTL: '{{ MaximumTTL }}'
-            Weight: null
-          StagingDistributionDnsNames:
-            - '{{ StagingDistributionDnsNames[0] }}'
-          TrafficConfig:
-            SingleHeaderConfig:
-              Header: '{{ Header }}'
-              Value: '{{ Value }}'
-            SingleWeightConfig:
-              SessionStickinessConfig: null
-              Weight: null
-            Type: '{{ Type }}'
-          Type: '{{ Type }}'
-
+          enabled: '{{ enabled }}'
+          single_header_policy_config:
+            header: '{{ header }}'
+            value: '{{ value }}'
+          single_weight_policy_config:
+            session_stickiness_config:
+              idle_ttl: '{{ idle_ttl }}'
+              maximum_ttl: '{{ maximum_ttl }}'
+            weight: null
+          staging_distribution_dns_names:
+            - '{{ staging_distribution_dns_names[0] }}'
+          traffic_config:
+            single_header_config:
+              header: '{{ header }}'
+              value: '{{ value }}'
+            single_weight_config:
+              session_stickiness_config: null
+              weight: null
+            type: '{{ type }}'
+          type: '{{ type }}'
 ```
 </TabItem>
 </Tabs>
@@ -361,7 +360,7 @@ SET PatchDocument = string('{{ {
     "ContinuousDeploymentPolicyConfig": continuous_deployment_policy_config
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -370,7 +369,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudfront.continuous_deployment_policies
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

@@ -164,7 +164,7 @@ network_services,
 description,
 tags
 FROM awscc.ec2.traffic_mirror_filters
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -202,10 +202,10 @@ INSERT INTO awscc.ec2.traffic_mirror_filters (
  Tags,
  region
 )
-SELECT 
-'{{ NetworkServices }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+'{{ network_services }}',
+ '{{ description }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -219,10 +219,10 @@ INSERT INTO awscc.ec2.traffic_mirror_filters (
  Tags,
  region
 )
-SELECT 
- '{{ NetworkServices }}',
- '{{ Description }}',
- '{{ Tags }}',
+SELECT
+ '{{ network_services }}',
+ '{{ description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -240,16 +240,15 @@ globals:
 resources:
   - name: traffic_mirror_filter
     props:
-      - name: NetworkServices
+      - name: network_services
         value:
-          - '{{ NetworkServices[0] }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: Tags
+          - '{{ network_services[0] }}'
+      - name: description
+        value: '{{ description }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -266,7 +265,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -275,7 +274,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.traffic_mirror_filters
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

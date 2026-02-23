@@ -194,7 +194,7 @@ wireless_gateways,
 arn,
 tags
 FROM awscc.iotwireless.network_analyzer_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Name>';
+WHERE region = 'us-east-1' AND Identifier = '{{ name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -230,8 +230,8 @@ INSERT INTO awscc.iotwireless.network_analyzer_configurations (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -248,13 +248,13 @@ INSERT INTO awscc.iotwireless.network_analyzer_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ Description }}',
- '{{ TraceContent }}',
- '{{ WirelessDevices }}',
- '{{ WirelessGateways }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ description }}',
+ '{{ trace_content }}',
+ '{{ wireless_devices }}',
+ '{{ wireless_gateways }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -272,25 +272,24 @@ globals:
 resources:
   - name: network_analyzer_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: TraceContent
+      - name: name
+        value: '{{ name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: trace_content
         value:
-          WirelessDeviceFrameInfo: '{{ WirelessDeviceFrameInfo }}'
-          LogLevel: '{{ LogLevel }}'
-      - name: WirelessDevices
+          wireless_device_frame_info: '{{ wireless_device_frame_info }}'
+          log_level: '{{ log_level }}'
+      - name: wireless_devices
         value:
-          - '{{ WirelessDevices[0] }}'
-      - name: WirelessGateways
+          - '{{ wireless_devices[0] }}'
+      - name: wireless_gateways
         value:
-          - '{{ WirelessGateways[0] }}'
-      - name: Tags
+          - '{{ wireless_gateways[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +309,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Name>';
+AND Identifier = '{{ name }}';
 ```
 
 
@@ -319,7 +318,7 @@ AND Identifier = '<Name>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iotwireless.network_analyzer_configurations
-WHERE Identifier = '<Name>'
+WHERE Identifier = '{{ name }}'
 AND region = 'us-east-1';
 ```
 

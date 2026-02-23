@@ -140,7 +140,7 @@ association_id,
 public_ipv4_pool,
 route_table_id
 FROM awscc.ec2.ip_pool_route_table_associations
-WHERE region = 'us-east-1' AND Identifier = '<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -177,9 +177,9 @@ INSERT INTO awscc.ec2.ip_pool_route_table_associations (
  RouteTableId,
  region
 )
-SELECT 
-'{{ PublicIpv4Pool }}',
- '{{ RouteTableId }}',
+SELECT
+'{{ public_ipv4_pool }}',
+ '{{ route_table_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -192,9 +192,9 @@ INSERT INTO awscc.ec2.ip_pool_route_table_associations (
  RouteTableId,
  region
 )
-SELECT 
- '{{ PublicIpv4Pool }}',
- '{{ RouteTableId }}',
+SELECT
+ '{{ public_ipv4_pool }}',
+ '{{ route_table_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -212,11 +212,10 @@ globals:
 resources:
   - name: ip_pool_route_table_association
     props:
-      - name: PublicIpv4Pool
-        value: '{{ PublicIpv4Pool }}'
-      - name: RouteTableId
-        value: '{{ RouteTableId }}'
-
+      - name: public_ipv4_pool
+        value: '{{ public_ipv4_pool }}'
+      - name: route_table_id
+        value: '{{ route_table_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -227,7 +226,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.ip_pool_route_table_associations
-WHERE Identifier = '<AssociationId>'
+WHERE Identifier = '{{ association_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -248,7 +248,7 @@ timeout_settings,
 running_mode,
 tags
 FROM awscc.workspaces.workspaces_pools
-WHERE region = 'us-east-1' AND Identifier = '<PoolId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ pool_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -287,11 +287,11 @@ INSERT INTO awscc.workspaces.workspaces_pools (
  DirectoryId,
  region
 )
-SELECT 
-'{{ Capacity }}',
- '{{ PoolName }}',
- '{{ BundleId }}',
- '{{ DirectoryId }}',
+SELECT
+'{{ capacity }}',
+ '{{ pool_name }}',
+ '{{ bundle_id }}',
+ '{{ directory_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -311,16 +311,16 @@ INSERT INTO awscc.workspaces.workspaces_pools (
  Tags,
  region
 )
-SELECT 
- '{{ Capacity }}',
- '{{ PoolName }}',
- '{{ Description }}',
- '{{ BundleId }}',
- '{{ DirectoryId }}',
- '{{ ApplicationSettings }}',
- '{{ TimeoutSettings }}',
- '{{ RunningMode }}',
- '{{ Tags }}',
+SELECT
+ '{{ capacity }}',
+ '{{ pool_name }}',
+ '{{ description }}',
+ '{{ bundle_id }}',
+ '{{ directory_id }}',
+ '{{ application_settings }}',
+ '{{ timeout_settings }}',
+ '{{ running_mode }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -338,33 +338,32 @@ globals:
 resources:
   - name: workspaces_pool
     props:
-      - name: Capacity
+      - name: capacity
         value:
-          DesiredUserSessions: '{{ DesiredUserSessions }}'
-      - name: PoolName
-        value: '{{ PoolName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: BundleId
-        value: '{{ BundleId }}'
-      - name: DirectoryId
-        value: '{{ DirectoryId }}'
-      - name: ApplicationSettings
+          desired_user_sessions: '{{ desired_user_sessions }}'
+      - name: pool_name
+        value: '{{ pool_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: bundle_id
+        value: '{{ bundle_id }}'
+      - name: directory_id
+        value: '{{ directory_id }}'
+      - name: application_settings
         value:
-          Status: '{{ Status }}'
-          SettingsGroup: '{{ SettingsGroup }}'
-      - name: TimeoutSettings
+          status: '{{ status }}'
+          settings_group: '{{ settings_group }}'
+      - name: timeout_settings
         value:
-          DisconnectTimeoutInSeconds: '{{ DisconnectTimeoutInSeconds }}'
-          IdleDisconnectTimeoutInSeconds: '{{ IdleDisconnectTimeoutInSeconds }}'
-          MaxUserDurationInSeconds: '{{ MaxUserDurationInSeconds }}'
-      - name: RunningMode
-        value: '{{ RunningMode }}'
-      - name: Tags
+          disconnect_timeout_in_seconds: '{{ disconnect_timeout_in_seconds }}'
+          idle_disconnect_timeout_in_seconds: '{{ idle_disconnect_timeout_in_seconds }}'
+          max_user_duration_in_seconds: '{{ max_user_duration_in_seconds }}'
+      - name: running_mode
+        value: '{{ running_mode }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -387,7 +386,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<PoolId>';
+AND Identifier = '{{ pool_id }}';
 ```
 
 
@@ -396,7 +395,7 @@ AND Identifier = '<PoolId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.workspaces.workspaces_pools
-WHERE Identifier = '<PoolId>'
+WHERE Identifier = '{{ pool_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -218,7 +218,7 @@ login_profile,
 tags,
 permissions_boundary
 FROM awscc.iam.users
-WHERE Identifier = '<UserName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ user_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -229,7 +229,7 @@ SELECT
 region,
 user_name
 FROM awscc.iam.users_list_only
-;
+WHERE region = 'us-east-1';
 ```
 </TabItem>
 </Tabs>
@@ -261,15 +261,15 @@ INSERT INTO awscc.iam.users (
  PermissionsBoundary,
  region
 )
-SELECT 
-'{{ Path }}',
- '{{ ManagedPolicyArns }}',
- '{{ Policies }}',
- '{{ UserName }}',
- '{{ Groups }}',
- '{{ LoginProfile }}',
- '{{ Tags }}',
- '{{ PermissionsBoundary }}',
+SELECT
+'{{ path }}',
+ '{{ managed_policy_arns }}',
+ '{{ policies }}',
+ '{{ user_name }}',
+ '{{ groups }}',
+ '{{ login_profile }}',
+ '{{ tags }}',
+ '{{ permissions_boundary }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -288,15 +288,15 @@ INSERT INTO awscc.iam.users (
  PermissionsBoundary,
  region
 )
-SELECT 
- '{{ Path }}',
- '{{ ManagedPolicyArns }}',
- '{{ Policies }}',
- '{{ UserName }}',
- '{{ Groups }}',
- '{{ LoginProfile }}',
- '{{ Tags }}',
- '{{ PermissionsBoundary }}',
+SELECT
+ '{{ path }}',
+ '{{ managed_policy_arns }}',
+ '{{ policies }}',
+ '{{ user_name }}',
+ '{{ groups }}',
+ '{{ login_profile }}',
+ '{{ tags }}',
+ '{{ permissions_boundary }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -314,31 +314,30 @@ globals:
 resources:
   - name: user
     props:
-      - name: Path
-        value: '{{ Path }}'
-      - name: ManagedPolicyArns
+      - name: path
+        value: '{{ path }}'
+      - name: managed_policy_arns
         value:
-          - '{{ ManagedPolicyArns[0] }}'
-      - name: Policies
+          - '{{ managed_policy_arns[0] }}'
+      - name: policies
         value:
-          - PolicyDocument: {}
-            PolicyName: '{{ PolicyName }}'
-      - name: UserName
-        value: '{{ UserName }}'
-      - name: Groups
+          - policy_document: {}
+            policy_name: '{{ policy_name }}'
+      - name: user_name
+        value: '{{ user_name }}'
+      - name: groups
         value:
-          - '{{ Groups[0] }}'
-      - name: LoginProfile
+          - '{{ groups[0] }}'
+      - name: login_profile
         value:
-          PasswordResetRequired: '{{ PasswordResetRequired }}'
-          Password: '{{ Password }}'
-      - name: Tags
+          password_reset_required: '{{ password_reset_required }}'
+          password: '{{ password }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: PermissionsBoundary
-        value: '{{ PermissionsBoundary }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: permissions_boundary
+        value: '{{ permissions_boundary }}'
 ```
 </TabItem>
 </Tabs>
@@ -360,7 +359,7 @@ SET PatchDocument = string('{{ {
     "PermissionsBoundary": permissions_boundary
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<UserName>';
+AND Identifier = '{{ user_name }}';
 ```
 
 
@@ -369,7 +368,7 @@ AND Identifier = '<UserName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iam.users
-WHERE Identifier = '<UserName>'
+WHERE Identifier = '{{ user_name }}'
 AND region = 'us-east-1';
 ```
 

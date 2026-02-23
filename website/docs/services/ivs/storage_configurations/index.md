@@ -171,7 +171,7 @@ name,
 s3,
 tags
 FROM awscc.ivs.storage_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,8 +207,8 @@ INSERT INTO awscc.ivs.storage_configurations (
  S3,
  region
 )
-SELECT 
-'{{ S3 }}',
+SELECT
+'{{ s3 }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,10 +222,10 @@ INSERT INTO awscc.ivs.storage_configurations (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ S3 }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ s3 }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -243,16 +243,15 @@ globals:
 resources:
   - name: storage_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: S3
+      - name: name
+        value: '{{ name }}'
+      - name: s3
         value:
-          BucketName: '{{ BucketName }}'
-      - name: Tags
+          bucket_name: '{{ bucket_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -268,7 +267,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -277,7 +276,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.storage_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

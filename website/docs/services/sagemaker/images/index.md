@@ -176,7 +176,7 @@ image_display_name,
 image_description,
 tags
 FROM awscc.sagemaker.images
-WHERE region = 'us-east-1' AND Identifier = '<ImageArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ image_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -213,9 +213,9 @@ INSERT INTO awscc.sagemaker.images (
  ImageRoleArn,
  region
 )
-SELECT 
-'{{ ImageName }}',
- '{{ ImageRoleArn }}',
+SELECT
+'{{ image_name }}',
+ '{{ image_role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,12 @@ INSERT INTO awscc.sagemaker.images (
  Tags,
  region
 )
-SELECT 
- '{{ ImageName }}',
- '{{ ImageRoleArn }}',
- '{{ ImageDisplayName }}',
- '{{ ImageDescription }}',
- '{{ Tags }}',
+SELECT
+ '{{ image_name }}',
+ '{{ image_role_arn }}',
+ '{{ image_display_name }}',
+ '{{ image_description }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -254,19 +254,18 @@ globals:
 resources:
   - name: image
     props:
-      - name: ImageName
-        value: '{{ ImageName }}'
-      - name: ImageRoleArn
-        value: '{{ ImageRoleArn }}'
-      - name: ImageDisplayName
-        value: '{{ ImageDisplayName }}'
-      - name: ImageDescription
-        value: '{{ ImageDescription }}'
-      - name: Tags
+      - name: image_name
+        value: '{{ image_name }}'
+      - name: image_role_arn
+        value: '{{ image_role_arn }}'
+      - name: image_display_name
+        value: '{{ image_display_name }}'
+      - name: image_description
+        value: '{{ image_description }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -285,7 +284,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ImageArn>';
+AND Identifier = '{{ image_arn }}';
 ```
 
 
@@ -294,7 +293,7 @@ AND Identifier = '<ImageArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.images
-WHERE Identifier = '<ImageArn>'
+WHERE Identifier = '{{ image_arn }}'
 AND region = 'us-east-1';
 ```
 

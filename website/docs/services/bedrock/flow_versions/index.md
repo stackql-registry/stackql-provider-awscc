@@ -288,7 +288,7 @@ status,
 version,
 customer_encryption_key_arn
 FROM awscc.bedrock.flow_versions
-WHERE region = 'us-east-1' AND Identifier = '<FlowArn>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '{{ flow_arn }}|{{ version }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -325,8 +325,8 @@ INSERT INTO awscc.bedrock.flow_versions (
  FlowArn,
  region
 )
-SELECT 
-'{{ FlowArn }}',
+SELECT
+'{{ flow_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -339,9 +339,9 @@ INSERT INTO awscc.bedrock.flow_versions (
  Description,
  region
 )
-SELECT 
- '{{ FlowArn }}',
- '{{ Description }}',
+SELECT
+ '{{ flow_arn }}',
+ '{{ description }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -359,11 +359,10 @@ globals:
 resources:
   - name: flow_version
     props:
-      - name: FlowArn
-        value: '{{ FlowArn }}'
-      - name: Description
-        value: '{{ Description }}'
-
+      - name: flow_arn
+        value: '{{ flow_arn }}'
+      - name: description
+        value: '{{ description }}'
 ```
 </TabItem>
 </Tabs>
@@ -374,7 +373,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flow_versions
-WHERE Identifier = '<FlowArn|Version>'
+WHERE Identifier = '{{ flow_arn }}|{{ version }}'
 AND region = 'us-east-1';
 ```
 

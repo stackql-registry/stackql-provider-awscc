@@ -199,7 +199,7 @@ notifications,
 lock_configuration,
 backup_vault_arn
 FROM awscc.backup.backup_vaults
-WHERE region = 'us-east-1' AND Identifier = '<BackupVaultName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ backup_vault_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -235,8 +235,8 @@ INSERT INTO awscc.backup.backup_vaults (
  BackupVaultName,
  region
 )
-SELECT 
-'{{ BackupVaultName }}',
+SELECT
+'{{ backup_vault_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -253,13 +253,13 @@ INSERT INTO awscc.backup.backup_vaults (
  LockConfiguration,
  region
 )
-SELECT 
- '{{ AccessPolicy }}',
- '{{ BackupVaultName }}',
- '{{ BackupVaultTags }}',
- '{{ EncryptionKeyArn }}',
- '{{ Notifications }}',
- '{{ LockConfiguration }}',
+SELECT
+ '{{ access_policy }}',
+ '{{ backup_vault_name }}',
+ '{{ backup_vault_tags }}',
+ '{{ encryption_key_arn }}',
+ '{{ notifications }}',
+ '{{ lock_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -277,25 +277,24 @@ globals:
 resources:
   - name: backup_vault
     props:
-      - name: AccessPolicy
+      - name: access_policy
         value: {}
-      - name: BackupVaultName
-        value: '{{ BackupVaultName }}'
-      - name: BackupVaultTags
+      - name: backup_vault_name
+        value: '{{ backup_vault_name }}'
+      - name: backup_vault_tags
         value: {}
-      - name: EncryptionKeyArn
-        value: '{{ EncryptionKeyArn }}'
-      - name: Notifications
+      - name: encryption_key_arn
+        value: '{{ encryption_key_arn }}'
+      - name: notifications
         value:
-          SNSTopicArn: '{{ SNSTopicArn }}'
-          BackupVaultEvents:
-            - '{{ BackupVaultEvents[0] }}'
-      - name: LockConfiguration
+          sns_topic_arn: '{{ sns_topic_arn }}'
+          backup_vault_events:
+            - '{{ backup_vault_events[0] }}'
+      - name: lock_configuration
         value:
-          MinRetentionDays: '{{ MinRetentionDays }}'
-          MaxRetentionDays: '{{ MaxRetentionDays }}'
-          ChangeableForDays: '{{ ChangeableForDays }}'
-
+          min_retention_days: '{{ min_retention_days }}'
+          max_retention_days: '{{ max_retention_days }}'
+          changeable_for_days: '{{ changeable_for_days }}'
 ```
 </TabItem>
 </Tabs>
@@ -314,7 +313,7 @@ SET PatchDocument = string('{{ {
     "LockConfiguration": lock_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<BackupVaultName>';
+AND Identifier = '{{ backup_vault_name }}';
 ```
 
 
@@ -323,7 +322,7 @@ AND Identifier = '<BackupVaultName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.backup_vaults
-WHERE Identifier = '<BackupVaultName>'
+WHERE Identifier = '{{ backup_vault_name }}'
 AND region = 'us-east-1';
 ```
 

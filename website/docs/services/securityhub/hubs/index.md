@@ -164,7 +164,7 @@ auto_enable_controls,
 tags,
 subscribed_at
 FROM awscc.securityhub.hubs
-WHERE region = 'us-east-1' AND Identifier = '<ARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,11 +203,11 @@ INSERT INTO awscc.securityhub.hubs (
  Tags,
  region
 )
-SELECT 
-'{{ EnableDefaultStandards }}',
- '{{ ControlFindingGenerator }}',
- '{{ AutoEnableControls }}',
- '{{ Tags }}',
+SELECT
+'{{ enable_default_standards }}',
+ '{{ control_finding_generator }}',
+ '{{ auto_enable_controls }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.securityhub.hubs (
  Tags,
  region
 )
-SELECT 
- '{{ EnableDefaultStandards }}',
- '{{ ControlFindingGenerator }}',
- '{{ AutoEnableControls }}',
- '{{ Tags }}',
+SELECT
+ '{{ enable_default_standards }}',
+ '{{ control_finding_generator }}',
+ '{{ auto_enable_controls }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: hub
     props:
-      - name: EnableDefaultStandards
-        value: '{{ EnableDefaultStandards }}'
-      - name: ControlFindingGenerator
-        value: '{{ ControlFindingGenerator }}'
-      - name: AutoEnableControls
-        value: '{{ AutoEnableControls }}'
-      - name: Tags
+      - name: enable_default_standards
+        value: '{{ enable_default_standards }}'
+      - name: control_finding_generator
+        value: '{{ control_finding_generator }}'
+      - name: auto_enable_controls
+        value: '{{ auto_enable_controls }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -271,7 +270,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ARN>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -280,7 +279,7 @@ AND Identifier = '<ARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.securityhub.hubs
-WHERE Identifier = '<ARN>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

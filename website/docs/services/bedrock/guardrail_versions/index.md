@@ -107,7 +107,7 @@ guardrail_id,
 guardrail_identifier,
 version
 FROM awscc.bedrock.guardrail_versions
-WHERE region = 'us-east-1' AND Identifier = '<GuardrailId>|<Version>';
+WHERE region = 'us-east-1' AND Identifier = '{{ guardrail_id }}|{{ version }}';
 ```
 
 ## `INSERT` example
@@ -130,8 +130,8 @@ INSERT INTO awscc.bedrock.guardrail_versions (
  GuardrailIdentifier,
  region
 )
-SELECT 
-'{{ GuardrailIdentifier }}',
+SELECT
+'{{ guardrail_identifier }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -144,9 +144,9 @@ INSERT INTO awscc.bedrock.guardrail_versions (
  GuardrailIdentifier,
  region
 )
-SELECT 
- '{{ Description }}',
- '{{ GuardrailIdentifier }}',
+SELECT
+ '{{ description }}',
+ '{{ guardrail_identifier }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -164,11 +164,10 @@ globals:
 resources:
   - name: guardrail_version
     props:
-      - name: Description
-        value: '{{ Description }}'
-      - name: GuardrailIdentifier
-        value: '{{ GuardrailIdentifier }}'
-
+      - name: description
+        value: '{{ description }}'
+      - name: guardrail_identifier
+        value: '{{ guardrail_identifier }}'
 ```
 </TabItem>
 </Tabs>
@@ -179,7 +178,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.guardrail_versions
-WHERE Identifier = '<GuardrailId|Version>'
+WHERE Identifier = '{{ guardrail_id }}|{{ version }}'
 AND region = 'us-east-1';
 ```
 

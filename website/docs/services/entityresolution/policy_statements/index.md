@@ -169,7 +169,7 @@ action,
 principal,
 condition
 FROM awscc.entityresolution.policy_statements
-WHERE region = 'us-east-1' AND Identifier = '<Arn>|<StatementId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}|{{ statement_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -207,9 +207,9 @@ INSERT INTO awscc.entityresolution.policy_statements (
  StatementId,
  region
 )
-SELECT 
-'{{ Arn }}',
- '{{ StatementId }}',
+SELECT
+'{{ arn }}',
+ '{{ statement_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -226,13 +226,13 @@ INSERT INTO awscc.entityresolution.policy_statements (
  Condition,
  region
 )
-SELECT 
- '{{ Arn }}',
- '{{ StatementId }}',
- '{{ Effect }}',
- '{{ Action }}',
- '{{ Principal }}',
- '{{ Condition }}',
+SELECT
+ '{{ arn }}',
+ '{{ statement_id }}',
+ '{{ effect }}',
+ '{{ action }}',
+ '{{ principal }}',
+ '{{ condition }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -250,21 +250,20 @@ globals:
 resources:
   - name: policy_statement
     props:
-      - name: Arn
-        value: '{{ Arn }}'
-      - name: StatementId
-        value: '{{ StatementId }}'
-      - name: Effect
-        value: '{{ Effect }}'
-      - name: Action
+      - name: arn
+        value: '{{ arn }}'
+      - name: statement_id
+        value: '{{ statement_id }}'
+      - name: effect
+        value: '{{ effect }}'
+      - name: action
         value:
-          - '{{ Action[0] }}'
-      - name: Principal
+          - '{{ action[0] }}'
+      - name: principal
         value:
-          - '{{ Principal[0] }}'
-      - name: Condition
-        value: '{{ Condition }}'
-
+          - '{{ principal[0] }}'
+      - name: condition
+        value: '{{ condition }}'
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "Condition": condition
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>|<StatementId>';
+AND Identifier = '{{ arn }}|{{ statement_id }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<Arn>|<StatementId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.policy_statements
-WHERE Identifier = '<Arn|StatementId>'
+WHERE Identifier = '{{ arn }}|{{ statement_id }}'
 AND region = 'us-east-1';
 ```
 

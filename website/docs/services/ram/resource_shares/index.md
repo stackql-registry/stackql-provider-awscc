@@ -188,7 +188,7 @@ resource_arns,
 sources,
 tags
 FROM awscc.ram.resource_shares
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -224,8 +224,8 @@ INSERT INTO awscc.ram.resource_shares (
  Name,
  region
 )
-SELECT 
-'{{ Name }}',
+SELECT
+'{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,14 +243,14 @@ INSERT INTO awscc.ram.resource_shares (
  Tags,
  region
 )
-SELECT 
- '{{ AllowExternalPrincipals }}',
- '{{ Name }}',
- '{{ PermissionArns }}',
- '{{ Principals }}',
- '{{ ResourceArns }}',
- '{{ Sources }}',
- '{{ Tags }}',
+SELECT
+ '{{ allow_external_principals }}',
+ '{{ name }}',
+ '{{ permission_arns }}',
+ '{{ principals }}',
+ '{{ resource_arns }}',
+ '{{ sources }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -268,27 +268,26 @@ globals:
 resources:
   - name: resource_share
     props:
-      - name: AllowExternalPrincipals
-        value: '{{ AllowExternalPrincipals }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: PermissionArns
+      - name: allow_external_principals
+        value: '{{ allow_external_principals }}'
+      - name: name
+        value: '{{ name }}'
+      - name: permission_arns
         value:
-          - '{{ PermissionArns[0] }}'
-      - name: Principals
+          - '{{ permission_arns[0] }}'
+      - name: principals
         value:
-          - '{{ Principals[0] }}'
-      - name: ResourceArns
+          - '{{ principals[0] }}'
+      - name: resource_arns
         value:
-          - '{{ ResourceArns[0] }}'
-      - name: Sources
+          - '{{ resource_arns[0] }}'
+      - name: sources
         value:
-          - '{{ Sources[0] }}'
-      - name: Tags
+          - '{{ sources[0] }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -310,7 +309,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -319,7 +318,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ram.resource_shares
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

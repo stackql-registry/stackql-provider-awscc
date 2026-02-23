@@ -182,7 +182,7 @@ model_package_group_policy,
 creation_time,
 model_package_group_status
 FROM awscc.sagemaker.model_package_groups
-WHERE region = 'us-east-1' AND Identifier = '<ModelPackageGroupArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ model_package_group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.sagemaker.model_package_groups (
  ModelPackageGroupName,
  region
 )
-SELECT 
-'{{ ModelPackageGroupName }}',
+SELECT
+'{{ model_package_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.sagemaker.model_package_groups (
  ModelPackageGroupPolicy,
  region
 )
-SELECT 
- '{{ Tags }}',
- '{{ ModelPackageGroupName }}',
- '{{ ModelPackageGroupDescription }}',
- '{{ ModelPackageGroupPolicy }}',
+SELECT
+ '{{ tags }}',
+ '{{ model_package_group_name }}',
+ '{{ model_package_group_description }}',
+ '{{ model_package_group_policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,17 +256,16 @@ globals:
 resources:
   - name: model_package_group
     props:
-      - name: Tags
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ModelPackageGroupName
-        value: '{{ ModelPackageGroupName }}'
-      - name: ModelPackageGroupDescription
-        value: '{{ ModelPackageGroupDescription }}'
-      - name: ModelPackageGroupPolicy
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: model_package_group_name
+        value: '{{ model_package_group_name }}'
+      - name: model_package_group_description
+        value: '{{ model_package_group_description }}'
+      - name: model_package_group_policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -283,7 +282,7 @@ SET PatchDocument = string('{{ {
     "ModelPackageGroupPolicy": model_package_group_policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ModelPackageGroupArn>';
+AND Identifier = '{{ model_package_group_arn }}';
 ```
 
 
@@ -292,7 +291,7 @@ AND Identifier = '<ModelPackageGroupArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.model_package_groups
-WHERE Identifier = '<ModelPackageGroupArn>'
+WHERE Identifier = '{{ model_package_group_arn }}'
 AND region = 'us-east-1';
 ```
 

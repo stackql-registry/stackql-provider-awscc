@@ -459,7 +459,7 @@ stopping_condition,
 tags,
 creation_time
 FROM awscc.sagemaker.data_quality_job_definitions
-WHERE region = 'us-east-1' AND Identifier = '<JobDefinitionArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ job_definition_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -499,12 +499,12 @@ INSERT INTO awscc.sagemaker.data_quality_job_definitions (
  RoleArn,
  region
 )
-SELECT 
-'{{ DataQualityAppSpecification }}',
- '{{ DataQualityJobInput }}',
- '{{ DataQualityJobOutputConfig }}',
- '{{ JobResources }}',
- '{{ RoleArn }}',
+SELECT
+'{{ data_quality_app_specification }}',
+ '{{ data_quality_job_input }}',
+ '{{ data_quality_job_output_config }}',
+ '{{ job_resources }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -526,18 +526,18 @@ INSERT INTO awscc.sagemaker.data_quality_job_definitions (
  Tags,
  region
 )
-SELECT 
- '{{ JobDefinitionName }}',
- '{{ DataQualityBaselineConfig }}',
- '{{ DataQualityAppSpecification }}',
- '{{ DataQualityJobInput }}',
- '{{ DataQualityJobOutputConfig }}',
- '{{ JobResources }}',
- '{{ NetworkConfig }}',
- '{{ EndpointName }}',
- '{{ RoleArn }}',
- '{{ StoppingCondition }}',
- '{{ Tags }}',
+SELECT
+ '{{ job_definition_name }}',
+ '{{ data_quality_baseline_config }}',
+ '{{ data_quality_app_specification }}',
+ '{{ data_quality_job_input }}',
+ '{{ data_quality_job_output_config }}',
+ '{{ job_resources }}',
+ '{{ network_config }}',
+ '{{ endpoint_name }}',
+ '{{ role_arn }}',
+ '{{ stopping_condition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -555,81 +555,80 @@ globals:
 resources:
   - name: data_quality_job_definition
     props:
-      - name: JobDefinitionName
-        value: '{{ JobDefinitionName }}'
-      - name: DataQualityBaselineConfig
+      - name: job_definition_name
+        value: '{{ job_definition_name }}'
+      - name: data_quality_baseline_config
         value:
-          BaseliningJobName: '{{ BaseliningJobName }}'
-          ConstraintsResource:
-            S3Uri: '{{ S3Uri }}'
-          StatisticsResource:
-            S3Uri: null
-      - name: DataQualityAppSpecification
+          baselining_job_name: '{{ baselining_job_name }}'
+          constraints_resource:
+            s3_uri: '{{ s3_uri }}'
+          statistics_resource:
+            s3_uri: null
+      - name: data_quality_app_specification
         value:
-          ContainerArguments:
-            - '{{ ContainerArguments[0] }}'
-          ContainerEntrypoint:
-            - '{{ ContainerEntrypoint[0] }}'
-          ImageUri: '{{ ImageUri }}'
-          PostAnalyticsProcessorSourceUri: null
-          RecordPreprocessorSourceUri: null
-          Environment: {}
-      - name: DataQualityJobInput
+          container_arguments:
+            - '{{ container_arguments[0] }}'
+          container_entrypoint:
+            - '{{ container_entrypoint[0] }}'
+          image_uri: '{{ image_uri }}'
+          post_analytics_processor_source_uri: null
+          record_preprocessor_source_uri: null
+          environment: {}
+      - name: data_quality_job_input
         value:
-          EndpointInput:
-            EndpointName: '{{ EndpointName }}'
-            LocalPath: '{{ LocalPath }}'
-            S3DataDistributionType: '{{ S3DataDistributionType }}'
-            S3InputMode: '{{ S3InputMode }}'
-            ExcludeFeaturesAttribute: '{{ ExcludeFeaturesAttribute }}'
-          BatchTransformInput:
-            DataCapturedDestinationS3Uri: '{{ DataCapturedDestinationS3Uri }}'
-            DatasetFormat:
-              Csv:
-                Header: '{{ Header }}'
-              Json:
-                Line: '{{ Line }}'
-              Parquet: '{{ Parquet }}'
-            LocalPath: '{{ LocalPath }}'
-            S3DataDistributionType: '{{ S3DataDistributionType }}'
-            S3InputMode: '{{ S3InputMode }}'
-            ExcludeFeaturesAttribute: '{{ ExcludeFeaturesAttribute }}'
-      - name: DataQualityJobOutputConfig
+          endpoint_input:
+            endpoint_name: '{{ endpoint_name }}'
+            local_path: '{{ local_path }}'
+            s3_data_distribution_type: '{{ s3_data_distribution_type }}'
+            s3_input_mode: '{{ s3_input_mode }}'
+            exclude_features_attribute: '{{ exclude_features_attribute }}'
+          batch_transform_input:
+            data_captured_destination_s3_uri: '{{ data_captured_destination_s3_uri }}'
+            dataset_format:
+              csv:
+                header: '{{ header }}'
+              json:
+                line: '{{ line }}'
+              parquet: '{{ parquet }}'
+            local_path: '{{ local_path }}'
+            s3_data_distribution_type: '{{ s3_data_distribution_type }}'
+            s3_input_mode: '{{ s3_input_mode }}'
+            exclude_features_attribute: '{{ exclude_features_attribute }}'
+      - name: data_quality_job_output_config
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          MonitoringOutputs:
-            - S3Output:
-                LocalPath: '{{ LocalPath }}'
-                S3UploadMode: '{{ S3UploadMode }}'
-                S3Uri: '{{ S3Uri }}'
-      - name: JobResources
+          kms_key_id: '{{ kms_key_id }}'
+          monitoring_outputs:
+            - s3_output:
+                local_path: '{{ local_path }}'
+                s3_upload_mode: '{{ s3_upload_mode }}'
+                s3_uri: '{{ s3_uri }}'
+      - name: job_resources
         value:
-          ClusterConfig:
-            InstanceCount: '{{ InstanceCount }}'
-            InstanceType: '{{ InstanceType }}'
-            VolumeSizeInGB: '{{ VolumeSizeInGB }}'
-            VolumeKmsKeyId: '{{ VolumeKmsKeyId }}'
-      - name: NetworkConfig
+          cluster_config:
+            instance_count: '{{ instance_count }}'
+            instance_type: '{{ instance_type }}'
+            volume_size_in_gb: '{{ volume_size_in_gb }}'
+            volume_kms_key_id: '{{ volume_kms_key_id }}'
+      - name: network_config
         value:
-          EnableInterContainerTrafficEncryption: '{{ EnableInterContainerTrafficEncryption }}'
-          EnableNetworkIsolation: '{{ EnableNetworkIsolation }}'
-          VpcConfig:
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            Subnets:
-              - '{{ Subnets[0] }}'
-      - name: EndpointName
+          enable_inter_container_traffic_encryption: '{{ enable_inter_container_traffic_encryption }}'
+          enable_network_isolation: '{{ enable_network_isolation }}'
+          vpc_config:
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            subnets:
+              - '{{ subnets[0] }}'
+      - name: endpoint_name
         value: null
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: StoppingCondition
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: stopping_condition
         value:
-          MaxRuntimeInSeconds: '{{ MaxRuntimeInSeconds }}'
-      - name: Tags
+          max_runtime_in_seconds: '{{ max_runtime_in_seconds }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -640,7 +639,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.data_quality_job_definitions
-WHERE Identifier = '<JobDefinitionArn>'
+WHERE Identifier = '{{ job_definition_arn }}'
 AND region = 'us-east-1';
 ```
 

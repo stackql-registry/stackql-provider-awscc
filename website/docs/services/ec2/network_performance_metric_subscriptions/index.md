@@ -161,7 +161,7 @@ destination,
 metric,
 statistic
 FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE region = 'us-east-1' AND Identifier = '<Source>|<Destination>|<Metric>|<Statistic>';
+WHERE region = 'us-east-1' AND Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -203,11 +203,11 @@ INSERT INTO awscc.ec2.network_performance_metric_subscriptions (
  Statistic,
  region
 )
-SELECT 
-'{{ Source }}',
- '{{ Destination }}',
- '{{ Metric }}',
- '{{ Statistic }}',
+SELECT
+'{{ source }}',
+ '{{ destination }}',
+ '{{ metric }}',
+ '{{ statistic }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -222,11 +222,11 @@ INSERT INTO awscc.ec2.network_performance_metric_subscriptions (
  Statistic,
  region
 )
-SELECT 
- '{{ Source }}',
- '{{ Destination }}',
- '{{ Metric }}',
- '{{ Statistic }}',
+SELECT
+ '{{ source }}',
+ '{{ destination }}',
+ '{{ metric }}',
+ '{{ statistic }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -244,15 +244,14 @@ globals:
 resources:
   - name: network_performance_metric_subscription
     props:
-      - name: Source
-        value: '{{ Source }}'
-      - name: Destination
-        value: '{{ Destination }}'
-      - name: Metric
-        value: '{{ Metric }}'
-      - name: Statistic
-        value: '{{ Statistic }}'
-
+      - name: source
+        value: '{{ source }}'
+      - name: destination
+        value: '{{ destination }}'
+      - name: metric
+        value: '{{ metric }}'
+      - name: statistic
+        value: '{{ statistic }}'
 ```
 </TabItem>
 </Tabs>
@@ -263,7 +262,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.network_performance_metric_subscriptions
-WHERE Identifier = '<Source|Destination|Metric|Statistic>'
+WHERE Identifier = '{{ source }}|{{ destination }}|{{ metric }}|{{ statistic }}'
 AND region = 'us-east-1';
 ```
 

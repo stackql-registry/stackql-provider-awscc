@@ -180,7 +180,7 @@ queue_id,
 template,
 template_type
 FROM awscc.deadline.queue_environments
-WHERE region = 'us-east-1' AND Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -222,12 +222,12 @@ INSERT INTO awscc.deadline.queue_environments (
  TemplateType,
  region
 )
-SELECT 
-'{{ FarmId }}',
- '{{ Priority }}',
- '{{ QueueId }}',
- '{{ Template }}',
- '{{ TemplateType }}',
+SELECT
+'{{ farm_id }}',
+ '{{ priority }}',
+ '{{ queue_id }}',
+ '{{ template }}',
+ '{{ template_type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -243,12 +243,12 @@ INSERT INTO awscc.deadline.queue_environments (
  TemplateType,
  region
 )
-SELECT 
- '{{ FarmId }}',
- '{{ Priority }}',
- '{{ QueueId }}',
- '{{ Template }}',
- '{{ TemplateType }}',
+SELECT
+ '{{ farm_id }}',
+ '{{ priority }}',
+ '{{ queue_id }}',
+ '{{ template }}',
+ '{{ template_type }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -266,17 +266,16 @@ globals:
 resources:
   - name: queue_environment
     props:
-      - name: FarmId
-        value: '{{ FarmId }}'
-      - name: Priority
-        value: '{{ Priority }}'
-      - name: QueueId
-        value: '{{ QueueId }}'
-      - name: Template
-        value: '{{ Template }}'
-      - name: TemplateType
-        value: '{{ TemplateType }}'
-
+      - name: farm_id
+        value: '{{ farm_id }}'
+      - name: priority
+        value: '{{ priority }}'
+      - name: queue_id
+        value: '{{ queue_id }}'
+      - name: template
+        value: '{{ template }}'
+      - name: template_type
+        value: '{{ template_type }}'
 ```
 </TabItem>
 </Tabs>
@@ -294,7 +293,7 @@ SET PatchDocument = string('{{ {
     "TemplateType": template_type
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
+AND Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}';
 ```
 
 
@@ -303,7 +302,7 @@ AND Identifier = '<FarmId>|<QueueId>|<QueueEnvironmentId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.deadline.queue_environments
-WHERE Identifier = '<FarmId|QueueId|QueueEnvironmentId>'
+WHERE Identifier = '{{ farm_id }}|{{ queue_id }}|{{ queue_environment_id }}'
 AND region = 'us-east-1';
 ```
 

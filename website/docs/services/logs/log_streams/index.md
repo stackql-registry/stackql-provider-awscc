@@ -139,7 +139,7 @@ region,
 log_stream_name,
 log_group_name
 FROM awscc.logs.log_streams
-WHERE region = 'us-east-1' AND Identifier = '<LogGroupName>|<LogStreamName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ log_group_name }}|{{ log_stream_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -176,8 +176,8 @@ INSERT INTO awscc.logs.log_streams (
  LogGroupName,
  region
 )
-SELECT 
-'{{ LogGroupName }}',
+SELECT
+'{{ log_group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -190,9 +190,9 @@ INSERT INTO awscc.logs.log_streams (
  LogGroupName,
  region
 )
-SELECT 
- '{{ LogStreamName }}',
- '{{ LogGroupName }}',
+SELECT
+ '{{ log_stream_name }}',
+ '{{ log_group_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -210,11 +210,10 @@ globals:
 resources:
   - name: log_stream
     props:
-      - name: LogStreamName
-        value: '{{ LogStreamName }}'
-      - name: LogGroupName
-        value: '{{ LogGroupName }}'
-
+      - name: log_stream_name
+        value: '{{ log_stream_name }}'
+      - name: log_group_name
+        value: '{{ log_group_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -225,7 +224,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.logs.log_streams
-WHERE Identifier = '<LogGroupName|LogStreamName>'
+WHERE Identifier = '{{ log_group_name }}|{{ log_stream_name }}'
 AND region = 'us-east-1';
 ```
 

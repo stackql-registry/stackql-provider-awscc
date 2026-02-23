@@ -100,7 +100,7 @@ resource_identifier,
 policy,
 state
 FROM awscc.vpclattice.auth_policies
-WHERE region = 'us-east-1' AND Identifier = '<ResourceIdentifier>';
+WHERE region = 'us-east-1' AND Identifier = '{{ resource_identifier }}';
 ```
 
 ## `INSERT` example
@@ -124,9 +124,9 @@ INSERT INTO awscc.vpclattice.auth_policies (
  Policy,
  region
 )
-SELECT 
-'{{ ResourceIdentifier }}',
- '{{ Policy }}',
+SELECT
+'{{ resource_identifier }}',
+ '{{ policy }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -139,9 +139,9 @@ INSERT INTO awscc.vpclattice.auth_policies (
  Policy,
  region
 )
-SELECT 
- '{{ ResourceIdentifier }}',
- '{{ Policy }}',
+SELECT
+ '{{ resource_identifier }}',
+ '{{ policy }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -159,11 +159,10 @@ globals:
 resources:
   - name: auth_policy
     props:
-      - name: ResourceIdentifier
-        value: '{{ ResourceIdentifier }}'
-      - name: Policy
+      - name: resource_identifier
+        value: '{{ resource_identifier }}'
+      - name: policy
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -179,7 +178,7 @@ SET PatchDocument = string('{{ {
     "Policy": policy
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ResourceIdentifier>';
+AND Identifier = '{{ resource_identifier }}';
 ```
 
 
@@ -188,7 +187,7 @@ AND Identifier = '<ResourceIdentifier>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.vpclattice.auth_policies
-WHERE Identifier = '<ResourceIdentifier>'
+WHERE Identifier = '{{ resource_identifier }}'
 AND region = 'us-east-1';
 ```
 

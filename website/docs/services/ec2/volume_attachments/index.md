@@ -145,7 +145,7 @@ volume_id,
 instance_id,
 device
 FROM awscc.ec2.volume_attachments
-WHERE region = 'us-east-1' AND Identifier = '<VolumeId>|<InstanceId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ volume_id }}|{{ instance_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.ec2.volume_attachments (
  InstanceId,
  region
 )
-SELECT 
-'{{ VolumeId }}',
- '{{ InstanceId }}',
+SELECT
+'{{ volume_id }}',
+ '{{ instance_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -199,10 +199,10 @@ INSERT INTO awscc.ec2.volume_attachments (
  Device,
  region
 )
-SELECT 
- '{{ VolumeId }}',
- '{{ InstanceId }}',
- '{{ Device }}',
+SELECT
+ '{{ volume_id }}',
+ '{{ instance_id }}',
+ '{{ device }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -220,13 +220,12 @@ globals:
 resources:
   - name: volume_attachment
     props:
-      - name: VolumeId
-        value: '{{ VolumeId }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-      - name: Device
-        value: '{{ Device }}'
-
+      - name: volume_id
+        value: '{{ volume_id }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
+      - name: device
+        value: '{{ device }}'
 ```
 </TabItem>
 </Tabs>
@@ -237,7 +236,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.volume_attachments
-WHERE Identifier = '<VolumeId|InstanceId>'
+WHERE Identifier = '{{ volume_id }}|{{ instance_id }}'
 AND region = 'us-east-1';
 ```
 

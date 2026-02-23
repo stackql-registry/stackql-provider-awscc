@@ -188,7 +188,7 @@ id,
 destination_prefix_list_id,
 group_id
 FROM awscc.ec2.security_group_egresses
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -225,9 +225,9 @@ INSERT INTO awscc.ec2.security_group_egresses (
  GroupId,
  region
 )
-SELECT 
-'{{ IpProtocol }}',
- '{{ GroupId }}',
+SELECT
+'{{ ip_protocol }}',
+ '{{ group_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -247,16 +247,16 @@ INSERT INTO awscc.ec2.security_group_egresses (
  GroupId,
  region
 )
-SELECT 
- '{{ CidrIp }}',
- '{{ CidrIpv6 }}',
- '{{ Description }}',
- '{{ FromPort }}',
- '{{ ToPort }}',
- '{{ IpProtocol }}',
- '{{ DestinationSecurityGroupId }}',
- '{{ DestinationPrefixListId }}',
- '{{ GroupId }}',
+SELECT
+ '{{ cidr_ip }}',
+ '{{ cidr_ipv6 }}',
+ '{{ description }}',
+ '{{ from_port }}',
+ '{{ to_port }}',
+ '{{ ip_protocol }}',
+ '{{ destination_security_group_id }}',
+ '{{ destination_prefix_list_id }}',
+ '{{ group_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -274,25 +274,24 @@ globals:
 resources:
   - name: security_group_egress
     props:
-      - name: CidrIp
-        value: '{{ CidrIp }}'
-      - name: CidrIpv6
-        value: '{{ CidrIpv6 }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: FromPort
-        value: '{{ FromPort }}'
-      - name: ToPort
-        value: '{{ ToPort }}'
-      - name: IpProtocol
-        value: '{{ IpProtocol }}'
-      - name: DestinationSecurityGroupId
-        value: '{{ DestinationSecurityGroupId }}'
-      - name: DestinationPrefixListId
-        value: '{{ DestinationPrefixListId }}'
-      - name: GroupId
-        value: '{{ GroupId }}'
-
+      - name: cidr_ip
+        value: '{{ cidr_ip }}'
+      - name: cidr_ipv6
+        value: '{{ cidr_ipv6 }}'
+      - name: description
+        value: '{{ description }}'
+      - name: from_port
+        value: '{{ from_port }}'
+      - name: to_port
+        value: '{{ to_port }}'
+      - name: ip_protocol
+        value: '{{ ip_protocol }}'
+      - name: destination_security_group_id
+        value: '{{ destination_security_group_id }}'
+      - name: destination_prefix_list_id
+        value: '{{ destination_prefix_list_id }}'
+      - name: group_id
+        value: '{{ group_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -308,7 +307,7 @@ SET PatchDocument = string('{{ {
     "Description": description
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -317,7 +316,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ec2.security_group_egresses
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

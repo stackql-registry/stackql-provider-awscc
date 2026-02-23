@@ -334,7 +334,7 @@ version,
 tags,
 test_alias_tags
 FROM awscc.bedrock.flows
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -371,9 +371,9 @@ INSERT INTO awscc.bedrock.flows (
  Name,
  region
 )
-SELECT 
-'{{ ExecutionRoleArn }}',
- '{{ Name }}',
+SELECT
+'{{ execution_role_arn }}',
+ '{{ name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -394,17 +394,17 @@ INSERT INTO awscc.bedrock.flows (
  TestAliasTags,
  region
 )
-SELECT 
- '{{ Definition }}',
- '{{ DefinitionString }}',
- '{{ DefinitionS3Location }}',
- '{{ DefinitionSubstitutions }}',
- '{{ Description }}',
- '{{ ExecutionRoleArn }}',
- '{{ Name }}',
- '{{ CustomerEncryptionKeyArn }}',
- '{{ Tags }}',
- '{{ TestAliasTags }}',
+SELECT
+ '{{ definition }}',
+ '{{ definition_string }}',
+ '{{ definition_s3_location }}',
+ '{{ definition_substitutions }}',
+ '{{ description }}',
+ '{{ execution_role_arn }}',
+ '{{ name }}',
+ '{{ customer_encryption_key_arn }}',
+ '{{ tags }}',
+ '{{ test_alias_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -422,45 +422,44 @@ globals:
 resources:
   - name: flow
     props:
-      - name: Definition
+      - name: definition
         value:
-          Nodes:
-            - Name: '{{ Name }}'
-              Type: '{{ Type }}'
-              Configuration: null
-              Inputs:
-                - Name: '{{ Name }}'
-                  Type: '{{ Type }}'
-                  Expression: '{{ Expression }}'
-              Outputs:
-                - Name: '{{ Name }}'
-                  Type: null
-          Connections:
-            - Type: '{{ Type }}'
-              Name: '{{ Name }}'
-              Source: '{{ Source }}'
-              Target: '{{ Target }}'
-              Configuration: null
-      - name: DefinitionString
-        value: '{{ DefinitionString }}'
-      - name: DefinitionS3Location
+          nodes:
+            - name: '{{ name }}'
+              type: '{{ type }}'
+              configuration: null
+              inputs:
+                - name: '{{ name }}'
+                  type: '{{ type }}'
+                  expression: '{{ expression }}'
+              outputs:
+                - name: '{{ name }}'
+                  type: null
+          connections:
+            - type: '{{ type }}'
+              name: '{{ name }}'
+              source: '{{ source }}'
+              target: '{{ target }}'
+              configuration: null
+      - name: definition_string
+        value: '{{ definition_string }}'
+      - name: definition_s3_location
         value:
-          URI: '{{ URI }}'
-      - name: DefinitionSubstitutions
+          uri: '{{ uri }}'
+      - name: definition_substitutions
         value: {}
-      - name: Description
-        value: '{{ Description }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: CustomerEncryptionKeyArn
-        value: '{{ CustomerEncryptionKeyArn }}'
-      - name: Tags
+      - name: description
+        value: '{{ description }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: name
+        value: '{{ name }}'
+      - name: customer_encryption_key_arn
+        value: '{{ customer_encryption_key_arn }}'
+      - name: tags
         value: {}
-      - name: TestAliasTags
+      - name: test_alias_tags
         value: null
-
 ```
 </TabItem>
 </Tabs>
@@ -485,7 +484,7 @@ SET PatchDocument = string('{{ {
     "TestAliasTags": test_alias_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -494,7 +493,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.bedrock.flows
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

@@ -220,7 +220,7 @@ report_plan_tags,
 report_delivery_channel,
 report_setting
 FROM awscc.backup.report_plans
-WHERE region = 'us-east-1' AND Identifier = '<ReportPlanArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ report_plan_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -257,9 +257,9 @@ INSERT INTO awscc.backup.report_plans (
  ReportSetting,
  region
 )
-SELECT 
-'{{ ReportDeliveryChannel }}',
- '{{ ReportSetting }}',
+SELECT
+'{{ report_delivery_channel }}',
+ '{{ report_setting }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -275,12 +275,12 @@ INSERT INTO awscc.backup.report_plans (
  ReportSetting,
  region
 )
-SELECT 
- '{{ ReportPlanName }}',
- '{{ ReportPlanDescription }}',
- '{{ ReportPlanTags }}',
- '{{ ReportDeliveryChannel }}',
- '{{ ReportSetting }}',
+SELECT
+ '{{ report_plan_name }}',
+ '{{ report_plan_description }}',
+ '{{ report_plan_tags }}',
+ '{{ report_delivery_channel }}',
+ '{{ report_setting }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -298,32 +298,31 @@ globals:
 resources:
   - name: report_plan
     props:
-      - name: ReportPlanName
-        value: '{{ ReportPlanName }}'
-      - name: ReportPlanDescription
-        value: '{{ ReportPlanDescription }}'
-      - name: ReportPlanTags
+      - name: report_plan_name
+        value: '{{ report_plan_name }}'
+      - name: report_plan_description
+        value: '{{ report_plan_description }}'
+      - name: report_plan_tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-      - name: ReportDeliveryChannel
+          - value: '{{ value }}'
+            key: '{{ key }}'
+      - name: report_delivery_channel
         value:
-          Formats:
-            - '{{ Formats[0] }}'
-          S3BucketName: '{{ S3BucketName }}'
-          S3KeyPrefix: '{{ S3KeyPrefix }}'
-      - name: ReportSetting
+          formats:
+            - '{{ formats[0] }}'
+          s3_bucket_name: '{{ s3_bucket_name }}'
+          s3_key_prefix: '{{ s3_key_prefix }}'
+      - name: report_setting
         value:
-          ReportTemplate: '{{ ReportTemplate }}'
-          FrameworkArns:
-            - '{{ FrameworkArns[0] }}'
-          Accounts:
-            - '{{ Accounts[0] }}'
-          OrganizationUnits:
-            - '{{ OrganizationUnits[0] }}'
-          Regions:
-            - '{{ Regions[0] }}'
-
+          report_template: '{{ report_template }}'
+          framework_arns:
+            - '{{ framework_arns[0] }}'
+          accounts:
+            - '{{ accounts[0] }}'
+          organization_units:
+            - '{{ organization_units[0] }}'
+          regions:
+            - '{{ regions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -342,7 +341,7 @@ SET PatchDocument = string('{{ {
     "ReportSetting": report_setting
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ReportPlanArn>';
+AND Identifier = '{{ report_plan_arn }}';
 ```
 
 
@@ -351,7 +350,7 @@ AND Identifier = '<ReportPlanArn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.backup.report_plans
-WHERE Identifier = '<ReportPlanArn>'
+WHERE Identifier = '{{ report_plan_arn }}'
 AND region = 'us-east-1';
 ```
 

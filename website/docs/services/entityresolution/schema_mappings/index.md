@@ -210,7 +210,7 @@ created_at,
 updated_at,
 has_workflows
 FROM awscc.entityresolution.schema_mappings
-WHERE region = 'us-east-1' AND Identifier = '<SchemaName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ schema_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -247,9 +247,9 @@ INSERT INTO awscc.entityresolution.schema_mappings (
  MappedInputFields,
  region
 )
-SELECT 
-'{{ SchemaName }}',
- '{{ MappedInputFields }}',
+SELECT
+'{{ schema_name }}',
+ '{{ mapped_input_fields }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -264,11 +264,11 @@ INSERT INTO awscc.entityresolution.schema_mappings (
  Tags,
  region
 )
-SELECT 
- '{{ SchemaName }}',
- '{{ Description }}',
- '{{ MappedInputFields }}',
- '{{ Tags }}',
+SELECT
+ '{{ schema_name }}',
+ '{{ description }}',
+ '{{ mapped_input_fields }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -286,23 +286,22 @@ globals:
 resources:
   - name: schema_mapping
     props:
-      - name: SchemaName
-        value: '{{ SchemaName }}'
-      - name: Description
-        value: '{{ Description }}'
-      - name: MappedInputFields
+      - name: schema_name
+        value: '{{ schema_name }}'
+      - name: description
+        value: '{{ description }}'
+      - name: mapped_input_fields
         value:
-          - FieldName: '{{ FieldName }}'
-            Type: '{{ Type }}'
-            SubType: '{{ SubType }}'
-            GroupName: null
-            MatchKey: null
-            Hashed: '{{ Hashed }}'
-      - name: Tags
+          - field_name: '{{ field_name }}'
+            type: '{{ type }}'
+            sub_type: '{{ sub_type }}'
+            group_name: null
+            match_key: null
+            hashed: '{{ hashed }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -320,7 +319,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<SchemaName>';
+AND Identifier = '{{ schema_name }}';
 ```
 
 
@@ -329,7 +328,7 @@ AND Identifier = '<SchemaName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.entityresolution.schema_mappings
-WHERE Identifier = '<SchemaName>'
+WHERE Identifier = '{{ schema_name }}'
 AND region = 'us-east-1';
 ```
 

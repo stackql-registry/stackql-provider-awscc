@@ -212,7 +212,7 @@ actions_suppressor_wait_period,
 actions_suppressor_extension_period,
 tags
 FROM awscc.cloudwatch.composite_alarms
-WHERE region = 'us-east-1' AND Identifier = '<AlarmName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ alarm_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -248,8 +248,8 @@ INSERT INTO awscc.cloudwatch.composite_alarms (
  AlarmRule,
  region
 )
-SELECT 
-'{{ AlarmRule }}',
+SELECT
+'{{ alarm_rule }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -271,18 +271,18 @@ INSERT INTO awscc.cloudwatch.composite_alarms (
  Tags,
  region
 )
-SELECT 
- '{{ AlarmName }}',
- '{{ AlarmRule }}',
- '{{ AlarmDescription }}',
- '{{ ActionsEnabled }}',
- '{{ OKActions }}',
- '{{ AlarmActions }}',
- '{{ InsufficientDataActions }}',
- '{{ ActionsSuppressor }}',
- '{{ ActionsSuppressorWaitPeriod }}',
- '{{ ActionsSuppressorExtensionPeriod }}',
- '{{ Tags }}',
+SELECT
+ '{{ alarm_name }}',
+ '{{ alarm_rule }}',
+ '{{ alarm_description }}',
+ '{{ actions_enabled }}',
+ '{{ ok_actions }}',
+ '{{ alarm_actions }}',
+ '{{ insufficient_data_actions }}',
+ '{{ actions_suppressor }}',
+ '{{ actions_suppressor_wait_period }}',
+ '{{ actions_suppressor_extension_period }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -300,34 +300,33 @@ globals:
 resources:
   - name: composite_alarm
     props:
-      - name: AlarmName
-        value: '{{ AlarmName }}'
-      - name: AlarmRule
-        value: '{{ AlarmRule }}'
-      - name: AlarmDescription
-        value: '{{ AlarmDescription }}'
-      - name: ActionsEnabled
-        value: '{{ ActionsEnabled }}'
-      - name: OKActions
+      - name: alarm_name
+        value: '{{ alarm_name }}'
+      - name: alarm_rule
+        value: '{{ alarm_rule }}'
+      - name: alarm_description
+        value: '{{ alarm_description }}'
+      - name: actions_enabled
+        value: '{{ actions_enabled }}'
+      - name: ok_actions
         value:
-          - '{{ OKActions[0] }}'
-      - name: AlarmActions
+          - '{{ ok_actions[0] }}'
+      - name: alarm_actions
         value:
-          - '{{ AlarmActions[0] }}'
-      - name: InsufficientDataActions
+          - '{{ alarm_actions[0] }}'
+      - name: insufficient_data_actions
         value:
-          - '{{ InsufficientDataActions[0] }}'
-      - name: ActionsSuppressor
-        value: '{{ ActionsSuppressor }}'
-      - name: ActionsSuppressorWaitPeriod
-        value: '{{ ActionsSuppressorWaitPeriod }}'
-      - name: ActionsSuppressorExtensionPeriod
-        value: '{{ ActionsSuppressorExtensionPeriod }}'
-      - name: Tags
+          - '{{ insufficient_data_actions[0] }}'
+      - name: actions_suppressor
+        value: '{{ actions_suppressor }}'
+      - name: actions_suppressor_wait_period
+        value: '{{ actions_suppressor_wait_period }}'
+      - name: actions_suppressor_extension_period
+        value: '{{ actions_suppressor_extension_period }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -352,7 +351,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<AlarmName>';
+AND Identifier = '{{ alarm_name }}';
 ```
 
 
@@ -361,7 +360,7 @@ AND Identifier = '<AlarmName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.cloudwatch.composite_alarms
-WHERE Identifier = '<AlarmName>'
+WHERE Identifier = '{{ alarm_name }}'
 AND region = 'us-east-1';
 ```
 

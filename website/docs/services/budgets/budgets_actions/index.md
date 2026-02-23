@@ -297,7 +297,7 @@ subscribers,
 definition,
 resource_tags
 FROM awscc.budgets.budgets_actions
-WHERE region = 'us-east-1' AND Identifier = '<ActionId>|<BudgetName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ action_id }}|{{ budget_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -340,14 +340,14 @@ INSERT INTO awscc.budgets.budgets_actions (
  Definition,
  region
 )
-SELECT 
-'{{ BudgetName }}',
- '{{ NotificationType }}',
- '{{ ActionType }}',
- '{{ ActionThreshold }}',
- '{{ ExecutionRoleArn }}',
- '{{ Subscribers }}',
- '{{ Definition }}',
+SELECT
+'{{ budget_name }}',
+ '{{ notification_type }}',
+ '{{ action_type }}',
+ '{{ action_threshold }}',
+ '{{ execution_role_arn }}',
+ '{{ subscribers }}',
+ '{{ definition }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -367,16 +367,16 @@ INSERT INTO awscc.budgets.budgets_actions (
  ResourceTags,
  region
 )
-SELECT 
- '{{ BudgetName }}',
- '{{ NotificationType }}',
- '{{ ActionType }}',
- '{{ ActionThreshold }}',
- '{{ ExecutionRoleArn }}',
- '{{ ApprovalModel }}',
- '{{ Subscribers }}',
- '{{ Definition }}',
- '{{ ResourceTags }}',
+SELECT
+ '{{ budget_name }}',
+ '{{ notification_type }}',
+ '{{ action_type }}',
+ '{{ action_threshold }}',
+ '{{ execution_role_arn }}',
+ '{{ approval_model }}',
+ '{{ subscribers }}',
+ '{{ definition }}',
+ '{{ resource_tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -394,48 +394,47 @@ globals:
 resources:
   - name: budgets_action
     props:
-      - name: BudgetName
-        value: '{{ BudgetName }}'
-      - name: NotificationType
-        value: '{{ NotificationType }}'
-      - name: ActionType
-        value: '{{ ActionType }}'
-      - name: ActionThreshold
+      - name: budget_name
+        value: '{{ budget_name }}'
+      - name: notification_type
+        value: '{{ notification_type }}'
+      - name: action_type
+        value: '{{ action_type }}'
+      - name: action_threshold
         value:
-          Value: null
-          Type: '{{ Type }}'
-      - name: ExecutionRoleArn
-        value: '{{ ExecutionRoleArn }}'
-      - name: ApprovalModel
-        value: '{{ ApprovalModel }}'
-      - name: Subscribers
+          value: null
+          type: '{{ type }}'
+      - name: execution_role_arn
+        value: '{{ execution_role_arn }}'
+      - name: approval_model
+        value: '{{ approval_model }}'
+      - name: subscribers
         value:
-          - Type: '{{ Type }}'
-            Address: '{{ Address }}'
-      - name: Definition
+          - type: '{{ type }}'
+            address: '{{ address }}'
+      - name: definition
         value:
-          IamActionDefinition:
-            PolicyArn: '{{ PolicyArn }}'
-            Roles:
-              - '{{ Roles[0] }}'
-            Groups:
-              - '{{ Groups[0] }}'
-            Users:
-              - '{{ Users[0] }}'
-          ScpActionDefinition:
-            PolicyId: '{{ PolicyId }}'
-            TargetIds:
-              - '{{ TargetIds[0] }}'
-          SsmActionDefinition:
-            Subtype: '{{ Subtype }}'
-            Region: '{{ Region }}'
-            InstanceIds:
-              - '{{ InstanceIds[0] }}'
-      - name: ResourceTags
+          iam_action_definition:
+            policy_arn: '{{ policy_arn }}'
+            roles:
+              - '{{ roles[0] }}'
+            groups:
+              - '{{ groups[0] }}'
+            users:
+              - '{{ users[0] }}'
+          scp_action_definition:
+            policy_id: '{{ policy_id }}'
+            target_ids:
+              - '{{ target_ids[0] }}'
+          ssm_action_definition:
+            subtype: '{{ subtype }}'
+            region: '{{ region }}'
+            instance_ids:
+              - '{{ instance_ids[0] }}'
+      - name: resource_tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -457,7 +456,7 @@ SET PatchDocument = string('{{ {
     "ResourceTags": resource_tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ActionId>|<BudgetName>';
+AND Identifier = '{{ action_id }}|{{ budget_name }}';
 ```
 
 
@@ -466,7 +465,7 @@ AND Identifier = '<ActionId>|<BudgetName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.budgets.budgets_actions
-WHERE Identifier = '<ActionId|BudgetName>'
+WHERE Identifier = '{{ action_id }}|{{ budget_name }}'
 AND region = 'us-east-1';
 ```
 

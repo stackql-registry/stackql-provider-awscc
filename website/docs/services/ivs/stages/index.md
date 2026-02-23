@@ -235,7 +235,7 @@ auto_participant_recording_configuration,
 tags,
 active_session_id
 FROM awscc.ivs.stages
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -273,10 +273,10 @@ INSERT INTO awscc.ivs.stages (
  Tags,
  region
 )
-SELECT 
-'{{ Name }}',
- '{{ AutoParticipantRecordingConfiguration }}',
- '{{ Tags }}',
+SELECT
+'{{ name }}',
+ '{{ auto_participant_recording_configuration }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -290,10 +290,10 @@ INSERT INTO awscc.ivs.stages (
  Tags,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ AutoParticipantRecordingConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ name }}',
+ '{{ auto_participant_recording_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -311,28 +311,27 @@ globals:
 resources:
   - name: stage
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: AutoParticipantRecordingConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: auto_participant_recording_configuration
         value:
-          StorageConfigurationArn: '{{ StorageConfigurationArn }}'
-          MediaTypes:
-            - '{{ MediaTypes[0] }}'
-          HlsConfiguration:
-            ParticipantRecordingHlsConfiguration:
-              TargetSegmentDurationSeconds: '{{ TargetSegmentDurationSeconds }}'
-          RecordingReconnectWindowSeconds: '{{ RecordingReconnectWindowSeconds }}'
-          ThumbnailConfiguration:
-            ParticipantThumbnailConfiguration:
-              RecordingMode: '{{ RecordingMode }}'
-              Storage:
-                - '{{ Storage[0] }}'
-              TargetIntervalSeconds: '{{ TargetIntervalSeconds }}'
-      - name: Tags
+          storage_configuration_arn: '{{ storage_configuration_arn }}'
+          media_types:
+            - '{{ media_types[0] }}'
+          hls_configuration:
+            participant_recording_hls_configuration:
+              target_segment_duration_seconds: '{{ target_segment_duration_seconds }}'
+          recording_reconnect_window_seconds: '{{ recording_reconnect_window_seconds }}'
+          thumbnail_configuration:
+            participant_thumbnail_configuration:
+              recording_mode: '{{ recording_mode }}'
+              storage:
+                - '{{ storage[0] }}'
+              target_interval_seconds: '{{ target_interval_seconds }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -350,7 +349,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -359,7 +358,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.stages
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

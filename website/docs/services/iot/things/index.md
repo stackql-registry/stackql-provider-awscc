@@ -159,7 +159,7 @@ arn,
 attribute_payload,
 thing_name
 FROM awscc.iot.things
-WHERE region = 'us-east-1' AND Identifier = '<ThingName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ thing_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -196,9 +196,9 @@ INSERT INTO awscc.iot.things (
  ThingName,
  region
 )
-SELECT 
-'{{ AttributePayload }}',
- '{{ ThingName }}',
+SELECT
+'{{ attribute_payload }}',
+ '{{ thing_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -211,9 +211,9 @@ INSERT INTO awscc.iot.things (
  ThingName,
  region
 )
-SELECT 
- '{{ AttributePayload }}',
- '{{ ThingName }}',
+SELECT
+ '{{ attribute_payload }}',
+ '{{ thing_name }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -231,12 +231,11 @@ globals:
 resources:
   - name: thing
     props:
-      - name: AttributePayload
+      - name: attribute_payload
         value:
-          Attributes: {}
-      - name: ThingName
-        value: '{{ ThingName }}'
-
+          attributes: {}
+      - name: thing_name
+        value: '{{ thing_name }}'
 ```
 </TabItem>
 </Tabs>
@@ -252,7 +251,7 @@ SET PatchDocument = string('{{ {
     "AttributePayload": attribute_payload
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ThingName>';
+AND Identifier = '{{ thing_name }}';
 ```
 
 
@@ -261,7 +260,7 @@ AND Identifier = '<ThingName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.iot.things
-WHERE Identifier = '<ThingName>'
+WHERE Identifier = '{{ thing_name }}'
 AND region = 'us-east-1';
 ```
 

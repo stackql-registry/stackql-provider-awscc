@@ -182,7 +182,7 @@ group_arn,
 insights_configuration,
 tags
 FROM awscc.xray.groups
-WHERE region = 'us-east-1' AND Identifier = '<GroupARN>';
+WHERE region = 'us-east-1' AND Identifier = '{{ group_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -218,8 +218,8 @@ INSERT INTO awscc.xray.groups (
  GroupName,
  region
 )
-SELECT 
-'{{ GroupName }}',
+SELECT
+'{{ group_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -234,11 +234,11 @@ INSERT INTO awscc.xray.groups (
  Tags,
  region
 )
-SELECT 
- '{{ FilterExpression }}',
- '{{ GroupName }}',
- '{{ InsightsConfiguration }}',
- '{{ Tags }}',
+SELECT
+ '{{ filter_expression }}',
+ '{{ group_name }}',
+ '{{ insights_configuration }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -256,19 +256,18 @@ globals:
 resources:
   - name: group
     props:
-      - name: FilterExpression
-        value: '{{ FilterExpression }}'
-      - name: GroupName
-        value: '{{ GroupName }}'
-      - name: InsightsConfiguration
+      - name: filter_expression
+        value: '{{ filter_expression }}'
+      - name: group_name
+        value: '{{ group_name }}'
+      - name: insights_configuration
         value:
-          InsightsEnabled: '{{ InsightsEnabled }}'
-          NotificationsEnabled: '{{ NotificationsEnabled }}'
-      - name: Tags
+          insights_enabled: '{{ insights_enabled }}'
+          notifications_enabled: '{{ notifications_enabled }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -287,7 +286,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<GroupARN>';
+AND Identifier = '{{ group_arn }}';
 ```
 
 
@@ -296,7 +295,7 @@ AND Identifier = '<GroupARN>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.xray.groups
-WHERE Identifier = '<GroupARN>'
+WHERE Identifier = '{{ group_arn }}'
 AND region = 'us-east-1';
 ```
 

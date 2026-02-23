@@ -145,7 +145,7 @@ key,
 instance_id,
 association_id
 FROM awscc.connect.security_keys
-WHERE region = 'us-east-1' AND Identifier = '<InstanceId>|<AssociationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ instance_id }}|{{ association_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -183,9 +183,9 @@ INSERT INTO awscc.connect.security_keys (
  InstanceId,
  region
 )
-SELECT 
-'{{ Key }}',
- '{{ InstanceId }}',
+SELECT
+'{{ key }}',
+ '{{ instance_id }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -198,9 +198,9 @@ INSERT INTO awscc.connect.security_keys (
  InstanceId,
  region
 )
-SELECT 
- '{{ Key }}',
- '{{ InstanceId }}',
+SELECT
+ '{{ key }}',
+ '{{ instance_id }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -218,11 +218,10 @@ globals:
 resources:
   - name: security_key
     props:
-      - name: Key
-        value: '{{ Key }}'
-      - name: InstanceId
-        value: '{{ InstanceId }}'
-
+      - name: key
+        value: '{{ key }}'
+      - name: instance_id
+        value: '{{ instance_id }}'
 ```
 </TabItem>
 </Tabs>
@@ -233,7 +232,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.connect.security_keys
-WHERE Identifier = '<InstanceId|AssociationId>'
+WHERE Identifier = '{{ instance_id }}|{{ association_id }}'
 AND region = 'us-east-1';
 ```
 

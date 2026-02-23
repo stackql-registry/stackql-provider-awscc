@@ -598,7 +598,7 @@ last_modified_time,
 processing_start_time,
 processing_end_time
 FROM awscc.sagemaker.processing_jobs
-WHERE region = 'us-east-1' AND Identifier = '<ProcessingJobArn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ processing_job_arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -636,10 +636,10 @@ INSERT INTO awscc.sagemaker.processing_jobs (
  RoleArn,
  region
 )
-SELECT 
-'{{ AppSpecification }}',
- '{{ ProcessingResources }}',
- '{{ RoleArn }}',
+SELECT
+'{{ app_specification }}',
+ '{{ processing_resources }}',
+ '{{ role_arn }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -661,18 +661,18 @@ INSERT INTO awscc.sagemaker.processing_jobs (
  Tags,
  region
 )
-SELECT 
- '{{ AppSpecification }}',
- '{{ Environment }}',
- '{{ ExperimentConfig }}',
- '{{ NetworkConfig }}',
- '{{ ProcessingInputs }}',
- '{{ ProcessingJobName }}',
- '{{ ProcessingOutputConfig }}',
- '{{ ProcessingResources }}',
- '{{ RoleArn }}',
- '{{ StoppingCondition }}',
- '{{ Tags }}',
+SELECT
+ '{{ app_specification }}',
+ '{{ environment }}',
+ '{{ experiment_config }}',
+ '{{ network_config }}',
+ '{{ processing_inputs }}',
+ '{{ processing_job_name }}',
+ '{{ processing_output_config }}',
+ '{{ processing_resources }}',
+ '{{ role_arn }}',
+ '{{ stopping_condition }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -690,95 +690,94 @@ globals:
 resources:
   - name: processing_job
     props:
-      - name: AppSpecification
+      - name: app_specification
         value:
-          ContainerArguments:
-            - '{{ ContainerArguments[0] }}'
-          ContainerEntrypoint:
-            - '{{ ContainerEntrypoint[0] }}'
-          ImageUri: '{{ ImageUri }}'
-      - name: Environment
+          container_arguments:
+            - '{{ container_arguments[0] }}'
+          container_entrypoint:
+            - '{{ container_entrypoint[0] }}'
+          image_uri: '{{ image_uri }}'
+      - name: environment
         value: {}
-      - name: ExperimentConfig
+      - name: experiment_config
         value:
-          ExperimentName: '{{ ExperimentName }}'
-          TrialName: '{{ TrialName }}'
-          TrialComponentDisplayName: '{{ TrialComponentDisplayName }}'
-          RunName: '{{ RunName }}'
-      - name: NetworkConfig
+          experiment_name: '{{ experiment_name }}'
+          trial_name: '{{ trial_name }}'
+          trial_component_display_name: '{{ trial_component_display_name }}'
+          run_name: '{{ run_name }}'
+      - name: network_config
         value:
-          EnableInterContainerTrafficEncryption: '{{ EnableInterContainerTrafficEncryption }}'
-          EnableNetworkIsolation: '{{ EnableNetworkIsolation }}'
-          VpcConfig:
-            SecurityGroupIds:
-              - '{{ SecurityGroupIds[0] }}'
-            Subnets:
-              - '{{ Subnets[0] }}'
-      - name: ProcessingInputs
+          enable_inter_container_traffic_encryption: '{{ enable_inter_container_traffic_encryption }}'
+          enable_network_isolation: '{{ enable_network_isolation }}'
+          vpc_config:
+            security_group_ids:
+              - '{{ security_group_ids[0] }}'
+            subnets:
+              - '{{ subnets[0] }}'
+      - name: processing_inputs
         value:
-          - S3Input:
-              LocalPath: '{{ LocalPath }}'
-              S3CompressionType: '{{ S3CompressionType }}'
-              S3DataDistributionType: '{{ S3DataDistributionType }}'
-              S3DataType: '{{ S3DataType }}'
-              S3InputMode: '{{ S3InputMode }}'
-              S3Uri: '{{ S3Uri }}'
-            DatasetDefinition:
-              AthenaDatasetDefinition:
-                Catalog: '{{ Catalog }}'
-                Database: '{{ Database }}'
-                OutputS3Uri: '{{ OutputS3Uri }}'
-                QueryString: '{{ QueryString }}'
-                WorkGroup: '{{ WorkGroup }}'
-                OutputFormat: '{{ OutputFormat }}'
-                KmsKeyId: '{{ KmsKeyId }}'
-                OutputCompression: '{{ OutputCompression }}'
-              RedshiftDatasetDefinition:
-                Database: '{{ Database }}'
-                DbUser: '{{ DbUser }}'
-                QueryString: '{{ QueryString }}'
-                ClusterId: '{{ ClusterId }}'
-                ClusterRoleArn: '{{ ClusterRoleArn }}'
-                OutputS3Uri: '{{ OutputS3Uri }}'
-                OutputFormat: '{{ OutputFormat }}'
-                KmsKeyId: '{{ KmsKeyId }}'
-                OutputCompression: '{{ OutputCompression }}'
-              DataDistributionType: '{{ DataDistributionType }}'
-              InputMode: '{{ InputMode }}'
-              LocalPath: '{{ LocalPath }}'
-            InputName: '{{ InputName }}'
-            AppManaged: '{{ AppManaged }}'
-      - name: ProcessingJobName
-        value: '{{ ProcessingJobName }}'
-      - name: ProcessingOutputConfig
+          - s3_input:
+              local_path: '{{ local_path }}'
+              s3_compression_type: '{{ s3_compression_type }}'
+              s3_data_distribution_type: '{{ s3_data_distribution_type }}'
+              s3_data_type: '{{ s3_data_type }}'
+              s3_input_mode: '{{ s3_input_mode }}'
+              s3_uri: '{{ s3_uri }}'
+            dataset_definition:
+              athena_dataset_definition:
+                catalog: '{{ catalog }}'
+                database: '{{ database }}'
+                output_s3_uri: '{{ output_s3_uri }}'
+                query_string: '{{ query_string }}'
+                work_group: '{{ work_group }}'
+                output_format: '{{ output_format }}'
+                kms_key_id: '{{ kms_key_id }}'
+                output_compression: '{{ output_compression }}'
+              redshift_dataset_definition:
+                database: '{{ database }}'
+                db_user: '{{ db_user }}'
+                query_string: '{{ query_string }}'
+                cluster_id: '{{ cluster_id }}'
+                cluster_role_arn: '{{ cluster_role_arn }}'
+                output_s3_uri: '{{ output_s3_uri }}'
+                output_format: '{{ output_format }}'
+                kms_key_id: '{{ kms_key_id }}'
+                output_compression: '{{ output_compression }}'
+              data_distribution_type: '{{ data_distribution_type }}'
+              input_mode: '{{ input_mode }}'
+              local_path: '{{ local_path }}'
+            input_name: '{{ input_name }}'
+            app_managed: '{{ app_managed }}'
+      - name: processing_job_name
+        value: '{{ processing_job_name }}'
+      - name: processing_output_config
         value:
-          KmsKeyId: '{{ KmsKeyId }}'
-          Outputs:
-            - OutputName: '{{ OutputName }}'
-              AppManaged: '{{ AppManaged }}'
-              S3Output:
-                LocalPath: '{{ LocalPath }}'
-                S3UploadMode: '{{ S3UploadMode }}'
-                S3Uri: '{{ S3Uri }}'
-              FeatureStoreOutput:
-                FeatureGroupName: '{{ FeatureGroupName }}'
-      - name: ProcessingResources
+          kms_key_id: '{{ kms_key_id }}'
+          outputs:
+            - output_name: '{{ output_name }}'
+              app_managed: '{{ app_managed }}'
+              s3_output:
+                local_path: '{{ local_path }}'
+                s3_upload_mode: '{{ s3_upload_mode }}'
+                s3_uri: '{{ s3_uri }}'
+              feature_store_output:
+                feature_group_name: '{{ feature_group_name }}'
+      - name: processing_resources
         value:
-          ClusterConfig:
-            InstanceCount: '{{ InstanceCount }}'
-            InstanceType: '{{ InstanceType }}'
-            VolumeSizeInGB: '{{ VolumeSizeInGB }}'
-            VolumeKmsKeyId: '{{ VolumeKmsKeyId }}'
-      - name: RoleArn
-        value: '{{ RoleArn }}'
-      - name: StoppingCondition
+          cluster_config:
+            instance_count: '{{ instance_count }}'
+            instance_type: '{{ instance_type }}'
+            volume_size_in_gb: '{{ volume_size_in_gb }}'
+            volume_kms_key_id: '{{ volume_kms_key_id }}'
+      - name: role_arn
+        value: '{{ role_arn }}'
+      - name: stopping_condition
         value:
-          MaxRuntimeInSeconds: '{{ MaxRuntimeInSeconds }}'
-      - name: Tags
+          max_runtime_in_seconds: '{{ max_runtime_in_seconds }}'
+      - name: tags
         value:
-          - Value: '{{ Value }}'
-            Key: '{{ Key }}'
-
+          - value: '{{ value }}'
+            key: '{{ key }}'
 ```
 </TabItem>
 </Tabs>
@@ -789,7 +788,7 @@ resources:
 ```sql
 /*+ delete */
 DELETE FROM awscc.sagemaker.processing_jobs
-WHERE Identifier = '<ProcessingJobArn>'
+WHERE Identifier = '{{ processing_job_arn }}'
 AND region = 'us-east-1';
 ```
 

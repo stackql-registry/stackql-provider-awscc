@@ -182,7 +182,7 @@ max_runs,
 name,
 tags
 FROM awscc.omics.run_groups
-WHERE region = 'us-east-1' AND Identifier = '<Id>';
+WHERE region = 'us-east-1' AND Identifier = '{{ id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -223,13 +223,13 @@ INSERT INTO awscc.omics.run_groups (
  Tags,
  region
 )
-SELECT 
-'{{ MaxCpus }}',
- '{{ MaxGpus }}',
- '{{ MaxDuration }}',
- '{{ MaxRuns }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+'{{ max_cpus }}',
+ '{{ max_gpus }}',
+ '{{ max_duration }}',
+ '{{ max_runs }}',
+ '{{ name }}',
+ '{{ tags }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -246,13 +246,13 @@ INSERT INTO awscc.omics.run_groups (
  Tags,
  region
 )
-SELECT 
- '{{ MaxCpus }}',
- '{{ MaxGpus }}',
- '{{ MaxDuration }}',
- '{{ MaxRuns }}',
- '{{ Name }}',
- '{{ Tags }}',
+SELECT
+ '{{ max_cpus }}',
+ '{{ max_gpus }}',
+ '{{ max_duration }}',
+ '{{ max_runs }}',
+ '{{ name }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -270,19 +270,18 @@ globals:
 resources:
   - name: run_group
     props:
-      - name: MaxCpus
+      - name: max_cpus
         value: null
-      - name: MaxGpus
+      - name: max_gpus
         value: null
-      - name: MaxDuration
+      - name: max_duration
         value: null
-      - name: MaxRuns
+      - name: max_runs
         value: null
-      - name: Name
-        value: '{{ Name }}'
-      - name: Tags
+      - name: name
+        value: '{{ name }}'
+      - name: tags
         value: {}
-
 ```
 </TabItem>
 </Tabs>
@@ -303,7 +302,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Id>';
+AND Identifier = '{{ id }}';
 ```
 
 
@@ -312,7 +311,7 @@ AND Identifier = '<Id>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.omics.run_groups
-WHERE Identifier = '<Id>'
+WHERE Identifier = '{{ id }}'
 AND region = 'us-east-1';
 ```
 

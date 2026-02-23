@@ -495,7 +495,7 @@ worker_type_specifications,
 scheduler_configuration,
 identity_center_configuration
 FROM awscc.emrserverless.applications
-WHERE region = 'us-east-1' AND Identifier = '<ApplicationId>';
+WHERE region = 'us-east-1' AND Identifier = '{{ application_id }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -532,9 +532,9 @@ INSERT INTO awscc.emrserverless.applications (
  Type,
  region
 )
-SELECT 
-'{{ ReleaseLabel }}',
- '{{ Type }}',
+SELECT
+'{{ release_label }}',
+ '{{ type }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -562,24 +562,24 @@ INSERT INTO awscc.emrserverless.applications (
  IdentityCenterConfiguration,
  region
 )
-SELECT 
- '{{ Architecture }}',
- '{{ Name }}',
- '{{ ReleaseLabel }}',
- '{{ Type }}',
- '{{ InitialCapacity }}',
- '{{ MaximumCapacity }}',
- '{{ Tags }}',
- '{{ AutoStartConfiguration }}',
- '{{ AutoStopConfiguration }}',
- '{{ ImageConfiguration }}',
- '{{ MonitoringConfiguration }}',
- '{{ RuntimeConfiguration }}',
- '{{ InteractiveConfiguration }}',
- '{{ NetworkConfiguration }}',
- '{{ WorkerTypeSpecifications }}',
- '{{ SchedulerConfiguration }}',
- '{{ IdentityCenterConfiguration }}',
+SELECT
+ '{{ architecture }}',
+ '{{ name }}',
+ '{{ release_label }}',
+ '{{ type }}',
+ '{{ initial_capacity }}',
+ '{{ maximum_capacity }}',
+ '{{ tags }}',
+ '{{ auto_start_configuration }}',
+ '{{ auto_stop_configuration }}',
+ '{{ image_configuration }}',
+ '{{ monitoring_configuration }}',
+ '{{ runtime_configuration }}',
+ '{{ interactive_configuration }}',
+ '{{ network_configuration }}',
+ '{{ worker_type_specifications }}',
+ '{{ scheduler_configuration }}',
+ '{{ identity_center_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -597,75 +597,74 @@ globals:
 resources:
   - name: application
     props:
-      - name: Architecture
-        value: '{{ Architecture }}'
-      - name: Name
-        value: '{{ Name }}'
-      - name: ReleaseLabel
-        value: '{{ ReleaseLabel }}'
-      - name: Type
-        value: '{{ Type }}'
-      - name: InitialCapacity
+      - name: architecture
+        value: '{{ architecture }}'
+      - name: name
+        value: '{{ name }}'
+      - name: release_label
+        value: '{{ release_label }}'
+      - name: type
+        value: '{{ type }}'
+      - name: initial_capacity
         value:
-          - Key: '{{ Key }}'
-            Value:
-              WorkerCount: '{{ WorkerCount }}'
-              WorkerConfiguration:
-                Cpu: '{{ Cpu }}'
-                Memory: '{{ Memory }}'
-                Disk: '{{ Disk }}'
-                DiskType: '{{ DiskType }}'
-      - name: MaximumCapacity
+          - key: '{{ key }}'
+            value:
+              worker_count: '{{ worker_count }}'
+              worker_configuration:
+                cpu: '{{ cpu }}'
+                memory: '{{ memory }}'
+                disk: '{{ disk }}'
+                disk_type: '{{ disk_type }}'
+      - name: maximum_capacity
         value:
-          Cpu: null
-          Memory: null
-          Disk: null
-      - name: Tags
+          cpu: null
+          memory: null
+          disk: null
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: AutoStartConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: auto_start_configuration
         value:
-          Enabled: '{{ Enabled }}'
-      - name: AutoStopConfiguration
+          enabled: '{{ enabled }}'
+      - name: auto_stop_configuration
         value:
-          Enabled: '{{ Enabled }}'
-          IdleTimeoutMinutes: '{{ IdleTimeoutMinutes }}'
-      - name: ImageConfiguration
+          enabled: '{{ enabled }}'
+          idle_timeout_minutes: '{{ idle_timeout_minutes }}'
+      - name: image_configuration
         value:
-          ImageUri: '{{ ImageUri }}'
-      - name: MonitoringConfiguration
+          image_uri: '{{ image_uri }}'
+      - name: monitoring_configuration
         value:
-          S3MonitoringConfiguration: null
-          ManagedPersistenceMonitoringConfiguration: null
-          CloudWatchLoggingConfiguration: null
-          PrometheusMonitoringConfiguration: null
-      - name: RuntimeConfiguration
+          s3_monitoring_configuration: null
+          managed_persistence_monitoring_configuration: null
+          cloud_watch_logging_configuration: null
+          prometheus_monitoring_configuration: null
+      - name: runtime_configuration
         value:
-          - Classification: '{{ Classification }}'
-            Properties: {}
-            Configurations:
+          - classification: '{{ classification }}'
+            properties: {}
+            configurations:
               - null
-      - name: InteractiveConfiguration
+      - name: interactive_configuration
         value:
-          LivyEndpointEnabled: '{{ LivyEndpointEnabled }}'
-          StudioEnabled: '{{ StudioEnabled }}'
-      - name: NetworkConfiguration
+          livy_endpoint_enabled: '{{ livy_endpoint_enabled }}'
+          studio_enabled: '{{ studio_enabled }}'
+      - name: network_configuration
         value:
-          SubnetIds:
-            - '{{ SubnetIds[0] }}'
-          SecurityGroupIds:
-            - '{{ SecurityGroupIds[0] }}'
-      - name: WorkerTypeSpecifications
+          subnet_ids:
+            - '{{ subnet_ids[0] }}'
+          security_group_ids:
+            - '{{ security_group_ids[0] }}'
+      - name: worker_type_specifications
         value: {}
-      - name: SchedulerConfiguration
+      - name: scheduler_configuration
         value:
-          QueueTimeoutMinutes: '{{ QueueTimeoutMinutes }}'
-          MaxConcurrentRuns: '{{ MaxConcurrentRuns }}'
-      - name: IdentityCenterConfiguration
+          queue_timeout_minutes: '{{ queue_timeout_minutes }}'
+          max_concurrent_runs: '{{ max_concurrent_runs }}'
+      - name: identity_center_configuration
         value:
-          IdentityCenterInstanceArn: '{{ IdentityCenterInstanceArn }}'
-
+          identity_center_instance_arn: '{{ identity_center_instance_arn }}'
 ```
 </TabItem>
 </Tabs>
@@ -695,7 +694,7 @@ SET PatchDocument = string('{{ {
     "IdentityCenterConfiguration": identity_center_configuration
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<ApplicationId>';
+AND Identifier = '{{ application_id }}';
 ```
 
 
@@ -704,7 +703,7 @@ AND Identifier = '<ApplicationId>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.emrserverless.applications
-WHERE Identifier = '<ApplicationId>'
+WHERE Identifier = '{{ application_id }}'
 AND region = 'us-east-1';
 ```
 

@@ -238,7 +238,7 @@ tags,
 thumbnail_configuration,
 rendition_configuration
 FROM awscc.ivs.recording_configurations
-WHERE region = 'us-east-1' AND Identifier = '<Arn>';
+WHERE region = 'us-east-1' AND Identifier = '{{ arn }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -274,8 +274,8 @@ INSERT INTO awscc.ivs.recording_configurations (
  DestinationConfiguration,
  region
 )
-SELECT 
-'{{ DestinationConfiguration }}',
+SELECT
+'{{ destination_configuration }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -292,13 +292,13 @@ INSERT INTO awscc.ivs.recording_configurations (
  RenditionConfiguration,
  region
 )
-SELECT 
- '{{ Name }}',
- '{{ RecordingReconnectWindowSeconds }}',
- '{{ DestinationConfiguration }}',
- '{{ Tags }}',
- '{{ ThumbnailConfiguration }}',
- '{{ RenditionConfiguration }}',
+SELECT
+ '{{ name }}',
+ '{{ recording_reconnect_window_seconds }}',
+ '{{ destination_configuration }}',
+ '{{ tags }}',
+ '{{ thumbnail_configuration }}',
+ '{{ rendition_configuration }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -316,31 +316,30 @@ globals:
 resources:
   - name: recording_configuration
     props:
-      - name: Name
-        value: '{{ Name }}'
-      - name: RecordingReconnectWindowSeconds
-        value: '{{ RecordingReconnectWindowSeconds }}'
-      - name: DestinationConfiguration
+      - name: name
+        value: '{{ name }}'
+      - name: recording_reconnect_window_seconds
+        value: '{{ recording_reconnect_window_seconds }}'
+      - name: destination_configuration
         value:
-          S3:
-            BucketName: '{{ BucketName }}'
-      - name: Tags
+          s3:
+            bucket_name: '{{ bucket_name }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-      - name: ThumbnailConfiguration
+          - key: '{{ key }}'
+            value: '{{ value }}'
+      - name: thumbnail_configuration
         value:
-          ParticipantThumbnailConfiguration:
-            RecordingMode: '{{ RecordingMode }}'
-            Storage:
-              - '{{ Storage[0] }}'
-            TargetIntervalSeconds: '{{ TargetIntervalSeconds }}'
-      - name: RenditionConfiguration
+          participant_thumbnail_configuration:
+            recording_mode: '{{ recording_mode }}'
+            storage:
+              - '{{ storage[0] }}'
+            target_interval_seconds: '{{ target_interval_seconds }}'
+      - name: rendition_configuration
         value:
-          RenditionSelection: '{{ RenditionSelection }}'
-          Renditions:
-            - '{{ Renditions[0] }}'
-
+          rendition_selection: '{{ rendition_selection }}'
+          renditions:
+            - '{{ renditions[0] }}'
 ```
 </TabItem>
 </Tabs>
@@ -356,7 +355,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<Arn>';
+AND Identifier = '{{ arn }}';
 ```
 
 
@@ -365,7 +364,7 @@ AND Identifier = '<Arn>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.ivs.recording_configurations
-WHERE Identifier = '<Arn>'
+WHERE Identifier = '{{ arn }}'
 AND region = 'us-east-1';
 ```
 

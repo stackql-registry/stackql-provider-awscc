@@ -275,7 +275,7 @@ schema,
 magnetic_store_write_properties,
 tags
 FROM awscc.timestream.tables
-WHERE region = 'us-east-1' AND Identifier = '<DatabaseName>|<TableName>';
+WHERE region = 'us-east-1' AND Identifier = '{{ database_name }}|{{ table_name }}';
 ```
 </TabItem>
 <TabItem value="list">
@@ -312,8 +312,8 @@ INSERT INTO awscc.timestream.tables (
  DatabaseName,
  region
 )
-SELECT 
-'{{ DatabaseName }}',
+SELECT
+'{{ database_name }}',
 '{{ region }}';
 ```
 </TabItem>
@@ -330,13 +330,13 @@ INSERT INTO awscc.timestream.tables (
  Tags,
  region
 )
-SELECT 
- '{{ DatabaseName }}',
- '{{ TableName }}',
- '{{ RetentionProperties }}',
- '{{ Schema }}',
- '{{ MagneticStoreWriteProperties }}',
- '{{ Tags }}',
+SELECT
+ '{{ database_name }}',
+ '{{ table_name }}',
+ '{{ retention_properties }}',
+ '{{ schema }}',
+ '{{ magnetic_store_write_properties }}',
+ '{{ tags }}',
  '{{ region }}';
 ```
 </TabItem>
@@ -354,34 +354,33 @@ globals:
 resources:
   - name: table
     props:
-      - name: DatabaseName
-        value: '{{ DatabaseName }}'
-      - name: TableName
-        value: '{{ TableName }}'
-      - name: RetentionProperties
+      - name: database_name
+        value: '{{ database_name }}'
+      - name: table_name
+        value: '{{ table_name }}'
+      - name: retention_properties
         value:
-          MemoryStoreRetentionPeriodInHours: '{{ MemoryStoreRetentionPeriodInHours }}'
-          MagneticStoreRetentionPeriodInDays: '{{ MagneticStoreRetentionPeriodInDays }}'
-      - name: Schema
+          memory_store_retention_period_in_hours: '{{ memory_store_retention_period_in_hours }}'
+          magnetic_store_retention_period_in_days: '{{ magnetic_store_retention_period_in_days }}'
+      - name: schema
         value:
-          CompositePartitionKey:
-            - Type: '{{ Type }}'
-              Name: '{{ Name }}'
-              EnforcementInRecord: '{{ EnforcementInRecord }}'
-      - name: MagneticStoreWriteProperties
+          composite_partition_key:
+            - type: '{{ type }}'
+              name: '{{ name }}'
+              enforcement_in_record: '{{ enforcement_in_record }}'
+      - name: magnetic_store_write_properties
         value:
-          EnableMagneticStoreWrites: '{{ EnableMagneticStoreWrites }}'
-          MagneticStoreRejectedDataLocation:
-            S3Configuration:
-              BucketName: '{{ BucketName }}'
-              ObjectKeyPrefix: '{{ ObjectKeyPrefix }}'
-              EncryptionOption: '{{ EncryptionOption }}'
-              KmsKeyId: '{{ KmsKeyId }}'
-      - name: Tags
+          enable_magnetic_store_writes: '{{ enable_magnetic_store_writes }}'
+          magnetic_store_rejected_data_location:
+            s3_configuration:
+              bucket_name: '{{ bucket_name }}'
+              object_key_prefix: '{{ object_key_prefix }}'
+              encryption_option: '{{ encryption_option }}'
+              kms_key_id: '{{ kms_key_id }}'
+      - name: tags
         value:
-          - Key: '{{ Key }}'
-            Value: '{{ Value }}'
-
+          - key: '{{ key }}'
+            value: '{{ value }}'
 ```
 </TabItem>
 </Tabs>
@@ -400,7 +399,7 @@ SET PatchDocument = string('{{ {
     "Tags": tags
 } | generate_patch_document }}')
 WHERE region = '{{ region }}'
-AND Identifier = '<DatabaseName>|<TableName>';
+AND Identifier = '{{ database_name }}|{{ table_name }}';
 ```
 
 
@@ -409,7 +408,7 @@ AND Identifier = '<DatabaseName>|<TableName>';
 ```sql
 /*+ delete */
 DELETE FROM awscc.timestream.tables
-WHERE Identifier = '<DatabaseName|TableName>'
+WHERE Identifier = '{{ database_name }}|{{ table_name }}'
 AND region = 'us-east-1';
 ```
 
