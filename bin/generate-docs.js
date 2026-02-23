@@ -207,8 +207,9 @@ function createDeleteExample(serviceName, resourceName, resourceData, thisSchema
 ${sqlCodeBlockStart}
 /*+ delete */
 DELETE FROM ${providerName}.${serviceName}.${resourceName}
-WHERE Identifier = '${resourceData['x-identifiers'].map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|')}'
-AND region = 'us-east-1';
+WHERE
+  Identifier = '${resourceData['x-identifiers'].map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|')}' AND
+  region = 'us-east-1';
 ${codeBlockEnd}
 `;
 }
@@ -242,8 +243,9 @@ UPDATE ${providerName}.${serviceName}.${resourceName}
 SET PatchDocument = string('{{ {
 ${patchFields}
 } | generate_patch_document }}')
-WHERE region = '{{ region }}'
-AND Identifier = '${identifierValues}';
+WHERE
+  region = '{{ region }}' AND
+  Identifier = '${identifierValues}';
 ${codeBlockEnd}
 `;
 }
@@ -401,12 +403,12 @@ Use the following StackQL query and manifest file to create a new <code>${plural
 ${sqlCodeBlockStart}
 /*+ create */
 INSERT INTO ${providerName}.${serviceName}.${resourceName} (
- ${requiredKeys.join(",\n ")},
- region
+  ${requiredKeys.join(",\n  ")},
+  region
 )
 SELECT
-'{{ ${requiredSnakeKeys.join(" }}',\n '{{ ")} }}',
-'{{ region }}';
+  '{{ ${requiredSnakeKeys.join(" }}',\n  '{{ ")} }}',
+  '{{ region }}';
 ${codeBlockEnd}
 </TabItem>
 <TabItem value="all">
@@ -414,12 +416,12 @@ ${codeBlockEnd}
 ${sqlCodeBlockStart}
 /*+ create */
 INSERT INTO ${providerName}.${serviceName}.${resourceName} (
- ${allKeys.join(",\n ")},
- region
+  ${allKeys.join(",\n  ")},
+  region
 )
 SELECT
- '{{ ${allSnakeKeys.join(" }}',\n '{{ ")} }}',
- '{{ region }}';
+  '{{ ${allSnakeKeys.join(" }}',\n  '{{ ")} }}',
+  '{{ region }}';
 ${codeBlockEnd}
 </TabItem>
 <TabItem value="manifest">
@@ -580,7 +582,7 @@ function createResourceIndexContent(serviceName, resourceName, resourceType, res
         });
 
         hasList = true;
-        sqlExampleListWhere = `${sqlExampleWhere};`;
+        sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
 
     }
 
@@ -672,8 +674,8 @@ ${tabItems}
         const identifierValues = resourceIdentifiers.map(id => `{{ ${toSnakeCase(fixCamelCaseIssues(id))} }}`).join('|');
         const identifierClause = `Identifier = '${identifierValues}'`;
 
-        sqlExampleListWhere = `${sqlExampleWhere};`;
-        sqlExampleGetWhere = `${sqlExampleWhere} AND ${identifierClause};`;
+        sqlExampleListWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')};`;
+        sqlExampleGetWhere = `WHERE\n  ${sqlExampleWhere.replace(/^WHERE\s+/, '')} AND\n  ${identifierClause};`;
 
     }
    
@@ -1092,33 +1094,33 @@ function generateSchemaJsonForResource(serviceName, resourceName, resourceType, 
 // }
 
 function getColumns(properties, isList, isCustom = false, is_tags = false){
-    let columns = 'region,';
+    let columns = '  region,';
     if (isList) {
         if(Array.isArray(properties)){
             properties.forEach(propName => {
                 if(isCustom){
-                    columns += `\n${propName},`;
+                    columns += `\n  ${propName},`;
                 } else {
-                    columns += `\n${toSnakeCase(fixCamelCaseIssues(propName))},`;
+                    columns += `\n  ${toSnakeCase(fixCamelCaseIssues(propName))},`;
                 }
             })
         }
     } else {
         for (let propName in properties) {
             if(isCustom){
-                columns += `\n${propName},`;
+                columns += `\n  ${propName},`;
             } else {
                 if(propName === 'Tags' && is_tags){
                     continue;
                 }
-                columns += `\n${toSnakeCase(fixCamelCaseIssues(propName))},`;
+                columns += `\n  ${toSnakeCase(fixCamelCaseIssues(propName))},`;
             }
         }
     }
 
     if(is_tags){
-        columns += `\ntag_key,`;
-        columns += `\ntag_value,`;
+        columns += `\n  tag_key,`;
+        columns += `\n  tag_value,`;
     }
 
     columns = columns.slice(0, -1);
