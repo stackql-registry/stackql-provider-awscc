@@ -91,7 +91,7 @@ function extractTemplateFromPage() {
   const insertH2 = document.getElementById('insert-examples') || document.getElementById('insert-example');
   if (insertH2) {
     const els = getElementsBetweenHeadings(insertH2);
-    sections.insert = extractCodeFromElements(els, 'Required Properties')
+    sections.insert = extractCodeFromElements(els, 'All Properties')
                    || extractCodeFromElements(els, 'create')
                    || extractCodeFromElements(els);
   }
@@ -169,7 +169,8 @@ function parseInsertColumns(sql) {
 function buildExistsQuery(parsed) {
   let sql = `SELECT count(*) as count\nFROM ${parsed.table}`;
   if (parsed.where) {
-    sql += `\nWHERE ${parsed.where}`;
+    const conditions = parsed.where.split(/\s+AND\s+/i).map(c => c.trim());
+    sql += `\nWHERE ${conditions.join(' AND\n')}`;
   }
   sql += '\n;';
   return sql;
@@ -178,21 +179,28 @@ function buildExistsQuery(parsed) {
 // Builds a "statecheck" hint query - a count query where SELECT fields become
 // equality checks in the WHERE clause, followed by the original WHERE params.
 function buildStatecheckQuery(parsed) {
-  const fieldConditions = parsed.fields
-    .map(f => `${f} = {{ ${f} }}`)
-    .join(' AND\n');
-
-  let whereClause = fieldConditions;
+  // Extract condition field names from WHERE clause to avoid duplicates
+  const whereConditionFields = new Set();
   if (parsed.where) {
-    if (whereClause) {
-      whereClause += ' AND\n';
-    }
-    whereClause += parsed.where;
+    parsed.where.split(/\s+AND\s+/i).forEach(c => {
+      const match = c.trim().match(/^\s*(\w+)\s*=/);
+      if (match) whereConditionFields.add(match[1].toLowerCase());
+    });
+  }
+
+  // Filter out fields already in the WHERE clause (e.g., region)
+  const filteredFields = parsed.fields.filter(f => !whereConditionFields.has(f.toLowerCase()));
+  const fieldConditions = filteredFields.map(f => `${f} = {{ ${f} }}`);
+
+  // Collect all WHERE conditions
+  const allConditions = [...fieldConditions];
+  if (parsed.where) {
+    parsed.where.split(/\s+AND\s+/i).forEach(c => allConditions.push(c.trim()));
   }
 
   let sql = `SELECT count(*) as count\nFROM ${parsed.table}`;
-  if (whereClause) {
-    sql += `\nWHERE \n${whereClause}`;
+  if (allConditions.length > 0) {
+    sql += `\nWHERE \n${allConditions.join(' AND\n')}`;
   }
   sql += '\n;';
   return sql;
@@ -234,12 +242,14 @@ function buildTemplate(sections) {
 
     parts.push(`/*+ statecheck, retries=5, retry_delay=10 */\n${buildStatecheckQuery(mutableParsed)}`);
 
-    // Build exports SELECT with only mutable fields
-    let exportsSql = `SELECT ${mutableParsed.fields.join(',\n')}\nFROM ${parsed.table}`;
+    // Use all GET fields minus region for exports
+    const exportFields = parsed.fields.filter(f => f.toLowerCase() !== 'region');
+    let exportsSql = `SELECT\n${exportFields.join(',\n')}\nFROM ${parsed.table}`;
     if (parsed.where) {
-      exportsSql += `\nWHERE ${parsed.where}`;
+      const conditions = parsed.where.split(/\s+AND\s+/i).map(c => c.trim());
+      exportsSql += `\nWHERE ${conditions.join(' AND\n')}`;
     }
-    exportsSql += '\n;';
+    exportsSql += ';';
     parts.push(`/*+ exports */\n${exportsSql}`);
   }
 
